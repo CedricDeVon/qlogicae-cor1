@@ -31,7 +31,6 @@ namespace QLogicaeCppCore
         TimeoutClock& operator = (
             const TimeoutClock& instance
         ) = delete;
-
         void construct(
             Result<bool>& result
         );
@@ -57,9 +56,6 @@ namespace QLogicaeCppCore
             Result<bool>& result
         );
 
-        TimeoutClockConfigurations configurations;
-
-    protected:
         std::jthread _thread;
 
         std::mutex _thread_mutex;
@@ -70,6 +66,8 @@ namespace QLogicaeCppCore
 
         std::atomic<bool> _is_executed_immediately_async { false };
 
+        TimeoutClockConfigurations _configurations;
+        
         void _start_thread(
             Result<bool>& result
         );

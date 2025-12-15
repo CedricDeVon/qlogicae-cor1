@@ -47,7 +47,7 @@ namespace QLogicaeCppCore
         const NetworkPingManagerConfigurations& initial_configurations
     )
     {
-        configurations = initial_configurations;
+        _configurations = initial_configurations;
 
         auto self = this;
 
@@ -58,21 +58,21 @@ namespace QLogicaeCppCore
                 [self](size_t) -> bool
                 {
                     auto pingResult = self->_ping();
-                    if (pingResult && self->configurations.callback)
+                    if (pingResult && self->_configurations.callback)
                     {
-                        self->configurations.callback(
+                        self->_configurations.callback(
                             NetworkPingManagerResponse{*pingResult}
                         );
                     }
-                    return self->configurations.is_listening;
+                    return self->_configurations.is_listening;
                 },
 
-                configurations.delay_in_milliseconds,
+                _configurations.delay_in_milliseconds,
                 false
             }
         );
 
-        if (configurations.is_listening)
+        if (_configurations.is_listening)
         {
             _interval.start(result);
         }
@@ -87,7 +87,7 @@ namespace QLogicaeCppCore
     )
     {        
         _interval.pause(result);
-        configurations.is_listening = false;
+        _configurations.is_listening = false;
 
         result.set_to_good_status_with_value(
             true
@@ -98,7 +98,7 @@ namespace QLogicaeCppCore
         Result<bool>& result
     )
     {
-        result.set_to_good_status_with_value(configurations.is_listening);
+        result.set_to_good_status_with_value(_configurations.is_listening);
     }
 
     void NetworkPingManager::set_is_listening(
@@ -111,7 +111,7 @@ namespace QLogicaeCppCore
             _interval.resume(result);
             if (result.get_status() == ResultStatus::GOOD)
             {
-                configurations.is_listening = true;
+                _configurations.is_listening = true;
             }
         }
         else
@@ -119,7 +119,7 @@ namespace QLogicaeCppCore
             _interval.pause(result);
             if (result.get_status() == ResultStatus::GOOD)
             {
-                configurations.is_listening = false;
+                _configurations.is_listening = false;
             }
         }
 
@@ -130,7 +130,7 @@ namespace QLogicaeCppCore
         Result<bool>& result
     )
     {
-        if (configurations.is_listening)
+        if (_configurations.is_listening)
         {
             set_is_listening(result, false);
             return;
@@ -143,7 +143,7 @@ namespace QLogicaeCppCore
         Result<bool>& result
     )
     {
-        if (!configurations.is_listening)
+        if (!_configurations.is_listening)
         {
             set_is_listening(result, true);
             return;
@@ -158,7 +158,7 @@ namespace QLogicaeCppCore
         {
             boost::asio::io_context io;
             boost::asio::ip::tcp::resolver resolver(io);
-            auto endpoints = resolver.resolve(configurations.host_address, "80");
+            auto endpoints = resolver.resolve(_configurations.host_address, "80");
 
             boost::asio::ip::tcp::socket socket(io);
             auto start = std::chrono::steady_clock::now();

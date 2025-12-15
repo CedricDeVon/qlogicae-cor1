@@ -214,7 +214,7 @@ namespace QLogicaeCppCoreTest
         EXPECT_EQ(callback_counter.load(), 1);
 
         config.is_executed_immediately = true;
-        timeout.configurations = config;
+        timeout._configurations = config;
         QLogicaeCppCore::Result<bool> result2;
         timeout.restart(result2);
 

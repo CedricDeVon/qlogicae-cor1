@@ -36,6 +36,14 @@
 #include "validation_manager.hpp"
 #include "validation_manager_password_rules.hpp"
 
+#include "encoding_type.hpp"
+#include "encoding_manager.hpp"
+
+#include "value_generation_manager.hpp"
+#include "value_generation_manager_types.hpp"
+
+#include "gmail_mailer.hpp"
+
 #include "application.hpp"
 
 namespace QLogicaeCppCore

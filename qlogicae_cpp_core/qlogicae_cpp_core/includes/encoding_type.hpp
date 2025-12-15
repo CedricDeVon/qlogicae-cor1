@@ -1,8 +1,6 @@
 #pragma once
 
-#include <cstdint>
-
-namespace QLogicaeCore
+namespace QLogicaeCppCore
 {
     enum class EncodingType :
         uint8_t
@@ -11,6 +9,8 @@ namespace QLogicaeCore
         
         UTF8,
 
-        BASE64
+        BASE64,
+
+        NONE
     };
 }

@@ -123,7 +123,7 @@ namespace QLogicaeCppCoreTest
         QLogicaeCppCore::Result<bool> result;
         QLogicaeCppCore::NetworkPingManager manager(configurations);
         manager.set_is_listening(result, false);
-        EXPECT_FALSE(manager.configurations.is_listening);
+        EXPECT_FALSE(manager._configurations.is_listening);
         EXPECT_EQ(result.get_status(), QLogicaeCppCore::ResultStatus::GOOD);
     }
 
@@ -146,11 +146,11 @@ namespace QLogicaeCppCoreTest
 
         configurations.delay_in_milliseconds = std::chrono::milliseconds(0);
         QLogicaeCppCore::NetworkPingManager managerZero(configurations);
-        EXPECT_EQ(managerZero.configurations.delay_in_milliseconds.count(), 0);
+        EXPECT_EQ(managerZero._configurations.delay_in_milliseconds.count(), 0);
 
         configurations.delay_in_milliseconds = std::chrono::milliseconds(10000);
         QLogicaeCppCore::NetworkPingManager managerLarge(configurations);
-        EXPECT_EQ(managerLarge.configurations.delay_in_milliseconds.count(), 10000);
+        EXPECT_EQ(managerLarge._configurations.delay_in_milliseconds.count(), 10000);
     }
 
     TEST_F(NetworkPingManagerEdgeTest, Should_Expect_MultiInstanceStress)

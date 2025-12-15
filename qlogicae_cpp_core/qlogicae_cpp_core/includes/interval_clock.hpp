@@ -85,22 +85,21 @@ namespace QLogicaeCppCore
             Result<size_t>& result
         );
 
-        IntervalClockConfigurations configurations;
-
-    protected:
         std::thread _thread;
         
-        mutable std::mutex _mutex;
-        
-        std::condition_variable _condition_variable;
-        
-        std::atomic<size_t> _execution_count { 0 };
+        mutable std::mutex _mutex;               
         
         std::atomic<bool> _is_paused { false };
         
         std::atomic<bool> _is_running { false };
         
         std::atomic<bool> _is_cancelled { false };
+        
+        std::atomic<size_t> _execution_count { 0 };
+        
+        IntervalClockConfigurations _configurations;
+        
+        std::condition_variable _condition_variable;
         
         void _run_interval(
             Result<bool>& result

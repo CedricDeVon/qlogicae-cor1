@@ -37,8 +37,8 @@ namespace QLogicaeCppCore
         const TimeoutClockConfigurations& initial_configurations
     )
     {        
-        configurations = initial_configurations;
-        _is_executed_immediately_async.store(configurations.is_executed_immediately);
+        _configurations = initial_configurations;
+        _is_executed_immediately_async.store(_configurations.is_executed_immediately);
         _is_flag_stopped_async.store(false);
         _is_cancelled_async.store(false);
 
@@ -65,9 +65,9 @@ namespace QLogicaeCppCore
             _thread.join();
         }
 
-        auto local_callback = configurations.callback;
-        auto local_delay = configurations.delay_in_milliseconds;
-        bool execute_immediately = configurations.is_executed_immediately || local_delay.count() == 0;
+        auto local_callback = _configurations.callback;
+        auto local_delay = _configurations.delay_in_milliseconds;
+        bool execute_immediately = _configurations.is_executed_immediately || local_delay.count() == 0;
 
         _thread = std::jthread([local_callback, local_delay, execute_immediately](std::stop_token stop_token)
             {
@@ -119,7 +119,7 @@ namespace QLogicaeCppCore
      
         _is_flag_stopped_async.store(false);
         _is_cancelled_async.store(false);
-        _is_executed_immediately_async.store(configurations.is_executed_immediately);
+        _is_executed_immediately_async.store(_configurations.is_executed_immediately);
 
         _start_thread(result);
         result.set_to_good_status_with_value(true);

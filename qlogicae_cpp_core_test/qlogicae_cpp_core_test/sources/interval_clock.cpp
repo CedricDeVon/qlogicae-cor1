@@ -232,7 +232,7 @@ namespace QLogicaeCppCoreTest
         interval.start(r);
         std::this_thread::sleep_for(std::chrono::milliseconds(100));
 
-        interval.configurations.callback =
+        interval._configurations.callback =
             [&](size_t)
             {
                 execution_count += 2;
@@ -265,7 +265,7 @@ namespace QLogicaeCppCoreTest
         std::this_thread::sleep_for(std::chrono::milliseconds(250));
         int count_after_first_phase = execution_count.load();
 
-        interval.configurations.delay_in_milliseconds = std::chrono::milliseconds(10);
+        interval._configurations.delay_in_milliseconds = std::chrono::milliseconds(10);
         std::this_thread::sleep_for(std::chrono::milliseconds(250));
 
         int final_count = execution_count.load();
@@ -800,7 +800,7 @@ namespace QLogicaeCppCoreTest
 
         std::this_thread::sleep_for(std::chrono::milliseconds(50));
 
-        interval.configurations.callback = [&](size_t)
+        interval._configurations.callback = [&](size_t)
             {
                 execution_count += 2;
                 return execution_count < 15;
@@ -834,7 +834,7 @@ namespace QLogicaeCppCoreTest
 
         std::this_thread::sleep_for(std::chrono::milliseconds(50));
 
-        interval.configurations.delay_in_milliseconds = std::chrono::milliseconds(1);
+        interval._configurations.delay_in_milliseconds = std::chrono::milliseconds(1);
 
         std::this_thread::sleep_for(std::chrono::milliseconds(200));
 
@@ -1093,8 +1093,8 @@ namespace QLogicaeCppCoreTest
 
         for (int i = 0; i < 5; ++i)
         {
-            interval.configurations.delay_in_milliseconds = std::chrono::milliseconds(1 + i);
-            interval.configurations.callback = [&, i](size_t)
+            interval._configurations.delay_in_milliseconds = std::chrono::milliseconds(1 + i);
+            interval._configurations.callback = [&, i](size_t)
                 {
                     execution_count += 1 + i;
                     return execution_count < 50;

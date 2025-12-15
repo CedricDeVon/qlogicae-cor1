@@ -190,7 +190,11 @@
   <ItemGroup>
     <ClInclude Include="framework.hpp" />
     <ClInclude Include="pch.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\gmail_mailer.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\value_generation_manager_types.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\asynchronous_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\encoding_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\encoding_type.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\entity_activation_status.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\entity_activation_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\all.hpp" />
@@ -217,6 +221,7 @@
     <ClInclude Include="qlogicae_cpp_core\includes\utilities.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\validation_manager_password_rules.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\validation_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\value_generation_manager.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -224,6 +229,8 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="qlogicae_cpp_core\sources\asynchronous_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\encoding_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\encoding_type.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\entity_activation_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\all.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\application.cpp" />
@@ -231,6 +238,7 @@
     <ClCompile Include="qlogicae_cpp_core\sources\entity_activation_status.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\file_system_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\function_wrapper.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\gmail_mailer.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\interval_clock.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\interval_clock_configurations.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\mutex_manager.cpp" />
@@ -250,6 +258,8 @@
     <ClCompile Include="qlogicae_cpp_core\sources\utilities.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\validation_manager_password_rules.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\validation_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\value_generation_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\value_generation_manager_types.cpp" />
   </ItemGroup>
   <ItemGroup>
     <MASM Include="qlogicae_cpp_core\assembly\x64_masm__main.asm" />

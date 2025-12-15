@@ -47,7 +47,7 @@ namespace QLogicaeCppCore
         const IntervalClockConfigurations& initial_configurations
     )
     {
-        configurations = initial_configurations;
+        _configurations = initial_configurations;
 
         _is_cancelled.store(false);
         _is_paused.store(false);
@@ -235,7 +235,7 @@ namespace QLogicaeCppCore
         _is_running.store(true);
         _is_cancelled.store(false);
 
-        if (configurations.is_executed_immediately &&
+        if (_configurations.is_executed_immediately &&
             !_is_cancelled.load())
         {
             size_t current = ++_execution_count;
@@ -243,7 +243,7 @@ namespace QLogicaeCppCore
             bool should_continue = false;
             try
             {
-                should_continue = configurations.callback(current);
+                should_continue = _configurations.callback(current);
             }
             catch (...)
             {
@@ -262,8 +262,8 @@ namespace QLogicaeCppCore
                 return;
             }
 
-            if (configurations.maximum_interval_count &&
-                _execution_count.load() >= configurations.maximum_interval_count)
+            if (_configurations.maximum_interval_count &&
+                _execution_count.load() >= _configurations.maximum_interval_count)
             {
                 _is_running.store(false);
                 _condition_variable.notify_all();
@@ -300,7 +300,7 @@ namespace QLogicaeCppCore
             bool should_continue = false;
             try
             {
-                should_continue = configurations.callback(current);
+                should_continue = _configurations.callback(current);
             }
             catch (...)
             {
@@ -319,8 +319,8 @@ namespace QLogicaeCppCore
                 return;
             }
 
-            if (configurations.maximum_interval_count &&
-                _execution_count.load() >= configurations.maximum_interval_count)
+            if (_configurations.maximum_interval_count &&
+                _execution_count.load() >= _configurations.maximum_interval_count)
             {
                 _is_running.store(false);
                 _condition_variable.notify_all();
@@ -338,8 +338,8 @@ namespace QLogicaeCppCore
                     end - start
                 );
             auto delay =
-                configurations.delay_in_milliseconds > elapsed ?
-                configurations.delay_in_milliseconds - elapsed :
+                _configurations.delay_in_milliseconds > elapsed ?
+                _configurations.delay_in_milliseconds - elapsed :
                 std::chrono::milliseconds(0);
 
             for (std::chrono::milliseconds waited(0);

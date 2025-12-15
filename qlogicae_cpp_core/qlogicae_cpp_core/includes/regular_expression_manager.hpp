@@ -75,7 +75,6 @@ namespace QLogicaeCppCore
 			const std::string_view& pattern
 		);
 
-	protected:				
 		std::unordered_map<std::string, std::pair<std::string, pcre2_code*>>
 			_compiled_patterns;
 

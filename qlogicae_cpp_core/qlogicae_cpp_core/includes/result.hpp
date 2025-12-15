@@ -43,37 +43,55 @@ namespace QLogicaeCppCore
             const ResultStatus& status
         );
 
+        bool is_status_good();
+
         void is_status_good(
             bool& value
         );
 
+        bool is_status_bad();
+        
         void is_status_bad(
             bool& value
         );
 
+        bool is_status_info();
+        
         void is_status_info(
             bool& value
         );
 
+        bool is_status_debug();
+        
         void is_status_debug(
             bool& value
         );
 
+        bool is_status_warning();
+        
         void is_status_warning(
             bool& value
         );
+        
+        bool is_status_exception();
 
         void is_status_exception(
             bool& value
         );
+
+        bool is_status_error();
         
         void is_status_error(
             bool& value
         );
 
+        bool is_status_safe();
+
         void is_status_safe(
             bool& value
         );
+        
+        bool is_status_unsafe();
 
         void is_status_unsafe(
             bool& value
@@ -194,6 +212,7 @@ namespace QLogicaeCppCore
         std::string _message;
     };
 
+
     template <>
     struct Result<void>
     {
@@ -213,37 +232,55 @@ namespace QLogicaeCppCore
             const ResultStatus& status
         );
 
+        bool is_status_good();
+
         void is_status_good(
             bool& value
         );
+
+        bool is_status_bad();
 
         void is_status_bad(
             bool& value
         );
 
+        bool is_status_info();
+
         void is_status_info(
             bool& value
         );
+
+        bool is_status_debug();
 
         void is_status_debug(
             bool& value
         );
 
+        bool is_status_warning();
+
         void is_status_warning(
             bool& value
         );
+
+        bool is_status_exception();
 
         void is_status_exception(
             bool& value
         );
 
+        bool is_status_error();
+
         void is_status_error(
             bool& value
         );
 
+        bool is_status_safe();
+
         void is_status_safe(
             bool& value
         );
+
+        bool is_status_unsafe();
 
         void is_status_unsafe(
             bool& value
@@ -267,6 +304,16 @@ namespace QLogicaeCppCore
 
         void set_status_to_error();
 
+        std::string get_message();
+
+        void get_message(
+            std::string_view& value
+        );
+
+        void set_message(
+            const std::string_view& value
+        );
+
         void set_to_status_without_value(
             const ResultStatus& status
         );
@@ -288,21 +335,12 @@ namespace QLogicaeCppCore
             const std::string_view& message
         );
 
-        std::string get_message();
-
-        void get_message(
-            std::string_view& value
-        );
-
-        void set_message(
-            const std::string_view& value
-        );
-
     protected:
         ResultStatus _status;
 
         std::string _message;
     };
+
 
     template <typename ValueType>
     ValueType& Result<ValueType>::get_value()
@@ -341,6 +379,64 @@ namespace QLogicaeCppCore
     )
     {
         value = (_status == status);
+    }
+
+    template <typename ValueType>
+    bool Result<ValueType>::is_status_good()
+    {
+        return _status == ResultStatus::GOOD;
+    }
+
+    template <typename ValueType>
+    bool Result<ValueType>::is_status_bad()
+    {
+        return _status == ResultStatus::BAD;
+    }
+
+    template <typename ValueType>
+    bool Result<ValueType>::is_status_info()
+    {
+        return _status == ResultStatus::INFO;
+    }
+
+    template <typename ValueType>
+    bool Result<ValueType>::is_status_debug()
+    {
+        return _status == ResultStatus::DEBUG;
+    }
+
+    template <typename ValueType>
+    bool Result<ValueType>::is_status_warning()
+    {
+        return _status == ResultStatus::WARNING;
+    }
+
+    template <typename ValueType>
+    bool Result<ValueType>::is_status_exception()
+    {
+        return _status == ResultStatus::EXCEPTION;
+    }
+
+    template <typename ValueType>
+    bool Result<ValueType>::is_status_error()
+    {
+        return _status == ResultStatus::ERROR_;
+    }
+
+    template <typename ValueType>
+    bool Result<ValueType>::is_status_safe()
+    {
+        return _status == ResultStatus::GOOD ||
+            _status == ResultStatus::INFO ||
+            _status == ResultStatus::DEBUG;
+    }
+
+    template <typename ValueType>
+    bool Result<ValueType>::is_status_unsafe()
+    {
+        return _status == ResultStatus::BAD ||
+            _status == ResultStatus::WARNING ||
+            _status == ResultStatus::ERROR_;
     }
 
     template <typename ValueType>

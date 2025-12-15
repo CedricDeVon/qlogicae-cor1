@@ -45,7 +45,6 @@ namespace QLogicaeCppCore
             Result<bool>& result
         );
 
-    protected:
         std::mutex _mutex;
 
         std::shared_ptr<boost::asio::thread_pool> _THREAD_POOL;

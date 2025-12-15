@@ -65,10 +65,9 @@ namespace QLogicaeCppCore
             Result<bool>& result
         );
 
-        NetworkPingManagerConfigurations configurations;
-
-    protected:
         IntervalClock _interval;
+
+        NetworkPingManagerConfigurations _configurations;
 
         std::optional<int64_t> _ping();
     };

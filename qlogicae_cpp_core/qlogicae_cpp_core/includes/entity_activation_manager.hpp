@@ -96,7 +96,6 @@ namespace QLogicaeCppCore
             Result<bool>& result
         );
 
-    protected:
         std::mutex _mutex;
 
         std::unordered_map<std::string, EntityActivationStatus> _data;
