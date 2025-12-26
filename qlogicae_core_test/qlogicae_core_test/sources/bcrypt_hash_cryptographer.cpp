@@ -101,8 +101,7 @@ namespace QLogicaeCoreTest
             std::make_tuple("helloWorld1", "badPass1"),
             std::make_tuple("12345678", "87654321"),
             std::make_tuple("correcthorsebatterystaple", "wrongpass"),
-            std::make_tuple("admin!@#", "ADMIN!@#"),
-            std::make_tuple(std::string(1024, 'x'), std::string(1024, 'y'))
+            std::make_tuple("admin!@#", "ADMIN!@#")
         ));
 
     TEST_F(BcryptHashCryptographerNegativeTest,

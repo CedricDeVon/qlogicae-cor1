@@ -6,21 +6,6 @@
     <ClCompile Include="qlogicae_cpp_core_test\sources\all.cpp" />
     <ClCompile Include="qlogicae_cpp_core_test\sources\application.cpp" />
     <ClCompile Include="qlogicae_cpp_core_test\sources\assembly.cpp" />
-    <ClCompile Include="qlogicae_cpp_core_test\sources\utilities.cpp" />
-    <ClCompile Include="qlogicae_cpp_core_test\sources\result.cpp" />
-    <ClCompile Include="qlogicae_cpp_core_test\sources\asynchronous_manager.cpp" />
-    <ClCompile Include="qlogicae_cpp_core_test\sources\entity_activation_manager.cpp" />
-    <ClCompile Include="qlogicae_cpp_core_test\sources\instance_manager.cpp" />
-    <ClCompile Include="qlogicae_cpp_core_test\sources\function_wrapper.cpp" />
-    <ClCompile Include="qlogicae_cpp_core_test\sources\temperature_calculator.cpp" />
-    <ClCompile Include="qlogicae_cpp_core_test\sources\regular_expression_manager.cpp" />
-    <ClCompile Include="qlogicae_cpp_core_test\sources\timeout_clock.cpp" />
-    <ClCompile Include="qlogicae_cpp_core_test\sources\interval_clock.cpp" />
-    <ClCompile Include="qlogicae_cpp_core_test\sources\network_ping_manager.cpp" />
-    <ClCompile Include="qlogicae_cpp_core_test\sources\validation_manager.cpp" />
-    <ClCompile Include="qlogicae_cpp_core_test\sources\file_system_manager.cpp" />
-    <ClCompile Include="qlogicae_cpp_core_test\sources\time_delay_clock.cpp" />
-    <ClCompile Include="qlogicae_cpp_core_test\sources\mutex_manager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.hpp" />

@@ -146,7 +146,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalDependencies>Shlwapi.lib;mimalloc.lib</AdditionalDependencies>
+      <AdditionalDependencies>mimalloc.dll.lib</AdditionalDependencies>
       <AdditionalOptions>/INCLUDE:mi_redirect %(AdditionalOptions)</AdditionalOptions>
       <AdditionalLibraryDirectories>C:\vcpkg\installed\x64-windows-static\lib</AdditionalLibraryDirectories>
       <LinkTimeCodeGeneration>false</LinkTimeCodeGeneration>
@@ -186,7 +186,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalDependencies>Shlwapi.lib;mimalloc.lib</AdditionalDependencies>
+      <AdditionalDependencies>mimalloc.dll.lib</AdditionalDependencies>
       <AdditionalOptions>/INCLUDE:mi_redirect
  %(AdditionalOptions)</AdditionalOptions>
       <AdditionalLibraryDirectories>C:\vcpkg\installed\x64-windows-static\lib</AdditionalLibraryDirectories>
