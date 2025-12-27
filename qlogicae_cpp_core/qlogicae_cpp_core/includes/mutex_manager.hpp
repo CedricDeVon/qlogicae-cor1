@@ -1,6 +1,5 @@
 #pragma once
 
-#include "result.hpp"
 #include "instance_manager.hpp"
 #include "pair_hash_operator.hpp"
 
@@ -34,104 +33,191 @@ namespace QLogicaeCppCore
             const MutexManager& instance
         ) = delete;
 
-        void construct(
-            Result<bool>& result
-        );
+        static MutexManager&
+            instance;
 
-        void destruct(
-            Result<bool>& result
-        );
+        static bool
+            _boolean_ouput_cache_1;
+        
+        static void*
+            _void_pointer_ouput_cache_1;
+
+        static std::string_view
+            _string_view_ouput_cache_1;
+
+        static std::unordered_map<std::pair<void*, std::string>,
+            std::mutex, PairHashOperator>
+                _mutex_collection;
+
+        static std::unordered_map<std::pair<void*, std::string>,
+            std::timed_mutex, PairHashOperator>
+                _timed_mutex_collection;
+
+        static std::unordered_map<std::pair<void*, std::string>,
+            std::recursive_mutex, PairHashOperator>
+                _recursive_mutex_collection;
+
+        static std::unordered_map<std::pair<void*, std::string>,
+            std::recursive_timed_mutex, PairHashOperator>
+                _recursive_timed_mutex_collection;
+
+        static std::unordered_map<std::pair<void*, std::string>,
+            std::shared_mutex, PairHashOperator>
+                _shared_mutex_collection;
+
+        bool
+            construct();
+
+        void
+            _construct();
+
+        bool
+            destruct();
+
+        void
+            _destruct();
+    
+        template<typename LockType, typename MutexType>
+        bool
+            lock_mutex(
+                const void* pointer
+            ) requires ValidLock<LockType, MutexType>;
+        
+        template<typename LockType, typename MutexType>
+        bool
+            lock_mutex(
+                const void* pointer,
+                const std::string_view& name
+            ) requires ValidLock<LockType, MutexType>;
 
         template<typename LockType, typename MutexType>
-        void lock_mutex(
-            Result<bool>& result,
-            const void* pointer
-        ) requires ValidLock<LockType, MutexType>;
-
-        template<typename LockType, typename MutexType>
-        void lock_mutex(
-            Result<bool>& result,
-            const void* pointer,
-            const std::string_view& name
-        ) requires ValidLock<LockType, MutexType>;
-
-        std::unordered_map<std::pair<void*, std::string>, std::mutex, PairHashOperator>
-            MUTEX_COLLECTION;
-
-        std::unordered_map<std::pair<void*, std::string>, std::timed_mutex, PairHashOperator>
-            TIMED_MUTEX_COLLECTION;
-
-        std::unordered_map<std::pair<void*, std::string>, std::recursive_mutex, PairHashOperator>
-            RECURSIVE_MUTEX_COLLECTION;
-
-        std::unordered_map<std::pair<void*, std::string>, std::recursive_timed_mutex, PairHashOperator>
-            RECURSIVE_TIMED_MUTEX_COLLECTION;
-
-        std::unordered_map<std::pair<void*, std::string>, std::shared_mutex, PairHashOperator>
-            SHARED_MUTEX_COLLECTION;
-
-        std::unordered_map<std::pair<void*, std::string>, std::recursive_timed_mutex, PairHashOperator>
-            SHARED_TIMED_MUTEX_COLLECTION;
+        void
+            _lock_mutex()
+                requires ValidLock<LockType, MutexType>;
     };
 
     template<typename LockType, typename MutexType>
-    void MutexManager::lock_mutex(
-        Result<bool>& result,
+    bool MutexManager::lock_mutex(
         const void* pointer
     ) requires ValidLock<LockType, MutexType>
     {
-        lock_mutex<LockType, MutexType>(
-            result,
-            pointer,
-            "static"
-        );
+        try
+        {
+            _void_pointer_ouput_cache_1 = pointer;
+            _string_view_ouput_cache_1 = "static";
+
+            _lock_mutex<LockType, MutexType>();
+        }
+        catch (...)
+        {
+            _boolean_ouput_cache_1 = false;
+        }
+
+        return _boolean_ouput_cache_1;        
     }
 
     template<typename LockType, typename MutexType>
-    void MutexManager::lock_mutex(
-        Result<bool>& result,
+    bool MutexManager::lock_mutex(
         const void* pointer,
         const std::string_view& name
     ) requires ValidLock<LockType, MutexType>
     {
-        MutexType* mutex_ptr = nullptr;
-        void* ptr = const_cast<void*>(pointer);
-        std::string key_name{ name };
+        try
+        {
+            _void_pointer_ouput_cache_1 = pointer;
+            _string_view_ouput_cache_1 = name;
 
-        if constexpr (std::is_same_v<MutexType, std::mutex>)
-        {
-            mutex_ptr = &MUTEX_COLLECTION[{ptr, key_name}];
+            _lock_mutex<LockType, MutexType>();
         }
-        else if constexpr (std::is_same_v<MutexType, std::timed_mutex>)
+        catch (...)
         {
-            mutex_ptr = &TIMED_MUTEX_COLLECTION[{ptr, key_name}];
+            _boolean_ouput_cache_1 = false;
         }
-        else if constexpr (std::is_same_v<MutexType, std::recursive_mutex>)
+
+        return _boolean_ouput_cache_1;
+    }
+
+    template<typename LockType, typename MutexType>
+    void MutexManager::_lock_mutex(
+    ) requires ValidLock<LockType, MutexType>
+    {
+        MutexType* mutex_pointer =
+            nullptr;
+        
+        if constexpr
+            (std::is_same_v<MutexType, std::mutex>)
         {
-            mutex_ptr = &RECURSIVE_MUTEX_COLLECTION[{ptr, key_name}];
+            mutex_pointer =
+                &_mutex_collection[
+                     {
+                        _void_pointer_ouput_cache_1,
+                        _string_view_ouput_cache_1.data()
+                     }
+                ];
         }
-        else if constexpr (std::is_same_v<MutexType, std::recursive_timed_mutex>)
+        else if constexpr
+            (std::is_same_v<MutexType, std::timed_mutex>)
         {
-            mutex_ptr = &RECURSIVE_TIMED_MUTEX_COLLECTION[{ptr, key_name}];
+            mutex_pointer =
+                &_timed_mutex_collection[
+                    {
+                        _void_pointer_ouput_cache_1,
+                        _string_view_ouput_cache_1.data()
+                     }
+                ];
         }
-        else if constexpr (std::is_same_v<MutexType, std::shared_mutex>)
+        else if constexpr
+            (std::is_same_v<MutexType, std::recursive_mutex>)
         {
-            mutex_ptr = &SHARED_MUTEX_COLLECTION[{ptr, key_name}];
+            mutex_pointer =
+                &_recursive_mutex_collection[
+                    {
+                        _void_pointer_ouput_cache_1,
+                        _string_view_ouput_cache_1.data()
+                     }
+                ];
         }
-        else if constexpr (std::is_same_v<MutexType, std::recursive_timed_mutex>)
+        else if constexpr
+            (std::is_same_v<MutexType, std::recursive_timed_mutex>)
         {
-            mutex_ptr = &SHARED_MUTEX_COLLECTION[{ptr, key_name}];
+            mutex_pointer =
+                &_recursive_timed_mutex_collection[
+                    {
+                        _void_pointer_ouput_cache_1,
+                        _string_view_ouput_cache_1.data()
+                     }
+                ];
         }
+        else if constexpr
+            (std::is_same_v<MutexType, std::shared_mutex>)
+        {
+            mutex_pointer =
+                &_shared_mutex_collection[
+                    {
+                        _void_pointer_ouput_cache_1,
+                        _string_view_ouput_cache_1.data()
+                     }
+                ];
+        }
+        else if constexpr
+            (std::is_same_v<MutexType, std::recursive_timed_mutex>)
+        {
+            mutex_pointer =
+                &_shared_mutex_collection[
+                    {
+                        _void_pointer_ouput_cache_1,
+                        _string_view_ouput_cache_1.data()
+                     }
+                ];
+        }        
         else
         {
-            result.set_to_bad_status_with_value(false);
+            _boolean_ouput_cache_1 = false;
+
             return;
         }
 
-        LockType lock(*mutex_ptr);
-        result.set_to_good_status_with_value(true);
+        LockType lock(*mutex_pointer);
+        _boolean_ouput_cache_1 = true;
     }
-
-    inline static MutexManager& MUTEX_MANAGER =
-        InstanceManager::get_instance<MutexManager>();
 }

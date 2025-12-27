@@ -7,6 +7,8 @@
 
 #include "utilities.hpp"
 #include "pair_hash_operator.hpp"
+#include "mutex_manager.hpp"
+#include "asynchronous_manager.hpp"
 
 namespace QLogicaeCppCore
 {

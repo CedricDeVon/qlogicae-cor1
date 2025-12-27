@@ -4,81 +4,136 @@
 
 namespace QLogicaeCppCore
 {
-    AsynchronousManager::AsynchronousManager()        
-    {
-        Result<bool> result;
+    bool
+        AsynchronousManager::_boolean_ouput_cache_1 =
+            false;
 
-        construct(result);
+    AsynchronousManager::AsynchronousManager()        
+    {        
+        _construct();
     }
 
     AsynchronousManager::~AsynchronousManager()
-    {
-        Result<bool> result;
-
-        destruct(result);
+    {        
+        _destruct();
     }
 
-    void AsynchronousManager::construct(
-        Result<bool>& result
-    )
+    bool
+        AsynchronousManager::construct()
     {
-        _THREAD_POOL =
+        try
+        {
+            _construct();
+        }
+        catch (...)
+        {
+            _boolean_ouput_cache_1 = false;
+        }
+
+        return _boolean_ouput_cache_1;
+    }
+
+    void
+        AsynchronousManager::_construct()
+    {
+        _thread_pool =
             std::make_shared<boost::asio::thread_pool>(
                 std::thread::hardware_concurrency()
             );
 
-        result.set_to_good_status_with_value(
-            true
-        );
+        _boolean_ouput_cache_1 =
+            true;
     }
 
-    void AsynchronousManager::destruct(
-        Result<bool>& result
-    )
+    bool
+        AsynchronousManager::destruct()
     {
-        complete_all_threads(result);
+        try
+        {
+            _destruct();
+        }
+        catch (...)
+        {
+            _boolean_ouput_cache_1 = false;
+        }
+
+        return _boolean_ouput_cache_1;
     }
 
-    void AsynchronousManager::begin_one_thread(
-        Result<bool>& result,
+    void
+        AsynchronousManager::_destruct()
+    {
+        _complete_all_threads();
+    }
+
+    bool AsynchronousManager::begin_one_thread(
         const std::function<void()>& callback
     )
     {
-        std::lock_guard<std::mutex> lock(_mutex);
-
-        if (_THREAD_POOL == nullptr)
+        try
         {
-            _THREAD_POOL =
+            _begin_one_thread(
+                callback
+            );
+        }
+        catch (...)
+        {
+            _boolean_ouput_cache_1 = false;
+        }
+
+        return _boolean_ouput_cache_1;
+    }
+
+    void AsynchronousManager::_begin_one_thread(
+        const std::function<void()>& callback
+    )
+    {
+        MutexManager::instance._void_pointer_ouput_cache_1 = this;
+        MutexManager::instance._lock_mutex<std::unique_lock<std::mutex>, std::mutex>();
+
+        if (_thread_pool == nullptr)
+        {
+            _thread_pool =
                 std::make_shared<boost::asio::thread_pool>(
                     std::thread::hardware_concurrency());
         }
 
-        boost::asio::post(*_THREAD_POOL, callback);
+        boost::asio::post(*_thread_pool, callback);
 
-        result.set_to_good_status_with_value(
-            true
-        );
+        _boolean_ouput_cache_1 =
+            true;
     }
 
-    void AsynchronousManager::complete_all_threads(
-        Result<bool>& result
-    )
+    bool AsynchronousManager::complete_all_threads()
     {
-        std::shared_ptr<boost::asio::thread_pool> pool;
-
+        try
         {
-            std::lock_guard<std::mutex> lock(_mutex);
-            pool = _THREAD_POOL;
-            _THREAD_POOL.reset();
+            _complete_all_threads();
+        }
+        catch (...)
+        {
+            _boolean_ouput_cache_1 = false;
         }
 
-        if (pool)
+        return _boolean_ouput_cache_1;
+    }
+
+    void AsynchronousManager::_complete_all_threads()
+    {
         {
-            pool->join();
+            MutexManager::instance._void_pointer_ouput_cache_1 = this;
+            MutexManager::instance._lock_mutex<std::unique_lock<std::mutex>, std::mutex>();
+
+            _temporary_thread_pool = _thread_pool;
+            _thread_pool.reset();
         }
 
-        result.set_to_good_status_with_value(
-            true
-        );
+        if (_temporary_thread_pool)
+        {
+            _temporary_thread_pool->join();
+        }
+
+        _boolean_ouput_cache_1 =
+            true;
     }
 }

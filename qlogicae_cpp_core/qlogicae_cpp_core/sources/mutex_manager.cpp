@@ -4,35 +4,71 @@
 
 namespace QLogicaeCppCore
 {
-    MutexManager::MutexManager()
-    {
-        Result<bool> result;
+    bool
+        MutexManager::_boolean_ouput_cache_1 =
+            false;
 
-        construct(result);
+    void*
+        MutexManager::_void_pointer_ouput_cache_1 =
+            nullptr;
+
+    std::string_view
+        MutexManager::_string_view_ouput_cache_1 =
+            "static";
+
+    MutexManager&
+        MutexManager::instance =
+            InstanceManager::instance.get_instance<MutexManager>();
+
+    MutexManager::MutexManager()
+    {        
+        construct();
     }
 
     MutexManager::~MutexManager()
-    {
-        Result<bool> result;
-
-        destruct(result);
+    {        
+        destruct();
     }
 
-    void MutexManager::construct(
-        Result<bool>& result
-    )
+    bool
+        MutexManager::construct()
     {
-        result.set_to_good_status_with_value(
-            true
-        );
+        try
+        {
+            _construct();
+        }
+        catch (...)
+        {
+            _boolean_ouput_cache_1 = false;
+        }
+
+        return _boolean_ouput_cache_1;
     }
 
-    void MutexManager::destruct(
-        Result<bool>& result
-    )
+    void
+        MutexManager::_construct()
     {
-        result.set_to_good_status_with_value(
-            true
-        );
+        _boolean_ouput_cache_1 = true;
+    }
+
+    bool
+        MutexManager::destruct()
+    {
+        try
+        {
+            _destruct();
+        }
+        catch (...)
+        {
+            _boolean_ouput_cache_1 = false;
+        }
+
+        return _boolean_ouput_cache_1;
+    }
+
+    void
+        MutexManager::_destruct()
+    {
+        _boolean_ouput_cache_1 = true;
     }
 }

@@ -14,34 +14,30 @@ namespace QLogicaeCppCore
         ExceptionManager(
             const ExceptionManager&
             instance
-        ) =
-            delete;
+        ) = delete;
 
         ExceptionManager(
             ExceptionManager&&
             instance
-        ) noexcept =
-            delete;
+        ) noexcept = delete;
 
         ExceptionManager&
             operator = (
                 ExceptionManager&&
                 instance
-                ) =
-            delete;
+            ) = delete;
 
         ExceptionManager&
             operator = (
                 const ExceptionManager&
                 instance
-                ) =
-            delete;
+            ) = delete;
 
         static ExceptionManager&
             instance;
 
         static bool
-            _boolean_ouput_cache_1;
+            _boolean_ouput_cache_1; // is_successful
 
         static std::string_view
             _string_view_ouput_cache_1; // title

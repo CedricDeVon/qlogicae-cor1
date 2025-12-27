@@ -193,8 +193,10 @@
     <ClInclude Include="qlogicae_cpp_core\includes\all.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\application.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\assembly.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\asynchronous_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\exception_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\instance_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\mutex_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\pair_hash_operator.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\utilities.hpp" />
   </ItemGroup>
@@ -206,8 +208,10 @@
     <ClCompile Include="qlogicae_cpp_core\sources\all.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\application.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\assembly.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\asynchronous_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\exception_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\instance_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\mutex_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\pair_hash_operator.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\utilities.cpp" />
   </ItemGroup>

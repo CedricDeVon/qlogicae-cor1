@@ -1,6 +1,6 @@
 #pragma once
 
-#include "result.hpp"
+#include "mutex_manager.hpp"
 #include "instance_manager.hpp"
 
 namespace QLogicaeCppCore
@@ -20,36 +20,53 @@ namespace QLogicaeCppCore
             AsynchronousManager&& instance
         ) noexcept = delete;
 
-        AsynchronousManager& operator = (
-            AsynchronousManager&& instance
-        ) = delete;
+        AsynchronousManager&
+            operator = (
+                AsynchronousManager&& instance
+            ) = delete;
 
-        AsynchronousManager& operator = (
-            const AsynchronousManager& instance
-        ) = delete;
+        AsynchronousManager&
+            operator = (
+                const AsynchronousManager& instance
+            ) = delete;
 
-        void construct(
-            Result<bool>& result
-        );
+        static bool
+            _boolean_ouput_cache_1;
 
-        void destruct(
-            Result<bool>& result
-        );
+        static std::shared_ptr<boost::asio::thread_pool>
+            _thread_pool;
 
-        void begin_one_thread(
-            Result<bool>& result,
-            const std::function<void()>& callback
-        );
+        static std::shared_ptr<boost::asio::thread_pool>
+            _temporary_thread_pool;
 
-        void complete_all_threads(
-            Result<bool>& result
-        );
+        bool
+            construct();
 
-        std::mutex _mutex;
+        void
+            _construct();
 
-        std::shared_ptr<boost::asio::thread_pool> _THREAD_POOL;
+        bool
+            destruct();
+
+        void
+            _destruct();
+
+        bool
+            begin_one_thread(
+                const std::function<void()>&
+                    callback
+            );
+
+        void
+            _begin_one_thread(
+                const std::function<void()>&
+                    callback
+            );
+
+        bool
+            complete_all_threads();
+
+        void
+            _complete_all_threads();
     };
-
-    inline static AsynchronousManager& ASYNCHRONOUS_MANAGER =
-        INSTANCE_MANAGER.get_instance<AsynchronousManager>();
 }

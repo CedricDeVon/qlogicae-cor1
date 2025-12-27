@@ -15,10 +15,6 @@
     <ClInclude Include="qlogicae_cpp_core_test\includes\assembly.hpp" />
     <ClInclude Include="qlogicae_cpp_core_test\includes\utilities.hpp" />
     <ClInclude Include="qlogicae_cpp_core_test\resources\application.h" />
-    <ClInclude Include="qlogicae_cpp_core_test\includes\asynchronous_manager.hpp" />
-    <ClInclude Include="qlogicae_cpp_core_test\includes\entity_activation_manager.hpp" />
-    <ClInclude Include="qlogicae_cpp_core_test\includes\function_manager.hpp" />
-    <ClInclude Include="qlogicae_cpp_core_test\includes\instance_manager.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

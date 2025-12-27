@@ -154,10 +154,6 @@
     <ClInclude Include="qlogicae_cpp_core_test\includes\all.hpp" />
     <ClInclude Include="qlogicae_cpp_core_test\includes\application.hpp" />
     <ClInclude Include="qlogicae_cpp_core_test\includes\assembly.hpp" />
-    <ClInclude Include="qlogicae_cpp_core_test\includes\asynchronous_manager.hpp" />
-    <ClInclude Include="qlogicae_cpp_core_test\includes\entity_activation_manager.hpp" />
-    <ClInclude Include="qlogicae_cpp_core_test\includes\function_manager.hpp" />
-    <ClInclude Include="qlogicae_cpp_core_test\includes\instance_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core_test\includes\utilities.hpp" />
     <ClInclude Include="qlogicae_cpp_core_test\resources\application.h" />
   </ItemGroup>
