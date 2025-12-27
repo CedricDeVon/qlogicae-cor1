@@ -14,12 +14,12 @@ namespace QLogicaeCppCore
 
     InstanceManager::InstanceManager()
     {
-        construct();
+        _construct();
     }
 
     InstanceManager::~InstanceManager()
     {
-        destruct();
+        _destruct();
     }
 
     bool

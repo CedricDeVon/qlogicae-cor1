@@ -4,47 +4,55 @@
 
 namespace QLogicaeCppCore
 {
-    
-}
-
-/*
-* class Utilities
+    class Utilities
     {
-    public:        
+    public:
         Utilities();
 
         ~Utilities();
 
         Utilities(
-            const Utilities& instance
-        ) = delete;
+            const Utilities&
+            instance
+        ) =
+            delete;
 
         Utilities(
-            Utilities&& instance
-        ) noexcept = delete;
+            Utilities&&
+            instance
+        ) noexcept =
+            delete;
 
-        Utilities& operator = (
-            Utilities&& instance
-        ) = delete;
+        Utilities&
+            operator = (
+                Utilities&&
+                instance
+                ) =
+            delete;
 
-        Utilities& operator = (
-            const Utilities& instance
-        ) = delete;
+        Utilities&
+            operator = (
+                const Utilities&
+                instance
+                ) =
+            delete;
 
-        void construct();
+        static Utilities&
+            instance;
 
-        void destruct();
+        static bool
+            _boolean_ouput_cache_1;
 
-        void asynchronous_construct();
+        bool
+            construct();
 
-        void asynchronous_destruct();
+        void
+            _construct();
 
-    };    
-        inline static bool boolean_result;
+        bool
+            destruct();
 
-        inline static std::future<bool> asynchronous_boolean_result;
-    inline static Utilities& UTILITIES =
-        INSTANCE_MANAGER.get_instance<Utilities>();
-
-*/
-
+        void
+            _destruct();
+    };
+}
