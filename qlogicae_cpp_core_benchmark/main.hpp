@@ -4,9 +4,12 @@
 
 #include "qlogicae_cpp_core/includes/all.hpp"
 
+#include <nanobench.h>
+
+/*
+
 #include <uv.h>
 #include <fast_io.h>                      
-#include <nanobench.h>
 #include <io.h>
 #include <folly/Format.h>
 #include <folly/File.h>
@@ -25,6 +28,8 @@
 #include <absl/synchronization/mutex.h>
 #include <boost/thread/shared_mutex.hpp>
 #include <folly/synchronization/MicroSpinLock.h>
+
+*/
 
 #include <random>
 #include <iostream>
@@ -72,13 +77,13 @@ struct NanobenchBencchmarkingTestSuite
 {
     std::string name = "";
 
-    std::vector<NanobenchBenchmarkEpochIterationPair> epoch_iteration_pairs = {};
-
-    std::vector<NanobenchBencchmarkingTestCase> test_cases = {};
-
     size_t warmup_count = 1;
 
     bool is_relative = true;
+
+    std::vector<NanobenchBenchmarkEpochIterationPair> epoch_iteration_pairs = {};
+
+    std::vector<NanobenchBencchmarkingTestCase> test_cases = {};
 
     std::function<void()> before_test_suite_callback = []() {};
 
@@ -1372,4 +1377,195 @@ namespace Experiment6 // read (fast_io), write and append (fstream)
                 benchmarker,
                 csv_file
             );
+
+
+namespace Experiment8 // nested_try_catch_block. all are proficient
+{
+    inline static double output_1 = 0.0;
+
+    inline static double input_1 = 1.0;
+
+    void nested_try_catch_block()
+    {
+        try
+        {
+            try
+            {
+                try
+                {
+                    try
+                    {
+                        try
+                        {
+                            try
+                            {
+                                try
+                                {
+                                    try
+                                    {
+                                        try
+                                        {
+                                            try
+                                            {
+                                                output_1 =
+                                                    input_1 + input_1;
+                                            }
+                                            catch (...)
+                                            {
+
+                                            }
+                                        }
+                                        catch (...)
+                                        {
+
+                                        }
+                                    }
+                                    catch (...)
+                                    {
+
+                                    }
+                                }
+                                catch (...)
+                                {
+
+                                }
+                            }
+                            catch (...)
+                            {
+
+                            }
+                        }
+                        catch (...)
+                        {
+
+                        }
+                    }
+                    catch (...)
+                    {
+
+                    }
+                }
+                catch (...)
+                {
+
+                }
+            }
+            catch (...)
+            {
+
+            }
+        }
+        catch (std::exception& exception)
+        {
+            output_1 = 0.0;
+        }
+        catch (...)
+        {
+
+        }
+    }
+
+    void with_try_catch_block()
+    {
+        try
+        {
+            output_1 =
+                input_1 + input_1;
+        }
+        catch (std::exception& exception)
+        {
+            output_1 = 0.0;
+        }
+        catch (...)
+        {
+
+        }
+    }
+
+    void no_try_catch_block()
+    {
+        output_1 =
+            input_1 + input_1;
+    }
+
+    void before_test_case_iteration_callback()
+    {
+        output_1 = 0.0;
+    }
+
+    void execute()
+    {
+        NanobenchBencchmarkingTestSuite test_suite
+        {
+            .name = "try_catch",
+            .warmup_count = 2,
+            .epoch_iteration_pairs =
+            {
+                {
+                    .epochs = 10'000'000,
+                    .iterations = 1
+                },
+                {
+                    .epochs = 1'000'000,
+                    .iterations = 10
+                },
+                {
+                    .epochs = 100'000,
+                    .iterations = 100
+                },
+                {
+                    .epochs = 10'000,
+                    .iterations = 1'000
+                },
+                {
+                    .epochs = 1'000,
+                    .iterations = 10'000
+                },
+                {
+                    .epochs = 100,
+                    .iterations = 100'000
+                },
+                {
+                    .epochs = 10,
+                    .iterations = 1'000'000
+                },
+                {
+                    .epochs = 1,
+                    .iterations = 10'000'000
+                }
+            },
+
+            .test_cases =
+            {
+                {
+                    .name = "nested_try_catch_block",
+                    .callback = nested_try_catch_block
+                },
+                {
+                    .name = "no_try_catch_block",
+                    .callback = no_try_catch_block
+                },
+                {
+                    .name = "with_try_catch_block",
+                    .callback = with_try_catch_block
+                }
+            },
+
+            .before_test_case_iteration_callback =
+                before_test_case_iteration_callback
+        };
+
+        execute_nanobenchmark(
+            test_suite
+        );
+
+        bool exit_code;
+        std::cin >> exit_code;
+    }
+}
+
+
+
+
+
 */

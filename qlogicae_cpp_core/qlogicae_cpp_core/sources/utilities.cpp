@@ -4,40 +4,27 @@
 
 namespace QLogicaeCppCore
 {
-    Utilities::Utilities()
-    {
-        Result<bool> result;
+   
+}
 
-        construct(result);
+/*
+ Utilities::Utilities()
+    {
+        construct();
     }
 
     Utilities::~Utilities()
     {
-        Result<bool> result;
-
-        destruct(result);
+        destruct();
     }
 
-    void Utilities::construct(
-        Result<bool>& result
-    )
+    void Utilities::construct()
     {
-        result.set_to_good_status_with_value(
-            true
-        );
+
     }
 
-    void Utilities::destruct(
-        Result<bool>& result
-    )
+    void Utilities::destruct()
     {
-        result.set_to_good_status_with_value(
-            true
-        );
-    }
 
-	void Utilities::sum(Result<int>& result, int x, int y)
-	{
-		result.set_to_good_status_with_value(x + y);
-	}
-}
+    }
+*/

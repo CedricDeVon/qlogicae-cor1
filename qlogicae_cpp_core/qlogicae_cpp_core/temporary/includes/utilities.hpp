@@ -1,14 +1,11 @@
 ﻿#pragma once
 
+#include "result.hpp"
 #include "instance_manager.hpp"
 
 namespace QLogicaeCppCore
 {
-    
-}
-
-/*
-* class Utilities
+    class Utilities
     {
     public:        
         Utilities();
@@ -31,20 +28,17 @@ namespace QLogicaeCppCore
             const Utilities& instance
         ) = delete;
 
-        void construct();
+        void construct(
+            Result<bool>& result
+        );
 
-        void destruct();
+        void destruct(
+            Result<bool>& result
+        );
 
-        void asynchronous_construct();
+        void sum(Result<int>& result, int x, int y);
+    };
 
-        void asynchronous_destruct();
-
-    };    
-        inline static bool boolean_result;
-
-        inline static std::future<bool> asynchronous_boolean_result;
     inline static Utilities& UTILITIES =
         INSTANCE_MANAGER.get_instance<Utilities>();
-
-*/
-
+}

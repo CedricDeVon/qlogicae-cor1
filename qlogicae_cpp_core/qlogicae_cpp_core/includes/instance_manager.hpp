@@ -1,7 +1,5 @@
 #pragma once
 
-#include "result.hpp"
-
 namespace QLogicaeCppCore
 {
     class InstanceManager
@@ -12,62 +10,77 @@ namespace QLogicaeCppCore
         ~InstanceManager();
 
         InstanceManager(
-            const InstanceManager& instance
-        ) = delete;
+            const InstanceManager&
+                instance
+        ) =
+            delete;
 
         InstanceManager(
-            InstanceManager&& instance
-        ) noexcept = delete;
+            InstanceManager&&
+                instance
+        ) noexcept =
+            delete;
 
-        InstanceManager& operator = (
-            InstanceManager&& instance
-            ) = delete;
+        InstanceManager&
+            operator = (
+                InstanceManager&&
+                    instance
+            ) =
+                delete;
 
-        InstanceManager& operator = (
-            const InstanceManager& instance
-            ) = delete;
+        InstanceManager&
+            operator = (
+                const InstanceManager&
+                    instance
+            ) =
+                delete;
+        
+        static InstanceManager&
+            instance;
 
-        void construct(
-            Result<bool>& result
-        );
+        static bool
+            _boolean_ouput_cache_1;
 
-        void destruct(
-            Result<bool>& result
-        );
+        bool
+            construct();
 
-        template <typename Type>
-        static Type& get_instance();
+        void
+            _construct();
 
-        template <typename Type>
-        static void get_instance(
-            Result<Type*>& result
-        );
+        bool
+            destruct();
+
+        void
+            _destruct();
+
+        template <typename Type> Type&
+            get_instance();
+
+        static InstanceManager&
+            get_instance_manager();
     };
 
-    template <typename Type>
-    Type& InstanceManager::get_instance()
-    {
-        Type* result_value;
-        Result<Type*> result;
-
-        get_instance(result);
-        result.get_value(result_value);
-
-        return *result_value;
-    }
-
-    template <typename Type>
-    void InstanceManager::get_instance(
-        Result<Type*>& result
-    )
+    template <typename Type> Type&
+        InstanceManager::get_instance()
     {
         static Type instance;
 
-        result.set_to_good_status_with_value(
-            &instance
-        );
-    }
-
-    inline static InstanceManager& INSTANCE_MANAGER =
-        InstanceManager::get_instance<InstanceManager>();
+        return instance;
+    }   
 }
+
+/*
+
+std::future<bool>
+    construct_asynchronously(
+        const std::function<void(const bool& result)>&
+        callback = nullptr
+    );
+
+std::future<bool>
+    destruct_asynchronously(
+        const std::function<void(const bool& result)>&
+            callback = nullptr
+    );
+
+*/
