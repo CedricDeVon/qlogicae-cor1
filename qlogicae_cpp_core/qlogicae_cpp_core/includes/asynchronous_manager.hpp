@@ -30,8 +30,11 @@ namespace QLogicaeCppCore
                 const AsynchronousManager& instance
             ) = delete;
 
+        static AsynchronousManager&
+            instance;
+
         static bool
-            _boolean_ouput_cache_1;
+            _boolean_ouput_cache_1; // is_successful
 
         static std::shared_ptr<boost::asio::thread_pool>
             _thread_pool;

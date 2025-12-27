@@ -41,7 +41,7 @@ namespace QLogicaeCppCore
             instance;
 
         static bool
-            _boolean_ouput_cache_1;
+            _boolean_ouput_cache_1; // is_successful
 
         bool
             construct();

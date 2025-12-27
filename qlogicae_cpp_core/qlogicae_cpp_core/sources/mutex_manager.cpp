@@ -4,6 +4,10 @@
 
 namespace QLogicaeCppCore
 {
+    MutexManager&
+        MutexManager::instance =
+            InstanceManager::instance.get_instance<MutexManager>();
+
     bool
         MutexManager::_boolean_ouput_cache_1 =
             false;
@@ -15,11 +19,7 @@ namespace QLogicaeCppCore
     std::string_view
         MutexManager::_string_view_ouput_cache_1 =
             "static";
-
-    MutexManager&
-        MutexManager::instance =
-            InstanceManager::instance.get_instance<MutexManager>();
-
+ 
     MutexManager::MutexManager()
     {        
         construct();

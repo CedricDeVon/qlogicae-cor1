@@ -4,6 +4,10 @@
 
 namespace QLogicaeCppCore
 {
+    ExceptionManager&
+        ExceptionManager::instance =
+            InstanceManager::instance.get_instance<ExceptionManager>();
+
     bool
         ExceptionManager::_boolean_ouput_cache_1 =
             false;
@@ -15,11 +19,7 @@ namespace QLogicaeCppCore
     std::string_view
         ExceptionManager::_string_view_ouput_cache_2 =
             "";
-
-    ExceptionManager&
-        ExceptionManager::instance =
-            InstanceManager::instance.get_instance<ExceptionManager>();
-
+ 
     ExceptionManager::ExceptionManager()
     {
         _construct();
@@ -99,7 +99,8 @@ namespace QLogicaeCppCore
     void
         ExceptionManager::_handle()
     {
-        std::string exception_message = std::string(_string_view_ouput_cache_1.data()) +
+        std::string exception_message =
+            std::string(_string_view_ouput_cache_1.data()) +
             " : " +
             _string_view_ouput_cache_2.data();
 

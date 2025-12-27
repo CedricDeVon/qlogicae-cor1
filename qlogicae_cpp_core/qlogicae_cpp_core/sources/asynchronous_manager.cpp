@@ -4,6 +4,10 @@
 
 namespace QLogicaeCppCore
 {
+    AsynchronousManager&
+        AsynchronousManager::instance =
+        InstanceManager::instance.get_instance<AsynchronousManager>();
+
     bool
         AsynchronousManager::_boolean_ouput_cache_1 =
             false;

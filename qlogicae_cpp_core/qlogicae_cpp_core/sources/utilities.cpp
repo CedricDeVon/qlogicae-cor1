@@ -4,14 +4,14 @@
 
 namespace QLogicaeCppCore
 {
-    bool
-        Utilities::_boolean_ouput_cache_1 =
-            false;
-
     Utilities&
         Utilities::instance =
             InstanceManager::instance.get_instance<Utilities>();
 
+    bool
+        Utilities::_boolean_ouput_cache_1 =
+            false;
+ 
     Utilities::Utilities()
     {
         _construct();

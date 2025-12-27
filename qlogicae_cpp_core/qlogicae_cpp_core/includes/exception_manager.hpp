@@ -40,10 +40,10 @@ namespace QLogicaeCppCore
             _boolean_ouput_cache_1; // is_successful
 
         static std::string_view
-            _string_view_ouput_cache_1; // title
+            _string_view_ouput_cache_1; // exception title
 
         static std::string_view
-            _string_view_ouput_cache_2; // message
+            _string_view_ouput_cache_2; // exception message
 
         bool
             construct();

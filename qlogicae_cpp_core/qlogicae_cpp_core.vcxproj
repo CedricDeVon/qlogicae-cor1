@@ -199,6 +199,7 @@
     <ClInclude Include="qlogicae_cpp_core\includes\mutex_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\pair_hash_operator.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\utilities.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\valid_mutex_lock.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -213,6 +214,7 @@
     <ClCompile Include="qlogicae_cpp_core\sources\instance_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\mutex_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\pair_hash_operator.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\valid_mutex_lock.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\utilities.cpp" />
   </ItemGroup>
   <ItemGroup>

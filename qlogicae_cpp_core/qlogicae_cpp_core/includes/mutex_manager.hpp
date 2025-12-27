@@ -1,15 +1,11 @@
 #pragma once
 
 #include "instance_manager.hpp"
+#include "valid_mutex_lock.hpp"
 #include "pair_hash_operator.hpp"
 
 namespace QLogicaeCppCore
-{
-    template<typename LockType, typename MutexType>
-    concept ValidLock =
-        (std::is_same_v<LockType, std::unique_lock<MutexType>> ||
-            std::is_same_v<LockType, std::shared_lock<MutexType>>);
-
+{    
     class MutexManager
     {
     public:
@@ -37,13 +33,13 @@ namespace QLogicaeCppCore
             instance;
 
         static bool
-            _boolean_ouput_cache_1;
+            _boolean_ouput_cache_1; // is_successful
         
         static void*
-            _void_pointer_ouput_cache_1;
+            _void_pointer_ouput_cache_1; // object reference
 
         static std::string_view
-            _string_view_ouput_cache_1;
+            _string_view_ouput_cache_1; // key name
 
         static std::unordered_map<std::pair<void*, std::string>,
             std::mutex, PairHashOperator>
