@@ -244,7 +244,7 @@ namespace QLogicaeCppCoreTest
             instance_manager.destruct();
         }
 
-        ASSERT_TRUE(InstanceManager::_boolean_ouput_cache_1);
+        ASSERT_TRUE(boolean_cache_1);
     }
 
     TEST(

@@ -37,17 +37,14 @@ namespace QLogicaeCppCore
         static ExceptionManager&
             instance;
 
-        static std::string_view
-            _string_view_input_cache_1; // exception title
+        static ExceptionManagerConfigurations
+            exception_configurations_input_cache_1;
 
-        static std::string_view
-            _string_view_input_cache_2; // exception message
-
-        static std::string
-            _string_temporary_cache_1;
-
-        static bool
-            _boolean_ouput_cache_1; // is_successful
+        bool
+            construct(
+                const ExceptionManagerConfigurations&
+                    new_configurations
+            );
 
         bool
             construct();
@@ -65,6 +62,11 @@ namespace QLogicaeCppCore
             handle(
                 const std::string_view& title,
                 const std::string_view& message
+            );
+
+        bool
+            handle(
+                const std::exception& exception
             );
 
         void

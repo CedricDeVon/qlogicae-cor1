@@ -1,6 +1,8 @@
 #pragma once
 
+#include "value_cache.hpp"
 #include "instance_manager.hpp"
+#include "exception_manager_configurations.hpp"
 #include "configurations_manager_configurations.hpp"
 
 namespace QLogicaeCppCore
@@ -14,41 +16,40 @@ namespace QLogicaeCppCore
 
         ConfigurationsManager(
             const ConfigurationsManager&
-            instance
-        ) =
-            delete;
+                instance
+        ) = delete;
 
         ConfigurationsManager(
             ConfigurationsManager&&
-            instance
-        ) noexcept =
-            delete;
+                instance
+        ) noexcept = delete;
 
         ConfigurationsManager&
             operator = (
                 ConfigurationsManager&&
-                instance
-                ) =
-            delete;
+                    instance
+            ) = delete;
 
         ConfigurationsManager&
             operator = (
                 const ConfigurationsManager&
-                instance
-                ) =
-            delete;
+                    instance
+            ) = delete;
+
+        static ConfigurationsManagerConfigurations
+            configurations_manager_configurations_cache_1;
 
         static ConfigurationsManager&
             instance;
 
-        static ConfigurationsManagerConfigurations
-            configurations;
-
-        static bool
-            _boolean_ouput_cache_1; // is_successful
-
         bool
             construct();
+
+        bool
+            construct(
+                const ConfigurationsManagerConfigurations&
+                    new_configurations
+            );
 
         void
             _construct();

@@ -5,9 +5,12 @@
 namespace QLogicaeCppCore
 {
     struct ConfigurationsManagerConfigurations
-    {
+    {        
         ExceptionManagerConfigurations
-            exception_manager = {};
-
+            exception_manager_configurations =
+                exception_manager_configurations_default;
     };
+
+    inline static ConfigurationsManagerConfigurations
+        configurations_manager_configurations_default;
 }

@@ -8,25 +8,9 @@ namespace QLogicaeCppCore
         ExceptionManager::instance =
             InstanceManager::instance.get_instance<ExceptionManager>();
 
-    std::string_view
-        ExceptionManager::_string_view_input_cache_1 =
-            "";
-
-    std::string_view
-        ExceptionManager::_string_view_input_cache_2 =
-            "";
-
-    std::string
-        ExceptionManager::_string_temporary_cache_1 =
-            "";
-
-    bool
-        ExceptionManager::_boolean_ouput_cache_1 =
-            false;
- 
     ExceptionManager::ExceptionManager()
     {
-        _construct();
+        
     }
 
     ExceptionManager::~ExceptionManager()
@@ -35,23 +19,28 @@ namespace QLogicaeCppCore
     }
 
     bool
-        ExceptionManager::construct()
+        ExceptionManager::construct(
+            const ExceptionManagerConfigurations&
+                new_configurations
+        )
     {
+        exception_configurations_input_cache_1 =
+            new_configurations;
+
         _construct();
 
-        return _boolean_ouput_cache_1;
+        return boolean_cache_1;
     }
 
     bool
-        ExceptionManager::construct(
-            const ExceptionManagerConfigurations&
-                configurations
-        )
+        ExceptionManager::construct()
     {
-        _configurations =
-            configurations;
+        exception_configurations_input_cache_1 =
+            exception_manager_configurations_default;
 
-        return construct();
+        _construct();
+
+        return boolean_cache_1;
     }
 
     void
@@ -59,11 +48,23 @@ namespace QLogicaeCppCore
     {
         try
         {
-            _boolean_ouput_cache_1 = true;
+            ExceptionManagerConfigurations::is_enabled_cache =
+                exception_manager_configurations_default.is_enabled;
+
+            ExceptionManagerConfigurations::is_console_output_enabled_cache =
+                exception_manager_configurations_default.is_console_output_enabled;
+
+            ExceptionManagerConfigurations::is_file_output_enabled_cache =
+                exception_manager_configurations_default.is_file_output_enabled;
+
+            ExceptionManagerConfigurations::is_exception_throwing_enabled_cache =
+                exception_manager_configurations_default.is_exception_throwing_enabled;
+
+            boolean_cache_1 = true;
         }
         catch (...)
         {
-            _boolean_ouput_cache_1 = false;
+            boolean_cache_1 = false;
         }        
     }
 
@@ -72,20 +73,20 @@ namespace QLogicaeCppCore
     {
         _destruct();
 
-        return _boolean_ouput_cache_1;
+        return boolean_cache_1;
     }
 
     void
         ExceptionManager::_destruct()
     {
         try
-        {            
-            _boolean_ouput_cache_1 = true;
+        {              
+            boolean_cache_1 = true;
         }
         catch (...)
         {
-            _boolean_ouput_cache_1 = false;
-        }               
+            boolean_cache_1 = false;
+        }
     }
 
     bool
@@ -94,42 +95,51 @@ namespace QLogicaeCppCore
             const std::string_view& message
         )
     {
-        _string_view_input_cache_1 =
+        string_view_cache_1 =
             title;
 
-        _string_view_input_cache_2 =
+        string_view_cache_2 =
             message;
 
         _handle();
 
-        return _boolean_ouput_cache_1;
+        return boolean_cache_1;
     }
 
     void
         ExceptionManager::_handle()
     {
-        if (!_configurations.is_enabled)
+        if (!ExceptionManagerConfigurations::is_enabled_cache)
         {
-            _boolean_ouput_cache_1 = true;
+            boolean_cache_1 = true;
 
             return;
         }
 
-        _string_temporary_cache_1 =
-            std::string(_string_view_input_cache_1.data()) +
+        boolean_cache_1 = true;
+
+        string_cache_1 =
+            std::string(string_view_cache_1.data()) +
             " : " +
-            _string_view_input_cache_2.data();
+            string_view_cache_2.data();
 
-        if (_configurations.is_file_output_enabled)
+
+        if (ExceptionManagerConfigurations::is_console_output_enabled_cache)
         {
-            _boolean_ouput_cache_1 = true;
+            std::cout << string_cache_1 << "\n";
         }
 
-        if (_configurations.is_exception_throwing_enabled)
+        if (ExceptionManagerConfigurations::is_file_output_enabled_cache)
         {
-            _boolean_ouput_cache_1 = true;
+
         }
 
-        _boolean_ouput_cache_1 = true;
+        if (ExceptionManagerConfigurations::is_exception_throwing_enabled_cache)
+        {
+            throw std::runtime_error(
+                string_cache_1
+            );
+        }
+
     }
 }

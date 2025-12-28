@@ -1,5 +1,7 @@
 #pragma once
 
+#include "value_cache.hpp"
+
 namespace QLogicaeCppCore
 {
     class InstanceManager
@@ -34,9 +36,6 @@ namespace QLogicaeCppCore
         static InstanceManager&
             instance;
 
-        static bool
-            _boolean_ouput_cache_1; // is successful
-
         bool
             construct();
 
@@ -60,7 +59,9 @@ namespace QLogicaeCppCore
         InstanceManager::get_instance()
     {
         static Type instance;
-        _boolean_ouput_cache_1 = true;
+
+        boolean_cache_1 =
+            true;
 
         return instance;
     }   

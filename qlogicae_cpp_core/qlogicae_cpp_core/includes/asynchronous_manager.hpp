@@ -1,7 +1,9 @@
 #pragma once
 
+#include "value_cache.hpp"
 #include "mutex_manager.hpp"
 #include "instance_manager.hpp"
+#include "asynchronous_manager_configurations.hpp"
 
 namespace QLogicaeCppCore
 {
@@ -33,14 +35,11 @@ namespace QLogicaeCppCore
         static AsynchronousManager&
             instance;
 
-        static bool
-            _boolean_ouput_cache_1; // is_successful
+        static std::shared_ptr<boost::asio::thread_pool>
+            main_thread_pool;
 
         static std::shared_ptr<boost::asio::thread_pool>
-            _thread_pool;
-
-        static std::shared_ptr<boost::asio::thread_pool>
-            _temporary_thread_pool;
+            temporary_thread_pool;
 
         bool
             construct();

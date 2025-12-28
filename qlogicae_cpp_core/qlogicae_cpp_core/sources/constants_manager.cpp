@@ -6,11 +6,11 @@ namespace QLogicaeCppCore
 {
     ConstantsManager&
         ConstantsManager::instance =
-        InstanceManager::instance.get_instance<ConstantsManager>();
+            InstanceManager::instance.get_instance<ConstantsManager>();
 
     ConstantsManager::ConstantsManager()
     {
-        _construct();
+        
     }
 
     ConstantsManager::~ConstantsManager()
@@ -23,7 +23,7 @@ namespace QLogicaeCppCore
     {
         _construct();
 
-        return _boolean_ouput_cache_1;
+        return boolean_cache_1;
     }
 
     void
@@ -31,11 +31,11 @@ namespace QLogicaeCppCore
     {
         try
         {
-            _boolean_ouput_cache_1 = true;
+            boolean_cache_1 = true;
         }
         catch (...)
         {
-            _boolean_ouput_cache_1 = false;
+            boolean_cache_1 = false;
         }        
     }
 
@@ -44,7 +44,7 @@ namespace QLogicaeCppCore
     {
         _destruct();
 
-        return _boolean_ouput_cache_1;
+        return boolean_cache_1;
     }
 
     void
@@ -52,11 +52,11 @@ namespace QLogicaeCppCore
     {
         try
         {
-            _boolean_ouput_cache_1 = true;
+            boolean_cache_1 = true;
         }
         catch (...)
         {
-            _boolean_ouput_cache_1 = false;
+            boolean_cache_1 = false;
         }
     }
 }

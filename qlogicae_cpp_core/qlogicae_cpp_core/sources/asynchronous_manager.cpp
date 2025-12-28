@@ -6,15 +6,12 @@ namespace QLogicaeCppCore
 {
     AsynchronousManager&
         AsynchronousManager::instance =
-        InstanceManager::instance.get_instance<AsynchronousManager>();
-
-    bool
-        AsynchronousManager::_boolean_ouput_cache_1 =
-            false;
+            InstanceManager::instance
+                .get_instance<AsynchronousManager>();
 
     AsynchronousManager::AsynchronousManager()        
     {        
-        _construct();
+        
     }
 
     AsynchronousManager::~AsynchronousManager()
@@ -24,50 +21,51 @@ namespace QLogicaeCppCore
 
     bool
         AsynchronousManager::construct()
-    {
-        try
-        {
-            _construct();
-        }
-        catch (...)
-        {
-            _boolean_ouput_cache_1 = false;
-        }
+    {        
+        _construct();
 
-        return _boolean_ouput_cache_1;
+        return boolean_cache_1;
     }
 
     void
         AsynchronousManager::_construct()
     {
-        _thread_pool =
-            std::make_shared<boost::asio::thread_pool>(
-                std::thread::hardware_concurrency()
-            );
+        try
+        {
+            main_thread_pool =
+                std::make_shared<boost::asio::thread_pool>(
+                    std::thread::hardware_concurrency()
+                );
 
-        _boolean_ouput_cache_1 =
-            true;
+            boolean_cache_1 =
+                true;
+        }
+        catch (...)
+        {
+            boolean_cache_1 =
+                false;
+        }               
     }
 
     bool
         AsynchronousManager::destruct()
-    {
-        try
-        {
-            _destruct();
-        }
-        catch (...)
-        {
-            _boolean_ouput_cache_1 = false;
-        }
+    {        
+        _destruct();
 
-        return _boolean_ouput_cache_1;
+        return boolean_cache_1;
     }
 
     void
         AsynchronousManager::_destruct()
     {
-        _complete_all_threads();
+        try
+        {
+            _complete_all_threads();
+        }
+        catch (...)
+        {
+            boolean_cache_1 = false;
+        }        
     }
 
     bool AsynchronousManager::begin_one_thread(
@@ -82,62 +80,83 @@ namespace QLogicaeCppCore
         }
         catch (...)
         {
-            _boolean_ouput_cache_1 = false;
+            boolean_cache_1 = false;
         }
 
-        return _boolean_ouput_cache_1;
+        return boolean_cache_1;
     }
 
     void AsynchronousManager::_begin_one_thread(
         const std::function<void()>& callback
     )
     {
-        MutexManager::instance._void_pointer_ouput_cache_1 = this;
-        MutexManager::instance._lock_mutex<std::unique_lock<std::mutex>, std::mutex>();
-
-        if (_thread_pool == nullptr)
+        if (AsynchronousManagerConfigurations::is_enabled_cache)
         {
-            _thread_pool =
-                std::make_shared<boost::asio::thread_pool>(
-                    std::thread::hardware_concurrency());
+            boolean_cache_1 =
+                false;
+
+            return;
         }
 
-        boost::asio::post(*_thread_pool, callback);
+        void_pointer_cache_1 =
+            this;
 
-        _boolean_ouput_cache_1 =
+        MutexManager::instance
+            ._lock_mutex<std::unique_lock<std::mutex>, std::mutex>();
+
+        if (main_thread_pool == nullptr)
+        {
+            main_thread_pool =
+                std::make_shared<boost::asio::thread_pool>(
+                    std::thread::hardware_concurrency()
+                );
+        }
+
+        boost::asio::post(
+            *main_thread_pool,
+            callback
+        );
+
+        boolean_cache_1 =
             true;
     }
 
     bool AsynchronousManager::complete_all_threads()
-    {
-        try
-        {
-            _complete_all_threads();
-        }
-        catch (...)
-        {
-            _boolean_ouput_cache_1 = false;
-        }
+    {        
+        _complete_all_threads();
 
-        return _boolean_ouput_cache_1;
+        return boolean_cache_1;
     }
 
     void AsynchronousManager::_complete_all_threads()
     {
+        try
         {
-            MutexManager::instance._void_pointer_ouput_cache_1 = this;
-            MutexManager::instance._lock_mutex<std::unique_lock<std::mutex>, std::mutex>();
+            {
+                void_pointer_cache_1 =
+                    this;
 
-            _temporary_thread_pool = _thread_pool;
-            _thread_pool.reset();
+                MutexManager::instance
+                    ._lock_mutex<std::unique_lock<std::mutex>, std::mutex>();
+
+                temporary_thread_pool =
+                    main_thread_pool;
+
+                main_thread_pool.reset();
+            }
+
+            if (temporary_thread_pool)
+            {
+                temporary_thread_pool->join();
+            }
+
+            boolean_cache_1 =
+                true;
         }
-
-        if (_temporary_thread_pool)
+        catch (...)
         {
-            _temporary_thread_pool->join();
-        }
-
-        _boolean_ouput_cache_1 =
-            true;
+            boolean_cache_1 =
+                false;
+        }        
     }
 }

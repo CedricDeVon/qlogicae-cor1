@@ -10,32 +10,72 @@ namespace QLogicaeCppCore
 
     ConfigurationsManager::ConfigurationsManager()
     {
-        _construct();
+        
     }
 
     ConfigurationsManager::~ConfigurationsManager()
     {
+        configurations_manager_configurations_cache_1 =
+            configurations_manager_configurations_default;
+
         _destruct();
     }
 
     bool
         ConfigurationsManager::construct()
     {
+        configurations_manager_configurations_cache_1 =
+            configurations_manager_configurations_default;
+
         _construct();
 
-        return _boolean_ouput_cache_1;
+        return boolean_cache_1;
+    }
+
+    bool
+        ConfigurationsManager::construct(
+            const ConfigurationsManagerConfigurations&
+                new_configurations
+        )
+    {        
+        configurations_manager_configurations_cache_1 =
+            new_configurations;
+
+        _construct();
+
+        return boolean_cache_1;
     }
 
     void
         ConfigurationsManager::_construct()
     {
         try
-        {
-            _boolean_ouput_cache_1 = true;
+        {            
+            ExceptionManagerConfigurations::is_enabled_cache =
+                configurations_manager_configurations_cache_1
+                    .exception_manager_configurations
+                        .is_enabled_cache;
+
+            ExceptionManagerConfigurations::is_console_output_enabled_cache =
+                configurations_manager_configurations_cache_1
+                    .exception_manager_configurations
+                        .is_console_output_enabled_cache;
+
+            ExceptionManagerConfigurations::is_file_output_enabled_cache =
+                configurations_manager_configurations_cache_1
+                    .exception_manager_configurations
+                        .is_file_output_enabled_cache;
+
+            ExceptionManagerConfigurations::is_exception_throwing_enabled_cache =
+                configurations_manager_configurations_cache_1
+                    .exception_manager_configurations
+                        .is_exception_throwing_enabled_cache;
+
+            boolean_cache_1 = true;
         }
         catch (...)
         {
-            _boolean_ouput_cache_1 = false;
+            boolean_cache_1 = false;
         }
     }
 
@@ -44,7 +84,7 @@ namespace QLogicaeCppCore
     {
         _destruct();
 
-        return _boolean_ouput_cache_1;
+        return boolean_cache_1;
     }
 
     void
@@ -52,11 +92,11 @@ namespace QLogicaeCppCore
     {
         try
         {
-            _boolean_ouput_cache_1 = true;
+            boolean_cache_1 = true;
         }
         catch (...)
         {
-            _boolean_ouput_cache_1 = false;
+            boolean_cache_1 = false;
         }
     }
 }
