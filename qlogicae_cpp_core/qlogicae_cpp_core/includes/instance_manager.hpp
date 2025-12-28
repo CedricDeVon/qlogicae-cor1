@@ -12,28 +12,24 @@ namespace QLogicaeCppCore
         InstanceManager(
             const InstanceManager&
                 instance
-        ) =
-            delete;
+        ) = delete;
 
         InstanceManager(
             InstanceManager&&
                 instance
-        ) noexcept =
-            delete;
+        ) noexcept = delete;
 
         InstanceManager&
             operator = (
                 InstanceManager&&
                     instance
-            ) =
-                delete;
+            ) = delete;
 
         InstanceManager&
             operator = (
                 const InstanceManager&
                     instance
-            ) =
-                delete;
+            ) = delete;
         
         static InstanceManager&
             instance;
@@ -64,6 +60,7 @@ namespace QLogicaeCppCore
         InstanceManager::get_instance()
     {
         static Type instance;
+        _boolean_ouput_cache_1 = true;
 
         return instance;
     }   

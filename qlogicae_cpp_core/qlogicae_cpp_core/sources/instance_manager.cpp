@@ -24,15 +24,8 @@ namespace QLogicaeCppCore
 
     bool
         InstanceManager::construct()
-    {
-        try
-        {
-            _construct();
-        }
-        catch (...)
-        {
-            _boolean_ouput_cache_1 = false;
-        }
+    {        
+        _construct();
 
         return _boolean_ouput_cache_1;
     }
@@ -40,36 +33,43 @@ namespace QLogicaeCppCore
     void
         InstanceManager::_construct()
     {
-        _boolean_ouput_cache_1 = true;
+        try
+        {
+            _boolean_ouput_cache_1 = true;
+        }
+        catch (...)
+        {
+            _boolean_ouput_cache_1 = false;
+        }        
     }
 
     bool
         InstanceManager::destruct()
     {
-        try
-        {
-            _destruct();
-        }
-        catch (...)
-        {
-            _boolean_ouput_cache_1 = false;
-        }
-
-        return _boolean_ouput_cache_1;
+        _destruct();
+        
+        return _boolean_ouput_cache_1;        
     }
 
     void
         InstanceManager::_destruct()
     {
-        _boolean_ouput_cache_1 = true;
+        try
+        {
+            _boolean_ouput_cache_1 = true;
+        }
+        catch (...)
+        {
+            _boolean_ouput_cache_1 = false;
+        }
     }
 
     InstanceManager&
         InstanceManager::get_instance_manager()
     {
         static InstanceManager instance;
+        _boolean_ouput_cache_1 = true;
 
         return instance;
     }
-
 }

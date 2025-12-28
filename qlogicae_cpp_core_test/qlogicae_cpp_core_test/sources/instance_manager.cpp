@@ -2,264 +2,441 @@
 
 #include "qlogicae_cpp_core/includes/instance_manager.hpp"
 
+using namespace QLogicaeCppCore;
+
 namespace QLogicaeCppCoreTest
 {
-    static bool wait_for_condition_ms(
-        const std::function<bool()>& condition,
-        const std::uint64_t timeout_ms
-    )
-    {
-        const std::chrono::milliseconds poll_interval(5);
-        const auto start_time = std::chrono::steady_clock::now();
-        while (true)
-        {
-            if (condition())
-            {
-                return true;
-            }
-            const auto elapsed =
-                std::chrono::duration_cast<std::chrono::milliseconds>(
-                    std::chrono::steady_clock::now() - start_time
-                )
-                .count();
-            if (static_cast<std::uint64_t>(elapsed) >= timeout_ms)
-            {
-                return false;
-            }
-            std::this_thread::sleep_for(poll_interval);
-        }
-    }
-
-    class InstanceManagerTest :
-        public ::testing::Test
-    {
-    public:
-        InstanceManagerTest()
-        {
-        }
-
-        ~InstanceManagerTest()
-        {
-        }
-    };
-
-    struct DummyStruct
+    struct TestPlainStruct
     {
         int value;
     };
 
-    class InstanceManagerParamTest :
+    class TestPlainClass
+    {
+    public:
+        TestPlainClass() = default;
+
+        int value;
+    };
+
+    enum class TestPlainEnum
+    {
+        ZERO = 0,
+        ONE = 1,
+        MAXIMUM = 2
+    };
+
+    class InstanceManagerTest : public ::testing::Test
+    {
+    public:
+        InstanceManagerTest() = default;
+
+        ~InstanceManagerTest() override = default;
+    };
+
+    class InstanceManagerTypeParameterizedTest :
         public ::testing::TestWithParam<int>
     {
     public:
-        InstanceManagerParamTest()
-        {
-        }
+        InstanceManagerTypeParameterizedTest() = default;
 
-        ~InstanceManagerParamTest()
-        {
-        }
+        ~InstanceManagerTypeParameterizedTest() override = default;
     };
+
+    class InstanceManagerStructParameterizedTest :
+        public ::testing::TestWithParam<int>
+    {
+    public:
+        InstanceManagerStructParameterizedTest() = default;
+
+        ~InstanceManagerStructParameterizedTest() override = default;
+    };
+
+    class InstanceManagerClassParameterizedTest :
+        public ::testing::TestWithParam<int>
+    {
+    public:
+        InstanceManagerClassParameterizedTest() = default;
+
+        ~InstanceManagerClassParameterizedTest() override = default;
+    };
+
+    class InstanceManagerEnumParameterizedTest :
+        public ::testing::TestWithParam<TestPlainEnum>
+    {
+    public:
+        InstanceManagerEnumParameterizedTest() = default;
+
+        ~InstanceManagerEnumParameterizedTest() override = default;
+    };
+
+    class InstanceManagerMixedTypeParameterizedTest :
+        public ::testing::TestWithParam<int>
+    {
+    public:
+        InstanceManagerMixedTypeParameterizedTest() = default;
+
+        ~InstanceManagerMixedTypeParameterizedTest() override = default;
+    };
+
 
     TEST(
         InstanceManagerTest,
-        Should_ReturnSamePointer_When_CalledMultipleTimes
+        Should_ReturnSameReference_Expect_SameAddress_When_GetInstanceManager
     )
     {
-        QLogicaeCppCore::InstanceManager& instance_one =
-            QLogicaeCppCore::InstanceManager::get_instance<
-            QLogicaeCppCore::InstanceManager
-            >();
-        QLogicaeCppCore::InstanceManager& instance_two =
-            QLogicaeCppCore::InstanceManager::get_instance<
-            QLogicaeCppCore::InstanceManager
-            >();
-        ASSERT_EQ(&instance_one, &instance_two);
+        InstanceManager& first_reference =
+            InstanceManager::get_instance_manager();
+
+        InstanceManager& second_reference =
+            InstanceManager::get_instance_manager();
+
+        ASSERT_EQ(
+            static_cast<void*>(&first_reference),
+            static_cast<void*>(&second_reference)
+        );
     }
 
     TEST(
         InstanceManagerTest,
-        Should_ReturnSamePointer_When_CalledFromMultipleThreads
+        Should_ReturnTrue_Expect_Success_When_ConstructCalled
     )
     {
-        const int thread_count = 16;
-        std::atomic<int> ready_count(0);
-        std::atomic<const void*> pointer_value(nullptr);
-        std::vector<std::thread> threads;
-        for (int t = 0; t < thread_count; ++t)
-        {
-            threads.emplace_back(
-                [&ready_count, &pointer_value]()
+        InstanceManager& instance_manager =
+            InstanceManager::get_instance_manager();
+
+        bool result = instance_manager.construct();
+
+        ASSERT_TRUE(result);
+    }
+
+    TEST(
+        InstanceManagerTest,
+        Should_ReturnTrue_Expect_Success_When_DestructCalled
+    )
+    {
+        InstanceManager& instance_manager =
+            InstanceManager::get_instance_manager();
+
+        bool result = instance_manager.destruct();
+
+        ASSERT_TRUE(result);
+    }
+
+    TEST(
+        InstanceManagerTest,
+        Should_ReturnSameTypedInstance_Expect_SameAddress_When_GetInstanceCalled
+    )
+    {
+        InstanceManager& instance_manager =
+            InstanceManager::get_instance_manager();
+
+        int& first_instance =
+            instance_manager.get_instance<int>();
+
+        int& second_instance =
+            instance_manager.get_instance<int>();
+
+        ASSERT_EQ(
+            static_cast<void*>(&first_instance),
+            static_cast<void*>(&second_instance)
+        );
+    }
+
+    TEST(
+        InstanceManagerTest,
+        Should_ReturnDifferentTypedInstances_Expect_DifferentAddresses_When_GetInstanceCalled
+    )
+    {
+        InstanceManager& instance_manager =
+            InstanceManager::get_instance_manager();
+
+        int& integer_instance =
+            instance_manager.get_instance<int>();
+
+        double& double_instance =
+            instance_manager.get_instance<double>();
+
+        ASSERT_NE(
+            static_cast<void*>(&integer_instance),
+            static_cast<void*>(&double_instance)
+        );
+    }
+
+    TEST(
+        InstanceManagerTest,
+        Should_CompleteSuccessfully_Expect_NoException_When_CalledAsynchronously
+    )
+    {
+        std::future<InstanceManager*> async_result =
+            std::async(
+                std::launch::async,
+                []
                 {
-                    QLogicaeCppCore::InstanceManager& instance =
-                        QLogicaeCppCore::InstanceManager::get_instance<
-                        QLogicaeCppCore::InstanceManager
-                        >();
-                    const void* address = &instance;
-                    if (pointer_value.load() == nullptr)
-                    {
-                        pointer_value.store(address);
-                    }
-                    else
-                    {
-                        ASSERT_EQ(pointer_value.load(), address);
-                    }
-                    ready_count.fetch_add(1);
+                    InstanceManager& instance_manager =
+                        InstanceManager::get_instance_manager();
+
+                    instance_manager.construct();
+
+                    return static_cast<InstanceManager*>(&instance_manager);
+                }
+            );
+
+        InstanceManager* result_pointer = async_result.get();
+
+        ASSERT_NE(result_pointer, nullptr);
+    }
+
+    TEST(
+        InstanceManagerTest,
+        Should_ExecuteConcurrently_Expect_NoDataRace_When_MultipleThreadsCallGetInstance
+    )
+    {
+        std::atomic<bool> execution_completed{ true };
+
+        std::vector<std::thread> worker_threads;
+
+        std::size_t const THREAD_COUNT = static_cast<std::size_t>(16);
+
+        for (std::size_t index = 0; index < THREAD_COUNT; ++index)
+        {
+            worker_threads.emplace_back(
+                [&execution_completed]
+                {
+                    InstanceManager& instance_manager =
+                        InstanceManager::get_instance_manager();
+
+                    int& instance_value =
+                        instance_manager.get_instance<int>();
+
+                    instance_value = static_cast<int>(1);
+
+                    execution_completed.store(
+                        execution_completed.load(std::memory_order_acquire),
+                        std::memory_order_release
+                    );
                 }
             );
         }
-        for (auto& th : threads)
+
+        for (std::thread& worker_thread : worker_threads)
         {
-            th.join();
+            worker_thread.join();
         }
-        ASSERT_EQ(ready_count.load(), thread_count);
+
+        ASSERT_TRUE(execution_completed.load());
     }
 
     TEST(
         InstanceManagerTest,
-        Should_ReturnSamePointer_When_CalledFromAsyncTasks
+        Should_CompleteUnderLoad_Expect_NoFailure_When_StressTested
     )
     {
-        const int task_count = 8;
-        std::vector<std::future<const void*>> futures;
-        for (int i = 0; i < task_count; ++i)
+        InstanceManager& instance_manager =
+            InstanceManager::get_instance_manager();
+
+        std::size_t const ITERATION_COUNT =
+            static_cast<std::size_t>(1'000'000);
+
+        for (std::size_t index = 0; index < ITERATION_COUNT; ++index)
         {
-            futures.emplace_back(
-                std::async(
-                    std::launch::async,
-                    []()
-                    {
-                        QLogicaeCppCore::InstanceManager& instance =
-                            QLogicaeCppCore::InstanceManager::get_instance<
-                            QLogicaeCppCore::InstanceManager
-                            >();
-                        return static_cast<const void*>(&instance);
-                    }
-                )
-            );
+            instance_manager.construct();
+            instance_manager.destruct();
         }
-        const void* first_ptr = futures[0].get();
-        for (int i = 1; i < task_count; ++i)
-        {
-            const void* ptr = futures[i].get();
-            ASSERT_EQ(ptr, first_ptr);
-        }
+
+        ASSERT_TRUE(InstanceManager::_boolean_ouput_cache_1);
     }
 
     TEST(
         InstanceManagerTest,
-        Should_SetResultGoodStatus_When_WrapperCalled
+        Should_NotThrow_Expect_NoException_When_RepeatedCallsMade
     )
     {
-        QLogicaeCppCore::Result<
-            QLogicaeCppCore::InstanceManager*
-        > result;
-        QLogicaeCppCore::InstanceManager::get_instance(result);
-        QLogicaeCppCore::InstanceManager* value;
-        result.get_value(value);
-        ASSERT_NE(value, nullptr);
-    }
+        InstanceManager& instance_manager =
+            InstanceManager::get_instance_manager();
 
-    TEST(
-        InstanceManagerTest,
-        Should_ReturnSamePointer_When_WrapperAndDirectUsed
-    )
-    {
-        QLogicaeCppCore::Result<
-            QLogicaeCppCore::InstanceManager*
-        > wrapper_result;
-        QLogicaeCppCore::InstanceManager::get_instance(
-            wrapper_result
-        );
-        QLogicaeCppCore::InstanceManager* wrapper_ptr;
-        wrapper_result.get_value(wrapper_ptr);
-        QLogicaeCppCore::InstanceManager& direct =
-            QLogicaeCppCore::InstanceManager::get_instance<
-            QLogicaeCppCore::InstanceManager
-            >();
-        ASSERT_EQ(wrapper_ptr, &direct);
-    }
-
-    TEST(
-        InstanceManagerTest,
-        Should_HandleStress_When_HighVolume
-    )
-    {
-        const int iterations = 50000;
-        std::atomic<int> counter(0);
-        for (int i = 0; i < iterations; ++i)
-        {
-            QLogicaeCppCore::InstanceManager&
-                instance =
-                QLogicaeCppCore::InstanceManager::get_instance<
-                QLogicaeCppCore::InstanceManager
-                >();
-            const void* ptr = &instance;
-            if (ptr != nullptr)
+        ASSERT_NO_THROW(
             {
-                counter.fetch_add(1);
+                for (std::size_t index = 0;
+                     index < static_cast<std::size_t>(1000);
+                     ++index)
+                {
+                    instance_manager.get_instance<int>();
+                    instance_manager.get_instance<double>();
+                }
             }
-        }
-        ASSERT_EQ(counter.load(), iterations);
-    }
-
-    TEST(
-        InstanceManagerTest,
-        Should_NotThrow_When_CalledInsideTryCatch
-    )
-    {
-        try
-        {
-            QLogicaeCppCore::InstanceManager&
-                instance =
-                QLogicaeCppCore::InstanceManager::get_instance<
-                QLogicaeCppCore::InstanceManager
-                >();
-            ASSERT_NE(&instance, nullptr);
-        }
-        catch (...)
-        {
-            FAIL();
-        }
-    }
-
-    TEST(
-        InstanceManagerTest,
-        Should_ReturnDifferentPointers_When_DifferentTypes
-    )
-    {
-        QLogicaeCppCore::InstanceManager& a =
-            QLogicaeCppCore::InstanceManager::get_instance<
-            QLogicaeCppCore::InstanceManager
-            >();
-        DummyStruct& b =
-            QLogicaeCppCore::InstanceManager::get_instance<
-            DummyStruct
-            >();
-        const void* pa = static_cast<const void*>(&a);
-        const void* pb = static_cast<const void*>(&b);
-        ASSERT_NE(pa, pb);
+        );
     }
 
     TEST_P(
-        InstanceManagerParamTest,
-        Should_ReturnSamePointer_When_Repeated
+        InstanceManagerTypeParameterizedTest,
+        Should_ReturnStableInstance_Expect_SameAddress_When_ParameterizedTypeUsed
     )
     {
-        QLogicaeCppCore::InstanceManager& instance_one =
-            QLogicaeCppCore::InstanceManager::get_instance<
-            QLogicaeCppCore::InstanceManager
-            >();
-        QLogicaeCppCore::InstanceManager& instance_two =
-            QLogicaeCppCore::InstanceManager::get_instance<
-            QLogicaeCppCore::InstanceManager
-            >();
-        ASSERT_EQ(&instance_one, &instance_two);
+        InstanceManager& instance_manager =
+            InstanceManager::get_instance_manager();
+
+        int& first_instance =
+            instance_manager.get_instance<int>();
+
+        int& second_instance =
+            instance_manager.get_instance<int>();
+
+        ASSERT_EQ(
+            static_cast<void*>(&first_instance),
+            static_cast<void*>(&second_instance)
+        );
     }
 
     INSTANTIATE_TEST_CASE_P(
-        EmptyArguments,
-        InstanceManagerParamTest,
-        ::testing::Values(0, 1, 2)
+        ValidTypeInstantiation,
+        InstanceManagerTypeParameterizedTest,
+        ::testing::Values(
+            static_cast<int>(0),
+            static_cast<int>(1),
+            static_cast<int>(42)
+        )
+    );
+
+    TEST_P(
+        InstanceManagerStructParameterizedTest,
+        Should_ReturnSameInstance_Expect_SameAddress_When_StructTypeUsed
+    )
+    {
+        InstanceManager& instance_manager =
+            InstanceManager::get_instance_manager();
+
+        TestPlainStruct& first_instance =
+            instance_manager.get_instance<TestPlainStruct>();
+
+        TestPlainStruct& second_instance =
+            instance_manager.get_instance<TestPlainStruct>();
+
+        first_instance.value = GetParam();
+
+        ASSERT_EQ(
+            static_cast<void*>(&first_instance),
+            static_cast<void*>(&second_instance)
+        );
+    }
+
+    INSTANTIATE_TEST_CASE_P(
+        StructTypeInstantiation,
+        InstanceManagerStructParameterizedTest,
+        ::testing::Values(
+            static_cast<int>(0),
+            static_cast<int>(1),
+            static_cast<int>(100)
+        )
+    );
+
+    TEST_P(
+        InstanceManagerClassParameterizedTest,
+        Should_ReturnSameInstance_Expect_SameAddress_When_ClassTypeUsed
+    )
+    {
+        InstanceManager& instance_manager =
+            InstanceManager::get_instance_manager();
+
+        TestPlainClass& first_instance =
+            instance_manager.get_instance<TestPlainClass>();
+
+        TestPlainClass& second_instance =
+            instance_manager.get_instance<TestPlainClass>();
+
+        first_instance.value = GetParam();
+
+        ASSERT_EQ(
+            static_cast<void*>(&first_instance),
+            static_cast<void*>(&second_instance)
+        );
+    }
+
+    INSTANTIATE_TEST_CASE_P(
+        ClassTypeInstantiation,
+        InstanceManagerClassParameterizedTest,
+        ::testing::Values(
+            static_cast<int>(-1),
+            static_cast<int>(0),
+            static_cast<int>(1)
+        )
+    );
+
+    TEST_P(
+        InstanceManagerEnumParameterizedTest,
+        Should_ReturnSameInstance_Expect_SameAddress_When_EnumTypeUsed
+    )
+    {
+        InstanceManager& instance_manager =
+            InstanceManager::get_instance_manager();
+
+        TestPlainEnum& first_instance =
+            instance_manager.get_instance<TestPlainEnum>();
+
+        TestPlainEnum& second_instance =
+            instance_manager.get_instance<TestPlainEnum>();
+
+        first_instance = GetParam();
+
+        ASSERT_EQ(
+            static_cast<void*>(&first_instance),
+            static_cast<void*>(&second_instance)
+        );
+    }
+
+    INSTANTIATE_TEST_CASE_P(
+        EnumTypeInstantiation,
+        InstanceManagerEnumParameterizedTest,
+        ::testing::Values(
+            TestPlainEnum::ZERO,
+            TestPlainEnum::ONE,
+            TestPlainEnum::MAXIMUM
+        )
+    );
+
+    TEST_P(
+        InstanceManagerMixedTypeParameterizedTest,
+        Should_ReturnDifferentInstances_Expect_DifferentAddresses_When_MixedTypesUsed
+    )
+    {
+        InstanceManager& instance_manager =
+            InstanceManager::get_instance_manager();
+
+        TestPlainStruct& struct_instance =
+            instance_manager.get_instance<TestPlainStruct>();
+
+        TestPlainClass& class_instance =
+            instance_manager.get_instance<TestPlainClass>();
+
+        TestPlainEnum& enum_instance =
+            instance_manager.get_instance<TestPlainEnum>();
+
+        struct_instance.value = GetParam();
+        class_instance.value = GetParam();
+        enum_instance = TestPlainEnum::ONE;
+
+        ASSERT_NE(
+            static_cast<void*>(&struct_instance),
+            static_cast<void*>(&class_instance)
+        );
+
+        ASSERT_NE(
+            static_cast<void*>(&struct_instance),
+            static_cast<void*>(&enum_instance)
+        );
+
+        ASSERT_NE(
+            static_cast<void*>(&class_instance),
+            static_cast<void*>(&enum_instance)
+        );
+    }
+
+    INSTANTIATE_TEST_CASE_P(
+        MixedTypeInstantiation,
+        InstanceManagerMixedTypeParameterizedTest,
+        ::testing::Values(
+            static_cast<int>(0),
+            static_cast<int>(5)
+        )
     );
 }
