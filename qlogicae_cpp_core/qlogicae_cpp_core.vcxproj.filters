@@ -48,9 +48,6 @@
     <ClInclude Include="qlogicae_cpp_core\includes\instance_manager.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="qlogicae_cpp_core\includes\exception_manager.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="qlogicae_cpp_core\includes\pair_hash_operator.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -61,6 +58,18 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="qlogicae_cpp_core\includes\valid_mutex_lock.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae_cpp_core\includes\constants_manager.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae_cpp_core\includes\configurations_manager.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae_cpp_core\includes\exception_manager_configurations.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae_cpp_core\includes\configurations_manager_configurations.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -88,9 +97,6 @@
     <ClCompile Include="qlogicae_cpp_core\sources\instance_manager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="qlogicae_cpp_core\sources\exception_manager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="qlogicae_cpp_core\sources\pair_hash_operator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -101,6 +107,18 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="qlogicae_cpp_core\sources\valid_mutex_lock.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae_cpp_core\sources\configurations_manager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae_cpp_core\sources\constants_manager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae_cpp_core\sources\exception_manager_configurations.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae_cpp_core\sources\configurations_manager_configurations.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

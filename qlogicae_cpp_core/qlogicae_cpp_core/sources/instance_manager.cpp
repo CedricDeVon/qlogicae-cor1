@@ -7,11 +7,7 @@ namespace QLogicaeCppCore
     InstanceManager&
         InstanceManager::instance =
             InstanceManager::get_instance_manager();
-
-    bool
-        InstanceManager::_boolean_ouput_cache_1 =
-            false;
-
+    
     InstanceManager::InstanceManager()
     {
         _construct();

@@ -8,17 +8,21 @@ namespace QLogicaeCppCore
         ExceptionManager::instance =
             InstanceManager::instance.get_instance<ExceptionManager>();
 
+    std::string_view
+        ExceptionManager::_string_view_input_cache_1 =
+            "";
+
+    std::string_view
+        ExceptionManager::_string_view_input_cache_2 =
+            "";
+
+    std::string
+        ExceptionManager::_string_temporary_cache_1 =
+            "";
+
     bool
         ExceptionManager::_boolean_ouput_cache_1 =
             false;
-
-    std::string_view
-        ExceptionManager::_string_view_ouput_cache_1 =
-            "";
-
-    std::string_view
-        ExceptionManager::_string_view_ouput_cache_2 =
-            "";
  
     ExceptionManager::ExceptionManager()
     {
@@ -33,35 +37,40 @@ namespace QLogicaeCppCore
     bool
         ExceptionManager::construct()
     {
-        try
-        {
-            _construct();
-        }
-        catch (...)
-        {
-            _boolean_ouput_cache_1 = false;
-        }
+        _construct();
 
         return _boolean_ouput_cache_1;
+    }
+
+    bool
+        ExceptionManager::construct(
+            const ExceptionManagerConfigurations&
+                configurations
+        )
+    {
+        _configurations =
+            configurations;
+
+        return construct();
     }
 
     void
         ExceptionManager::_construct()
     {
-        _boolean_ouput_cache_1 = true;
+        try
+        {
+            _boolean_ouput_cache_1 = true;
+        }
+        catch (...)
+        {
+            _boolean_ouput_cache_1 = false;
+        }        
     }
 
     bool
         ExceptionManager::destruct()
     {
-        try
-        {
-            _destruct();
-        }
-        catch (...)
-        {
-            _boolean_ouput_cache_1 = false;
-        }
+        _destruct();
 
         return _boolean_ouput_cache_1;
     }
@@ -69,7 +78,14 @@ namespace QLogicaeCppCore
     void
         ExceptionManager::_destruct()
     {
-        _boolean_ouput_cache_1 = true;
+        try
+        {            
+            _boolean_ouput_cache_1 = true;
+        }
+        catch (...)
+        {
+            _boolean_ouput_cache_1 = false;
+        }               
     }
 
     bool
@@ -78,20 +94,13 @@ namespace QLogicaeCppCore
             const std::string_view& message
         )
     {
-        try
-        {
-            _string_view_ouput_cache_1 =
-                title;
+        _string_view_input_cache_1 =
+            title;
 
-            _string_view_ouput_cache_2 =
-                message;
+        _string_view_input_cache_2 =
+            message;
 
-            _handle();
-        }
-        catch (...)
-        {
-            _boolean_ouput_cache_1 = false;
-        }
+        _handle();
 
         return _boolean_ouput_cache_1;
     }
@@ -99,12 +108,27 @@ namespace QLogicaeCppCore
     void
         ExceptionManager::_handle()
     {
-        std::string exception_message =
-            std::string(_string_view_ouput_cache_1.data()) +
-            " : " +
-            _string_view_ouput_cache_2.data();
+        if (!_configurations.is_enabled)
+        {
+            _boolean_ouput_cache_1 = true;
 
-        std::cout << exception_message << "\n";
+            return;
+        }
+
+        _string_temporary_cache_1 =
+            std::string(_string_view_input_cache_1.data()) +
+            " : " +
+            _string_view_input_cache_2.data();
+
+        if (_configurations.is_file_output_enabled)
+        {
+            _boolean_ouput_cache_1 = true;
+        }
+
+        if (_configurations.is_exception_throwing_enabled)
+        {
+            _boolean_ouput_cache_1 = true;
+        }
 
         _boolean_ouput_cache_1 = true;
     }
