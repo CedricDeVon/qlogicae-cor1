@@ -77,6 +77,19 @@ namespace QLogicaeCppCoreTest
         void unlock() {}
     };
 
+    class MutexManagerBoostTest : public ::testing::Test
+    {
+    protected:
+        MutexManager& manager = MutexManager::instance;
+        void* test_ptr = reinterpret_cast<void*>(uintptr_t(0xDEADBEEF));
+    };
+
+    class MutexManagerMicroSpinTest : public ::testing::Test
+    {
+    protected:
+        QLogicaeCppCore::MutexManager& manager = QLogicaeCppCore::MutexManager::instance;
+    };
+
     TEST_F(MutexManagerTest, Should_ConstructSuccessfully_When_Called)
     {
         ASSERT_TRUE(mutex_manager_instance.construct());
@@ -567,5 +580,148 @@ namespace QLogicaeCppCoreTest
         catch (...)
         {
         }
+    }
+
+    TEST_F(MutexManagerBoostTest, BoostMutexLockWithoutName)
+    {
+        bool locked = manager.lock_mutex<boost::unique_lock<boost::mutex>, boost::mutex>(test_ptr);
+        EXPECT_TRUE(locked);
+    }
+
+    TEST_F(MutexManagerBoostTest, BoostMutexLockWithName)
+    {
+        bool locked = manager.lock_mutex<boost::unique_lock<boost::mutex>, boost::mutex>(test_ptr, "test_mutex");
+        EXPECT_TRUE(locked);
+    }
+
+    TEST_F(MutexManagerBoostTest, BoostTimedMutexLockWithoutName)
+    {
+        bool locked = manager.lock_mutex<boost::unique_lock<boost::timed_mutex>, boost::timed_mutex>(test_ptr);
+        EXPECT_TRUE(locked);
+    }
+
+    TEST_F(MutexManagerBoostTest, BoostTimedMutexLockWithName)
+    {
+        bool locked = manager.lock_mutex<boost::unique_lock<boost::timed_mutex>, boost::timed_mutex>(test_ptr, "test_timed_mutex");
+        EXPECT_TRUE(locked);
+    }
+
+    TEST_F(MutexManagerBoostTest, BoostRecursiveMutexReentrancy)
+    {
+        bool first_lock = manager.lock_mutex<boost::unique_lock<boost::recursive_mutex>, boost::recursive_mutex>(test_ptr);
+        bool second_lock = manager.lock_mutex<boost::unique_lock<boost::recursive_mutex>, boost::recursive_mutex>(test_ptr);
+        EXPECT_TRUE(first_lock);
+        EXPECT_TRUE(second_lock);
+    }
+
+    TEST_F(MutexManagerBoostTest, BoostRecursiveTimedMutexReentrancy)
+    {
+        bool first_lock = manager.lock_mutex<boost::unique_lock<boost::recursive_timed_mutex>, boost::recursive_timed_mutex>(test_ptr);
+        bool second_lock = manager.lock_mutex<boost::unique_lock<boost::recursive_timed_mutex>, boost::recursive_timed_mutex>(test_ptr);
+        EXPECT_TRUE(first_lock);
+        EXPECT_TRUE(second_lock);
+    }
+
+    TEST_F(MutexManagerBoostTest, BoostSharedMutexMultipleReaders)
+    {
+        bool reader1 = manager.lock_mutex<boost::shared_lock<boost::shared_mutex>, boost::shared_mutex>(test_ptr);
+        bool reader2 = manager.lock_mutex<boost::shared_lock<boost::shared_mutex>, boost::shared_mutex>(test_ptr);
+        EXPECT_TRUE(reader1);
+        EXPECT_TRUE(reader2);
+    }
+
+    TEST_F(MutexManagerBoostTest, NullPointerReturnsFalse)
+    {
+        bool locked = manager.lock_mutex<boost::unique_lock<boost::mutex>, boost::mutex>(nullptr);
+        EXPECT_FALSE(locked);
+    }
+
+    TEST_F(MutexManagerBoostTest, NullPointerWithNameReturnsFalse)
+    {
+        bool locked = manager.lock_mutex<boost::unique_lock<boost::mutex>, boost::mutex>(nullptr, "null_mutex");
+        EXPECT_FALSE(locked);
+    }
+
+    TEST_F(MutexManagerBoostTest, EmptyNameStringLock)
+    {
+        bool locked = manager.lock_mutex<boost::unique_lock<boost::mutex>, boost::mutex>(test_ptr, "");
+        EXPECT_TRUE(locked);
+    }
+
+    TEST_F(MutexManagerBoostTest, MultiThreadedBoostMutex)
+    {
+        bool result1 = false, result2 = false;
+        std::thread t1([&]() { result1 = manager.lock_mutex<boost::unique_lock<boost::mutex>, boost::mutex>(test_ptr, "thread_mutex"); });
+        std::thread t2([&]() { result2 = manager.lock_mutex<boost::unique_lock<boost::mutex>, boost::mutex>(test_ptr, "thread_mutex"); });
+        t1.join();
+        t2.join();
+        EXPECT_TRUE(result1);
+        EXPECT_TRUE(result2);
+    }
+
+    TEST_F(MutexManagerBoostTest, MultiThreadedBoostSharedMutex)
+    {
+        bool result1 = false, result2 = false;
+        std::thread t1([&]() { result1 = manager.lock_mutex<boost::shared_lock<boost::shared_mutex>, boost::shared_mutex>(test_ptr, "shared_mutex"); });
+        std::thread t2([&]() { result2 = manager.lock_mutex<boost::shared_lock<boost::shared_mutex>, boost::shared_mutex>(test_ptr, "shared_mutex"); });
+        t1.join();
+        t2.join();
+        EXPECT_TRUE(result1);
+        EXPECT_TRUE(result2);
+    }
+
+    TEST_F(MutexManagerMicroSpinTest, LockMicroSpinMutex)
+    {
+        bool locked = manager.lock_micro_mutex();
+        bool unlocked = manager.unlock_micro_mutex();
+        EXPECT_TRUE(locked);
+    }
+
+    TEST_F(MutexManagerMicroSpinTest, UnlockMicroSpinMutex)
+    {
+        manager.lock_micro_mutex();
+        bool unlocked = manager.unlock_micro_mutex();
+        EXPECT_TRUE(unlocked);
+    }
+
+    TEST_F(MutexManagerMicroSpinTest, LockUnlockSequence)
+    {
+        bool lock1 = manager.lock_micro_mutex();
+        bool unlock1 = manager.unlock_micro_mutex();
+        bool lock2 = manager.lock_micro_mutex();
+        bool unlock2 = manager.unlock_micro_mutex();
+
+        EXPECT_TRUE(lock1);
+        EXPECT_TRUE(unlock1);
+        EXPECT_TRUE(lock2);
+        EXPECT_TRUE(unlock2);
+    }
+
+    TEST_F(MutexManagerMicroSpinTest, MultiThreadedMicroSpinLock)
+    {
+        bool result1 = false, result2 = false;
+
+        std::thread t1([&]() { result1 = manager.lock_micro_mutex(); manager.unlock_micro_mutex(); });
+        std::thread t2([&]() { result2 = manager.lock_micro_mutex(); manager.unlock_micro_mutex(); });
+
+        t1.join();
+        t2.join();
+
+        EXPECT_TRUE(result1);
+        EXPECT_TRUE(result2);
+    }
+
+    TEST_F(MutexManagerMicroSpinTest, MultipleSequentialLocks)
+    {
+        bool results[5] = {};
+
+        for (int i = 0; i < 5; ++i)
+        {
+            results[i] = manager.lock_micro_mutex();
+            manager.unlock_micro_mutex();
+        }
+
+        for (int i = 0; i < 5; ++i)
+            EXPECT_TRUE(results[i]);
     }
 }

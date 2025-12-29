@@ -33,6 +33,9 @@ namespace QLogicaeCppCore
         static MutexManager&
             instance;
 
+        static folly::MicroSpinLock
+            micro_spinlock;
+
         static std::unordered_map<std::pair<void*, std::string>,
             std::mutex, PairHashOperator>
                 mutex_collection;
@@ -53,6 +56,26 @@ namespace QLogicaeCppCore
             std::shared_mutex, PairHashOperator>
                 shared_mutex_collection;
 
+        static std::unordered_map<std::pair<void*, std::string>,
+            boost::mutex, PairHashOperator>
+                boost_mutex_collection;
+
+        static std::unordered_map<std::pair<void*, std::string>,
+            boost::timed_mutex, PairHashOperator>
+                boost_timed_mutex_collection;
+
+        static std::unordered_map<std::pair<void*, std::string>,
+            boost::recursive_mutex, PairHashOperator>
+                boost_recursive_mutex_collection;
+
+        static std::unordered_map<std::pair<void*, std::string>,
+            boost::recursive_timed_mutex, PairHashOperator>
+                boost_recursive_timed_mutex_collection;
+
+        static std::unordered_map<std::pair<void*, std::string>,
+            boost::shared_mutex, PairHashOperator>
+                boost_shared_mutex_collection;
+
         bool
             construct();
 
@@ -64,7 +87,19 @@ namespace QLogicaeCppCore
 
         void
             _destruct();
-    
+
+        bool
+            lock_micro_mutex();
+
+        void
+            _lock_micro_mutex();
+
+        bool
+            unlock_micro_mutex();
+
+        void
+            _unlock_micro_mutex();
+
         template<typename LockType, typename MutexType> bool
             lock_mutex(
                 const void* pointer
@@ -180,6 +215,61 @@ namespace QLogicaeCppCore
             {
                 mutex_pointer =
                     &shared_mutex_collection[
+                        {
+                            void_pointer_cache_1,
+                            string_view_cache_1.data()
+                        }
+                    ];
+            }
+            else if constexpr
+                (std::is_same_v<MutexType, boost::mutex>)
+            {
+                mutex_pointer =
+                    &boost_mutex_collection[
+                        {
+                            void_pointer_cache_1,
+                            string_view_cache_1.data()
+                        }
+                    ];
+            }
+            else if constexpr
+                (std::is_same_v<MutexType, boost::timed_mutex>)
+            {
+                mutex_pointer =
+                    &boost_timed_mutex_collection[
+                        {
+                            void_pointer_cache_1,
+                            string_view_cache_1.data()
+                        }
+                    ];
+            }
+            else if constexpr
+                (std::is_same_v<MutexType, boost::recursive_mutex>)
+            {
+                mutex_pointer =
+                    &boost_recursive_mutex_collection[
+                        {
+                            void_pointer_cache_1,
+                            string_view_cache_1.data()
+                        }
+                    ];
+            }
+            else if constexpr
+                (std::is_same_v<MutexType, boost::recursive_timed_mutex>)
+            {
+                mutex_pointer =
+                    &boost_recursive_timed_mutex_collection[
+                        {
+                            void_pointer_cache_1,
+                            string_view_cache_1.data()
+                        }
+                    ];
+            }
+            else if constexpr
+                (std::is_same_v<MutexType, boost::shared_mutex>)
+            {
+                mutex_pointer =
+                    &boost_shared_mutex_collection[
                         {
                             void_pointer_cache_1,
                             string_view_cache_1.data()

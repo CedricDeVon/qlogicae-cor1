@@ -19,7 +19,6 @@
 #include <folly/portability/Unistd.h>
 #include <fast_io_device.h>                
 #include <fast_io_legacy.h>
-#include <folly/init/Init.h>
 #include <boost/thread/mutex.hpp>
 #include <boost/iostreams/device/file.hpp>
 #include <boost/iostreams/device/mapped_file.hpp>
@@ -27,6 +26,7 @@
 #include <boost/filesystem.hpp>
 #include <absl/synchronization/mutex.h>
 #include <boost/thread/shared_mutex.hpp>
+#include <folly/init/Init.h>
 #include <folly/synchronization/MicroSpinLock.h>
 
 */
