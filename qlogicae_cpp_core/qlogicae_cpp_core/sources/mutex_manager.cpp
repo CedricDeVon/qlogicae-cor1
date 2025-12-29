@@ -8,6 +8,21 @@ namespace QLogicaeCppCore
         MutexManager::instance =
             InstanceManager::instance.get_instance<MutexManager>();
 
+    std::unordered_map<std::pair<void*, std::string>, std::mutex, PairHashOperator>
+        MutexManager::mutex_collection;
+
+    std::unordered_map<std::pair<void*, std::string>, std::timed_mutex, PairHashOperator>
+        MutexManager::timed_mutex_collection;
+
+    std::unordered_map<std::pair<void*, std::string>, std::recursive_mutex, PairHashOperator>
+        MutexManager::recursive_mutex_collection;
+
+    std::unordered_map<std::pair<void*, std::string>, std::recursive_timed_mutex, PairHashOperator>
+        MutexManager::recursive_timed_mutex_collection;
+
+    std::unordered_map<std::pair<void*, std::string>, std::shared_mutex, PairHashOperator>
+        MutexManager::shared_mutex_collection;
+
     MutexManager::MutexManager()
     {
         

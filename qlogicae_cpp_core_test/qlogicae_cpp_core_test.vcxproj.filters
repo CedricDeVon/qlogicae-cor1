@@ -7,6 +7,8 @@
     <ClCompile Include="qlogicae_cpp_core_test\sources\application.cpp" />
     <ClCompile Include="qlogicae_cpp_core_test\sources\assembly.cpp" />
     <ClCompile Include="qlogicae_cpp_core_test\sources\instance_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core_test\sources\results.cpp" />
+    <ClCompile Include="qlogicae_cpp_core_test\sources\mutex_manager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.hpp" />
@@ -14,9 +16,10 @@
     <ClInclude Include="qlogicae_cpp_core_test\includes\all.hpp" />
     <ClInclude Include="qlogicae_cpp_core_test\includes\application.hpp" />
     <ClInclude Include="qlogicae_cpp_core_test\includes\assembly.hpp" />
-    <ClInclude Include="qlogicae_cpp_core_test\includes\utilities.hpp" />
     <ClInclude Include="qlogicae_cpp_core_test\resources\application.h" />
     <ClInclude Include="qlogicae_cpp_core_test\includes\instance_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core_test\includes\results.hpp" />
+    <ClInclude Include="qlogicae_cpp_core_test\includes\mutex_manager.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

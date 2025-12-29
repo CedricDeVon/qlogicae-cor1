@@ -1,516 +1,571 @@
 #include "pch.hpp"
 
-#include "qlogicae_cpp_core/includes/mutex_manager.hpp"
+#include "../includes/mutex_manager.hpp"
+
+using namespace QLogicaeCppCore;
 
 namespace QLogicaeCppCoreTest
 {
     class MutexManagerTest : public ::testing::Test
     {
     protected:
-        MutexManagerTest() = default;
-        ~MutexManagerTest() override = default;
+        MutexManager& mutex_manager_instance;
+
+        MutexManagerTest()
+            : mutex_manager_instance(MutexManager::instance)
+        {
+        }
 
         void SetUp() override
         {
+            ASSERT_TRUE(mutex_manager_instance.construct());
         }
 
         void TearDown() override
         {
+            ASSERT_TRUE(mutex_manager_instance.destruct());
         }
-
-        struct LockTestData
-        {
-            void* pointer;
-            std::string name;
-        };
     };
 
-    using LockTypes = ::testing::Types<
-        std::mutex,
-        std::timed_mutex,
-        std::recursive_mutex,
-        std::recursive_timed_mutex,
-        std::shared_mutex
-    >;
-
-    struct MutexTestParam
+    struct MutexManagerParameterizedTestData
     {
-        void* pointer;
-        std::string name;
+        bool construct_first;
     };
 
     class MutexManagerParameterizedTest :
         public MutexManagerTest,
-        public ::testing::WithParamInterface<MutexTestParam>
+        public ::testing::WithParamInterface<MutexManagerParameterizedTestData>
     {
     };
 
-    TEST_F(MutexManagerTest, Should_LockMutexSuccessfully_When_UsingUniqueLock)
+    struct MutexLockCombinationTestData
     {
-        QLogicaeCppCore::Result<bool> result;
-        int dummy_object = 0;
-        QLogicaeCppCore::MUTEX_MANAGER.lock_mutex<std::unique_lock<std::mutex>, std::mutex>(
-            result, &dummy_object
-        );
-        EXPECT_TRUE(result.get_value());
-        EXPECT_EQ(result.get_status(), QLogicaeCppCore::ResultStatus::GOOD);
-    }
+        std::string mutex_type_name;
+        bool construct_first;
+    };
 
-    TEST_F(MutexManagerTest, Should_LockMutexSuccessfully_When_UsingSharedLock)
+    class MutexManagerLockMutexTest :
+        public ::testing::Test,
+        public ::testing::WithParamInterface<MutexLockCombinationTestData>
     {
-        QLogicaeCppCore::Result<bool> result;
-        int dummy_object = 0;
-        QLogicaeCppCore::MUTEX_MANAGER.lock_mutex<std::shared_lock<std::shared_mutex>, std::shared_mutex>(
-            result, &dummy_object
-        );
-        EXPECT_TRUE(result.get_value());
-        EXPECT_EQ(result.get_status(), QLogicaeCppCore::ResultStatus::GOOD);
-    }
+    protected:
+        MutexManager& mutex_manager_instance;
 
-    TEST_F(MutexManagerTest, Should_HandleMultipleThreads_When_LockingUniqueMutex)
-    {
-        QLogicaeCppCore::Result<bool> result_main;
-        int shared_counter = 0;
-        constexpr int thread_count = 10;
-        std::vector<std::thread> threads;
+        void* test_pointer;
 
-        for (int i = 0; i < thread_count; i++)
+        MutexManagerLockMutexTest()
+            : mutex_manager_instance(MutexManager::instance),
+            test_pointer(this)
         {
-            threads.emplace_back([&shared_counter, &result_main]()
-                {
-                    QLogicaeCppCore::Result<bool> result;
-                    int dummy_object = 0;
-                    QLogicaeCppCore::MUTEX_MANAGER.lock_mutex<std::unique_lock<std::mutex>, std::mutex>(
-                        result, &dummy_object
-                    );
-                    if (result.get_value())
-                    {
-                        shared_counter++;
-                    }
-                });
         }
 
-        for (auto& thread : threads)
+        void SetUp() override
         {
-            thread.join();
+            ASSERT_TRUE(mutex_manager_instance.construct());
         }
 
-        EXPECT_EQ(shared_counter, thread_count);
+        void TearDown() override
+        {
+            ASSERT_TRUE(mutex_manager_instance.destruct());
+        }
+    };
+
+    struct FailingMutex
+    {
+        FailingMutex() { throw std::runtime_error("Constructor failure"); }
+        void lock() {}
+        void unlock() {}
+    };
+
+    TEST_F(MutexManagerTest, Should_ConstructSuccessfully_When_Called)
+    {
+        ASSERT_TRUE(mutex_manager_instance.construct());
     }
 
-    TEST_F(MutexManagerTest, Should_HandleMultipleThreads_When_LockingSharedMutex)
+    TEST_F(MutexManagerTest, Should_DestructSuccessfully_When_Called)
     {
-        QLogicaeCppCore::Result<bool> result_main;
-        int shared_counter = 0;
-        constexpr int thread_count = 10;
-        std::vector<std::thread> threads;
-
-        for (int i = 0; i < thread_count; i++)
-        {
-            threads.emplace_back([&shared_counter]()
-                {
-                    QLogicaeCppCore::Result<bool> result;
-                    int dummy_object = 0;
-                    QLogicaeCppCore::MUTEX_MANAGER.lock_mutex<std::shared_lock<std::shared_mutex>, std::shared_mutex>(
-                        result, &dummy_object
-                    );
-                    if (result.get_value())
-                    {
-                        shared_counter++;
-                    }
-                });
-        }
-
-        for (auto& thread : threads)
-        {
-            thread.join();
-        }
-
-        EXPECT_EQ(shared_counter, thread_count);
+        ASSERT_TRUE(mutex_manager_instance.destruct());
     }
 
-    TEST_F(MutexManagerTest, Should_PerformLocking_Asynchronously)
+    TEST_F(MutexManagerTest, Should_HandleMultipleConstructDestructCalls_When_CalledRepeatedly)
     {
-        int dummy_object = 0;
-        auto future1 = std::async(std::launch::async, [&dummy_object]()
+        for (std::size_t iteration_index = 0; iteration_index < 10; ++iteration_index)
+        {
+            ASSERT_TRUE(mutex_manager_instance.construct());
+            ASSERT_TRUE(mutex_manager_instance.destruct());
+        }
+    }
+
+    TEST_F(MutexManagerTest, Should_HandleEmptyConfiguration_When_DefaultValuesUsed)
+    {
+        MutexManagerConfigurations empty_configuration;
+        ASSERT_EQ(empty_configuration.base_name, MutexManagerConfigurations::base_name_default);
+        ASSERT_EQ(empty_configuration.base_name_cache, MutexManagerConfigurations::base_name_default);
+    }
+
+    TEST_F(MutexManagerTest, Should_BeExceptionSafe_When_ConstructThrows)
+    {
+        try
+        {
+            mutex_manager_instance._construct();
+        }
+        catch (...)
+        {
+            FAIL();
+        }
+    }
+
+    TEST_F(MutexManagerTest, Should_BeExceptionSafe_When_DestructThrows)
+    {
+        try
+        {
+            mutex_manager_instance._destruct();
+        }
+        catch (...)
+        {
+            FAIL();
+        }
+    }
+
+    TEST_F(MutexManagerTest, Should_HandleConcurrentAsyncAccess_When_UsingFutures)
+    {
+        std::future<bool> future_1 = std::async(std::launch::async, [&]()
             {
-                QLogicaeCppCore::Result<bool> result;
-                QLogicaeCppCore::MUTEX_MANAGER.lock_mutex<std::unique_lock<std::mutex>, std::mutex>(
-                    result, &dummy_object
-                );
-                return result.get_value();
+                return mutex_manager_instance.construct();
             });
 
-        auto future2 = std::async(std::launch::async, [&dummy_object]()
+        std::future<bool> future_2 = std::async(std::launch::async, [&]()
             {
-                QLogicaeCppCore::Result<bool> result;
-                QLogicaeCppCore::MUTEX_MANAGER.lock_mutex<std::shared_lock<std::shared_mutex>, std::shared_mutex>(
-                    result, &dummy_object
-                );
-                return result.get_value();
+                return mutex_manager_instance.destruct();
             });
 
-        EXPECT_TRUE(future1.get());
-        EXPECT_TRUE(future2.get());
+        ASSERT_TRUE(future_1.get());
+        ASSERT_TRUE(future_2.get());
     }
 
-    TEST_F(MutexManagerTest, Should_HandleEdgeCases_When_PointerIsNull)
+    TEST_F(MutexManagerTest, Should_HandleConcurrentThreadAccess_When_UsingThreads)
     {
-        QLogicaeCppCore::Result<bool> result;
-        int* null_pointer = nullptr;
-        QLogicaeCppCore::MUTEX_MANAGER.lock_mutex<std::unique_lock<std::mutex>, std::mutex>(
-            result, null_pointer
-        );
-        EXPECT_TRUE(result.get_value());
-        EXPECT_EQ(result.get_status(), QLogicaeCppCore::ResultStatus::GOOD);
-    }
+        std::atomic<int> success_counter = 0;
 
-    TEST_F(MutexManagerTest, Should_HandleEdgeCases_When_NameIsEmpty)
-    {
-        QLogicaeCppCore::Result<bool> result;
-        int dummy_object = 0;
-        QLogicaeCppCore::MUTEX_MANAGER.lock_mutex<std::unique_lock<std::mutex>, std::mutex>(
-            result, &dummy_object, ""
-        );
-        EXPECT_TRUE(result.get_value());
-    }
-
-    TEST_F(MutexManagerTest, Should_HandleStressTest_WithHighConcurrency)
-    {
-        constexpr int iterations = 1000;
-        std::atomic<int> counter = 0;
-        int dummy_object = 0;
-        std::vector<std::thread> threads;
-
-        for (int i = 0; i < iterations; i++)
-        {
-            threads.emplace_back([&counter, &dummy_object]()
+        auto thread_function = [&](bool construct_call)
+            {
+                if (construct_call)
                 {
-                    QLogicaeCppCore::Result<bool> result;
-                    QLogicaeCppCore::MUTEX_MANAGER.lock_mutex<std::unique_lock<std::mutex>, std::mutex>(
-                        result, &dummy_object
-                    );
-                    if (result.get_value())
+                    if (mutex_manager_instance.construct())
                     {
-                        counter++;
+                        success_counter.fetch_add(1);
                     }
-                });
-        }
+                }
+                else
+                {
+                    if (mutex_manager_instance.destruct())
+                    {
+                        success_counter.fetch_add(1);
+                    }
+                }
+            };
 
-        for (auto& thread : threads)
+        std::vector<std::thread> thread_collection;
+        for (std::size_t iteration_index = 0; iteration_index < 10; ++iteration_index)
         {
-            thread.join();
+            thread_collection.emplace_back(thread_function, true);
+            thread_collection.emplace_back(thread_function, false);
         }
 
-        EXPECT_EQ(counter.load(), iterations);
+        for (auto& active_thread : thread_collection)
+        {
+            active_thread.join();
+        }
+
+        ASSERT_EQ(success_counter.load(), 20);
+    }
+
+    TEST_F(MutexManagerTest, Should_PerformStressTest_When_CalledMultipleTimesRapidly)
+    {
+        auto start_time = std::chrono::steady_clock::now();
+
+        for (std::size_t iteration_index = 0; iteration_index < 1000; ++iteration_index)
+        {
+            ASSERT_TRUE(mutex_manager_instance.construct());
+            ASSERT_TRUE(mutex_manager_instance.destruct());
+        }
+
+        auto end_time = std::chrono::steady_clock::now();
+        auto duration_ms = std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time).count();
+
+        ASSERT_LT(duration_ms, 2000);
+    }
+
+    TEST_P(MutexManagerParameterizedTest, Should_HandleParameterizedBehavior_When_ConstructOrDestructCalled)
+    {
+        auto test_data = GetParam();
+
+        if (test_data.construct_first)
+        {
+            ASSERT_TRUE(mutex_manager_instance.construct());
+            ASSERT_TRUE(mutex_manager_instance.destruct());
+        }
+        else
+        {
+            ASSERT_TRUE(mutex_manager_instance.destruct());
+            ASSERT_TRUE(mutex_manager_instance.construct());
+        }
     }
 
     INSTANTIATE_TEST_CASE_P(
-        MutexManagerParameterized,
+        MutexManagerParameterizedInstantiation,
         MutexManagerParameterizedTest,
         ::testing::Values(
-            MutexTestParam{ reinterpret_cast<void*>(0x1), "first" },
-            MutexTestParam{ reinterpret_cast<void*>(0x2), "second" },
-            MutexTestParam{ nullptr, "" }
+            MutexManagerParameterizedTestData{ true },
+            MutexManagerParameterizedTestData{ false }
         )
     );
 
-    TEST_P(MutexManagerParameterizedTest, Should_LockMutexSuccessfully_ForVariousParameters)
+    TEST_P(MutexManagerLockMutexTest, Should_LockMutexSuccessfully_When_Called)
     {
-        QLogicaeCppCore::Result<bool> result;
-        auto param = GetParam();
-        QLogicaeCppCore::MUTEX_MANAGER.lock_mutex<std::unique_lock<std::mutex>, std::mutex>(
-            result, param.pointer, param.name
-        );
-        EXPECT_TRUE(result.get_value());
-    }
+        auto test_data = GetParam();
 
-    TEST_F(MutexManagerTest, Should_HandleMultipleLocksOnSamePointerAndName)
-    {
-        QLogicaeCppCore::Result<bool> result;
-        int test_object;
-        void* ptr = &test_object;
+        bool lock_result = false;
 
-        QLogicaeCppCore::MUTEX_MANAGER.lock_mutex<std::unique_lock<std::mutex>, std::mutex>(result, ptr, "key1");
-        EXPECT_TRUE(result.get_value());
-
-        QLogicaeCppCore::MUTEX_MANAGER.lock_mutex<std::unique_lock<std::mutex>, std::mutex>(result, ptr, "key1");
-        EXPECT_TRUE(result.get_value());
-
-        QLogicaeCppCore::MUTEX_MANAGER.lock_mutex<std::shared_lock<std::shared_mutex>, std::shared_mutex>(result, ptr, "key2");
-        EXPECT_TRUE(result.get_value());
-    }
-
-    TEST_F(MutexManagerTest, Should_HandleNullPointer)
-    {
-        QLogicaeCppCore::Result<bool> result;
-        void* ptr = nullptr;
-
-        QLogicaeCppCore::MUTEX_MANAGER.lock_mutex<std::unique_lock<std::mutex>, std::mutex>(result, ptr, "null_test");
-        EXPECT_TRUE(result.get_value());
-    }
-
-    TEST_F(MutexManagerTest, Should_HandleEmptyStringName)
-    {
-        QLogicaeCppCore::Result<bool> result;
-        int test_object;
-        void* ptr = &test_object;
-
-        QLogicaeCppCore::MUTEX_MANAGER.lock_mutex<std::unique_lock<std::mutex>, std::mutex>(result, ptr, "");
-        EXPECT_TRUE(result.get_value());
-    }
-
-    TEST_F(MutexManagerTest, Should_HandleLongStringName)
-    {
-        QLogicaeCppCore::Result<bool> result;
-        int test_object;
-        void* ptr = &test_object;
-        std::string long_name(1000, 'x');
-
-        QLogicaeCppCore::MUTEX_MANAGER.lock_mutex<std::unique_lock<std::mutex>, std::mutex>(result, ptr, long_name);
-        EXPECT_TRUE(result.get_value());
-    }
-
-    TEST_F(MutexManagerTest, Should_HandleAsynchronousLocking)
-    {
-        QLogicaeCppCore::Result<bool> result;
-        int test_object;
-        void* ptr = &test_object;
-
-        auto future = std::async(std::launch::async, [&]()
-            {
-                QLogicaeCppCore::Result<bool> async_result;
-                QLogicaeCppCore::MUTEX_MANAGER.lock_mutex<std::unique_lock<std::mutex>, std::mutex>(async_result, ptr, "async");
-                return async_result.get_value();
-            });
-
-        EXPECT_TRUE(future.get());
-    }
-
-    TEST_F(MutexManagerTest, Should_HandleMultithreadedLocking)
-    {
-        QLogicaeCppCore::Result<bool> result;
-        int test_object;
-        void* ptr = &test_object;
-        const int thread_count = 10;
-
-        std::vector<std::thread> threads;
-        for (int i = 0; i < thread_count; ++i)
+        if (test_data.mutex_type_name == "std::mutex")
         {
-            threads.emplace_back([&, i]()
+            lock_result = mutex_manager_instance.lock_mutex<
+                std::unique_lock<std::mutex>, std::mutex>(test_pointer);
+        }
+        else if (test_data.mutex_type_name == "std::timed_mutex")
+        {
+            lock_result = mutex_manager_instance.lock_mutex<
+                std::unique_lock<std::timed_mutex>, std::timed_mutex>(test_pointer);
+        }
+        else if (test_data.mutex_type_name == "std::recursive_mutex")
+        {
+            lock_result = mutex_manager_instance.lock_mutex<
+                std::unique_lock<std::recursive_mutex>, std::recursive_mutex>(test_pointer);
+        }
+        else if (test_data.mutex_type_name == "std::recursive_timed_mutex")
+        {
+            lock_result = mutex_manager_instance.lock_mutex<
+                std::unique_lock<std::recursive_timed_mutex>, std::recursive_timed_mutex>(test_pointer);
+        }
+        else if (test_data.mutex_type_name == "std::shared_mutex")
+        {
+            lock_result = mutex_manager_instance.lock_mutex<
+                std::shared_lock<std::shared_mutex>, std::shared_mutex>(test_pointer);
+        }
+
+        ASSERT_TRUE(lock_result);
+    }
+
+    TEST_P(MutexManagerLockMutexTest, Should_HandleConcurrentAsyncLock_When_Called)
+    {
+        auto test_data = GetParam();
+
+        auto async_task_1 = std::async(std::launch::async, [&]()
+            {
+                bool lock_result_inner = false;
+
+                if (test_data.mutex_type_name == "std::mutex")
                 {
-                    QLogicaeCppCore::Result<bool> thread_result;
-                    QLogicaeCppCore::MUTEX_MANAGER.lock_mutex<std::unique_lock<std::mutex>, std::mutex>(thread_result, ptr,
-                        "multi_thread_" + std::to_string(i));
-                    EXPECT_TRUE(thread_result.get_value());
-                });
-        }
-
-        for (auto& thread : threads)
-        {
-            thread.join();
-        }
-    }
-
-    TEST_F(MutexManagerTest, Should_StressTestHighIterationLocks)
-    {
-        QLogicaeCppCore::Result<bool> result;
-        int test_object;
-        void* ptr = &test_object;
-        const int iteration_count = 1000;
-
-        for (int i = 0; i < iteration_count; ++i)
-        {
-            QLogicaeCppCore::MUTEX_MANAGER.lock_mutex<std::unique_lock<std::mutex>, std::mutex>(result, ptr,
-                "stress_" + std::to_string(i));
-            EXPECT_TRUE(result.get_value());
-        }
-    }
-
-    TEST_F(MutexManagerTest, Should_HandleMultipleMutexTypesConcurrently)
-    {
-        QLogicaeCppCore::Result<bool> result;
-        int test_object;
-        void* ptr = &test_object;
-
-        std::thread thread1([&]()
-            {
-                QLogicaeCppCore::Result<bool> r;
-                QLogicaeCppCore::MUTEX_MANAGER.lock_mutex<std::unique_lock<std::mutex>, std::mutex>(r, ptr, "type1");
-                EXPECT_TRUE(r.get_value());
-            });
-
-        std::thread thread2([&]()
-            {
-                QLogicaeCppCore::Result<bool> r;
-                QLogicaeCppCore::MUTEX_MANAGER.lock_mutex<std::shared_lock<std::shared_mutex>, std::shared_mutex>(r, ptr, "type2");
-                EXPECT_TRUE(r.get_value());
-            });
-
-        thread1.join();
-        thread2.join();
-    }
-    TEST_F(MutexManagerTest, Should_HandleRecursiveLocking)
-    {
-        QLogicaeCppCore::Result<bool> result;
-        std::recursive_mutex rec_mutex;
-        void* ptr = &rec_mutex;
-        QLogicaeCppCore::MUTEX_MANAGER.lock_mutex<std::unique_lock<std::recursive_mutex>, std::recursive_mutex>(result, ptr);
-        EXPECT_TRUE(result.get_value());
-        QLogicaeCppCore::MUTEX_MANAGER.lock_mutex<std::unique_lock<std::recursive_mutex>, std::recursive_mutex>(result, ptr);
-        EXPECT_TRUE(result.get_value());
-    }
-
-    TEST_F(MutexManagerTest, Should_HandleRecursiveTimedLocking)
-    {
-        QLogicaeCppCore::Result<bool> result;
-        std::recursive_timed_mutex rec_timed_mutex;
-        void* ptr = &rec_timed_mutex;
-        QLogicaeCppCore::MUTEX_MANAGER.lock_mutex<std::unique_lock<std::recursive_timed_mutex>, std::recursive_timed_mutex>(result, ptr);
-        EXPECT_TRUE(result.get_value());
-        QLogicaeCppCore::MUTEX_MANAGER.lock_mutex<std::unique_lock<std::recursive_timed_mutex>, std::recursive_timed_mutex>(result, ptr);
-        EXPECT_TRUE(result.get_value());
-    }
-
-    TEST_F(MutexManagerTest, Should_HandleTimedMutexLock)
-    {
-        QLogicaeCppCore::Result<bool> result;
-        std::timed_mutex timed_mutex;
-        void* ptr = &timed_mutex;
-        QLogicaeCppCore::MUTEX_MANAGER.lock_mutex<std::unique_lock<std::timed_mutex>, std::timed_mutex>(result, ptr);
-        EXPECT_TRUE(result.get_value());
-    }
-
-    TEST_F(MutexManagerTest, Should_HandleMultipleSharedLocksConcurrently)
-    {
-        QLogicaeCppCore::Result<bool> result;
-        std::shared_mutex shared_mutex;
-        void* ptr = &shared_mutex;
-        std::atomic<int> counter = 0;
-        constexpr int thread_count = 10;
-        std::vector<std::thread> threads;
-
-        for (int i = 0; i < thread_count; ++i)
-        {
-            threads.emplace_back([&counter, &ptr]()
+                    lock_result_inner = mutex_manager_instance.lock_mutex<
+                        std::unique_lock<std::mutex>, std::mutex>(test_pointer);
+                }
+                else if (test_data.mutex_type_name == "std::timed_mutex")
                 {
-                    QLogicaeCppCore::Result<bool> r;
-                    QLogicaeCppCore::MUTEX_MANAGER.lock_mutex<std::shared_lock<std::shared_mutex>, std::shared_mutex>(r, ptr);
-                    if (r.get_value()) counter++;
-                });
+                    lock_result_inner = mutex_manager_instance.lock_mutex<
+                        std::unique_lock<std::timed_mutex>, std::timed_mutex>(test_pointer);
+                }
+                else if (test_data.mutex_type_name == "std::recursive_mutex")
+                {
+                    lock_result_inner = mutex_manager_instance.lock_mutex<
+                        std::unique_lock<std::recursive_mutex>, std::recursive_mutex>(test_pointer);
+                }
+                else if (test_data.mutex_type_name == "std::recursive_timed_mutex")
+                {
+                    lock_result_inner = mutex_manager_instance.lock_mutex<
+                        std::unique_lock<std::recursive_timed_mutex>, std::recursive_timed_mutex>(test_pointer);
+                }
+                else if (test_data.mutex_type_name == "std::shared_mutex")
+                {
+                    lock_result_inner = mutex_manager_instance.lock_mutex<
+                        std::shared_lock<std::shared_mutex>, std::shared_mutex>(test_pointer);
+                }
+
+                return lock_result_inner;
+            });
+
+        auto async_task_2 = std::async(std::launch::async, [&]()
+            {
+                bool lock_result_inner = false;
+
+                if (test_data.mutex_type_name == "std::mutex")
+                {
+                    lock_result_inner = mutex_manager_instance.lock_mutex<
+                        std::unique_lock<std::mutex>, std::mutex>(test_pointer);
+                }
+                else if (test_data.mutex_type_name == "std::timed_mutex")
+                {
+                    lock_result_inner = mutex_manager_instance.lock_mutex<
+                        std::unique_lock<std::timed_mutex>, std::timed_mutex>(test_pointer);
+                }
+                else if (test_data.mutex_type_name == "std::recursive_mutex")
+                {
+                    lock_result_inner = mutex_manager_instance.lock_mutex<
+                        std::unique_lock<std::recursive_mutex>, std::recursive_mutex>(test_pointer);
+                }
+                else if (test_data.mutex_type_name == "std::recursive_timed_mutex")
+                {
+                    lock_result_inner = mutex_manager_instance.lock_mutex<
+                        std::unique_lock<std::recursive_timed_mutex>, std::recursive_timed_mutex>(test_pointer);
+                }
+                else if (test_data.mutex_type_name == "std::shared_mutex")
+                {
+                    lock_result_inner = mutex_manager_instance.lock_mutex<
+                        std::shared_lock<std::shared_mutex>, std::shared_mutex>(test_pointer);
+                }
+
+                return lock_result_inner;
+            });
+
+        ASSERT_TRUE(async_task_1.get());
+        ASSERT_TRUE(async_task_2.get());
+    }
+
+    TEST_P(MutexManagerLockMutexTest, Should_PerformStressLock_When_CalledMultipleTimes)
+    {
+        auto test_data = GetParam();
+
+        auto start_time = std::chrono::steady_clock::now();
+
+        for (std::size_t iteration_index = 0; iteration_index < 1000; ++iteration_index)
+        {
+            bool lock_result = false;
+
+            if (test_data.mutex_type_name == "std::mutex")
+            {
+                lock_result = mutex_manager_instance.lock_mutex<
+                    std::unique_lock<std::mutex>, std::mutex>(test_pointer);
+            }
+            else if (test_data.mutex_type_name == "std::timed_mutex")
+            {
+                lock_result = mutex_manager_instance.lock_mutex<
+                    std::unique_lock<std::timed_mutex>, std::timed_mutex>(test_pointer);
+            }
+            else if (test_data.mutex_type_name == "std::recursive_mutex")
+            {
+                lock_result = mutex_manager_instance.lock_mutex<
+                    std::unique_lock<std::recursive_mutex>, std::recursive_mutex>(test_pointer);
+            }
+            else if (test_data.mutex_type_name == "std::recursive_timed_mutex")
+            {
+                lock_result = mutex_manager_instance.lock_mutex<
+                    std::unique_lock<std::recursive_timed_mutex>, std::recursive_timed_mutex>(test_pointer);
+            }
+            else if (test_data.mutex_type_name == "std::shared_mutex")
+            {
+                lock_result = mutex_manager_instance.lock_mutex<
+                    std::shared_lock<std::shared_mutex>, std::shared_mutex>(test_pointer);
+            }
+
+            ASSERT_TRUE(lock_result);
         }
 
+        auto end_time = std::chrono::steady_clock::now();
+        auto duration_ms = std::chrono::duration_cast<std::chrono::milliseconds>(
+            end_time - start_time
+        ).count();
+
+        ASSERT_LT(duration_ms, 2000);
+    }
+
+    INSTANTIATE_TEST_CASE_P(
+        MutexManagerLockMutexParameterizedInstantiation,
+        MutexManagerLockMutexTest,
+        ::testing::Values(
+            MutexLockCombinationTestData{ "std::mutex", true },
+            MutexLockCombinationTestData{ "std::mutex", false },
+            MutexLockCombinationTestData{ "std::timed_mutex", true },
+            MutexLockCombinationTestData{ "std::timed_mutex", false },
+            MutexLockCombinationTestData{ "std::recursive_mutex", true },
+            MutexLockCombinationTestData{ "std::recursive_mutex", false },
+            MutexLockCombinationTestData{ "std::recursive_timed_mutex", true },
+            MutexLockCombinationTestData{ "std::recursive_timed_mutex", false },
+            MutexLockCombinationTestData{ "std::shared_mutex", true },
+            MutexLockCombinationTestData{ "std::shared_mutex", false }
+        )
+    );
+
+    TEST_F(MutexManagerLockMutexTest, Should_ReturnFalse_When_PointerIsNull)
+    {
+        bool lock_result = mutex_manager_instance.lock_mutex<
+            std::unique_lock<std::mutex>, std::mutex>(nullptr);
+        ASSERT_FALSE(lock_result);
+    }
+
+    TEST_F(MutexManagerLockMutexTest, Should_HandleEmptyName_When_Called)
+    {
+        bool lock_result = mutex_manager_instance.lock_mutex<
+            std::unique_lock<std::mutex>, std::mutex>(test_pointer, "");
+        ASSERT_TRUE(lock_result);
+    }
+
+    TEST_F(MutexManagerLockMutexTest, Should_HandleSharedMutexConcurrentRead)
+    {
+        std::atomic<int> success_count = 0;
+        auto task = [&]()
+            {
+                if (mutex_manager_instance.lock_mutex<
+                    std::shared_lock<std::shared_mutex>, std::shared_mutex>(test_pointer))
+                {
+                    success_count.fetch_add(1);
+                }
+            };
+
+        std::vector<std::thread> threads(5);
+        for (auto& t : threads) t = std::thread(task);
         for (auto& t : threads) t.join();
-        EXPECT_EQ(counter.load(), thread_count);
+
+        ASSERT_EQ(success_count.load(), 5);
     }
 
-    TEST_F(MutexManagerTest, Should_HandleLockingDifferentMutexTypesSimultaneously)
+    TEST_P(MutexManagerLockMutexTest, Should_PerformStressLock_AllMutexTypes)
     {
-        std::mutex m1;
-        std::shared_mutex m2;
-        QLogicaeCppCore::Result<bool> r1, r2;
-        void* ptr1 = &m1;
-        void* ptr2 = &m2;
+        auto test_data = GetParam();
+        auto start_time = std::chrono::steady_clock::now();
 
-        std::thread t1([&]() { QLogicaeCppCore::MUTEX_MANAGER.lock_mutex<std::unique_lock<std::mutex>, std::mutex>(r1, ptr1); });
-        std::thread t2([&]() { QLogicaeCppCore::MUTEX_MANAGER.lock_mutex<std::shared_lock<std::shared_mutex>, std::shared_mutex>(r2, ptr2); });
-
-        t1.join();
-        t2.join();
-        EXPECT_TRUE(r1.get_value());
-        EXPECT_TRUE(r2.get_value());
-    }
-
-    TEST_F(MutexManagerTest, Should_HandleConcurrentLocksOnSameRecursiveMutex)
-    {
-        std::recursive_mutex rec_mutex;
-        void* ptr = &rec_mutex;
-        std::atomic<int> counter = 0;
-        constexpr int thread_count = 5;
-        std::vector<std::thread> threads;
-
-        for (int i = 0; i < thread_count; ++i)
+        for (std::size_t i = 0; i < 1000; ++i)
         {
-            threads.emplace_back([&]()
-                {
-                    QLogicaeCppCore::Result<bool> r;
-                    QLogicaeCppCore::MUTEX_MANAGER.lock_mutex<std::unique_lock<std::recursive_mutex>, std::recursive_mutex>(r, ptr);
-                    if (r.get_value()) counter++;
-                });
+            bool lock_result = false;
+
+            if (test_data.mutex_type_name == "std::mutex")
+            {
+                lock_result = mutex_manager_instance.lock_mutex<
+                    std::unique_lock<std::mutex>, std::mutex>(test_pointer);
+            }
+            else if (test_data.mutex_type_name == "std::timed_mutex")
+            {
+                lock_result = mutex_manager_instance.lock_mutex<
+                    std::unique_lock<std::timed_mutex>, std::timed_mutex>(test_pointer);
+            }
+            else if (test_data.mutex_type_name == "std::recursive_mutex")
+            {
+                lock_result = mutex_manager_instance.lock_mutex<
+                    std::unique_lock<std::recursive_mutex>, std::recursive_mutex>(test_pointer);
+            }
+            else if (test_data.mutex_type_name == "std::recursive_timed_mutex")
+            {
+                lock_result = mutex_manager_instance.lock_mutex<
+                    std::unique_lock<std::recursive_timed_mutex>, std::recursive_timed_mutex>(test_pointer);
+            }
+            else if (test_data.mutex_type_name == "std::shared_mutex")
+            {
+                lock_result = mutex_manager_instance.lock_mutex<
+                    std::shared_lock<std::shared_mutex>, std::shared_mutex>(test_pointer);
+            }
+
+            ASSERT_TRUE(lock_result);
         }
 
-        for (auto& t : threads) t.join();
-        EXPECT_EQ(counter.load(), thread_count);
+        auto end_time = std::chrono::steady_clock::now();
+        auto duration_ms = std::chrono::duration_cast<std::chrono::milliseconds>(
+            end_time - start_time
+        ).count();
+
+        ASSERT_LT(duration_ms, 2000);
     }
 
-    TEST_F(MutexManagerTest, Should_HandleConcurrentLocksOnSameTimedMutex)
+    TEST_F(MutexManagerTest, Should_ReturnFalse_When_LockMutexCalledWithNullptr)
     {
-        std::timed_mutex timed_mutex;
-        void* ptr = &timed_mutex;
-        std::atomic<int> counter = 0;
-        constexpr int thread_count = 5;
-        std::vector<std::thread> threads;
+        bool lock_result = mutex_manager_instance.lock_mutex<std::unique_lock<std::mutex>, std::mutex>(nullptr);
+        ASSERT_FALSE(lock_result);
+    }
 
-        for (int i = 0; i < thread_count; ++i)
+    TEST_F(MutexManagerTest, Should_HandleEmptyBaseName_When_ConstructCalled)
+    {
+        MutexManagerConfigurations config;
+        config.base_name = "";
+        config.base_name_cache = "";
+        ASSERT_TRUE(mutex_manager_instance.construct());
+        ASSERT_TRUE(mutex_manager_instance.destruct());
+    }
+
+    TEST_P(MutexManagerLockMutexTest, Should_AllowRecursiveLock_When_UsingRecursiveMutex)
+    {
+        auto test_data = GetParam();
+        if (test_data.mutex_type_name == "std::recursive_mutex" ||
+            test_data.mutex_type_name == "std::recursive_timed_mutex")
         {
-            threads.emplace_back([&]()
-                {
-                    QLogicaeCppCore::Result<bool> r;
-                    QLogicaeCppCore::MUTEX_MANAGER.lock_mutex<std::unique_lock<std::timed_mutex>, std::timed_mutex>(r, ptr);
-                    if (r.get_value()) counter++;
-                });
+            bool first_lock = false;
+            bool second_lock = false;
+            if (test_data.mutex_type_name == "std::recursive_mutex")
+            {
+                first_lock = mutex_manager_instance.lock_mutex<std::unique_lock<std::recursive_mutex>, std::recursive_mutex>(test_pointer);
+                second_lock = mutex_manager_instance.lock_mutex<std::unique_lock<std::recursive_mutex>, std::recursive_mutex>(test_pointer);
+            }
+            else
+            {
+                first_lock = mutex_manager_instance.lock_mutex<std::unique_lock<std::recursive_timed_mutex>, std::recursive_timed_mutex>(test_pointer);
+                second_lock = mutex_manager_instance.lock_mutex<std::unique_lock<std::recursive_timed_mutex>, std::recursive_timed_mutex>(test_pointer);
+            }
+            ASSERT_TRUE(first_lock);
+            ASSERT_TRUE(second_lock);
         }
-
-        for (auto& t : threads) t.join();
-        EXPECT_EQ(counter.load(), thread_count);
     }
 
-    TEST_F(MutexManagerTest, Should_HandleSharedLockAfterUniqueLockOnSameSharedMutex)
+    TEST_P(MutexManagerLockMutexTest, Should_AllowMultipleSharedLocksConcurrently)
     {
-        std::shared_mutex shared_mutex;
-        void* ptr = &shared_mutex;
-        QLogicaeCppCore::Result<bool> r1, r2;
-
-        QLogicaeCppCore::MUTEX_MANAGER.lock_mutex<std::unique_lock<std::shared_mutex>, std::shared_mutex>(r1, ptr);
-        EXPECT_TRUE(r1.get_value());
-
-        QLogicaeCppCore::MUTEX_MANAGER.lock_mutex<std::shared_lock<std::shared_mutex>, std::shared_mutex>(r2, ptr);
-        EXPECT_TRUE(r2.get_value());
+        auto test_data = GetParam();
+        if (test_data.mutex_type_name == "std::shared_mutex")
+        {
+            auto shared_lock_task_1 = std::async(std::launch::async, [&]()
+                {
+                    return mutex_manager_instance.lock_mutex<std::shared_lock<std::shared_mutex>, std::shared_mutex>(test_pointer);
+                });
+            auto shared_lock_task_2 = std::async(std::launch::async, [&]()
+                {
+                    return mutex_manager_instance.lock_mutex<std::shared_lock<std::shared_mutex>, std::shared_mutex>(test_pointer);
+                });
+            ASSERT_TRUE(shared_lock_task_1.get());
+            ASSERT_TRUE(shared_lock_task_2.get());
+        }
     }
 
-    TEST_F(MutexManagerTest, Should_FailToLockTimedMutex_When_AlreadyLocked)
+    TEST_P(MutexManagerLockMutexTest, Should_HandleTimedMutexTimeout)
     {
-        QLogicaeCppCore::Result<bool> result1, result2;
-        std::timed_mutex timed_mutex;
-        void* ptr = &timed_mutex;
+        auto test_data = GetParam();
 
-        QLogicaeCppCore::MUTEX_MANAGER.lock_mutex<std::unique_lock<std::timed_mutex>, std::timed_mutex>(result1, ptr);
-
-        std::thread t([&]()
-            {
-                QLogicaeCppCore::MUTEX_MANAGER.lock_mutex<std::unique_lock<std::timed_mutex>, std::timed_mutex>(result2, ptr);
-            });
-        t.join();
-
-        EXPECT_TRUE(result1.get_value());
-        EXPECT_TRUE(result2.get_value());
+        if (test_data.mutex_type_name == "std::timed_mutex")
+        {
+            std::timed_mutex timed_mutex_instance;
+            std::unique_lock<std::timed_mutex> lock(timed_mutex_instance, std::defer_lock);
+            bool lock_result = mutex_manager_instance.lock_mutex<std::unique_lock<std::timed_mutex>, std::timed_mutex>(test_pointer);
+            ASSERT_TRUE(lock_result);
+        }
+        else if (test_data.mutex_type_name == "std::recursive_timed_mutex")
+        {
+            std::recursive_timed_mutex recursive_timed_mutex_instance;
+            std::unique_lock<std::recursive_timed_mutex> lock(recursive_timed_mutex_instance, std::defer_lock);
+            bool lock_result = mutex_manager_instance.lock_mutex<std::unique_lock<std::recursive_timed_mutex>, std::recursive_timed_mutex>(test_pointer);
+            ASSERT_TRUE(lock_result);
+        }
+        else if (test_data.mutex_type_name == "std::recursive_mutex")
+        {
+            std::recursive_mutex recursive_mutex_instance;
+            std::unique_lock<std::recursive_mutex> lock(recursive_mutex_instance, std::defer_lock);
+            bool lock_result = mutex_manager_instance.lock_mutex<std::unique_lock<std::recursive_mutex>, std::recursive_mutex>(test_pointer);
+            ASSERT_TRUE(lock_result);
+        }
     }
 
-    TEST_F(MutexManagerTest, Should_FailToLockRecursiveTimedMutex_When_AlreadyLocked)
+    TEST_F(MutexManagerTest, Should_BeExceptionSafe_When_MutexConstructorThrows)
     {
-        QLogicaeCppCore::Result<bool> result1, result2;
-        std::recursive_timed_mutex rec_timed_mutex;
-        void* ptr = &rec_timed_mutex;
-
-        QLogicaeCppCore::MUTEX_MANAGER.lock_mutex<std::unique_lock<std::recursive_timed_mutex>, std::recursive_timed_mutex>(result1, ptr);
-
-        std::thread t([&]()
-            {
-                QLogicaeCppCore::MUTEX_MANAGER.lock_mutex<std::unique_lock<std::recursive_timed_mutex>, std::recursive_timed_mutex>(result2, ptr);
-            });
-        t.join();
-
-        EXPECT_TRUE(result1.get_value());
-        EXPECT_TRUE(result2.get_value());
+        try
+        {
+            FailingMutex failing_mutex_instance;
+            std::unique_lock<FailingMutex> lock(failing_mutex_instance);
+            FAIL();
+        }
+        catch (...)
+        {
+        }
     }
 }

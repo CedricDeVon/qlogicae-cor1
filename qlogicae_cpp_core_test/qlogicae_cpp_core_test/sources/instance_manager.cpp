@@ -1,6 +1,6 @@
 #include "pch.hpp"
 
-#include "qlogicae_cpp_core/includes/instance_manager.hpp"
+#include "../includes/instance_manager.hpp"
 
 using namespace QLogicaeCppCore;
 

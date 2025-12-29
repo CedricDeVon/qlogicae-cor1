@@ -87,12 +87,14 @@ namespace QLogicaeCppCore
         ) requires ValidLock<LockType, MutexType>
     {
         void_pointer_cache_1 =
-            pointer;
+            const_cast<void*>(pointer);
 
         string_view_cache_1 =
             MutexManagerConfigurations::base_name_cache;
 
         _lock_mutex<LockType, MutexType>();
+
+        return boolean_cache_1;
     }
 
     template<typename LockType, typename MutexType> bool
@@ -102,12 +104,14 @@ namespace QLogicaeCppCore
     ) requires ValidLock<LockType, MutexType>
     {
         void_pointer_cache_1 =
-            pointer;
+            const_cast<void*>(pointer);
 
         string_view_cache_1 =
             name;
 
         _lock_mutex<LockType, MutexType>();
+
+        return boolean_cache_1;
     }
 
     template<typename LockType, typename MutexType> void
@@ -116,6 +120,13 @@ namespace QLogicaeCppCore
     {
         try
         {
+            if (!void_pointer_cache_1)
+            {
+                boolean_cache_1 = false;
+
+                return;
+            }
+
             MutexType*
                 mutex_pointer =
                     nullptr;
@@ -166,17 +177,6 @@ namespace QLogicaeCppCore
             }
             else if constexpr
                 (std::is_same_v<MutexType, std::shared_mutex>)
-            {
-                mutex_pointer =
-                    &shared_mutex_collection[
-                        {
-                            void_pointer_cache_1,
-                            string_view_cache_1.data()
-                        }
-                    ];
-            }
-            else if constexpr
-                (std::is_same_v<MutexType, std::recursive_timed_mutex>)
             {
                 mutex_pointer =
                     &shared_mutex_collection[
