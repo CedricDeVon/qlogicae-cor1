@@ -2,1328 +2,1333 @@
 
 namespace QLogicaeCppCore
 {
-    inline static void* void_pointer_cache_1 =
-        nullptr;
+    class ValueCache
+    {
+    public:
+        static void*
+            void_pointer_1;
 
-    inline static void* void_pointer_cache_2 =
-        nullptr;
+        static void*
+            void_pointer_2;
 
-    inline static void* void_pointer_cache_3 =
-        nullptr;
+        static void*
+            void_pointer_3;
 
-    inline static void* void_pointer_cache_4 =
-        nullptr;
+        static void*
+            void_pointer_4;
 
-    inline static void* void_pointer_cache_5 =
-        nullptr;
+        static void*
+            void_pointer_5;
 
-    inline static void* void_pointer_cache_6 =
-        nullptr;
+        static void*
+            void_pointer_6;
 
-    inline static void* void_pointer_cache_7 =
-        nullptr;
+        static void*
+            void_pointer_7;
 
-    inline static void* void_pointer_cache_8 =
-        nullptr;
+        static void*
+            void_pointer_8;
 
 
 
-    inline static bool boolean_cache_1 =
-        false;
+        static bool
+            boolean_1;
 
-    inline static bool boolean_cache_2 =
-        false;
+        static bool
+            boolean_2;
 
-    inline static bool boolean_cache_3 =
-        false;
+        static bool
+            boolean_3;
 
-    inline static bool boolean_cache_4 =
-        false;
+        static bool
+            boolean_4;
 
-    inline static bool boolean_cache_5 =
-        false;
+        static bool
+            boolean_5;
 
-    inline static bool boolean_cache_6 =
-        false;
+        static bool
+            boolean_6;
 
-    inline static bool boolean_cache_7 =
-        false;
+        static bool
+            boolean_7;
 
-    inline static bool boolean_cache_8 =
-        false;
+        static bool
+            boolean_8;
 
-    inline static bool* boolean_pointer_cache_1 =
-        nullptr;
+        static bool*
+            boolean_pointer_1;
 
-    inline static bool* boolean_pointer_cache_2 =
-        nullptr;
+        static bool*
+            boolean_pointer_2;
 
-    inline static bool* boolean_pointer_cache_3 =
-        nullptr;
+        static bool*
+            boolean_pointer_3;
 
-    inline static bool* boolean_pointer_cache_4 =
-        nullptr;
+        static bool*
+            boolean_pointer_4;
 
-    inline static bool* boolean_pointer_cache_5 =
-        nullptr;
+        static bool*
+            boolean_pointer_5;
 
-    inline static bool* boolean_pointer_cache_6 =
-        nullptr;
+        static bool*
+            boolean_pointer_6;
 
-    inline static bool* boolean_pointer_cache_7 =
-        nullptr;
+        static bool*
+            boolean_pointer_7;
 
-    inline static bool* boolean_pointer_cache_8 =
-        nullptr;
+        static bool*
+            boolean_pointer_8;
 
 
 
-    inline static char char_cache_1 =
-        '0';
+        static char
+            char_1;
 
-    inline static char char_cache_2 =
-        '0';
+        static char
+            char_2;
 
-    inline static char char_cache_3 =
-        '0';
+        static char
+            char_3;
 
-    inline static char char_cache_4 =
-        '0';
+        static char
+            char_4;
 
-    inline static char char_cache_5 =
-        '0';
+        static char
+            char_5;
 
-    inline static char char_cache_6 =
-        '0';
+        static char
+            char_6;
 
-    inline static char char_cache_7 =
-        '0';
+        static char
+            char_7;
 
-    inline static char char_cache_8 =
-        '0';
+        static char
+            char_8;
 
-    inline static char* char_pointer_cache_1 =
-        nullptr;
+        static char*
+            char_pointer_1;
 
-    inline static char* char_pointer_cache_2 =
-        nullptr;
+        static char*
+            char_pointer_2;
 
-    inline static char* char_pointer_cache_3 =
-        nullptr;
+        static char*
+            char_pointer_3;
 
-    inline static char* char_pointer_cache_4 =
-        nullptr;
+        static char*
+            char_pointer_4;
 
-    inline static char* char_pointer_cache_5 =
-        nullptr;
+        static char*
+            char_pointer_5;
 
-    inline static char* char_pointer_cache_6 =
-        nullptr;
+        static char*
+            char_pointer_6;
 
-    inline static char* char_pointer_cache_7 =
-        nullptr;
+        static char*
+            char_pointer_7;
 
-    inline static char* char_pointer_cache_8 =
-        nullptr;
+        static char*
+            char_pointer_8;
 
 
 
-    inline static wchar_t wchar_t_cache_1 =
-        L'0';
+        static wchar_t
+            wchar_t_1;
 
-    inline static wchar_t wchar_t_cache_2 =
-        L'0';
+        static wchar_t
+            wchar_t_2;
 
-    inline static wchar_t wchar_t_cache_3 =
-        L'0';
+        static wchar_t
+            wchar_t_3;
 
-    inline static wchar_t wchar_t_cache_4 =
-        L'0';
+        static wchar_t
+            wchar_t_4;
 
-    inline static wchar_t wchar_t_cache_5 =
-        L'0';
+        static wchar_t
+            wchar_t_5;
 
-    inline static wchar_t wchar_t_cache_6 =
-        L'0';
+        static wchar_t
+            wchar_t_6;
 
-    inline static wchar_t wchar_t_cache_7 =
-        L'0';
+        static wchar_t
+            wchar_t_7;
 
-    inline static wchar_t wchar_t_cache_8 =
-        L'0';
+        static wchar_t
+            wchar_t_8;
 
-    inline static wchar_t* wchar_t_pointer_cache_1 =
-        nullptr;
+        static wchar_t*
+            wchar_t_pointer_1;
 
-    inline static wchar_t* wchar_t_pointer_cache_2 =
-        nullptr;
+        static wchar_t*
+            wchar_t_pointer_2;
 
-    inline static wchar_t* wchar_t_pointer_cache_3 =
-        nullptr;
+        static wchar_t*
+            wchar_t_pointer_3;
 
-    inline static wchar_t* wchar_t_pointer_cache_4 =
-        nullptr;
+        static wchar_t*
+            wchar_t_pointer_4;
 
-    inline static wchar_t* wchar_t_pointer_cache_5 =
-        nullptr;
+        static wchar_t*
+            wchar_t_pointer_5;
 
-    inline static wchar_t* wchar_t_pointer_cache_6 =
-        nullptr;
+        static wchar_t*
+            wchar_t_pointer_6;
 
-    inline static wchar_t* wchar_t_pointer_cache_7 =
-        nullptr;
+        static wchar_t*
+            wchar_t_pointer_7;
 
-    inline static wchar_t* wchar_t_pointer_cache_8 =
-        nullptr;
+        static wchar_t*
+            wchar_t_pointer_8;
 
 
 
-    inline static unsigned char unsigned_char_cache_1 =
-        '0';
+        static unsigned char
+            unsigned_char_1;
 
-    inline static unsigned char unsigned_char_cache_2 =
-        '0';
+        static unsigned char
+            unsigned_char_2;
 
-    inline static unsigned char unsigned_char_cache_3 =
-        '0';
+        static unsigned char
+            unsigned_char_3;
 
-    inline static unsigned char unsigned_char_cache_4 =
-        '0';
+        static unsigned char
+            unsigned_char_4;
 
-    inline static unsigned char unsigned_char_cache_5 =
-        '0';
+        static unsigned char
+            unsigned_char_5;
 
-    inline static unsigned char unsigned_char_cache_6 =
-        '0';
+        static unsigned char
+            unsigned_char_6;
 
-    inline static unsigned char unsigned_char_cache_7 =
-        '0';
+        static unsigned char
+            unsigned_char_7;
 
-    inline static unsigned char unsigned_char_cache_8 =
-        '0';
+        static unsigned char
+            unsigned_char_8;
 
-    inline static unsigned char* unsigned_char_pointer_cache_1 =
-        nullptr;
+        static unsigned char*
+            unsigned_char_pointer_1;
 
-    inline static unsigned char* unsigned_char_pointer_cache_2 =
-        nullptr;
+        static unsigned char*
+            unsigned_char_pointer_2;
 
-    inline static unsigned char* unsigned_char_pointer_cache_3 =
-        nullptr;
+        static unsigned char*
+            unsigned_char_pointer_3;
 
-    inline static unsigned char* unsigned_char_pointer_cache_4 =
-        nullptr;
+        static unsigned char*
+            unsigned_char_pointer_4;
 
-    inline static unsigned char* unsigned_char_pointer_cache_5 =
-        nullptr;
+        static unsigned char*
+            unsigned_char_pointer_5;
 
-    inline static unsigned char* unsigned_char_pointer_cache_6 =
-        nullptr;
+        static unsigned char*
+            unsigned_char_pointer_6;
 
-    inline static unsigned char* unsigned_char_pointer_cache_7 =
-        nullptr;
+        static unsigned char*
+            unsigned_char_pointer_7;
 
-    inline static unsigned char* unsigned_char_pointer_cache_8 =
-        nullptr;
+        static unsigned char*
+            unsigned_char_pointer_8;
 
 
 
-    inline static short int short_int_cache_1 =
-        0;
+        static short int
+            short_int_1;
 
-    inline static short int short_int_cache_2 =
-        0;
+        static short int
+            short_int_2;
 
-    inline static short int short_int_cache_3 =
-        0;
+        static short int
+            short_int_3;
 
-    inline static short int short_int_cache_4 =
-        0;
+        static short int
+            short_int_4;
 
-    inline static short int short_int_cache_5 =
-        0;
+        static short int
+            short_int_5;
 
-    inline static short int short_int_cache_6 =
-        0;
+        static short int
+            short_int_6;
 
-    inline static short int short_int_cache_7 =
-        0;
+        static short int
+            short_int_7;
 
-    inline static short int short_int_cache_8 =
-        0;
+        static short int
+            short_int_8;
 
-    inline static short int* short_int_pointer_cache_1 =
-        nullptr;
+        static short int*
+            short_int_pointer_1;
 
-    inline static short int* short_int_pointer_cache_2 =
-        nullptr;
+        static short int*
+            short_int_pointer_2;
 
-    inline static short int* short_int_pointer_cache_3 =
-        nullptr;
+        static short int*
+            short_int_pointer_3;
 
-    inline static short int* short_int_pointer_cache_4 =
-        nullptr;
+        static short int*
+            short_int_pointer_4;
 
-    inline static short int* short_int_pointer_cache_5 =
-        nullptr;
+        static short int*
+            short_int_pointer_5;
 
-    inline static short int* short_int_pointer_cache_6 =
-        nullptr;
+        static short int*
+            short_int_pointer_6;
 
-    inline static short int* short_int_pointer_cache_7 =
-        nullptr;
+        static short int*
+            short_int_pointer_7;
 
-    inline static short int* short_int_pointer_cache_8 =
-        nullptr;
+        static short int*
+            short_int_pointer_8;
 
 
 
-    inline static unsigned short int unsigned_short_int_cache_1 =
-        0;
+        static unsigned short int
+            unsigned_short_int_1;
 
-    inline static unsigned short int unsigned_short_int_cache_2 =
-        0;
+        static unsigned short int
+            unsigned_short_int_2;
 
-    inline static unsigned short int unsigned_short_int_cache_3 =
-        0;
+        static unsigned short int
+            unsigned_short_int_3;
 
-    inline static unsigned short int unsigned_short_int_cache_4 =
-        0;
+        static unsigned short int
+            unsigned_short_int_4;
 
-    inline static unsigned short int unsigned_short_int_cache_5 =
-        0;
+        static unsigned short int
+            unsigned_short_int_5;
 
-    inline static unsigned short int unsigned_short_int_cache_6 =
-        0;
+        static unsigned short int
+            unsigned_short_int_6;
 
-    inline static unsigned short int unsigned_short_int_cache_7 =
-        0;
+        static unsigned short int
+            unsigned_short_int_7;
 
-    inline static unsigned short int unsigned_short_int_cache_8 =
-        0;
+        static unsigned short int
+            unsigned_short_int_8;
 
-    inline static unsigned short int* unsigned_short_int_pointer_cache_1 =
-        nullptr;
+        static unsigned short int*
+            unsigned_short_int_pointer_1;
 
-    inline static unsigned short int* unsigned_short_int_pointer_cache_2 =
-        nullptr;
+        static unsigned short int*
+            unsigned_short_int_pointer_2;
 
-    inline static unsigned short int* unsigned_short_int_pointer_cache_3 =
-        nullptr;
+        static unsigned short int*
+            unsigned_short_int_pointer_3;
 
-    inline static unsigned short int* unsigned_short_int_pointer_cache_4 =
-        nullptr;
+        static unsigned short int*
+            unsigned_short_int_pointer_4;
 
-    inline static unsigned short int* unsigned_short_int_pointer_cache_5 =
-        nullptr;
+        static unsigned short int*
+            unsigned_short_int_pointer_5;
 
-    inline static unsigned short int* unsigned_short_int_pointer_cache_6 =
-        nullptr;
+        static unsigned short int*
+            unsigned_short_int_pointer_6;
 
-    inline static unsigned short int* unsigned_short_int_pointer_cache_7 =
-        nullptr;
+        static unsigned short int*
+            unsigned_short_int_pointer_7;
 
-    inline static unsigned short int* unsigned_short_int_pointer_cache_8 =
-        nullptr;
+        static unsigned short int*
+            unsigned_short_int_pointer_8;
 
 
 
-    inline static int int_cache_1 =
-        0;
+        static int
+            int_1;
 
-    inline static int int_cache_2 =
-        0;
+        static int
+            int_2;
 
-    inline static int int_cache_3 =
-        0;
+        static int
+            int_3;
 
-    inline static int int_cache_4 =
-        0;
+        static int
+            int_4;
 
-    inline static int int_cache_5 =
-        0;
+        static int
+            int_5;
 
-    inline static int int_cache_6 =
-        0;
+        static int
+            int_6;
 
-    inline static int int_cache_7 =
-        0;
+        static int
+            int_7;
 
-    inline static int int_cache_8 =
-        0;
+        static int
+            int_8;
 
-    inline static int* int_pointer_cache_1 =
-        nullptr;
+        static int*
+            int_pointer_1;
 
-    inline static int* int_pointer_cache_2 =
-        nullptr;
+        static int*
+            int_pointer_2;
 
-    inline static int* int_pointer_cache_3 =
-        nullptr;
+        static int*
+            int_pointer_3;
 
-    inline static int* int_pointer_cache_4 =
-        nullptr;
+        static int*
+            int_pointer_4;
 
-    inline static int* int_pointer_cache_5 =
-        nullptr;
+        static int*
+            int_pointer_5;
 
-    inline static int* int_pointer_cache_6 =
-        nullptr;
+        static int*
+            int_pointer_6;
 
-    inline static int* int_pointer_cache_7 =
-        nullptr;
+        static int*
+            int_pointer_7;
 
-    inline static int* int_pointer_cache_8 =
-        nullptr;
+        static int*
+            int_pointer_8;
 
 
 
-    inline static unsigned int unsigned_int_cache_1 =
-        0;
+        static unsigned int
+            unsigned_int_1;
 
-    inline static unsigned int unsigned_int_cache_2 =
-        0;
+        static unsigned int
+            unsigned_int_2;
 
-    inline static unsigned int unsigned_int_cache_3 =
-        0;
+        static unsigned int
+            unsigned_int_3;
 
-    inline static unsigned int unsigned_int_cache_4 =
-        0;
+        static unsigned int
+            unsigned_int_4;
 
-    inline static unsigned int unsigned_int_cache_5 =
-        0;
+        static unsigned int
+            unsigned_int_5;
 
-    inline static unsigned int unsigned_int_cache_6 =
-        0;
+        static unsigned int
+            unsigned_int_6;
 
-    inline static unsigned int unsigned_int_cache_7 =
-        0;
+        static unsigned int
+            unsigned_int_7;
 
-    inline static unsigned int unsigned_int_cache_8 =
-        0;
+        static unsigned int
+            unsigned_int_8;
 
 
-    inline static unsigned int* unsigned_int_pointer_cache_1 =
-        nullptr;
+        static unsigned int*
+            unsigned_int_pointer_1;
 
-    inline static unsigned int* unsigned_int_pointer_cache_2 =
-        nullptr;
+        static unsigned int*
+            unsigned_int_pointer_2;
 
-    inline static unsigned int* unsigned_int_pointer_cache_3 =
-        nullptr;
+        static unsigned int*
+            unsigned_int_pointer_3;
 
-    inline static unsigned int* unsigned_int_pointer_cache_4 =
-        nullptr;
+        static unsigned int*
+            unsigned_int_pointer_4;
 
-    inline static unsigned int* unsigned_int_pointer_cache_5 =
-        nullptr;
+        static unsigned int*
+            unsigned_int_pointer_5;
 
-    inline static unsigned int* unsigned_int_pointer_cache_6 =
-        nullptr;
+        static unsigned int*
+            unsigned_int_pointer_6;
 
-    inline static unsigned int* unsigned_int_pointer_cache_7 =
-        nullptr;
+        static unsigned int*
+            unsigned_int_pointer_7;
 
-    inline static unsigned int* unsigned_int_pointer_cache_8 =
-        nullptr;
+        static unsigned int*
+            unsigned_int_pointer_8;
 
 
 
-    inline static long long int long_long_int_cache_1 =
-        0;
+        static long long int
+            long_long_int_1;
 
-    inline static long long int long_long_int_cache_2 =
-        0;
+        static long long int
+            long_long_int_2;
 
-    inline static long long int long_long_int_cache_3 =
-        0;
+        static long long int
+            long_long_int_3;
 
-    inline static long long int long_long_int_cache_4 =
-        0;
+        static long long int
+            long_long_int_4;
 
-    inline static long long int long_long_int_cache_5 =
-        0;
+        static long long int
+            long_long_int_5;
 
-    inline static long long int long_long_int_cache_6 =
-        0;
+        static long long int
+            long_long_int_6;
 
-    inline static long long int long_long_int_cache_7 =
-        0;
+        static long long int
+            long_long_int_7;
 
-    inline static long long int long_long_int_cache_8 =
-        0;
+        static long long int
+            long_long_int_8;
 
-    inline static long long int* long_long_int_pointer_cache_1 =
-        nullptr;
+        static long long int*
+            long_long_int_pointer_1;
 
-    inline static long long int* long_long_int_pointer_cache_2 =
-        nullptr;
+        static long long int*
+            long_long_int_pointer_2;
 
-    inline static long long int* long_long_int_pointer_cache_3 =
-        nullptr;
+        static long long int*
+            long_long_int_pointer_3;
 
-    inline static long long int* long_long_int_pointer_cache_4 =
-        nullptr;
+        static long long int*
+            long_long_int_pointer_4;
 
-    inline static long long int* long_long_int_pointer_cache_5 =
-        nullptr;
+        static long long int*
+            long_long_int_pointer_5;
 
-    inline static long long int* long_long_int_pointer_cache_6 =
-        nullptr;
+        static long long int*
+            long_long_int_pointer_6;
 
-    inline static long long int* long_long_int_pointer_cache_7 =
-        nullptr;
+        static long long int*
+            long_long_int_pointer_7;
 
-    inline static long long int* long_long_int_pointer_cache_8 =
-        nullptr;
+        static long long int*
+            long_long_int_pointer_8;
 
 
 
-    inline static unsigned long long int unsigned_long_long_int_cache_1 =
-        0;
+        static unsigned long long int
+            unsigned_long_long_int_1;
 
-    inline static unsigned long long int unsigned_long_long_int_cache_2 =
-        0;
+        static unsigned long long int
+            unsigned_long_long_int_2;
 
-    inline static unsigned long long int unsigned_long_long_int_cache_3 =
-        0;
+        static unsigned long long int
+            unsigned_long_long_int_3;
 
-    inline static unsigned long long int unsigned_long_long_int_cache_4 =
-        0;
+        static unsigned long long int
+            unsigned_long_long_int_4;
 
-    inline static unsigned long long int unsigned_long_long_int_cache_5 =
-        0;
+        static unsigned long long int
+            unsigned_long_long_int_5;
 
-    inline static unsigned long long int unsigned_long_long_int_cache_6 =
-        0;
+        static unsigned long long int
+            unsigned_long_long_int_6;
 
-    inline static unsigned long long int unsigned_long_long_int_cache_7 =
-        0;
+        static unsigned long long int
+            unsigned_long_long_int_7;
 
-    inline static unsigned long long int unsigned_long_long_int_cache_8 =
-        0;
+        static unsigned long long int
+            unsigned_long_long_int_8;
 
-    inline static unsigned long long int* unsigned_long_long_int_pointer_cache_1 =
-        nullptr;
+        static unsigned long long int*
+            unsigned_long_long_int_pointer_1;
 
-    inline static unsigned long long int* unsigned_long_long_int_pointer_cache_2 =
-        nullptr;
+        static unsigned long long int*
+            unsigned_long_long_int_pointer_2;
 
-    inline static unsigned long long int* unsigned_long_long_int_pointer_cache_3 =
-        nullptr;
+        static unsigned long long int*
+            unsigned_long_long_int_pointer_3;
 
-    inline static unsigned long long int* unsigned_long_long_int_pointer_cache_4 =
-        nullptr;
+        static unsigned long long int*
+            unsigned_long_long_int_pointer_4;
 
-    inline static unsigned long long int* unsigned_long_long_int_pointer_cache_5 =
-        nullptr;
+        static unsigned long long int*
+            unsigned_long_long_int_pointer_5;
 
-    inline static unsigned long long int* unsigned_long_long_int_pointer_cache_6 =
-        nullptr;
+        static unsigned long long int*
+            unsigned_long_long_int_pointer_6;
 
-    inline static unsigned long long int* unsigned_long_long_int_pointer_cache_7 =
-        nullptr;
+        static unsigned long long int*
+            unsigned_long_long_int_pointer_7;
 
-    inline static unsigned long long int* unsigned_long_long_int_pointer_cache_8 =
-        nullptr;
+        static unsigned long long int*
+            unsigned_long_long_int_pointer_8;
 
 
 
-    inline static std::size_t size_t_cache_1 =
-        0;
+        static std::size_t
+            size_t_1;
 
-    inline static std::size_t size_t_cache_2 =
-        0;
+        static std::size_t
+            size_t_2;
 
-    inline static std::size_t size_t_cache_3 =
-        0;
+        static std::size_t
+            size_t_3;
 
-    inline static std::size_t size_t_cache_4 =
-        0;
+        static std::size_t
+            size_t_4;
 
-    inline static std::size_t size_t_cache_5 =
-        0;
+        static std::size_t
+            size_t_5;
 
-    inline static std::size_t size_t_cache_6 =
-        0;
+        static std::size_t
+            size_t_6;
 
-    inline static std::size_t size_t_cache_7 =
-        0;
+        static std::size_t
+            size_t_7;
 
-    inline static std::size_t size_t_cache_8 =
-        0;
+        static std::size_t
+            size_t_8;
 
-    inline static std::size_t* size_t_pointer_cache_1 =
-        nullptr;
+        static std::size_t*
+            size_t_pointer_1;
 
-    inline static std::size_t* size_t_pointer_cache_2 =
-        nullptr;
+        static std::size_t*
+            size_t_pointer_2;
 
-    inline static std::size_t* size_t_pointer_cache_3 =
-        nullptr;
+        static std::size_t*
+            size_t_pointer_3;
 
-    inline static std::size_t* size_t_pointer_cache_4 =
-        nullptr;
+        static std::size_t*
+            size_t_pointer_4;
 
-    inline static std::size_t* size_t_pointer_cache_5 =
-        nullptr;
+        static std::size_t*
+            size_t_pointer_5;
 
-    inline static std::size_t* size_t_pointer_cache_6 =
-        nullptr;
+        static std::size_t*
+            size_t_pointer_6;
 
-    inline static std::size_t* size_t_pointer_cache_7 =
-        nullptr;
+        static std::size_t*
+            size_t_pointer_7;
 
-    inline static std::size_t* size_t_pointer_cache_8 =
-        nullptr;
+        static std::size_t*
+            size_t_pointer_8;
 
 
 
-    inline static std::int8_t int8_t_cache_1 =
-        0;
+        static std::int8_t
+            int8_t_1;
 
-    inline static std::int8_t int8_t_cache_2 =
-        0;
+        static std::int8_t
+            int8_t_2;
 
-    inline static std::int8_t int8_t_cache_3 =
-        0;
+        static std::int8_t
+            int8_t_3;
 
-    inline static std::int8_t int8_t_cache_4 =
-        0;
+        static std::int8_t
+            int8_t_4;
 
-    inline static std::int8_t int8_t_cache_5 =
-        0;
+        static std::int8_t
+            int8_t_5;
 
-    inline static std::int8_t int8_t_cache_6 =
-        0;
+        static std::int8_t
+            int8_t_6;
 
-    inline static std::int8_t int8_t_cache_7 =
-        0;
+        static std::int8_t
+            int8_t_7;
 
-    inline static std::int8_t int8_t_cache_8 =
-        0;
+        static std::int8_t
+            int8_t_8;
 
-    inline static std::int8_t* int8_t_pointer_cache_1 =
-        nullptr;
+        static std::int8_t*
+            int8_t_pointer_1;
 
-    inline static std::int8_t* int8_t_pointer_cache_2 =
-        nullptr;
+        static std::int8_t*
+            int8_t_pointer_2;
 
-    inline static std::int8_t* int8_t_pointer_cache_3 =
-        nullptr;
+        static std::int8_t*
+            int8_t_pointer_3;
 
-    inline static std::int8_t* int8_t_pointer_cache_4 =
-        nullptr;
+        static std::int8_t*
+            int8_t_pointer_4;
 
-    inline static std::int8_t* int8_t_pointer_cache_5 =
-        nullptr;
+        static std::int8_t*
+            int8_t_pointer_5;
 
-    inline static std::int8_t* int8_t_pointer_cache_6 =
-        nullptr;
+        static std::int8_t*
+            int8_t_pointer_6;
 
-    inline static std::int8_t* int8_t_pointer_cache_7 =
-        nullptr;
+        static std::int8_t*
+            int8_t_pointer_7;
 
-    inline static std::int8_t* int8_t_pointer_cache_8 =
-        nullptr;
+        static std::int8_t*
+            int8_t_pointer_8;
 
 
 
-    inline static std::uint8_t uint8_t_cache_1 =
-        0;
+        static std::uint8_t
+            uint8_t_1;
 
-    inline static std::uint8_t uint8_t_cache_2 =
-        0;
+        static std::uint8_t
+            uint8_t_2;
 
-    inline static std::uint8_t uint8_t_cache_3 =
-        0;
+        static std::uint8_t
+            uint8_t_3;
 
-    inline static std::uint8_t uint8_t_cache_4 =
-        0;
+        static std::uint8_t
+            uint8_t_4;
 
-    inline static std::uint8_t uint8_t_cache_5 =
-        0;
+        static std::uint8_t
+            uint8_t_5;
 
-    inline static std::uint8_t uint8_t_cache_6 =
-        0;
+        static std::uint8_t
+            uint8_t_6;
 
-    inline static std::uint8_t uint8_t_cache_7 =
-        0;
+        static std::uint8_t
+            uint8_t_7;
 
-    inline static std::uint8_t uint8_t_cache_8 =
-        0;
+        static std::uint8_t
+            uint8_t_8;
 
-    inline static std::uint8_t* uint8_t_pointer_cache_1 =
-        nullptr;
+        static std::uint8_t*
+            uint8_t_pointer_1;
 
-    inline static std::uint8_t* uint8_t_pointer_cache_2 =
-        nullptr;
+        static std::uint8_t*
+            uint8_t_pointer_2;
 
-    inline static std::uint8_t* uint8_t_pointer_cache_3 =
-        nullptr;
+        static std::uint8_t*
+            uint8_t_pointer_3;
 
-    inline static std::uint8_t* uint8_t_pointer_cache_4 =
-        nullptr;
+        static std::uint8_t*
+            uint8_t_pointer_4;
 
-    inline static std::uint8_t* uint8_t_pointer_cache_5 =
-        nullptr;
+        static std::uint8_t*
+            uint8_t_pointer_5;
 
-    inline static std::uint8_t* uint8_t_pointer_cache_6 =
-        nullptr;
+        static std::uint8_t*
+            uint8_t_pointer_6;
 
-    inline static std::uint8_t* uint8_t_pointer_cache_7 =
-        nullptr;
+        static std::uint8_t*
+            uint8_t_pointer_7;
 
-    inline static std::uint8_t* uint8_t_pointer_cache_8 =
-        nullptr;
+        static std::uint8_t*
+            uint8_t_pointer_8;
 
 
 
-    inline static std::int16_t int16_t_cache_1 =
-        0;
+        static std::int16_t
+            int16_t_1;
 
-    inline static std::int16_t int16_t_cache_2 =
-        0;
+        static std::int16_t
+            int16_t_2;
 
-    inline static std::int16_t int16_t_cache_3 =
-        0;
+        static std::int16_t
+            int16_t_3;
 
-    inline static std::int16_t int16_t_cache_4 =
-        0;
+        static std::int16_t
+            int16_t_4;
 
-    inline static std::int16_t int16_t_cache_5 =
-        0;
+        static std::int16_t
+            int16_t_5;
 
-    inline static std::int16_t int16_t_cache_6 =
-        0;
+        static std::int16_t
+            int16_t_6;
 
-    inline static std::int16_t int16_t_cache_7 =
-        0;
+        static std::int16_t
+            int16_t_7;
 
-    inline static std::int16_t int16_t_cache_8 =
-        0;
+        static std::int16_t
+            int16_t_8;
 
-    inline static std::int16_t* int16_t_pointer_cache_1 =
-        nullptr;
+        static std::int16_t*
+            int16_t_pointer_1;
 
-    inline static std::int16_t* int16_t_pointer_cache_2 =
-        nullptr;
+        static std::int16_t*
+            int16_t_pointer_2;
 
-    inline static std::int16_t* int16_t_pointer_cache_3 =
-        nullptr;
+        static std::int16_t*
+            int16_t_pointer_3;
 
-    inline static std::int16_t* int16_t_pointer_cache_4 =
-        nullptr;
+        static std::int16_t*
+            int16_t_pointer_4;
 
-    inline static std::int16_t* int16_t_pointer_cache_5 =
-        nullptr;
+        static std::int16_t*
+            int16_t_pointer_5;
 
-    inline static std::int16_t* int16_t_pointer_cache_6 =
-        nullptr;
+        static std::int16_t*
+            int16_t_pointer_6;
 
-    inline static std::int16_t* int16_t_pointer_cache_7 =
-        nullptr;
+        static std::int16_t*
+            int16_t_pointer_7;
 
-    inline static std::int16_t* int16_t_pointer_cache_8 =
-        nullptr;
+        static std::int16_t*
+            int16_t_pointer_8;
 
 
 
-    inline static std::uint16_t uint16_t_cache_1 =
-        0;
+        static std::uint16_t
+            uint16_t_1;
 
-    inline static std::uint16_t uint16_t_cache_2 =
-        0;
+        static std::uint16_t
+            uint16_t_2;
 
-    inline static std::uint16_t uint16_t_cache_3 =
-        0;
+        static std::uint16_t
+            uint16_t_3;
 
-    inline static std::uint16_t uint16_t_cache_4 =
-        0;
+        static std::uint16_t
+            uint16_t_4;
 
-    inline static std::uint16_t uint16_t_cache_5 =
-        0;
+        static std::uint16_t
+            uint16_t_5;
 
-    inline static std::uint16_t uint16_t_cache_6 =
-        0;
+        static std::uint16_t
+            uint16_t_6;
 
-    inline static std::uint16_t uint16_t_cache_7 =
-        0;
+        static std::uint16_t
+            uint16_t_7;
 
-    inline static std::uint16_t uint16_t_cache_8 =
-        0;
+        static std::uint16_t
+            uint16_t_8;
 
-    inline static std::uint16_t* uint16_t_pointer_cache_1 =
-        nullptr;
+        static std::uint16_t*
+            uint16_t_pointer_1;
 
-    inline static std::uint16_t* uint16_t_pointer_cache_2 =
-        nullptr;
+        static std::uint16_t*
+            uint16_t_pointer_2;
 
-    inline static std::uint16_t* uint16_t_pointer_cache_3 =
-        nullptr;
+        static std::uint16_t*
+            uint16_t_pointer_3;
 
-    inline static std::uint16_t* uint16_t_pointer_cache_4 =
-        nullptr;
+        static std::uint16_t*
+            uint16_t_pointer_4;
 
-    inline static std::uint16_t* uint16_t_pointer_cache_5 =
-        nullptr;
+        static std::uint16_t*
+            uint16_t_pointer_5;
 
-    inline static std::uint16_t* uint16_t_pointer_cache_6 =
-        nullptr;
+        static std::uint16_t*
+            uint16_t_pointer_6;
 
-    inline static std::uint16_t* uint16_t_pointer_cache_7 =
-        nullptr;
+        static std::uint16_t*
+            uint16_t_pointer_7;
 
-    inline static std::uint16_t* uint16_t_pointer_cache_8 =
-        nullptr;
+        static std::uint16_t*
+            uint16_t_pointer_8;
 
 
 
-    inline static std::int32_t int32_t_cache_1 =
-        0;
+        static std::int32_t
+            int32_t_1;
 
-    inline static std::int32_t int32_t_cache_2 =
-        0;
+        static std::int32_t
+            int32_t_2;
 
-    inline static std::int32_t int32_t_cache_3 =
-        0;
+        static std::int32_t
+            int32_t_3;
 
-    inline static std::int32_t int32_t_cache_4 =
-        0;
+        static std::int32_t
+            int32_t_4;
 
-    inline static std::int32_t int32_t_cache_5 =
-        0;
+        static std::int32_t
+            int32_t_5;
 
-    inline static std::int32_t int32_t_cache_6 =
-        0;
+        static std::int32_t
+            int32_t_6;
 
-    inline static std::int32_t int32_t_cache_7 =
-        0;
+        static std::int32_t
+            int32_t_7;
 
-    inline static std::int32_t int32_t_cache_8 =
-        0;
+        static std::int32_t
+            int32_t_8;
 
-    inline static std::int32_t* int32_t_pointer_cache_1 =
-        nullptr;
+        static std::int32_t*
+            int32_t_pointer_1;
 
-    inline static std::int32_t* int32_t_pointer_cache_2 =
-        nullptr;
+        static std::int32_t*
+            int32_t_pointer_2;
 
-    inline static std::int32_t* int32_t_pointer_cache_3 =
-        nullptr;
+        static std::int32_t*
+            int32_t_pointer_3;
 
-    inline static std::int32_t* int32_t_pointer_cache_4 =
-        nullptr;
+        static std::int32_t*
+            int32_t_pointer_4;
 
-    inline static std::int32_t* int32_t_pointer_cache_5 =
-        nullptr;
+        static std::int32_t*
+            int32_t_pointer_5;
 
-    inline static std::int32_t* int32_t_pointer_cache_6 =
-        nullptr;
+        static std::int32_t*
+            int32_t_pointer_6;
 
-    inline static std::int32_t* int32_t_pointer_cache_7 =
-        nullptr;
+        static std::int32_t*
+            int32_t_pointer_7;
 
-    inline static std::int32_t* int32_t_pointer_cache_8 =
-        nullptr;
+        static std::int32_t*
+            int32_t_pointer_8;
 
 
 
-    inline static std::uint32_t uint32_t_cache_1 =
-        0;
+        static std::uint32_t
+            uint32_t_1;
 
-    inline static std::uint32_t uint32_t_cache_2 =
-        0;
+        static std::uint32_t
+            uint32_t_2;
 
-    inline static std::uint32_t uint32_t_cache_3 =
-        0;
+        static std::uint32_t
+            uint32_t_3;
 
-    inline static std::uint32_t uint32_t_cache_4 =
-        0;
+        static std::uint32_t
+            uint32_t_4;
 
-    inline static std::uint32_t uint32_t_cache_5 =
-        0;
+        static std::uint32_t
+            uint32_t_5;
 
-    inline static std::uint32_t uint32_t_cache_6 =
-        0;
+        static std::uint32_t
+            uint32_t_6;
 
-    inline static std::uint32_t uint32_t_cache_7 =
-        0;
+        static std::uint32_t
+            uint32_t_7;
 
-    inline static std::uint32_t uint32_t_cache_8 =
-        0;
+        static std::uint32_t
+            uint32_t_8;
 
-    inline static std::uint32_t* uint32_t_pointer_cache_1 =
-        nullptr;
+        static std::uint32_t*
+            uint32_t_pointer_1;
 
-    inline static std::uint32_t* uint32_t_pointer_cache_2 =
-        nullptr;
+        static std::uint32_t*
+            uint32_t_pointer_2;
 
-    inline static std::uint32_t* uint32_t_pointer_cache_3 =
-        nullptr;
+        static std::uint32_t*
+            uint32_t_pointer_3;
 
-    inline static std::uint32_t* uint32_t_pointer_cache_4 =
-        nullptr;
+        static std::uint32_t*
+            uint32_t_pointer_4;
 
-    inline static std::uint32_t* uint32_t_pointer_cache_5 =
-        nullptr;
+        static std::uint32_t*
+            uint32_t_pointer_5;
 
-    inline static std::uint32_t* uint32_t_pointer_cache_6 =
-        nullptr;
+        static std::uint32_t*
+            uint32_t_pointer_6;
 
-    inline static std::uint32_t* uint32_t_pointer_cache_7 =
-        nullptr;
+        static std::uint32_t*
+            uint32_t_pointer_7;
 
-    inline static std::uint32_t* uint32_t_pointer_cache_8 =
-        nullptr;
+        static std::uint32_t*
+            uint32_t_pointer_8;
 
 
 
-    inline static std::int64_t int64_t_cache_1 =
-        0;
+        static std::int64_t
+            int64_t_1;
 
-    inline static std::int64_t int64_t_cache_2 =
-        0;
+        static std::int64_t
+            int64_t_2;
 
-    inline static std::int64_t int64_t_cache_3 =
-        0;
+        static std::int64_t
+            int64_t_3;
 
-    inline static std::int64_t int64_t_cache_4 =
-        0;
+        static std::int64_t
+            int64_t_4;
 
-    inline static std::int64_t int64_t_cache_5 =
-        0;
+        static std::int64_t
+            int64_t_5;
 
-    inline static std::int64_t int64_t_cache_6 =
-        0;
+        static std::int64_t
+            int64_t_6;
 
-    inline static std::int64_t int64_t_cache_7 =
-        0;
+        static std::int64_t
+            int64_t_7;
 
-    inline static std::int64_t int64_t_cache_8 =
-        0;
+        static std::int64_t
+            int64_t_8;
 
-    inline static std::int64_t* int64_t_pointer_cache_1 =
-        nullptr;
+        static std::int64_t*
+            int64_t_pointer_1;
 
-    inline static std::int64_t* int64_t_pointer_cache_2 =
-        nullptr;
+        static std::int64_t*
+            int64_t_pointer_2;
 
-    inline static std::int64_t* int64_t_pointer_cache_3 =
-        nullptr;
+        static std::int64_t*
+            int64_t_pointer_3;
 
-    inline static std::int64_t* int64_t_pointer_cache_4 =
-        nullptr;
+        static std::int64_t*
+            int64_t_pointer_4;
 
-    inline static std::int64_t* int64_t_pointer_cache_5 =
-        nullptr;
+        static std::int64_t*
+            int64_t_pointer_5;
 
-    inline static std::int64_t* int64_t_pointer_cache_6 =
-        nullptr;
+        static std::int64_t*
+            int64_t_pointer_6;
 
-    inline static std::int64_t* int64_t_pointer_cache_7 =
-        nullptr;
+        static std::int64_t*
+            int64_t_pointer_7;
 
-    inline static std::int64_t* int64_t_pointer_cache_8 =
-        nullptr;
+        static std::int64_t*
+            int64_t_pointer_8;
 
 
 
-    inline static std::uint64_t uint64_t_cache_1 =
-        0;
+        static std::uint64_t
+            uint64_t_1;
 
-    inline static std::uint64_t uint64_t_cache_2 =
-        0;
+        static std::uint64_t
+            uint64_t_2;
 
-    inline static std::uint64_t uint64_t_cache_3 =
-        0;
+        static std::uint64_t
+            uint64_t_3;
 
-    inline static std::uint64_t uint64_t_cache_4 =
-        0;
+        static std::uint64_t
+            uint64_t_4;
 
-    inline static std::uint64_t uint64_t_cache_5 =
-        0;
+        static std::uint64_t
+            uint64_t_5;
 
-    inline static std::uint64_t uint64_t_cache_6 =
-        0;
+        static std::uint64_t
+            uint64_t_6;
 
-    inline static std::uint64_t uint64_t_cache_7 =
-        0;
+        static std::uint64_t
+            uint64_t_7;
 
-    inline static std::uint64_t uint64_t_cache_8 =
-        0;
+        static std::uint64_t
+            uint64_t_8;
 
-    inline static std::uint64_t* uint64_t_pointer_cache_1 =
-        nullptr;
+        static std::uint64_t*
+            uint64_t_pointer_1;
 
-    inline static std::uint64_t* uint64_t_pointer_cache_2 =
-        nullptr;
+        static std::uint64_t*
+            uint64_t_pointer_2;
 
-    inline static std::uint64_t* uint64_t_pointer_cache_3 =
-        nullptr;
+        static std::uint64_t*
+            uint64_t_pointer_3;
 
-    inline static std::uint64_t* uint64_t_pointer_cache_4 =
-        nullptr;
+        static std::uint64_t*
+            uint64_t_pointer_4;
 
-    inline static std::uint64_t* uint64_t_pointer_cache_5 =
-        nullptr;
+        static std::uint64_t*
+            uint64_t_pointer_5;
 
-    inline static std::uint64_t* uint64_t_pointer_cache_6 =
-        nullptr;
+        static std::uint64_t*
+            uint64_t_pointer_6;
 
-    inline static std::uint64_t* uint64_t_pointer_cache_7 =
-        nullptr;
+        static std::uint64_t*
+            uint64_t_pointer_7;
 
-    inline static std::uint64_t* uint64_t_pointer_cache_8 =
-        nullptr;
+        static std::uint64_t*
+            uint64_t_pointer_8;
 
 
 
-    inline static float float_cache_1 =
-        0.0;
+        static float
+            float_1;
 
-    inline static float float_cache_2 =
-        0.0;
+        static float
+            float_2;
 
-    inline static float float_cache_3 =
-        0.0;
+        static float
+            float_3;
 
-    inline static float float_cache_4 =
-        0.0;
+        static float
+            float_4;
 
-    inline static float float_cache_5 =
-        0.0;
+        static float
+            float_5;
 
-    inline static float float_cache_6 =
-        0.0;
+        static float
+            float_6;
 
-    inline static float float_cache_7 =
-        0.0;
+        static float
+            float_7;
 
-    inline static float float_cache_8 =
-        0.0;
+        static float
+            float_8;
 
-    inline static float* float_pointer_cache_1 =
-        nullptr;
+        static float*
+            float_pointer_1;
 
-    inline static float* float_pointer_cache_2 =
-        nullptr;
+        static float*
+            float_pointer_2;
 
-    inline static float* float_pointer_cache_3 =
-        nullptr;
+        static float*
+            float_pointer_3;
 
-    inline static float* float_pointer_cache_4 =
-        nullptr;
+        static float*
+            float_pointer_4;
 
-    inline static float* float_pointer_cache_5 =
-        nullptr;
+        static float*
+            float_pointer_5;
 
-    inline static float* float_pointer_cache_6 =
-        nullptr;
+        static float*
+            float_pointer_6;
 
-    inline static float* float_pointer_cache_7 =
-        nullptr;
+        static float*
+            float_pointer_7;
 
-    inline static float* float_pointer_cache_8 =
-        nullptr;
+        static float*
+            float_pointer_8;
 
 
 
-    inline static double double_cache_1 =
-        0.0;
+        static double
+            double_1;
 
-    inline static double double_cache_2 =
-        0.0;
+        static double
+            double_2;
 
-    inline static double double_cache_3 =
-        0.0;
+        static double
+            double_3;
 
-    inline static double double_cache_4 =
-        0.0;
+        static double
+            double_4;
 
-    inline static double double_cache_5 =
-        0.0;
+        static double
+            double_5;
 
-    inline static double double_cache_6 =
-        0.0;
+        static double
+            double_6;
 
-    inline static double double_cache_7 =
-        0.0;
+        static double
+            double_7;
 
-    inline static double double_cache_8 =
-        0.0;
+        static double
+            double_8;
 
-    inline static double* double_pointer_cache_1 =
-        nullptr;
+        static double*
+            double_pointer_1;
 
-    inline static double* double_pointer_cache_2 =
-        nullptr;
+        static double*
+            double_pointer_2;
 
-    inline static double* double_pointer_cache_3 =
-        nullptr;
+        static double*
+            double_pointer_3;
 
-    inline static double* double_pointer_cache_4 =
-        nullptr;
+        static double*
+            double_pointer_4;
 
-    inline static double* double_pointer_cache_5 =
-        nullptr;
+        static double*
+            double_pointer_5;
 
-    inline static double* double_pointer_cache_6 =
-        nullptr;
+        static double*
+            double_pointer_6;
 
-    inline static double* double_pointer_cache_7 =
-        nullptr;
+        static double*
+            double_pointer_7;
 
-    inline static double* double_pointer_cache_8 =
-        nullptr;
+        static double*
+            double_pointer_8;
 
 
 
-    inline static long double long_double_cache_1 =
-        0.0;
+        static long double
+            long_double_1;
 
-    inline static long double long_double_cache_2 =
-        0.0;
+        static long double
+            long_double_2;
 
-    inline static long double long_double_cache_3 =
-        0.0;
+        static long double
+            long_double_3;
 
-    inline static long double long_double_cache_4 =
-        0.0;
+        static long double
+            long_double_4;
 
-    inline static long double long_double_cache_5 =
-        0.0;
+        static long double
+            long_double_5;
 
-    inline static long double long_double_cache_6 =
-        0.0;
+        static long double
+            long_double_6;
 
-    inline static long double long_double_cache_7 =
-        0.0;
+        static long double
+            long_double_7;
 
-    inline static long double long_double_cache_8 =
-        0.0;
+        static long double
+            long_double_8;
 
-    inline static long double* long_double_pointer_cache_1 =
-        nullptr;
+        static long double*
+            long_double_pointer_1;
 
-    inline static long double* long_double_pointer_cache_2 =
-        nullptr;
+        static long double*
+            long_double_pointer_2;
 
-    inline static long double* long_double_pointer_cache_3 =
-        nullptr;
+        static long double*
+            long_double_pointer_3;
 
-    inline static long double* long_double_pointer_cache_4 =
-        nullptr;
+        static long double*
+            long_double_pointer_4;
 
-    inline static long double* long_double_pointer_cache_5 =
-        nullptr;
+        static long double*
+            long_double_pointer_5;
 
-    inline static long double* long_double_pointer_cache_6 =
-        nullptr;
+        static long double*
+            long_double_pointer_6;
 
-    inline static long double* long_double_pointer_cache_7 =
-        nullptr;
+        static long double*
+            long_double_pointer_7;
 
-    inline static long double* long_double_pointer_cache_8 =
-        nullptr;
+        static long double*
+            long_double_pointer_8;
 
 
 
-    inline static std::string string_cache_1 =
-        "";
+        static std::string
+            string_1;
 
-    inline static std::string string_cache_2 =
-        "";
+        static std::string
+            string_2;
 
-    inline static std::string string_cache_3 =
-        "";
+        static std::string
+            string_3;
 
-    inline static std::string string_cache_4 =
-        "";
+        static std::string
+            string_4;
 
-    inline static std::string string_cache_5 =
-        "";
+        static std::string
+            string_5;
 
-    inline static std::string string_cache_6 =
-        "";
+        static std::string
+            string_6;
 
-    inline static std::string string_cache_7 =
-        "";
+        static std::string
+            string_7;
 
-    inline static std::string string_cache_8 =
-        "";
+        static std::string
+            string_8;
 
-    inline static std::string* string_pointer_cache_1 =
-        nullptr;
+        static std::string*
+            string_pointer_1;
 
-    inline static std::string* string_pointer_cache_2 =
-        nullptr;
+        static std::string*
+            string_pointer_2;
 
-    inline static std::string* string_pointer_cache_3 =
-        nullptr;
+        static std::string*
+            string_pointer_3;
 
-    inline static std::string* string_pointer_cache_4 =
-        nullptr;
+        static std::string*
+            string_pointer_4;
 
-    inline static std::string* string_pointer_cache_5 =
-        nullptr;
+        static std::string*
+            string_pointer_5;
 
-    inline static std::string* string_pointer_cache_6 =
-        nullptr;
+        static std::string*
+            string_pointer_6;
 
-    inline static std::string* string_pointer_cache_7 =
-        nullptr;
+        static std::string*
+            string_pointer_7;
 
-    inline static std::string* string_pointer_cache_8 =
-        nullptr;
+        static std::string*
+            string_pointer_8;
 
 
 
-    inline static std::string_view string_view_cache_1 =
-        "";
+        static std::string_view
+            string_view_1;
 
-    inline static std::string_view string_view_cache_2 =
-        "";
+        static std::string_view
+            string_view_2;
 
-    inline static std::string_view string_view_cache_3 =
-        "";
+        static std::string_view
+            string_view_3;
 
-    inline static std::string_view string_view_cache_4 =
-        "";
+        static std::string_view
+            string_view_4;
 
-    inline static std::string_view string_view_cache_5 =
-        "";
+        static std::string_view
+            string_view_5;
 
-    inline static std::string_view string_view_cache_6 =
-        "";
+        static std::string_view
+            string_view_6;
 
-    inline static std::string_view string_view_cache_7 =
-        "";
+        static std::string_view
+            string_view_7;
 
-    inline static std::string_view string_view_cache_8 =
-        "";
+        static std::string_view
+            string_view_8;
 
-    inline static std::string_view* string_view_pointer_cache_1 =
-        nullptr;
+        static std::string_view*
+            string_view_pointer_1;
 
-    inline static std::string_view* string_view_pointer_cache_2 =
-        nullptr;
+        static std::string_view*
+            string_view_pointer_2;
 
-    inline static std::string_view* string_view_pointer_cache_3 =
-        nullptr;
+        static std::string_view*
+            string_view_pointer_3;
 
-    inline static std::string_view* string_view_pointer_cache_4 =
-        nullptr;
+        static std::string_view*
+            string_view_pointer_4;
 
-    inline static std::string_view* string_view_pointer_cache_5 =
-        nullptr;
+        static std::string_view*
+            string_view_pointer_5;
 
-    inline static std::string_view* string_view_pointer_cache_6 =
-        nullptr;
+        static std::string_view*
+            string_view_pointer_6;
 
-    inline static std::string_view* string_view_pointer_cache_7 =
-        nullptr;
+        static std::string_view*
+            string_view_pointer_7;
 
-    inline static std::string_view* string_view_pointer_cache_8 =
-        nullptr;
+        static std::string_view*
+            string_view_pointer_8;
 
 
 
-    inline static std::wstring wstring_cache_1 =
-        L"";
+        static std::wstring
+            wstring_1;
 
-    inline static std::wstring wstring_cache_2 =
-        L"";
+        static std::wstring
+            wstring_2;
 
-    inline static std::wstring wstring_cache_3 =
-        L"";
+        static std::wstring
+            wstring_3;
 
-    inline static std::wstring wstring_cache_4 =
-        L"";
+        static std::wstring
+            wstring_4;
 
-    inline static std::wstring wstring_cache_5 =
-        L"";
+        static std::wstring
+            wstring_5;
 
-    inline static std::wstring wstring_cache_6 =
-        L"";
+        static std::wstring
+            wstring_6;
 
-    inline static std::wstring wstring_cache_7 =
-        L"";
+        static std::wstring
+            wstring_7;
 
-    inline static std::wstring wstring_cache_8 =
-        L"";
+        static std::wstring
+            wstring_8;
 
-    inline static std::wstring* wstring_pointer_cache_1 =
-        nullptr;
+        static std::wstring*
+            wstring_pointer_1;
 
-    inline static std::wstring* wstring_pointer_cache_2 =
-        nullptr;
+        static std::wstring*
+            wstring_pointer_2;
 
-    inline static std::wstring* wstring_pointer_cache_3 =
-        nullptr;
+        static std::wstring*
+            wstring_pointer_3;
 
-    inline static std::wstring* wstring_pointer_cache_4 =
-        nullptr;
+        static std::wstring*
+            wstring_pointer_4;
 
-    inline static std::wstring* wstring_pointer_cache_5 =
-        nullptr;
+        static std::wstring*
+            wstring_pointer_5;
 
-    inline static std::wstring* wstring_pointer_cache_6 =
-        nullptr;
+        static std::wstring*
+            wstring_pointer_6;
 
-    inline static std::wstring* wstring_pointer_cache_7 =
-        nullptr;
+        static std::wstring*
+            wstring_pointer_7;
 
-    inline static std::wstring* wstring_pointer_cache_8 =
-        nullptr;
+        static std::wstring*
+            wstring_pointer_8;
 
 
 
-    inline static std::wstring_view wstring_view_cache_1 =
-        L"";
+        static std::wstring_view
+            wstring_view_1;
 
-    inline static std::wstring_view wstring_view_cache_2 =
-        L"";
+        static std::wstring_view
+            wstring_view_2;
 
-    inline static std::wstring_view wstring_view_cache_3 =
-        L"";
+        static std::wstring_view
+            wstring_view_3;
 
-    inline static std::wstring_view wstring_view_cache_4 =
-        L"";
+        static std::wstring_view
+            wstring_view_4;
 
-    inline static std::wstring_view wstring_view_cache_5 =
-        L"";
+        static std::wstring_view
+            wstring_view_5;
 
-    inline static std::wstring_view wstring_view_cache_6 =
-        L"";
+        static std::wstring_view
+            wstring_view_6;
 
-    inline static std::wstring_view wstring_view_cache_7 =
-        L"";
+        static std::wstring_view
+            wstring_view_7;
 
-    inline static std::wstring_view wstring_view_cache_8 =
-        L"";
+        static std::wstring_view
+            wstring_view_8;
 
-    inline static std::wstring_view* wstring_view_pointer_cache_1 =
-        nullptr;
+        static std::wstring_view*
+            wstring_view_pointer_1;
 
-    inline static std::wstring_view* wstring_view_pointer_cache_2 =
-        nullptr;
+        static std::wstring_view*
+            wstring_view_pointer_2;
 
-    inline static std::wstring_view* wstring_view_pointer_cache_3 =
-        nullptr;
+        static std::wstring_view*
+            wstring_view_pointer_3;
 
-    inline static std::wstring_view* wstring_view_pointer_cache_4 =
-        nullptr;
+        static std::wstring_view*
+            wstring_view_pointer_4;
 
-    inline static std::wstring_view* wstring_view_pointer_cache_5 =
-        nullptr;
+        static std::wstring_view*
+            wstring_view_pointer_5;
 
-    inline static std::wstring_view* wstring_view_pointer_cache_6 =
-        nullptr;
+        static std::wstring_view*
+            wstring_view_pointer_6;
 
-    inline static std::wstring_view* wstring_view_pointer_cache_7 =
-        nullptr;
+        static std::wstring_view*
+            wstring_view_pointer_7;
 
-    inline static std::wstring_view* wstring_view_pointer_cache_8 =
-        nullptr;
+        static std::wstring_view*
+            wstring_view_pointer_8;
+   
+    };    
 }

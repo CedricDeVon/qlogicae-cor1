@@ -8,9 +8,9 @@ namespace QLogicaeCppCore
     {        
         ExceptionManagerConfigurations
             exception_manager_configurations =
-                exception_manager_configurations_default;
-    };
+                {};
 
-    inline static ConfigurationsManagerConfigurations
-        configurations_manager_configurations_default;
+        static ConfigurationsManagerConfigurations
+            cache;
+    };
 }

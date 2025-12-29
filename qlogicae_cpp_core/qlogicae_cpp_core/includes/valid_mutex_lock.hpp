@@ -4,12 +4,15 @@ namespace QLogicaeCppCore
 {
     template<typename LockType, typename MutexType>
     concept ValidLock =
-        requires(LockType l, MutexType m)
+        requires(LockType lock_type, MutexType mutex_type)
     {
-        l(m);
+        lock_type(
+            mutex_type
+        );
     } ||
-        requires(LockType l, MutexType m)
+        requires(LockType lock_type, MutexType mutex_type)
     {
-        l.lock(); l.unlock();
+        lock_type.lock();
+        lock_type.unlock();
     };
 }

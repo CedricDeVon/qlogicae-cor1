@@ -23,7 +23,7 @@ namespace QLogicaeCppCore
     {
         _construct();
 
-        return boolean_cache_1;
+        return ValueCache::boolean_1;
     }
 
     void
@@ -31,11 +31,11 @@ namespace QLogicaeCppCore
     {
         try
         {
-            boolean_cache_1 = true;
+            ValueCache::boolean_1 = true;
         }
         catch (...)
         {
-            boolean_cache_1 = false;
+            ValueCache::boolean_1 = false;
         }        
     }
 
@@ -44,7 +44,7 @@ namespace QLogicaeCppCore
     {
         _destruct();
 
-        return boolean_cache_1;
+        return ValueCache::boolean_1;
     }
 
     void
@@ -52,11 +52,11 @@ namespace QLogicaeCppCore
     {
         try
         {
-            boolean_cache_1 = true;
+            ValueCache::boolean_1 = true;
         }
         catch (...)
         {
-            boolean_cache_1 = false;
+            ValueCache::boolean_1 = false;
         }
     }
 }

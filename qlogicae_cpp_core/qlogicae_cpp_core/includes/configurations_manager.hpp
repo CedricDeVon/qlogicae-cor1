@@ -36,9 +36,6 @@ namespace QLogicaeCppCore
                     instance
             ) = delete;
 
-        static ConfigurationsManagerConfigurations
-            configurations_manager_configurations_cache_1;
-
         static ConfigurationsManager&
             instance;
 

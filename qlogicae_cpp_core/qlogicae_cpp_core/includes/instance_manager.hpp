@@ -60,25 +60,9 @@ namespace QLogicaeCppCore
     {
         static Type instance;
 
-        boolean_cache_1 =
+        ValueCache::boolean_1 =
             true;
 
         return instance;
     }   
 }
-
-/*
-
-std::future<bool>
-    construct_asynchronously(
-        const std::function<void(const bool& result)>&
-        callback = nullptr
-    );
-
-std::future<bool>
-    destruct_asynchronously(
-        const std::function<void(const bool& result)>&
-            callback = nullptr
-    );
-
-*/

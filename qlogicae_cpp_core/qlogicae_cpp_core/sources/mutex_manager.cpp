@@ -7,10 +7,7 @@ namespace QLogicaeCppCore
     MutexManager&
         MutexManager::instance =
             InstanceManager::instance.get_instance<MutexManager>();
-
-    folly::MicroSpinLock
-        MutexManager::micro_spinlock;
-
+    
     std::unordered_map<std::pair<void*, std::string>, std::mutex, PairHashOperator>
         MutexManager::mutex_collection;
 
@@ -41,6 +38,8 @@ namespace QLogicaeCppCore
     std::unordered_map<std::pair<void*, std::string>, boost::shared_mutex, PairHashOperator>
         MutexManager::boost_shared_mutex_collection;
 
+    std::unordered_map<std::pair<void*, std::string>, folly::MicroSpinLock, PairHashOperator>
+        MutexManager::folly_micro_spin_lock_collection;
 
     MutexManager::MutexManager()
     {
@@ -57,7 +56,7 @@ namespace QLogicaeCppCore
     {
         _construct();
 
-        return boolean_cache_1;
+        return ValueCache::boolean_1;
     }
 
     void
@@ -65,12 +64,12 @@ namespace QLogicaeCppCore
     {
         try
         {
-            boolean_cache_1 = true;
+            ValueCache::boolean_1 = true;
         }
         catch (...)
         {
-            boolean_cache_1 = false;
-        }        
+            ValueCache::boolean_1 = false;
+        }
     }
 
     bool
@@ -78,7 +77,7 @@ namespace QLogicaeCppCore
     {
         _destruct();
 
-        return boolean_cache_1;
+        return ValueCache::boolean_1;
     }
 
     void
@@ -86,20 +85,59 @@ namespace QLogicaeCppCore
     {
         try
         {
-            boolean_cache_1 = true;
+            ValueCache::boolean_1 = true;
         }
         catch (...)
         {
-            boolean_cache_1 = false;
-        }        
+            ValueCache::boolean_1 = false;
+        }
     }
 
     bool
         MutexManager::lock_micro_mutex()
     {
+        ValueCache::void_pointer_1 =
+            this;
+
+        ValueCache::string_view_1 =
+            MutexManagerConfigurations::cache_base_name;
+
         _lock_micro_mutex();
 
-        return boolean_cache_1;
+        return ValueCache::boolean_1;
+    }
+
+    bool
+        MutexManager::lock_micro_mutex(
+            const void* pointer
+        )
+    {
+        ValueCache::void_pointer_1 =
+            const_cast<void*>(pointer);
+
+        ValueCache::string_view_1 =
+            MutexManagerConfigurations::cache_base_name;
+
+        _lock_micro_mutex();
+
+        return ValueCache::boolean_1;
+    }
+
+    bool
+        MutexManager::lock_micro_mutex(
+            const void* pointer,
+            const std::string_view& name
+        )
+    {
+        ValueCache::void_pointer_1 =
+            const_cast<void*>(pointer);
+
+        ValueCache::string_view_1 =
+            name;
+
+        _lock_micro_mutex();
+
+        return ValueCache::boolean_1;
     }
 
     void
@@ -107,22 +145,64 @@ namespace QLogicaeCppCore
     {
         try
         {
-            micro_spinlock.lock();
+            folly::MicroSpinLock*
+                micro_spin_lock =
+                &folly_micro_spin_lock_collection[
+            {
+                ValueCache::void_pointer_1,
+                    ValueCache::string_view_1.data()
+            }
+                ];
 
-            boolean_cache_1 = true;
+            micro_spin_lock->lock();
+
+            ValueCache::boolean_1 = true;
         }
         catch (...)
         {
-            boolean_cache_1 = false;
+            ValueCache::boolean_1 = false;
         }
     }
 
     bool
         MutexManager::unlock_micro_mutex()
-    {        
+    {
         _unlock_micro_mutex();
 
-        return boolean_cache_1;
+        return ValueCache::boolean_1;
+    }
+
+    bool
+        MutexManager::unlock_micro_mutex(
+            const void* pointer
+        )
+    {
+        ValueCache::void_pointer_1 =
+            const_cast<void*>(pointer);
+
+        ValueCache::string_view_1 =
+            MutexManagerConfigurations::cache_base_name;
+
+        _unlock_micro_mutex();
+
+        return ValueCache::boolean_1;
+    }
+
+    bool
+        MutexManager::unlock_micro_mutex(
+            const void* pointer,
+            const std::string_view& name
+        )
+    {
+        ValueCache::void_pointer_1 =
+            const_cast<void*>(pointer);
+
+        ValueCache::string_view_1 =
+            name;
+
+        _unlock_micro_mutex();
+
+        return ValueCache::boolean_1;
     }
 
     void
@@ -130,13 +210,56 @@ namespace QLogicaeCppCore
     {
         try
         {
-            micro_spinlock.unlock();
+            folly::MicroSpinLock*
+                micro_spin_lock =
+                &folly_micro_spin_lock_collection
+                [
+            {
+                this,
+                    MutexManagerConfigurations::cache_base_name
+            }
+                ];
 
-            boolean_cache_1 = true;
+            micro_spin_lock->unlock();
+
+            ValueCache::boolean_1 = true;
         }
         catch (...)
         {
-            boolean_cache_1 = false;
+            ValueCache::boolean_1 = false;
+        }
+    }
+
+    bool
+        MutexManager::clear_all_collections()
+    {
+        _clear_all_collections();
+
+        return ValueCache::boolean_1;
+    }
+
+    void
+        MutexManager::_clear_all_collections()
+    {
+        try
+        {
+            mutex_collection.clear();
+            timed_mutex_collection.clear();
+            recursive_mutex_collection.clear();
+            recursive_timed_mutex_collection.clear();
+            shared_mutex_collection.clear();
+            boost_mutex_collection.clear();
+            boost_timed_mutex_collection.clear();
+            boost_recursive_mutex_collection.clear();
+            boost_recursive_timed_mutex_collection.clear();
+            boost_shared_mutex_collection.clear();
+            folly_micro_spin_lock_collection.clear();
+
+            ValueCache::boolean_1 = true;
+        }
+        catch (...)
+        {
+            ValueCache::boolean_1 = false;
         }
     }
 }

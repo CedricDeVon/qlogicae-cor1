@@ -4,19 +4,17 @@ namespace QLogicaeCppCore
 {
     struct AsynchronousManagerConfigurations
     {
-        inline static bool
-            is_enabled_default =
-                true;
-
         bool
             is_enabled =
-                is_enabled_default;
+            default_is_enabled;
 
-        inline static bool
-            is_enabled_cache =
-                is_enabled_default;
+        static bool
+            default_is_enabled;
+
+        static bool
+            cache_is_enabled;
+
+        static AsynchronousManagerConfigurations
+            cache;
     };
-
-    inline static AsynchronousManagerConfigurations
-        asynchronous_manager_configurations_default;
 }

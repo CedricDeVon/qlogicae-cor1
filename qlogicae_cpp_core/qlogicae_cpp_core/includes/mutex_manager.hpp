@@ -33,9 +33,6 @@ namespace QLogicaeCppCore
         static MutexManager&
             instance;
 
-        static folly::MicroSpinLock
-            micro_spinlock;
-
         static std::unordered_map<std::pair<void*, std::string>,
             std::mutex, PairHashOperator>
                 mutex_collection;
@@ -76,6 +73,10 @@ namespace QLogicaeCppCore
             boost::shared_mutex, PairHashOperator>
                 boost_shared_mutex_collection;
 
+        static std::unordered_map<std::pair<void*, std::string>,
+            folly::MicroSpinLock, PairHashOperator>
+                folly_micro_spin_lock_collection;
+
         bool
             construct();
 
@@ -91,14 +92,42 @@ namespace QLogicaeCppCore
         bool
             lock_micro_mutex();
 
+        bool
+            lock_micro_mutex(
+                const void* pointer
+            );
+
+        bool
+            lock_micro_mutex(
+                const void* pointer,
+                const std::string_view& name
+            );
+
         void
             _lock_micro_mutex();
 
         bool
             unlock_micro_mutex();
 
+        bool
+            unlock_micro_mutex(
+                const void* pointer
+            );
+
+        bool
+            unlock_micro_mutex(
+                const void* pointer,
+                const std::string_view& name
+            );
+
         void
             _unlock_micro_mutex();
+
+        bool
+            clear_all_collections();
+
+        void
+            _clear_all_collections();
 
         template<typename LockType, typename MutexType> bool
             lock_mutex(
@@ -121,60 +150,60 @@ namespace QLogicaeCppCore
             const void* pointer
         ) requires ValidLock<LockType, MutexType>
     {
-        void_pointer_cache_1 =
+        ValueCache::void_pointer_1 =
             const_cast<void*>(pointer);
 
-        string_view_cache_1 =
-            MutexManagerConfigurations::base_name_cache;
+        ValueCache::string_view_1 =
+            MutexManagerConfigurations::cache_base_name;
 
         _lock_mutex<LockType, MutexType>();
 
-        return boolean_cache_1;
+        return ValueCache::boolean_1;
     }
 
     template<typename LockType, typename MutexType> bool
         MutexManager::lock_mutex(
             const void* pointer,
             const std::string_view& name
-    ) requires ValidLock<LockType, MutexType>
+        ) requires ValidLock<LockType, MutexType>
     {
-        void_pointer_cache_1 =
+        ValueCache::void_pointer_1 =
             const_cast<void*>(pointer);
 
-        string_view_cache_1 =
+        ValueCache::string_view_1 =
             name;
 
         _lock_mutex<LockType, MutexType>();
 
-        return boolean_cache_1;
+        return ValueCache::boolean_1;
     }
 
     template<typename LockType, typename MutexType> void
         MutexManager::_lock_mutex(
-    ) requires ValidLock<LockType, MutexType>
+        ) requires ValidLock<LockType, MutexType>
     {
         try
         {
-            if (!void_pointer_cache_1)
+            if (!ValueCache::void_pointer_1)
             {
-                boolean_cache_1 = false;
+                ValueCache::boolean_1 = false;
 
                 return;
             }
 
             MutexType*
                 mutex_pointer =
-                    nullptr;
+                nullptr;
 
             if constexpr
                 (std::is_same_v<MutexType, std::mutex>)
             {
                 mutex_pointer =
                     &mutex_collection[
-                        {
-                            void_pointer_cache_1,
-                            string_view_cache_1.data()
-                        }
+                {
+                    ValueCache::void_pointer_1,
+                        ValueCache::string_view_1.data()
+                }
                     ];
             }
             else if constexpr
@@ -182,10 +211,10 @@ namespace QLogicaeCppCore
             {
                 mutex_pointer =
                     &timed_mutex_collection[
-                        {
-                            void_pointer_cache_1,
-                            string_view_cache_1.data()
-                        }
+                {
+                    ValueCache::void_pointer_1,
+                        ValueCache::string_view_1.data()
+                }
                     ];
             }
             else if constexpr
@@ -193,10 +222,10 @@ namespace QLogicaeCppCore
             {
                 mutex_pointer =
                     &recursive_mutex_collection[
-                        {
-                            void_pointer_cache_1,
-                            string_view_cache_1.data()
-                        }
+                {
+                    ValueCache::void_pointer_1,
+                        ValueCache::string_view_1.data()
+                }
                     ];
             }
             else if constexpr
@@ -204,10 +233,10 @@ namespace QLogicaeCppCore
             {
                 mutex_pointer =
                     &recursive_timed_mutex_collection[
-                        {
-                            void_pointer_cache_1,
-                            string_view_cache_1.data()
-                        }
+                {
+                    ValueCache::void_pointer_1,
+                        ValueCache::string_view_1.data()
+                }
                     ];
             }
             else if constexpr
@@ -215,10 +244,10 @@ namespace QLogicaeCppCore
             {
                 mutex_pointer =
                     &shared_mutex_collection[
-                        {
-                            void_pointer_cache_1,
-                            string_view_cache_1.data()
-                        }
+                {
+                    ValueCache::void_pointer_1,
+                        ValueCache::string_view_1.data()
+                }
                     ];
             }
             else if constexpr
@@ -226,10 +255,10 @@ namespace QLogicaeCppCore
             {
                 mutex_pointer =
                     &boost_mutex_collection[
-                        {
-                            void_pointer_cache_1,
-                            string_view_cache_1.data()
-                        }
+                {
+                    ValueCache::void_pointer_1,
+                        ValueCache::string_view_1.data()
+                }
                     ];
             }
             else if constexpr
@@ -237,10 +266,10 @@ namespace QLogicaeCppCore
             {
                 mutex_pointer =
                     &boost_timed_mutex_collection[
-                        {
-                            void_pointer_cache_1,
-                            string_view_cache_1.data()
-                        }
+                {
+                    ValueCache::void_pointer_1,
+                        ValueCache::string_view_1.data()
+                }
                     ];
             }
             else if constexpr
@@ -248,10 +277,10 @@ namespace QLogicaeCppCore
             {
                 mutex_pointer =
                     &boost_recursive_mutex_collection[
-                        {
-                            void_pointer_cache_1,
-                            string_view_cache_1.data()
-                        }
+                {
+                    ValueCache::void_pointer_1,
+                        ValueCache::string_view_1.data()
+                }
                     ];
             }
             else if constexpr
@@ -259,10 +288,10 @@ namespace QLogicaeCppCore
             {
                 mutex_pointer =
                     &boost_recursive_timed_mutex_collection[
-                        {
-                            void_pointer_cache_1,
-                            string_view_cache_1.data()
-                        }
+                {
+                    ValueCache::void_pointer_1,
+                        ValueCache::string_view_1.data()
+                }
                     ];
             }
             else if constexpr
@@ -270,15 +299,15 @@ namespace QLogicaeCppCore
             {
                 mutex_pointer =
                     &boost_shared_mutex_collection[
-                        {
-                            void_pointer_cache_1,
-                            string_view_cache_1.data()
-                        }
+                {
+                    ValueCache::void_pointer_1,
+                        ValueCache::string_view_1.data()
+                }
                     ];
             }
             else
             {
-                boolean_cache_1 =
+                ValueCache::boolean_1 =
                     false;
 
                 return;
@@ -288,12 +317,12 @@ namespace QLogicaeCppCore
                 *mutex_pointer
             );
 
-            boolean_cache_1 =
+            ValueCache::boolean_1 =
                 true;
         }
         catch (...)
         {
-            boolean_cache_1 =
+            ValueCache::boolean_1 =
                 false;
         }
     }

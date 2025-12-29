@@ -47,19 +47,7 @@ namespace QLogicaeCppCore
         ExceptionManager::_construct()
     {
         try
-        {
-            ExceptionManagerConfigurations::is_enabled_cache =
-                exception_manager_configurations_default.is_enabled;
-
-            ExceptionManagerConfigurations::is_console_output_enabled_cache =
-                exception_manager_configurations_default.is_console_output_enabled;
-
-            ExceptionManagerConfigurations::is_file_output_enabled_cache =
-                exception_manager_configurations_default.is_file_output_enabled;
-
-            ExceptionManagerConfigurations::is_exception_throwing_enabled_cache =
-                exception_manager_configurations_default.is_exception_throwing_enabled;
-
+        {   
             boolean_cache_1 = true;
         }
         catch (...)

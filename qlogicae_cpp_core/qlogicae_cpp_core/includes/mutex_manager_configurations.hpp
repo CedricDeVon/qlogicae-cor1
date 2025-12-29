@@ -4,19 +4,18 @@ namespace QLogicaeCppCore
 {
     struct MutexManagerConfigurations
     {
-        inline static std::string
-            base_name_default =
-                "static";
-
         std::string
             base_name =
-                base_name_default;
+                default_base_name;
 
-        inline static std::string
-            base_name_cache =
-                base_name_default;
+        static std::string
+            default_base_name;
+
+        static std::string
+            cache_base_name;
+
+        static MutexManagerConfigurations
+            cache;
+
     };
-
-    inline static MutexManagerConfigurations
-        mutex_manager_configurations_default;
 }

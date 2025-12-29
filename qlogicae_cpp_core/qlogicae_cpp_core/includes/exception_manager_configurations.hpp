@@ -4,55 +4,47 @@ namespace QLogicaeCppCore
 {
     struct ExceptionManagerConfigurations
     {        
-        inline static bool
-            is_enabled_default =
-                true;
-
-        inline static bool
-            is_console_output_enabled_default =
-                false;
-
-        inline static bool
-            is_file_output_enabled_default =
-                false;
-
-        inline static bool
-            is_exception_throwing_enabled_default =
-                false;
-
         bool
             is_enabled =
-                is_enabled_default;
-        
+                default_is_enabled;
+
         bool
             is_console_output_enabled =
-                is_console_output_enabled_default;
+                default_is_console_output_enabled;
 
         bool
             is_file_output_enabled =
-                is_file_output_enabled_default;
+                default_is_file_output_enabled;
 
         bool
             is_exception_throwing_enabled =
-                is_exception_throwing_enabled_default;
+                default_is_exception_throwing_enabled;
 
-        inline static bool
-            is_enabled_cache =
-                is_enabled_default;
+        static bool
+            default_is_enabled;
 
-        inline static bool
-            is_console_output_enabled_cache =
-                is_console_output_enabled_default;
+        static bool
+            default_is_console_output_enabled;
 
-        inline static bool
-            is_file_output_enabled_cache =
-                is_file_output_enabled_default;
+        static bool
+            default_is_file_output_enabled;
 
-        inline static bool
-            is_exception_throwing_enabled_cache =
-                is_exception_throwing_enabled_default;
-    };
+        static bool
+            default_is_exception_throwing_enabled;
 
-    inline static ExceptionManagerConfigurations
-        exception_manager_configurations_default;
+        static bool
+            cache_is_enabled;
+
+        static bool
+            cache_is_console_output_enabled;
+
+        static bool
+            cache_is_file_output_enabled;
+
+        static bool
+            cache_is_exception_throwing_enabled;
+
+        static ExceptionManagerConfigurations
+            cache;
+    };    
 }

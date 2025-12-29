@@ -4,5 +4,6 @@
 
 namespace QLogicaeCppCore
 {
-	
+	ConfigurationsManagerConfigurations
+		ConfigurationsManagerConfigurations::cache;
 }

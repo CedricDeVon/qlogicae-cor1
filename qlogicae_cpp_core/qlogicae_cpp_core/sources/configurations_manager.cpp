@@ -15,8 +15,8 @@ namespace QLogicaeCppCore
 
     ConfigurationsManager::~ConfigurationsManager()
     {
-        configurations_manager_configurations_cache_1 =
-            configurations_manager_configurations_default;
+        ConfigurationsManagerConfigurations::cache =
+            {};
 
         _destruct();
     }
@@ -24,58 +24,38 @@ namespace QLogicaeCppCore
     bool
         ConfigurationsManager::construct()
     {
-        configurations_manager_configurations_cache_1 =
-            configurations_manager_configurations_default;
+        ConfigurationsManagerConfigurations::cache =
+            {};
 
         _construct();
 
-        return boolean_cache_1;
+        return ValueCache::boolean_1;
     }
 
     bool
         ConfigurationsManager::construct(
             const ConfigurationsManagerConfigurations&
-                new_configurations
+            new_configurations
         )
-    {        
-        configurations_manager_configurations_cache_1 =
+    {
+        ConfigurationsManagerConfigurations::cache =
             new_configurations;
 
         _construct();
 
-        return boolean_cache_1;
+        return ValueCache::boolean_1;
     }
 
     void
         ConfigurationsManager::_construct()
     {
         try
-        {            
-            ExceptionManagerConfigurations::is_enabled_cache =
-                configurations_manager_configurations_cache_1
-                    .exception_manager_configurations
-                        .is_enabled_cache;
-
-            ExceptionManagerConfigurations::is_console_output_enabled_cache =
-                configurations_manager_configurations_cache_1
-                    .exception_manager_configurations
-                        .is_console_output_enabled_cache;
-
-            ExceptionManagerConfigurations::is_file_output_enabled_cache =
-                configurations_manager_configurations_cache_1
-                    .exception_manager_configurations
-                        .is_file_output_enabled_cache;
-
-            ExceptionManagerConfigurations::is_exception_throwing_enabled_cache =
-                configurations_manager_configurations_cache_1
-                    .exception_manager_configurations
-                        .is_exception_throwing_enabled_cache;
-
-            boolean_cache_1 = true;
+        {                        
+            ValueCache::boolean_1 = true;
         }
         catch (...)
         {
-            boolean_cache_1 = false;
+            ValueCache::boolean_1 = false;
         }
     }
 
@@ -84,7 +64,7 @@ namespace QLogicaeCppCore
     {
         _destruct();
 
-        return boolean_cache_1;
+        return ValueCache::boolean_1;
     }
 
     void
@@ -92,11 +72,11 @@ namespace QLogicaeCppCore
     {
         try
         {
-            boolean_cache_1 = true;
+            ValueCache::boolean_1 = true;
         }
         catch (...)
         {
-            boolean_cache_1 = false;
+            ValueCache::boolean_1 = false;
         }
     }
 }

@@ -1,5 +1,6 @@
 #pragma once
 
+#include "value_cache.hpp"
 #include "instance_manager.hpp"
 
 namespace QLogicaeCppCore
@@ -13,29 +14,25 @@ namespace QLogicaeCppCore
 
         ConstantsManager(
             const ConstantsManager&
-            instance
-        ) =
-            delete;
+                instance
+        ) = delete;
 
         ConstantsManager(
             ConstantsManager&&
-            instance
-        ) noexcept =
-            delete;
+                instance
+        ) noexcept = delete;
 
         ConstantsManager&
             operator = (
                 ConstantsManager&&
-                instance
-                ) =
-            delete;
+                    instance
+            ) = delete;
 
         ConstantsManager&
             operator = (
                 const ConstantsManager&
-                instance
-                ) =
-            delete;
+                    instance
+            ) = delete;
 
         static ConstantsManager&
             instance;
