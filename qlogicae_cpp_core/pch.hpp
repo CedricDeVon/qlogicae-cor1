@@ -14,6 +14,10 @@
 
 */
 
+#include <fast_io.h>
+#include <fast_io_device.h>
+#include <fast_io_legacy.h>
+
 #include <boost/asio.hpp>
 #include <boost/thread/mutex.hpp>
 #include <boost/thread/locks.hpp>

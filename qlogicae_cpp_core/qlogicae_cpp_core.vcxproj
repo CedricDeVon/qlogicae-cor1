@@ -192,14 +192,10 @@
     <ClInclude Include="pch.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\application.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\assembly.hpp" />
-    <ClInclude Include="qlogicae_cpp_core\includes\asynchronous_manager_configurations.hpp" />
-    <ClInclude Include="qlogicae_cpp_core\includes\configurations_manager.hpp" />
-    <ClInclude Include="qlogicae_cpp_core\includes\configurations_manager_configurations.hpp" />
-    <ClInclude Include="qlogicae_cpp_core\includes\constants_manager.hpp" />
-    <ClInclude Include="qlogicae_cpp_core\includes\exception_manager_configurations.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\instance_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\mutex_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\mutex_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\mutex_manager_configurations_parameters.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\pair_hash_operator.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\results.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\results_status.hpp" />
@@ -213,14 +209,10 @@
     </ClCompile>
     <ClCompile Include="qlogicae_cpp_core\sources\application.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\assembly.cpp" />
-    <ClCompile Include="qlogicae_cpp_core\sources\asynchronous_manager_configurations.cpp" />
-    <ClCompile Include="qlogicae_cpp_core\sources\configurations_manager.cpp" />
-    <ClCompile Include="qlogicae_cpp_core\sources\configurations_manager_configurations.cpp" />
-    <ClCompile Include="qlogicae_cpp_core\sources\constants_manager.cpp" />
-    <ClCompile Include="qlogicae_cpp_core\sources\exception_manager_configurations.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\instance_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\mutex_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\mutex_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\mutex_manager_configurations_parameters.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\pair_hash_operator.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\results.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\results_status.cpp" />

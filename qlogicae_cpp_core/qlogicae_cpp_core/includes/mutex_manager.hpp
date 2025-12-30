@@ -4,6 +4,7 @@
 #include "valid_mutex_lock.hpp"
 #include "pair_hash_operator.hpp"
 #include "mutex_manager_configurations.hpp"
+#include "mutex_manager_configurations_parameters.hpp"
 
 namespace QLogicaeCppCore
 {    
@@ -76,6 +77,12 @@ namespace QLogicaeCppCore
         static std::unordered_map<std::pair<void*, std::string>,
             folly::MicroSpinLock, PairHashOperator>
                 folly_micro_spin_lock_collection;
+
+        bool
+            construct(
+                const MutexManagerConfigurationsParameters&
+                    new_configurations_parameters
+            );
 
         bool
             construct();
@@ -154,7 +161,7 @@ namespace QLogicaeCppCore
             const_cast<void*>(pointer);
 
         ValueCache::string_view_1 =
-            MutexManagerConfigurations::cache_base_name;
+            MutexManagerConfigurations::base_name;
 
         _lock_mutex<LockType, MutexType>();
 
@@ -193,7 +200,7 @@ namespace QLogicaeCppCore
 
             MutexType*
                 mutex_pointer =
-                nullptr;
+                    nullptr;
 
             if constexpr
                 (std::is_same_v<MutexType, std::mutex>)

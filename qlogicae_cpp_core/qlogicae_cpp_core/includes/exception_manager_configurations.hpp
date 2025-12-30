@@ -20,6 +20,19 @@ namespace QLogicaeCppCore
             is_exception_throwing_enabled =
                 default_is_exception_throwing_enabled;
 
+        
+
+        std::string
+            folder_output_path;
+
+        std::string
+            file_name;
+
+        std::string
+            file_extension;
+        
+
+
         static bool
             default_is_enabled;
 
@@ -32,6 +45,17 @@ namespace QLogicaeCppCore
         static bool
             default_is_exception_throwing_enabled;
 
+        static std::string
+            default_folder_output_path;
+
+        static std::string
+            default_file_name;
+
+        static std::string
+            default_file_extension;
+
+
+
         static bool
             cache_is_enabled;
 
@@ -43,6 +67,15 @@ namespace QLogicaeCppCore
 
         static bool
             cache_is_exception_throwing_enabled;
+
+        static std::string
+            cache_folder_output_path;
+
+        static std::string
+            cache_file_name;
+
+        static std::string
+            cache_file_extension;
 
         static ExceptionManagerConfigurations
             cache;

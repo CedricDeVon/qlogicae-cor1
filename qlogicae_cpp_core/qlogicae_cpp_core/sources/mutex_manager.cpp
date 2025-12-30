@@ -52,8 +52,25 @@ namespace QLogicaeCppCore
     }
 
     bool
+        MutexManager::construct(
+            const MutexManagerConfigurationsParameters&
+                new_configurations_parameters
+        )
+    {
+        MutexManagerConfigurationsParameters::instance =
+            new_configurations_parameters;
+
+        _construct();
+
+        return ValueCache::boolean_1;
+    }
+
+    bool
         MutexManager::construct()
     {
+        MutexManagerConfigurationsParameters::instance =
+            {};
+
         _construct();
 
         return ValueCache::boolean_1;
@@ -64,6 +81,11 @@ namespace QLogicaeCppCore
     {
         try
         {
+            MutexManagerConfigurations::instance
+                .construct(
+                    MutexManagerConfigurationsParameters::instance
+                );
+
             ValueCache::boolean_1 = true;
         }
         catch (...)
@@ -100,7 +122,7 @@ namespace QLogicaeCppCore
             this;
 
         ValueCache::string_view_1 =
-            MutexManagerConfigurations::cache_base_name;
+            MutexManagerConfigurations::base_name;
 
         _lock_micro_mutex();
 
@@ -116,7 +138,7 @@ namespace QLogicaeCppCore
             const_cast<void*>(pointer);
 
         ValueCache::string_view_1 =
-            MutexManagerConfigurations::cache_base_name;
+            MutexManagerConfigurations::base_name;
 
         _lock_micro_mutex();
 
@@ -181,7 +203,7 @@ namespace QLogicaeCppCore
             const_cast<void*>(pointer);
 
         ValueCache::string_view_1 =
-            MutexManagerConfigurations::cache_base_name;
+            MutexManagerConfigurations::base_name;
 
         _unlock_micro_mutex();
 
@@ -216,7 +238,7 @@ namespace QLogicaeCppCore
                 [
             {
                 this,
-                    MutexManagerConfigurations::cache_base_name
+                    MutexManagerConfigurations::base_name
             }
                 ];
 

@@ -1,5 +1,6 @@
 #pragma once
 
+#include "value_cache.hpp"
 #include "instance_manager.hpp"
 #include "exception_manager_configurations.hpp"
 
@@ -37,8 +38,11 @@ namespace QLogicaeCppCore
         static ExceptionManager&
             instance;
 
-        static ExceptionManagerConfigurations
-            exception_configurations_input_cache_1;
+        static fast_io::native_io_observer
+            fast_io_error_console_output_type;
+
+        static fast_io::native_file
+            fast_io_native_file;
 
         bool
             construct(
@@ -66,10 +70,15 @@ namespace QLogicaeCppCore
 
         bool
             handle(
+                const std::string_view& message
+            );
+
+        bool
+            handle(
                 const std::exception& exception
             );
 
         void
             _handle();
-    };
+    };    
 }
