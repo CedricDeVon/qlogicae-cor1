@@ -5,11 +5,10 @@
 namespace QLogicaeCppCore
 {
     bool
-        AsynchronousManagerConfigurations::default_is_enabled =
+        AsynchronousManagerConfigurations::initial_is_enabled =
             true;
 
     bool
-        AsynchronousManagerConfigurations::cache_is_enabled =
-            AsynchronousManagerConfigurations::default_is_enabled;
-
+        AsynchronousManagerConfigurations::default_is_enabled =
+            AsynchronousManagerConfigurations::initial_is_enabled;
 }

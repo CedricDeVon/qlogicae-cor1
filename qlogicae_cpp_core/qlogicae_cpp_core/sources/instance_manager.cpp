@@ -4,26 +4,32 @@
 
 namespace QLogicaeCppCore
 {
+    bool
+        InstanceManager::is_successful =
+            false;
+
     InstanceManager&
         InstanceManager::instance =
             InstanceManager::get_instance_manager();
-    
+
+
+
     InstanceManager::InstanceManager()
     {
-        
+        _construct();
     }
 
     InstanceManager::~InstanceManager()
     {
-        
+        _destruct();
     }
 
     bool
         InstanceManager::construct()
-    {        
+    {
         _construct();
 
-        return ValueCache::boolean_1;
+        return is_successful;
     }
 
     void
@@ -31,12 +37,12 @@ namespace QLogicaeCppCore
     {
         try
         {
-            ValueCache::boolean_1 =
+            is_successful =
                 true;
         }
         catch (...)
         {
-            ValueCache::boolean_1 =
+            is_successful =
                 false;
         }
     }
@@ -46,7 +52,7 @@ namespace QLogicaeCppCore
     {
         _destruct();
 
-        return ValueCache::boolean_1;
+        return is_successful;
     }
 
     void
@@ -54,12 +60,58 @@ namespace QLogicaeCppCore
     {
         try
         {
-            ValueCache::boolean_1 =
+            is_successful =
                 true;
         }
         catch (...)
         {
-            ValueCache::boolean_1 =
+            is_successful =
+                false;
+        }
+    }
+
+    bool
+        InstanceManager::setup()
+    {
+        _setup();
+
+        return is_successful;
+    }
+
+    void
+        InstanceManager::_setup()
+    {
+        try
+        {
+            is_successful =
+                true;
+        }
+        catch (...)
+        {
+            is_successful =
+                false;
+        }
+    }
+
+    bool
+        InstanceManager::reset()
+    {
+        _reset();
+
+        return is_successful;
+    }
+
+    void
+        InstanceManager::_reset()
+    {
+        try
+        {
+            is_successful =
+                true;
+        }
+        catch (...)
+        {
+            is_successful =
                 false;
         }
     }
@@ -69,7 +121,7 @@ namespace QLogicaeCppCore
     {
         static InstanceManager instance;
 
-        ValueCache::boolean_1 =
+        is_successful =
             true;
 
         return instance;

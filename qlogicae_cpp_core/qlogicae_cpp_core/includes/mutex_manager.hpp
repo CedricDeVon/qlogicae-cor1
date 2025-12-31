@@ -3,8 +3,8 @@
 #include "instance_manager.hpp"
 #include "valid_mutex_lock.hpp"
 #include "pair_hash_operator.hpp"
+#include "mutex_manager_cache.hpp"
 #include "mutex_manager_configurations.hpp"
-#include "mutex_manager_configuration_parameters.hpp"
 
 namespace QLogicaeCppCore
 {    
@@ -79,12 +79,6 @@ namespace QLogicaeCppCore
         ) = delete;
 
         bool
-            construct(
-                const MutexManagerConfigurationParameters&
-                    parameters
-            );
-
-        bool
             construct();
 
         void
@@ -97,23 +91,44 @@ namespace QLogicaeCppCore
             _destruct();
 
         bool
+            setup(
+                const MutexManagerConfigurations&
+                    configurations
+            );
+
+        bool
+            setup();
+
+        void
+            _setup();
+
+        bool
+            reset();
+
+        void
+            _reset();
+
+        bool
             lock_micro_mutex();
 
         bool
             lock_micro_mutex(
-                const void* pointer
+                const void*
+                    pointer
             );
 
         bool
             lock_micro_mutex(
-                const void* pointer,
-                const std::string_view& name
+                const void*
+                    pointer,
+                const std::string_view&
+                    name
             );
 
         bool
             lock_micro_mutex(
-                const MutexManagerConfigurationParameters&
-                    parameters
+                const MutexManagerConfigurations&
+                    configurations
             );
 
         void
@@ -129,14 +144,16 @@ namespace QLogicaeCppCore
 
         bool
             unlock_micro_mutex(
-                const void* pointer,
-                const std::string_view& name
+                const void*
+                    pointer,
+                const std::string_view&
+                    name
             );
 
         bool
             unlock_micro_mutex(
-                const MutexManagerConfigurationParameters&
-                    parameters
+                const MutexManagerConfigurations&
+                    configurations
             );
 
         void
@@ -164,8 +181,8 @@ namespace QLogicaeCppCore
 
         template<typename LockType, typename MutexType> bool
             lock_mutex(
-                const MutexManagerConfigurationParameters&
-                    parameters
+                const MutexManagerConfigurations&
+                    configurations
             ) requires ValidLock<LockType, MutexType>;
 
         template<typename LockType, typename MutexType> void
@@ -182,7 +199,7 @@ namespace QLogicaeCppCore
             const_cast<void*>(pointer);
 
         ValueCache::string_view_1 =
-            MutexManagerConfigurations::name;
+            MutexManagerCache::name;
 
         _lock_mutex<LockType, MutexType>();
 
@@ -208,15 +225,15 @@ namespace QLogicaeCppCore
 
     template<typename LockType, typename MutexType> bool
         MutexManager::lock_mutex(
-            const MutexManagerConfigurationParameters&
-                parameters
+            const MutexManagerConfigurations&
+                configurations
         ) requires ValidLock<LockType, MutexType>
     {
         ValueCache::void_pointer_1 =
-            const_cast<void*>(parameters.pointer);
+            const_cast<void*>(configurations.pointer);
 
         ValueCache::string_view_1 =
-            parameters.name;
+            configurations.name;
 
         _lock_mutex<LockType, MutexType>();
 

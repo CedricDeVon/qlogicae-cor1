@@ -4,6 +4,9 @@
 
 namespace QLogicaeCppCore
 {
+    boost::mutex
+        AsynchronousManager::mutex;
+
     AsynchronousManager&
         AsynchronousManager::instance =
             InstanceManager::instance
@@ -11,7 +14,7 @@ namespace QLogicaeCppCore
 
     AsynchronousManager::AsynchronousManager()        
     {        
-        
+        _construct();
     }
 
     AsynchronousManager::~AsynchronousManager()
@@ -24,25 +27,20 @@ namespace QLogicaeCppCore
     {        
         _construct();
 
-        return boolean_cache_1;
+        return ValueCache::boolean_1;
     }
 
     void
         AsynchronousManager::_construct()
     {
         try
-        {
-            main_thread_pool =
-                std::make_shared<boost::asio::thread_pool>(
-                    std::thread::hardware_concurrency()
-                );
-
-            boolean_cache_1 =
+        {            
+            ValueCache::boolean_1 =
                 true;
         }
         catch (...)
         {
-            boolean_cache_1 =
+            ValueCache::boolean_1 =
                 false;
         }               
     }
@@ -52,7 +50,7 @@ namespace QLogicaeCppCore
     {        
         _destruct();
 
-        return boolean_cache_1;
+        return ValueCache::boolean_1;
     }
 
     void
@@ -64,8 +62,74 @@ namespace QLogicaeCppCore
         }
         catch (...)
         {
-            boolean_cache_1 = false;
+            ValueCache::boolean_1 =
+                false;
         }        
+    }
+
+    bool
+        AsynchronousManager::setup(
+            const AsynchronousManagerConfigurations&
+                new_configurations
+        )
+    {
+        AsynchronousManagerCache::configurations =
+            new_configurations;
+
+        _setup();
+
+        return ValueCache::boolean_1;
+    }
+
+    bool
+        AsynchronousManager::setup()
+    {
+        AsynchronousManagerCache::configurations =
+            {};
+
+        _setup();
+
+        return ValueCache::boolean_1;
+    }
+
+    void
+        AsynchronousManager::_setup()
+    {
+        try
+        {
+            AsynchronousManagerCache::instance
+                .setup();
+        }
+        catch (...)
+        {
+            ValueCache::boolean_1 =
+                false;
+        }
+    }
+
+    bool
+        AsynchronousManager::reset()
+    {
+        _reset();
+
+        return ValueCache::boolean_1;
+    }
+
+    void
+        AsynchronousManager::_reset()
+    {
+        try
+        {
+            AsynchronousManagerCache::instance
+                .reset();
+
+            _complete_all_threads();
+        }
+        catch (...)
+        {
+            ValueCache::boolean_1 =
+                false;
+        }
     }
 
     bool AsynchronousManager::begin_one_thread(
@@ -80,44 +144,41 @@ namespace QLogicaeCppCore
         }
         catch (...)
         {
-            boolean_cache_1 = false;
+            ValueCache::boolean_1 = false;
         }
 
-        return boolean_cache_1;
+        return ValueCache::boolean_1;
     }
 
     void AsynchronousManager::_begin_one_thread(
         const std::function<void()>& callback
     )
     {
-        if (AsynchronousManagerConfigurations::is_enabled_cache)
+        if (AsynchronousManagerCache::is_enabled)
         {
-            boolean_cache_1 =
+            ValueCache::boolean_1 =
                 false;
 
             return;
         }
 
-        void_pointer_cache_1 =
-            this;
+        boost::unique_lock<boost::mutex>
+            unique_lock(mutex);
 
-        MutexManager::instance
-            ._lock_mutex<std::unique_lock<std::mutex>, std::mutex>();
-
-        if (main_thread_pool == nullptr)
+        if (AsynchronousManagerCache::main_thread_pool == nullptr)
         {
-            main_thread_pool =
+            AsynchronousManagerCache::main_thread_pool =
                 std::make_shared<boost::asio::thread_pool>(
                     std::thread::hardware_concurrency()
                 );
         }
 
         boost::asio::post(
-            *main_thread_pool,
+            *AsynchronousManagerCache::main_thread_pool,
             callback
         );
 
-        boolean_cache_1 =
+        ValueCache::boolean_1 =
             true;
     }
 
@@ -125,7 +186,7 @@ namespace QLogicaeCppCore
     {        
         _complete_all_threads();
 
-        return boolean_cache_1;
+        return ValueCache::boolean_1;
     }
 
     void AsynchronousManager::_complete_all_threads()
@@ -133,29 +194,26 @@ namespace QLogicaeCppCore
         try
         {
             {
-                void_pointer_cache_1 =
-                    this;
+                boost::unique_lock<boost::mutex>
+                    unique_lock(mutex);
 
-                MutexManager::instance
-                    ._lock_mutex<std::unique_lock<std::mutex>, std::mutex>();
+                AsynchronousManagerCache::temporary_thread_pool =
+                    AsynchronousManagerCache::main_thread_pool;
 
-                temporary_thread_pool =
-                    main_thread_pool;
-
-                main_thread_pool.reset();
+                AsynchronousManagerCache::main_thread_pool.reset();
             }
 
-            if (temporary_thread_pool)
+            if (AsynchronousManagerCache::temporary_thread_pool)
             {
-                temporary_thread_pool->join();
+                AsynchronousManagerCache::temporary_thread_pool->join();
             }
 
-            boolean_cache_1 =
+            ValueCache::boolean_1 =
                 true;
         }
         catch (...)
         {
-            boolean_cache_1 =
+            ValueCache::boolean_1 =
                 false;
         }        
     }

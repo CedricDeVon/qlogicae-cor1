@@ -1,5 +1,7 @@
 #pragma once
 
+#include "instance_manager.hpp"
+
 namespace QLogicaeCppCore
 {
     class ValueCache
@@ -1330,5 +1332,57 @@ namespace QLogicaeCppCore
         static std::wstring_view*
             wstring_view_pointer_8;
    
+        static ValueCache&
+            instance;
+
+        ValueCache();
+
+        ~ValueCache();
+
+        ValueCache(
+            const ValueCache&
+            instance
+        ) = delete;
+
+        ValueCache(
+            ValueCache&&
+            instance
+        ) noexcept = delete;
+
+        ValueCache&
+            operator = (
+                ValueCache&&
+                    instance
+                ) = delete;
+
+        ValueCache&
+            operator = (
+                const ValueCache&
+                    instance
+                ) = delete;
+
+        bool
+            construct();
+
+        void
+            _construct();
+
+        bool
+            destruct();
+
+        void
+            _destruct();
+
+        bool
+            setup();
+
+        void
+            _setup();
+
+        bool
+            reset();
+
+        void
+            _reset();
     };    
 }

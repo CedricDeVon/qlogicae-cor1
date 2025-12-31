@@ -1,12 +1,13 @@
 #pragma once
 
-#include "value_cache.hpp"
-
 namespace QLogicaeCppCore
 {
     class InstanceManager
     {
     public:
+        static bool
+            is_successful;
+
         static InstanceManager&
             instance;
 
@@ -48,6 +49,18 @@ namespace QLogicaeCppCore
         void
             _destruct();
 
+        bool
+            setup();
+
+        void
+            _setup();
+
+        bool
+            reset();
+
+        void
+            _reset();
+
         template <typename Type> Type&
             get_instance();
 
@@ -58,9 +71,10 @@ namespace QLogicaeCppCore
     template <typename Type> Type&
         InstanceManager::get_instance()
     {
-        static Type instance;
+        static Type
+            instance;
 
-        ValueCache::boolean_1 =
+        is_successful =
             true;
 
         return instance;

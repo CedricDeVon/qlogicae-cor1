@@ -4,97 +4,19 @@
 
 namespace QLogicaeCppCore
 {
-    MutexManagerConfigurations&
-        MutexManagerConfigurations::instance =
-            InstanceManager::instance.get_instance<MutexManagerConfigurations>();
-
     void*
-        MutexManagerConfigurations::pointer =
-            MutexManagerConfigurationParameters::default_pointer;
+        MutexManagerConfigurations::initial_pointer =
+            nullptr;
 
     std::string
-        MutexManagerConfigurations::name =
-            MutexManagerConfigurationParameters::default_name;
+        MutexManagerConfigurations::initial_name =
+            "static";
 
-    MutexManagerConfigurationParameters
-        MutexManagerConfigurations::parameters =
-            {};
+    std::string
+        MutexManagerConfigurations::default_name =
+            MutexManagerConfigurations::initial_name;
 
-    MutexManagerConfigurations::MutexManagerConfigurations()
-    {
-
-    }
-
-    MutexManagerConfigurations::~MutexManagerConfigurations()
-    {
-        
-    }
-
-    bool
-        MutexManagerConfigurations::construct(
-            const MutexManagerConfigurationParameters&
-                new_parameters
-        )
-    {
-        parameters =
-            new_parameters;
-
-        _construct();
-
-        return ValueCache::boolean_1;
-    }
-
-    bool
-        MutexManagerConfigurations::construct()
-    {
-        parameters =
-            {};
-
-        _construct();
-
-        return ValueCache::boolean_1;
-    }
-
-    void
-        MutexManagerConfigurations::_construct()
-    {
-        try
-        {
-            MutexManagerConfigurationParameters::default_pointer =
-                pointer =
-                    parameters.pointer;
-
-            MutexManagerConfigurationParameters::default_name =
-                name =
-                    parameters.name;
-
-            ValueCache::boolean_1 = true;
-        }
-        catch (...)
-        {
-            ValueCache::boolean_1 = false;
-        }
-    }
-
-    bool
-        MutexManagerConfigurations::destruct()
-    {
-        _destruct();
-
-        return ValueCache::boolean_1;
-    }
-
-    void
-        MutexManagerConfigurations::_destruct()
-    {
-        try
-        {
-            ValueCache::boolean_1 = true;
-        }
-        catch (...)
-        {
-            ValueCache::boolean_1 = false;
-        }
-    }
-
+    void*
+        MutexManagerConfigurations::default_pointer =
+            MutexManagerConfigurations::initial_pointer;
 }

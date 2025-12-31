@@ -1,8 +1,8 @@
 #pragma once
 
 #include "value_cache.hpp"
-#include "mutex_manager.hpp"
 #include "instance_manager.hpp"
+#include "asynchronous_manager_cache.hpp"
 #include "asynchronous_manager_configurations.hpp"
 
 namespace QLogicaeCppCore
@@ -10,6 +10,12 @@ namespace QLogicaeCppCore
     class AsynchronousManager
     {
     public:
+        static boost::mutex
+            mutex;
+
+        static AsynchronousManager&
+            instance;
+
         AsynchronousManager();
 
         ~AsynchronousManager();
@@ -31,16 +37,7 @@ namespace QLogicaeCppCore
             operator = (
                 const AsynchronousManager& instance
             ) = delete;
-
-        static AsynchronousManager&
-            instance;
-
-        static std::shared_ptr<boost::asio::thread_pool>
-            main_thread_pool;
-
-        static std::shared_ptr<boost::asio::thread_pool>
-            temporary_thread_pool;
-
+        
         bool
             construct();
 
@@ -52,6 +49,24 @@ namespace QLogicaeCppCore
 
         void
             _destruct();
+
+        bool
+            setup(
+                const AsynchronousManagerConfigurations&
+                    new_configurations
+            );
+
+        bool
+            setup();
+
+        void
+            _setup();
+
+        bool
+            reset();
+
+        void
+            _reset();
 
         bool
             begin_one_thread(

@@ -5,36 +5,36 @@
 
 namespace QLogicaeCppCore
 {
-    class ConstantsManager
+    class ApplicationCache
     {
     public:
-        ConstantsManager();
+        ApplicationCache();
 
-        ~ConstantsManager();
+        ~ApplicationCache();
 
-        ConstantsManager(
-            const ConstantsManager&
+        ApplicationCache(
+            const ApplicationCache&
                 instance
         ) = delete;
 
-        ConstantsManager(
-            ConstantsManager&&
+        ApplicationCache(
+            ApplicationCache&&
                 instance
         ) noexcept = delete;
 
-        ConstantsManager&
+        ApplicationCache&
             operator = (
-                ConstantsManager&&
+                ApplicationCache&&
                     instance
             ) = delete;
 
-        ConstantsManager&
+        ApplicationCache&
             operator = (
-                const ConstantsManager&
+                const ApplicationCache&
                     instance
             ) = delete;
 
-        static ConstantsManager&
+        static ApplicationCache&
             instance;
         
         bool

@@ -1,68 +1,33 @@
 #pragma once
 
-#include "value_cache.hpp"
 #include "instance_manager.hpp"
-#include "mutex_manager_configuration_parameters.hpp"
 
 namespace QLogicaeCppCore
 {
-    class MutexManagerConfigurations
+    struct MutexManagerConfigurations
     {
-    public:
-        static MutexManagerConfigurations&
-            instance;
+        void*
+            pointer =
+                default_pointer;
+
+        std::string
+            name =
+                default_name;
+
+
 
         static void*
-            pointer;
+            initial_pointer;
 
         static std::string
-            name;
+            initial_name;
 
-        static MutexManagerConfigurationParameters
-            parameters;
 
-        MutexManagerConfigurations();
 
-        ~MutexManagerConfigurations();
+        static void*
+            default_pointer;
 
-        MutexManagerConfigurations(
-            const MutexManagerConfigurations&
-                instance
-        ) = delete;
-
-        MutexManagerConfigurations(
-            MutexManagerConfigurations&&
-                instance
-        ) noexcept = delete;
-
-        MutexManagerConfigurations&
-            operator = (
-                MutexManagerConfigurations&&
-                    instance
-            ) = delete;
-
-        MutexManagerConfigurations&
-            operator = (
-                const MutexManagerConfigurations&
-                    instance
-            ) = delete;
-
-        bool
-            construct(
-                const MutexManagerConfigurationParameters&
-                    new_parameters
-            );
-
-        bool
-            construct();
-
-        void
-            _construct();
-
-        bool
-            destruct();
-
-        void
-            _destruct();
-    };    
+        static std::string
+            default_name;
+    };
 }

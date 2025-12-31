@@ -111,9 +111,9 @@ namespace QLogicaeCppCoreTest
 
     TEST_F(MutexManagerTest, Should_HandleEmptyConfiguration_When_DefaultValuesUsed)
     {
-        MutexManagerConfigurationsParameters empty_configuration;
-        ASSERT_EQ(empty_configuration.name, MutexManagerConfigurationsParameters::default_name);
-        ASSERT_EQ(empty_configuration.name, MutexManagerConfigurationsParameters::default_name);
+        MutexManagerConfigurations empty_configuration;
+        ASSERT_EQ(empty_configuration.name, MutexManagerConfigurations::default_name);
+        ASSERT_EQ(empty_configuration.name, MutexManagerConfigurations::default_name);
     }
 
     TEST_F(MutexManagerTest, Should_BeExceptionSafe_When_ConstructThrows)
@@ -494,7 +494,7 @@ namespace QLogicaeCppCoreTest
 
     TEST_F(MutexManagerTest, Should_HandleEmptyBaseName_When_ConstructCalled)
     {
-        MutexManagerConfigurationsParameters config;
+        MutexManagerConfigurations config;
         config.name = "";
         config.name = "";
         ASSERT_TRUE(mutex_manager_instance.construct());
