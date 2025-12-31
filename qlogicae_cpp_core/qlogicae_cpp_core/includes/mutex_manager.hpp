@@ -10,10 +10,7 @@ namespace QLogicaeCppCore
 {    
     class MutexManager
     {
-    public:
-        static MutexManager&
-            instance;
-
+    public:        
         static std::unordered_map<std::pair<void*, std::string>,
             std::mutex, PairHashOperator>
                 mutex_collection;
@@ -57,6 +54,9 @@ namespace QLogicaeCppCore
         static std::unordered_map<std::pair<void*, std::string>,
             folly::MicroSpinLock, PairHashOperator>
                 folly_micro_spin_lock_collection;
+
+        static MutexManager&
+            instance;
 
         MutexManager();
 
