@@ -8,9 +8,17 @@ namespace QLogicaeCppCore
         MutexManagerConfigurations::instance =
             InstanceManager::instance.get_instance<MutexManagerConfigurations>();
 
+    void*
+        MutexManagerConfigurations::pointer =
+            MutexManagerConfigurationParameters::default_pointer;
+
     std::string
-        MutexManagerConfigurations::base_name =
-        MutexManagerConfigurationsParameters::default_base_name;
+        MutexManagerConfigurations::name =
+            MutexManagerConfigurationParameters::default_name;
+
+    MutexManagerConfigurationParameters
+        MutexManagerConfigurations::parameters =
+            {};
 
     MutexManagerConfigurations::MutexManagerConfigurations()
     {
@@ -19,16 +27,16 @@ namespace QLogicaeCppCore
 
     MutexManagerConfigurations::~MutexManagerConfigurations()
     {
-        destruct();
+        
     }
 
     bool
         MutexManagerConfigurations::construct(
-            const MutexManagerConfigurationsParameters&
+            const MutexManagerConfigurationParameters&
                 new_parameters
         )
     {
-        MutexManagerConfigurationsParameters::instance =
+        parameters =
             new_parameters;
 
         _construct();
@@ -39,7 +47,7 @@ namespace QLogicaeCppCore
     bool
         MutexManagerConfigurations::construct()
     {
-        MutexManagerConfigurationsParameters::instance =
+        parameters =
             {};
 
         _construct();
@@ -52,9 +60,13 @@ namespace QLogicaeCppCore
     {
         try
         {
-            base_name =
-                MutexManagerConfigurationsParameters::default_base_name =
-                MutexManagerConfigurationsParameters::instance.base_name;
+            MutexManagerConfigurationParameters::default_pointer =
+                pointer =
+                    parameters.pointer;
+
+            MutexManagerConfigurationParameters::default_name =
+                name =
+                    parameters.name;
 
             ValueCache::boolean_1 = true;
         }

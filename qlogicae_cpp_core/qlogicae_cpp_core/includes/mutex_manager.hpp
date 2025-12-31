@@ -4,33 +4,13 @@
 #include "valid_mutex_lock.hpp"
 #include "pair_hash_operator.hpp"
 #include "mutex_manager_configurations.hpp"
-#include "mutex_manager_configurations_parameters.hpp"
+#include "mutex_manager_configuration_parameters.hpp"
 
 namespace QLogicaeCppCore
 {    
     class MutexManager
     {
     public:
-        MutexManager();
-
-        ~MutexManager();
-
-        MutexManager(
-            const MutexManager& instance
-        ) = delete;
-
-        MutexManager(
-            MutexManager&& instance
-        ) noexcept = delete;
-
-        MutexManager& operator = (
-            MutexManager&& instance
-        ) = delete;
-
-        MutexManager& operator = (
-            const MutexManager& instance
-        ) = delete;
-
         static MutexManager&
             instance;
 
@@ -78,10 +58,30 @@ namespace QLogicaeCppCore
             folly::MicroSpinLock, PairHashOperator>
                 folly_micro_spin_lock_collection;
 
+        MutexManager();
+
+        ~MutexManager();
+
+        MutexManager(
+            const MutexManager& instance
+        ) = delete;
+
+        MutexManager(
+            MutexManager&& instance
+        ) noexcept = delete;
+
+        MutexManager& operator = (
+            MutexManager&& instance
+        ) = delete;
+
+        MutexManager& operator = (
+            const MutexManager& instance
+        ) = delete;
+
         bool
             construct(
-                const MutexManagerConfigurationsParameters&
-                    new_configurations_parameters
+                const MutexManagerConfigurationParameters&
+                    parameters
             );
 
         bool
@@ -110,6 +110,12 @@ namespace QLogicaeCppCore
                 const std::string_view& name
             );
 
+        bool
+            lock_micro_mutex(
+                const MutexManagerConfigurationParameters&
+                    parameters
+            );
+
         void
             _lock_micro_mutex();
 
@@ -127,6 +133,12 @@ namespace QLogicaeCppCore
                 const std::string_view& name
             );
 
+        bool
+            unlock_micro_mutex(
+                const MutexManagerConfigurationParameters&
+                    parameters
+            );
+
         void
             _unlock_micro_mutex();
 
@@ -138,13 +150,22 @@ namespace QLogicaeCppCore
 
         template<typename LockType, typename MutexType> bool
             lock_mutex(
-                const void* pointer
+                const void*
+                    pointer
             ) requires ValidLock<LockType, MutexType>;
         
         template<typename LockType, typename MutexType> bool
             lock_mutex(
-                const void* pointer,
-                const std::string_view& name
+                const void*
+                    pointer,
+                const std::string_view&
+                    name
+            ) requires ValidLock<LockType, MutexType>;
+
+        template<typename LockType, typename MutexType> bool
+            lock_mutex(
+                const MutexManagerConfigurationParameters&
+                    parameters
             ) requires ValidLock<LockType, MutexType>;
 
         template<typename LockType, typename MutexType> void
@@ -161,7 +182,7 @@ namespace QLogicaeCppCore
             const_cast<void*>(pointer);
 
         ValueCache::string_view_1 =
-            MutexManagerConfigurations::base_name;
+            MutexManagerConfigurations::name;
 
         _lock_mutex<LockType, MutexType>();
 
@@ -179,6 +200,23 @@ namespace QLogicaeCppCore
 
         ValueCache::string_view_1 =
             name;
+
+        _lock_mutex<LockType, MutexType>();
+
+        return ValueCache::boolean_1;
+    }
+
+    template<typename LockType, typename MutexType> bool
+        MutexManager::lock_mutex(
+            const MutexManagerConfigurationParameters&
+                parameters
+        ) requires ValidLock<LockType, MutexType>
+    {
+        ValueCache::void_pointer_1 =
+            const_cast<void*>(parameters.pointer);
+
+        ValueCache::string_view_1 =
+            parameters.name;
 
         _lock_mutex<LockType, MutexType>();
 

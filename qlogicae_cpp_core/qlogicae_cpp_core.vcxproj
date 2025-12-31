@@ -195,7 +195,7 @@
     <ClInclude Include="qlogicae_cpp_core\includes\instance_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\mutex_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\mutex_manager_configurations.hpp" />
-    <ClInclude Include="qlogicae_cpp_core\includes\mutex_manager_configurations_parameters.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\mutex_manager_configuration_parameters.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\pair_hash_operator.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\results.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\results_status.hpp" />
@@ -212,7 +212,7 @@
     <ClCompile Include="qlogicae_cpp_core\sources\instance_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\mutex_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\mutex_manager_configurations.cpp" />
-    <ClCompile Include="qlogicae_cpp_core\sources\mutex_manager_configurations_parameters.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\mutex_manager_configuration_parameters.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\pair_hash_operator.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\results.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\results_status.cpp" />

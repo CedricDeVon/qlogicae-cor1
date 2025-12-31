@@ -54,7 +54,7 @@
     <ClInclude Include="qlogicae_cpp_core\includes\pair_hash_operator.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="qlogicae_cpp_core\includes\mutex_manager_configurations_parameters.hpp">
+    <ClInclude Include="qlogicae_cpp_core\includes\mutex_manager_configuration_parameters.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="qlogicae_cpp_core\includes\mutex_manager.hpp">
@@ -97,7 +97,7 @@
     <ClCompile Include="qlogicae_cpp_core\sources\valid_mutex_lock.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="qlogicae_cpp_core\sources\mutex_manager_configurations_parameters.cpp">
+    <ClCompile Include="qlogicae_cpp_core\sources\mutex_manager_configuration_parameters.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="qlogicae_cpp_core\sources\mutex_manager.cpp">

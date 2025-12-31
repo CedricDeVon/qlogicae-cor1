@@ -2,13 +2,25 @@
 
 #include "value_cache.hpp"
 #include "instance_manager.hpp"
-#include "mutex_manager_configurations_parameters.hpp"
+#include "mutex_manager_configuration_parameters.hpp"
 
 namespace QLogicaeCppCore
 {
     class MutexManagerConfigurations
     {
     public:
+        static MutexManagerConfigurations&
+            instance;
+
+        static void*
+            pointer;
+
+        static std::string
+            name;
+
+        static MutexManagerConfigurationParameters
+            parameters;
+
         MutexManagerConfigurations();
 
         ~MutexManagerConfigurations();
@@ -35,15 +47,9 @@ namespace QLogicaeCppCore
                     instance
             ) = delete;
 
-        static MutexManagerConfigurations&
-            instance;
-
-        static std::string
-            base_name;
-
         bool
             construct(
-                const MutexManagerConfigurationsParameters&
+                const MutexManagerConfigurationParameters&
                     new_parameters
             );
 

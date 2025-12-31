@@ -7,6 +7,9 @@ namespace QLogicaeCppCore
     class InstanceManager
     {
     public:
+        static InstanceManager&
+            instance;
+
         InstanceManager();
 
         ~InstanceManager();
@@ -33,9 +36,6 @@ namespace QLogicaeCppCore
                     instance
             ) = delete;
         
-        static InstanceManager&
-            instance;
-
         bool
             construct();
 

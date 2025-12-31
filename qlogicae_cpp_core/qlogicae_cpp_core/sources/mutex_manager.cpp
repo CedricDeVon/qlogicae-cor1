@@ -48,17 +48,17 @@ namespace QLogicaeCppCore
 
     MutexManager::~MutexManager()
     {
-        destruct();
+        
     }
 
     bool
         MutexManager::construct(
-            const MutexManagerConfigurationsParameters&
-                new_configurations_parameters
+            const MutexManagerConfigurationParameters&
+                parameters
         )
     {
-        MutexManagerConfigurationsParameters::instance =
-            new_configurations_parameters;
+        MutexManagerConfigurations::parameters =
+            parameters;
 
         _construct();
 
@@ -68,7 +68,7 @@ namespace QLogicaeCppCore
     bool
         MutexManager::construct()
     {
-        MutexManagerConfigurationsParameters::instance =
+        MutexManagerConfigurations::parameters =
             {};
 
         _construct();
@@ -83,7 +83,7 @@ namespace QLogicaeCppCore
         {
             MutexManagerConfigurations::instance
                 .construct(
-                    MutexManagerConfigurationsParameters::instance
+                    MutexManagerConfigurations::parameters
                 );
 
             ValueCache::boolean_1 = true;
@@ -122,7 +122,7 @@ namespace QLogicaeCppCore
             this;
 
         ValueCache::string_view_1 =
-            MutexManagerConfigurations::base_name;
+            MutexManagerConfigurations::name;
 
         _lock_micro_mutex();
 
@@ -131,14 +131,15 @@ namespace QLogicaeCppCore
 
     bool
         MutexManager::lock_micro_mutex(
-            const void* pointer
+            const void*
+                pointer
         )
     {
         ValueCache::void_pointer_1 =
             const_cast<void*>(pointer);
 
         ValueCache::string_view_1 =
-            MutexManagerConfigurations::base_name;
+            MutexManagerConfigurations::name;
 
         _lock_micro_mutex();
 
@@ -147,8 +148,10 @@ namespace QLogicaeCppCore
 
     bool
         MutexManager::lock_micro_mutex(
-            const void* pointer,
-            const std::string_view& name
+            const void*
+                pointer,
+            const std::string_view&
+                name
         )
     {
         ValueCache::void_pointer_1 =
@@ -156,6 +159,23 @@ namespace QLogicaeCppCore
 
         ValueCache::string_view_1 =
             name;
+
+        _lock_micro_mutex();
+
+        return ValueCache::boolean_1;
+    }
+
+    bool
+        MutexManager::lock_micro_mutex(
+            const MutexManagerConfigurationParameters&
+                parameters
+        )
+    {
+        ValueCache::void_pointer_1 =
+            const_cast<void*>(parameters.pointer);
+
+        ValueCache::string_view_1 =
+            parameters.name;
 
         _lock_micro_mutex();
 
@@ -196,14 +216,15 @@ namespace QLogicaeCppCore
 
     bool
         MutexManager::unlock_micro_mutex(
-            const void* pointer
+            const void*
+                pointer
         )
     {
         ValueCache::void_pointer_1 =
             const_cast<void*>(pointer);
 
         ValueCache::string_view_1 =
-            MutexManagerConfigurations::base_name;
+            MutexManagerConfigurations::name;
 
         _unlock_micro_mutex();
 
@@ -212,8 +233,10 @@ namespace QLogicaeCppCore
 
     bool
         MutexManager::unlock_micro_mutex(
-            const void* pointer,
-            const std::string_view& name
+            const void*
+                pointer,
+            const std::string_view&
+                name
         )
     {
         ValueCache::void_pointer_1 =
@@ -221,6 +244,23 @@ namespace QLogicaeCppCore
 
         ValueCache::string_view_1 =
             name;
+
+        _unlock_micro_mutex();
+
+        return ValueCache::boolean_1;
+    }
+
+    bool
+        MutexManager::unlock_micro_mutex(
+            const MutexManagerConfigurationParameters&
+                parameters
+        )
+    {
+        ValueCache::void_pointer_1 =
+            const_cast<void*>(parameters.pointer);
+
+        ValueCache::string_view_1 =
+            parameters.name;
 
         _unlock_micro_mutex();
 
@@ -238,7 +278,7 @@ namespace QLogicaeCppCore
                 [
             {
                 this,
-                    MutexManagerConfigurations::base_name
+                    MutexManagerConfigurations::name
             }
                 ];
 

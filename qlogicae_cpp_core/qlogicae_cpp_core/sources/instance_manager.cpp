@@ -15,7 +15,7 @@ namespace QLogicaeCppCore
 
     InstanceManager::~InstanceManager()
     {
-        _destruct();
+        
     }
 
     bool
