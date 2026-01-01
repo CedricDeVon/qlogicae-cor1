@@ -20,6 +20,9 @@ namespace QLogicaeCppCore
         static AsynchronousManagerConfigurations
             configurations;
 
+        static boost::mutex
+            mutex;
+
         static AsynchronousManagerCache&
             instance;
 
@@ -78,5 +81,11 @@ namespace QLogicaeCppCore
 
         void
             _reset();
+
+        bool
+            complete_all_threads();
+
+        void
+            _complete_all_threads();
     };
 }

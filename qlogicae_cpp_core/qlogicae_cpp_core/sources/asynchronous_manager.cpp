@@ -3,10 +3,7 @@
 #include "../includes/asynchronous_manager.hpp"
 
 namespace QLogicaeCppCore
-{
-    boost::mutex
-        AsynchronousManager::mutex;
-
+{    
     AsynchronousManager&
         AsynchronousManager::instance =
             InstanceManager::instance
@@ -58,13 +55,14 @@ namespace QLogicaeCppCore
     {
         try
         {
-            _complete_all_threads();
+            AsynchronousManagerCache::instance
+                ._destruct();
         }
         catch (...)
         {
             ValueCache::boolean_1 =
                 false;
-        }        
+        }
     }
 
     bool
@@ -122,8 +120,6 @@ namespace QLogicaeCppCore
         {
             AsynchronousManagerCache::instance
                 .reset();
-
-            _complete_all_threads();
         }
         catch (...)
         {
@@ -163,7 +159,7 @@ namespace QLogicaeCppCore
         }
 
         boost::unique_lock<boost::mutex>
-            unique_lock(mutex);
+            unique_lock(AsynchronousManagerCache::mutex);
 
         if (AsynchronousManagerCache::main_thread_pool == nullptr)
         {
@@ -180,41 +176,5 @@ namespace QLogicaeCppCore
 
         ValueCache::boolean_1 =
             true;
-    }
-
-    bool AsynchronousManager::complete_all_threads()
-    {        
-        _complete_all_threads();
-
-        return ValueCache::boolean_1;
-    }
-
-    void AsynchronousManager::_complete_all_threads()
-    {
-        try
-        {
-            {
-                boost::unique_lock<boost::mutex>
-                    unique_lock(mutex);
-
-                AsynchronousManagerCache::temporary_thread_pool =
-                    AsynchronousManagerCache::main_thread_pool;
-
-                AsynchronousManagerCache::main_thread_pool.reset();
-            }
-
-            if (AsynchronousManagerCache::temporary_thread_pool)
-            {
-                AsynchronousManagerCache::temporary_thread_pool->join();
-            }
-
-            ValueCache::boolean_1 =
-                true;
-        }
-        catch (...)
-        {
-            ValueCache::boolean_1 =
-                false;
-        }        
     }
 }

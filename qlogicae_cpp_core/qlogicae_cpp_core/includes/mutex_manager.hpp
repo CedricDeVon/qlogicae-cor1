@@ -1,8 +1,6 @@
 #pragma once
 
 #include "instance_manager.hpp"
-#include "valid_mutex_lock.hpp"
-#include "pair_hash_operator.hpp"
 #include "mutex_manager_cache.hpp"
 #include "mutex_manager_configurations.hpp"
 
@@ -10,51 +8,7 @@ namespace QLogicaeCppCore
 {    
     class MutexManager
     {
-    public:        
-        static std::unordered_map<std::pair<void*, std::string>,
-            std::mutex, PairHashOperator>
-                mutex_collection;
-
-        static std::unordered_map<std::pair<void*, std::string>,
-            std::timed_mutex, PairHashOperator>
-                timed_mutex_collection;
-
-        static std::unordered_map<std::pair<void*, std::string>,
-            std::recursive_mutex, PairHashOperator>
-                recursive_mutex_collection;
-
-        static std::unordered_map<std::pair<void*, std::string>,
-            std::recursive_timed_mutex, PairHashOperator>
-                recursive_timed_mutex_collection;
-
-        static std::unordered_map<std::pair<void*, std::string>,
-            std::shared_mutex, PairHashOperator>
-                shared_mutex_collection;
-
-        static std::unordered_map<std::pair<void*, std::string>,
-            boost::mutex, PairHashOperator>
-                boost_mutex_collection;
-
-        static std::unordered_map<std::pair<void*, std::string>,
-            boost::timed_mutex, PairHashOperator>
-                boost_timed_mutex_collection;
-
-        static std::unordered_map<std::pair<void*, std::string>,
-            boost::recursive_mutex, PairHashOperator>
-                boost_recursive_mutex_collection;
-
-        static std::unordered_map<std::pair<void*, std::string>,
-            boost::recursive_timed_mutex, PairHashOperator>
-                boost_recursive_timed_mutex_collection;
-
-        static std::unordered_map<std::pair<void*, std::string>,
-            boost::shared_mutex, PairHashOperator>
-                boost_shared_mutex_collection;
-
-        static std::unordered_map<std::pair<void*, std::string>,
-            folly::MicroSpinLock, PairHashOperator>
-                folly_micro_spin_lock_collection;
-
+    public:                
         static MutexManager&
             instance;
 
@@ -93,7 +47,7 @@ namespace QLogicaeCppCore
         bool
             setup(
                 const MutexManagerConfigurations&
-                    configurations
+                    new_configurations
             );
 
         bool
@@ -158,12 +112,6 @@ namespace QLogicaeCppCore
 
         void
             _unlock_micro_mutex();
-
-        bool
-            clear_all_collections();
-
-        void
-            _clear_all_collections();
 
         template<typename LockType, typename MutexType> bool
             lock_mutex(
@@ -261,7 +209,7 @@ namespace QLogicaeCppCore
                 (std::is_same_v<MutexType, std::mutex>)
             {
                 mutex_pointer =
-                    &mutex_collection[
+                    &MutexManagerCache::mutex_collection[
                 {
                     ValueCache::void_pointer_1,
                         ValueCache::string_view_1.data()
@@ -272,7 +220,7 @@ namespace QLogicaeCppCore
                 (std::is_same_v<MutexType, std::timed_mutex>)
             {
                 mutex_pointer =
-                    &timed_mutex_collection[
+                    &MutexManagerCache::timed_mutex_collection[
                 {
                     ValueCache::void_pointer_1,
                         ValueCache::string_view_1.data()
@@ -283,7 +231,7 @@ namespace QLogicaeCppCore
                 (std::is_same_v<MutexType, std::recursive_mutex>)
             {
                 mutex_pointer =
-                    &recursive_mutex_collection[
+                    &MutexManagerCache::recursive_mutex_collection[
                 {
                     ValueCache::void_pointer_1,
                         ValueCache::string_view_1.data()
@@ -294,7 +242,7 @@ namespace QLogicaeCppCore
                 (std::is_same_v<MutexType, std::recursive_timed_mutex>)
             {
                 mutex_pointer =
-                    &recursive_timed_mutex_collection[
+                    &MutexManagerCache::recursive_timed_mutex_collection[
                 {
                     ValueCache::void_pointer_1,
                         ValueCache::string_view_1.data()
@@ -305,7 +253,7 @@ namespace QLogicaeCppCore
                 (std::is_same_v<MutexType, std::shared_mutex>)
             {
                 mutex_pointer =
-                    &shared_mutex_collection[
+                    &MutexManagerCache::shared_mutex_collection[
                 {
                     ValueCache::void_pointer_1,
                         ValueCache::string_view_1.data()
@@ -316,7 +264,7 @@ namespace QLogicaeCppCore
                 (std::is_same_v<MutexType, boost::mutex>)
             {
                 mutex_pointer =
-                    &boost_mutex_collection[
+                    &MutexManagerCache::boost_mutex_collection[
                 {
                     ValueCache::void_pointer_1,
                         ValueCache::string_view_1.data()
@@ -327,7 +275,7 @@ namespace QLogicaeCppCore
                 (std::is_same_v<MutexType, boost::timed_mutex>)
             {
                 mutex_pointer =
-                    &boost_timed_mutex_collection[
+                    &MutexManagerCache::boost_timed_mutex_collection[
                 {
                     ValueCache::void_pointer_1,
                         ValueCache::string_view_1.data()
@@ -338,7 +286,7 @@ namespace QLogicaeCppCore
                 (std::is_same_v<MutexType, boost::recursive_mutex>)
             {
                 mutex_pointer =
-                    &boost_recursive_mutex_collection[
+                    &MutexManagerCache::boost_recursive_mutex_collection[
                 {
                     ValueCache::void_pointer_1,
                         ValueCache::string_view_1.data()
@@ -349,7 +297,7 @@ namespace QLogicaeCppCore
                 (std::is_same_v<MutexType, boost::recursive_timed_mutex>)
             {
                 mutex_pointer =
-                    &boost_recursive_timed_mutex_collection[
+                    &MutexManagerCache::boost_recursive_timed_mutex_collection[
                 {
                     ValueCache::void_pointer_1,
                         ValueCache::string_view_1.data()
@@ -360,7 +308,7 @@ namespace QLogicaeCppCore
                 (std::is_same_v<MutexType, boost::shared_mutex>)
             {
                 mutex_pointer =
-                    &boost_shared_mutex_collection[
+                    &MutexManagerCache::boost_shared_mutex_collection[
                 {
                     ValueCache::void_pointer_1,
                         ValueCache::string_view_1.data()

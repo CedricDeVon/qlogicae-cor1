@@ -3,11 +3,7 @@
 #include "../includes/instance_manager.hpp"
 
 namespace QLogicaeCppCore
-{
-    bool
-        InstanceManager::is_successful =
-            false;
-
+{    
     InstanceManager&
         InstanceManager::instance =
             InstanceManager::get_instance_manager();
@@ -29,7 +25,7 @@ namespace QLogicaeCppCore
     {
         _construct();
 
-        return is_successful;
+        return true;
     }
 
     void
@@ -37,13 +33,11 @@ namespace QLogicaeCppCore
     {
         try
         {
-            is_successful =
-                true;
+            
         }
         catch (...)
         {
-            is_successful =
-                false;
+            
         }
     }
 
@@ -52,7 +46,7 @@ namespace QLogicaeCppCore
     {
         _destruct();
 
-        return is_successful;
+        return true;
     }
 
     void
@@ -60,13 +54,11 @@ namespace QLogicaeCppCore
     {
         try
         {
-            is_successful =
-                true;
+            
         }
         catch (...)
         {
-            is_successful =
-                false;
+            
         }
     }
 
@@ -75,7 +67,7 @@ namespace QLogicaeCppCore
     {
         _setup();
 
-        return is_successful;
+        return true;
     }
 
     void
@@ -83,13 +75,11 @@ namespace QLogicaeCppCore
     {
         try
         {
-            is_successful =
-                true;
+            
         }
         catch (...)
         {
-            is_successful =
-                false;
+            
         }
     }
 
@@ -98,7 +88,7 @@ namespace QLogicaeCppCore
     {
         _reset();
 
-        return is_successful;
+        return true;
     }
 
     void
@@ -106,23 +96,19 @@ namespace QLogicaeCppCore
     {
         try
         {
-            is_successful =
-                true;
+            
         }
         catch (...)
         {
-            is_successful =
-                false;
+            
         }
     }
 
     InstanceManager&
         InstanceManager::get_instance_manager()
     {
-        static InstanceManager instance;
-
-        is_successful =
-            true;
+        static InstanceManager
+            instance;
 
         return instance;
     }

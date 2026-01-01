@@ -20,6 +20,9 @@ namespace QLogicaeCppCore
         AsynchronousManagerCache::configurations =
             {};
 
+    boost::mutex
+        AsynchronousManagerCache::mutex;
+
     AsynchronousManagerCache&
         AsynchronousManagerCache::instance =
             InstanceManager::instance
@@ -151,6 +154,42 @@ namespace QLogicaeCppCore
             is_enabled =
                 AsynchronousManagerConfigurations::default_is_enabled =
                 AsynchronousManagerConfigurations::initial_is_enabled;
+
+            ValueCache::boolean_1 =
+                true;
+        }
+        catch (...)
+        {
+            ValueCache::boolean_1 =
+                false;
+        }
+    }
+
+    bool AsynchronousManagerCache::complete_all_threads()
+    {
+        _complete_all_threads();
+
+        return ValueCache::boolean_1;
+    }
+
+    void AsynchronousManagerCache::_complete_all_threads()
+    {
+        try
+        {
+            {
+                boost::unique_lock<boost::mutex>
+                    unique_lock(mutex);
+
+                AsynchronousManagerCache::temporary_thread_pool =
+                    AsynchronousManagerCache::main_thread_pool;
+
+                AsynchronousManagerCache::main_thread_pool.reset();
+            }
+
+            if (AsynchronousManagerCache::temporary_thread_pool)
+            {
+                AsynchronousManagerCache::temporary_thread_pool->join();
+            }
 
             ValueCache::boolean_1 =
                 true;

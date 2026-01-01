@@ -238,13 +238,15 @@ namespace QLogicaeCppCoreTest
         std::size_t const ITERATION_COUNT =
             static_cast<std::size_t>(1'000'000);
 
+        bool is_successful = false;
+
         for (std::size_t index = 0; index < ITERATION_COUNT; ++index)
         {
-            instance_manager.construct();
-            instance_manager.destruct();
+            is_successful = instance_manager.construct();
+            is_successful = instance_manager.destruct();
         }
 
-        ASSERT_TRUE(InstanceManager::is_successful);
+        ASSERT_TRUE(is_successful);
     }
 
     TEST(

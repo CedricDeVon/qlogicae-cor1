@@ -1,36 +1,35 @@
-﻿#pragma once
+#pragma once
 
 #include "value_cache.hpp"
-#include "utilities_cache.hpp"
 #include "instance_manager.hpp"
 
 namespace QLogicaeCppCore
 {
-    class Utilities
+    class UtilitiesCache
     {
     public:
-        static Utilities&
+        static UtilitiesCache&
             instance;
 
-        Utilities();
+        UtilitiesCache();
 
-        ~Utilities();
+        ~UtilitiesCache();
 
-        Utilities(
-            const Utilities& instance
+        UtilitiesCache(
+            const UtilitiesCache& instance
         ) = delete;
 
-        Utilities(
-            Utilities&& instance
+        UtilitiesCache(
+            UtilitiesCache&& instance
         ) noexcept = delete;
 
-        Utilities& operator = (
-            Utilities&& instance
-            ) = delete;
+        UtilitiesCache& operator = (
+            UtilitiesCache&& instance
+        ) = delete;
 
-        Utilities& operator = (
-            const Utilities& instance
-            ) = delete;
+        UtilitiesCache& operator = (
+            const UtilitiesCache& instance
+        ) = delete;
 
         bool
             construct();

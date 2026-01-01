@@ -9,10 +9,7 @@ namespace QLogicaeCppCore
 {
     class AsynchronousManager
     {
-    public:
-        static boost::mutex
-            mutex;
-
+    public:        
         static AsynchronousManager&
             instance;
 
@@ -79,11 +76,5 @@ namespace QLogicaeCppCore
                 const std::function<void()>&
                     callback
             );
-
-        bool
-            complete_all_threads();
-
-        void
-            _complete_all_threads();
     };
 }

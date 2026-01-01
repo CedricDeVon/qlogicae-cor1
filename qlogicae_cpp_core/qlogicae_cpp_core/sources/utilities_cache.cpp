@@ -1,26 +1,26 @@
-﻿#include "pch.hpp"
+#include "pch.hpp"
 
-#include "../includes/application_manager.hpp"
+#include "../includes/utilities_cache.hpp"
 
 namespace QLogicaeCppCore
 {
-    ApplicationManager&
-        ApplicationManager::instance =
+    UtilitiesCache&
+        UtilitiesCache::instance =
             InstanceManager::instance
-                .get_instance<ApplicationManager>();
+                .get_instance<UtilitiesCache>();
 
-    ApplicationManager::ApplicationManager()
+    UtilitiesCache::UtilitiesCache()
     {
         _construct();
     }
 
-    ApplicationManager::~ApplicationManager()
+    UtilitiesCache::~UtilitiesCache()
     {
         _destruct();
     }
 
     bool
-        ApplicationManager::construct()
+        UtilitiesCache::construct()
     {
         _construct();
 
@@ -28,7 +28,7 @@ namespace QLogicaeCppCore
     }
 
     void
-        ApplicationManager::_construct()
+        UtilitiesCache::_construct()
     {
         try
         {
@@ -43,7 +43,7 @@ namespace QLogicaeCppCore
     }
 
     bool
-        ApplicationManager::destruct()
+        UtilitiesCache::destruct()
     {
         _destruct();
 
@@ -51,7 +51,7 @@ namespace QLogicaeCppCore
     }
 
     void
-        ApplicationManager::_destruct()
+        UtilitiesCache::_destruct()
     {
         try
         {
@@ -66,15 +66,15 @@ namespace QLogicaeCppCore
     }
 
     bool
-        ApplicationManager::setup()
-    {
+        UtilitiesCache::setup()
+    {        
         _setup();
 
         return ValueCache::boolean_1;
     }
 
     void
-        ApplicationManager::_setup()
+        UtilitiesCache::_setup()
     {
         try
         {
@@ -89,7 +89,7 @@ namespace QLogicaeCppCore
     }
 
     bool
-        ApplicationManager::reset()
+        UtilitiesCache::reset()
     {
         _reset();
 
@@ -97,7 +97,7 @@ namespace QLogicaeCppCore
     }
 
     void
-        ApplicationManager::_reset()
+        UtilitiesCache::_reset()
     {
         try
         {

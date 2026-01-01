@@ -4,10 +4,7 @@ namespace QLogicaeCppCore
 {
     class InstanceManager
     {
-    public:
-        static bool
-            is_successful;
-
+    public:        
         static InstanceManager&
             instance;
 
@@ -73,9 +70,6 @@ namespace QLogicaeCppCore
     {
         static Type
             instance;
-
-        is_successful =
-            true;
 
         return instance;
     }   

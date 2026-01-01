@@ -190,6 +190,7 @@
   <ItemGroup>
     <ClInclude Include="framework.hpp" />
     <ClInclude Include="pch.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\application_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\assembly.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\asynchronous_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\asynchronous_manager_cache.hpp" />
@@ -201,6 +202,8 @@
     <ClInclude Include="qlogicae_cpp_core\includes\pair_hash_operator.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\results.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\results_status.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\utilities.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\utilities_cache.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\valid_mutex_lock.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\value_cache.hpp" />
   </ItemGroup>
@@ -209,6 +212,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="qlogicae_cpp_core\sources\application_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\assembly.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\asynchronous_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\asynchronous_manager_cache.cpp" />
@@ -220,6 +224,8 @@
     <ClCompile Include="qlogicae_cpp_core\sources\pair_hash_operator.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\results.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\results_status.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\utilities.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\utilities_cache.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\valid_mutex_lock.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\value_cache.cpp" />
   </ItemGroup>

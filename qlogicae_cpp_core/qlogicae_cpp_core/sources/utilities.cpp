@@ -6,12 +6,9 @@ namespace QLogicaeCppCore
 {
     Utilities&
         Utilities::instance =
-            InstanceManager::instance.get_instance<Utilities>();
+            InstanceManager::instance
+                .get_instance<Utilities>();
 
-    bool
-        Utilities::_boolean_ouput_cache_1 =
-            false;
- 
     Utilities::Utilities()
     {
         _construct();
@@ -25,42 +22,92 @@ namespace QLogicaeCppCore
     bool
         Utilities::construct()
     {
-        try
-        {
-            _construct();
-        }
-        catch (...)
-        {
-            _boolean_ouput_cache_1 = false;
-        }
+        _construct();
 
-        return _boolean_ouput_cache_1;
+        return ValueCache::boolean_1;
     }
 
     void
         Utilities::_construct()
     {
-        _boolean_ouput_cache_1 = true;
+        try
+        {
+            ValueCache::boolean_1 =
+                true;
+        }
+        catch (...)
+        {
+            ValueCache::boolean_1 =
+                false;
+        }
     }
 
     bool
         Utilities::destruct()
     {
-        try
-        {
-            _destruct();
-        }
-        catch (...)
-        {
-            _boolean_ouput_cache_1 = false;
-        }
+        _destruct();
 
-        return _boolean_ouput_cache_1;
+        return ValueCache::boolean_1;
     }
 
     void
         Utilities::_destruct()
     {
-        _boolean_ouput_cache_1 = true;
+        try
+        {
+            ValueCache::boolean_1 =
+                true;
+        }
+        catch (...)
+        {
+            ValueCache::boolean_1 =
+                false;
+        }
+    }
+
+    bool
+        Utilities::setup()
+    {
+        _setup();
+
+        return ValueCache::boolean_1;
+    }
+
+    void
+        Utilities::_setup()
+    {
+        try
+        {
+            ValueCache::boolean_1 =
+                true;
+        }
+        catch (...)
+        {
+            ValueCache::boolean_1 =
+                false;
+        }
+    }
+
+    bool
+        Utilities::reset()
+    {
+        _reset();
+
+        return ValueCache::boolean_1;
+    }
+
+    void
+        Utilities::_reset()
+    {
+        try
+        {
+            ValueCache::boolean_1 =
+                true;
+        }
+        catch (...)
+        {
+            ValueCache::boolean_1 =
+                false;
+        }
     }
 }
