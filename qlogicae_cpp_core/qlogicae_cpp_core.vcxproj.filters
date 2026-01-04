@@ -72,6 +72,9 @@
     <ClInclude Include="qlogicae_cpp_core\includes\application_manager.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="qlogicae_cpp_core\includes\utilities_configurations.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <MASM Include="qlogicae_cpp_core\assembly\x64_masm__main.asm">
@@ -128,6 +131,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="qlogicae_cpp_core\sources\application_manager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae_cpp_core\sources\utilities_configurations.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

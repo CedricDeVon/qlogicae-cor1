@@ -1,7 +1,5 @@
 #pragma once
 
-#include "instance_manager.hpp"
-
 namespace QLogicaeCppCore
 {
     struct MutexManagerConfigurations
