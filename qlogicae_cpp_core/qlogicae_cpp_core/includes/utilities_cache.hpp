@@ -8,7 +8,6 @@ namespace QLogicaeCppCore
     class UtilitiesCache
     {
     public:
-        /*
         std::string relative_private_qlogicae_folder_path =
             ".qlogicae";
 
@@ -16,13 +15,13 @@ namespace QLogicaeCppCore
             "qlogicae";
 
         std::string relative_application_name_folder_path =
-            "";
+            "qlogicae";
 
-        std::string relative_application_version_folder_path =
-            "";
+        std::string relative_application_version_name_folder_path =
+            "v1.0.0";
 
         std::string relative_application_environment_name_folder_path =
-            "";
+            "development";
 
 
 
@@ -107,16 +106,15 @@ namespace QLogicaeCppCore
         std::string relative_windows_registry_software_qlogicae_folder_path =
             "Software\\QLogicae";
 
-        std::string FULL_EXECUTABLE_folder_path;
+        std::string full_executable_folder_path;
 
-        std::string FULL_EXECUTED_folder_path;
+        std::string full_executed_folder_path;
 
-        std::string FULL_ROAMING_APPDATA_folder_path;
+        std::string full_roaming_app_data_folder_path;
 
-        std::string FULL_LOCAL_APPDATA_folder_path;
+        std::string full_local_app_data_folder_path;
 
-        std::string FULL_PROGRAMDATA_folder_path;
-        */
+        std::string full_program_data_folder_path;
 
         static UtilitiesCache&
             instance;
@@ -164,5 +162,36 @@ namespace QLogicaeCppCore
 
         void
             _reset();
+
+        std::string
+            get_executable_folder_path();
+
+        void
+            _get_executable_folder_path();
+
+        std::string
+            get_executed_folder_path();
+
+        void
+            _get_executed_folder_path();
+
+        std::string
+            get_program_data_folder_path();
+
+        void
+            _get_program_data_folder_path();
+
+        std::string
+            get_local_app_data_folder_path();
+
+        void
+            _get_local_app_data_folder_path();
+
+        std::string
+            get_roaming_app_data_folder_path();
+
+        void
+            _get_roaming_app_data_folder_path();
+
     };
 }

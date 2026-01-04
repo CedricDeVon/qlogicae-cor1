@@ -1,13 +1,13 @@
-﻿#include "pch.hpp"
+#include "pch.hpp"
 
-#include "../includes/utilities.hpp"
+#include "../includes/error_manager_cache.hpp"
 
 namespace QLogicaeCppCore
 {
     Utilities&
         Utilities::instance =
-            InstanceManager::instance
-                .get_instance<Utilities>();
+        InstanceManager::instance
+        .get_instance<Utilities>();
 
     Utilities::Utilities()
     {

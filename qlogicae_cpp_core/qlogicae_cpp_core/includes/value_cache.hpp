@@ -1,7 +1,5 @@
 #pragma once
 
-#include "instance_manager.hpp"
-
 namespace QLogicaeCppCore
 {
     class ValueCache
@@ -1384,5 +1382,8 @@ namespace QLogicaeCppCore
 
         void
             _reset();
+
+        static ValueCache&
+            get_instance();
     };    
 }

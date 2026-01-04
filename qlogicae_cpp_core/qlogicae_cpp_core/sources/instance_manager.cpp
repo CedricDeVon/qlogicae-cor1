@@ -33,7 +33,7 @@ namespace QLogicaeCppCore
     {
         try
         {
-            
+            ValueCache::boolean_1 = true;
         }
         catch (...)
         {
@@ -54,7 +54,7 @@ namespace QLogicaeCppCore
     {
         try
         {
-            
+            ValueCache::boolean_1 = true;
         }
         catch (...)
         {
@@ -75,7 +75,7 @@ namespace QLogicaeCppCore
     {
         try
         {
-            
+            ValueCache::boolean_1 = true;
         }
         catch (...)
         {
@@ -96,7 +96,7 @@ namespace QLogicaeCppCore
     {
         try
         {
-            
+            ValueCache::boolean_1 = true;
         }
         catch (...)
         {

@@ -2,7 +2,7 @@
 
 #include "qlogicae_cpp_core_sandbox/includes/application.hpp"
 
-#include "qlogicae_cpp_core/includes/all.hpp"
+#include "qlogicae_cpp_core/includes/utilities.hpp"
 
 int main(int, char**);
 

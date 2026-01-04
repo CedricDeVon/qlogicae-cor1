@@ -2,7 +2,7 @@
 
 namespace QLogicaeCppCore
 {
-    struct ExceptionManagerConfigurations
+    struct ErrorManagerConfigurations
     {
         bool
             is_enabled =
@@ -20,6 +20,10 @@ namespace QLogicaeCppCore
             is_runtime_throw_enabled =
                 default_is_runtime_throw_enabled;
 
+        std::vector<std::string>
+            file_outpu_paths =
+                default_file_outpu_paths;
+
 
 
         static bool
@@ -34,6 +38,9 @@ namespace QLogicaeCppCore
         static bool
             initial_is_runtime_throw_enabled;
 
+        std::vector<std::string>
+            initial_file_outpu_paths;
+
 
 
         static bool
@@ -47,5 +54,8 @@ namespace QLogicaeCppCore
 
         static bool
             default_is_runtime_throw_enabled;
+
+        std::vector<std::string>
+            default_file_outpu_paths;
     };
 }

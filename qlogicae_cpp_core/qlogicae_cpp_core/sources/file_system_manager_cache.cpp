@@ -1,26 +1,26 @@
-﻿#include "pch.hpp"
+#include "pch.hpp"
 
-#include "../includes/utilities.hpp"
+#include "../includes/file_system_manager_cache.hpp"
 
 namespace QLogicaeCppCore
 {
-    Utilities&
-        Utilities::instance =
+    FileSystemManagerCache&
+        FileSystemManagerCache::instance =
             InstanceManager::instance
-                .get_instance<Utilities>();
+                .get_instance<FileSystemManagerCache>();
 
-    Utilities::Utilities()
+    FileSystemManagerCache::FileSystemManagerCache()
     {
         _construct();
     }
 
-    Utilities::~Utilities()
+    FileSystemManagerCache::~FileSystemManagerCache()
     {
         _destruct();
     }
 
     bool
-        Utilities::construct()
+        FileSystemManagerCache::construct()
     {
         _construct();
 
@@ -28,11 +28,14 @@ namespace QLogicaeCppCore
     }
 
     void
-        Utilities::_construct()
+        FileSystemManagerCache::_construct()
     {
         try
         {
-            UtilitiesCache::instance._construct();
+
+
+            ValueCache::boolean_1 =
+                true;
         }
         catch (...)
         {
@@ -42,7 +45,7 @@ namespace QLogicaeCppCore
     }
 
     bool
-        Utilities::destruct()
+        FileSystemManagerCache::destruct()
     {
         _destruct();
 
@@ -50,11 +53,12 @@ namespace QLogicaeCppCore
     }
 
     void
-        Utilities::_destruct()
+        FileSystemManagerCache::_destruct()
     {
         try
         {
-            UtilitiesCache::instance._destruct();
+            ValueCache::boolean_1 =
+                true;
         }
         catch (...)
         {
@@ -64,7 +68,7 @@ namespace QLogicaeCppCore
     }
 
     bool
-        Utilities::setup()
+        FileSystemManagerCache::setup()
     {
         _setup();
 
@@ -72,11 +76,12 @@ namespace QLogicaeCppCore
     }
 
     void
-        Utilities::_setup()
+        FileSystemManagerCache::_setup()
     {
         try
         {
-            UtilitiesCache::instance._setup();
+            ValueCache::boolean_1 =
+                true;
         }
         catch (...)
         {
@@ -86,7 +91,7 @@ namespace QLogicaeCppCore
     }
 
     bool
-        Utilities::reset()
+        FileSystemManagerCache::reset()
     {
         _reset();
 
@@ -94,11 +99,12 @@ namespace QLogicaeCppCore
     }
 
     void
-        Utilities::_reset()
+        FileSystemManagerCache::_reset()
     {
         try
         {
-            UtilitiesCache::instance._reset();
+            ValueCache::boolean_1 =
+                true;
         }
         catch (...)
         {

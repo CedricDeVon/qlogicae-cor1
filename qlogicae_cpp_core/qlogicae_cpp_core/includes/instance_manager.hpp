@@ -1,5 +1,7 @@
 #pragma once
 
+#include "value_cache.hpp"
+
 namespace QLogicaeCppCore
 {
     class InstanceManager

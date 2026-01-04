@@ -404,7 +404,6 @@ namespace QLogicaeCppCore
     unsigned int ValueCache::unsigned_int_8 =
         0;
 
-
     unsigned int* ValueCache::unsigned_int_pointer_1 =
         nullptr;
 
@@ -1333,7 +1332,7 @@ namespace QLogicaeCppCore
 
     ValueCache&
         ValueCache::instance =
-            InstanceManager::instance.get_instance<ValueCache>();
+            ValueCache::get_instance();
 
 
 
@@ -1346,7 +1345,7 @@ namespace QLogicaeCppCore
     {
         _destruct();
     }
-
+    
     bool
         ValueCache::construct()
     {
@@ -2762,5 +2761,14 @@ namespace QLogicaeCppCore
             boolean_1 =
                 false;
         }
+    }
+
+    ValueCache&
+        ValueCache::get_instance()
+    {
+        static ValueCache
+            instance;
+
+        return instance;
     }
 }
