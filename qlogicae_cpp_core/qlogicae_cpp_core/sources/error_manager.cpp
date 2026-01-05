@@ -4,23 +4,25 @@
 
 namespace QLogicaeCppCore
 {
-    ErrorManager&
-        ErrorManager::instance =
-            ErrorManager::get_instance();
+    bool
+        ErrorManager::cache_is_successful =
+            false;
+
+    std::string
+        ErrorManager::cache_error_log =
+            "";
 
     fast_io::native_io_observer
-        ErrorManager::fast_io_error_console_output_type =
+        ErrorManager::cache_fast_io_error_console_output_type =
             fast_io::err();
     
-    fast_io::native_file
-        ErrorManager::fast_io_native_file(
-            "error.log",
-            fast_io::open_mode::app
-        );
-
+    ErrorManager&
+        ErrorManager::singleton =
+            SingletonManager::get_singleton<ErrorManager>();
+    
     ErrorManager::ErrorManager()
     {
-        
+        _construct();
     }
 
     ErrorManager::~ErrorManager()
@@ -29,64 +31,32 @@ namespace QLogicaeCppCore
     }
 
     bool
-        ErrorManager::construct(
-            const ErrorManagerConfigurations&
-                new_configurations
-        )
-    {
-        ErrorManagerConfigurations::cache =
-            new_configurations;
-
-        _construct();
-
-        return ValueCache::boolean_1;
-    }
-
-    bool
         ErrorManager::construct()
     {
-        ErrorManagerConfigurations::cache =
-            {};
-
         _construct();
 
-        return ValueCache::boolean_1;
+        return cache_is_successful;
     }
 
     void
         ErrorManager::_construct()
     {
         try
-        {               
-            ErrorManagerConfigurations::cache_is_enabled =
-                ErrorManagerConfigurations::cache.is_enabled;
-
-            ErrorManagerConfigurations::cache_is_console_output_enabled =
-                ErrorManagerConfigurations::cache.is_console_output_enabled;
-
-            ErrorManagerConfigurations::cache_is_file_output_enabled =
-                ErrorManagerConfigurations::cache.is_file_output_enabled;
-
-            ErrorManagerConfigurations::cache_is_exception_throwing_enabled =
-                ErrorManagerConfigurations::cache.is_exception_throwing_enabled;
-
-            ErrorManagerConfigurations::cache_folder_output_path =
-                ErrorManagerConfigurations::cache.folder_output_path;
-
-            ErrorManagerConfigurations::cache_file_name =
-                ErrorManagerConfigurations::cache.file_name;
-
-            ErrorManagerConfigurations::cache_file_extension =
-                ErrorManagerConfigurations::cache.file_extension;
-
-            ValueCache::boolean_1 =
+        {            
+            cache_is_successful =
                 true;
         }
-        catch (...)
+        catch
+        (
+            const std::exception&
+                exception
+        )
         {
-            ValueCache::boolean_1 =
-                false;
-        }        
+            cache_error_log =
+                exception.what();
+
+            _handle();
+        }
     }
 
     bool
@@ -94,30 +64,53 @@ namespace QLogicaeCppCore
     {
         _destruct();
 
-        return ValueCache::boolean_1;
+        return cache_is_successful;
     }
 
     void
         ErrorManager::_destruct()
     {
         try
-        {              
-            ValueCache::boolean_1 =
+        {
+            cache_is_successful =
                 true;
         }
-        catch (...)
+        catch
+        (
+            const std::exception&
+                exception
+        )
         {
-            ValueCache::boolean_1 =
-                false;
+            cache_error_log =
+                exception.what();
+
+            _handle();
         }
+    }
+
+    bool
+        ErrorManager::setup(
+            const ErrorManagerConfigurations&
+                new_configurations
+        )
+    {
+        ErrorManagerConfigurations::cache =
+            new_configurations;
+
+        _setup();
+
+        return cache_is_successful;
     }
 
     bool
         ErrorManager::setup()
     {
+        ErrorManagerConfigurations::cache =
+            {};
+
         _setup();
 
-        return ValueCache::boolean_1;
+        return cache_is_successful;
     }
 
     void
@@ -125,13 +118,63 @@ namespace QLogicaeCppCore
     {
         try
         {
-            ValueCache::boolean_1 =
+            ErrorManagerConfigurations::default_is_enabled =
+                ErrorManagerConfigurations::cache_is_enabled =
+                ErrorManagerConfigurations::cache.is_enabled;
+
+            ErrorManagerConfigurations::default_is_console_output_enabled =
+                ErrorManagerConfigurations::cache_is_console_output_enabled =
+                ErrorManagerConfigurations::cache.is_console_output_enabled;
+
+            ErrorManagerConfigurations::default_is_file_output_enabled =
+                ErrorManagerConfigurations::cache_is_file_output_enabled =
+                ErrorManagerConfigurations::cache.is_file_output_enabled;
+
+            ErrorManagerConfigurations::default_is_gui_output_enabled =
+                ErrorManagerConfigurations::cache_is_gui_output_enabled =
+                ErrorManagerConfigurations::cache.is_gui_output_enabled;
+
+            ErrorManagerConfigurations::default_is_runtime_throw_output_enabled =
+                ErrorManagerConfigurations::cache_is_runtime_throw_output_enabled =
+                ErrorManagerConfigurations::cache.is_runtime_throw_output_enabled;
+
+            ErrorManagerConfigurations::default_is_asynchronous_output_enabled =
+                ErrorManagerConfigurations::cache_is_asynchronous_output_enabled =
+                ErrorManagerConfigurations::cache.is_asynchronous_output_enabled;
+
+            ErrorManagerConfigurations::default_is_asynchronous_console_output_enabled =
+                ErrorManagerConfigurations::cache_is_asynchronous_console_output_enabled =
+                ErrorManagerConfigurations::cache.is_asynchronous_console_output_enabled;
+
+            ErrorManagerConfigurations::default_is_asynchronous_file_output_enabled =
+                ErrorManagerConfigurations::cache_is_asynchronous_file_output_enabled =
+                ErrorManagerConfigurations::cache.is_asynchronous_file_output_enabled;
+
+            ErrorManagerConfigurations::default_is_asynchronous_gui_output_enabled =
+                ErrorManagerConfigurations::cache_is_asynchronous_gui_output_enabled =
+                ErrorManagerConfigurations::cache.is_asynchronous_gui_output_enabled;
+
+            ErrorManagerConfigurations::default_is_asynchronous_runtime_throw_output_enabled =
+                ErrorManagerConfigurations::cache_is_asynchronous_runtime_throw_output_enabled =
+                ErrorManagerConfigurations::cache.is_asynchronous_runtime_throw_output_enabled;
+
+            ErrorManagerConfigurations::default_full_file_output_paths =
+                ErrorManagerConfigurations::cache_full_file_output_paths =
+                ErrorManagerConfigurations::cache.full_file_output_paths;
+
+            cache_is_successful =
                 true;
         }
-        catch (...)
+        catch
+        (
+            const std::exception&
+                exception
+        )
         {
-            ValueCache::boolean_1 =
-                false;
+            cache_error_log =
+                exception.what();
+
+            _handle();
         }
     }
 
@@ -140,7 +183,7 @@ namespace QLogicaeCppCore
     {
         _reset();
 
-        return ValueCache::boolean_1;
+        return cache_is_successful;
     }
 
     void
@@ -148,100 +191,253 @@ namespace QLogicaeCppCore
     {
         try
         {
-            ValueCache::boolean_1 =
+            ErrorManagerConfigurations::default_is_enabled =
+                ErrorManagerConfigurations::cache_is_enabled =
+                ErrorManagerConfigurations::initial_is_enabled;
+
+            ErrorManagerConfigurations::default_is_console_output_enabled =
+                ErrorManagerConfigurations::cache_is_console_output_enabled =
+                ErrorManagerConfigurations::initial_is_console_output_enabled;
+
+            ErrorManagerConfigurations::default_is_file_output_enabled =
+                ErrorManagerConfigurations::cache_is_file_output_enabled =
+                ErrorManagerConfigurations::initial_is_file_output_enabled;
+
+            ErrorManagerConfigurations::default_is_gui_output_enabled =
+                ErrorManagerConfigurations::cache_is_gui_output_enabled =
+                ErrorManagerConfigurations::initial_is_gui_output_enabled;
+
+            ErrorManagerConfigurations::default_is_runtime_throw_output_enabled =
+                ErrorManagerConfigurations::cache_is_runtime_throw_output_enabled =
+                ErrorManagerConfigurations::initial_is_runtime_throw_output_enabled;
+
+            ErrorManagerConfigurations::default_is_asynchronous_output_enabled =
+                ErrorManagerConfigurations::cache_is_asynchronous_output_enabled =
+                ErrorManagerConfigurations::initial_is_asynchronous_output_enabled;
+
+            ErrorManagerConfigurations::default_is_asynchronous_console_output_enabled =
+                ErrorManagerConfigurations::cache_is_asynchronous_console_output_enabled =
+                ErrorManagerConfigurations::initial_is_asynchronous_console_output_enabled;
+
+            ErrorManagerConfigurations::default_is_asynchronous_file_output_enabled =
+                ErrorManagerConfigurations::cache_is_asynchronous_file_output_enabled =
+                ErrorManagerConfigurations::initial_is_asynchronous_file_output_enabled;
+
+            ErrorManagerConfigurations::default_is_asynchronous_gui_output_enabled =
+                ErrorManagerConfigurations::cache_is_asynchronous_gui_output_enabled =
+                ErrorManagerConfigurations::initial_is_asynchronous_gui_output_enabled;
+
+            ErrorManagerConfigurations::default_is_asynchronous_runtime_throw_output_enabled =
+                ErrorManagerConfigurations::cache_is_asynchronous_runtime_throw_output_enabled =
+                ErrorManagerConfigurations::initial_is_asynchronous_runtime_throw_output_enabled;
+
+            ErrorManagerConfigurations::default_full_file_output_paths =
+                ErrorManagerConfigurations::cache_full_file_output_paths =
+                ErrorManagerConfigurations::initial_full_file_output_paths;
+
+            cache_is_successful =
                 true;
         }
-        catch (...)
+        catch
+        (
+            const std::exception&
+                exception
+        )
         {
-            ValueCache::boolean_1 =
-                false;
+            cache_error_log =
+                exception.what();
+
+            _handle();
         }
     }
 
     bool
         ErrorManager::handle(
-            const std::string_view& title,
-            const std::string_view& message
+            const std::string_view&
+                title,
+            const std::string_view&
+                message
         )
-    {
-        ValueCache::string_view_1 =
-            title;
-
-        ValueCache::string_view_2 =
-            message;
+    {        
+        cache_error_log =
+            std::string(title.data()) +
+            " - " +
+            message.data();
 
         _handle();
 
-        return ValueCache::boolean_1;
+        return cache_is_successful;
+    }
+
+    bool
+        ErrorManager::handle(
+            const std::string_view&
+                message
+        )
+    {
+        cache_error_log =
+            message;
+            
+        _handle();
+
+        return cache_is_successful;
     }
 
     bool
         ErrorManager::handle(
             const std::exception& exception
         )
-    {
-        ValueCache::string_view_1 =
-            typeid(exception).name();
-
-        ValueCache::string_view_2 =
+    {                
+        cache_error_log =
+            std::string(typeid(exception).name()) +
+            " - " +
             exception.what();
 
         _handle();
 
-        return ValueCache::boolean_1;
+        return cache_is_successful;
     }
 
     void
         ErrorManager::_handle()
     {
-        if (!ErrorManagerConfigurations::cache_is_enabled)
+        try
         {
-            ValueCache::boolean_1 =
+            cache_is_successful =
                 false;
 
-            return;
+            if (!ErrorManagerConfigurations::cache_is_enabled)
+            {
+                return;
+            }
+
+            if (ErrorManagerConfigurations::cache_is_asynchronous_output_enabled)
+            {
+                _handle_asynchronously();
+            }
+            else
+            {
+                _handle_synchronously();
+            }
+        }
+        catch (...)
+        {
+            cache_is_successful =
+                false;
+        }
+    }
+
+    void
+        ErrorManager::_handle_asynchronously()
+    {
+        std::vector<std::future<void>>
+            futures;
+
+        if (ErrorManagerConfigurations::cache_is_asynchronous_console_output_enabled &&
+            ErrorManagerConfigurations::cache_is_console_output_enabled
+            )
+        {
+            futures.push_back(
+                std::async(
+                    std::launch::async,
+                    [&]()
+                    {
+                        fast_io::io::println(
+                            cache_fast_io_error_console_output_type,
+                            cache_error_log
+                        );
+                    }
+                )
+            );
         }
 
-        ValueCache::boolean_1 =
-            true;
+        if (ErrorManagerConfigurations::cache_is_asynchronous_file_output_enabled &&
+            ErrorManagerConfigurations::cache_is_file_output_enabled
+            )
+        {
+            for (const std::string& cache_full_file_output_path :
+                ErrorManagerConfigurations::cache_full_file_output_paths
+                )
+            {
+                futures.push_back(
+                    std::async(
+                        std::launch::async,
+                        [&]()
+                        {
+                            fast_io::native_file
+                                fast_io_native_file(
+                                    cache_full_file_output_path,
+                                    fast_io::open_mode::app
+                                );
 
-        ValueCache::string_1.reserve(128);
+                            fast_io::io::println(
+                                fast_io_native_file,
+                                cache_error_log
+                            );
+                        }
+                    )
+                );
+            }
+        }
 
-        ValueCache::string_1 =
-            std::string(ValueCache::string_view_1.data()) +
-            " - " +
-            ValueCache::string_view_2.data();
+        if (ErrorManagerConfigurations::cache_is_asynchronous_runtime_throw_output_enabled &&
+            ErrorManagerConfigurations::cache_is_runtime_throw_output_enabled
+            )
+        {
+            futures.push_back(
+                std::async(
+                    std::launch::async,
+                    [&]()
+                    {
+                        throw std::runtime_error(
+                            cache_error_log
+                        );
+                    }
+                )
+            );
+        }
 
+        for (std::future<void>& future : futures)
+        {
+            future.get();
+        }
+    }
+
+    void
+        ErrorManager::_handle_synchronously()
+    {
         if (ErrorManagerConfigurations::cache_is_console_output_enabled)
-        {       
+        {
             fast_io::io::println(
-                fast_io_error_console_output_type,
-                ValueCache::string_1
+                cache_fast_io_error_console_output_type,
+                cache_error_log
             );
         }
 
         if (ErrorManagerConfigurations::cache_is_file_output_enabled)
         {
-            fast_io::io::println(
-                fast_io_native_file,
-                ValueCache::string_1
-            );
+            for (const std::string& cache_full_file_output_path :
+                ErrorManagerConfigurations::cache_full_file_output_paths
+                )
+            {
+                fast_io::native_file
+                    fast_io_native_file(
+                        cache_full_file_output_path,
+                        fast_io::open_mode::app
+                    );
+
+                fast_io::io::println(
+                    fast_io_native_file,
+                    cache_error_log
+                );
+            }
         }
 
-        if (ErrorManagerConfigurations::cache_is_exception_throwing_enabled)
+        if (ErrorManagerConfigurations::cache_is_runtime_throw_output_enabled)
         {
             throw std::runtime_error(
-                ValueCache::string_1
+                cache_error_log
             );
         }
-    }
-
-    ErrorManager&
-        ErrorManager::get_instance()
-    {
-        static ErrorManager
-            instance;
-
-        return instance;
     }
 }

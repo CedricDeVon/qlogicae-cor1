@@ -1,7 +1,7 @@
 #pragma once
 
 #include "value_cache.hpp"
-#include "instance_manager.hpp"
+#include "singleton_manager.hpp"
 
 namespace QLogicaeCppCore
 {
@@ -117,78 +117,82 @@ namespace QLogicaeCppCore
         std::string full_program_data_folder_path;
 
         static UtilitiesCache&
-            instance;
+            singleton;
 
         UtilitiesCache();
 
         ~UtilitiesCache();
 
         UtilitiesCache(
-            const UtilitiesCache& instance
+            const UtilitiesCache&
+                instance
         ) = delete;
 
         UtilitiesCache(
-            UtilitiesCache&& instance
+            UtilitiesCache&&
+                instance
         ) noexcept = delete;
 
         UtilitiesCache& operator = (
-            UtilitiesCache&& instance
+            UtilitiesCache&&
+                instance
         ) = delete;
 
         UtilitiesCache& operator = (
-            const UtilitiesCache& instance
+            const UtilitiesCache&
+                instance
         ) = delete;
 
         bool
             construct();
 
-        void
-            _construct();
-
         bool
             destruct();
-
-        void
-            _destruct();
-
+        
         bool
             setup();
-
-        void
-            _setup();
 
         bool
             reset();
 
-        void
-            _reset();
-
         std::string
             get_executable_folder_path();
-
-        void
-            _get_executable_folder_path();
 
         std::string
             get_executed_folder_path();
 
-        void
-            _get_executed_folder_path();
-
         std::string
             get_program_data_folder_path();
-
-        void
-            _get_program_data_folder_path();
 
         std::string
             get_local_app_data_folder_path();
 
-        void
-            _get_local_app_data_folder_path();
-
         std::string
             get_roaming_app_data_folder_path();
+
+        void
+            _construct();
+
+        void
+            _destruct();
+
+        void
+            _setup();
+
+        void
+            _reset();
+
+        void
+            _get_executable_folder_path();
+
+        void
+            _get_executed_folder_path();
+
+        void
+            _get_program_data_folder_path();
+
+        void
+            _get_local_app_data_folder_path();
 
         void
             _get_roaming_app_data_folder_path();

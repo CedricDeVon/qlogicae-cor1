@@ -1331,8 +1331,8 @@ namespace QLogicaeCppCore
 
 
     ValueCache&
-        ValueCache::instance =
-            ValueCache::get_instance();
+        ValueCache::singleton =
+            SingletonManager::get_singleton<ValueCache>();
 
 
 
@@ -1351,7 +1351,8 @@ namespace QLogicaeCppCore
     {
         _construct();
 
-        return ValueCache::boolean_1;
+        return
+            ValueCache::boolean_1;
     }
 
     void
@@ -1362,10 +1363,17 @@ namespace QLogicaeCppCore
             boolean_1 =
                 true;
         }
-        catch (...)
+        catch
+        (
+            const std::exception&
+                exception
+        )
         {
-            boolean_1 =
-                false;
+            ErrorManager::cache_error_log =
+                exception.what();
+
+            ErrorManager::singleton
+                ._handle();
         }
     }
 
@@ -1374,7 +1382,8 @@ namespace QLogicaeCppCore
     {
         _destruct();
 
-        return boolean_1;
+        return
+            boolean_1;
     }
 
     void
@@ -1385,10 +1394,17 @@ namespace QLogicaeCppCore
             boolean_1 =
                 true;
         }
-        catch (...)
+        catch
+        (
+            const std::exception&
+                exception
+        )
         {
-            boolean_1 =
-                false;
+            ErrorManager::cache_error_log =
+                exception.what();
+
+            ErrorManager::singleton
+                ._handle();
         }
     }
 
@@ -1397,7 +1413,8 @@ namespace QLogicaeCppCore
     {
         _setup();
 
-        return boolean_1;
+        return
+            boolean_1;
     }
 
     void
@@ -1408,10 +1425,17 @@ namespace QLogicaeCppCore
             boolean_1 =
                 true;
         }
-        catch (...)
+        catch
+        (
+            const std::exception&
+                exception
+        )
         {
-            boolean_1 =
-                false;
+            ErrorManager::cache_error_log =
+                exception.what();
+
+            ErrorManager::singleton
+                ._handle();
         }
     }
 
@@ -1420,7 +1444,8 @@ namespace QLogicaeCppCore
     {
         _reset();
 
-        return boolean_1;
+        return
+            boolean_1;
     }
 
     void
@@ -2756,19 +2781,17 @@ namespace QLogicaeCppCore
             boolean_1 =
                 true;
         }
-        catch (...)
+        catch
+        (
+            const std::exception&
+                exception
+        )
         {
-            boolean_1 =
-                false;
+            ErrorManager::cache_error_log =
+                exception.what();
+
+            ErrorManager::singleton
+                ._handle();
         }
-    }
-
-    ValueCache&
-        ValueCache::get_instance()
-    {
-        static ValueCache
-            instance;
-
-        return instance;
     }
 }

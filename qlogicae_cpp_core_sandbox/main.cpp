@@ -2,9 +2,14 @@
 
 #include "main.hpp"
 
+inline static double
+	confirm = 0.1;
+
 int main(int argc, char** argv)
 {		
-	
+	QLogicaeCppCore::SingletonManager::singleton;
+
+	std::cout << confirm + confirm << "\n";
 
 	bool exit_code;
 	std::cin >> exit_code;

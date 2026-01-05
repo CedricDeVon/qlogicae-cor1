@@ -1,6 +1,18 @@
 ﻿#pragma once
 
+#include <fast_io.h>
+#include <fast_io_device.h>
+#include <fast_io_legacy.h>
+
 #include <boost/asio.hpp>
+#include <boost/thread/mutex.hpp>
+#include <boost/thread/locks.hpp>
+#include <boost/thread/mutex.hpp>
+#include <boost/thread/shared_mutex.hpp>
+#include <boost/thread/recursive_mutex.hpp>
+
+#include <folly/init/Init.h>
+#include <folly/synchronization/MicroSpinLock.h>
 
 #include <any>
 #include <compare>

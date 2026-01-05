@@ -1,5 +1,8 @@
 #pragma once
 
+#include "error_manager.hpp"
+#include "singleton_manager.hpp"
+
 namespace QLogicaeCppCore
 {
     class ValueCache
@@ -1331,7 +1334,7 @@ namespace QLogicaeCppCore
             wstring_view_pointer_8;
    
         static ValueCache&
-            instance;
+            singleton;
 
         ValueCache();
 
@@ -1351,13 +1354,13 @@ namespace QLogicaeCppCore
             operator = (
                 ValueCache&&
                     instance
-                ) = delete;
+        ) = delete;
 
         ValueCache&
             operator = (
                 const ValueCache&
                     instance
-                ) = delete;
+        ) = delete;
 
         bool
             construct();
@@ -1382,8 +1385,5 @@ namespace QLogicaeCppCore
 
         void
             _reset();
-
-        static ValueCache&
-            get_instance();
     };    
 }

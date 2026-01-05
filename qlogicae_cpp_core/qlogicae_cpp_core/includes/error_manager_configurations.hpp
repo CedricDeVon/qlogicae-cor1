@@ -155,6 +155,6 @@ namespace QLogicaeCppCore
 
 
         static ErrorManagerConfigurations
-            cache_instance;
+            cache;
     };
 }

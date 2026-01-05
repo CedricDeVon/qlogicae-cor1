@@ -1,6 +1,6 @@
 #pragma once
 
-#include "value_cache.hpp"
+#include "singleton_manager.hpp"
 #include "error_manager_configurations.hpp"
 
 namespace QLogicaeCppCore
@@ -8,14 +8,17 @@ namespace QLogicaeCppCore
     class ErrorManager
     {
     public:
-        static fast_io::native_io_observer
-            fast_io_error_console_output_type;
+        static bool
+            cache_is_successful;
 
-        static fast_io::native_file
-            fast_io_native_file;
+        static std::string
+            cache_error_log;
+
+        static fast_io::native_io_observer
+            cache_fast_io_error_console_output_type;
 
         static ErrorManager&
-            instance;
+            singleton;
 
         ErrorManager();
 
@@ -46,14 +49,8 @@ namespace QLogicaeCppCore
         bool
             construct();
 
-        void
-            _construct();
-
         bool
             destruct();
-
-        void
-            _destruct();
 
         bool
             setup(
@@ -64,14 +61,8 @@ namespace QLogicaeCppCore
         bool
             setup();
 
-        void
-            _setup();
-
         bool
             reset();
-
-        void
-            _reset();
 
         bool
             handle(
@@ -83,18 +74,35 @@ namespace QLogicaeCppCore
 
         bool
             handle(
-                const std::string_view& message
+                const std::string_view&
+                    message
             );
 
         bool
             handle(
-                const std::exception& exception
+                const std::exception&
+                    exception
             );
 
         void
-            _handle();
+            _handle_asynchronously();
 
-        static ErrorManager&
-            get_instance();
+        void
+            _handle_synchronously();
+
+        void
+            _construct();
+        
+        void
+            _destruct();
+
+        void
+            _setup();
+
+        void
+            _reset();
+
+        void
+            _handle();
     };    
 }

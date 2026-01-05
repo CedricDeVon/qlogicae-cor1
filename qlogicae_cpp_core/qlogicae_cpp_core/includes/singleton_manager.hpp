@@ -12,7 +12,7 @@ namespace QLogicaeCppCore
             cache_is_successful;
 
         static std::string
-            cache_exception_log;
+            cache_error_log;
 
         static fast_io::native_io_observer
             cache_fast_io_error_console_output_type;
@@ -90,7 +90,7 @@ namespace QLogicaeCppCore
         void
             _handle_error_synchronously();
 
-        template <typename Type> Type&
+        template <typename Type> static Type&
             get_singleton();
 
         static SingletonManager&

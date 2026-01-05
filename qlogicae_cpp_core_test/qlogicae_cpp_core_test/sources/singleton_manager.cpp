@@ -132,10 +132,10 @@ namespace QLogicaeCppCoreTest
             SingletonManager::get_this_singleton();
 
         int& first_instance =
-            instance_manager.get_singleton<int>();
+            SingletonManager::get_singleton<int>();
 
         int& second_instance =
-            instance_manager.get_singleton<int>();
+            SingletonManager::get_singleton<int>();
 
         ASSERT_EQ(
             static_cast<void*>(&first_instance),
@@ -152,10 +152,10 @@ namespace QLogicaeCppCoreTest
             SingletonManager::get_this_singleton();
 
         int& integer_instance =
-            instance_manager.get_singleton<int>();
+            SingletonManager::get_singleton<int>();
 
         double& double_instance =
-            instance_manager.get_singleton<double>();
+            SingletonManager::get_singleton<double>();
 
         ASSERT_NE(
             static_cast<void*>(&integer_instance),
@@ -207,7 +207,7 @@ namespace QLogicaeCppCoreTest
                         SingletonManager::get_this_singleton();
 
                     int& instance_value =
-                        instance_manager.get_singleton<int>();
+                        SingletonManager::get_singleton<int>();
 
                     instance_value = static_cast<int>(1);
 
@@ -263,8 +263,8 @@ namespace QLogicaeCppCoreTest
                      index < static_cast<std::size_t>(1000);
                      ++index)
                 {
-                    instance_manager.get_singleton<int>();
-                    instance_manager.get_singleton<double>();
+                    SingletonManager::get_singleton<int>();
+                    SingletonManager::get_singleton<double>();
                 }
             }
         );
@@ -279,10 +279,10 @@ namespace QLogicaeCppCoreTest
             SingletonManager::get_this_singleton();
 
         int& first_instance =
-            instance_manager.get_singleton<int>();
+            SingletonManager::get_singleton<int>();
 
         int& second_instance =
-            instance_manager.get_singleton<int>();
+            SingletonManager::get_singleton<int>();
 
         ASSERT_EQ(
             static_cast<void*>(&first_instance),
@@ -309,10 +309,10 @@ namespace QLogicaeCppCoreTest
             SingletonManager::get_this_singleton();
 
         TestPlainStruct& first_instance =
-            instance_manager.get_singleton<TestPlainStruct>();
+            SingletonManager::get_singleton<TestPlainStruct>();
 
         TestPlainStruct& second_instance =
-            instance_manager.get_singleton<TestPlainStruct>();
+            SingletonManager::get_singleton<TestPlainStruct>();
 
         first_instance.value = GetParam();
 
@@ -341,10 +341,10 @@ namespace QLogicaeCppCoreTest
             SingletonManager::get_this_singleton();
 
         TestPlainClass& first_instance =
-            instance_manager.get_singleton<TestPlainClass>();
+            SingletonManager::get_singleton<TestPlainClass>();
 
         TestPlainClass& second_instance =
-            instance_manager.get_singleton<TestPlainClass>();
+            SingletonManager::get_singleton<TestPlainClass>();
 
         first_instance.value = GetParam();
 
@@ -373,10 +373,10 @@ namespace QLogicaeCppCoreTest
             SingletonManager::get_this_singleton();
 
         TestPlainEnum& first_instance =
-            instance_manager.get_singleton<TestPlainEnum>();
+            SingletonManager::get_singleton<TestPlainEnum>();
 
         TestPlainEnum& second_instance =
-            instance_manager.get_singleton<TestPlainEnum>();
+            SingletonManager::get_singleton<TestPlainEnum>();
 
         first_instance = GetParam();
 
@@ -405,13 +405,13 @@ namespace QLogicaeCppCoreTest
             SingletonManager::get_this_singleton();
 
         TestPlainStruct& struct_instance =
-            instance_manager.get_singleton<TestPlainStruct>();
+            SingletonManager::get_singleton<TestPlainStruct>();
 
         TestPlainClass& class_instance =
-            instance_manager.get_singleton<TestPlainClass>();
+            SingletonManager::get_singleton<TestPlainClass>();
 
         TestPlainEnum& enum_instance =
-            instance_manager.get_singleton<TestPlainEnum>();
+            SingletonManager::get_singleton<TestPlainEnum>();
 
         struct_instance.value = GetParam();
         class_instance.value = GetParam();

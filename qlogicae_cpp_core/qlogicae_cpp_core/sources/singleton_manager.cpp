@@ -9,7 +9,7 @@ namespace QLogicaeCppCore
             false;  
 
     std::string
-        SingletonManager::cache_exception_log =
+        SingletonManager::cache_error_log =
             "";
 
     fast_io::native_io_observer
@@ -34,7 +34,7 @@ namespace QLogicaeCppCore
                 exception
         )
         {
-            cache_exception_log =
+            cache_error_log =
                 exception.what();
 
             _handle_error();
@@ -53,7 +53,7 @@ namespace QLogicaeCppCore
                 exception
         )
         {
-            cache_exception_log =
+            cache_error_log =
                 exception.what();
 
             _handle_error();
@@ -119,7 +119,7 @@ namespace QLogicaeCppCore
                 exception
         )
     {
-        cache_exception_log =
+        cache_error_log =
             exception.what();
 
         _handle_error();
@@ -142,7 +142,7 @@ namespace QLogicaeCppCore
                 exception
         )
         {
-            cache_exception_log =
+            cache_error_log =
                 exception.what();
 
             _handle_error();
@@ -163,7 +163,7 @@ namespace QLogicaeCppCore
                 exception
         )
         {
-            cache_exception_log =
+            cache_error_log =
                 exception.what();
 
             _handle_error();
@@ -184,7 +184,7 @@ namespace QLogicaeCppCore
                 exception
         )
         {
-            cache_exception_log =
+            cache_error_log =
                 exception.what();
 
             _handle_error();
@@ -205,7 +205,7 @@ namespace QLogicaeCppCore
                 exception
         )
         {
-            cache_exception_log =
+            cache_error_log =
                 exception.what();
 
             _handle_error();
@@ -258,7 +258,7 @@ namespace QLogicaeCppCore
                     {
                         fast_io::io::println(
                             cache_fast_io_error_console_output_type,
-                            cache_exception_log
+                            cache_error_log
                         );
                     }
                 )
@@ -286,7 +286,7 @@ namespace QLogicaeCppCore
 
                             fast_io::io::println(
                                 fast_io_native_file,
-                                cache_exception_log
+                                cache_error_log
                             );
                         }
                     )
@@ -304,7 +304,7 @@ namespace QLogicaeCppCore
                     [&]()
                     {
                         throw std::runtime_error(
-                            cache_exception_log
+                            cache_error_log
                         );
                     }
                 )
@@ -324,7 +324,7 @@ namespace QLogicaeCppCore
         {
             fast_io::io::println(
                 cache_fast_io_error_console_output_type,
-                cache_exception_log
+                cache_error_log
             );
         }
 
@@ -342,7 +342,7 @@ namespace QLogicaeCppCore
 
                 fast_io::io::println(
                     fast_io_native_file,
-                    cache_exception_log
+                    cache_error_log
                 );
             }
         }
@@ -350,7 +350,7 @@ namespace QLogicaeCppCore
         if (ErrorManagerConfigurations::cache_is_runtime_throw_output_enabled)
         {
             throw std::runtime_error(
-                cache_exception_log
+                cache_error_log
             );
         }
     }
