@@ -1,6 +1,6 @@
 #include "pch.hpp"
 
-#include "../includes/instance_manager.hpp"
+#include "../includes/singleton_manager.hpp"
 
 using namespace QLogicaeCppCore;
 
@@ -26,70 +26,70 @@ namespace QLogicaeCppCoreTest
         MAXIMUM = 2
     };
 
-    class InstanceManagerTest : public ::testing::Test
+    class SingletonManagerTest : public ::testing::Test
     {
     public:
-        InstanceManagerTest() = default;
+        SingletonManagerTest() = default;
 
-        ~InstanceManagerTest() override = default;
+        ~SingletonManagerTest() override = default;
     };
 
-    class InstanceManagerTypeParameterizedTest :
+    class SingletonManagerTypeParameterizedTest :
         public ::testing::TestWithParam<int>
     {
     public:
-        InstanceManagerTypeParameterizedTest() = default;
+        SingletonManagerTypeParameterizedTest() = default;
 
-        ~InstanceManagerTypeParameterizedTest() override = default;
+        ~SingletonManagerTypeParameterizedTest() override = default;
     };
 
-    class InstanceManagerStructParameterizedTest :
+    class SingletonManagerStructParameterizedTest :
         public ::testing::TestWithParam<int>
     {
     public:
-        InstanceManagerStructParameterizedTest() = default;
+        SingletonManagerStructParameterizedTest() = default;
 
-        ~InstanceManagerStructParameterizedTest() override = default;
+        ~SingletonManagerStructParameterizedTest() override = default;
     };
 
-    class InstanceManagerClassParameterizedTest :
+    class SingletonManagerClassParameterizedTest :
         public ::testing::TestWithParam<int>
     {
     public:
-        InstanceManagerClassParameterizedTest() = default;
+        SingletonManagerClassParameterizedTest() = default;
 
-        ~InstanceManagerClassParameterizedTest() override = default;
+        ~SingletonManagerClassParameterizedTest() override = default;
     };
 
-    class InstanceManagerEnumParameterizedTest :
+    class SingletonManagerEnumParameterizedTest :
         public ::testing::TestWithParam<TestPlainEnum>
     {
     public:
-        InstanceManagerEnumParameterizedTest() = default;
+        SingletonManagerEnumParameterizedTest() = default;
 
-        ~InstanceManagerEnumParameterizedTest() override = default;
+        ~SingletonManagerEnumParameterizedTest() override = default;
     };
 
-    class InstanceManagerMixedTypeParameterizedTest :
+    class SingletonManagerMixedTypeParameterizedTest :
         public ::testing::TestWithParam<int>
     {
     public:
-        InstanceManagerMixedTypeParameterizedTest() = default;
+        SingletonManagerMixedTypeParameterizedTest() = default;
 
-        ~InstanceManagerMixedTypeParameterizedTest() override = default;
+        ~SingletonManagerMixedTypeParameterizedTest() override = default;
     };
 
 
     TEST(
-        InstanceManagerTest,
-        Should_ReturnSameReference_Expect_SameAddress_When_GetInstanceManager
+        SingletonManagerTest,
+        Should_ReturnSameReference_Expect_SameAddress_When_GetSingletonManager
     )
     {
-        InstanceManager& first_reference =
-            InstanceManager::get_instance_manager();
+        SingletonManager& first_reference =
+            SingletonManager::get_this_singleton();
 
-        InstanceManager& second_reference =
-            InstanceManager::get_instance_manager();
+        SingletonManager& second_reference =
+            SingletonManager::get_this_singleton();
 
         ASSERT_EQ(
             static_cast<void*>(&first_reference),
@@ -98,12 +98,12 @@ namespace QLogicaeCppCoreTest
     }
 
     TEST(
-        InstanceManagerTest,
+        SingletonManagerTest,
         Should_ReturnTrue_Expect_Success_When_ConstructCalled
     )
     {
-        InstanceManager& instance_manager =
-            InstanceManager::get_instance_manager();
+        SingletonManager& instance_manager =
+            SingletonManager::get_this_singleton();
 
         bool result = instance_manager.construct();
 
@@ -111,12 +111,12 @@ namespace QLogicaeCppCoreTest
     }
 
     TEST(
-        InstanceManagerTest,
+        SingletonManagerTest,
         Should_ReturnTrue_Expect_Success_When_DestructCalled
     )
     {
-        InstanceManager& instance_manager =
-            InstanceManager::get_instance_manager();
+        SingletonManager& instance_manager =
+            SingletonManager::get_this_singleton();
 
         bool result = instance_manager.destruct();
 
@@ -124,18 +124,18 @@ namespace QLogicaeCppCoreTest
     }
 
     TEST(
-        InstanceManagerTest,
+        SingletonManagerTest,
         Should_ReturnSameTypedInstance_Expect_SameAddress_When_GetInstanceCalled
     )
     {
-        InstanceManager& instance_manager =
-            InstanceManager::get_instance_manager();
+        SingletonManager& instance_manager =
+            SingletonManager::get_this_singleton();
 
         int& first_instance =
-            instance_manager.get_instance<int>();
+            instance_manager.get_singleton<int>();
 
         int& second_instance =
-            instance_manager.get_instance<int>();
+            instance_manager.get_singleton<int>();
 
         ASSERT_EQ(
             static_cast<void*>(&first_instance),
@@ -144,18 +144,18 @@ namespace QLogicaeCppCoreTest
     }
 
     TEST(
-        InstanceManagerTest,
+        SingletonManagerTest,
         Should_ReturnDifferentTypedInstances_Expect_DifferentAddresses_When_GetInstanceCalled
     )
     {
-        InstanceManager& instance_manager =
-            InstanceManager::get_instance_manager();
+        SingletonManager& instance_manager =
+            SingletonManager::get_this_singleton();
 
         int& integer_instance =
-            instance_manager.get_instance<int>();
+            instance_manager.get_singleton<int>();
 
         double& double_instance =
-            instance_manager.get_instance<double>();
+            instance_manager.get_singleton<double>();
 
         ASSERT_NE(
             static_cast<void*>(&integer_instance),
@@ -164,31 +164,31 @@ namespace QLogicaeCppCoreTest
     }
 
     TEST(
-        InstanceManagerTest,
+        SingletonManagerTest,
         Should_CompleteSuccessfully_Expect_NoException_When_CalledAsynchronously
     )
     {
-        std::future<InstanceManager*> async_result =
+        std::future<SingletonManager*> async_result =
             std::async(
                 std::launch::async,
                 []
                 {
-                    InstanceManager& instance_manager =
-                        InstanceManager::get_instance_manager();
+                    SingletonManager& instance_manager =
+                        SingletonManager::get_this_singleton();
 
                     instance_manager.construct();
 
-                    return static_cast<InstanceManager*>(&instance_manager);
+                    return static_cast<SingletonManager*>(&instance_manager);
                 }
             );
 
-        InstanceManager* result_pointer = async_result.get();
+        SingletonManager* result_pointer = async_result.get();
 
         ASSERT_NE(result_pointer, nullptr);
     }
 
     TEST(
-        InstanceManagerTest,
+        SingletonManagerTest,
         Should_ExecuteConcurrently_Expect_NoDataRace_When_MultipleThreadsCallGetInstance
     )
     {
@@ -203,11 +203,11 @@ namespace QLogicaeCppCoreTest
             worker_threads.emplace_back(
                 [&execution_completed]
                 {
-                    InstanceManager& instance_manager =
-                        InstanceManager::get_instance_manager();
+                    SingletonManager& instance_manager =
+                        SingletonManager::get_this_singleton();
 
                     int& instance_value =
-                        instance_manager.get_instance<int>();
+                        instance_manager.get_singleton<int>();
 
                     instance_value = static_cast<int>(1);
 
@@ -228,12 +228,12 @@ namespace QLogicaeCppCoreTest
     }
 
     TEST(
-        InstanceManagerTest,
+        SingletonManagerTest,
         Should_CompleteUnderLoad_Expect_NoFailure_When_StressTested
     )
     {
-        InstanceManager& instance_manager =
-            InstanceManager::get_instance_manager();
+        SingletonManager& instance_manager =
+            SingletonManager::get_this_singleton();
 
         std::size_t const ITERATION_COUNT =
             static_cast<std::size_t>(1'000'000);
@@ -250,12 +250,12 @@ namespace QLogicaeCppCoreTest
     }
 
     TEST(
-        InstanceManagerTest,
+        SingletonManagerTest,
         Should_NotThrow_Expect_NoException_When_RepeatedCallsMade
     )
     {
-        InstanceManager& instance_manager =
-            InstanceManager::get_instance_manager();
+        SingletonManager& instance_manager =
+            SingletonManager::get_this_singleton();
 
         ASSERT_NO_THROW(
             {
@@ -263,26 +263,26 @@ namespace QLogicaeCppCoreTest
                      index < static_cast<std::size_t>(1000);
                      ++index)
                 {
-                    instance_manager.get_instance<int>();
-                    instance_manager.get_instance<double>();
+                    instance_manager.get_singleton<int>();
+                    instance_manager.get_singleton<double>();
                 }
             }
         );
     }
 
     TEST_P(
-        InstanceManagerTypeParameterizedTest,
+        SingletonManagerTypeParameterizedTest,
         Should_ReturnStableInstance_Expect_SameAddress_When_ParameterizedTypeUsed
     )
     {
-        InstanceManager& instance_manager =
-            InstanceManager::get_instance_manager();
+        SingletonManager& instance_manager =
+            SingletonManager::get_this_singleton();
 
         int& first_instance =
-            instance_manager.get_instance<int>();
+            instance_manager.get_singleton<int>();
 
         int& second_instance =
-            instance_manager.get_instance<int>();
+            instance_manager.get_singleton<int>();
 
         ASSERT_EQ(
             static_cast<void*>(&first_instance),
@@ -292,7 +292,7 @@ namespace QLogicaeCppCoreTest
 
     INSTANTIATE_TEST_CASE_P(
         ValidTypeInstantiation,
-        InstanceManagerTypeParameterizedTest,
+        SingletonManagerTypeParameterizedTest,
         ::testing::Values(
             static_cast<int>(0),
             static_cast<int>(1),
@@ -301,18 +301,18 @@ namespace QLogicaeCppCoreTest
     );
 
     TEST_P(
-        InstanceManagerStructParameterizedTest,
+        SingletonManagerStructParameterizedTest,
         Should_ReturnSameInstance_Expect_SameAddress_When_StructTypeUsed
     )
     {
-        InstanceManager& instance_manager =
-            InstanceManager::get_instance_manager();
+        SingletonManager& instance_manager =
+            SingletonManager::get_this_singleton();
 
         TestPlainStruct& first_instance =
-            instance_manager.get_instance<TestPlainStruct>();
+            instance_manager.get_singleton<TestPlainStruct>();
 
         TestPlainStruct& second_instance =
-            instance_manager.get_instance<TestPlainStruct>();
+            instance_manager.get_singleton<TestPlainStruct>();
 
         first_instance.value = GetParam();
 
@@ -324,7 +324,7 @@ namespace QLogicaeCppCoreTest
 
     INSTANTIATE_TEST_CASE_P(
         StructTypeInstantiation,
-        InstanceManagerStructParameterizedTest,
+        SingletonManagerStructParameterizedTest,
         ::testing::Values(
             static_cast<int>(0),
             static_cast<int>(1),
@@ -333,18 +333,18 @@ namespace QLogicaeCppCoreTest
     );
 
     TEST_P(
-        InstanceManagerClassParameterizedTest,
+        SingletonManagerClassParameterizedTest,
         Should_ReturnSameInstance_Expect_SameAddress_When_ClassTypeUsed
     )
     {
-        InstanceManager& instance_manager =
-            InstanceManager::get_instance_manager();
+        SingletonManager& instance_manager =
+            SingletonManager::get_this_singleton();
 
         TestPlainClass& first_instance =
-            instance_manager.get_instance<TestPlainClass>();
+            instance_manager.get_singleton<TestPlainClass>();
 
         TestPlainClass& second_instance =
-            instance_manager.get_instance<TestPlainClass>();
+            instance_manager.get_singleton<TestPlainClass>();
 
         first_instance.value = GetParam();
 
@@ -356,7 +356,7 @@ namespace QLogicaeCppCoreTest
 
     INSTANTIATE_TEST_CASE_P(
         ClassTypeInstantiation,
-        InstanceManagerClassParameterizedTest,
+        SingletonManagerClassParameterizedTest,
         ::testing::Values(
             static_cast<int>(-1),
             static_cast<int>(0),
@@ -365,18 +365,18 @@ namespace QLogicaeCppCoreTest
     );
 
     TEST_P(
-        InstanceManagerEnumParameterizedTest,
+        SingletonManagerEnumParameterizedTest,
         Should_ReturnSameInstance_Expect_SameAddress_When_EnumTypeUsed
     )
     {
-        InstanceManager& instance_manager =
-            InstanceManager::get_instance_manager();
+        SingletonManager& instance_manager =
+            SingletonManager::get_this_singleton();
 
         TestPlainEnum& first_instance =
-            instance_manager.get_instance<TestPlainEnum>();
+            instance_manager.get_singleton<TestPlainEnum>();
 
         TestPlainEnum& second_instance =
-            instance_manager.get_instance<TestPlainEnum>();
+            instance_manager.get_singleton<TestPlainEnum>();
 
         first_instance = GetParam();
 
@@ -388,7 +388,7 @@ namespace QLogicaeCppCoreTest
 
     INSTANTIATE_TEST_CASE_P(
         EnumTypeInstantiation,
-        InstanceManagerEnumParameterizedTest,
+        SingletonManagerEnumParameterizedTest,
         ::testing::Values(
             TestPlainEnum::ZERO,
             TestPlainEnum::ONE,
@@ -397,21 +397,21 @@ namespace QLogicaeCppCoreTest
     );
 
     TEST_P(
-        InstanceManagerMixedTypeParameterizedTest,
+        SingletonManagerMixedTypeParameterizedTest,
         Should_ReturnDifferentInstances_Expect_DifferentAddresses_When_MixedTypesUsed
     )
     {
-        InstanceManager& instance_manager =
-            InstanceManager::get_instance_manager();
+        SingletonManager& instance_manager =
+            SingletonManager::get_this_singleton();
 
         TestPlainStruct& struct_instance =
-            instance_manager.get_instance<TestPlainStruct>();
+            instance_manager.get_singleton<TestPlainStruct>();
 
         TestPlainClass& class_instance =
-            instance_manager.get_instance<TestPlainClass>();
+            instance_manager.get_singleton<TestPlainClass>();
 
         TestPlainEnum& enum_instance =
-            instance_manager.get_instance<TestPlainEnum>();
+            instance_manager.get_singleton<TestPlainEnum>();
 
         struct_instance.value = GetParam();
         class_instance.value = GetParam();
@@ -435,7 +435,7 @@ namespace QLogicaeCppCoreTest
 
     INSTANTIATE_TEST_CASE_P(
         MixedTypeInstantiation,
-        InstanceManagerMixedTypeParameterizedTest,
+        SingletonManagerMixedTypeParameterizedTest,
         ::testing::Values(
             static_cast<int>(0),
             static_cast<int>(5)
