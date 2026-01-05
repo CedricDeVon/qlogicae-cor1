@@ -44,8 +44,8 @@ namespace QLogicaeCppCore
                 default_is_asynchronous_runtime_throw_output_enabled;
 
         std::vector<std::string>
-            file_output_paths =
-                default_file_output_paths;
+            full_file_output_paths =
+                default_full_file_output_paths;
 
 
 
@@ -80,7 +80,7 @@ namespace QLogicaeCppCore
             initial_is_asynchronous_runtime_throw_output_enabled;
 
         static std::vector<std::string>
-            initial_file_output_paths;
+            initial_full_file_output_paths;
 
 
 
@@ -115,7 +115,7 @@ namespace QLogicaeCppCore
             default_is_asynchronous_runtime_throw_output_enabled;
 
         static std::vector<std::string>
-            default_file_output_paths;
+            default_full_file_output_paths;
 
 
 
@@ -150,7 +150,7 @@ namespace QLogicaeCppCore
             cache_is_asynchronous_runtime_throw_output_enabled;
 
         static std::vector<std::string>
-            cache_file_output_paths;
+            cache_full_file_output_paths;
 
 
 

@@ -1,5 +1,8 @@
 #pragma once
 
+#include "error_manager_configurations.hpp"
+#include "singleton_manager_configurations.hpp"
+
 namespace QLogicaeCppCore
 {
     class SingletonManager
@@ -8,8 +11,11 @@ namespace QLogicaeCppCore
         static bool
             cache_is_successful;
 
-        static std::exception
-            cache_exception;
+        static std::string
+            cache_exception_log;
+
+        static fast_io::native_io_observer
+            cache_fast_io_error_console_output_type;
 
         static SingletonManager&
             singleton;
@@ -47,6 +53,12 @@ namespace QLogicaeCppCore
             destruct();
 
         bool
+            setup(
+                const SingletonManagerConfigurations&
+                    new_configurations
+            );
+
+        bool
             setup();
 
         bool
@@ -71,6 +83,12 @@ namespace QLogicaeCppCore
 
         void
             _handle_error();
+
+        void
+            _handle_error_asynchronously();
+
+        void
+            _handle_error_synchronously();
 
         template <typename Type> Type&
             get_singleton();

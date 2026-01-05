@@ -45,7 +45,7 @@ namespace QLogicaeCppCore
             true;
 
     std::vector<std::string>
-        ErrorManagerConfigurations::initial_file_output_paths =
+        ErrorManagerConfigurations::initial_full_file_output_paths =
         {
             "error.log"  
         };
@@ -93,9 +93,9 @@ namespace QLogicaeCppCore
             ErrorManagerConfigurations::initial_is_asynchronous_runtime_throw_output_enabled;
 
     std::vector<std::string>
-        ErrorManagerConfigurations::cache_file_output_paths =
-            ErrorManagerConfigurations::default_file_output_paths =
-            ErrorManagerConfigurations::initial_file_output_paths;
+        ErrorManagerConfigurations::cache_full_file_output_paths =
+            ErrorManagerConfigurations::default_full_file_output_paths =
+            ErrorManagerConfigurations::initial_full_file_output_paths;
 
     ErrorManagerConfigurations
         ErrorManagerConfigurations::cache_instance;
