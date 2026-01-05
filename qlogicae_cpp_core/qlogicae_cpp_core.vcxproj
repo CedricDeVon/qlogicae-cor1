@@ -191,9 +191,11 @@
     <ClInclude Include="framework.hpp" />
     <ClInclude Include="pch.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\assembly.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\error_manager_configurations.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\singleton_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\results.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\results_status.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\singleton_manager_configurations.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -201,9 +203,11 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="qlogicae_cpp_core\sources\assembly.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\error_manager_configurations.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\singleton_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\results.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\results_status.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\singleton_manager_configurations.cpp" />
   </ItemGroup>
   <ItemGroup>
     <MASM Include="qlogicae_cpp_core\assembly\x64_masm__main.asm" />

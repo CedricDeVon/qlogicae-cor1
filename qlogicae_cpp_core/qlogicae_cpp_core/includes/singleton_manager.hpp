@@ -43,32 +43,31 @@ namespace QLogicaeCppCore
         bool
             construct();
 
-        void
-            _construct();
-
         bool
             destruct();
-
-        void
-            _destruct();
 
         bool
             setup();
 
-        void
-            _setup();
-
         bool
             reset();
-
-        void
-            _reset();
 
         bool
             handle_error(
                 const std::exception&
                     exception
             );
+        void
+            _construct();
+
+        void
+            _destruct();
+
+        void
+            _setup();
+
+        void
+            _reset();
 
         void
             _handle_error();
@@ -78,6 +77,7 @@ namespace QLogicaeCppCore
 
         static SingletonManager&
             get_this_singleton();
+
     };
 
     template <typename Type> Type&

@@ -7,8 +7,6 @@ namespace QLogicaeCppCore
     class ErrorManagerCache
     {
     public:
-
-
         static ErrorManagerCache&
             instance;
 
