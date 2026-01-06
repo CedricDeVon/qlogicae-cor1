@@ -2,7 +2,7 @@
 
 #include "qlogicae_cpp_core_benchmark/includes/application.hpp"
 
-#include "qlogicae_cpp_core/includes/all.hpp"
+#include "qlogicae_cpp_core/includes/runtime_benchmarker.hpp"
 
 int main(int, char**);
 
@@ -157,7 +157,7 @@ void execute_nanobenchmark(
                     for (std::size_t index_3 = 0;
                         index_3 < iterations;
                         ++index_3
-                    )
+                        )
                     {
                         callback();
                     }
@@ -176,6 +176,7 @@ void execute_nanobenchmark(
 
     after_test_suite_callback();
 }
+
 
 /*
 

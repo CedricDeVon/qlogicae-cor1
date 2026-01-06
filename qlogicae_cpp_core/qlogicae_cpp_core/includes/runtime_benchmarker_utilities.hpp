@@ -29,12 +29,12 @@ namespace QLogicaeCppCore
         RuntimeBenchmarkerUtilities& operator = (
             RuntimeBenchmarkerUtilities&&
                 instance
-            ) = delete;
+        ) = delete;
 
         RuntimeBenchmarkerUtilities& operator = (
             const RuntimeBenchmarkerUtilities&
                 instance
-            ) = delete;
+        ) = delete;
 
         bool
             construct();

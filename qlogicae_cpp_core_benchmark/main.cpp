@@ -3,15 +3,15 @@
 #include "main.hpp"
 
 
-namespace Experiment10 // folly and boost
+namespace Experiment10 // pure, class
 {   
-    static std::string pure_static_input_value = "0000000000";
+    static std::string pure_static_input_value = "";
 
     static std::string pure_static_output_value = "";
 
     struct StructSample
     {
-        inline static std::string struct_static_input_value = "0000000000";
+        inline static std::string struct_static_input_value = "";
 
         inline static std::string struct_static_output_value = "";
     };
@@ -19,7 +19,7 @@ namespace Experiment10 // folly and boost
     class ClassSample
     {
     public:
-        inline static std::string class_static_input_value = "0000000000";
+        inline static std::string class_static_input_value = "";
 
         inline static std::string class_static_output_value = "";
     };
@@ -47,36 +47,32 @@ namespace Experiment10 // folly and boost
 
     void execute()
     {
-        NanobenchBencchmarkingTestSuite test_suite
+        QLogicaeCppCore::RuntimeBenchmarkerTestSuite test_suite_1
         {
             .name = "pure_static_vs_struct_static_vs_class_static",
             .warmup_count = 2,
             .epoch_iteration_pairs =
             {
                 {
-                    .epochs = 10'000'000,
+                    .epochs = 1'000'000,
                     .iterations = 1
                 },
                 {
-                    .epochs = 1'000'000,
+                    .epochs = 100'000,
                     .iterations = 10
                 },
                 {
-                    .epochs = 100'000,
+                    .epochs = 10'000,
                     .iterations = 100
                 },
                 {
-                    .epochs = 10'000,
+                    .epochs = 1'000,
                     .iterations = 1'000
                 },                
                 {
                     .epochs = 1,
                     .iterations = 1'000'000
-                },
-                {
-                    .epochs = 1,
-                    .iterations = 1'000'000'000
-                },
+                }
             },
 
             .test_cases =
@@ -96,9 +92,61 @@ namespace Experiment10 // folly and boost
             }
         };
 
+        QLogicaeCppCore::RuntimeBenchmarker::singleton
+            .execute(
+                test_suite_1
+            );
+
+        /*
+        NanobenchBencchmarkingTestSuite test_suite_2
+        {
+            .name = "pure_static_vs_struct_static_vs_class_static",
+            .warmup_count = 2,
+            .epoch_iteration_pairs =
+            {
+                {
+                    .epochs = 1'000'000,
+                    .iterations = 1
+                },
+                {
+                    .epochs = 100'000,
+                    .iterations = 10
+                },
+                {
+                    .epochs = 10'000,
+                    .iterations = 100
+                },
+                {
+                    .epochs = 1'000,
+                    .iterations = 1'000
+                },
+                {
+                    .epochs = 1,
+                    .iterations = 1'000'000
+                }
+            },
+
+            .test_cases =
+            {
+                {
+                    .name = "pure_static",
+                    .callback = pure_static
+                },
+                {
+                    .name = "struct_static",
+                    .callback = struct_static
+                },
+                {
+                    .name = "class_static",
+                    .callback = class_static
+                }
+            }
+        };
+
         execute_nanobenchmark(
-            test_suite
+            test_suite_2
         );
+        */
 
         bool exit_code;
         std::cin >> exit_code;

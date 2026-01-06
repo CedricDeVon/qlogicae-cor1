@@ -36,10 +36,10 @@ namespace QLogicaeCppCore
                 true;
         }
         catch
-            (
-                const std::exception&
+        (
+            const std::exception&
                 exception
-                )
+        )
         {
             ErrorManager::cache_error_log =
                 exception.what();
@@ -67,10 +67,10 @@ namespace QLogicaeCppCore
                 true;
         }
         catch
-            (
-                const std::exception&
+        (
+            const std::exception&
                 exception
-                )
+        )
         {
             ErrorManager::cache_error_log =
                 exception.what();
@@ -98,10 +98,10 @@ namespace QLogicaeCppCore
                 true;
         }
         catch
-            (
-                const std::exception&
+        (
+            const std::exception&
                 exception
-                )
+        )
         {
             ErrorManager::cache_error_log =
                 exception.what();
@@ -129,10 +129,10 @@ namespace QLogicaeCppCore
                 true;
         }
         catch
-            (
-                const std::exception&
+        (
+            const std::exception&
                 exception
-                )
+        )
         {
             ErrorManager::cache_error_log =
                 exception.what();

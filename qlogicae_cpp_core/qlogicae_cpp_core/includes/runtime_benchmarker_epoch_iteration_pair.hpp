@@ -11,7 +11,5 @@ namespace QLogicaeCppCore
         std::size_t
             iterations =
                 1;
-    
-        
     };
 }
