@@ -84,7 +84,7 @@ namespace QLogicaeCppCore
                 new_configurations
         )
     {
-        SingletonManagerConfigurations::cache_instance =
+        SingletonManagerConfigurations::cache =
             new_configurations;
 
         _setup();
@@ -96,8 +96,8 @@ namespace QLogicaeCppCore
     bool
         SingletonManager::setup()
     {
-        SingletonManagerConfigurations::cache_instance =
-        {};
+        SingletonManagerConfigurations::cache =
+            {};
 
         _setup();
 

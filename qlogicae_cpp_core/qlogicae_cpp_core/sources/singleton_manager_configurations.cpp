@@ -5,5 +5,5 @@
 namespace QLogicaeCppCore
 {
     SingletonManagerConfigurations
-        SingletonManagerConfigurations::cache_instance;
+        SingletonManagerConfigurations::cache;
 }

@@ -12,7 +12,7 @@ namespace QLogicaeCppCoreTest
         MutexManager& mutex_manager_instance;
 
         MutexManagerTest()
-            : mutex_manager_instance(MutexManager::instance)
+            : mutex_manager_instance(MutexManager::singleton)
         {
         }
 
@@ -54,7 +54,7 @@ namespace QLogicaeCppCoreTest
         void* test_pointer;
 
         MutexManagerLockMutexTest()
-            : mutex_manager_instance(MutexManager::instance),
+            : mutex_manager_instance(MutexManager::singleton),
             test_pointer(this)
         {
         }
@@ -80,14 +80,14 @@ namespace QLogicaeCppCoreTest
     class MutexManagerBoostTest : public ::testing::Test
     {
     protected:
-        MutexManager& manager = MutexManager::instance;
+        MutexManager& manager = MutexManager::singleton;
         void* test_ptr = reinterpret_cast<void*>(uintptr_t(0xDEADBEEF));
     };
 
     class MutexManagerMicroSpinTest : public ::testing::Test
     {
     protected:
-        QLogicaeCppCore::MutexManager& manager = QLogicaeCppCore::MutexManager::instance;
+        QLogicaeCppCore::MutexManager& manager = QLogicaeCppCore::MutexManager::singleton;
     };
 
     TEST_F(MutexManagerTest, Should_ConstructSuccessfully_When_Called)

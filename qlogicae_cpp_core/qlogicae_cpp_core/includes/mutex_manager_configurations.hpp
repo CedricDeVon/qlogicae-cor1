@@ -27,5 +27,18 @@ namespace QLogicaeCppCore
 
         static std::string
             default_name;
+
+
+
+        static void*
+            cache_pointer;
+
+        static std::string
+            cache_name;
+
+        
+
+        static MutexManagerConfigurations
+            cache;
     };
 }

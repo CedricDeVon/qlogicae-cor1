@@ -1,0 +1,76 @@
+#pragma once
+
+#include "value_cache.hpp"
+#include "error_manager.hpp"
+#include "singleton_manager.hpp"
+#include "runtime_benchmarker_utilities.hpp"
+#include "runtime_benchmarker_test_case.hpp"
+#include "runtime_benchmarker_test_suite.hpp"
+#include "runtime_benchmarker_epoch_iteration_pair.hpp"
+
+namespace QLogicaeCppCore
+{
+    class RuntimeBenchmarker
+    {
+    public:
+        static RuntimeBenchmarker&
+            singleton;
+
+        RuntimeBenchmarker();
+
+        ~RuntimeBenchmarker();
+
+        RuntimeBenchmarker(
+            const RuntimeBenchmarker&
+                instance
+        ) = delete;
+
+        RuntimeBenchmarker(
+            RuntimeBenchmarker&&
+                instance
+        ) noexcept = delete;
+
+        RuntimeBenchmarker& operator = (
+            RuntimeBenchmarker&&
+                instance
+        ) = delete;
+
+        RuntimeBenchmarker& operator = (
+            const RuntimeBenchmarker&
+                instance
+        ) = delete;
+
+        bool
+            construct();
+
+        bool
+            destruct();
+
+        bool
+            setup();
+
+        bool
+            reset();
+
+        bool
+            execute(
+                const RuntimeBenchmarkerTestSuite&
+                    test_suite
+            );
+
+        void
+            _execute();
+
+        void
+            _construct();
+
+        void
+            _destruct();
+
+        void
+            _setup();
+
+        void
+            _reset();
+    };
+}

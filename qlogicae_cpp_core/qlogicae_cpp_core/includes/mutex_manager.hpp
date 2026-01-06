@@ -1,7 +1,8 @@
 #pragma once
 
-#include "instance_manager.hpp"
-#include "mutex_manager_cache.hpp"
+#include "value_cache.hpp"
+#include "singleton_manager.hpp"
+#include "mutex_manager_utilities.hpp"
 #include "mutex_manager_configurations.hpp"
 
 namespace QLogicaeCppCore
@@ -10,7 +11,7 @@ namespace QLogicaeCppCore
     {
     public:                
         static MutexManager&
-            instance;
+            singleton;
 
         MutexManager();
 
@@ -144,10 +145,12 @@ namespace QLogicaeCppCore
         ) requires ValidLock<LockType, MutexType>
     {
         ValueCache::void_pointer_1 =
-            const_cast<void*>(pointer);
+            const_cast<void*>(
+                pointer
+            );
 
         ValueCache::string_view_1 =
-            MutexManagerCache::name;
+            MutexManagerConfigurations::cache_name;
 
         _lock_mutex<LockType, MutexType>();
 
@@ -161,7 +164,9 @@ namespace QLogicaeCppCore
         ) requires ValidLock<LockType, MutexType>
     {
         ValueCache::void_pointer_1 =
-            const_cast<void*>(pointer);
+            const_cast<void*>(
+                pointer
+            );
 
         ValueCache::string_view_1 =
             name;
@@ -178,7 +183,9 @@ namespace QLogicaeCppCore
         ) requires ValidLock<LockType, MutexType>
     {
         ValueCache::void_pointer_1 =
-            const_cast<void*>(configurations.pointer);
+            const_cast<void*>(
+                configurations.pointer
+            );
 
         ValueCache::string_view_1 =
             configurations.name;
@@ -209,7 +216,7 @@ namespace QLogicaeCppCore
                 (std::is_same_v<MutexType, std::mutex>)
             {
                 mutex_pointer =
-                    &MutexManagerCache::mutex_collection[
+                    &MutexManagerUtilities::mutex_collection[
                 {
                     ValueCache::void_pointer_1,
                         ValueCache::string_view_1.data()
@@ -220,7 +227,7 @@ namespace QLogicaeCppCore
                 (std::is_same_v<MutexType, std::timed_mutex>)
             {
                 mutex_pointer =
-                    &MutexManagerCache::timed_mutex_collection[
+                    &MutexManagerUtilities::timed_mutex_collection[
                 {
                     ValueCache::void_pointer_1,
                         ValueCache::string_view_1.data()
@@ -231,7 +238,7 @@ namespace QLogicaeCppCore
                 (std::is_same_v<MutexType, std::recursive_mutex>)
             {
                 mutex_pointer =
-                    &MutexManagerCache::recursive_mutex_collection[
+                    &MutexManagerUtilities::recursive_mutex_collection[
                 {
                     ValueCache::void_pointer_1,
                         ValueCache::string_view_1.data()
@@ -242,7 +249,7 @@ namespace QLogicaeCppCore
                 (std::is_same_v<MutexType, std::recursive_timed_mutex>)
             {
                 mutex_pointer =
-                    &MutexManagerCache::recursive_timed_mutex_collection[
+                    &MutexManagerUtilities::recursive_timed_mutex_collection[
                 {
                     ValueCache::void_pointer_1,
                         ValueCache::string_view_1.data()
@@ -253,7 +260,7 @@ namespace QLogicaeCppCore
                 (std::is_same_v<MutexType, std::shared_mutex>)
             {
                 mutex_pointer =
-                    &MutexManagerCache::shared_mutex_collection[
+                    &MutexManagerUtilities::shared_mutex_collection[
                 {
                     ValueCache::void_pointer_1,
                         ValueCache::string_view_1.data()
@@ -264,7 +271,7 @@ namespace QLogicaeCppCore
                 (std::is_same_v<MutexType, boost::mutex>)
             {
                 mutex_pointer =
-                    &MutexManagerCache::boost_mutex_collection[
+                    &MutexManagerUtilities::boost_mutex_collection[
                 {
                     ValueCache::void_pointer_1,
                         ValueCache::string_view_1.data()
@@ -275,7 +282,7 @@ namespace QLogicaeCppCore
                 (std::is_same_v<MutexType, boost::timed_mutex>)
             {
                 mutex_pointer =
-                    &MutexManagerCache::boost_timed_mutex_collection[
+                    &MutexManagerUtilities::boost_timed_mutex_collection[
                 {
                     ValueCache::void_pointer_1,
                         ValueCache::string_view_1.data()
@@ -286,7 +293,7 @@ namespace QLogicaeCppCore
                 (std::is_same_v<MutexType, boost::recursive_mutex>)
             {
                 mutex_pointer =
-                    &MutexManagerCache::boost_recursive_mutex_collection[
+                    &MutexManagerUtilities::boost_recursive_mutex_collection[
                 {
                     ValueCache::void_pointer_1,
                         ValueCache::string_view_1.data()
@@ -297,7 +304,7 @@ namespace QLogicaeCppCore
                 (std::is_same_v<MutexType, boost::recursive_timed_mutex>)
             {
                 mutex_pointer =
-                    &MutexManagerCache::boost_recursive_timed_mutex_collection[
+                    &MutexManagerUtilities::boost_recursive_timed_mutex_collection[
                 {
                     ValueCache::void_pointer_1,
                         ValueCache::string_view_1.data()
@@ -308,7 +315,7 @@ namespace QLogicaeCppCore
                 (std::is_same_v<MutexType, boost::shared_mutex>)
             {
                 mutex_pointer =
-                    &MutexManagerCache::boost_shared_mutex_collection[
+                    &MutexManagerUtilities::boost_shared_mutex_collection[
                 {
                     ValueCache::void_pointer_1,
                         ValueCache::string_view_1.data()
@@ -330,10 +337,17 @@ namespace QLogicaeCppCore
             ValueCache::boolean_1 =
                 true;
         }
-        catch (...)
+        catch
+        (
+            const std::exception&
+                exception
+        )
         {
-            ValueCache::boolean_1 =
-                false;
+            ErrorManager::cache_error_log =
+                exception.what();
+
+            ErrorManager::singleton
+                ._handle();
         }
     }
 }

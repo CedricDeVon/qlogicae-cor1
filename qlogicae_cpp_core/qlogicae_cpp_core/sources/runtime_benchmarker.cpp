@@ -1,25 +1,25 @@
-﻿#include "pch.hpp"
+#include "pch.hpp"
 
-#include "../includes/file_system_manager.hpp"
+#include "../includes/runtime_benchmarker.hpp"
 
 namespace QLogicaeCppCore
 {
-    FileSystemManager&
-        FileSystemManager::singleton =
-            SingletonManager::get_singleton<FileSystemManager>();
+	RuntimeBenchmarker&
+        RuntimeBenchmarker::singleton =
+            SingletonManager::get_singleton<RuntimeBenchmarker>();
 
-    FileSystemManager::FileSystemManager()
+    RuntimeBenchmarker::RuntimeBenchmarker()
     {
         _construct();
     }
 
-    FileSystemManager::~FileSystemManager()
+    RuntimeBenchmarker::~RuntimeBenchmarker()
     {
         _destruct();
     }
 
     bool
-        FileSystemManager::construct()
+        RuntimeBenchmarker::construct()
     {
         _construct();
 
@@ -28,7 +28,7 @@ namespace QLogicaeCppCore
     }
 
     void
-        FileSystemManager::_construct()
+        RuntimeBenchmarker::_construct()
     {
         try
         {
@@ -50,7 +50,7 @@ namespace QLogicaeCppCore
     }
 
     bool
-        FileSystemManager::destruct()
+        RuntimeBenchmarker::destruct()
     {
         _destruct();
 
@@ -59,7 +59,7 @@ namespace QLogicaeCppCore
     }
 
     void
-        FileSystemManager::_destruct()
+        RuntimeBenchmarker::_destruct()
     {
         try
         {
@@ -81,26 +81,8 @@ namespace QLogicaeCppCore
     }
 
     bool
-        FileSystemManager::setup(
-            const FileSystemManagerConfigurations&
-                    new_configurations
-        )
+        RuntimeBenchmarker::setup()
     {        
-        FileSystemManagerConfigurations::cache =
-            new_configurations;
-
-        _setup();
-
-        return
-            ValueCache::boolean_1;
-    }
-
-    bool
-        FileSystemManager::setup()
-    {
-        FileSystemManagerConfigurations::cache =
-            {};
-
         _setup();
 
         return
@@ -108,12 +90,12 @@ namespace QLogicaeCppCore
     }
 
     void
-        FileSystemManager::_setup()
+        RuntimeBenchmarker::_setup()
     {
         try
         {
-            FileSystemManagerUtilities::singleton
-                ._setup();
+            ValueCache::boolean_1 =
+                true;
         }
         catch
         (
@@ -130,7 +112,7 @@ namespace QLogicaeCppCore
     }
 
     bool
-        FileSystemManager::reset()
+        RuntimeBenchmarker::reset()
     {
         _reset();
 
@@ -139,12 +121,12 @@ namespace QLogicaeCppCore
     }
 
     void
-        FileSystemManager::_reset()
+        RuntimeBenchmarker::_reset()
     {
         try
         {
-            FileSystemManagerUtilities::singleton
-                ._reset();
+            ValueCache::boolean_1 =
+                true;
         }
         catch
         (

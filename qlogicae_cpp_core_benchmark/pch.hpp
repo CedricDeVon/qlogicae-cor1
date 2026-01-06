@@ -38,6 +38,9 @@
 
 */
 
+#include <fast_io.h>
+#include <fast_io_device.h>
+#include <fast_io_legacy.h>
 
 #include <boost/asio.hpp>
 #include <boost/thread/mutex.hpp>
@@ -148,7 +151,11 @@
 
 #include <codecvt>
 #include <shlobj.h>
+
 #include <windows.h>
+#include <winnt.h>
+#include <winsock2.h>
+#include <ws2tcpip.h>
 
 #include "qlogicae_cpp_core/includes/all.hpp"
 

@@ -1,25 +1,25 @@
-﻿#include "pch.hpp"
+#include "pch.hpp"
 
-#include "../includes/file_system_manager.hpp"
+#include "../includes/runtime_benchmarker_utilities.hpp"
 
 namespace QLogicaeCppCore
 {
-    FileSystemManager&
-        FileSystemManager::singleton =
-            SingletonManager::get_singleton<FileSystemManager>();
+    RuntimeBenchmarkerUtilities&
+        RuntimeBenchmarkerUtilities::singleton =
+            SingletonManager::get_singleton<RuntimeBenchmarkerUtilities>();
 
-    FileSystemManager::FileSystemManager()
+    RuntimeBenchmarkerUtilities::RuntimeBenchmarkerUtilities()
     {
         _construct();
     }
 
-    FileSystemManager::~FileSystemManager()
+    RuntimeBenchmarkerUtilities::~RuntimeBenchmarkerUtilities()
     {
         _destruct();
     }
 
     bool
-        FileSystemManager::construct()
+        RuntimeBenchmarkerUtilities::construct()
     {
         _construct();
 
@@ -28,7 +28,7 @@ namespace QLogicaeCppCore
     }
 
     void
-        FileSystemManager::_construct()
+        RuntimeBenchmarkerUtilities::_construct()
     {
         try
         {
@@ -36,10 +36,10 @@ namespace QLogicaeCppCore
                 true;
         }
         catch
-        (
-            const std::exception&
+            (
+                const std::exception&
                 exception
-        )
+                )
         {
             ErrorManager::cache_error_log =
                 exception.what();
@@ -50,7 +50,7 @@ namespace QLogicaeCppCore
     }
 
     bool
-        FileSystemManager::destruct()
+        RuntimeBenchmarkerUtilities::destruct()
     {
         _destruct();
 
@@ -59,7 +59,7 @@ namespace QLogicaeCppCore
     }
 
     void
-        FileSystemManager::_destruct()
+        RuntimeBenchmarkerUtilities::_destruct()
     {
         try
         {
@@ -67,10 +67,10 @@ namespace QLogicaeCppCore
                 true;
         }
         catch
-        (
-            const std::exception&
+            (
+                const std::exception&
                 exception
-        )
+                )
         {
             ErrorManager::cache_error_log =
                 exception.what();
@@ -81,26 +81,8 @@ namespace QLogicaeCppCore
     }
 
     bool
-        FileSystemManager::setup(
-            const FileSystemManagerConfigurations&
-                    new_configurations
-        )
-    {        
-        FileSystemManagerConfigurations::cache =
-            new_configurations;
-
-        _setup();
-
-        return
-            ValueCache::boolean_1;
-    }
-
-    bool
-        FileSystemManager::setup()
+        RuntimeBenchmarkerUtilities::setup()
     {
-        FileSystemManagerConfigurations::cache =
-            {};
-
         _setup();
 
         return
@@ -108,18 +90,18 @@ namespace QLogicaeCppCore
     }
 
     void
-        FileSystemManager::_setup()
+        RuntimeBenchmarkerUtilities::_setup()
     {
         try
         {
-            FileSystemManagerUtilities::singleton
-                ._setup();
+            ValueCache::boolean_1 =
+                true;
         }
         catch
-        (
-            const std::exception&
+            (
+                const std::exception&
                 exception
-        )
+                )
         {
             ErrorManager::cache_error_log =
                 exception.what();
@@ -130,7 +112,7 @@ namespace QLogicaeCppCore
     }
 
     bool
-        FileSystemManager::reset()
+        RuntimeBenchmarkerUtilities::reset()
     {
         _reset();
 
@@ -139,18 +121,18 @@ namespace QLogicaeCppCore
     }
 
     void
-        FileSystemManager::_reset()
+        RuntimeBenchmarkerUtilities::_reset()
     {
         try
         {
-            FileSystemManagerUtilities::singleton
-                ._reset();
+            ValueCache::boolean_1 =
+                true;
         }
         catch
-        (
-            const std::exception&
+            (
+                const std::exception&
                 exception
-        )
+                )
         {
             ErrorManager::cache_error_log =
                 exception.what();
@@ -160,3 +142,4 @@ namespace QLogicaeCppCore
         }
     }
 }
+

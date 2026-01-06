@@ -120,7 +120,11 @@
 
 #include <codecvt>
 #include <shlobj.h>
+
 #include <windows.h>
+#include <winnt.h>
+#include <winsock2.h>
+#include <ws2tcpip.h>
 
 namespace QLogicaeCppCoreTest
 {

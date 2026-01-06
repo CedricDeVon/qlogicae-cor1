@@ -1,25 +1,16 @@
 #pragma once
 
 #include "value_cache.hpp"
-#include "instance_manager.hpp"
 #include "valid_mutex_lock.hpp"
+#include "singleton_manager.hpp"
 #include "pair_hash_operator.hpp"
 #include "mutex_manager_configurations.hpp"
 
 namespace QLogicaeCppCore
 {
-    class MutexManagerCache
+    class MutexManagerUtilities
     {
-    public:        
-        static void*
-            pointer;
-
-        static std::string
-            name;
-
-        static MutexManagerConfigurations
-            configurations;
-
+    public:                
         static std::unordered_map<std::pair<void*, std::string>,
             std::mutex, PairHashOperator>
                 mutex_collection;
@@ -64,46 +55,40 @@ namespace QLogicaeCppCore
             folly::MicroSpinLock, PairHashOperator>
                 folly_micro_spin_lock_collection;
 
-        static MutexManagerCache&
-            instance;
+        static MutexManagerUtilities&
+            singleton;
 
-        MutexManagerCache();
+        MutexManagerUtilities();
 
-        ~MutexManagerCache();
+        ~MutexManagerUtilities();
 
-        MutexManagerCache(
-            const MutexManagerCache&
+        MutexManagerUtilities(
+            const MutexManagerUtilities&
                 instance
         ) = delete;
 
-        MutexManagerCache(
-            MutexManagerCache&&
+        MutexManagerUtilities(
+            MutexManagerUtilities&&
                 instance
         ) noexcept = delete;
 
-        MutexManagerCache&
+        MutexManagerUtilities&
             operator = (
-                MutexManagerCache&&
+                MutexManagerUtilities&&
                     instance
-            ) = delete;
+        ) = delete;
 
-        MutexManagerCache&
+        MutexManagerUtilities&
             operator = (
-                const MutexManagerCache&
+                const MutexManagerUtilities&
                     instance
-            ) = delete;
+        ) = delete;
 
         bool
             construct();
 
-        void
-            _construct();
-
         bool
             destruct();
-
-        void
-            _destruct();
 
         bool
             setup(
@@ -114,17 +99,23 @@ namespace QLogicaeCppCore
         bool
             setup();
 
-        void
-            _setup();
-
         bool
             reset();
 
-        void
-            _reset();
-
         bool
             clear_all_collections();
+
+        void
+            _construct();
+        
+        void
+            _destruct();
+
+        void
+            _setup();
+
+        void
+            _reset();
 
         void
             _clear_all_collections();

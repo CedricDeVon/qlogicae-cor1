@@ -167,6 +167,7 @@
     <ClCompile Include="qlogicae_cpp_core_test\sources\all.cpp" />
     <ClCompile Include="qlogicae_cpp_core_test\sources\application.cpp" />
     <ClCompile Include="qlogicae_cpp_core_test\sources\assembly.cpp" />
+    <ClCompile Include="qlogicae_cpp_core_test\sources\mutex_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core_test\sources\singleton_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core_test\sources\results.cpp" />
   </ItemGroup>

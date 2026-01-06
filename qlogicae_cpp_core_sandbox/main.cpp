@@ -7,9 +7,7 @@ inline static double
 
 int main(int argc, char** argv)
 {		
-	QLogicaeCppCore::SingletonManager::singleton;
-
-	std::cout << confirm + confirm << "\n";
+	QLogicaeCppCore::FileSystemManagerUtilities::singleton;
 
 	bool exit_code;
 	std::cin >> exit_code;

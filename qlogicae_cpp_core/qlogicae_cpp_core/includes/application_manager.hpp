@@ -1,7 +1,8 @@
 ﻿#pragma once
 
 #include "value_cache.hpp"
-#include "instance_manager.hpp"
+#include "error_manager.hpp"
+#include "singleton_manager.hpp"
 
 namespace QLogicaeCppCore
 {
@@ -9,27 +10,31 @@ namespace QLogicaeCppCore
     {
     public:
         static ApplicationManager&
-            instance;
+            singleton;
 
         ApplicationManager();
 
         ~ApplicationManager();
 
         ApplicationManager(
-            const ApplicationManager& instance
+            const ApplicationManager&
+                instance
         ) = delete;
 
         ApplicationManager(
-            ApplicationManager&& instance
+            ApplicationManager&&
+                instance
         ) noexcept = delete;
 
         ApplicationManager& operator = (
-            ApplicationManager&& instance
-            ) = delete;
+            ApplicationManager&&
+                instance
+        ) = delete;
 
         ApplicationManager& operator = (
-            const ApplicationManager& instance
-            ) = delete;
+            const ApplicationManager&
+                instance
+        ) = delete;
 
         bool
             construct();
