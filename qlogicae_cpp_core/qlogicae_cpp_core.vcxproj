@@ -193,6 +193,9 @@
     <ClInclude Include="qlogicae_cpp_core\includes\all.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\application_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\assembly.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\asynchronous_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\asynchronous_manager_utilities.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\asynchronous_manager_configurations.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\error_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\error_manager_configurations.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\mutex_manager.hpp" />
@@ -222,6 +225,9 @@
     <ClCompile Include="qlogicae_cpp_core\sources\all.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\application_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\assembly.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\asynchronous_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\asynchronous_manager_utilities.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\asynchronous_manager_configurations.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\error_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\error_manager_configurations.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\mutex_manager.cpp" />

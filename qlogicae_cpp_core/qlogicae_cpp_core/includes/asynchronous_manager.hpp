@@ -1,8 +1,8 @@
 #pragma once
 
 #include "value_cache.hpp"
-#include "instance_manager.hpp"
-#include "asynchronous_manager_cache.hpp"
+#include "singleton_manager.hpp"
+#include "asynchronous_manager_utilities.hpp"
 #include "asynchronous_manager_configurations.hpp"
 
 namespace QLogicaeCppCore
@@ -11,29 +11,33 @@ namespace QLogicaeCppCore
     {
     public:        
         static AsynchronousManager&
-            instance;
+            singleton;
 
         AsynchronousManager();
 
         ~AsynchronousManager();
 
         AsynchronousManager(
-            const AsynchronousManager& instance
+            const AsynchronousManager&
+                instance
         ) = delete;
 
         AsynchronousManager(
-            AsynchronousManager&& instance
+            AsynchronousManager&&
+                instance
         ) noexcept = delete;
 
         AsynchronousManager&
             operator = (
-                AsynchronousManager&& instance
-            ) = delete;
+                AsynchronousManager&&
+                    instance
+        ) = delete;
 
         AsynchronousManager&
             operator = (
-                const AsynchronousManager& instance
-            ) = delete;
+                const AsynchronousManager&
+                    instance
+        ) = delete;
         
         bool
             construct();

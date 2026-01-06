@@ -13,5 +13,11 @@ namespace QLogicaeCppCore
 
         static bool
             default_is_enabled;
+
+        static bool
+            cache_is_enabled;
+
+        static AsynchronousManagerConfigurations
+            cache;
     };
 }

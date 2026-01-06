@@ -1,16 +1,15 @@
 #pragma once
 
 #include "value_cache.hpp"
+#include "error_manager.hpp"
+#include "singleton_manager.hpp"
 #include "asynchronous_manager_configurations.hpp"
 
 namespace QLogicaeCppCore
 {
-    class AsynchronousManagerCache
+    class AsynchronousManagerUtilities
     {
-    public:      
-        static bool
-            is_enabled;
-        
+    public:              
         static std::shared_ptr<boost::asio::thread_pool>
             main_thread_pool;
 
@@ -23,32 +22,32 @@ namespace QLogicaeCppCore
         static boost::mutex
             mutex;
 
-        static AsynchronousManagerCache&
-            instance;
+        static AsynchronousManagerUtilities&
+            singleton;
 
-        AsynchronousManagerCache();
+        AsynchronousManagerUtilities();
 
-        ~AsynchronousManagerCache();
+        ~AsynchronousManagerUtilities();
 
-        AsynchronousManagerCache(
-            const AsynchronousManagerCache&
+        AsynchronousManagerUtilities(
+            const AsynchronousManagerUtilities&
                 instance
         ) = delete;
 
-        AsynchronousManagerCache(
-            AsynchronousManagerCache&&
+        AsynchronousManagerUtilities(
+            AsynchronousManagerUtilities&&
                 instance
         ) noexcept = delete;
 
-        AsynchronousManagerCache&
+        AsynchronousManagerUtilities&
             operator = (
-                AsynchronousManagerCache&&
+                AsynchronousManagerUtilities&&
                     instance
             ) = delete;
 
-        AsynchronousManagerCache&
+        AsynchronousManagerUtilities&
             operator = (
-                const AsynchronousManagerCache&
+                const AsynchronousManagerUtilities&
                     instance
             ) = delete;
 
@@ -67,7 +66,7 @@ namespace QLogicaeCppCore
         bool
             setup(
                 const AsynchronousManagerConfigurations&
-                    configurations
+                    new_configurations
             );
 
         bool
