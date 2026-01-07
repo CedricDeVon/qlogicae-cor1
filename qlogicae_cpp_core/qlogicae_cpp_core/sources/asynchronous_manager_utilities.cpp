@@ -203,6 +203,14 @@ namespace QLogicaeCppCore
     {
         try
         {
+            if (!AsynchronousManagerConfigurations::cache_is_enabled)
+            {
+                ValueCache::boolean_1 = 
+                    false;
+
+                return;
+            }
+
             {
                 boost::unique_lock<boost::mutex>
                     unique_lock(mutex);

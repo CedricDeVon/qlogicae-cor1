@@ -190,8 +190,8 @@ namespace QLogicaeCppCore
     void AsynchronousManager::_begin_one_thread(
         const std::function<void()>& callback
     )
-    {
-        if (AsynchronousManagerConfigurations::cache_is_enabled)
+    {       
+        if (!AsynchronousManagerConfigurations::cache_is_enabled)
         {
             ValueCache::boolean_1 =
                 false;
@@ -212,7 +212,25 @@ namespace QLogicaeCppCore
 
         boost::asio::post(
             *AsynchronousManagerUtilities::main_thread_pool,
-            callback
+            [callback]()
+            {
+                try
+                {
+                    callback();
+                }
+                catch
+                (
+                    const std::exception&
+                        exception
+                )
+                {
+                    ErrorManager::cache_error_log =
+                        exception.what();
+
+                    ErrorManager::singleton
+                        ._handle();
+                }
+            }
         );
 
         ValueCache::boolean_1 =

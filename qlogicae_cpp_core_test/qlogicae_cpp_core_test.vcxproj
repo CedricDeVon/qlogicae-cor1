@@ -154,6 +154,8 @@
     <ClInclude Include="qlogicae_cpp_core_test\includes\all.hpp" />
     <ClInclude Include="qlogicae_cpp_core_test\includes\application.hpp" />
     <ClInclude Include="qlogicae_cpp_core_test\includes\assembly.hpp" />
+    <ClInclude Include="qlogicae_cpp_core_test\includes\asynchronous_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core_test\includes\error_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core_test\includes\singleton_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core_test\includes\results.hpp" />
     <ClInclude Include="qlogicae_cpp_core_test\resources\application.h" />
@@ -167,6 +169,8 @@
     <ClCompile Include="qlogicae_cpp_core_test\sources\all.cpp" />
     <ClCompile Include="qlogicae_cpp_core_test\sources\application.cpp" />
     <ClCompile Include="qlogicae_cpp_core_test\sources\assembly.cpp" />
+    <ClCompile Include="qlogicae_cpp_core_test\sources\asynchronous_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core_test\sources\error_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core_test\sources\mutex_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core_test\sources\singleton_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core_test\sources\results.cpp" />

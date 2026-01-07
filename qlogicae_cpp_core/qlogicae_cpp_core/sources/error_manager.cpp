@@ -301,29 +301,21 @@ namespace QLogicaeCppCore
     void
         ErrorManager::_handle()
     {
-        try
+        cache_is_successful =
+            false;
+
+        if (!ErrorManagerConfigurations::cache_is_enabled)
         {
-            cache_is_successful =
-                false;
-
-            if (!ErrorManagerConfigurations::cache_is_enabled)
-            {
-                return;
-            }
-
-            if (ErrorManagerConfigurations::cache_is_asynchronous_output_enabled)
-            {
-                _handle_asynchronously();
-            }
-            else
-            {
-                _handle_synchronously();
-            }
+            return;
         }
-        catch (...)
+
+        if (ErrorManagerConfigurations::cache_is_asynchronous_output_enabled)
         {
-            cache_is_successful =
-                false;
+            _handle_asynchronously();
+        }
+        else
+        {
+            _handle_synchronously();
         }
     }
 
@@ -359,6 +351,11 @@ namespace QLogicaeCppCore
                 ErrorManagerConfigurations::cache_full_file_output_paths
                 )
             {
+                if (!std::filesystem::exists(cache_full_file_output_path))
+                {
+                    continue;
+                }
+
                 futures.push_back(
                     std::async(
                         std::launch::async,
@@ -420,6 +417,11 @@ namespace QLogicaeCppCore
                 ErrorManagerConfigurations::cache_full_file_output_paths
                 )
             {
+                if (!std::filesystem::exists(cache_full_file_output_path))
+                {
+                    continue;
+                }
+
                 fast_io::native_file
                     fast_io_native_file(
                         cache_full_file_output_path,

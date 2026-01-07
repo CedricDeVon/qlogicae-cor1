@@ -18,11 +18,11 @@ namespace QLogicaeCppCore
 
     bool
         ErrorManagerConfigurations::initial_is_gui_output_enabled =
-            false;
+            true;
 
     bool
         ErrorManagerConfigurations::initial_is_runtime_throw_output_enabled =
-            false;
+            true;
 
     bool
         ErrorManagerConfigurations::initial_is_asynchronous_output_enabled =

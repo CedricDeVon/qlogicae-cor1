@@ -9,6 +9,8 @@
     <ClCompile Include="qlogicae_cpp_core_test\sources\singleton_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core_test\sources\results.cpp" />
     <ClCompile Include="qlogicae_cpp_core_test\sources\mutex_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core_test\sources\error_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core_test\sources\asynchronous_manager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.hpp" />
@@ -19,6 +21,8 @@
     <ClInclude Include="qlogicae_cpp_core_test\resources\application.h" />
     <ClInclude Include="qlogicae_cpp_core_test\includes\singleton_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core_test\includes\results.hpp" />
+    <ClInclude Include="qlogicae_cpp_core_test\includes\error_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core_test\includes\asynchronous_manager.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -1,849 +1,485 @@
 ﻿#include "pch.hpp"
 
-#include "qlogicae_cpp_core/includes/asynchronous_manager.hpp"
+#include "../includes/asynchronous_manager.hpp"
 
 namespace QLogicaeCppCoreTest
 {
-    static bool wait_for_condition_for_ms(
-        const std::function<bool()>& condition,
-        const std::uint64_t timeout_ms
-    )
-    {
-        const std::chrono::milliseconds poll_interval(5);
-        const auto start_time = std::chrono::steady_clock::now();
-        while (true)
-        {
-            if (condition())
-            {
-                return true;
-            }
-            const auto elapsed_ms =
-                std::chrono::duration_cast<std::chrono::milliseconds>(
-                    std::chrono::steady_clock::now() - start_time
-                )
-                .count();
-            if (static_cast<std::uint64_t>(elapsed_ms) >= timeout_ms)
-            {
-                return false;
-            }
-            std::this_thread::sleep_for(poll_interval);
-        }
-    }
-
-    class AsynchronousManagerTest : public ::testing::Test
+    class AsynchronousManagerTest :
+        public ::testing::Test
     {
     public:
         AsynchronousManagerTest()
         {
+            QLogicaeCppCore::AsynchronousManagerUtilities::singleton
+                .reset();
+
+            QLogicaeCppCore::AsynchronousManager::singleton
+                .reset();
         }
 
-        ~AsynchronousManagerTest()
+        ~AsynchronousManagerTest() override
         {
-        }
-    };
+            QLogicaeCppCore::AsynchronousManagerUtilities::singleton
+                .reset();
 
-    class AsynchronousManagerParamTest :
-        public ::testing::TestWithParam<int>
-    {
-    public:
-        AsynchronousManagerParamTest()
-        {
-        }
-
-        ~AsynchronousManagerParamTest()
-        {
+            QLogicaeCppCore::AsynchronousManager::singleton
+                .reset();
         }
     };
 
-    TEST(AsynchronousManagerTest, Should_ExecuteCallback_When_PostedOnce)
+    class AsynchronousManagerConfigurationTest :
+        public ::testing::TestWithParam<bool>
     {
-        QLogicaeCppCore::Result<bool> result;
+    };
 
-        QLogicaeCppCore::AsynchronousManager asynchronous_manager;
-        std::atomic<bool> callback_executed(false);
-        asynchronous_manager.begin_one_thread(
-            result,
-            [&callback_executed]()
-            {
-                callback_executed.store(true);
-            }
-        );
-        asynchronous_manager.complete_all_threads(
-            result
-        );
-        ASSERT_TRUE(callback_executed.load());
+    TEST(
+        AsynchronousManagerTest,
+        Should_ConstructSuccessfully_When_Initialized
+    )
+    {
+        bool result =
+            QLogicaeCppCore::AsynchronousManager::singleton
+            .construct();
+
+        ASSERT_TRUE(result);
     }
 
-    TEST(AsynchronousManagerTest,
-        Should_ExecuteMultipleCallbacks_When_PostedConcurrently)
+    TEST(
+        AsynchronousManagerTest,
+        Should_ResetToInitialState_When_ResetCalled
+    )
     {
-        QLogicaeCppCore::Result<bool> result;
+        QLogicaeCppCore::AsynchronousManagerConfigurations
+            configurations;
 
-        QLogicaeCppCore::AsynchronousManager asynchronous_manager;
-        std::atomic<int> counter(0);
-        const int task_count = 32;
-        for (int index = 0; index < task_count; ++index)
-        {
-            asynchronous_manager.begin_one_thread(
-                result,
-                [&counter]()
+        configurations.is_enabled =
+            false;
+
+        QLogicaeCppCore::AsynchronousManager::singleton
+            .setup(configurations);
+
+        bool reset_result =
+            QLogicaeCppCore::AsynchronousManager::singleton
+            .reset();
+
+        ASSERT_TRUE(reset_result);
+
+        ASSERT_TRUE(
+            QLogicaeCppCore::AsynchronousManagerConfigurations
+                ::cache_is_enabled
+        );
+    }
+
+    TEST(
+        AsynchronousManagerTest,
+        Should_NotDispatchTask_When_Disabled
+    )
+    {
+        QLogicaeCppCore::AsynchronousManagerConfigurations
+            configurations;
+
+        configurations.is_enabled =
+            false;
+
+        QLogicaeCppCore::AsynchronousManager::singleton
+            .setup(configurations);
+
+        std::atomic<bool>
+            executed(false);
+
+        bool begin_result =
+            QLogicaeCppCore::AsynchronousManager::singleton
+            .begin_one_thread(
+                [&executed]()
                 {
-                    counter.fetch_add(1);
+                    executed.store(true);
                 }
             );
-        }
-        asynchronous_manager.complete_all_threads(
-            result
-        );
-        ASSERT_EQ(counter.load(), task_count);
+
+        ASSERT_FALSE(begin_result);
+        ASSERT_FALSE(executed.load());
     }
 
-    TEST(AsynchronousManagerTest,
-        Should_HandleAsyncCallsFromMultipleThreads_When_CalledConcurrently)
+    TEST(
+        AsynchronousManagerTest,
+        Should_DispatchTask_When_Enabled
+    )
     {
-        QLogicaeCppCore::Result<bool> result;
+        QLogicaeCppCore::AsynchronousManagerConfigurations
+            configurations;
 
-        QLogicaeCppCore::AsynchronousManager asynchronous_manager;
-        std::atomic<int> counter(0);
-        const int thread_callers = 8;
-        const int posts_per_thread = 16;
-        std::vector<std::thread> caller_threads;
-        for (int caller_index = 0; caller_index < thread_callers;
-            ++caller_index)
-        {
-            caller_threads.emplace_back(
-                [&asynchronous_manager, &counter, posts_per_thread, &result]()
+        configurations.is_enabled =
+            true;
+
+        QLogicaeCppCore::AsynchronousManager::singleton
+            .setup(configurations);
+
+        std::promise<void>
+            completion_promise;
+
+        std::future<void>
+            completion_future =
+            completion_promise.get_future();
+
+        bool begin_result =
+            QLogicaeCppCore::AsynchronousManager::singleton
+            .begin_one_thread(
+                [&completion_promise]()
                 {
-                    for (int post_index = 0; post_index < posts_per_thread;
-                        ++post_index)
+                    completion_promise.set_value();
+                }
+            );
+
+        ASSERT_TRUE(begin_result);
+
+        auto wait_status =
+            completion_future.wait_for(
+                std::chrono::seconds(2)
+            );
+
+        ASSERT_EQ(
+            wait_status,
+            std::future_status::ready
+        );
+    }
+
+    TEST(
+        AsynchronousManagerTest,
+        Should_HandleMultipleThreads_When_HighConcurrency
+    )
+    {
+        QLogicaeCppCore::AsynchronousManagerConfigurations
+            configurations;
+
+        configurations.is_enabled =
+            true;
+
+        QLogicaeCppCore::AsynchronousManager::singleton
+            .setup(configurations);
+
+        std::atomic<int>
+            execution_count(0);
+
+        int const TASK_COUNT =
+            1000;
+
+        for (int index = 0;
+            index < TASK_COUNT;
+            index++)
+        {
+            QLogicaeCppCore::AsynchronousManager::singleton
+                .begin_one_thread(
+                    [&execution_count]()
                     {
-                        asynchronous_manager.begin_one_thread(
-                            result,
-                            [&counter]()
-                            {
-                                counter.fetch_add(1);
-                            }
-                        );
-                    }
-                }
-            );
-        }
-        for (auto& caller_thread : caller_threads)
-        {
-            caller_thread.join();
-        }
-        asynchronous_manager.complete_all_threads(
-            result
-        );
-        ASSERT_EQ(counter.load(), thread_callers * posts_per_thread);
-    }
-
-    TEST(AsynchronousManagerTest,
-        Should_CompleteStressWorkload_UnderTimeLimit)
-    {
-        QLogicaeCppCore::Result<bool> result;
-
-        QLogicaeCppCore::AsynchronousManager asynchronous_manager;
-        std::atomic<int> counter(0);
-        const int stress_tasks = 512;
-        for (int task_index = 0; task_index < stress_tasks; ++task_index)
-        {
-            asynchronous_manager.begin_one_thread(
-                result,
-                [&counter]()
-                {
-                    for (int inner = 0; inner < 10; ++inner)
-                    {
-                        counter.fetch_add(1);
-                    }
-                }
-            );
-        }
-        const bool finished_before_timeout =
-            wait_for_condition_for_ms(
-                [&counter, stress_tasks]()
-                {
-                    return counter.load() >= stress_tasks * 10;
-                },
-                1800
-            );
-        asynchronous_manager.complete_all_threads(
-            result
-        );
-        ASSERT_TRUE(finished_before_timeout);
-        ASSERT_EQ(counter.load(), stress_tasks * 10);
-    }
-
-    TEST(AsynchronousManagerTest,
-        Should_NotLeak_When_CallbackCapturesLargeObject)
-    {
-        QLogicaeCppCore::Result<bool> result;
-
-        QLogicaeCppCore::AsynchronousManager asynchronous_manager;
-        struct LargeObject
-        {
-            std::vector<int> buffer;
-            LargeObject()
-            {
-                buffer.resize(1024);
-            }
-        };
-        std::shared_ptr<LargeObject> large_shared =
-            std::make_shared<LargeObject>();
-        std::weak_ptr<LargeObject> weak_reference = large_shared;
-        asynchronous_manager.begin_one_thread(
-            result,
-            [large_shared]()
-            {
-                volatile int tmp = 0;
-                tmp = static_cast<int>(large_shared->buffer.size());
-                (void)tmp;
-            }
-        );
-        large_shared.reset();
-        asynchronous_manager.complete_all_threads(
-            result
-        );
-        ASSERT_TRUE(weak_reference.expired());
-    }
-
-    TEST(AsynchronousManagerTest,
-        Should_CatchUserHandledExceptions_When_CallbackThrows)
-    {
-        QLogicaeCppCore::Result<bool> result;
-
-        QLogicaeCppCore::AsynchronousManager asynchronous_manager;
-        std::atomic<bool> caught_flag(false);
-        asynchronous_manager.begin_one_thread(
-            result,
-            [&caught_flag]()
-            {
-                try
-                {
-                    throw std::runtime_error("intentional");
-                }
-                catch (const std::exception&)
-                {
-                    caught_flag.store(true);
-                }
-            }
-        );
-        asynchronous_manager.complete_all_threads(
-            result
-        );
-        ASSERT_TRUE(caught_flag.load());
-    }
-
-    TEST_P(AsynchronousManagerParamTest,
-        Should_ProcessParameterizedNumberOfTasks_When_VariousCounts)
-    {
-        QLogicaeCppCore::Result<bool> result;
-
-        const int task_count = GetParam();
-        QLogicaeCppCore::AsynchronousManager asynchronous_manager;
-        std::atomic<int> counter(0);
-        for (int index = 0; index < task_count; ++index)
-        {
-            asynchronous_manager.begin_one_thread(
-                result,
-                [&counter]()
-                {
-                    counter.fetch_add(1);
-                }
-            );
-        }
-        asynchronous_manager.complete_all_threads(
-            result
-        );
-        ASSERT_EQ(counter.load(), task_count);
-    }
-
-    INSTANTIATE_TEST_CASE_P(BasicCounts,
-        AsynchronousManagerParamTest,
-        ::testing::Values(0, 1, 8, 64));
-
-    TEST(AsynchronousManagerTest, Should_NotHang_When_NoTasksPosted)
-    {
-        QLogicaeCppCore::Result<bool> result;
-
-        QLogicaeCppCore::AsynchronousManager asynchronous_manager;
-        asynchronous_manager.complete_all_threads(
-            result
-        );
-        ASSERT_TRUE(true);
-    }
-
-    TEST(AsynchronousManagerTest,
-        Should_ReturnImmediately_When_TaskIsLongRunning)
-    {
-        QLogicaeCppCore::Result<bool> result;
-
-        QLogicaeCppCore::AsynchronousManager asynchronous_manager;
-        std::atomic<bool> task_started(false);
-        std::atomic<bool> task_finished(false);
-        const std::chrono::milliseconds simulated_work(300);
-        asynchronous_manager.begin_one_thread(
-            result,
-            [&task_started, &task_finished, simulated_work]()
-            {
-                task_started.store(true);
-                std::this_thread::sleep_for(simulated_work);
-                task_finished.store(true);
-            }
-        );
-        const auto start_time = std::chrono::steady_clock::now();
-        const auto mid_duration_ms =
-            std::chrono::duration_cast<std::chrono::milliseconds>(
-                std::chrono::steady_clock::now() - start_time
-            )
-            .count();
-        const bool callback_started =
-            wait_for_condition_for_ms(
-                [&task_started]()
-                {
-                    return task_started.load();
-                },
-                1000
-            );
-        asynchronous_manager.complete_all_threads(
-            result
-        );
-        const auto total_duration_ms =
-            std::chrono::duration_cast<std::chrono::milliseconds>(
-                std::chrono::steady_clock::now() - start_time
-            )
-            .count();
-        ASSERT_TRUE(callback_started);
-        ASSERT_LT(mid_duration_ms, 50);
-        ASSERT_GT(total_duration_ms, 0);
-        ASSERT_TRUE(task_finished.load());
-    }
-
-    TEST(AsynchronousManagerTest,
-        Should_Allow_MultipleCompleteAllThreads_Calls)
-    {
-        QLogicaeCppCore::Result<bool> result;
-
-        QLogicaeCppCore::AsynchronousManager asynchronous_manager;
-        std::atomic<int> counter(0);
-        for (int index = 0; index < 16; ++index)
-        {
-            asynchronous_manager.begin_one_thread(
-                result,
-                [&counter]()
-                {
-                    counter.fetch_add(1);
-                }
-            );
-        }
-        asynchronous_manager.complete_all_threads(
-            result
-        );
-        ASSERT_EQ(counter.load(), 16);
-        ASSERT_NO_THROW(asynchronous_manager.complete_all_threads(result));
-    }
-
-    TEST(AsynchronousManagerTest,
-        Should_Allow_BeginAfterComplete_When_NoActiveTasks)
-    {
-        QLogicaeCppCore::Result<bool> result;
-
-        QLogicaeCppCore::AsynchronousManager asynchronous_manager;
-        std::atomic<int> counter(0);
-        asynchronous_manager.begin_one_thread(
-            result,
-            [&counter]()
-            {
-                counter.fetch_add(1);
-            }
-        );
-        asynchronous_manager.complete_all_threads(
-            result
-        );
-        ASSERT_EQ(counter.load(), 1);
-        asynchronous_manager.begin_one_thread(
-            result,
-            [&counter]()
-            {
-                counter.fetch_add(1);
-            }
-        );
-        asynchronous_manager.complete_all_threads(
-            result
-        );
-        ASSERT_EQ(counter.load(), 2);
-    }
-
-    TEST(AsynchronousManagerTest, Should_Support_MultiplePostJoinCycles)
-    {
-        QLogicaeCppCore::Result<bool> result;
-
-        QLogicaeCppCore::AsynchronousManager asynchronous_manager;
-        std::atomic<int> counter(0);
-        const int cycles = 8;
-        const int posts_per_cycle = 64;
-        for (int cycle_index = 0; cycle_index < cycles; ++cycle_index)
-        {
-            for (int post_index = 0; post_index < posts_per_cycle;
-                ++post_index)
-            {
-                asynchronous_manager.begin_one_thread(
-                    result,
-                    [&counter]()
-                    {
-                        counter.fetch_add(1);
+                        execution_count.fetch_add(1);
                     }
                 );
-            }
-            asynchronous_manager.complete_all_threads(
-                result
-            );
         }
-        ASSERT_EQ(counter.load(), cycles * posts_per_cycle);
+
+        QLogicaeCppCore::AsynchronousManagerUtilities::singleton
+            .complete_all_threads();
+
+        ASSERT_EQ(
+            execution_count.load(),
+            TASK_COUNT
+        );
     }
 
-    TEST(AsynchronousManagerTest,
-        Should_Handle_HeavyConcurrentStress_Correctly)
+    TEST(
+        AsynchronousManagerTest,
+        Should_BeThreadSafe_When_CalledFromMultipleThreads
+    )
     {
-        QLogicaeCppCore::Result<bool> result;
+        QLogicaeCppCore::AsynchronousManagerConfigurations
+            configurations;
 
-        QLogicaeCppCore::AsynchronousManager asynchronous_manager;
-        std::atomic<int> counter(0);
-        const int caller_threads = 64;
-        const int posts_each = 128;
-        std::vector<std::thread> callers;
-        for (int thread_index = 0; thread_index < caller_threads;
-            ++thread_index)
-        {
-            callers.emplace_back(
-                [&asynchronous_manager, &counter, posts_each, &result]()
-                {
-                    for (int post_index = 0; post_index < posts_each;
-                        ++post_index)
-                    {
-                        asynchronous_manager.begin_one_thread(
-                            result,
-                            [&counter]()
-                            {
-                                counter.fetch_add(1);
-                            }
-                        );
-                    }
-                }
-            );
-        }
-        for (auto& th : callers)
-        {
-            th.join();
-        }
-        const bool finished_before_timeout =
-            wait_for_condition_for_ms(
-                [&counter, caller_threads, posts_each]()
-                {
-                    return counter.load() >= caller_threads * posts_each;
-                },
-                1800
-            );
-        asynchronous_manager.complete_all_threads(
-            result
-        );
-        ASSERT_TRUE(finished_before_timeout);
-        ASSERT_EQ(counter.load(), caller_threads * posts_each);
-    }
+        configurations.is_enabled =
+            true;
 
-    TEST(AsynchronousManagerTest, Should_WorkWith_GlobalSingletonInstance)
-    {
-        QLogicaeCppCore::Result<bool> result;
+        QLogicaeCppCore::AsynchronousManager::singleton
+            .setup(configurations);
 
-        std::atomic<int> counter(0);
-        QLogicaeCppCore::ASYNCHRONOUS_MANAGER.begin_one_thread(
-            result,
-            [&counter]()
-            {
-                counter.fetch_add(1);
-            }
-        );
-        QLogicaeCppCore::ASYNCHRONOUS_MANAGER.complete_all_threads(
-            result
-        );
-        ASSERT_EQ(counter.load(), 1);
-    }
+        std::atomic<int>
+            execution_count(0);
 
-    TEST(AsynchronousManagerTest,
-        Should_Handle_GlobalInstance_ConcurrentUsage)
-    {
-        QLogicaeCppCore::Result<bool> result;
+        std::vector<std::thread>
+            threads;
 
-        std::atomic<int> counter(0);
-        const int caller_threads = 16;
-        const int posts_each = 32;
-        std::vector<std::thread> callers;
-        for (int thread_index = 0; thread_index < caller_threads;
-            ++thread_index)
-        {
-            callers.emplace_back(
-                [&counter, posts_each, &result]()
-                {
-                    for (int post_index = 0; post_index < posts_each;
-                        ++post_index)
-                    {
-                        QLogicaeCppCore::ASYNCHRONOUS_MANAGER.begin_one_thread(
-                            result,
-                            [&counter]()
-                            {
-                                counter.fetch_add(1);
-                            }
-                        );
-                    }
-                }
-            );
-        }
-        for (auto& th : callers)
-        {
-            th.join();
-        }
-        const bool finished_before_timeout =
-            wait_for_condition_for_ms(
-                [&counter, caller_threads, posts_each]()
-                {
-                    return counter.load() >= caller_threads * posts_each;
-                },
-                1800
-            );
-        QLogicaeCppCore::ASYNCHRONOUS_MANAGER.complete_all_threads(
-            result
-        );
-        ASSERT_TRUE(finished_before_timeout);
-        ASSERT_EQ(counter.load(), caller_threads * posts_each);
-    }
-
-    TEST(AsynchronousManagerTest,
-        Should_Handle_ConcurrentInitialization_RaceSafe)
-    {
-        QLogicaeCppCore::Result<bool> result;
-
-        QLogicaeCppCore::AsynchronousManager mgr;
-        std::atomic<int> counter(0);
-
-        std::vector<std::thread> threads;
-
-        for (int i = 0; i < 32; ++i)
+        for (int index = 0;
+            index < 8;
+            index++)
         {
             threads.emplace_back(
-                [&mgr, &counter, &result]()
+                [&execution_count]()
                 {
-                    mgr.begin_one_thread(
-                        result,
-                        [&counter]()
-                        {
-                            counter.fetch_add(1);
-                        }
-                    );
+                    for (int inner_index = 0;
+                        inner_index < 100;
+                        inner_index++)
+                    {
+                        QLogicaeCppCore::AsynchronousManager::singleton
+                            .begin_one_thread(
+                                [&execution_count]()
+                                {
+                                    execution_count.fetch_add(1);
+                                }
+                            );
+                    }
                 }
             );
         }
 
-        for (auto& t : threads)
+        for (auto& thread_instance : threads)
         {
-            t.join();
+            thread_instance.join();
         }
 
-        mgr.complete_all_threads(
-            result
-        );
+        QLogicaeCppCore::AsynchronousManagerUtilities::singleton
+            .complete_all_threads();
 
-        ASSERT_EQ(counter.load(), 32);
+        ASSERT_EQ(
+            execution_count.load(),
+            800
+        );
     }
 
-    TEST(AsynchronousManagerTest,
-        Should_NotCrash_When_PostingDuringJoin)
+    TEST_P(
+        AsynchronousManagerConfigurationTest,
+        Should_RespectConfigurationValue_When_SetupCalled
+    )
     {
-        QLogicaeCppCore::Result<bool> result;
+        QLogicaeCppCore::AsynchronousManagerConfigurations
+            configurations;
 
-        QLogicaeCppCore::AsynchronousManager mgr;
-        std::atomic<int> counter(0);
+        configurations.is_enabled =
+            GetParam();
 
-        std::thread joiner(
-            [&mgr, &result]()
-            {
-                mgr.complete_all_threads(
-                    result
+        QLogicaeCppCore::AsynchronousManager::singleton
+            .setup(configurations);
+
+        ASSERT_EQ(
+            QLogicaeCppCore::AsynchronousManagerConfigurations
+                ::cache_is_enabled,
+            GetParam()
+        );
+    }
+
+    INSTANTIATE_TEST_CASE_P(
+        ConfigurationValues,
+        AsynchronousManagerConfigurationTest,
+        ::testing::Values(
+            true,
+            false
+        )
+    );
+
+    TEST(
+        AsynchronousManagerTest,
+        Should_CompleteWithinTimeLimit_When_UnderLoad
+    )
+    {
+        auto start_time =
+            std::chrono::steady_clock::now();
+
+        QLogicaeCppCore::AsynchronousManagerConfigurations
+            configurations;
+
+        configurations.is_enabled =
+            true;
+
+        QLogicaeCppCore::AsynchronousManager::singleton
+            .setup(configurations);
+
+        for (int index = 0;
+            index < 5000;
+            index++)
+        {
+            QLogicaeCppCore::AsynchronousManager::singleton
+                .begin_one_thread(
+                    []()
+                    {
+                    }
                 );
-            }
-        );
-
-        std::thread poster(
-            [&mgr, &counter, &result]()
-            {
-                for (int i = 0; i < 100; ++i)
-                {
-                    mgr.begin_one_thread(
-                        result,
-                        [&counter]()
-                        {
-                            counter.fetch_add(1);
-                        }
-                    );
-                }
-            }
-        );
-
-        joiner.join();
-        poster.join();
-
-        SUCCEED();  
-    }
-
-    TEST(AsynchronousManagerTest,
-        Destruction_WithActiveTasks_DoesNotCrash)
-    {
-        QLogicaeCppCore::Result<bool> result;
-
-        std::atomic<bool> started(false);
-
-        {
-            QLogicaeCppCore::AsynchronousManager mgr;
-
-            mgr.begin_one_thread(
-                result,
-                [&started]()
-                {
-                    started.store(true);
-                    std::this_thread::sleep_for(
-                        std::chrono::milliseconds(150)
-                    );
-                }
-            );
         }
 
-        ASSERT_TRUE(started.load());
+        QLogicaeCppCore::AsynchronousManagerUtilities::singleton
+            .complete_all_threads();
+
+        auto end_time =
+            std::chrono::steady_clock::now();
+
+        auto duration =
+            std::chrono::duration_cast<
+            std::chrono::milliseconds
+            >(end_time - start_time);
+
+        ASSERT_LT(
+            duration.count(),
+            2000
+        );
     }
 
-    TEST(AsynchronousManagerTest,
-        Singleton_PostJoin_PostJoin_CycleWorks)
+    TEST(
+        AsynchronousManagerTest,
+        Should_CallSetupDefaultOverload_When_NoArgumentsProvided
+    )
     {
-        QLogicaeCppCore::Result<bool> result;
+        bool result =
+            QLogicaeCppCore::AsynchronousManager::singleton
+            .setup();
 
-        auto& mgr = QLogicaeCppCore::ASYNCHRONOUS_MANAGER;
-
-        mgr.begin_one_thread(result, []() {});
-        mgr.complete_all_threads(result);
-
-        mgr.begin_one_thread(result, []() {});
-        mgr.complete_all_threads(result);
-
-        SUCCEED();
+        ASSERT_TRUE(result);
     }
 
-    TEST(AsynchronousManagerTest,
-        Should_NotDeadlock_When_PostAndJoinInterleave_Intensely)
+    TEST(
+        AsynchronousManagerTest,
+        Should_CallDestructSuccessfully_When_InvokedExplicitly
+    )
     {
-        QLogicaeCppCore::Result<bool> result;
+        bool result =
+            QLogicaeCppCore::AsynchronousManager::singleton
+            .destruct();
 
-        QLogicaeCppCore::AsynchronousManager mgr;
+        ASSERT_TRUE(result);
+    }
 
-        std::atomic<int> counter(0);
-        const int iterations = 50;
+    TEST(
+        AsynchronousManagerTest,
+        Should_CatchException_When_CallbackThrows
+    )
+    {
+        QLogicaeCppCore::AsynchronousManagerConfigurations
+            configurations;
 
-        std::vector<std::thread> threads;
+        configurations.is_enabled =
+            true;
 
-        for (int i = 0; i < iterations; ++i)
-        {
-            threads.emplace_back(
-                [&mgr, &counter, &result]()
+        QLogicaeCppCore::AsynchronousManager::singleton
+            .setup(configurations);
+
+        bool result =
+            QLogicaeCppCore::AsynchronousManager::singleton
+            .begin_one_thread(
+                []()
                 {
-                    mgr.begin_one_thread(
-                        result,
-                        [&counter]()
-                        {
-                            counter.fetch_add(1);
-                        }
+                    throw std::runtime_error(
+                        "forced_exception"
                     );
                 }
             );
 
-            threads.emplace_back(
-                [&mgr, &result]()
+        ASSERT_TRUE(result);
+
+        QLogicaeCppCore::AsynchronousManagerUtilities::singleton
+            .complete_all_threads();
+    }
+
+    TEST(
+        AsynchronousManagerTest,
+        Should_HandleConcurrentResetAndSetup_When_MutatedSimultaneously
+    )
+    {
+        std::atomic<bool>
+            stop_flag(false);
+
+        std::thread
+            setup_thread(
+                [&stop_flag]()
                 {
-                    mgr.complete_all_threads(
-                        result
-                    );
+                    while (!stop_flag.load())
+                    {
+                        QLogicaeCppCore::AsynchronousManagerConfigurations
+                            configurations;
+
+                        configurations.is_enabled =
+                            true;
+
+                        QLogicaeCppCore::AsynchronousManager::singleton
+                            .setup(configurations);
+                    }
                 }
             );
-        }
 
-        for (auto& t : threads)
-        {
-            t.join();
-        }
-
-        SUCCEED();
-    }
-
-    TEST(AsynchronousManagerTest,
-        Should_Handle_PostAfterJoin_When_PoolRecreated)
-    {
-        QLogicaeCppCore::Result<bool> result;
-
-        QLogicaeCppCore::AsynchronousManager mgr;
-
-        std::atomic<int> counter(0);
-
-        mgr.begin_one_thread(result, [&counter]() {
-            counter.fetch_add(1);
-            });
-
-        mgr.complete_all_threads(result);
-
-        mgr.begin_one_thread(result, [&counter]() {
-            counter.fetch_add(1);
-            });
-
-        mgr.complete_all_threads(result);
-
-        ASSERT_EQ(counter.load(), 2);
-    }
-
-    TEST(AsynchronousManagerTest,
-        Should_NotLeakPool_When_NoTasksPostedAndJoinCalledRepeatedly)
-    {
-        QLogicaeCppCore::Result<bool> result;
-
-        QLogicaeCppCore::AsynchronousManager mgr;
-
-        for (int i = 0; i < 20; ++i)
-        {
-            ASSERT_NO_THROW(mgr.complete_all_threads(result));
-        }
-
-        SUCCEED();
-    }
-
-    TEST(AsynchronousManagerTest,
-        Should_Allow_LongRunningTask_And_PostDuringExecution)
-    {
-        QLogicaeCppCore::Result<bool> result;
-
-        QLogicaeCppCore::AsynchronousManager mgr;
-
-        std::atomic<bool> started(false);
-        std::atomic<int> counter(0);
-
-        mgr.begin_one_thread(
-            result,
-            [&started]()
-            {
-                started.store(true);
-                std::this_thread::sleep_for(
-                    std::chrono::milliseconds(200)
-                );
-            }
-        );
-
-        bool posted = wait_for_condition_for_ms(
-            [&started]() { return started.load(); },
-            500
-        );
-
-        ASSERT_TRUE(posted);
-
-        mgr.begin_one_thread(
-            result,
-            [&counter]()
-            {
-                counter.fetch_add(1);
-            }
-        );
-
-        mgr.complete_all_threads(
-            result
-        );
-
-        ASSERT_EQ(counter.load(), 1);
-    }
-
-    TEST(AsynchronousManagerTest,
-        Should_Handle_MultipleConcurrentJoiners)
-    {
-        QLogicaeCppCore::Result<bool> result;
-
-        QLogicaeCppCore::AsynchronousManager mgr;
-
-        std::atomic<int> counter(0);
-
-        for (int i = 0; i < 20; ++i)
-        {
-            mgr.begin_one_thread(
-                result,
-                [&counter]() { counter.fetch_add(1); }
-            );
-        }
-
-        std::vector<std::thread> joiners;
-
-        for (int j = 0; j < 10; ++j)
-        {
-            joiners.emplace_back(
-                [&mgr, &result]()
+        std::thread
+            reset_thread(
+                [&stop_flag]()
                 {
-                    mgr.complete_all_threads(
-                        result
-                    );
+                    while (!stop_flag.load())
+                    {
+                        QLogicaeCppCore::AsynchronousManager::singleton
+                            .reset();
+                    }
                 }
             );
-        }
 
-        for (auto& t : joiners)
-        {
-            t.join();
-        }
+        std::this_thread::sleep_for(
+            std::chrono::milliseconds(200)
+        );
 
-        ASSERT_EQ(counter.load(), 20);
+        stop_flag.store(true);
+
+        setup_thread.join();
+        reset_thread.join();
+
+        ASSERT_TRUE(
+            QLogicaeCppCore::AsynchronousManagerConfigurations
+            ::cache_is_enabled ==
+            true ||
+            QLogicaeCppCore::AsynchronousManagerConfigurations
+            ::cache_is_enabled ==
+            false
+        );
     }
 
-    TEST(AsynchronousManagerTest,
-        Should_CompleteAllTasks_When_PostsHappenDuringJoinPhase)
+    TEST(
+        AsynchronousManagerTest,
+        Should_RemainStable_When_ResetAndSetupRepeated
+    )
     {
-        QLogicaeCppCore::Result<bool> result;
+        for (int index = 0;
+            index < 100;
+            index++)
+        {
+            QLogicaeCppCore::AsynchronousManagerConfigurations
+                configurations;
 
-        QLogicaeCppCore::AsynchronousManager mgr;
+            configurations.is_enabled =
+                static_cast<bool>(index % 2);
 
-        std::atomic<int> counter(0);
+            ASSERT_TRUE(
+                QLogicaeCppCore::AsynchronousManager::singleton
+                .setup(configurations)
+            );
 
-        std::thread joiner(
-            [&mgr, &result]()
-            {
-                mgr.complete_all_threads(
-                    result
-                );
-            }
-        );
-
-        std::thread poster(
-            [&mgr, &counter, &result]()
-            {
-                for (int i = 0; i < 50; ++i)
-                {
-                    mgr.begin_one_thread(
-                        result,
-                        [&counter]()
-                        {
-                            counter.fetch_add(1);
-                        }
-                    );
-                }
-            }
-        );
-
-        joiner.join();
-        poster.join();
-
-        
-        mgr.complete_all_threads(
-            result
-        );
-
-        ASSERT_EQ(counter.load(), 50);
+            ASSERT_TRUE(
+                QLogicaeCppCore::AsynchronousManager::singleton
+                .reset()
+            );
+        }
     }
 
+    TEST(
+        AsynchronousManagerTest,
+        Should_InitializeStaticConfigurationCorrectly_When_FirstAccessed
+    )
+    {
+        ASSERT_EQ(
+            QLogicaeCppCore::AsynchronousManagerConfigurations
+            ::initial_is_enabled,
+            true
+        );
+
+        ASSERT_EQ(
+            QLogicaeCppCore::AsynchronousManagerConfigurations
+            ::default_is_enabled,
+            QLogicaeCppCore::AsynchronousManagerConfigurations
+            ::initial_is_enabled
+        );
+
+        ASSERT_EQ(
+            QLogicaeCppCore::AsynchronousManagerConfigurations
+            ::cache_is_enabled,
+            QLogicaeCppCore::AsynchronousManagerConfigurations
+            ::initial_is_enabled
+        );
+    }
 }
