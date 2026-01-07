@@ -6,7 +6,7 @@ namespace QLogicaeCppCore
         uint8_t
     {
         CELSIUS,
-        
+
         FAHRENHEIT,
         
         KELVIN,

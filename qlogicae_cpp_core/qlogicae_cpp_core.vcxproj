@@ -214,8 +214,12 @@
     <ClInclude Include="qlogicae_cpp_core\includes\file_system_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\file_system_manager_utilities.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\file_system_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\temperature_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\temperature_manager_utilities.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\temperature_unit_type.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\valid_mutex_lock.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\value_cache.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\temperature_manager_configurations.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -246,6 +250,10 @@
     <ClCompile Include="qlogicae_cpp_core\sources\file_system_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\file_system_manager_utilities.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\file_system_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\temperature_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\temperature_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\temperature_manager_utilities.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\temperature_unit_type.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\valid_mutex_lock.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\value_cache.cpp" />
   </ItemGroup>

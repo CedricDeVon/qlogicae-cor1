@@ -3,91 +3,130 @@
 #include "main.hpp"
 
 
-namespace Experiment10 // pure, class
+namespace Experiment11 // while, ranged_based_for_loop
 {   
-    static std::string pure_static_input_value = "";
+    static size_t index = 0, size = 10;
 
-    static std::string pure_static_output_value = "";
+    static char output_value;
 
-    struct StructSample
+    static std::string data(size, '0');
+
+    void for_loop()
     {
-        inline static std::string struct_static_input_value = "";
-
-        inline static std::string struct_static_output_value = "";
-    };
-
-    class ClassSample
-    {
-    public:
-        inline static std::string class_static_input_value = "";
-
-        inline static std::string class_static_output_value = "";
-    };
-
-    void pure_static()
-    {
-        pure_static_output_value =
-            pure_static_input_value +
-            pure_static_input_value;
+        for (index = 0; index < size; ++index)
+        {
+            output_value = data[index];
+        }
     }
 
-    void struct_static()
+    void while_loop()
     {
-        StructSample::struct_static_output_value =
-            StructSample::struct_static_input_value +
-            StructSample::struct_static_input_value;
+        index = 0;
+        while (index < size)
+        {
+            output_value = data[index];
+            ++index;
+        }
     }
 
-    void class_static()
+    void do_while_loop()
     {
-        ClassSample::class_static_output_value =
-            ClassSample::class_static_input_value +
-            ClassSample::class_static_input_value;
+        index = 0;
+        do
+        {
+            output_value = data[index];
+            ++index;
+
+        }
+        while (index < size);
+    }
+
+    void ranged_based_for_loop()
+    {
+        for (const char& datum : data)
+        {
+            output_value = datum;
+        }
+    }
+
+    void for_each_loop_1()
+    {
+        std::ranges::for_each(
+            data.begin(),
+            data.end(),
+            [](const char datum)
+            {
+                output_value = datum;
+            }
+        );
+    }
+
+    void for_each_loop_2()
+    {
+        std::ranges::for_each(
+            data,
+            [](const char datum)
+            {
+                output_value = datum;
+            }
+        );
     }
 
     void execute()
     {
         QLogicaeCppCore::RuntimeBenchmarkerTestSuite test_suite_1
         {
-            .name = "pure_static_vs_struct_static_vs_class_static",
-            .warmup_count = 2,
+            .name = "loops",
+            .warmup_count = 1,
             .epoch_iteration_pairs =
             {
                 {
-                    .epochs = 1'000'000,
+                    .epochs = 100000000,
                     .iterations = 1
                 },
                 {
-                    .epochs = 100'000,
+                    .epochs = 10000000,
                     .iterations = 10
                 },
                 {
-                    .epochs = 10'000,
+                    .epochs = 1000000,
                     .iterations = 100
                 },
                 {
-                    .epochs = 1'000,
-                    .iterations = 1'000
-                },                
+                    .epochs = 100000,
+                    .iterations = 1000
+                },
                 {
-                    .epochs = 1,
-                    .iterations = 1'000'000
+                    .epochs = 100,
+                    .iterations = 1000000
                 }
             },
 
             .test_cases =
             {                
                 {
-                    .name = "pure_static",
-                    .callback = pure_static
+                    .name = "for_loop",
+                    .callback = for_loop
                 },
                 {
-                    .name = "struct_static",
-                    .callback = struct_static
+                    .name = "while_loop",
+                    .callback = while_loop
                 },
                 {
-                    .name = "class_static",
-                    .callback = class_static
+                    .name = "do_while_loop",
+                    .callback = do_while_loop
+                },
+                {
+                    .name = "ranged_based_for_loop",
+                    .callback = ranged_based_for_loop
+                },
+                {
+                    .name = "for_each_loop_1",
+                    .callback = for_each_loop_1
+                },
+                {
+                    .name = "for_each_loop_2",
+                    .callback = for_each_loop_2
                 }
             }
         };
@@ -97,68 +136,14 @@ namespace Experiment10 // pure, class
                 test_suite_1
             );
 
-        /*
-        NanobenchBencchmarkingTestSuite test_suite_2
-        {
-            .name = "pure_static_vs_struct_static_vs_class_static",
-            .warmup_count = 2,
-            .epoch_iteration_pairs =
-            {
-                {
-                    .epochs = 1'000'000,
-                    .iterations = 1
-                },
-                {
-                    .epochs = 100'000,
-                    .iterations = 10
-                },
-                {
-                    .epochs = 10'000,
-                    .iterations = 100
-                },
-                {
-                    .epochs = 1'000,
-                    .iterations = 1'000
-                },
-                {
-                    .epochs = 1,
-                    .iterations = 1'000'000
-                }
-            },
-
-            .test_cases =
-            {
-                {
-                    .name = "pure_static",
-                    .callback = pure_static
-                },
-                {
-                    .name = "struct_static",
-                    .callback = struct_static
-                },
-                {
-                    .name = "class_static",
-                    .callback = class_static
-                }
-            }
-        };
-
-        execute_nanobenchmark(
-            test_suite_2
-        );
-        */
-
         bool exit_code;
         std::cin >> exit_code;
     }
 }
 
-
-
 int main(int argc, char** argv)
-{          
-    
-    Experiment10::execute();
+{              
+    Experiment11::execute();
 
     return 0;
 }
