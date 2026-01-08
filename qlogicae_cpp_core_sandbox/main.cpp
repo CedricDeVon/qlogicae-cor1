@@ -2,14 +2,61 @@
 
 #include "main.hpp"
 
-inline static double
-	confirm = 0.1;
+struct DataSet
+{
+    double
+        value_1 =
+            default_value;
+
+    double
+        value_2 =
+            default_value;
+
+    double
+        value_3 =
+            default_value;
+
+    static double
+        default_value;
+
+    static void setup();
+
+    static DataSet
+        cache;
+};
+
+double
+    DataSet::default_value = 1.0;
+
+DataSet
+    DataSet::cache;
+
+void
+DataSet::setup()
+{
+
+}
 
 int main(int argc, char** argv)
 {		
-	QLogicaeCppCore::FileSystemManagerUtilities::singleton;
+    /*
+    DataSet a =
+        {
+            .value_2 = 1.1,
+            .value_3 = 1.1
+        };
 
-	bool exit_code;
+    */
+    QLogicaeCppCore::SingletonManager::singleton.setup();
+    QLogicaeCppCore::SingletonManager::singleton.setup();
+    QLogicaeCppCore::SingletonManager::singleton.setup();
+    QLogicaeCppCore::SingletonManager::singleton.setup();
+    QLogicaeCppCore::SingletonManager::singleton.setup();
+    
+    int a;
+	
+    
+    bool exit_code;
 	std::cin >> exit_code;
 
     return 0;

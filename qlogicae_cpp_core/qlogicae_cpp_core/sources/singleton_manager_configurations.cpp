@@ -4,6 +4,5 @@
 
 namespace QLogicaeCppCore
 {
-    SingletonManagerConfigurations
-        SingletonManagerConfigurations::cache;
+    
 }

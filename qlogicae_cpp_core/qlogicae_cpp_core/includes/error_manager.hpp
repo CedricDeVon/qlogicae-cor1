@@ -7,19 +7,7 @@ namespace QLogicaeCppCore
 {
     class ErrorManager
     {
-    public:
-        static bool
-            cache_is_successful;
-
-        static std::string
-            cache_error_log;
-
-        static fast_io::native_io_observer
-            cache_fast_io_error_console_output_type;
-
-        static ErrorManager&
-            singleton;
-
+    public:        
         ErrorManager();
 
         ~ErrorManager();
@@ -105,4 +93,22 @@ namespace QLogicaeCppCore
         void
             _handle();
     };    
+
+    inline static bool
+        ErrorManager__cache_is_successful =
+            false;
+
+    inline static std::string
+        ErrorManager__cache_error_log =
+            "";
+
+    inline static fast_io::native_io_observer
+        ErrorManager__cache_fast_io_error_console_output_type =
+            fast_io::err();
+    
+    inline static ErrorManager&
+        ErrorManager__singleton =
+            SingletonManager::get_singleton<ErrorManager>();
+    
+
 }

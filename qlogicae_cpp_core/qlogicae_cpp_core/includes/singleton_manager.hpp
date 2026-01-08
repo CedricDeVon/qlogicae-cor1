@@ -4,19 +4,10 @@
 #include "singleton_manager_configurations.hpp"
 
 namespace QLogicaeCppCore
-{
+{    
     class SingletonManager
     {
-    public:        
-        static bool
-            cache_is_successful;
-
-        static std::string
-            cache_error_log;
-
-        static fast_io::native_io_observer
-            cache_fast_io_error_console_output_type;
-
+    public:                
         static SingletonManager&
             singleton;
 
@@ -105,5 +96,17 @@ namespace QLogicaeCppCore
             singleton;
 
         return singleton;
-    }   
+    }
+
+    inline static bool
+        SingletonManager__cache_is_successful =
+            false;  
+
+    inline static std::string
+        SingletonManager__cache_error_log =
+            "";
+
+    inline static fast_io::native_io_observer
+        SingletonManager__cache_fast_io_error_console_output_type =
+            fast_io::err();    
 }

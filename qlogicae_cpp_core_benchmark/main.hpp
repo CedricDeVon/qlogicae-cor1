@@ -4,6 +4,13 @@
 
 #include "qlogicae_cpp_core/includes/runtime_benchmarker.hpp"
 
+namespace Experiment10 // pure
+{
+    std::string extern_static_string_input_value = "0";
+
+    std::string extern_static_string_output_value = "";
+}
+
 int main(int, char**);
 
 int WINAPI WinMain(
@@ -1962,134 +1969,134 @@ namespace Experiment9 // folly and boost
 
 
 
-namespace Experiment10 // pure
+
+
+
+
+namespace Experiment11 // while, ranged_based_for_loop
 {
-    static std::string benchmark_value = "00000000";
+    static size_t index = 0, size = 10;
 
-    static std::string pure_static_string_input_value = benchmark_value;
+    static char output_value;
 
-    static std::string pure_static_string_output_value = "";
+    static std::string data(size, '0');
 
-    struct StructStringSample
+    void for_loop()
     {
-        inline static std::string struct_static_string_input_value = benchmark_value;
-
-        inline static std::string struct_static_string_output_value = "";
-    };
-
-    class ClassStringSample
-    {
-    public:
-        inline static std::string class_static_string_input_value = benchmark_value;
-
-        inline static std::string class_static_string_output_value = "";
-    };
-
-    void pure_static_string()
-    {
-        pure_static_string_output_value =
-            pure_static_string_input_value +
-            pure_static_string_input_value;
+        for (index = 0; index < size; ++index)
+        {
+            output_value = data[index];
+        }
     }
 
-    void struct_static_string()
+    void while_loop()
     {
-        StructStringSample::struct_static_string_output_value =
-            StructStringSample::struct_static_string_input_value +
-            StructStringSample::struct_static_string_input_value;
+        index = 0;
+        while (index < size)
+        {
+            output_value = data[index];
+            ++index;
+        }
     }
 
-    void class_static_string()
+    void do_while_loop()
     {
-        ClassStringSample::class_static_string_output_value =
-            ClassStringSample::class_static_string_input_value +
-            ClassStringSample::class_static_string_input_value;
+        index = 0;
+        do
+        {
+            output_value = data[index];
+            ++index;
+
+        }
+        while (index < size);
     }
 
-    static std::string pure_static_double_input_value = benchmark_value;
-
-    static std::string pure_static_double_output_value = "";
-
-    struct StructDoubleSample
+    void ranged_based_for_loop()
     {
-        inline static std::string struct_static_double_input_value = benchmark_value;
-
-        inline static std::string struct_static_double_output_value = "";
-    };
-
-    class ClassDoubleSample
-    {
-    public:
-        inline static std::string class_static_double_input_value = benchmark_value;
-
-        inline static std::string class_static_double_output_value = "";
-    };
-
-    void pure_static_double()
-    {
-        pure_static_double_output_value =
-            pure_static_double_input_value +
-            pure_static_double_input_value;
+        for (const char& datum : data)
+        {
+            output_value = datum;
+        }
     }
 
-    void struct_static_double()
+    void for_each_loop_1()
     {
-        StructDoubleSample::struct_static_double_output_value =
-            StructDoubleSample::struct_static_double_input_value +
-            StructDoubleSample::struct_static_double_input_value;
+        std::ranges::for_each(
+            data.begin(),
+            data.end(),
+            [](const char datum)
+            {
+                output_value = datum;
+            }
+        );
     }
 
-    void class_static_double()
+    void for_each_loop_2()
     {
-        ClassDoubleSample::class_static_double_output_value =
-            ClassDoubleSample::class_static_double_input_value +
-            ClassDoubleSample::class_static_double_input_value;
+        std::ranges::for_each(
+            data,
+            [](const char datum)
+            {
+                output_value = datum;
+            }
+        );
     }
-
 
     void execute()
     {
         QLogicaeCppCore::RuntimeBenchmarkerTestSuite test_suite_1
         {
-            .name = "pure_static_vs_struct_static_vs_class_static",
-            .warmup_count = 2,
+            .name = "loops",
+            .warmup_count = 1,
             .epoch_iteration_pairs =
             {
                 {
-                    .epochs = 10'000'000,
+                    .epochs = 100000000,
                     .iterations = 1
                 },
                 {
-                    .epochs = 1'000'000,
+                    .epochs = 10000000,
                     .iterations = 10
                 },
                 {
-                    .epochs = 100'000,
+                    .epochs = 1000000,
                     .iterations = 100
                 },
                 {
-                    .epochs = 10'000,
-                    .iterations = 1'000
+                    .epochs = 100000,
+                    .iterations = 1000
                 },
                 {
-                    .epochs = 1,
-                    .iterations = 1'000'000
+                    .epochs = 100,
+                    .iterations = 1000000
                 }
             },
 
             .test_cases =
             {
                 {
-                    .name = "pure_static_string",
-                    .callback = pure_static_string
+                    .name = "for_loop",
+                    .callback = for_loop
                 },
                 {
-                    .name = "struct_static_string",
-                    .callback = struct_static_string
+                    .name = "while_loop",
+                    .callback = while_loop
                 },
                 {
-                    .name = "class_static_string",
-                    .callback = class_static_string
+                    .name = "do_while_loop",
+                    .callback = do_while_loop
+                },
+                {
+                    .name = "ranged_based_for_loop",
+                    .callback = ranged_based_for_loop
+                },
+                {
+                    .name = "for_each_loop_1",
+                    .callback = for_each_loop_1
+                },
+                {
+                    .name = "for_each_loop_2",
+                    .callback = for_each_loop_2
                 }
             }
         };
@@ -2103,6 +2110,5 @@ namespace Experiment10 // pure
         std::cin >> exit_code;
     }
 }
-
 
 */

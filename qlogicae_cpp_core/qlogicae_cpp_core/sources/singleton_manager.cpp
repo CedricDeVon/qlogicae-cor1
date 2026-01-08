@@ -3,27 +3,15 @@
 #include "../includes/singleton_manager.hpp"
 
 namespace QLogicaeCppCore
-{    
-    bool
-        SingletonManager::cache_is_successful =
-            false;  
-
-    std::string
-        SingletonManager::cache_error_log =
-            "";
-
-    fast_io::native_io_observer
-        SingletonManager::cache_fast_io_error_console_output_type =
-            fast_io::err();
-
+{        
     SingletonManager&
         SingletonManager::singleton =
             SingletonManager::get_this_singleton();
 
-
-
     SingletonManager::SingletonManager()
     {
+        std::cout << "SingletonManager" << "\n";
+
         try
         {
             _construct();
@@ -34,7 +22,7 @@ namespace QLogicaeCppCore
                 exception
         )
         {
-            cache_error_log =
+            SingletonManager__cache_error_log =
                 exception.what();
 
             _handle_error();
@@ -53,7 +41,7 @@ namespace QLogicaeCppCore
                 exception
         )
         {
-            cache_error_log =
+            SingletonManager__cache_error_log =
                 exception.what();
 
             _handle_error();
@@ -66,7 +54,7 @@ namespace QLogicaeCppCore
         _construct();
 
         return
-            cache_is_successful;
+            SingletonManager__cache_is_successful;
     }
 
     bool
@@ -75,7 +63,7 @@ namespace QLogicaeCppCore
         _destruct();
 
         return
-            cache_is_successful;
+            SingletonManager__cache_is_successful;
     }
 
     bool
@@ -84,25 +72,25 @@ namespace QLogicaeCppCore
                 new_configurations
         )
     {
-        SingletonManagerConfigurations::cache =
+        SingletonManagerConfigurations__cache =
             new_configurations;
 
         _setup();
 
         return
-            cache_is_successful;
+            SingletonManager__cache_is_successful;
     }
 
     bool
         SingletonManager::setup()
     {
-        SingletonManagerConfigurations::cache =
+        SingletonManagerConfigurations__cache =
             {};
 
         _setup();
 
         return
-            cache_is_successful;
+            SingletonManager__cache_is_successful;
     }
 
     bool
@@ -110,7 +98,8 @@ namespace QLogicaeCppCore
     {
         _reset();
 
-        return cache_is_successful;
+        return
+            SingletonManager__cache_is_successful;
     }
 
     bool
@@ -119,13 +108,13 @@ namespace QLogicaeCppCore
                 exception
         )
     {
-        cache_error_log =
+        SingletonManager__cache_error_log =
             exception.what();
 
         _handle_error();
 
         return
-            cache_is_successful;
+            SingletonManager__cache_is_successful;
     }
 
     void
@@ -133,7 +122,7 @@ namespace QLogicaeCppCore
     {
         try
         {
-            cache_is_successful =
+            SingletonManager__cache_is_successful =
                 true;
         }
         catch
@@ -142,7 +131,7 @@ namespace QLogicaeCppCore
                 exception
         )
         {
-            cache_error_log =
+            SingletonManager__cache_error_log =
                 exception.what();
 
             _handle_error();
@@ -154,7 +143,7 @@ namespace QLogicaeCppCore
     {
         try
         {
-            cache_is_successful =
+            SingletonManager__cache_is_successful =
                 true;
         }
         catch
@@ -163,7 +152,7 @@ namespace QLogicaeCppCore
                 exception
         )
         {
-            cache_error_log =
+            SingletonManager__cache_error_log =
                 exception.what();
 
             _handle_error();
@@ -175,7 +164,7 @@ namespace QLogicaeCppCore
     {
         try
         {
-            cache_is_successful =
+            SingletonManager__cache_is_successful =
                 true;
         }
         catch
@@ -184,7 +173,7 @@ namespace QLogicaeCppCore
                 exception
         )
         {
-            cache_error_log =
+            SingletonManager__cache_error_log =
                 exception.what();
 
             _handle_error();
@@ -196,7 +185,7 @@ namespace QLogicaeCppCore
     {
         try
         {
-            cache_is_successful =
+            SingletonManager__cache_is_successful =
                 true;
         }
         catch
@@ -205,7 +194,7 @@ namespace QLogicaeCppCore
                 exception
         )
         {
-            cache_error_log =
+            SingletonManager__cache_error_log =
                 exception.what();
 
             _handle_error();
@@ -217,15 +206,15 @@ namespace QLogicaeCppCore
     {
         try
         {
-            cache_is_successful =
+            SingletonManager__cache_is_successful =
                 false;
             
-            if (!ErrorManagerConfigurations::cache_is_enabled)
+            if (!ErrorManagerConfigurations__cache_is_enabled)
             {
                 return;
             }
 
-            if (ErrorManagerConfigurations::cache_is_asynchronous_output_enabled)
+            if (ErrorManagerConfigurations__cache_is_asynchronous_output_enabled)
             {
                 _handle_error_asynchronously();
             }
@@ -236,7 +225,7 @@ namespace QLogicaeCppCore
         }
         catch (...)
         {
-            cache_is_successful =
+            SingletonManager__cache_is_successful =
                 false;
         }
     }
@@ -247,8 +236,8 @@ namespace QLogicaeCppCore
         std::vector<std::future<void>>
             futures;
 
-        if (ErrorManagerConfigurations::cache_is_asynchronous_console_output_enabled &&
-            ErrorManagerConfigurations::cache_is_console_output_enabled
+        if (ErrorManagerConfigurations__cache_is_asynchronous_console_output_enabled &&
+            ErrorManagerConfigurations__cache_is_console_output_enabled
             )
         {
             futures.push_back(
@@ -257,20 +246,20 @@ namespace QLogicaeCppCore
                     [&]()
                     {
                         fast_io::io::println(
-                            cache_fast_io_error_console_output_type,
-                            cache_error_log
+                            SingletonManager__cache_fast_io_error_console_output_type,
+                            SingletonManager__cache_error_log
                         );
                     }
                 )
-            );            
+            );
         }
 
-        if (ErrorManagerConfigurations::cache_is_asynchronous_file_output_enabled &&
-            ErrorManagerConfigurations::cache_is_file_output_enabled
+        if (ErrorManagerConfigurations__cache_is_asynchronous_file_output_enabled &&
+            ErrorManagerConfigurations__cache_is_file_output_enabled
             )
         {
             for (const std::string& cache_full_file_output_path :
-                ErrorManagerConfigurations::cache_full_file_output_paths
+                ErrorManagerConfigurations__cache_full_file_output_paths
                 )
             {
                 futures.push_back(
@@ -286,16 +275,16 @@ namespace QLogicaeCppCore
 
                             fast_io::io::println(
                                 fast_io_native_file,
-                                cache_error_log
+                                SingletonManager__cache_error_log
                             );
                         }
                     )
-                );                
+                );
             }
         }
 
-        if (ErrorManagerConfigurations::cache_is_asynchronous_runtime_throw_output_enabled &&
-            ErrorManagerConfigurations::cache_is_runtime_throw_output_enabled
+        if (ErrorManagerConfigurations__cache_is_asynchronous_runtime_throw_output_enabled &&
+            ErrorManagerConfigurations__cache_is_runtime_throw_output_enabled
             )
         {
             futures.push_back(
@@ -304,34 +293,34 @@ namespace QLogicaeCppCore
                     [&]()
                     {
                         throw std::runtime_error(
-                            cache_error_log
+                            SingletonManager__cache_error_log
                         );
                     }
                 )
             );
         }
-        
+
         for (std::future<void>& future : futures)
         {
             future.get();
-        }        
+        }
     }
 
     void
         SingletonManager::_handle_error_synchronously()
     {
-        if (ErrorManagerConfigurations::cache_is_console_output_enabled)
+        if (ErrorManagerConfigurations__cache_is_console_output_enabled)
         {
             fast_io::io::println(
-                cache_fast_io_error_console_output_type,
-                cache_error_log
+                SingletonManager__cache_fast_io_error_console_output_type,
+                SingletonManager__cache_error_log
             );
         }
 
-        if (ErrorManagerConfigurations::cache_is_file_output_enabled)
+        if (ErrorManagerConfigurations__cache_is_file_output_enabled)
         {
             for (const std::string& cache_full_file_output_path :
-                ErrorManagerConfigurations::cache_full_file_output_paths
+                ErrorManagerConfigurations__cache_full_file_output_paths
                 )
             {
                 fast_io::native_file
@@ -342,15 +331,15 @@ namespace QLogicaeCppCore
 
                 fast_io::io::println(
                     fast_io_native_file,
-                    cache_error_log
+                    SingletonManager__cache_error_log
                 );
             }
         }
 
-        if (ErrorManagerConfigurations::cache_is_runtime_throw_output_enabled)
+        if (ErrorManagerConfigurations__cache_is_runtime_throw_output_enabled)
         {
             throw std::runtime_error(
-                cache_error_log
+                SingletonManager__cache_error_log
             );
         }
     }
