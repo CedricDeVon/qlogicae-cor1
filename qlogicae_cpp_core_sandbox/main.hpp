@@ -2,7 +2,8 @@
 
 #include "qlogicae_cpp_core_sandbox/includes/application.hpp"
 
-#include "qlogicae_cpp_core/includes/singleton_manager.hpp"
+#include "qlogicae_cpp_core/includes/error_manager.hpp"
+#include "qlogicae_cpp_core/includes/asynchronous_manager.hpp"
 
 int main(int, char**);
 

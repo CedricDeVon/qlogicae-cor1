@@ -1,59 +1,51 @@
 #pragma once
 
-#include "value_cache.hpp"
+#include "error_manager.hpp"
 #include "valid_mutex_lock.hpp"
 #include "singleton_manager.hpp"
 #include "pair_hash_operator.hpp"
 #include "mutex_manager_configurations.hpp"
 
 namespace QLogicaeCppCore
-{
+{    
     class MutexManagerUtilities
     {
-    public:                
-        static std::unordered_map<std::pair<void*, std::string>,
-            std::mutex, PairHashOperator>
-                mutex_collection;
+    public:         
+        static bool
+            cache_boolean_1;
 
-        static std::unordered_map<std::pair<void*, std::string>,
-            std::timed_mutex, PairHashOperator>
-                timed_mutex_collection;
+        static std::unordered_map<std::pair<void*, std::string>, std::mutex, PairHashOperator>
+            cache_mutex_collection;
 
-        static std::unordered_map<std::pair<void*, std::string>,
-            std::recursive_mutex, PairHashOperator>
-                recursive_mutex_collection;
+        static std::unordered_map<std::pair<void*, std::string>, std::timed_mutex, PairHashOperator>
+            cache_timed_mutex_collection;
 
-        static std::unordered_map<std::pair<void*, std::string>,
-            std::recursive_timed_mutex, PairHashOperator>
-                recursive_timed_mutex_collection;
+        static std::unordered_map<std::pair<void*, std::string>, std::recursive_mutex, PairHashOperator>
+            cache_recursive_mutex_collection;
 
-        static std::unordered_map<std::pair<void*, std::string>,
-            std::shared_mutex, PairHashOperator>
-                shared_mutex_collection;
+        static std::unordered_map<std::pair<void*, std::string>, std::recursive_timed_mutex, PairHashOperator>
+            cache_recursive_timed_mutex_collection;
 
-        static std::unordered_map<std::pair<void*, std::string>,
-            boost::mutex, PairHashOperator>
-                boost_mutex_collection;
+        static std::unordered_map<std::pair<void*, std::string>, std::shared_mutex, PairHashOperator>
+            cache_shared_mutex_collection;
 
-        static std::unordered_map<std::pair<void*, std::string>,
-            boost::timed_mutex, PairHashOperator>
-                boost_timed_mutex_collection;
+        static std::unordered_map<std::pair<void*, std::string>, boost::mutex, PairHashOperator>
+            cache_boost_mutex_collection;
 
-        static std::unordered_map<std::pair<void*, std::string>,
-            boost::recursive_mutex, PairHashOperator>
-                boost_recursive_mutex_collection;
+        static std::unordered_map<std::pair<void*, std::string>, boost::timed_mutex, PairHashOperator>
+            cache_boost_timed_mutex_collection;
 
-        static std::unordered_map<std::pair<void*, std::string>,
-            boost::recursive_timed_mutex, PairHashOperator>
-                boost_recursive_timed_mutex_collection;
+        static std::unordered_map<std::pair<void*, std::string>, boost::recursive_mutex, PairHashOperator>
+            cache_boost_recursive_mutex_collection;
 
-        static std::unordered_map<std::pair<void*, std::string>,
-            boost::shared_mutex, PairHashOperator>
-                boost_shared_mutex_collection;
+        static std::unordered_map<std::pair<void*, std::string>, boost::recursive_timed_mutex, PairHashOperator>
+            cache_boost_recursive_timed_mutex_collection;
 
-        static std::unordered_map<std::pair<void*, std::string>,
-            folly::MicroSpinLock, PairHashOperator>
-                folly_micro_spin_lock_collection;
+        static std::unordered_map<std::pair<void*, std::string>, boost::shared_mutex, PairHashOperator>
+            cache_boost_shared_mutex_collection;
+
+        static std::unordered_map<std::pair<void*, std::string>, folly::MicroSpinLock, PairHashOperator>
+            cache_folly_micro_spin_lock_collection;
 
         static MutexManagerUtilities&
             singleton;
@@ -119,5 +111,5 @@ namespace QLogicaeCppCore
 
         void
             _clear_all_collections();
-    };    
+    };           
 }

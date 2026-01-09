@@ -3,7 +3,7 @@
 #include "../includes/value_cache.hpp"
 
 namespace QLogicaeCppCore
-{            
+{
     void* ValueCache::void_pointer_1 =
         nullptr;
 
@@ -1332,20 +1332,50 @@ namespace QLogicaeCppCore
 
     ValueCache&
         ValueCache::singleton =
-            SingletonManager::get_singleton<ValueCache>();
+        SingletonManager::get_singleton<ValueCache>();
 
 
 
     ValueCache::ValueCache()
     {
-        _construct();
+        try
+        {
+            _construct();
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+            ErrorManager::cache_error_log =
+                exception.what();
+
+            ErrorManager::singleton
+                ._handle();
+        }        
     }
 
     ValueCache::~ValueCache()
     {
-        _destruct();
+        try
+        {
+            _destruct();
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+            ErrorManager::cache_error_log =
+                exception.what();
+
+            ErrorManager::singleton
+                ._handle();
+        }        
     }
-    
+
     bool
         ValueCache::construct()
     {

@@ -4,6 +4,10 @@
 
 namespace QLogicaeCppCore
 {
+    bool
+        TemperatureManagerUtilities::cache_boolean_1 =
+            false;
+
     TemperatureManagerUtilities&
         TemperatureManagerUtilities::singleton =
             SingletonManager::get_singleton<TemperatureManagerUtilities>();
@@ -24,7 +28,7 @@ namespace QLogicaeCppCore
         _construct();
 
         return
-            ValueCache::boolean_1;
+            cache_boolean_1;
     }
 
     bool
@@ -33,7 +37,7 @@ namespace QLogicaeCppCore
         _destruct();
 
         return
-            ValueCache::boolean_1;
+            cache_boolean_1;
     }
 
     bool
@@ -48,7 +52,7 @@ namespace QLogicaeCppCore
         _setup();
 
         return
-            ValueCache::boolean_1;
+            cache_boolean_1;
     }
 
     bool
@@ -60,7 +64,7 @@ namespace QLogicaeCppCore
         _setup();
 
         return
-            ValueCache::boolean_1;
+            cache_boolean_1;
     }
 
     bool
@@ -69,7 +73,7 @@ namespace QLogicaeCppCore
         _reset();
 
         return
-            ValueCache::boolean_1;
+            cache_boolean_1;
     }
 
     void
@@ -77,7 +81,7 @@ namespace QLogicaeCppCore
     {
         try
         {
-            ValueCache::boolean_1 =
+            cache_boolean_1 =
                 true;
         }
         catch
@@ -99,7 +103,7 @@ namespace QLogicaeCppCore
     {
         try
         {
-            ValueCache::boolean_1 =
+            cache_boolean_1 =
                 true;
         }
         catch
@@ -137,7 +141,7 @@ namespace QLogicaeCppCore
                 TemperatureManagerConfigurations::cache_to_unit_type =
                 TemperatureManagerConfigurations::cache.to_unit_type;
 
-            ValueCache::boolean_1 =
+            cache_boolean_1 =
                 true;
         }
         catch
@@ -175,7 +179,7 @@ namespace QLogicaeCppCore
                 TemperatureManagerConfigurations::cache_to_unit_type =
                 TemperatureManagerConfigurations::initial_to_unit_type;
 
-            ValueCache::boolean_1 =
+            cache_boolean_1 =
                 true;
         }
         catch

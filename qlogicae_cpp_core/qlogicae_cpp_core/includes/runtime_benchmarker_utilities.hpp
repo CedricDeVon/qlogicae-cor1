@@ -1,14 +1,16 @@
 #pragma once
 
-#include "value_cache.hpp"
 #include "error_manager.hpp"
 #include "singleton_manager.hpp"
 
 namespace QLogicaeCppCore
-{
+{    
     class RuntimeBenchmarkerUtilities
     {
-    public:
+    public:        
+        static bool
+            cache_boolean_1;
+
         static RuntimeBenchmarkerUtilities&
             singleton;
 
@@ -59,5 +61,5 @@ namespace QLogicaeCppCore
 
         void
             _reset();
-    };
+    };    
 }

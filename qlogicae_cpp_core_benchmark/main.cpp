@@ -6,6 +6,28 @@ namespace Experiment10 // pure
 {
     static std::string benchmark_value = "0";
 
+    namespace Cache
+    {
+        static std::string pure_static_string_input_value = benchmark_value;
+
+        static std::string pure_static_string_output_value = "";
+
+        struct StructStringSample
+        {
+            inline static std::string struct_static_string_input_value = benchmark_value;
+
+            inline static std::string struct_static_string_output_value = "";
+        };
+
+        class ClassStringSample
+        {
+        public:
+            inline static std::string class_static_string_input_value = benchmark_value;
+
+            inline static std::string class_static_string_output_value = "";
+        };
+    };
+
     extern std::string extern_static_string_input_value;
 
     extern std::string extern_static_string_output_value;
@@ -34,6 +56,13 @@ namespace Experiment10 // pure
         extern_static_string_output_value =
             extern_static_string_input_value +
             extern_static_string_input_value;
+    }
+
+    void pure_namespace_static_string()
+    {
+        Cache::pure_static_string_output_value =
+            Cache::pure_static_string_input_value +
+            Cache::pure_static_string_input_value;
     }
 
     void pure_static_string()
@@ -143,13 +172,17 @@ namespace Experiment10 // pure
                     .callback = class_static_string
                 },
                 {
+                    .name = "pure_namespace_static_string",
+                    .callback = pure_namespace_static_string
+                },
+                {
                     .name = "pure_static_string",
                     .callback = pure_static_string
                 }
             }
         };
 
-        QLogicaeCppCore::RuntimeBenchmarker::singleton
+        QLogicaeCppCore::RuntimeBenchmarker__singleton
             .execute(
                 test_suite_1
             );

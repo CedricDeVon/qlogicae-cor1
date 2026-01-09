@@ -17,5 +17,5 @@ namespace QLogicaeCppCore
             AsynchronousManagerConfigurations::initial_is_enabled;
 
     AsynchronousManagerConfigurations
-        AsynchronousManagerConfigurations::cache;
+        AsynchronousManagerConfigurations::cache;    
 }

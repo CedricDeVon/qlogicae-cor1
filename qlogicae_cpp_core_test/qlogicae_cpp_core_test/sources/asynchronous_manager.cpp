@@ -65,8 +65,7 @@ namespace QLogicaeCppCoreTest
         ASSERT_TRUE(reset_result);
 
         ASSERT_TRUE(
-            QLogicaeCppCore::AsynchronousManagerConfigurations
-                ::cache_is_enabled
+            QLogicaeCppCore::AsynchronousManagerConfigurations::cache_is_enabled
         );
     }
 
@@ -257,8 +256,7 @@ namespace QLogicaeCppCoreTest
             .setup(configurations);
 
         ASSERT_EQ(
-            QLogicaeCppCore::AsynchronousManagerConfigurations
-                ::cache_is_enabled,
+            QLogicaeCppCore::AsynchronousManagerConfigurations::cache_is_enabled,
             GetParam()
         );
     }
@@ -421,11 +419,9 @@ namespace QLogicaeCppCoreTest
         reset_thread.join();
 
         ASSERT_TRUE(
-            QLogicaeCppCore::AsynchronousManagerConfigurations
-            ::cache_is_enabled ==
+            QLogicaeCppCore::AsynchronousManagerConfigurations::cache_is_enabled ==
             true ||
-            QLogicaeCppCore::AsynchronousManagerConfigurations
-            ::cache_is_enabled ==
+            QLogicaeCppCore::AsynchronousManagerConfigurations::cache_is_enabled ==
             false
         );
     }
@@ -463,23 +459,18 @@ namespace QLogicaeCppCoreTest
     )
     {
         ASSERT_EQ(
-            QLogicaeCppCore::AsynchronousManagerConfigurations
-            ::initial_is_enabled,
+            QLogicaeCppCore::AsynchronousManagerConfigurations::initial_is_enabled,
             true
         );
 
         ASSERT_EQ(
-            QLogicaeCppCore::AsynchronousManagerConfigurations
-            ::default_is_enabled,
-            QLogicaeCppCore::AsynchronousManagerConfigurations
-            ::initial_is_enabled
+            QLogicaeCppCore::AsynchronousManagerConfigurations::default_is_enabled,
+            QLogicaeCppCore::AsynchronousManagerConfigurations::initial_is_enabled
         );
 
         ASSERT_EQ(
-            QLogicaeCppCore::AsynchronousManagerConfigurations
-            ::cache_is_enabled,
-            QLogicaeCppCore::AsynchronousManagerConfigurations
-            ::initial_is_enabled
+            QLogicaeCppCore::AsynchronousManagerConfigurations::cache_is_enabled,
+            QLogicaeCppCore::AsynchronousManagerConfigurations::initial_is_enabled
         );
     }
 }

@@ -1332,7 +1332,7 @@ namespace QLogicaeCppCore
 
         static std::wstring_view*
             wstring_view_pointer_8;
-   
+
         static ValueCache&
             singleton;
 
@@ -1353,14 +1353,14 @@ namespace QLogicaeCppCore
         ValueCache&
             operator = (
                 ValueCache&&
-                    instance
-        ) = delete;
+                instance
+                ) = delete;
 
         ValueCache&
             operator = (
                 const ValueCache&
-                    instance
-        ) = delete;
+                instance
+                ) = delete;
 
         bool
             construct();
@@ -1385,5 +1385,5 @@ namespace QLogicaeCppCore
 
         void
             _reset();
-    };    
+    };
 }

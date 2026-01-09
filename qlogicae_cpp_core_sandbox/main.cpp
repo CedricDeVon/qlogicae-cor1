@@ -32,30 +32,13 @@ DataSet
     DataSet::cache;
 
 void
-DataSet::setup()
+    DataSet::setup()
 {
 
 }
 
 int main(int argc, char** argv)
-{		
-    /*
-    DataSet a =
-        {
-            .value_2 = 1.1,
-            .value_3 = 1.1
-        };
-
-    */
-    QLogicaeCppCore::SingletonManager::singleton.setup();
-    QLogicaeCppCore::SingletonManager::singleton.setup();
-    QLogicaeCppCore::SingletonManager::singleton.setup();
-    QLogicaeCppCore::SingletonManager::singleton.setup();
-    QLogicaeCppCore::SingletonManager::singleton.setup();
-    
-    int a;
-	
-    
+{		    
     bool exit_code;
 	std::cin >> exit_code;
 

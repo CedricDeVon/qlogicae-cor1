@@ -1,6 +1,6 @@
 #pragma once
 
-#include "value_cache.hpp"
+#include "error_manager.hpp"
 #include "singleton_manager.hpp"
 #include "temperature_unit_type.hpp"
 #include "temperature_manager_utilities.hpp"
@@ -11,6 +11,9 @@ namespace QLogicaeCppCore
     class TemperatureManager
     {
     public:
+        static bool
+            cache_boolean_1;
+
         static TemperatureManager&
             singleton;
 

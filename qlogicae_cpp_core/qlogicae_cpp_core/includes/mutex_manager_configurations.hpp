@@ -1,7 +1,7 @@
 #pragma once
 
 namespace QLogicaeCppCore
-{
+{   
     struct MutexManagerConfigurations
     {
         void*
@@ -22,21 +22,21 @@ namespace QLogicaeCppCore
 
 
 
-        static void*
-            default_pointer;
-
         static std::string
             default_name;
 
-
-
         static void*
-            cache_pointer;
+            default_pointer;
+
+
 
         static std::string
             cache_name;
 
-        
+        static void*
+            cache_pointer;
+
+
 
         static MutexManagerConfigurations
             cache;

@@ -10,12 +10,42 @@ namespace QLogicaeCppCore
 
     FileSystemManager::FileSystemManager()
     {
-        _construct();
+        try
+        {
+            _construct();
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+            ErrorManager::cache_error_log =
+                exception.what();
+
+            ErrorManager::singleton
+                ._handle();
+        }        
     }
 
     FileSystemManager::~FileSystemManager()
     {
-        _destruct();
+        try
+        {
+            _destruct();
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+            ErrorManager::cache_error_log =
+                exception.what();
+
+            ErrorManager::singleton
+                ._handle();
+        }        
     }
 
     bool

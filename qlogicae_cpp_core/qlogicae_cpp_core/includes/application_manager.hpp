@@ -1,6 +1,5 @@
 ﻿#pragma once
 
-#include "value_cache.hpp"
 #include "error_manager.hpp"
 #include "singleton_manager.hpp"
 
@@ -9,6 +8,9 @@ namespace QLogicaeCppCore
     class ApplicationManager
     {
     public:
+        static bool
+            cache_boolean_1;
+
         static ApplicationManager&
             singleton;
 

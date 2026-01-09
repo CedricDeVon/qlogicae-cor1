@@ -3,34 +3,66 @@
 #include "../includes/asynchronous_manager_utilities.hpp"
 
 namespace QLogicaeCppCore
-{    
+{            
+    bool
+        AsynchronousManagerUtilities::cache_boolean_1 =
+            false;
+
     std::shared_ptr<boost::asio::thread_pool>
-        AsynchronousManagerUtilities::main_thread_pool =
+        AsynchronousManagerUtilities::cache_main_thread_pool =
             nullptr;
 
     std::shared_ptr<boost::asio::thread_pool>
-        AsynchronousManagerUtilities::temporary_thread_pool =
+        AsynchronousManagerUtilities::cache_temporary_thread_pool =
             nullptr;
-
-    AsynchronousManagerConfigurations
-        AsynchronousManagerUtilities::configurations =
-            {};
 
     boost::mutex
-        AsynchronousManagerUtilities::mutex;
+        AsynchronousManagerUtilities::cache_mutex;
 
     AsynchronousManagerUtilities&
         AsynchronousManagerUtilities::singleton =
             SingletonManager::get_singleton<AsynchronousManagerUtilities>();
 
+
+
     AsynchronousManagerUtilities::AsynchronousManagerUtilities()
     {
-        _construct();
+        try
+        {
+            _construct();
+        }
+        catch
+            (
+                const std::exception&
+                exception
+                )
+        {
+            ErrorManager::cache_error_log =
+                exception.what();
+
+            ErrorManager::singleton
+                ._handle();
+        }
     }
 
     AsynchronousManagerUtilities::~AsynchronousManagerUtilities()
     {
-        _destruct();
+        try
+        {
+            _destruct();
+        }
+        catch
+            (
+                const std::exception&
+                exception
+                )
+        {
+            ErrorManager::cache_error_log =
+                exception.what();
+
+            ErrorManager::singleton
+                ._handle();
+        }
     }
 
     bool
@@ -39,7 +71,7 @@ namespace QLogicaeCppCore
         _construct();
 
         return
-            ValueCache::boolean_1;
+            cache_boolean_1;
     }
 
     void
@@ -47,22 +79,22 @@ namespace QLogicaeCppCore
     {
         try
         {
-            main_thread_pool =
+            cache_main_thread_pool =
                 std::make_shared<boost::asio::thread_pool>(
                     std::thread::hardware_concurrency()
                 );
 
-            temporary_thread_pool =
+            cache_temporary_thread_pool =
                 nullptr;
 
-            ValueCache::boolean_1 =
+            cache_boolean_1 =
                 true;
         }
         catch
-        (
-            const std::exception&
+            (
+                const std::exception&
                 exception
-        )
+                )
         {
             ErrorManager::cache_error_log =
                 exception.what();
@@ -78,7 +110,7 @@ namespace QLogicaeCppCore
         _destruct();
 
         return
-            ValueCache::boolean_1;
+            cache_boolean_1;
     }
 
     void
@@ -86,14 +118,14 @@ namespace QLogicaeCppCore
     {
         try
         {
-            ValueCache::boolean_1 =
+            cache_boolean_1 =
                 true;
         }
         catch
-        (
-            const std::exception&
+            (
+                const std::exception&
                 exception
-        )
+                )
         {
             ErrorManager::cache_error_log =
                 exception.what();
@@ -106,7 +138,7 @@ namespace QLogicaeCppCore
     bool
         AsynchronousManagerUtilities::setup(
             const AsynchronousManagerConfigurations&
-                new_configurations
+            new_configurations
         )
     {
         AsynchronousManagerConfigurations::cache =
@@ -115,19 +147,19 @@ namespace QLogicaeCppCore
         _setup();
 
         return
-            ValueCache::boolean_1;
+            cache_boolean_1;
     }
 
     bool
         AsynchronousManagerUtilities::setup()
     {
         AsynchronousManagerConfigurations::cache =
-            {};
+        {};
 
         _setup();
 
         return
-            ValueCache::boolean_1;
+            cache_boolean_1;
     }
 
     void
@@ -139,14 +171,14 @@ namespace QLogicaeCppCore
                 AsynchronousManagerConfigurations::default_is_enabled =
                 AsynchronousManagerConfigurations::cache.is_enabled;
 
-            ValueCache::boolean_1 =
+            cache_boolean_1 =
                 true;
         }
         catch
-        (
-            const std::exception&
+            (
+                const std::exception&
                 exception
-        )
+                )
         {
             ErrorManager::cache_error_log =
                 exception.what();
@@ -162,7 +194,7 @@ namespace QLogicaeCppCore
         _reset();
 
         return
-            ValueCache::boolean_1;
+            cache_boolean_1;
     }
 
     void
@@ -174,14 +206,14 @@ namespace QLogicaeCppCore
                 AsynchronousManagerConfigurations::default_is_enabled =
                 AsynchronousManagerConfigurations::initial_is_enabled;
 
-            ValueCache::boolean_1 =
+            cache_boolean_1 =
                 true;
         }
         catch
-        (
-            const std::exception&
+            (
+                const std::exception&
                 exception
-        )
+                )
         {
             ErrorManager::cache_error_log =
                 exception.what();
@@ -196,7 +228,7 @@ namespace QLogicaeCppCore
         _complete_all_threads();
 
         return
-            ValueCache::boolean_1;
+            cache_boolean_1;
     }
 
     void AsynchronousManagerUtilities::_complete_all_threads()
@@ -205,7 +237,7 @@ namespace QLogicaeCppCore
         {
             if (!AsynchronousManagerConfigurations::cache_is_enabled)
             {
-                ValueCache::boolean_1 = 
+                cache_boolean_1 =
                     false;
 
                 return;
@@ -213,20 +245,22 @@ namespace QLogicaeCppCore
 
             {
                 boost::unique_lock<boost::mutex>
-                    unique_lock(mutex);
+                    unique_lock(
+                        cache_mutex
+                    );
 
-                temporary_thread_pool =
-                    main_thread_pool;
+                cache_temporary_thread_pool =
+                    cache_main_thread_pool;
 
-                main_thread_pool.reset();
+                cache_main_thread_pool.reset();
             }
 
-            if (temporary_thread_pool)
+            if (cache_temporary_thread_pool)
             {
-                temporary_thread_pool->join();
+                cache_temporary_thread_pool->join();
             }
 
-            ValueCache::boolean_1 =
+            cache_boolean_1 =
                 true;
         }
         catch

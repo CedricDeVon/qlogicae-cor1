@@ -3,7 +3,7 @@
 #include "../includes/mutex_manager_configurations.hpp"
 
 namespace QLogicaeCppCore
-{
+{   
     void*
         MutexManagerConfigurations::initial_pointer =
             nullptr;
@@ -31,6 +31,7 @@ namespace QLogicaeCppCore
     void*
         MutexManagerConfigurations::cache_pointer =
             MutexManagerConfigurations::initial_pointer;
+
 
 
 

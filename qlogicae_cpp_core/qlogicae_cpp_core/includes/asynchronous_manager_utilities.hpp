@@ -1,26 +1,25 @@
 #pragma once
 
-#include "value_cache.hpp"
 #include "error_manager.hpp"
 #include "singleton_manager.hpp"
 #include "asynchronous_manager_configurations.hpp"
 
 namespace QLogicaeCppCore
-{
+{    
     class AsynchronousManagerUtilities
     {
-    public:              
-        static std::shared_ptr<boost::asio::thread_pool>
-            main_thread_pool;
+    public:             
+        static bool
+            cache_boolean_1;
 
         static std::shared_ptr<boost::asio::thread_pool>
-            temporary_thread_pool;
+            cache_main_thread_pool;
 
-        static AsynchronousManagerConfigurations
-            configurations;
+        static std::shared_ptr<boost::asio::thread_pool>
+            cache_temporary_thread_pool;
 
         static boost::mutex
-            mutex;
+            cache_mutex;
 
         static AsynchronousManagerUtilities&
             singleton;
@@ -54,14 +53,8 @@ namespace QLogicaeCppCore
         bool
             construct();
 
-        void
-            _construct();
-
         bool
             destruct();
-
-        void
-            _destruct();
 
         bool
             setup(
@@ -72,17 +65,23 @@ namespace QLogicaeCppCore
         bool
             setup();
 
-        void
-            _setup();
-
         bool
             reset();
 
-        void
-            _reset();
-
         bool
             complete_all_threads();
+
+        void
+            _construct();
+
+        void
+            _destruct();
+
+        void
+            _setup();
+
+        void
+            _reset();
 
         void
             _complete_all_threads();

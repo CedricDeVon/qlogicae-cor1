@@ -3,19 +3,53 @@
 #include "../includes/runtime_benchmarker.hpp"
 
 namespace QLogicaeCppCore
-{
-	RuntimeBenchmarker&
+{	
+    bool
+        RuntimeBenchmarker::cache_boolean_1 =
+            false;
+
+    RuntimeBenchmarker&
         RuntimeBenchmarker::singleton =
             SingletonManager::get_singleton<RuntimeBenchmarker>();
 
     RuntimeBenchmarker::RuntimeBenchmarker()
     {
-        _construct();
+        try
+        {
+            _construct();
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+            ErrorManager::cache_error_log =
+                exception.what();
+
+            ErrorManager::singleton
+                ._handle();
+        }
     }
 
     RuntimeBenchmarker::~RuntimeBenchmarker()
     {
-        _destruct();
+        try
+        {
+            _destruct();
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+            ErrorManager::cache_error_log =
+                exception.what();
+
+            ErrorManager::singleton
+                ._handle();
+        }        
     }
 
     bool
@@ -24,7 +58,7 @@ namespace QLogicaeCppCore
         _construct();
 
         return
-            ValueCache::boolean_1;
+            RuntimeBenchmarker::cache_boolean_1;
     }
 
     bool
@@ -33,7 +67,7 @@ namespace QLogicaeCppCore
         _destruct();
 
         return
-            ValueCache::boolean_1;
+            RuntimeBenchmarker::cache_boolean_1;
     }
 
     bool
@@ -42,7 +76,7 @@ namespace QLogicaeCppCore
         _setup();
 
         return
-            ValueCache::boolean_1;
+            RuntimeBenchmarker::cache_boolean_1;
     }
 
     bool
@@ -51,7 +85,7 @@ namespace QLogicaeCppCore
         _reset();
 
         return
-            ValueCache::boolean_1;
+            RuntimeBenchmarker::cache_boolean_1;
     }
 
     bool
@@ -126,7 +160,7 @@ namespace QLogicaeCppCore
                     test_case.name;
 
                 const std::string benchmark_name =
-                    test_suite_name + "__" + test_case_name + "__" + std::to_string(iterations);
+                    test_suite_name + "::" + test_case_name + "::" + std::to_string(iterations);
 
                 const std::function<void()>& callback =
                     test_case.callback;
@@ -173,7 +207,7 @@ namespace QLogicaeCppCore
     {
         try
         {
-            ValueCache::boolean_1 =
+            RuntimeBenchmarker::cache_boolean_1 =
                 true;
         }
         catch
@@ -195,7 +229,7 @@ namespace QLogicaeCppCore
     {
         try
         {
-            ValueCache::boolean_1 =
+            RuntimeBenchmarker::cache_boolean_1 =
                 true;
         }
         catch
@@ -217,7 +251,7 @@ namespace QLogicaeCppCore
     {
         try
         {
-            ValueCache::boolean_1 =
+            RuntimeBenchmarker::cache_boolean_1 =
                 true;
         }
         catch
@@ -239,7 +273,7 @@ namespace QLogicaeCppCore
     {
         try
         {
-            ValueCache::boolean_1 =
+            RuntimeBenchmarker::cache_boolean_1 =
                 true;
         }
         catch

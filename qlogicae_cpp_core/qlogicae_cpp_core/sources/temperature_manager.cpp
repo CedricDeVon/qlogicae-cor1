@@ -4,18 +4,52 @@
 
 namespace QLogicaeCppCore
 {       
+    bool
+        TemperatureManager::cache_boolean_1 =
+            false;
+
     TemperatureManager&
         TemperatureManager::singleton =
             SingletonManager::get_singleton<TemperatureManager>();
 
     TemperatureManager::TemperatureManager()
     {
-        _construct();
+        try
+        {
+            _construct();
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+            ErrorManager::cache_error_log =
+                exception.what();
+
+            ErrorManager::singleton
+                ._handle();
+        }        
     }
 
     TemperatureManager::~TemperatureManager()
     {
-        _destruct();
+        try
+        {
+            _destruct();
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+            ErrorManager::cache_error_log =
+                exception.what();
+
+            ErrorManager::singleton
+                ._handle();
+        }        
     }
 
     bool
@@ -24,7 +58,7 @@ namespace QLogicaeCppCore
         _construct();
 
         return
-            ValueCache::boolean_1;
+            cache_boolean_1;
     }
 
     bool
@@ -33,7 +67,7 @@ namespace QLogicaeCppCore
         _destruct();
 
         return
-            ValueCache::boolean_1;
+            cache_boolean_1;
     }
 
     bool
@@ -48,7 +82,7 @@ namespace QLogicaeCppCore
         _setup();
 
         return
-            ValueCache::boolean_1;
+            cache_boolean_1;
     }
 
     bool
@@ -60,7 +94,7 @@ namespace QLogicaeCppCore
         _setup();
 
         return
-            ValueCache::boolean_1;
+            cache_boolean_1;
     }
 
     bool
@@ -69,7 +103,7 @@ namespace QLogicaeCppCore
         _reset();
 
         return
-            ValueCache::boolean_1;
+            cache_boolean_1;
     }
 
     double
@@ -144,7 +178,7 @@ namespace QLogicaeCppCore
     {
         try
         {
-            ValueCache::boolean_1 =
+            cache_boolean_1 =
                 true;
         }
         catch
@@ -166,7 +200,7 @@ namespace QLogicaeCppCore
     {
         try
         {
-            ValueCache::boolean_1 =
+            cache_boolean_1 =
                 true;
         }
         catch

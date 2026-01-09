@@ -4,10 +4,22 @@
 #include "error_manager_configurations.hpp"
 
 namespace QLogicaeCppCore
-{
+{    
     class ErrorManager
     {
-    public:        
+    public:   
+        static bool
+            cache_boolean_1;
+
+        static std::string
+            cache_error_log;
+
+        static fast_io::native_io_observer
+            cache_fast_io_error_console_output_type;
+
+        static ErrorManager&
+            singleton;
+
         ErrorManager();
 
         ~ErrorManager();
@@ -92,23 +104,5 @@ namespace QLogicaeCppCore
 
         void
             _handle();
-    };    
-
-    inline static bool
-        ErrorManager__cache_is_successful =
-            false;
-
-    inline static std::string
-        ErrorManager__cache_error_log =
-            "";
-
-    inline static fast_io::native_io_observer
-        ErrorManager__cache_fast_io_error_console_output_type =
-            fast_io::err();
-    
-    inline static ErrorManager&
-        ErrorManager__singleton =
-            SingletonManager::get_singleton<ErrorManager>();
-    
-
+    };        
 }
