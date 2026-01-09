@@ -158,6 +158,7 @@
     <ClInclude Include="qlogicae_cpp_core_test\includes\error_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core_test\includes\results.hpp" />
     <ClInclude Include="qlogicae_cpp_core_test\includes\singleton_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core_test\includes\temperature_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core_test\resources\application.h" />
   </ItemGroup>
   <ItemGroup>
@@ -174,6 +175,7 @@
     <ClCompile Include="qlogicae_cpp_core_test\sources\mutex_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core_test\sources\results.cpp" />
     <ClCompile Include="qlogicae_cpp_core_test\sources\singleton_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core_test\sources\temperature_manager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
