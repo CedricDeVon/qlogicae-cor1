@@ -201,6 +201,9 @@
     <ClInclude Include="qlogicae_cpp_core\includes\file_system_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\file_system_manager_configurations.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\file_system_manager_utilities.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\interval_clock.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\interval_clock_configurations.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\interval_clock_utilities.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\mutex_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\mutex_manager_configurations.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\mutex_manager_utilities.hpp" />
@@ -218,6 +221,17 @@
     <ClInclude Include="qlogicae_cpp_core\includes\temperature_manager_configurations.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\temperature_manager_utilities.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\temperature_unit_type.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\timeout_clock.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\timeout_clock_configurations.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\timeout_clock_utilities.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\time_delay_clock.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\time_delay_clock_configurations.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\time_delay_clock_utilities.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\time_format.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\time_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\time_manager_utilities.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\time_scale_unit.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\time_zone.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\valid_mutex_lock.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\value_cache.hpp" />
   </ItemGroup>
@@ -237,6 +251,9 @@
     <ClCompile Include="qlogicae_cpp_core\sources\file_system_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\file_system_manager_configurations.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\file_system_manager_utilities.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\interval_clock.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\interval_clock_configurations.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\interval_clock_utilities.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\mutex_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\mutex_manager_configurations.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\mutex_manager_utilities.cpp" />
@@ -254,6 +271,17 @@
     <ClCompile Include="qlogicae_cpp_core\sources\temperature_manager_configurations.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\temperature_manager_utilities.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\temperature_unit_type.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\timeout_clock.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\timeout_clock_configurations.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\timeout_clock_utilities.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\time_delay_clock.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\time_delay_clock_configurations.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\time_delay_clock_utilities.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\time_format.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\time_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\time_manager_utilities.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\time_scale_unit.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\time_zone.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\valid_mutex_lock.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\value_cache.cpp" />
   </ItemGroup>

@@ -154,7 +154,42 @@ namespace QLogicaeCppCore
 
 
 
+        static bool
+            cache_boolean_1;
+
         static ErrorManagerConfigurations
             cache;
+
+
+
+        static bool
+            construct();
+
+        static bool
+            destruct();
+
+        static bool
+            setup(
+                const ErrorManagerConfigurations&
+                    new_configurations
+            );
+
+        static bool
+            setup();
+
+        static bool
+            reset();
+
+        static void
+            _handle_construct();
+
+        static void
+            _handle_destruct();
+
+        static void
+            _handle_setup();
+
+        static void
+            _handle_reset();
     };    
 }

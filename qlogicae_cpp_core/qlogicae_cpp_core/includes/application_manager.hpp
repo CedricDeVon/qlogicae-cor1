@@ -41,25 +41,25 @@ namespace QLogicaeCppCore
         bool
             construct();
 
-        void
-            _construct();
-
         bool
             destruct();
 
-        void
-            _destruct();
-
         bool
             setup();
-
-        void
-            _setup();
 
         bool
             reset();
 
         void
-            _reset();
+            _handle_construct();
+
+        void
+            _handle_destruct();
+
+        void
+            _handle_setup();
+
+        void
+            _handle_reset();
     };
 }

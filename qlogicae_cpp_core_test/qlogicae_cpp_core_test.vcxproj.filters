@@ -25,6 +25,7 @@
     <ClInclude Include="qlogicae_cpp_core_test\includes\error_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core_test\includes\asynchronous_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core_test\includes\temperature_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core_test\includes\mutex_manager.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

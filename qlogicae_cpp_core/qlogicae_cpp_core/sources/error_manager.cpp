@@ -26,7 +26,7 @@ namespace QLogicaeCppCore
     {        
         try
         {
-            _construct();
+            _handle_construct();
         }
         catch
         (
@@ -45,7 +45,7 @@ namespace QLogicaeCppCore
     {
         try
         {
-            _destruct();
+            _handle_destruct();
         }
         catch
         (
@@ -63,16 +63,18 @@ namespace QLogicaeCppCore
     bool
         ErrorManager::construct()
     {
-        _construct();
+        _handle_construct();
 
         return cache_boolean_1;
     }
 
     void
-        ErrorManager::_construct()
+        ErrorManager::_handle_construct()
     {
         try
-        {            
+        {           
+            ErrorManagerConfigurations::_handle_construct();
+
             cache_boolean_1 =
                 true;
         }
@@ -92,16 +94,18 @@ namespace QLogicaeCppCore
     bool
         ErrorManager::destruct()
     {
-        _destruct();
+        _handle_destruct();
 
         return cache_boolean_1;
     }
 
     void
-        ErrorManager::_destruct()
+        ErrorManager::_handle_destruct()
     {
         try
         {
+            ErrorManagerConfigurations::_handle_destruct();
+
             cache_boolean_1 =
                 true;
         }
@@ -127,7 +131,7 @@ namespace QLogicaeCppCore
         ErrorManagerConfigurations::cache =
             new_configurations;
 
-        _setup();
+        _handle_setup();
 
         return cache_boolean_1;
     }
@@ -138,59 +142,17 @@ namespace QLogicaeCppCore
         ErrorManagerConfigurations::cache =
             {};
 
-        _setup();
+        _handle_setup();
 
         return cache_boolean_1;
     }
 
     void
-        ErrorManager::_setup()
+        ErrorManager::_handle_setup()
     {
         try
         {
-            ErrorManagerConfigurations::default_is_enabled =
-                ErrorManagerConfigurations::cache_is_enabled =
-                ErrorManagerConfigurations::cache.is_enabled;
-
-            ErrorManagerConfigurations::default_is_console_output_enabled =
-                ErrorManagerConfigurations::cache_is_console_output_enabled =
-                ErrorManagerConfigurations::cache.is_console_output_enabled;
-
-            ErrorManagerConfigurations::default_is_file_output_enabled =
-                ErrorManagerConfigurations::cache_is_file_output_enabled =
-                ErrorManagerConfigurations::cache.is_file_output_enabled;
-
-            ErrorManagerConfigurations::default_is_gui_output_enabled =
-                ErrorManagerConfigurations::cache_is_gui_output_enabled =
-                ErrorManagerConfigurations::cache.is_gui_output_enabled;
-
-            ErrorManagerConfigurations::default_is_runtime_throw_output_enabled =
-                ErrorManagerConfigurations::cache_is_runtime_throw_output_enabled =
-                ErrorManagerConfigurations::cache.is_runtime_throw_output_enabled;
-
-            ErrorManagerConfigurations::default_is_asynchronous_output_enabled =
-                ErrorManagerConfigurations::cache_is_asynchronous_output_enabled =
-                ErrorManagerConfigurations::cache.is_asynchronous_output_enabled;
-
-            ErrorManagerConfigurations::default_is_asynchronous_console_output_enabled =
-                ErrorManagerConfigurations::cache_is_asynchronous_console_output_enabled =
-                ErrorManagerConfigurations::cache.is_asynchronous_console_output_enabled;
-
-            ErrorManagerConfigurations::default_is_asynchronous_file_output_enabled =
-                ErrorManagerConfigurations::cache_is_asynchronous_file_output_enabled =
-                ErrorManagerConfigurations::cache.is_asynchronous_file_output_enabled;
-
-            ErrorManagerConfigurations::default_is_asynchronous_gui_output_enabled =
-                ErrorManagerConfigurations::cache_is_asynchronous_gui_output_enabled =
-                ErrorManagerConfigurations::cache.is_asynchronous_gui_output_enabled;
-
-            ErrorManagerConfigurations::default_is_asynchronous_runtime_throw_output_enabled =
-                ErrorManagerConfigurations::cache_is_asynchronous_runtime_throw_output_enabled =
-                ErrorManagerConfigurations::cache.is_asynchronous_runtime_throw_output_enabled;
-
-            ErrorManagerConfigurations::default_full_file_output_paths =
-                ErrorManagerConfigurations::cache_full_file_output_paths =
-                ErrorManagerConfigurations::cache.full_file_output_paths;
+            ErrorManagerConfigurations::_handle_setup();
 
             cache_boolean_1 =
                 true;
@@ -211,59 +173,17 @@ namespace QLogicaeCppCore
     bool
         ErrorManager::reset()
     {
-        _reset();
+        _handle_reset();
 
         return cache_boolean_1;
     }
 
     void
-        ErrorManager::_reset()
+        ErrorManager::_handle_reset()
     {
         try
         {
-            ErrorManagerConfigurations::default_is_enabled =
-                ErrorManagerConfigurations::cache_is_enabled =
-                ErrorManagerConfigurations::initial_is_enabled;
-
-            ErrorManagerConfigurations::default_is_console_output_enabled =
-                ErrorManagerConfigurations::cache_is_console_output_enabled =
-                ErrorManagerConfigurations::initial_is_console_output_enabled;
-
-            ErrorManagerConfigurations::default_is_file_output_enabled =
-                ErrorManagerConfigurations::cache_is_file_output_enabled =
-                ErrorManagerConfigurations::initial_is_file_output_enabled;
-
-            ErrorManagerConfigurations::default_is_gui_output_enabled =
-                ErrorManagerConfigurations::cache_is_gui_output_enabled =
-                ErrorManagerConfigurations::initial_is_gui_output_enabled;
-
-            ErrorManagerConfigurations::default_is_runtime_throw_output_enabled =
-                ErrorManagerConfigurations::cache_is_runtime_throw_output_enabled =
-                ErrorManagerConfigurations::initial_is_runtime_throw_output_enabled;
-
-            ErrorManagerConfigurations::default_is_asynchronous_output_enabled =
-                ErrorManagerConfigurations::cache_is_asynchronous_output_enabled =
-                ErrorManagerConfigurations::initial_is_asynchronous_output_enabled;
-
-            ErrorManagerConfigurations::default_is_asynchronous_console_output_enabled =
-                ErrorManagerConfigurations::cache_is_asynchronous_console_output_enabled =
-                ErrorManagerConfigurations::initial_is_asynchronous_console_output_enabled;
-
-            ErrorManagerConfigurations::default_is_asynchronous_file_output_enabled =
-                ErrorManagerConfigurations::cache_is_asynchronous_file_output_enabled =
-                ErrorManagerConfigurations::initial_is_asynchronous_file_output_enabled;
-
-            ErrorManagerConfigurations::default_is_asynchronous_gui_output_enabled =
-                ErrorManagerConfigurations::cache_is_asynchronous_gui_output_enabled =
-                ErrorManagerConfigurations::initial_is_asynchronous_gui_output_enabled;
-
-            ErrorManagerConfigurations::default_is_asynchronous_runtime_throw_output_enabled =
-                ErrorManagerConfigurations::cache_is_asynchronous_runtime_throw_output_enabled =
-                ErrorManagerConfigurations::initial_is_asynchronous_runtime_throw_output_enabled;
-
-            ErrorManagerConfigurations::default_full_file_output_paths =
-                ErrorManagerConfigurations::cache_full_file_output_paths =
-                ErrorManagerConfigurations::initial_full_file_output_paths;
+            ErrorManagerConfigurations::_handle_reset();
 
             cache_boolean_1 =
                 true;

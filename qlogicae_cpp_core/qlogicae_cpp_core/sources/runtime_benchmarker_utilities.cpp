@@ -18,7 +18,7 @@ namespace QLogicaeCppCore
     {
         try
         {
-            _construct();
+            _handle_construct();
         }
         catch
         (
@@ -38,7 +38,7 @@ namespace QLogicaeCppCore
     {
         try
         {
-            _destruct();
+            _handle_destruct();
         }
         catch
         (
@@ -57,18 +57,18 @@ namespace QLogicaeCppCore
     bool
         RuntimeBenchmarkerUtilities::construct()
     {
-        _construct();
+        _handle_construct();
 
         return
-            RuntimeBenchmarkerUtilities::cache_boolean_1;
+            cache_boolean_1;
     }
 
     void
-        RuntimeBenchmarkerUtilities::_construct()
+        RuntimeBenchmarkerUtilities::_handle_construct()
     {
         try
         {
-            RuntimeBenchmarkerUtilities::cache_boolean_1 =
+            cache_boolean_1 =
                 true;
         }
         catch
@@ -88,18 +88,18 @@ namespace QLogicaeCppCore
     bool
         RuntimeBenchmarkerUtilities::destruct()
     {
-        _destruct();
+        _handle_destruct();
 
         return
-            RuntimeBenchmarkerUtilities::cache_boolean_1;
+            cache_boolean_1;
     }
 
     void
-        RuntimeBenchmarkerUtilities::_destruct()
+        RuntimeBenchmarkerUtilities::_handle_destruct()
     {
         try
         {
-            RuntimeBenchmarkerUtilities::cache_boolean_1 =
+            cache_boolean_1 =
                 true;
         }
         catch
@@ -119,18 +119,18 @@ namespace QLogicaeCppCore
     bool
         RuntimeBenchmarkerUtilities::setup()
     {
-        _setup();
+        _handle_setup();
 
         return
-            RuntimeBenchmarkerUtilities::cache_boolean_1;
+            cache_boolean_1;
     }
 
     void
-        RuntimeBenchmarkerUtilities::_setup()
+        RuntimeBenchmarkerUtilities::_handle_setup()
     {
         try
         {
-            RuntimeBenchmarkerUtilities::cache_boolean_1 =
+            cache_boolean_1 =
                 true;
         }
         catch
@@ -150,18 +150,18 @@ namespace QLogicaeCppCore
     bool
         RuntimeBenchmarkerUtilities::reset()
     {
-        _reset();
+        _handle_reset();
 
         return
-            RuntimeBenchmarkerUtilities::cache_boolean_1;
+            cache_boolean_1;
     }
 
     void
-        RuntimeBenchmarkerUtilities::_reset()
+        RuntimeBenchmarkerUtilities::_handle_reset()
     {
         try
         {
-            RuntimeBenchmarkerUtilities::cache_boolean_1 =
+            cache_boolean_1 =
                 true;
         }
         catch

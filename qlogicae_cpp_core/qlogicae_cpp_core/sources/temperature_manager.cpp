@@ -16,7 +16,7 @@ namespace QLogicaeCppCore
     {
         try
         {
-            _construct();
+            _handle_construct();
         }
         catch
         (
@@ -36,7 +36,7 @@ namespace QLogicaeCppCore
     {
         try
         {
-            _destruct();
+            _handle_destruct();
         }
         catch
         (
@@ -55,7 +55,7 @@ namespace QLogicaeCppCore
     bool
         TemperatureManager::construct()
     {
-        _construct();
+        _handle_construct();
 
         return
             cache_boolean_1;
@@ -64,7 +64,7 @@ namespace QLogicaeCppCore
     bool
         TemperatureManager::destruct()
     {
-        _destruct();
+        _handle_destruct();
 
         return
             cache_boolean_1;
@@ -79,7 +79,7 @@ namespace QLogicaeCppCore
         TemperatureManagerConfigurations::cache =
             new_configurations;
 
-        _setup();
+        _handle_setup();
 
         return
             cache_boolean_1;
@@ -91,7 +91,7 @@ namespace QLogicaeCppCore
         TemperatureManagerConfigurations::cache =
             {};
 
-        _setup();
+        _handle_setup();
 
         return
             cache_boolean_1;
@@ -100,7 +100,7 @@ namespace QLogicaeCppCore
     bool
         TemperatureManager::reset()
     {
-        _reset();
+        _handle_reset();
 
         return
             cache_boolean_1;
@@ -125,7 +125,7 @@ namespace QLogicaeCppCore
         TemperatureManagerConfigurations::cache_to_unit_type =
             to_unit_type;
 
-        _calculate();
+        _handle_calculate();
 
         return
             TemperatureManagerConfigurations::cache_value;
@@ -146,7 +146,7 @@ namespace QLogicaeCppCore
         TemperatureManagerConfigurations::cache_to_unit_type =
             TemperatureManagerConfigurations::default_to_unit_type;
 
-        _calculate();
+        _handle_calculate();
 
         return
             TemperatureManagerConfigurations::cache_value;
@@ -167,14 +167,14 @@ namespace QLogicaeCppCore
         TemperatureManagerConfigurations::cache_to_unit_type =
             TemperatureManagerConfigurations::default_to_unit_type;
 
-        _calculate();
+        _handle_calculate();
 
         return
             TemperatureManagerConfigurations::cache_value;
     }
 
     void
-        TemperatureManager::_construct()
+        TemperatureManager::_handle_construct()
     {
         try
         {
@@ -196,7 +196,7 @@ namespace QLogicaeCppCore
     }
 
     void
-        TemperatureManager::_destruct()
+        TemperatureManager::_handle_destruct()
     {
         try
         {
@@ -218,12 +218,12 @@ namespace QLogicaeCppCore
     }
 
     void
-        TemperatureManager::_setup()
+        TemperatureManager::_handle_setup()
     {
         try
         {
             TemperatureManagerUtilities::singleton
-                ._setup();
+                ._handle_setup();
         }
         catch
         (
@@ -240,12 +240,12 @@ namespace QLogicaeCppCore
     }
 
     void
-        TemperatureManager::_reset()
+        TemperatureManager::_handle_reset()
     {
         try
         {
             TemperatureManagerUtilities::singleton
-                ._reset();
+                ._handle_reset();
         }
         catch
         (
@@ -262,7 +262,7 @@ namespace QLogicaeCppCore
     }
 
     void
-        TemperatureManager::_calculate()
+        TemperatureManager::_handle_calculate()
     {
         try
         {

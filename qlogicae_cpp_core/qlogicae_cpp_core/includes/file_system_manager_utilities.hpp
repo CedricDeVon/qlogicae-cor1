@@ -1,6 +1,5 @@
 #pragma once
 
-#include "value_cache.hpp"
 #include "error_manager.hpp"
 #include "singleton_manager.hpp"
 #include "file_system_manager_configurations.hpp"
@@ -124,6 +123,21 @@ namespace QLogicaeCppCore
         static wchar_t
             cache_wchar_t_buffer[MAX_PATH];
 
+        static bool
+            cache_boolean_1;
+
+        static int
+            cache_int_1;
+
+        static std::string
+            cache_string_1;
+
+        static std::wstring
+            cache_wstring_1;
+
+        static wchar_t*
+            cache_wchar_t_pointer_1;
+
         static FileSystemManagerUtilities&
             singleton;
 
@@ -185,31 +199,31 @@ namespace QLogicaeCppCore
             get_roaming_app_data_folder_path();
 
         void
-            _construct();
+            _handle_construct();
 
         void
-            _destruct();
+            _handle_destruct();
 
         void
-            _setup();
+            _handle_setup();
 
         void
-            _reset();
+            _handle_reset();
 
         void
-            _get_executable_folder_path();
+            _handle_get_executable_folder_path();
 
         void
-            _get_executed_folder_path();
+            _handle_get_executed_folder_path();
 
         void
-            _get_program_data_folder_path();
+            _handle_get_program_data_folder_path();
 
         void
-            _get_local_app_data_folder_path();
+            _handle_get_local_app_data_folder_path();
 
         void
-            _get_roaming_app_data_folder_path();
+            _handle_get_roaming_app_data_folder_path();
 
     };
 }

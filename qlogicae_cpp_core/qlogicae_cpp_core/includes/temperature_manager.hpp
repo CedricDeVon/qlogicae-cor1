@@ -82,18 +82,18 @@ namespace QLogicaeCppCore
             );
 
         void
-            _construct();
+            _handle_construct();
 
         void
-            _destruct();
+            _handle_destruct();
 
         void
-            _setup();
+            _handle_setup();
 
         void
-            _reset();
+            _handle_reset();
 
         void
-            _calculate();
+            _handle_calculate();
     };
 }

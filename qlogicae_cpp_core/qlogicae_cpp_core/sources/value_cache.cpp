@@ -1340,7 +1340,7 @@ namespace QLogicaeCppCore
     {
         try
         {
-            _construct();
+            _handle_construct();
         }
         catch
         (
@@ -1360,7 +1360,7 @@ namespace QLogicaeCppCore
     {
         try
         {
-            _destruct();
+            _handle_destruct();
         }
         catch
         (
@@ -1379,14 +1379,14 @@ namespace QLogicaeCppCore
     bool
         ValueCache::construct()
     {
-        _construct();
+        _handle_construct();
 
         return
             ValueCache::boolean_1;
     }
 
     void
-        ValueCache::_construct()
+        ValueCache::_handle_construct()
     {
         try
         {
@@ -1410,14 +1410,14 @@ namespace QLogicaeCppCore
     bool
         ValueCache::destruct()
     {
-        _destruct();
+        _handle_destruct();
 
         return
             boolean_1;
     }
 
     void
-        ValueCache::_destruct()
+        ValueCache::_handle_destruct()
     {
         try
         {
@@ -1441,14 +1441,14 @@ namespace QLogicaeCppCore
     bool
         ValueCache::setup()
     {
-        _setup();
+        _handle_setup();
 
         return
             boolean_1;
     }
 
     void
-        ValueCache::_setup()
+        ValueCache::_handle_setup()
     {
         try
         {
@@ -1472,14 +1472,14 @@ namespace QLogicaeCppCore
     bool
         ValueCache::reset()
     {
-        _reset();
+        _handle_reset();
 
         return
             boolean_1;
     }
 
     void
-        ValueCache::_reset()
+        ValueCache::_handle_reset()
     {
         try
         {

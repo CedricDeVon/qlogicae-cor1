@@ -153,6 +153,26 @@ namespace QLogicaeCppCore
     wchar_t
         FileSystemManagerUtilities::cache_wchar_t_buffer[MAX_PATH];
 
+    bool
+        FileSystemManagerUtilities::cache_boolean_1 =
+            false;
+
+    int
+        FileSystemManagerUtilities::cache_int_1 =
+            0;
+
+    std::string
+        FileSystemManagerUtilities::cache_string_1 =
+            "";
+
+    std::wstring
+        FileSystemManagerUtilities::cache_wstring_1 =
+            L"";
+
+    wchar_t*
+        FileSystemManagerUtilities::cache_wchar_t_pointer_1 =
+            nullptr;
+
 
     FileSystemManagerUtilities&
         FileSystemManagerUtilities::singleton =
@@ -160,55 +180,79 @@ namespace QLogicaeCppCore
 
     FileSystemManagerUtilities::FileSystemManagerUtilities()
     {
-        _construct();
+        try
+        {
+            _handle_construct();
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+            ErrorManager::cache_error_log =
+                exception.what();
+
+            ErrorManager::singleton
+                ._handle();
+        }        
     }
 
     FileSystemManagerUtilities::~FileSystemManagerUtilities()
     {
-        _destruct();
+        try
+        {
+            _handle_destruct();
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+            ErrorManager::cache_error_log =
+                exception.what();
+
+            ErrorManager::singleton
+                ._handle();
+        }        
     }
 
     bool
         FileSystemManagerUtilities::construct()
     {
-        _construct();
+        _handle_construct();
 
         return
-            ValueCache::boolean_1;
+            cache_boolean_1;
     }
 
     void
-        FileSystemManagerUtilities::_construct()
+        FileSystemManagerUtilities::_handle_construct()
     {
         try
         {
-            _get_executable_folder_path();
+            _handle_get_executable_folder_path();
             full_executable_folder_path =
-                ValueCache::string_1;
+                cache_string_1;
 
-            _get_executed_folder_path();
+            _handle_get_executed_folder_path();
             full_executed_folder_path =
-                ValueCache::string_1;
+                cache_string_1;
 
-            _get_roaming_app_data_folder_path();
+            _handle_get_roaming_app_data_folder_path();
             full_roaming_app_data_folder_path =
-                ValueCache::string_1;
+                cache_string_1;
 
-            _get_local_app_data_folder_path();
+            _handle_get_local_app_data_folder_path();
             full_local_app_data_folder_path =
-                ValueCache::string_1;
+                cache_string_1;
 
-            _get_program_data_folder_path();
+            _handle_get_program_data_folder_path();
             full_program_data_folder_path =
-                ValueCache::string_1;
+                cache_string_1;
 
-            std::cout << full_executable_folder_path << "\n";
-            std::cout << full_executed_folder_path << "\n";
-            std::cout << full_roaming_app_data_folder_path << "\n";
-            std::cout << full_local_app_data_folder_path << "\n";
-            std::cout << full_program_data_folder_path << "\n";
-
-            ValueCache::boolean_1 =
+            cache_boolean_1 =
                 true;
         }
         catch
@@ -228,18 +272,18 @@ namespace QLogicaeCppCore
     bool
         FileSystemManagerUtilities::destruct()
     {
-        _destruct();
+        _handle_destruct();
 
         return
-            ValueCache::boolean_1;
+            cache_boolean_1;
     }
 
     void
-        FileSystemManagerUtilities::_destruct()
+        FileSystemManagerUtilities::_handle_destruct()
     {
         try
         {
-            ValueCache::boolean_1 =
+            cache_boolean_1 =
                 true;
         }
         catch
@@ -265,10 +309,10 @@ namespace QLogicaeCppCore
         FileSystemManagerConfigurations::cache =
             new_configurations;
 
-        _setup();
+        _handle_setup();
 
         return
-            ValueCache::boolean_1;
+            cache_boolean_1;
     }
 
     bool
@@ -277,18 +321,20 @@ namespace QLogicaeCppCore
         FileSystemManagerConfigurations::cache =
             {};
 
-        _setup();
+        _handle_setup();
 
         return
-            ValueCache::boolean_1;
+            cache_boolean_1;
     }
 
     void
-        FileSystemManagerUtilities::_setup()
+        FileSystemManagerUtilities::_handle_setup()
     {
         try
         {
-            ValueCache::boolean_1 =
+            FileSystemManagerConfigurations::_handle_setup();
+
+            cache_boolean_1 =
                 true;
         }
         catch
@@ -308,18 +354,20 @@ namespace QLogicaeCppCore
     bool
         FileSystemManagerUtilities::reset()
     {
-        _reset();
+        _handle_reset();
 
         return
-            ValueCache::boolean_1;
+            cache_boolean_1;
     }
 
     void
-        FileSystemManagerUtilities::_reset()
+        FileSystemManagerUtilities::_handle_reset()
     {
         try
         {
-            ValueCache::boolean_1 =
+            FileSystemManagerConfigurations::_handle_reset();
+
+            cache_boolean_1 =
                 true;
         }
         catch
@@ -339,14 +387,14 @@ namespace QLogicaeCppCore
     std::string
         FileSystemManagerUtilities::get_executable_folder_path()
     {
-        _get_executable_folder_path();
+        _handle_get_executable_folder_path();
 
         return
-            ValueCache::string_1;
+            cache_string_1;
     }
 
     void
-        FileSystemManagerUtilities::_get_executable_folder_path()
+        FileSystemManagerUtilities::_handle_get_executable_folder_path()
     {
         try
         {            
@@ -361,7 +409,7 @@ namespace QLogicaeCppCore
                 cache_dword_path_length == MAX_PATH
                 )
             {
-                ValueCache::string_1 =
+                cache_string_1 =
                     "";
 
                 return;
@@ -371,22 +419,22 @@ namespace QLogicaeCppCore
                 std::filesystem::path(cache_wchar_t_buffer)
                     .parent_path();
 
-            ValueCache::wstring_1 =
+            cache_wstring_1 =
                 cache_directory_path.wstring();
             
-            if (ValueCache::wstring_1.empty())
+            if (cache_wstring_1.empty())
             {
-                ValueCache::string_1 =
+                cache_string_1 =
                     "";
 
                 return;
             }
 
-            ValueCache::int_1 =
+            cache_int_1 =
                 WideCharToMultiByte(
                     CP_UTF8,
                     0,
-                    ValueCache::wstring_1.data(),
+                    cache_wstring_1.data(),
                     -1,
                     nullptr,
                     0,
@@ -394,18 +442,18 @@ namespace QLogicaeCppCore
                     nullptr
                 );
 
-            ValueCache::string_1 = std::string(
-                ValueCache::int_1 - 1,
+            cache_string_1 = std::string(
+                cache_int_1 - 1,
                 0
             );
 
             WideCharToMultiByte(
                 CP_UTF8,
                 0,
-                ValueCache::wstring_1.data(),
+                cache_wstring_1.data(),
                 -1,
-                ValueCache::string_1.data(),
-                ValueCache::int_1,
+                cache_string_1.data(),
+                cache_int_1,
                 nullptr,
                 nullptr
             );            
@@ -427,14 +475,14 @@ namespace QLogicaeCppCore
     std::string
         FileSystemManagerUtilities::get_executed_folder_path()
     {
-        _get_executed_folder_path();
+        _handle_get_executed_folder_path();
 
         return
-            ValueCache::string_1;
+            cache_string_1;
     }
 
     void
-        FileSystemManagerUtilities::_get_executed_folder_path()
+        FileSystemManagerUtilities::_handle_get_executed_folder_path()
     {
         try
         {
@@ -444,7 +492,7 @@ namespace QLogicaeCppCore
                     nullptr
                 );
 
-            ValueCache::string_1 =
+            cache_string_1 =
                 std::string(
                     cache_dword_path_length,
                     '\0'
@@ -452,10 +500,10 @@ namespace QLogicaeCppCore
 
             GetCurrentDirectoryA(
                 cache_dword_path_length,
-                ValueCache::string_1.data()
+                cache_string_1.data()
             );
             
-            ValueCache::string_1
+            cache_string_1
                 .pop_back();
         }
         catch
@@ -475,14 +523,14 @@ namespace QLogicaeCppCore
     std::string
         FileSystemManagerUtilities::get_program_data_folder_path()
     {
-        _get_program_data_folder_path();
+        _handle_get_program_data_folder_path();
 
         return
-            ValueCache::string_1;
+            cache_string_1;
     }
 
     void
-        FileSystemManagerUtilities::_get_program_data_folder_path()
+        FileSystemManagerUtilities::_handle_get_program_data_folder_path()
     {
         try
         {
@@ -491,22 +539,22 @@ namespace QLogicaeCppCore
                     FOLDERID_ProgramData,
                     0,
                     NULL,
-                    &ValueCache::wchar_t_pointer_1)
+                    &cache_wchar_t_pointer_1)
             ))
             {
-                ValueCache::wstring_1.assign(
-                    ValueCache::wchar_t_pointer_1
+                cache_wstring_1.assign(
+                    cache_wchar_t_pointer_1
                 );
                 CoTaskMemFree(
-                    ValueCache::wchar_t_pointer_1
+                    cache_wchar_t_pointer_1
                 );
             }
 
-            ValueCache::int_1 =
+            cache_int_1 =
                 WideCharToMultiByte(
                     CP_UTF8,
                     0,
-                    ValueCache::wstring_1.data(),
+                    cache_wstring_1.data(),
                     -1,
                     nullptr,
                     0,
@@ -514,23 +562,23 @@ namespace QLogicaeCppCore
                     nullptr
                 );
 
-            ValueCache::string_1 = std::string(
-                ValueCache::int_1,
+            cache_string_1 = std::string(
+                cache_int_1,
                 0
             );
 
             WideCharToMultiByte(
                 CP_UTF8,
                 0,
-                ValueCache::wstring_1.data(),
+                cache_wstring_1.data(),
                 -1,
-                &ValueCache::string_1[0],
-                ValueCache::int_1,
+                &cache_string_1[0],
+                cache_int_1,
                 nullptr,
                 nullptr
             );
             
-            ValueCache::string_1
+            cache_string_1
                 .pop_back();
         }
         catch
@@ -550,14 +598,14 @@ namespace QLogicaeCppCore
     std::string
         FileSystemManagerUtilities::get_local_app_data_folder_path()
     {
-        _get_local_app_data_folder_path();
+        _handle_get_local_app_data_folder_path();
 
         return
-            ValueCache::string_1;
+            cache_string_1;
     }
 
     void
-        FileSystemManagerUtilities::_get_local_app_data_folder_path()
+        FileSystemManagerUtilities::_handle_get_local_app_data_folder_path()
     {
         try
         {
@@ -565,22 +613,22 @@ namespace QLogicaeCppCore
                 FOLDERID_LocalAppData,
                 0,
                 NULL,
-                &ValueCache::wchar_t_pointer_1))
+                &cache_wchar_t_pointer_1))
             )
             {
-                ValueCache::wstring_1.assign(
-                    ValueCache::wchar_t_pointer_1
+                cache_wstring_1.assign(
+                    cache_wchar_t_pointer_1
                 );
                 CoTaskMemFree(
-                    ValueCache::wchar_t_pointer_1
+                    cache_wchar_t_pointer_1
                 );
             }
 
-            ValueCache::int_1 =
+            cache_int_1 =
                 WideCharToMultiByte(
                     CP_UTF8,
                     0,
-                    ValueCache::wstring_1.data(),
+                    cache_wstring_1.data(),
                     -1,
                     nullptr,
                     0,
@@ -588,24 +636,24 @@ namespace QLogicaeCppCore
                     nullptr
                 );
 
-            ValueCache::string_1 =
+            cache_string_1 =
                 std::string(
-                    ValueCache::int_1,
+                    cache_int_1,
                     0
                 );
 
             WideCharToMultiByte(
                 CP_UTF8,
                 0,
-                ValueCache::wstring_1.data(),
+                cache_wstring_1.data(),
                 -1,
-                &ValueCache::string_1[0],
-                ValueCache::int_1,
+                &cache_string_1[0],
+                cache_int_1,
                 nullptr,
                 nullptr
             );
 
-            ValueCache::string_1
+            cache_string_1
                 .pop_back();
         }
         catch
@@ -625,14 +673,14 @@ namespace QLogicaeCppCore
     std::string
         FileSystemManagerUtilities::get_roaming_app_data_folder_path()
     {
-        _get_roaming_app_data_folder_path();
+        _handle_get_roaming_app_data_folder_path();
 
         return
-            ValueCache::string_1;
+            cache_string_1;
     }
 
     void
-        FileSystemManagerUtilities::_get_roaming_app_data_folder_path()
+        FileSystemManagerUtilities::_handle_get_roaming_app_data_folder_path()
     {
         try
         {
@@ -640,24 +688,24 @@ namespace QLogicaeCppCore
                 FOLDERID_RoamingAppData,
                 0,
                 NULL,
-                &ValueCache::wchar_t_pointer_1
+                &cache_wchar_t_pointer_1
             )
             ))
             {
-                ValueCache::wstring_1.assign(
-                    ValueCache::wchar_t_pointer_1
+                cache_wstring_1.assign(
+                    cache_wchar_t_pointer_1
                 );
                 
                 CoTaskMemFree(
-                    ValueCache::wchar_t_pointer_1
+                    cache_wchar_t_pointer_1
                 );
             }
 
-            ValueCache::int_1 =
+            cache_int_1 =
                 WideCharToMultiByte(
                     CP_UTF8,
                     0,
-                    ValueCache::wstring_1.data(),
+                    cache_wstring_1.data(),
                     -1,
                     nullptr,
                     0,
@@ -665,23 +713,23 @@ namespace QLogicaeCppCore
                     nullptr
                 );
 
-            ValueCache::string_1 = std::string(
-                ValueCache::int_1,
+            cache_string_1 = std::string(
+                cache_int_1,
                 0
             );
 
             WideCharToMultiByte(
                 CP_UTF8,
                 0,
-                ValueCache::wstring_1.data(),
+                cache_wstring_1.data(),
                 -1,
-                &ValueCache::string_1[0],
-                ValueCache::int_1,
+                &cache_string_1[0],
+                cache_int_1,
                 nullptr,
                 nullptr
             );
 
-            ValueCache::string_1
+            cache_string_1
                 .pop_back();
         }
         catch

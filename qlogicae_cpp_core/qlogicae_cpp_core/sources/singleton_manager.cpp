@@ -24,7 +24,7 @@ namespace QLogicaeCppCore
     {                
         try
         {
-            _construct();
+            _handle_construct();
         }
         catch
         (
@@ -43,7 +43,7 @@ namespace QLogicaeCppCore
     {
         try
         {
-            _destruct();
+            _handle_destruct();
         }
         catch
         (
@@ -61,7 +61,7 @@ namespace QLogicaeCppCore
     bool
         SingletonManager::construct()
     {
-        _construct();
+        _handle_construct();
 
         return
             SingletonManager::cache_boolean_1;
@@ -70,7 +70,7 @@ namespace QLogicaeCppCore
     bool
         SingletonManager::destruct()
     {
-        _destruct();
+        _handle_destruct();
 
         return
             SingletonManager::cache_boolean_1;
@@ -85,7 +85,7 @@ namespace QLogicaeCppCore
         SingletonManagerConfigurations::cache =
             new_configurations;
 
-        _setup();
+        _handle_setup();
 
         return
             SingletonManager::cache_boolean_1;
@@ -97,7 +97,7 @@ namespace QLogicaeCppCore
         SingletonManagerConfigurations::cache =
             {};
 
-        _setup();
+        _handle_setup();
 
         return
             SingletonManager::cache_boolean_1;
@@ -106,7 +106,7 @@ namespace QLogicaeCppCore
     bool
         SingletonManager::reset()
     {
-        _reset();
+        _handle_reset();
 
         return
             SingletonManager::cache_boolean_1;
@@ -128,10 +128,35 @@ namespace QLogicaeCppCore
     }
 
     void
-        SingletonManager::_construct()
+        SingletonManager::_handle_construct()
     {
         try
         {
+            SingletonManagerConfigurations::_handle_construct();
+
+            SingletonManager::cache_boolean_1 =
+                true;
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {            
+            SingletonManager::cache_error_log =
+                exception.what();
+
+            _handle_error();
+        }
+    }
+
+    void
+        SingletonManager::_handle_destruct()
+    {
+        try
+        {
+            SingletonManagerConfigurations::_handle_destruct();
+
             SingletonManager::cache_boolean_1 =
                 true;
         }
@@ -149,10 +174,12 @@ namespace QLogicaeCppCore
     }
 
     void
-        SingletonManager::_destruct()
+        SingletonManager::_handle_setup()
     {
         try
         {
+            SingletonManagerConfigurations::_handle_setup();
+
             SingletonManager::cache_boolean_1 =
                 true;
         }
@@ -170,31 +197,12 @@ namespace QLogicaeCppCore
     }
 
     void
-        SingletonManager::_setup()
+        SingletonManager::_handle_reset()
     {
         try
         {
-            SingletonManager::cache_boolean_1 =
-                true;
-        }
-        catch
-        (
-            const std::exception&
-                exception
-        )
-        {
-            SingletonManager::cache_error_log =
-                exception.what();
+            SingletonManagerConfigurations::_handle_reset();
 
-            _handle_error();
-        }
-    }
-
-    void
-        SingletonManager::_reset()
-    {
-        try
-        {
             SingletonManager::cache_boolean_1 =
                 true;
         }

@@ -47,14 +47,8 @@ namespace QLogicaeCppCore
         bool
             construct();
 
-        void
-            _construct();
-
         bool
             destruct();
-
-        void
-            _destruct();
 
         bool
             setup(
@@ -65,14 +59,8 @@ namespace QLogicaeCppCore
         bool
             setup();
 
-        void
-            _setup();
-
         bool
             reset();
-
-        void
-            _reset();
 
         bool
             lock_micro_mutex();
@@ -97,9 +85,6 @@ namespace QLogicaeCppCore
                     configurations
             );
 
-        void
-            _lock_micro_mutex();
-
         bool
             unlock_micro_mutex();
 
@@ -111,42 +96,57 @@ namespace QLogicaeCppCore
         bool
             unlock_micro_mutex(
                 const void*
-                    pointer,
+                pointer,
                 const std::string_view&
-                    name
+                name
             );
 
         bool
             unlock_micro_mutex(
                 const MutexManagerConfigurations&
-                    configurations
+                configurations
             );
 
-        void
-            _unlock_micro_mutex();
+        template<typename LockType, typename MutexType> bool
+            lock_mutex(
+                const void*
+                pointer
+            ) requires ValidLock<LockType, MutexType>;
 
         template<typename LockType, typename MutexType> bool
             lock_mutex(
                 const void*
-                    pointer
-            ) requires ValidLock<LockType, MutexType>;
-        
-        template<typename LockType, typename MutexType> bool
-            lock_mutex(
-                const void*
-                    pointer,
+                pointer,
                 const std::string_view&
-                    name
+                name
             ) requires ValidLock<LockType, MutexType>;
 
         template<typename LockType, typename MutexType> bool
             lock_mutex(
                 const MutexManagerConfigurations&
-                    configurations
+                configurations
             ) requires ValidLock<LockType, MutexType>;
 
+        void
+            _handle_construct();
+
+        void
+            _handle_destruct();
+
+        void
+            _handle_setup();
+
+        void
+            _handle_reset();
+
+        void
+            _handle_lock_micro_mutex();
+
+        void
+            _handle_unlock_micro_mutex();
+
         template<typename LockType, typename MutexType> void
-            _lock_mutex()
+            _handle_lock_mutex()
                 requires ValidLock<LockType, MutexType>;
     };
 
@@ -163,7 +163,7 @@ namespace QLogicaeCppCore
         cache_string_view_1 =
             MutexManagerConfigurations::cache_name;
 
-        _lock_mutex<LockType, MutexType>();
+        _handle_lock_mutex<LockType, MutexType>();
 
         return cache_boolean_1;
     }
@@ -182,7 +182,7 @@ namespace QLogicaeCppCore
         cache_string_view_1 =
             name;
 
-        _lock_mutex<LockType, MutexType>();
+        _handle_lock_mutex<LockType, MutexType>();
 
         return cache_boolean_1;
     }
@@ -201,13 +201,13 @@ namespace QLogicaeCppCore
         cache_string_view_1 =
             configurations.name;
 
-        _lock_mutex<LockType, MutexType>();
+        _handle_lock_mutex<LockType, MutexType>();
 
         return cache_boolean_1;
     }
 
     template<typename LockType, typename MutexType> void
-        MutexManager::_lock_mutex(
+        MutexManager::_handle_lock_mutex(
         ) requires ValidLock<LockType, MutexType>
     {
         try

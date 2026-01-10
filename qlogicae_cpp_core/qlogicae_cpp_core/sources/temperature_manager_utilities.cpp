@@ -14,18 +14,18 @@ namespace QLogicaeCppCore
 
     TemperatureManagerUtilities::TemperatureManagerUtilities()
     {
-        _construct();
+        _handle_construct();
     }
 
     TemperatureManagerUtilities::~TemperatureManagerUtilities()
     {
-        _destruct();
+        _handle_destruct();
     }
 
     bool
         TemperatureManagerUtilities::construct()
     {
-        _construct();
+        _handle_construct();
 
         return
             cache_boolean_1;
@@ -34,7 +34,7 @@ namespace QLogicaeCppCore
     bool
         TemperatureManagerUtilities::destruct()
     {
-        _destruct();
+        _handle_destruct();
 
         return
             cache_boolean_1;
@@ -43,13 +43,13 @@ namespace QLogicaeCppCore
     bool
         TemperatureManagerUtilities::setup(
             const TemperatureManagerConfigurations&
-                new_configurations
+            new_configurations
         )
     {
         TemperatureManagerConfigurations::cache =
             new_configurations;
 
-        _setup();
+        _handle_setup();
 
         return
             cache_boolean_1;
@@ -59,9 +59,9 @@ namespace QLogicaeCppCore
         TemperatureManagerUtilities::setup()
     {
         TemperatureManagerConfigurations::cache =
-            {};
+        {};
 
-        _setup();
+        _handle_setup();
 
         return
             cache_boolean_1;
@@ -70,14 +70,36 @@ namespace QLogicaeCppCore
     bool
         TemperatureManagerUtilities::reset()
     {
-        _reset();
+        _handle_reset();
 
         return
             cache_boolean_1;
     }
 
     void
-        TemperatureManagerUtilities::_construct()
+        TemperatureManagerUtilities::_handle_construct()
+    {
+        try
+        {
+            cache_boolean_1 =
+                true;
+        }
+        catch
+            (
+                const std::exception&
+                exception
+                )
+        {
+            ErrorManager::cache_error_log =
+                exception.what();
+
+            ErrorManager::singleton
+                ._handle();
+        }
+    }
+
+    void
+        TemperatureManagerUtilities::_handle_destruct()
     {
         try
         {
@@ -99,47 +121,11 @@ namespace QLogicaeCppCore
     }
 
     void
-        TemperatureManagerUtilities::_destruct()
+        TemperatureManagerUtilities::_handle_setup()
     {
         try
         {
-            cache_boolean_1 =
-                true;
-        }
-        catch
-        (
-            const std::exception&
-                exception
-        )
-        {
-            ErrorManager::cache_error_log =
-                exception.what();
-
-            ErrorManager::singleton
-                ._handle();
-        }
-    }
-
-    void
-        TemperatureManagerUtilities::_setup()
-    {
-        try
-        {
-            TemperatureManagerConfigurations::default_value =
-                TemperatureManagerConfigurations::cache_value =
-                TemperatureManagerConfigurations::cache.value;
-
-            TemperatureManagerConfigurations::default_is_enabled =
-                TemperatureManagerConfigurations::cache_is_enabled =
-                TemperatureManagerConfigurations::cache.is_enabled;
-
-            TemperatureManagerConfigurations::default_from_unit_type =
-                TemperatureManagerConfigurations::cache_from_unit_type =
-                TemperatureManagerConfigurations::cache.from_unit_type;
-
-            TemperatureManagerConfigurations::default_to_unit_type =
-                TemperatureManagerConfigurations::cache_to_unit_type =
-                TemperatureManagerConfigurations::cache.to_unit_type;
+            TemperatureManagerConfigurations::_handle_setup();
 
             cache_boolean_1 =
                 true;
@@ -159,25 +145,11 @@ namespace QLogicaeCppCore
     }
 
     void
-        TemperatureManagerUtilities::_reset()
+        TemperatureManagerUtilities::_handle_reset()
     {
         try
         {
-            TemperatureManagerConfigurations::default_value =
-                TemperatureManagerConfigurations::cache_value =
-                TemperatureManagerConfigurations::initial_value;
-
-            TemperatureManagerConfigurations::default_is_enabled =
-                TemperatureManagerConfigurations::cache_is_enabled =
-                TemperatureManagerConfigurations::initial_is_enabled;
-
-            TemperatureManagerConfigurations::default_from_unit_type =
-                TemperatureManagerConfigurations::cache_from_unit_type =
-                TemperatureManagerConfigurations::initial_from_unit_type;
-
-            TemperatureManagerConfigurations::default_to_unit_type =
-                TemperatureManagerConfigurations::cache_to_unit_type =
-                TemperatureManagerConfigurations::initial_to_unit_type;
+            TemperatureManagerConfigurations::_handle_reset();
 
             cache_boolean_1 =
                 true;

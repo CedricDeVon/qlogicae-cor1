@@ -1,6 +1,5 @@
 ﻿#pragma once
 
-#include "value_cache.hpp"
 #include "error_manager.hpp"
 #include "singleton_manager.hpp"
 #include "file_system_manager_utilities.hpp"
@@ -11,6 +10,9 @@ namespace QLogicaeCppCore
     class FileSystemManager
     {
     public:
+        static bool
+            cache_boolean_1;
+
         static FileSystemManager&
             singleton;
 
@@ -57,15 +59,15 @@ namespace QLogicaeCppCore
             reset();
         
         void
-            _construct();
+            _handle_construct();
 
         void
-            _destruct();        
+            _handle_destruct();        
 
         void
-            _setup();
+            _handle_setup();
 
         void
-            _reset();
+            _handle_reset();
     };
 }

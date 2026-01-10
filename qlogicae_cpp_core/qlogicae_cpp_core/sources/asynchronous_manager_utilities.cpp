@@ -29,7 +29,7 @@ namespace QLogicaeCppCore
     {
         try
         {
-            _construct();
+            _handle_construct();
         }
         catch
             (
@@ -49,7 +49,7 @@ namespace QLogicaeCppCore
     {
         try
         {
-            _destruct();
+            _handle_destruct();
         }
         catch
             (
@@ -68,14 +68,14 @@ namespace QLogicaeCppCore
     bool
         AsynchronousManagerUtilities::construct()
     {
-        _construct();
+        _handle_construct();
 
         return
             cache_boolean_1;
     }
 
     void
-        AsynchronousManagerUtilities::_construct()
+        AsynchronousManagerUtilities::_handle_construct()
     {
         try
         {
@@ -107,14 +107,14 @@ namespace QLogicaeCppCore
     bool
         AsynchronousManagerUtilities::destruct()
     {
-        _destruct();
+        _handle_destruct();
 
         return
             cache_boolean_1;
     }
 
     void
-        AsynchronousManagerUtilities::_destruct()
+        AsynchronousManagerUtilities::_handle_destruct()
     {
         try
         {
@@ -144,7 +144,7 @@ namespace QLogicaeCppCore
         AsynchronousManagerConfigurations::cache =
             new_configurations;
 
-        _setup();
+        _handle_setup();
 
         return
             cache_boolean_1;
@@ -156,20 +156,18 @@ namespace QLogicaeCppCore
         AsynchronousManagerConfigurations::cache =
         {};
 
-        _setup();
+        _handle_setup();
 
         return
             cache_boolean_1;
     }
 
     void
-        AsynchronousManagerUtilities::_setup()
+        AsynchronousManagerUtilities::_handle_setup()
     {
         try
         {
-            AsynchronousManagerConfigurations::cache_is_enabled =
-                AsynchronousManagerConfigurations::default_is_enabled =
-                AsynchronousManagerConfigurations::cache.is_enabled;
+            AsynchronousManagerConfigurations::_handle_setup();
 
             cache_boolean_1 =
                 true;
@@ -191,20 +189,18 @@ namespace QLogicaeCppCore
     bool
         AsynchronousManagerUtilities::reset()
     {
-        _reset();
+        _handle_reset();
 
         return
             cache_boolean_1;
     }
 
     void
-        AsynchronousManagerUtilities::_reset()
+        AsynchronousManagerUtilities::_handle_reset()
     {
         try
         {
-            AsynchronousManagerConfigurations::cache_is_enabled =
-                AsynchronousManagerConfigurations::default_is_enabled =
-                AsynchronousManagerConfigurations::initial_is_enabled;
+            AsynchronousManagerConfigurations::_handle_reset();
 
             cache_boolean_1 =
                 true;
@@ -225,13 +221,13 @@ namespace QLogicaeCppCore
 
     bool AsynchronousManagerUtilities::complete_all_threads()
     {
-        _complete_all_threads();
+        _handle_complete_all_threads();
 
         return
             cache_boolean_1;
     }
 
-    void AsynchronousManagerUtilities::_complete_all_threads()
+    void AsynchronousManagerUtilities::_handle_complete_all_threads()
     {
         try
         {

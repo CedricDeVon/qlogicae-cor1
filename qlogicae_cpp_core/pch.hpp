@@ -8,13 +8,14 @@
 #include <pcre2.h>
 
 #include <sodium.h>
-#include <curl/curl.h>
 #include <fmt/format.h>
 #include <stduuid/uuid.h>
 
 */
 
 #include <nanobench.h>
+
+#include <curl/curl.h>
 
 #include <fast_io.h>
 #include <fast_io_device.h>

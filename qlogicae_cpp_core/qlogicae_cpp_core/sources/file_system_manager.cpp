@@ -4,6 +4,10 @@
 
 namespace QLogicaeCppCore
 {
+    bool
+        FileSystemManager::cache_boolean_1 =
+            false;
+
     FileSystemManager&
         FileSystemManager::singleton =
             SingletonManager::get_singleton<FileSystemManager>();
@@ -12,7 +16,7 @@ namespace QLogicaeCppCore
     {
         try
         {
-            _construct();
+            _handle_construct();
         }
         catch
         (
@@ -32,7 +36,7 @@ namespace QLogicaeCppCore
     {
         try
         {
-            _destruct();
+            _handle_destruct();
         }
         catch
         (
@@ -51,18 +55,18 @@ namespace QLogicaeCppCore
     bool
         FileSystemManager::construct()
     {
-        _construct();
+        _handle_construct();
 
         return
-            ValueCache::boolean_1;
+            cache_boolean_1;
     }
 
     void
-        FileSystemManager::_construct()
+        FileSystemManager::_handle_construct()
     {
         try
         {
-            ValueCache::boolean_1 =
+            cache_boolean_1 =
                 true;
         }
         catch
@@ -82,18 +86,18 @@ namespace QLogicaeCppCore
     bool
         FileSystemManager::destruct()
     {
-        _destruct();
+        _handle_destruct();
 
         return
-            ValueCache::boolean_1;
+            cache_boolean_1;
     }
 
     void
-        FileSystemManager::_destruct()
+        FileSystemManager::_handle_destruct()
     {
         try
         {
-            ValueCache::boolean_1 =
+            cache_boolean_1 =
                 true;
         }
         catch
@@ -119,10 +123,10 @@ namespace QLogicaeCppCore
         FileSystemManagerConfigurations::cache =
             new_configurations;
 
-        _setup();
+        _handle_setup();
 
         return
-            ValueCache::boolean_1;
+            cache_boolean_1;
     }
 
     bool
@@ -131,19 +135,19 @@ namespace QLogicaeCppCore
         FileSystemManagerConfigurations::cache =
             {};
 
-        _setup();
+        _handle_setup();
 
         return
-            ValueCache::boolean_1;
+            cache_boolean_1;
     }
 
     void
-        FileSystemManager::_setup()
+        FileSystemManager::_handle_setup()
     {
         try
         {
             FileSystemManagerUtilities::singleton
-                ._setup();
+                ._handle_setup();
         }
         catch
         (
@@ -162,19 +166,19 @@ namespace QLogicaeCppCore
     bool
         FileSystemManager::reset()
     {
-        _reset();
+        _handle_reset();
 
         return
-            ValueCache::boolean_1;
+            cache_boolean_1;
     }
 
     void
-        FileSystemManager::_reset()
+        FileSystemManager::_handle_reset()
     {
         try
         {
             FileSystemManagerUtilities::singleton
-                ._reset();
+                ._handle_reset();
         }
         catch
         (

@@ -12,7 +12,7 @@ namespace QLogicaeCppCore
     {
         try
         {
-            _construct();
+            _handle_construct();
         }
         catch
         (
@@ -32,7 +32,7 @@ namespace QLogicaeCppCore
     {
         try
         {
-            _destruct();
+            _handle_destruct();
         }
         catch
         (
@@ -51,14 +51,14 @@ namespace QLogicaeCppCore
     bool
         ApplicationManager::construct()
     {
-        _construct();
+        _handle_construct();
 
         return
             cache_boolean_1;
     }
 
     void
-        ApplicationManager::_construct()
+        ApplicationManager::_handle_construct()
     {
         try
         {
@@ -82,14 +82,14 @@ namespace QLogicaeCppCore
     bool
         ApplicationManager::destruct()
     {
-        _destruct();
+        _handle_destruct();
 
         return
             cache_boolean_1;
     }
 
     void
-        ApplicationManager::_destruct()
+        ApplicationManager::_handle_destruct()
     {
         try
         {
@@ -113,14 +113,14 @@ namespace QLogicaeCppCore
     bool
         ApplicationManager::setup()
     {
-        _setup();
+        _handle_setup();
 
         return
             cache_boolean_1;
     }
 
     void
-        ApplicationManager::_setup()
+        ApplicationManager::_handle_setup()
     {
         try
         {
@@ -144,14 +144,14 @@ namespace QLogicaeCppCore
     bool
         ApplicationManager::reset()
     {
-        _reset();
+        _handle_reset();
 
         return
             cache_boolean_1;
     }
 
     void
-        ApplicationManager::_reset()
+        ApplicationManager::_handle_reset()
     {
         try
         {

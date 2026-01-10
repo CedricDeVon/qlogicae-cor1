@@ -91,16 +91,16 @@ namespace QLogicaeCppCore
             _handle_synchronously();
 
         void
-            _construct();
-        
-        void
-            _destruct();
+            _handle_construct();
 
         void
-            _setup();
+            _handle_destruct();
 
         void
-            _reset();
+            _handle_setup();
+
+        void
+            _handle_reset();
 
         void
             _handle();

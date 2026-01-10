@@ -16,7 +16,7 @@ namespace QLogicaeCppCore
     {
         try
         {
-            _construct();
+            _handle_construct();
         }
         catch
             (
@@ -36,7 +36,7 @@ namespace QLogicaeCppCore
     {
         try
         {
-            _destruct();
+            _handle_destruct();
         }
         catch
             (
@@ -55,14 +55,14 @@ namespace QLogicaeCppCore
     bool
         AsynchronousManager::construct()
     {
-        _construct();
+        _handle_construct();
 
         return
             AsynchronousManager::cache_boolean_1;
     }
 
     void
-        AsynchronousManager::_construct()
+        AsynchronousManager::_handle_construct()
     {
         try
         {
@@ -86,14 +86,14 @@ namespace QLogicaeCppCore
     bool
         AsynchronousManager::destruct()
     {
-        _destruct();
+        _handle_destruct();
 
         return
             AsynchronousManager::cache_boolean_1;
     }
 
     void
-        AsynchronousManager::_destruct()
+        AsynchronousManager::_handle_destruct()
     {
         try
         {
@@ -123,7 +123,7 @@ namespace QLogicaeCppCore
         AsynchronousManagerConfigurations::cache =
             new_configurations;
 
-        _setup();
+        _handle_setup();
 
         return
             AsynchronousManager::cache_boolean_1;
@@ -135,19 +135,19 @@ namespace QLogicaeCppCore
         AsynchronousManagerConfigurations::cache =
         {};
 
-        _setup();
+        _handle_setup();
 
         return
             AsynchronousManager::cache_boolean_1;
     }
 
     void
-        AsynchronousManager::_setup()
+        AsynchronousManager::_handle_setup()
     {
         try
         {
             AsynchronousManagerUtilities::singleton
-                ._setup();
+                ._handle_setup();
         }
         catch
             (
@@ -166,19 +166,19 @@ namespace QLogicaeCppCore
     bool
         AsynchronousManager::reset()
     {
-        _reset();
+        _handle_reset();
 
         return
             AsynchronousManager::cache_boolean_1;
     }
 
     void
-        AsynchronousManager::_reset()
+        AsynchronousManager::_handle_reset()
     {
         try
         {
             AsynchronousManagerUtilities::singleton
-                ._reset();
+                ._handle_reset();
         }
         catch
             (
@@ -205,7 +205,7 @@ namespace QLogicaeCppCore
                 return false;
             }
 
-            _begin_one_thread(
+            _handle_begin_one_thread(
                 callback
             );
 
@@ -226,7 +226,7 @@ namespace QLogicaeCppCore
         }
     }
 
-    void AsynchronousManager::_begin_one_thread(
+    void AsynchronousManager::_handle_begin_one_thread(
         const std::function<void()>& callback
     )
     {

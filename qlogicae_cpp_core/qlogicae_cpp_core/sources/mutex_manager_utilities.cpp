@@ -48,7 +48,7 @@ namespace QLogicaeCppCore
     {
         try
         {
-            _construct();
+            _handle_construct();
         }
         catch
             (
@@ -68,7 +68,7 @@ namespace QLogicaeCppCore
     {
         try
         {
-            _destruct();
+            _handle_destruct();
         }
         catch
             (
@@ -87,18 +87,18 @@ namespace QLogicaeCppCore
     bool
         MutexManagerUtilities::construct()
     {
-        _construct();
+        _handle_construct();
 
         return
-            MutexManagerUtilities::cache_boolean_1;
+            cache_boolean_1;
     }
 
     void
-        MutexManagerUtilities::_construct()
+        MutexManagerUtilities::_handle_construct()
     {
         try
         {
-            MutexManagerUtilities::cache_boolean_1 =
+            cache_boolean_1 =
                 true;
         }
         catch
@@ -118,18 +118,18 @@ namespace QLogicaeCppCore
     bool
         MutexManagerUtilities::destruct()
     {
-        _destruct();
+        _handle_destruct();
 
         return
-            MutexManagerUtilities::cache_boolean_1;
+            cache_boolean_1;
     }
 
     void
-        MutexManagerUtilities::_destruct()
+        MutexManagerUtilities::_handle_destruct()
     {
         try
         {
-            MutexManagerUtilities::cache_boolean_1 =
+            cache_boolean_1 =
                 true;
         }
         catch
@@ -155,10 +155,10 @@ namespace QLogicaeCppCore
         MutexManagerConfigurations::cache =
             new_configurations;
 
-        _setup();
+        _handle_setup();
 
         return
-            MutexManagerUtilities::cache_boolean_1;
+            cache_boolean_1;
     }
 
     bool
@@ -167,26 +167,20 @@ namespace QLogicaeCppCore
         MutexManagerConfigurations::cache =
         {};
 
-        _setup();
+        _handle_setup();
 
         return
-            MutexManagerUtilities::cache_boolean_1;
+            cache_boolean_1;
     }
 
     void
-        MutexManagerUtilities::_setup()
+        MutexManagerUtilities::_handle_setup()
     {
         try
         {
-            MutexManagerConfigurations::cache_pointer =
-                MutexManagerConfigurations::default_pointer =
-                MutexManagerConfigurations::cache.pointer;
+            MutexManagerConfigurations::_handle_setup();
 
-            MutexManagerConfigurations::cache_name =
-                MutexManagerConfigurations::default_name =
-                MutexManagerConfigurations::cache.name;
-
-            MutexManagerUtilities::cache_boolean_1 =
+            cache_boolean_1 =
                 true;
         }
         catch
@@ -206,26 +200,20 @@ namespace QLogicaeCppCore
     bool
         MutexManagerUtilities::reset()
     {
-        _reset();
+        _handle_reset();
 
         return
-            MutexManagerUtilities::cache_boolean_1;
+            cache_boolean_1;
     }
 
     void
-        MutexManagerUtilities::_reset()
+        MutexManagerUtilities::_handle_reset()
     {
         try
         {
-            MutexManagerConfigurations::cache_pointer =
-                MutexManagerConfigurations::default_pointer =
-                MutexManagerConfigurations::initial_pointer;
+            MutexManagerConfigurations::_handle_reset();
 
-            MutexManagerConfigurations::cache_name =
-                MutexManagerConfigurations::default_name =
-                MutexManagerConfigurations::initial_name;
-
-            MutexManagerUtilities::cache_boolean_1 =
+            cache_boolean_1 =
                 true;
         }
         catch
@@ -245,51 +233,51 @@ namespace QLogicaeCppCore
     bool
         MutexManagerUtilities::clear_all_collections()
     {
-        _clear_all_collections();
+        _handle_clear_all_collections();
 
         return
-            MutexManagerUtilities::cache_boolean_1;
+            cache_boolean_1;
     }
 
     void
-        MutexManagerUtilities::_clear_all_collections()
+        MutexManagerUtilities::_handle_clear_all_collections()
     {
         try
         {
-            MutexManagerUtilities::cache_mutex_collection
+            cache_mutex_collection
                 .clear();
 
-            MutexManagerUtilities::cache_timed_mutex_collection
+            cache_timed_mutex_collection
                 .clear();
 
-            MutexManagerUtilities::cache_recursive_mutex_collection
+            cache_recursive_mutex_collection
                 .clear();
 
-            MutexManagerUtilities::cache_recursive_timed_mutex_collection
+            cache_recursive_timed_mutex_collection
                 .clear();
 
-            MutexManagerUtilities::cache_shared_mutex_collection
+            cache_shared_mutex_collection
                 .clear();
 
-            MutexManagerUtilities::cache_boost_mutex_collection
+            cache_boost_mutex_collection
                 .clear();
 
-            MutexManagerUtilities::cache_boost_timed_mutex_collection
+            cache_boost_timed_mutex_collection
                 .clear();
 
-            MutexManagerUtilities::cache_boost_recursive_mutex_collection
+            cache_boost_recursive_mutex_collection
                 .clear();
 
-            MutexManagerUtilities::cache_boost_recursive_timed_mutex_collection
+            cache_boost_recursive_timed_mutex_collection
                 .clear();
 
-            MutexManagerUtilities::cache_boost_shared_mutex_collection
+            cache_boost_shared_mutex_collection
                 .clear();
 
-            MutexManagerUtilities::cache_folly_micro_spin_lock_collection
+            cache_folly_micro_spin_lock_collection
                 .clear();
 
-            MutexManagerUtilities::cache_boolean_1 =
+            cache_boolean_1 =
                 true;
         }
         catch

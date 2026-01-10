@@ -120,7 +120,7 @@ namespace QLogicaeCppCoreTest
     {
         try
         {
-            mutex_manager_instance._construct();
+            mutex_manager_instance._handle_construct();
         }
         catch (...)
         {
@@ -132,7 +132,7 @@ namespace QLogicaeCppCoreTest
     {
         try
         {
-            mutex_manager_instance._destruct();
+            mutex_manager_instance._handle_destruct();
         }
         catch (...)
         {
