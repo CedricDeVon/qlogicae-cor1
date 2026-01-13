@@ -71,27 +71,57 @@ namespace QLogicaeCppCore
             cache_boolean_1;
 
         static TemperatureManagerConfigurations
-            cache;
+            cache_configurations;
 
 
+        
+        static bool
+            construct(
+                const TemperatureManagerConfigurations&
+                    configurations = {}
+            );
 
         static bool
-            construct();
-
-        static bool
-            destruct();
-
-        static bool
-            setup();
+            destruct(
+                const TemperatureManagerConfigurations&
+                    configurations = {}
+            );
 
         static bool
             setup(
                 const TemperatureManagerConfigurations&
-                    new_configurations
+                    configurations = {}
             );
 
         static bool
-            reset();
+            reset(
+                const TemperatureManagerConfigurations&
+                    configurations = {}
+            );
+
+        static bool
+            setup_caches(
+                const TemperatureManagerConfigurations&
+                    configurations = {}
+            );
+
+        static bool
+            setup_defaults(
+                const TemperatureManagerConfigurations&
+                    configurations = {}
+            );
+
+        static bool
+            reset_caches(
+                const TemperatureManagerConfigurations&
+                    configurations = {}
+            );
+
+        static bool
+            reset_defaults(
+                const TemperatureManagerConfigurations&
+                    configurations = {}
+            );
 
         static void
             _handle_construct();
@@ -104,5 +134,17 @@ namespace QLogicaeCppCore
 
         static void
             _handle_reset();
+
+        static void
+            _handle_setup_caches();
+
+        static void
+            _handle_setup_defaults();
+
+        static void
+            _handle_reset_caches();
+
+        static void
+            _handle_reset_defaults();
     };
 }

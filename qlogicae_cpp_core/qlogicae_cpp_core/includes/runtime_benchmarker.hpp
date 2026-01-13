@@ -5,6 +5,7 @@
 #include "runtime_benchmarker_utilities.hpp"
 #include "runtime_benchmarker_test_case.hpp"
 #include "runtime_benchmarker_test_suite.hpp"
+#include "runtime_benchmarker_configurations.hpp"
 #include "runtime_benchmarker_epoch_iteration_pair.hpp"
 
 namespace QLogicaeCppCore
@@ -12,9 +13,6 @@ namespace QLogicaeCppCore
     class RuntimeBenchmarker
     {
     public:        
-        static bool
-            cache_boolean_1;
-        
         static RuntimeBenchmarker&
             singleton;
 
@@ -43,22 +41,36 @@ namespace QLogicaeCppCore
         ) = delete;
 
         bool
-            construct();
+            construct(
+                const RuntimeBenchmarkerConfigurations&
+                    configurations = {}
+        );
 
         bool
-            destruct();
+            destruct(
+                const RuntimeBenchmarkerConfigurations&
+                    configurations = {}
+        );
 
         bool
-            setup();
+            setup(
+                const RuntimeBenchmarkerConfigurations&
+                    configurations = {}
+        );
 
         bool
-            reset();
+            reset(
+                const RuntimeBenchmarkerConfigurations&
+                    configurations = {}
+        );
 
         bool
             execute(
                 const RuntimeBenchmarkerTestSuite&
-                    test_suite
-            );
+                    test_suite,
+                const RuntimeBenchmarkerConfigurations&
+                    configurations = {}
+        );
 
         void
             _handle_execute();

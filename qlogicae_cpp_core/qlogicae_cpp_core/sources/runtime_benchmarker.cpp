@@ -3,19 +3,20 @@
 #include "../includes/runtime_benchmarker.hpp"
 
 namespace QLogicaeCppCore
-{	
-    bool
-        RuntimeBenchmarker::cache_boolean_1 =
-            false;
-
+{	    
     RuntimeBenchmarker&
         RuntimeBenchmarker::singleton =
             SingletonManager::get_singleton<RuntimeBenchmarker>();
+
+
 
     RuntimeBenchmarker::RuntimeBenchmarker()
     {
         try
         {
+            RuntimeBenchmarkerConfigurations::cache_configurations =
+                {};
+
             _handle_construct();
         }
         catch
@@ -24,6 +25,9 @@ namespace QLogicaeCppCore
                 exception
         )
         {
+            RuntimeBenchmarkerUtilities::cache_boolean_1 =
+                false;
+
             ErrorManager::cache_error_log =
                 exception.what();
 
@@ -36,6 +40,9 @@ namespace QLogicaeCppCore
     {
         try
         {
+            RuntimeBenchmarkerConfigurations::cache_configurations =
+                {};
+
             _handle_destruct();
         }
         catch
@@ -44,6 +51,9 @@ namespace QLogicaeCppCore
                 exception
         )
         {
+            RuntimeBenchmarkerUtilities::cache_boolean_1 =
+                false;
+
             ErrorManager::cache_error_log =
                 exception.what();
 
@@ -53,47 +63,89 @@ namespace QLogicaeCppCore
     }
 
     bool
-        RuntimeBenchmarker::construct()
+        RuntimeBenchmarker::construct(
+            const RuntimeBenchmarkerConfigurations&
+                configurations
+        )
     {
+        RuntimeBenchmarkerConfigurations::cache_configurations =
+            configurations;
+
         _handle_construct();
 
         return
-            cache_boolean_1;
+            RuntimeBenchmarkerUtilities::cache_boolean_1;
     }
 
     bool
-        RuntimeBenchmarker::destruct()
+        RuntimeBenchmarker::destruct(
+            const RuntimeBenchmarkerConfigurations&
+                configurations
+        )
     {
+        RuntimeBenchmarkerConfigurations::cache_configurations =
+            configurations;
+
         _handle_destruct();
 
         return
-            cache_boolean_1;
+            RuntimeBenchmarkerUtilities::cache_boolean_1;
     }
 
     bool
-        RuntimeBenchmarker::setup()
+        RuntimeBenchmarker::setup(
+            const RuntimeBenchmarkerConfigurations&
+                configurations
+        )
     {
+        RuntimeBenchmarkerConfigurations::cache_configurations =
+            configurations;
+
         _handle_setup();
 
         return
-            cache_boolean_1;
+            RuntimeBenchmarkerUtilities::cache_boolean_1;
     }
 
     bool
-        RuntimeBenchmarker::reset()
+        RuntimeBenchmarker::reset(
+            const RuntimeBenchmarkerConfigurations&
+                configurations
+        )
     {
+        RuntimeBenchmarkerConfigurations::cache_configurations =
+            configurations;
+
         _handle_reset();
 
         return
-            cache_boolean_1;
+            RuntimeBenchmarkerUtilities::cache_boolean_1;
     }
 
     bool
         RuntimeBenchmarker::execute(
             const RuntimeBenchmarkerTestSuite&
-                test_suite
+                test_suite,
+            const RuntimeBenchmarkerConfigurations&
+                configurations
         )
     {
+        RuntimeBenchmarkerConfigurations::cache_configurations =
+            configurations;
+        RuntimeBenchmarkerConfigurations::_handle_setup_caches();
+
+        if (!RuntimeBenchmarkerConfigurations::cache_is_enabled)
+        {
+            RuntimeBenchmarkerConfigurations::cache_configurations =
+            {};
+            RuntimeBenchmarkerConfigurations::_handle_setup_caches();
+            RuntimeBenchmarkerUtilities::cache_boolean_1 =
+                false;
+
+            return
+                RuntimeBenchmarkerUtilities::cache_boolean_1;
+        }
+
         const std::string test_suite_name =
             test_suite.name;
 
@@ -200,6 +252,10 @@ namespace QLogicaeCppCore
         }
 
         after_test_suite_callback();
+
+        RuntimeBenchmarkerConfigurations::cache_configurations =
+            {};
+        RuntimeBenchmarkerConfigurations::_handle_setup_caches();
     }
 
     void
@@ -207,7 +263,7 @@ namespace QLogicaeCppCore
     {
         try
         {
-            cache_boolean_1 =
+            RuntimeBenchmarkerUtilities::cache_boolean_1 =
                 true;
         }
         catch
@@ -216,6 +272,9 @@ namespace QLogicaeCppCore
                 exception
         )
         {
+            RuntimeBenchmarkerUtilities::cache_boolean_1 =
+                false;
+
             ErrorManager::cache_error_log =
                 exception.what();
 
@@ -229,7 +288,7 @@ namespace QLogicaeCppCore
     {
         try
         {
-            cache_boolean_1 =
+            RuntimeBenchmarkerUtilities::cache_boolean_1 =
                 true;
         }
         catch
@@ -238,6 +297,9 @@ namespace QLogicaeCppCore
                 exception
         )
         {
+            RuntimeBenchmarkerUtilities::cache_boolean_1 =
+                false;
+
             ErrorManager::cache_error_log =
                 exception.what();
 
@@ -251,8 +313,7 @@ namespace QLogicaeCppCore
     {
         try
         {
-            cache_boolean_1 =
-                true;
+            RuntimeBenchmarkerUtilities::singleton._handle_setup();
         }
         catch
         (
@@ -260,6 +321,9 @@ namespace QLogicaeCppCore
                 exception
         )
         {
+            RuntimeBenchmarkerUtilities::cache_boolean_1 =
+                false;
+
             ErrorManager::cache_error_log =
                 exception.what();
 
@@ -273,8 +337,7 @@ namespace QLogicaeCppCore
     {
         try
         {
-            cache_boolean_1 =
-                true;
+            RuntimeBenchmarkerUtilities::singleton._handle_reset();
         }
         catch
         (
@@ -282,6 +345,9 @@ namespace QLogicaeCppCore
                 exception
         )
         {
+            RuntimeBenchmarkerUtilities::cache_boolean_1 =
+                false;
+
             ErrorManager::cache_error_log =
                 exception.what();
 

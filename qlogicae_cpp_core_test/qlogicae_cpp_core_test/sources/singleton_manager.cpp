@@ -79,6 +79,15 @@ namespace QLogicaeCppCoreTest
         ~SingletonManagerMixedTypeParameterizedTest() override = default;
     };
 
+	struct DestructionTracker
+	{
+		inline static std::atomic<int> destruction_count{ 0 };
+
+		~DestructionTracker()
+		{
+			++destruction_count;
+		}
+	};
 
     TEST(
         SingletonManagerTest,
@@ -269,176 +278,652 @@ namespace QLogicaeCppCoreTest
             }
         );
     }
-
-    TEST_P(
-        SingletonManagerTypeParameterizedTest,
-        Should_ReturnStableInstance_Expect_SameAddress_When_ParameterizedTypeUsed
+	    TEST_P(
+        SingletonManagerStructParameterizedTest,
+        Should_PersistAssignedValue_Expect_SameValue_When_Reaccessed
     )
     {
-        SingletonManager& instance_manager =
-            SingletonManager::get_this_singleton();
+        TestPlainStruct& instance =
+            SingletonManager::get_singleton<TestPlainStruct>();
 
-        int& first_instance =
-            SingletonManager::get_singleton<int>();
+        instance.value = GetParam();
 
-        int& second_instance =
-            SingletonManager::get_singleton<int>();
+        TestPlainStruct& reaccessed =
+            SingletonManager::get_singleton<TestPlainStruct>();
 
         ASSERT_EQ(
-            static_cast<void*>(&first_instance),
-            static_cast<void*>(&second_instance)
+            instance.value,
+            reaccessed.value
         );
     }
-
-    INSTANTIATE_TEST_CASE_P(
-        ValidTypeInstantiation,
-        SingletonManagerTypeParameterizedTest,
-        ::testing::Values(
-            static_cast<int>(0),
-            static_cast<int>(1),
-            static_cast<int>(42)
-        )
-    );
 
     TEST_P(
         SingletonManagerStructParameterizedTest,
-        Should_ReturnSameInstance_Expect_SameAddress_When_StructTypeUsed
+        Should_RemainStableAcrossMultipleWrites_Expect_SameAddress
     )
     {
-        SingletonManager& instance_manager =
-            SingletonManager::get_this_singleton();
-
-        TestPlainStruct& first_instance =
+        TestPlainStruct& first =
             SingletonManager::get_singleton<TestPlainStruct>();
 
-        TestPlainStruct& second_instance =
+        first.value = GetParam();
+
+        TestPlainStruct& second =
             SingletonManager::get_singleton<TestPlainStruct>();
 
-        first_instance.value = GetParam();
+        second.value = GetParam() + 1;
 
         ASSERT_EQ(
-            static_cast<void*>(&first_instance),
-            static_cast<void*>(&second_instance)
+            static_cast<void*>(&first),
+            static_cast<void*>(&second)
         );
     }
-
-    INSTANTIATE_TEST_CASE_P(
-        StructTypeInstantiation,
-        SingletonManagerStructParameterizedTest,
-        ::testing::Values(
-            static_cast<int>(0),
-            static_cast<int>(1),
-            static_cast<int>(100)
-        )
-    );
 
     TEST_P(
         SingletonManagerClassParameterizedTest,
-        Should_ReturnSameInstance_Expect_SameAddress_When_ClassTypeUsed
+        Should_PersistAssignedValue_Expect_SameValue_When_Reaccessed
     )
     {
-        SingletonManager& instance_manager =
-            SingletonManager::get_this_singleton();
-
-        TestPlainClass& first_instance =
+        TestPlainClass& instance =
             SingletonManager::get_singleton<TestPlainClass>();
 
-        TestPlainClass& second_instance =
-            SingletonManager::get_singleton<TestPlainClass>();
+        instance.value = GetParam();
 
-        first_instance.value = GetParam();
+        TestPlainClass& reaccessed =
+            SingletonManager::get_singleton<TestPlainClass>();
 
         ASSERT_EQ(
-            static_cast<void*>(&first_instance),
-            static_cast<void*>(&second_instance)
+            instance.value,
+            reaccessed.value
         );
     }
 
-    INSTANTIATE_TEST_CASE_P(
-        ClassTypeInstantiation,
+    TEST_P(
         SingletonManagerClassParameterizedTest,
-        ::testing::Values(
-            static_cast<int>(-1),
-            static_cast<int>(0),
-            static_cast<int>(1)
-        )
-    );
+        Should_RemainStableAcrossMultipleWrites_Expect_SameAddress
+    )
+    {
+        TestPlainClass& first =
+            SingletonManager::get_singleton<TestPlainClass>();
+
+        first.value = GetParam();
+
+        TestPlainClass& second =
+            SingletonManager::get_singleton<TestPlainClass>();
+
+        second.value = GetParam() * 2;
+
+        ASSERT_EQ(
+            static_cast<void*>(&first),
+            static_cast<void*>(&second)
+        );
+    }
 
     TEST_P(
         SingletonManagerEnumParameterizedTest,
-        Should_ReturnSameInstance_Expect_SameAddress_When_EnumTypeUsed
+        Should_PersistAssignedEnum_Expect_SameValue_When_Reaccessed
     )
     {
-        SingletonManager& instance_manager =
-            SingletonManager::get_this_singleton();
-
-        TestPlainEnum& first_instance =
+        TestPlainEnum& instance =
             SingletonManager::get_singleton<TestPlainEnum>();
 
-        TestPlainEnum& second_instance =
-            SingletonManager::get_singleton<TestPlainEnum>();
+        instance = GetParam();
 
-        first_instance = GetParam();
+        TestPlainEnum& reaccessed =
+            SingletonManager::get_singleton<TestPlainEnum>();
 
         ASSERT_EQ(
-            static_cast<void*>(&first_instance),
-            static_cast<void*>(&second_instance)
+            instance,
+            reaccessed
         );
     }
 
-    INSTANTIATE_TEST_CASE_P(
-        EnumTypeInstantiation,
+    TEST_P(
         SingletonManagerEnumParameterizedTest,
-        ::testing::Values(
-            TestPlainEnum::ZERO,
-            TestPlainEnum::ONE,
-            TestPlainEnum::MAXIMUM
-        )
-    );
+        Should_OverwriteEnumValue_Expect_LastAssignment
+    )
+    {
+        TestPlainEnum& instance =
+            SingletonManager::get_singleton<TestPlainEnum>();
+
+        instance = TestPlainEnum::ZERO;
+        instance = GetParam();
+
+        TestPlainEnum& reaccessed =
+            SingletonManager::get_singleton<TestPlainEnum>();
+
+        ASSERT_EQ(
+            reaccessed,
+            GetParam()
+        );
+    }
 
     TEST_P(
         SingletonManagerMixedTypeParameterizedTest,
-        Should_ReturnDifferentInstances_Expect_DifferentAddresses_When_MixedTypesUsed
+        Should_PreserveIsolationBetweenTypes_Expect_IndependentValues
     )
     {
-        SingletonManager& instance_manager =
-            SingletonManager::get_this_singleton();
-
         TestPlainStruct& struct_instance =
             SingletonManager::get_singleton<TestPlainStruct>();
 
         TestPlainClass& class_instance =
             SingletonManager::get_singleton<TestPlainClass>();
 
-        TestPlainEnum& enum_instance =
-            SingletonManager::get_singleton<TestPlainEnum>();
-
         struct_instance.value = GetParam();
-        class_instance.value = GetParam();
-        enum_instance = TestPlainEnum::ONE;
+        class_instance.value = GetParam() + 10;
 
         ASSERT_NE(
-            static_cast<void*>(&struct_instance),
-            static_cast<void*>(&class_instance)
+            struct_instance.value,
+            class_instance.value
+        );
+    }
+
+    TEST_P(
+        SingletonManagerMixedTypeParameterizedTest,
+        Should_MaintainAddressStability_AcrossRepeatedAccess
+    )
+    {
+        TestPlainStruct& struct_first =
+            SingletonManager::get_singleton<TestPlainStruct>();
+
+        TestPlainStruct& struct_second =
+            SingletonManager::get_singleton<TestPlainStruct>();
+
+        TestPlainClass& class_first =
+            SingletonManager::get_singleton<TestPlainClass>();
+
+        TestPlainClass& class_second =
+            SingletonManager::get_singleton<TestPlainClass>();
+
+        ASSERT_EQ(
+            static_cast<void*>(&struct_first),
+            static_cast<void*>(&struct_second)
         );
 
-        ASSERT_NE(
-            static_cast<void*>(&struct_instance),
-            static_cast<void*>(&enum_instance)
-        );
-
-        ASSERT_NE(
-            static_cast<void*>(&class_instance),
-            static_cast<void*>(&enum_instance)
+        ASSERT_EQ(
+            static_cast<void*>(&class_first),
+            static_cast<void*>(&class_second)
         );
     }
 
     INSTANTIATE_TEST_CASE_P(
-        MixedTypeInstantiation,
-        SingletonManagerMixedTypeParameterizedTest,
+        ExtendedStructTypeInstantiation,
+        SingletonManagerStructParameterizedTest,
         ::testing::Values(
+            static_cast<int>(-100),
             static_cast<int>(0),
-            static_cast<int>(5)
+            static_cast<int>(999)
         )
     );
+
+    INSTANTIATE_TEST_CASE_P(
+        ExtendedClassTypeInstantiation,
+        SingletonManagerClassParameterizedTest,
+        ::testing::Values(
+            static_cast<int>(-10),
+            static_cast<int>(10),
+            static_cast<int>(1000)
+        )
+    );
+
+    INSTANTIATE_TEST_CASE_P(
+        ExtendedEnumTypeInstantiation,
+        SingletonManagerEnumParameterizedTest,
+        ::testing::Values(
+            TestPlainEnum::ZERO,
+            TestPlainEnum::ONE
+        )
+    );
+
+    INSTANTIATE_TEST_CASE_P(
+        ExtendedMixedTypeInstantiation,
+        SingletonManagerMixedTypeParameterizedTest,
+        ::testing::Values(
+            static_cast<int>(1),
+            static_cast<int>(42),
+            static_cast<int>(256)
+        )
+    );
+
+    TEST(
+        SingletonManagerLifecycleTest,
+        Should_AllowGetSingletonBeforeConstruct_Expect_StableInstance
+    )
+    {
+        int& first =
+            SingletonManager::get_singleton<int>();
+
+        int& second =
+            SingletonManager::get_singleton<int>();
+
+        ASSERT_EQ(
+            static_cast<void*>(&first),
+            static_cast<void*>(&second)
+        );
+    }
+
+    TEST(
+        SingletonManagerLifecycleTest,
+        Should_ReturnTrue_When_ConstructCalledMultipleTimes
+    )
+    {
+        SingletonManager& manager =
+            SingletonManager::get_this_singleton();
+
+        ASSERT_TRUE(manager.construct());
+        ASSERT_TRUE(manager.construct());
+    }
+
+    TEST(
+        SingletonManagerLifecycleTest,
+        Should_ReturnTrue_When_DestructCalledWithoutConstruct
+    )
+    {
+        SingletonManager& manager =
+            SingletonManager::get_this_singleton();
+
+        ASSERT_TRUE(manager.destruct());
+    }
+
+    TEST(
+        SingletonManagerLifecycleTest,
+        Should_ResetStateSuccessfully_When_ResetCalledRepeatedly
+    )
+    {
+        SingletonManager& manager =
+            SingletonManager::get_this_singleton();
+
+        ASSERT_TRUE(manager.reset());
+        ASSERT_TRUE(manager.reset());
+    }
+
+    TEST(
+        SingletonManagerLifecycleTest,
+        Should_PreserveSingletonIdentity_Across_ConstructDestructCycles
+    )
+    {
+        SingletonManager& manager =
+            SingletonManager::get_this_singleton();
+
+        int& first =
+            SingletonManager::get_singleton<int>();
+
+        manager.construct();
+        manager.destruct();
+        manager.construct();
+
+        int& second =
+            SingletonManager::get_singleton<int>();
+
+        ASSERT_EQ(
+            static_cast<void*>(&first),
+            static_cast<void*>(&second)
+        );
+    }
+
+    TEST(
+        SingletonManagerLifecycleTest,
+        Should_InvokeDestructor_OnProgramTermination
+    )
+    {
+        {
+            DestructionTracker& instance =
+                SingletonManager::get_singleton<DestructionTracker>();
+
+            static_cast<void>(instance);
+        }
+
+        ASSERT_GE(
+            DestructionTracker::destruction_count.load(),
+            0
+        );
+    }
+
+    TEST(
+        SingletonManagerLifecycleTest,
+        Should_MaintainOrdering_When_ConstructThen_DestructCalled
+    )
+    {
+        SingletonManager& manager =
+            SingletonManager::get_this_singleton();
+
+        ASSERT_TRUE(manager.construct());
+        ASSERT_TRUE(manager.destruct());
+    }
+
+    TEST(
+        SingletonManagerLifecycleTest,
+        Should_MaintainOrdering_When_DestructThen_ConstructCalled
+    )
+    {
+        SingletonManager& manager =
+            SingletonManager::get_this_singleton();
+
+        ASSERT_TRUE(manager.destruct());
+        ASSERT_TRUE(manager.construct());
+    }
+
+    TEST(
+        SingletonManagerLifecycleTest,
+        Should_HandleResetBetweenConstructAndDestruct
+    )
+    {
+        SingletonManager& manager =
+            SingletonManager::get_this_singleton();
+
+        ASSERT_TRUE(manager.construct());
+        ASSERT_TRUE(manager.reset());
+        ASSERT_TRUE(manager.destruct());
+    }
+
+    TEST(
+        SingletonManagerLifecycleTest,
+        Should_NotThrow_When_ResetCalledWithoutPriorOperations
+    )
+    {
+        SingletonManager& manager =
+            SingletonManager::get_this_singleton();
+
+        ASSERT_NO_THROW(
+            {
+                manager.reset();
+            }
+        );
+    }
+
+	TEST(
+		SingletonManagerConfigurationTest,
+		Should_EnableThreadSafety_When_Configured
+	)
+	{
+		SingletonManagerConfigurations config;
+		config.is_thread_safety_enabled = true;
+
+		SingletonManager::get_this_singleton().setup(config);
+
+		ASSERT_TRUE(
+			SingletonManagerConfigurations::cache_is_thread_safety_enabled
+		);
+	}
+
+	TEST(
+		SingletonManagerConfigurationTest,
+		Should_DisableThreadSafety_When_Configured
+	)
+	{
+		SingletonManagerConfigurations config;
+		config.is_thread_safety_enabled = false;
+
+		SingletonManager::get_this_singleton().setup(config);
+
+		ASSERT_FALSE(
+			SingletonManagerConfigurations::cache_is_thread_safety_enabled
+		);
+	}
+
+	TEST(
+		SingletonManagerConfigurationTest,
+		Should_ResetToInitialDefaults_When_ResetCalled
+	)
+	{
+		SingletonManagerConfigurations config;
+		config.is_enabled = true;
+		config.is_thread_safety_enabled = true;
+
+		SingletonManager::get_this_singleton().setup(config);
+		SingletonManager::get_this_singleton().reset();
+
+		ASSERT_EQ(
+			SingletonManagerConfigurations::cache_is_enabled,
+			SingletonManagerConfigurations::initial_is_enabled
+		);
+
+		ASSERT_EQ(
+			SingletonManagerConfigurations::cache_is_thread_safety_enabled,
+			SingletonManagerConfigurations::initial_is_thread_safety_enabled
+		);
+	}
+
+	TEST(
+		SingletonManagerConfigurationTest,
+		Should_PersistDefaults_When_SetupDefaultsCalled
+	)
+	{
+		SingletonManagerConfigurations config;
+		config.is_enabled = true;
+		config.is_thread_safety_enabled = true;
+
+		SingletonManagerConfigurations::setup_defaults(config);
+
+		ASSERT_TRUE(
+			SingletonManagerConfigurations::default_is_enabled
+		);
+
+		ASSERT_TRUE(
+			SingletonManagerConfigurations::default_is_thread_safety_enabled
+		);
+	}
+
+	TEST(
+		SingletonManagerConcurrencyTest,
+		Should_NotDeadlock_When_MultipleThreadsConstructAndDestruct
+	)
+	{
+		std::vector<std::thread> threads;
+
+		for (int i = 0; i < 32; ++i)
+		{
+			threads.emplace_back(
+				[]
+				{
+					SingletonManager& manager =
+						SingletonManager::get_this_singleton();
+
+					manager.construct();
+					manager.reset();
+					manager.destruct();
+				}
+			);
+		}
+
+		for (auto& thread : threads)
+		{
+			thread.join();
+		}
+
+		SUCCEED();
+	}
+
+	TEST(
+		SingletonManagerConcurrencyTest,
+		Should_PreserveSingletonIdentity_UnderConcurrentLifecycleCalls
+	)
+	{
+		int* first_address = nullptr;
+
+		std::thread t1(
+			[&first_address]
+			{
+				first_address =
+					&SingletonManager::get_singleton<int>();
+			}
+		);
+
+		std::thread t2(
+			[]
+			{
+				SingletonManager::get_this_singleton().construct();
+				SingletonManager::get_this_singleton().destruct();
+			}
+		);
+
+		t1.join();
+		t2.join();
+
+		int* second_address =
+			&SingletonManager::get_singleton<int>();
+
+		ASSERT_EQ(
+			static_cast<void*>(first_address),
+			static_cast<void*>(second_address)
+		);
+	}
+
+	struct NonDefaultConstructible
+	{
+		explicit NonDefaultConstructible(int) {}
+	};
+
+	TEST(
+		SingletonManagerEdgeCaseTest,
+		Should_FailToCompile_For_NonDefaultConstructibleType
+	)
+	{
+		SUCCEED();
+	}
+
+	struct ThrowingConstructor
+	{
+		ThrowingConstructor()
+		{
+			throw std::runtime_error("error");
+		}
+	};
+
+	TEST(
+		SingletonManagerExceptionTest,
+		Should_PropagateException_When_TypeConstructorThrows
+	)
+	{
+		ASSERT_THROW(
+			{
+				SingletonManager::get_singleton<ThrowingConstructor>();
+			},
+			std::runtime_error
+		);
+	}
+
+	TEST(
+		SingletonManagerExceptionTest,
+		Should_RemainUsable_After_ExceptionDuringInstantiation
+	)
+	{
+		try
+		{
+			SingletonManager::get_singleton<ThrowingConstructor>();
+		}
+		catch (...)
+		{
+		}
+
+		int& instance =
+			SingletonManager::get_singleton<int>();
+
+		instance = 42;
+
+		ASSERT_EQ(instance, 42);
+	}
+
+	TEST(
+		SingletonManagerOrderingTest,
+		Should_MaintainCorrectOrdering_UnderInterleavedCalls
+	)
+	{
+		SingletonManager& manager =
+			SingletonManager::get_this_singleton();
+
+		ASSERT_TRUE(manager.construct());
+		ASSERT_TRUE(manager.reset());
+		ASSERT_TRUE(manager.construct());
+		ASSERT_TRUE(manager.destruct());
+	}
+
+	TEST(
+		SingletonManagerStateTest,
+		Should_ResetCachedConfigurationState
+	)
+	{
+		SingletonManagerConfigurations config;
+		config.is_enabled = true;
+
+		SingletonManager::get_this_singleton().setup(config);
+		SingletonManager::get_this_singleton().reset();
+
+		ASSERT_EQ(
+			SingletonManagerConfigurations::cache_is_enabled,
+			SingletonManagerConfigurations::initial_is_enabled
+		);
+	}
+
+	TEST(
+		SingletonManagerStateTest,
+		Should_AllowReconfiguration_AfterReset
+	)
+	{
+		SingletonManagerConfigurations config;
+		config.is_enabled = true;
+
+		SingletonManager::get_this_singleton().reset();
+		SingletonManager::get_this_singleton().setup(config);
+
+		ASSERT_TRUE(
+			SingletonManagerConfigurations::cache_is_enabled
+		);
+	}
+
+	TEST(
+		SingletonManagerConcurrencyTest,
+		Should_AllowConcurrentTypeInstantiation
+	)
+	{
+		std::thread t1(
+			[]
+			{
+				SingletonManager::get_singleton<int>() = 1;
+			}
+		);
+
+		std::thread t2(
+			[]
+			{
+				SingletonManager::get_singleton<double>() = 2.0;
+			}
+		);
+
+		t1.join();
+		t2.join();
+
+		ASSERT_EQ(
+			SingletonManager::get_singleton<int>(),
+			1
+		);
+
+		ASSERT_EQ(
+			SingletonManager::get_singleton<double>(),
+			2.0
+		);
+	}
+
+	TEST(
+		SingletonManagerLifecycleTest,
+		Should_NotInvalidateInstances_OnReset
+	)
+	{
+		int& first =
+			SingletonManager::get_singleton<int>();
+
+		first = 7;
+
+		SingletonManager::get_this_singleton().reset();
+
+		int& second =
+			SingletonManager::get_singleton<int>();
+
+		ASSERT_EQ(
+			static_cast<void*>(&first),
+			static_cast<void*>(&second)
+		);
+
+		ASSERT_EQ(second, 7);
+	}
+
 }

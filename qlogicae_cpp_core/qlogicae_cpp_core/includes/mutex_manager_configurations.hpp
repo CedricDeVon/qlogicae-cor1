@@ -14,6 +14,10 @@ namespace QLogicaeCppCore
             name =
                 default_name;
 
+        bool
+            is_enabled =
+                default_is_enabled;
+
 
 
         static void*
@@ -21,6 +25,9 @@ namespace QLogicaeCppCore
 
         static std::string
             initial_name;
+
+        static bool
+            initial_is_enabled;
 
 
 
@@ -30,6 +37,9 @@ namespace QLogicaeCppCore
         static void*
             default_pointer;
 
+        static bool
+            default_is_enabled;
+
 
 
         static std::string
@@ -38,33 +48,66 @@ namespace QLogicaeCppCore
         static void*
             cache_pointer;
 
+        static bool
+            cache_is_enabled;
+
 
 
         static bool
             cache_boolean_1;
 
         static MutexManagerConfigurations
-            cache;
+            cache_configurations;
 
 
+        
+        static bool
+            construct(
+                const MutexManagerConfigurations&
+                    configurations = {}
+            );
 
         static bool
-            construct();
-
-        static bool
-            destruct();
-
-        static bool
-            setup();
+            destruct(
+                const MutexManagerConfigurations&
+                    configurations = {}
+            );
 
         static bool
             setup(
                 const MutexManagerConfigurations&
-                    new_configurations
+                    configurations = {}
             );
 
         static bool
-            reset();
+            reset(
+                const MutexManagerConfigurations&
+                    configurations = {}
+            );
+
+        static bool
+            setup_caches(
+                const MutexManagerConfigurations&
+                    configurations = {}
+            );
+
+        static bool
+            setup_defaults(
+                const MutexManagerConfigurations&
+                    configurations = {}
+            );
+
+        static bool
+            reset_caches(
+                const MutexManagerConfigurations&
+                    configurations = {}
+            );
+
+        static bool
+            reset_defaults(
+                const MutexManagerConfigurations&
+                    configurations = {}
+            );
 
         static void
             _handle_construct();
@@ -77,5 +120,17 @@ namespace QLogicaeCppCore
 
         static void
             _handle_reset();
+
+        static void
+            _handle_setup_caches();
+
+        static void
+            _handle_setup_defaults();
+
+        static void
+            _handle_reset_caches();
+
+        static void
+            _handle_reset_defaults();
     };
 }

@@ -2,6 +2,7 @@
 
 #include "error_manager.hpp"
 #include "singleton_manager.hpp"
+#include "runtime_benchmarker_configurations.hpp"
 
 namespace QLogicaeCppCore
 {    
@@ -39,16 +40,28 @@ namespace QLogicaeCppCore
         ) = delete;
 
         bool
-            construct();
+            construct(
+                const RuntimeBenchmarkerConfigurations&
+                    configurations = {}
+        );
 
         bool
-            destruct();
+            destruct(
+                const RuntimeBenchmarkerConfigurations&
+                    configurations = {}
+        );
 
         bool
-            setup();
+            setup(
+                const RuntimeBenchmarkerConfigurations&
+                    configurations = {}
+        );
 
         bool
-            reset();
+            reset(
+                const RuntimeBenchmarkerConfigurations&
+                    configurations = {}
+        );
 
         void
             _handle_construct();

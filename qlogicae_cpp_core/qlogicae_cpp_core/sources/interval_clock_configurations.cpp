@@ -63,13 +63,19 @@ namespace QLogicaeCppCore
             false;
 
     IntervalClockConfigurations
-        IntervalClockConfigurations::cache;
+        IntervalClockConfigurations::cache_configurations;
 
 
-
+    
     bool
-        IntervalClockConfigurations::construct()
+        IntervalClockConfigurations::construct(
+            const IntervalClockConfigurations&
+                configurations
+        )
     {
+        cache_configurations =
+            configurations;
+
         _handle_construct();
 
         return
@@ -77,8 +83,14 @@ namespace QLogicaeCppCore
     }
 
     bool
-        IntervalClockConfigurations::destruct()
+        IntervalClockConfigurations::destruct(
+            const IntervalClockConfigurations&
+                configurations
+        )
     {
+        cache_configurations =
+            configurations;
+
         _handle_destruct();
 
         return
@@ -88,11 +100,11 @@ namespace QLogicaeCppCore
     bool
         IntervalClockConfigurations::setup(
             const IntervalClockConfigurations&
-                    new_configurations
+                configurations
         )
     {
-        cache =
-            new_configurations;
+        cache_configurations =
+            configurations;
 
         _handle_setup();
 
@@ -101,21 +113,75 @@ namespace QLogicaeCppCore
     }
 
     bool
-        IntervalClockConfigurations::setup()
+        IntervalClockConfigurations::reset(
+            const IntervalClockConfigurations&
+                configurations
+        )
     {
-        cache =
-            {};
+        cache_configurations =
+            configurations;
 
-        _handle_setup();
-
-        return
-            cache_boolean_1;
-    }
-
-    bool
-        IntervalClockConfigurations::reset()
-    {
         _handle_reset();
+
+        return
+            cache_boolean_1;
+    }
+    
+    bool
+        IntervalClockConfigurations::setup_caches(
+            const IntervalClockConfigurations&
+                configurations
+        )
+    {
+        cache_configurations =
+            configurations;
+
+        _handle_setup_caches();
+
+        return
+            cache_boolean_1;
+    }
+    
+    bool
+        IntervalClockConfigurations::setup_defaults(
+            const IntervalClockConfigurations&
+                configurations
+        )
+    {
+        cache_configurations =
+            configurations;
+
+        _handle_setup_defaults();
+
+        return
+            cache_boolean_1;
+    }
+    
+    bool
+        IntervalClockConfigurations::reset_caches(
+            const IntervalClockConfigurations&
+                configurations
+        )
+    {
+        cache_configurations =
+            configurations;
+
+        _handle_reset_caches();
+
+        return
+            cache_boolean_1;
+    }
+    
+    bool
+        IntervalClockConfigurations::reset_defaults(
+            const IntervalClockConfigurations&
+                configurations
+        )
+    {
+        cache_configurations =
+            configurations;
+
+        _handle_reset_defaults();
 
         return
             cache_boolean_1;
@@ -143,7 +209,7 @@ namespace QLogicaeCppCore
 
             ErrorManager::singleton
                 ._handle();
-        }        
+        }
     }
 
     void
@@ -176,21 +242,8 @@ namespace QLogicaeCppCore
     {
         try
         {
-            default_callback =
-                cache_callback =
-                cache.callback;
-
-            default_delay_in_milliseconds =
-                cache_delay_in_milliseconds =
-                cache.delay_in_milliseconds;
-
-            default_maximum_interval_count =
-                cache_maximum_interval_count =
-                cache.maximum_interval_count;
-
-            default_is_executed_immediately =
-                cache_is_executed_immediately =
-                cache.is_executed_immediately;
+            _handle_setup_caches();
+            _handle_setup_defaults();
 
             cache_boolean_1 =
                 true;
@@ -217,20 +270,155 @@ namespace QLogicaeCppCore
     {
         try
         {
+            _handle_reset_caches();
+            _handle_reset_defaults();
+
+            cache_boolean_1 =
+                true;
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+            cache_boolean_1 =
+                false;
+
+            ErrorManager::cache_error_log =
+                exception.what();
+
+            ErrorManager::singleton
+                ._handle();
+        }
+    }
+    
+    void
+        IntervalClockConfigurations::_handle_setup_caches()
+    {
+        try
+        {            
+            cache_callback =
+                cache_configurations.callback;
+
+            cache_delay_in_milliseconds =
+                cache_configurations.delay_in_milliseconds;
+
+            cache_maximum_interval_count =
+                cache_configurations.maximum_interval_count;
+
+            cache_is_executed_immediately =
+                cache_configurations.is_executed_immediately;
+
+            cache_boolean_1 =
+                true;
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+            cache_boolean_1 =
+                false;
+
+            ErrorManager::cache_error_log =
+                exception.what();
+
+            ErrorManager::singleton
+                ._handle();
+        }
+    }
+
+    void
+        IntervalClockConfigurations::_handle_setup_defaults()
+    {
+        try
+        {         
             default_callback =
-                cache_callback =
+                cache_configurations.callback;
+
+            default_delay_in_milliseconds =
+                cache_configurations.delay_in_milliseconds;
+
+            default_maximum_interval_count =
+                cache_configurations.maximum_interval_count;
+
+            default_is_executed_immediately =
+                cache_configurations.is_executed_immediately;
+
+            cache_boolean_1 =
+                true;
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+            cache_boolean_1 =
+                false;
+
+            ErrorManager::cache_error_log =
+                exception.what();
+
+            ErrorManager::singleton
+                ._handle();
+        }
+    }
+    
+    void
+        IntervalClockConfigurations::_handle_reset_caches()
+    {
+        try
+        {            
+            cache_callback =
+                initial_callback;
+
+            cache_delay_in_milliseconds =
+                initial_delay_in_milliseconds;
+
+            cache_maximum_interval_count =
+                initial_maximum_interval_count;
+
+            cache_is_executed_immediately =
+                initial_is_executed_immediately;
+
+            cache_boolean_1 =
+                true;
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+            cache_boolean_1 =
+                false;
+
+            ErrorManager::cache_error_log =
+                exception.what();
+
+            ErrorManager::singleton
+                ._handle();
+        }
+    }
+
+    void
+        IntervalClockConfigurations::_handle_reset_defaults()
+    {
+        try
+        {            
+            default_callback =
                 initial_callback;
 
             default_delay_in_milliseconds =
-                cache_delay_in_milliseconds =
                 initial_delay_in_milliseconds;
 
             default_maximum_interval_count =
-                cache_maximum_interval_count =
                 initial_maximum_interval_count;
 
             default_is_executed_immediately =
-                cache_is_executed_immediately =
                 initial_is_executed_immediately;
 
             cache_boolean_1 =

@@ -23,13 +23,19 @@ namespace QLogicaeCppCore
             false;
 
     TimeManagerConfigurations
-        TimeManagerConfigurations::cache;
+        TimeManagerConfigurations::cache_configurations;
 
 
-
+    
     bool
-        TimeManagerConfigurations::construct()
+        TimeManagerConfigurations::construct(
+            const TimeManagerConfigurations&
+                configurations
+        )
     {
+        cache_configurations =
+            configurations;
+
         _handle_construct();
 
         return
@@ -37,8 +43,14 @@ namespace QLogicaeCppCore
     }
 
     bool
-        TimeManagerConfigurations::destruct()
+        TimeManagerConfigurations::destruct(
+            const TimeManagerConfigurations&
+                configurations
+        )
     {
+        cache_configurations =
+            configurations;
+
         _handle_destruct();
 
         return
@@ -48,11 +60,11 @@ namespace QLogicaeCppCore
     bool
         TimeManagerConfigurations::setup(
             const TimeManagerConfigurations&
-                new_configurations
+                configurations
         )
     {
-        cache =
-            new_configurations;
+        cache_configurations =
+            configurations;
 
         _handle_setup();
 
@@ -61,21 +73,75 @@ namespace QLogicaeCppCore
     }
 
     bool
-        TimeManagerConfigurations::setup()
+        TimeManagerConfigurations::reset(
+            const TimeManagerConfigurations&
+                configurations
+        )
     {
-        cache =
-            {};
+        cache_configurations =
+            configurations;
 
-        _handle_setup();
-
-        return
-            cache_boolean_1;
-    }
-
-    bool
-        TimeManagerConfigurations::reset()
-    {
         _handle_reset();
+
+        return
+            cache_boolean_1;
+    }
+    
+    bool
+        TimeManagerConfigurations::setup_caches(
+            const TimeManagerConfigurations&
+                configurations
+        )
+    {
+        cache_configurations =
+            configurations;
+
+        _handle_setup_caches();
+
+        return
+            cache_boolean_1;
+    }
+    
+    bool
+        TimeManagerConfigurations::setup_defaults(
+            const TimeManagerConfigurations&
+                configurations
+        )
+    {
+        cache_configurations =
+            configurations;
+
+        _handle_setup_defaults();
+
+        return
+            cache_boolean_1;
+    }
+    
+    bool
+        TimeManagerConfigurations::reset_caches(
+            const TimeManagerConfigurations&
+                configurations
+        )
+    {
+        cache_configurations =
+            configurations;
+
+        _handle_reset_caches();
+
+        return
+            cache_boolean_1;
+    }
+    
+    bool
+        TimeManagerConfigurations::reset_defaults(
+            const TimeManagerConfigurations&
+                configurations
+        )
+    {
+        cache_configurations =
+            configurations;
+
+        _handle_reset_defaults();
 
         return
             cache_boolean_1;
@@ -136,9 +202,8 @@ namespace QLogicaeCppCore
     {
         try
         {
-            TimeManagerConfigurations::default_is_enabled =
-                TimeManagerConfigurations::cache_is_enabled =
-                TimeManagerConfigurations::cache.is_enabled;
+            _handle_setup_caches();
+            _handle_setup_defaults();
 
             cache_boolean_1 =
                 true;
@@ -165,9 +230,120 @@ namespace QLogicaeCppCore
     {
         try
         {
-            TimeManagerConfigurations::default_is_enabled =
-                TimeManagerConfigurations::cache_is_enabled =
-                TimeManagerConfigurations::initial_is_enabled;
+            _handle_reset_caches();
+            _handle_reset_defaults();
+
+            cache_boolean_1 =
+                true;
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+            cache_boolean_1 =
+                false;
+
+            ErrorManager::cache_error_log =
+                exception.what();
+
+            ErrorManager::singleton
+                ._handle();
+        }
+    }
+    
+    void
+        TimeManagerConfigurations::_handle_setup_caches()
+    {
+        try
+        {  
+            cache_is_enabled =
+                cache_configurations.is_enabled;
+
+            cache_boolean_1 =
+                true;
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+            cache_boolean_1 =
+                false;
+
+            ErrorManager::cache_error_log =
+                exception.what();
+
+            ErrorManager::singleton
+                ._handle();
+        }
+    }
+
+    void
+        TimeManagerConfigurations::_handle_setup_defaults()
+    {
+        try
+        {         
+            default_is_enabled =
+                cache_configurations.is_enabled;
+
+            cache_boolean_1 =
+                true;
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+            cache_boolean_1 =
+                false;
+
+            ErrorManager::cache_error_log =
+                exception.what();
+
+            ErrorManager::singleton
+                ._handle();
+        }
+    }
+    
+    void
+        TimeManagerConfigurations::_handle_reset_caches()
+    {
+        try
+        {           
+            cache_is_enabled =
+                initial_is_enabled;
+
+            cache_boolean_1 =
+                true;
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+            cache_boolean_1 =
+                false;
+
+            ErrorManager::cache_error_log =
+                exception.what();
+
+            ErrorManager::singleton
+                ._handle();
+        }
+    }
+
+    void
+        TimeManagerConfigurations::_handle_reset_defaults()
+    {
+        try
+        {            
+            default_is_enabled =
+                initial_is_enabled;
 
             cache_boolean_1 =
                 true;

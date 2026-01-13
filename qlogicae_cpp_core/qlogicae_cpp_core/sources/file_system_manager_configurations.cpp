@@ -9,13 +9,19 @@ namespace QLogicaeCppCore
             false;
 
     FileSystemManagerConfigurations
-        FileSystemManagerConfigurations::cache;
+        FileSystemManagerConfigurations::cache_configurations;
 
 
-
+    
     bool
-        FileSystemManagerConfigurations::construct()
+        FileSystemManagerConfigurations::construct(
+            const FileSystemManagerConfigurations&
+                configurations
+        )
     {
+        cache_configurations =
+            configurations;
+
         _handle_construct();
 
         return
@@ -23,8 +29,14 @@ namespace QLogicaeCppCore
     }
 
     bool
-        FileSystemManagerConfigurations::destruct()
+        FileSystemManagerConfigurations::destruct(
+            const FileSystemManagerConfigurations&
+                configurations
+        )
     {
+        cache_configurations =
+            configurations;
+
         _handle_destruct();
 
         return
@@ -34,11 +46,11 @@ namespace QLogicaeCppCore
     bool
         FileSystemManagerConfigurations::setup(
             const FileSystemManagerConfigurations&
-                    new_configurations
+                configurations
         )
     {
-        cache =
-            new_configurations;
+        cache_configurations =
+            configurations;
 
         _handle_setup();
 
@@ -47,21 +59,75 @@ namespace QLogicaeCppCore
     }
 
     bool
-        FileSystemManagerConfigurations::setup()
+        FileSystemManagerConfigurations::reset(
+            const FileSystemManagerConfigurations&
+                configurations
+        )
     {
-        cache =
-            {};
+        cache_configurations =
+            configurations;
 
-        _handle_setup();
-
-        return
-            cache_boolean_1;
-    }
-
-    bool
-        FileSystemManagerConfigurations::reset()
-    {
         _handle_reset();
+
+        return
+            cache_boolean_1;
+    }
+    
+    bool
+        FileSystemManagerConfigurations::setup_caches(
+            const FileSystemManagerConfigurations&
+                configurations
+        )
+    {
+        cache_configurations =
+            configurations;
+
+        _handle_setup_caches();
+
+        return
+            cache_boolean_1;
+    }
+    
+    bool
+        FileSystemManagerConfigurations::setup_defaults(
+            const FileSystemManagerConfigurations&
+                configurations
+        )
+    {
+        cache_configurations =
+            configurations;
+
+        _handle_setup_defaults();
+
+        return
+            cache_boolean_1;
+    }
+    
+    bool
+        FileSystemManagerConfigurations::reset_caches(
+            const FileSystemManagerConfigurations&
+                configurations
+        )
+    {
+        cache_configurations =
+            configurations;
+
+        _handle_reset_caches();
+
+        return
+            cache_boolean_1;
+    }
+    
+    bool
+        FileSystemManagerConfigurations::reset_defaults(
+            const FileSystemManagerConfigurations&
+                configurations
+        )
+    {
+        cache_configurations =
+            configurations;
+
+        _handle_reset_defaults();
 
         return
             cache_boolean_1;
@@ -89,7 +155,7 @@ namespace QLogicaeCppCore
 
             ErrorManager::singleton
                 ._handle();
-        }        
+        }
     }
 
     void
@@ -121,7 +187,10 @@ namespace QLogicaeCppCore
         FileSystemManagerConfigurations::_handle_setup()
     {
         try
-        {            
+        {
+            _handle_setup_caches();
+            _handle_setup_defaults();
+
             cache_boolean_1 =
                 true;
         }
@@ -147,6 +216,9 @@ namespace QLogicaeCppCore
     {
         try
         {
+            _handle_reset_caches();
+            _handle_reset_defaults();
+
             cache_boolean_1 =
                 true;
         }
@@ -165,5 +237,105 @@ namespace QLogicaeCppCore
             ErrorManager::singleton
                 ._handle();
         }
-    };
+    }
+    
+    void
+        FileSystemManagerConfigurations::_handle_setup_caches()
+    {
+        try
+        {         
+            cache_boolean_1 =
+                true;
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+            cache_boolean_1 =
+                false;
+
+            ErrorManager::cache_error_log =
+                exception.what();
+
+            ErrorManager::singleton
+                ._handle();
+        }
+    }
+
+    void
+        FileSystemManagerConfigurations::_handle_setup_defaults()
+    {
+        try
+        {         
+            cache_boolean_1 =
+                true;
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+            cache_boolean_1 =
+                false;
+
+            ErrorManager::cache_error_log =
+                exception.what();
+
+            ErrorManager::singleton
+                ._handle();
+        }
+    }
+    
+    void
+        FileSystemManagerConfigurations::_handle_reset_caches()
+    {
+        try
+        {            
+            cache_boolean_1 =
+                true;
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+            cache_boolean_1 =
+                false;
+
+            ErrorManager::cache_error_log =
+                exception.what();
+
+            ErrorManager::singleton
+                ._handle();
+        }
+    }
+
+    void
+        FileSystemManagerConfigurations::_handle_reset_defaults()
+    {
+        try
+        {            
+            cache_boolean_1 =
+                true;
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+            cache_boolean_1 =
+                false;
+
+            ErrorManager::cache_error_log =
+                exception.what();
+
+            ErrorManager::singleton
+                ._handle();
+        }
+    }
 }

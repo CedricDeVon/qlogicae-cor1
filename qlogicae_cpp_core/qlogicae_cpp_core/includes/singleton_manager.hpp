@@ -11,6 +11,9 @@ namespace QLogicaeCppCore
         static bool
             cache_boolean_1;
 
+		static boost::mutex
+			cache_mutex_1;
+
         static std::string
             cache_error_log;
 
@@ -19,6 +22,8 @@ namespace QLogicaeCppCore
 
         static SingletonManager&
             singleton;
+
+
 
         SingletonManager();
 
@@ -47,27 +52,35 @@ namespace QLogicaeCppCore
         ) = delete;
         
         bool
-            construct();
+            construct(
+                const SingletonManagerConfigurations&
+                    configurations = {}
+            );
 
         bool
-            destruct();
+            destruct(
+                const SingletonManagerConfigurations&
+                    configurations = {}
+            );
 
         bool
             setup(
                 const SingletonManagerConfigurations&
-                    new_configurations
+                    configurations = {}
             );
 
         bool
-            setup();
-
-        bool
-            reset();
+            reset(
+                const SingletonManagerConfigurations&
+                    configurations = {}
+            );
 
         bool
             handle_error(
                 const std::exception&
-                    exception
+                    exception,
+                const SingletonManagerConfigurations&
+                    configurations = {}
             );
         void
             _handle_construct();
@@ -91,19 +104,68 @@ namespace QLogicaeCppCore
             _handle_error_synchronously();
 
         template <typename Type> static Type&
-            get_singleton();
+            get_singleton(
+                const SingletonManagerConfigurations&
+                    configurations = {}
+            );
 
         static SingletonManager&
-            get_this_singleton();
-
+            get_this_singleton(
+                const SingletonManagerConfigurations&
+                    configurations = {}
+            );
     };
 
     template <typename Type> Type&
-        SingletonManager::get_singleton()
+        SingletonManager::get_singleton(
+            const SingletonManagerConfigurations&
+                configurations
+        )
     {
+		{
+			boost::unique_lock<boost::mutex>
+				mutex_lock;
+			if (configurations
+					.is_thread_safety_enabled)
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						cache_mutex_1
+					);
+			}
+
+			SingletonManagerConfigurations
+				::cache_configurations =
+					configurations;
+			SingletonManagerConfigurations
+				::_handle_setup_caches();
+		}
+        
         static Type
             singleton;
 
-        return singleton;
+		{
+			boost::unique_lock<boost::mutex>
+				mutex_lock;
+			if (configurations
+					.is_thread_safety_enabled)
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						cache_mutex_1
+					);
+			}
+
+			SingletonManagerConfigurations
+				::cache_configurations =
+					{};
+			SingletonManagerConfigurations
+				::_handle_setup_caches();
+		}        
+
+        return
+            singleton;
     }    
 }

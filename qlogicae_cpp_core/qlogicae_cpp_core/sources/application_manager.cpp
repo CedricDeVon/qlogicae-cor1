@@ -4,9 +4,22 @@
 
 namespace QLogicaeCppCore
 {
+	bool
+		ApplicationManager
+			::cache_boolean_1 =
+				false;
+
+	boost::mutex
+		ApplicationManager
+			::cache_mutex_1;
+
     ApplicationManager&
-        ApplicationManager::singleton =
-            SingletonManager::get_singleton<ApplicationManager>();
+        ApplicationManager
+			::singleton =
+				SingletonManager
+					::get_singleton<ApplicationManager>();
+
+
 
     ApplicationManager::ApplicationManager()
     {
@@ -20,6 +33,9 @@ namespace QLogicaeCppCore
                 exception
         )
         {
+			cache_boolean_1 =
+				false;
+
             ErrorManager::cache_error_log =
                 exception.what();
 
@@ -28,7 +44,8 @@ namespace QLogicaeCppCore
         }        
     }
 
-    ApplicationManager::~ApplicationManager()
+    ApplicationManager
+		::~ApplicationManager()
     {
         try
         {
@@ -40,6 +57,9 @@ namespace QLogicaeCppCore
                 exception
         )
         {
+			cache_boolean_1 =
+				false;
+
             ErrorManager::cache_error_log =
                 exception.what();
 
@@ -49,7 +69,8 @@ namespace QLogicaeCppCore
     }
 
     bool
-        ApplicationManager::construct()
+        ApplicationManager
+			::construct()
     {
         _handle_construct();
 
@@ -58,7 +79,8 @@ namespace QLogicaeCppCore
     }
 
     void
-        ApplicationManager::_handle_construct()
+        ApplicationManager
+			::_handle_construct()
     {
         try
         {
@@ -71,6 +93,9 @@ namespace QLogicaeCppCore
                 exception
         )
         {
+			cache_boolean_1 =
+				false;
+
             ErrorManager::cache_error_log =
                 exception.what();
 
@@ -80,7 +105,8 @@ namespace QLogicaeCppCore
     }
 
     bool
-        ApplicationManager::destruct()
+        ApplicationManager
+			::destruct()
     {
         _handle_destruct();
 
@@ -89,7 +115,8 @@ namespace QLogicaeCppCore
     }
 
     void
-        ApplicationManager::_handle_destruct()
+        ApplicationManager
+			::_handle_destruct()
     {
         try
         {
@@ -102,6 +129,9 @@ namespace QLogicaeCppCore
                 exception
         )
         {
+			cache_boolean_1 =
+				false;
+
             ErrorManager::cache_error_log =
                 exception.what();
 
@@ -111,7 +141,8 @@ namespace QLogicaeCppCore
     }
 
     bool
-        ApplicationManager::setup()
+        ApplicationManager
+			::setup()
     {
         _handle_setup();
 
@@ -120,7 +151,8 @@ namespace QLogicaeCppCore
     }
 
     void
-        ApplicationManager::_handle_setup()
+        ApplicationManager
+			::_handle_setup()
     {
         try
         {
@@ -133,6 +165,9 @@ namespace QLogicaeCppCore
                 exception
         )
         {
+			cache_boolean_1 =
+				false;
+
             ErrorManager::cache_error_log =
                 exception.what();
 
@@ -142,7 +177,8 @@ namespace QLogicaeCppCore
     }
 
     bool
-        ApplicationManager::reset()
+        ApplicationManager
+			::reset()
     {
         _handle_reset();
 
@@ -151,7 +187,8 @@ namespace QLogicaeCppCore
     }
 
     void
-        ApplicationManager::_handle_reset()
+        ApplicationManager
+			::_handle_reset()
     {
         try
         {
@@ -164,6 +201,9 @@ namespace QLogicaeCppCore
                 exception
         )
         {
+			cache_boolean_1 =
+				false;
+
             ErrorManager::cache_error_log =
                 exception.what();
 

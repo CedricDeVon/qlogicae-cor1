@@ -4,26 +4,30 @@
 
 namespace QLogicaeCppCore
 {        
-    bool
-        AsynchronousManager::cache_boolean_1 =
-        false;
-
     AsynchronousManager&
         AsynchronousManager::singleton =
-        SingletonManager::get_singleton<AsynchronousManager>();
+            SingletonManager::get_singleton<AsynchronousManager>();
+
+
 
     AsynchronousManager::AsynchronousManager()
     {
         try
         {
+            AsynchronousManagerConfigurations::cache_configurations =
+                {};
+
             _handle_construct();
         }
         catch
-            (
-                const std::exception&
+        (
+            const std::exception&
                 exception
-                )
+        )
         {
+            AsynchronousManagerUtilities::cache_boolean_1 =
+                false;
+
             ErrorManager::cache_error_log =
                 exception.what();
 
@@ -36,14 +40,20 @@ namespace QLogicaeCppCore
     {
         try
         {
+            AsynchronousManagerConfigurations::cache_configurations =
+                {};
+
             _handle_destruct();
         }
         catch
-            (
-                const std::exception&
+        (
+            const std::exception&
                 exception
-                )
+        )
         {
+            AsynchronousManagerUtilities::cache_boolean_1 =
+                false;
+
             ErrorManager::cache_error_log =
                 exception.what();
 
@@ -53,12 +63,95 @@ namespace QLogicaeCppCore
     }
 
     bool
-        AsynchronousManager::construct()
+        AsynchronousManager::construct(
+            const AsynchronousManagerConfigurations&
+                configurations
+        )
     {
+        AsynchronousManagerConfigurations::cache_configurations =
+            configurations;
+
         _handle_construct();
 
         return
-            AsynchronousManager::cache_boolean_1;
+            AsynchronousManagerUtilities::cache_boolean_1;
+    }
+    
+    bool
+        AsynchronousManager::destruct(
+            const AsynchronousManagerConfigurations&
+                configurations
+        )
+    {
+        AsynchronousManagerConfigurations::cache_configurations =
+            configurations;
+
+        _handle_destruct();
+
+        return
+            AsynchronousManagerUtilities::cache_boolean_1;
+    }
+
+    bool
+        AsynchronousManager::setup(
+            const AsynchronousManagerConfigurations&
+                configurations
+        )
+    {
+        AsynchronousManagerConfigurations::cache_configurations =
+            configurations;
+
+        _handle_setup();
+
+        return
+            AsynchronousManagerUtilities::cache_boolean_1;
+    }
+
+    bool
+        AsynchronousManager::reset(
+            const AsynchronousManagerConfigurations&
+                configurations
+        )
+    {
+        AsynchronousManagerConfigurations::cache_configurations =
+            configurations;
+
+        _handle_reset();
+
+        return
+            AsynchronousManagerUtilities::cache_boolean_1;
+    }
+
+    bool AsynchronousManager::begin_one_thread(
+        const std::function<void()>&
+            callback,
+        const AsynchronousManagerConfigurations&
+            configurations
+    )
+    {
+        AsynchronousManagerConfigurations::cache_configurations =
+            configurations;
+        AsynchronousManagerConfigurations::_handle_setup_caches();
+
+        if (!AsynchronousManagerConfigurations::cache_is_enabled)
+        {
+            AsynchronousManagerConfigurations::cache_configurations =
+                {};
+            AsynchronousManagerConfigurations::_handle_setup_caches();
+
+            return false;
+        }
+
+        _handle_begin_one_thread(
+            callback
+        );
+
+        AsynchronousManagerConfigurations::cache_configurations =
+            {};
+        AsynchronousManagerConfigurations::_handle_setup_caches();
+
+        return
+            AsynchronousManagerUtilities::cache_boolean_1;
     }
 
     void
@@ -66,30 +159,24 @@ namespace QLogicaeCppCore
     {
         try
         {
-            AsynchronousManager::cache_boolean_1 =
+            AsynchronousManagerUtilities::cache_boolean_1 =
                 true;
         }
         catch
-            (
-                const std::exception&
+        (
+            const std::exception&
                 exception
-                )
+        )
         {
+            AsynchronousManagerUtilities::cache_boolean_1 =
+                false;
+
             ErrorManager::cache_error_log =
                 exception.what();
 
             ErrorManager::singleton
                 ._handle();
         }
-    }
-
-    bool
-        AsynchronousManager::destruct()
-    {
-        _handle_destruct();
-
-        return
-            AsynchronousManager::cache_boolean_1;
     }
 
     void
@@ -97,48 +184,24 @@ namespace QLogicaeCppCore
     {
         try
         {
-            AsynchronousManager::cache_boolean_1 =
+            AsynchronousManagerUtilities::cache_boolean_1 =
                 true;
         }
         catch
-            (
-                const std::exception&
+        (
+            const std::exception&
                 exception
-                )
+        )
         {
+            AsynchronousManagerUtilities::cache_boolean_1 =
+                false;
+
             ErrorManager::cache_error_log =
                 exception.what();
 
             ErrorManager::singleton
                 ._handle();
         }
-    }
-
-    bool
-        AsynchronousManager::setup(
-            const AsynchronousManagerConfigurations&
-            new_configurations
-        )
-    {
-        AsynchronousManagerConfigurations::cache =
-            new_configurations;
-
-        _handle_setup();
-
-        return
-            AsynchronousManager::cache_boolean_1;
-    }
-
-    bool
-        AsynchronousManager::setup()
-    {
-        AsynchronousManagerConfigurations::cache =
-        {};
-
-        _handle_setup();
-
-        return
-            AsynchronousManager::cache_boolean_1;
     }
 
     void
@@ -150,26 +213,20 @@ namespace QLogicaeCppCore
                 ._handle_setup();
         }
         catch
-            (
-                const std::exception&
+        (
+            const std::exception&
                 exception
-                )
+        )
         {
+            AsynchronousManagerUtilities::cache_boolean_1 =
+                false;
+
             ErrorManager::cache_error_log =
                 exception.what();
 
             ErrorManager::singleton
                 ._handle();
         }
-    }
-
-    bool
-        AsynchronousManager::reset()
-    {
-        _handle_reset();
-
-        return
-            AsynchronousManager::cache_boolean_1;
     }
 
     void
@@ -181,43 +238,14 @@ namespace QLogicaeCppCore
                 ._handle_reset();
         }
         catch
-            (
-                const std::exception&
+        (
+            const std::exception&
                 exception
-                )
+        )
         {
-            ErrorManager::cache_error_log =
-                exception.what();
+            AsynchronousManagerUtilities::cache_boolean_1 =
+                false;
 
-            ErrorManager::singleton
-                ._handle();
-        }
-    }
-
-    bool AsynchronousManager::begin_one_thread(
-        const std::function<void()>& callback
-    )
-    {
-        try
-        {
-            if (!AsynchronousManagerConfigurations::cache_is_enabled)
-            {
-                return false;
-            }
-
-            _handle_begin_one_thread(
-                callback
-            );
-
-            return
-                AsynchronousManager::cache_boolean_1;
-        }
-        catch
-            (
-                const std::exception&
-                exception
-                )
-        {
             ErrorManager::cache_error_log =
                 exception.what();
 
@@ -230,41 +258,62 @@ namespace QLogicaeCppCore
         const std::function<void()>& callback
     )
     {
-        boost::unique_lock<boost::mutex>
-            unique_lock(AsynchronousManagerUtilities::cache_mutex);
-
-        if (AsynchronousManagerUtilities::cache_main_thread_pool == nullptr)
+        try
         {
-            AsynchronousManagerUtilities::cache_main_thread_pool =
-                std::make_shared<boost::asio::thread_pool>(
-                    std::thread::hardware_concurrency()
-                );
-        }
+            boost::unique_lock<boost::mutex>
+                unique_lock(AsynchronousManagerUtilities::cache_mutex);
 
-        boost::asio::post(
-            *AsynchronousManagerUtilities::cache_main_thread_pool,
-            [callback]()
+            if (AsynchronousManagerUtilities::cache_main_thread_pool == nullptr)
             {
-                try
+                AsynchronousManagerUtilities::cache_main_thread_pool =
+                    std::make_shared<boost::asio::thread_pool>(
+                        std::thread::hardware_concurrency()
+                    );
+            }
+
+            boost::asio::post(
+                *AsynchronousManagerUtilities::cache_main_thread_pool,
+                [callback]()
                 {
-                    callback();
-                }
-                catch
+                    try
+                    {
+                        callback();
+                    }
+                    catch
                     (
                         const std::exception&
-                        exception
-                        )
-                {
-                    ErrorManager::cache_error_log =
-                        exception.what();
+                            exception
+                    )
+                    {
+                        AsynchronousManagerUtilities::cache_boolean_1 =
+                            false;
 
-                    ErrorManager::singleton
-                        ._handle();
+                        ErrorManager::cache_error_log =
+                            exception.what();
+
+                        ErrorManager::singleton
+                            ._handle();
+                    }
                 }
-            }
-        );
+            );
 
-        AsynchronousManager::cache_boolean_1 =
-            true;
+            AsynchronousManagerUtilities::cache_boolean_1 =
+                true;
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+            AsynchronousManagerUtilities::cache_boolean_1 =
+                false;
+
+            ErrorManager::cache_error_log =
+                exception.what();
+
+            ErrorManager::singleton
+                ._handle();
+        }        
     }
 }

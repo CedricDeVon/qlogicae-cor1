@@ -70,27 +70,57 @@ namespace QLogicaeCppCore
             cache_boolean_1;
 
         static IntervalClockConfigurations
-            cache;
+            cache_configurations;
 
 
+        
+        static bool
+            construct(
+                const IntervalClockConfigurations&
+                    configurations = {}
+            );
 
         static bool
-            construct();
-
-        static bool
-            destruct();
-
-        static bool
-            setup();
+            destruct(
+                const IntervalClockConfigurations&
+                    configurations = {}
+            );
 
         static bool
             setup(
                 const IntervalClockConfigurations&
-                    new_configurations
+                    configurations = {}
             );
 
         static bool
-            reset();
+            reset(
+                const IntervalClockConfigurations&
+                    configurations = {}
+            );
+
+        static bool
+            setup_caches(
+                const IntervalClockConfigurations&
+                    configurations = {}
+            );
+
+        static bool
+            setup_defaults(
+                const IntervalClockConfigurations&
+                    configurations = {}
+            );
+
+        static bool
+            reset_caches(
+                const IntervalClockConfigurations&
+                    configurations = {}
+            );
+
+        static bool
+            reset_defaults(
+                const IntervalClockConfigurations&
+                    configurations = {}
+            );
 
         static void
             _handle_construct();
@@ -103,5 +133,17 @@ namespace QLogicaeCppCore
 
         static void
             _handle_reset();
+
+        static void
+            _handle_setup_caches();
+
+        static void
+            _handle_setup_defaults();
+
+        static void
+            _handle_reset_caches();
+
+        static void
+            _handle_reset_defaults();
     };
 }

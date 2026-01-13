@@ -5,25 +5,56 @@
 namespace QLogicaeCppCore
 {           
     bool
-        SingletonManager::cache_boolean_1 =
-            false;
+        SingletonManager
+			::cache_boolean_1 =
+				false;
+	
+    boost::mutex
+		SingletonManager
+			::cache_mutex_1;
 
     std::string
-        SingletonManager::cache_error_log =
-            "";
+        SingletonManager
+			::cache_error_log =
+				"";
 
     fast_io::native_io_observer
-        SingletonManager::cache_fast_io_error_console_output_type =
-            fast_io::err();
+        SingletonManager
+			::cache_fast_io_error_console_output_type =
+				fast_io::err();
 
     SingletonManager&
-        SingletonManager::singleton =
-            SingletonManager::get_this_singleton();
+        SingletonManager
+			::singleton =
+				SingletonManager
+					::get_this_singleton();
 
-    SingletonManager::SingletonManager()
-    {                
-        try
-        {
+
+
+    SingletonManager
+		::SingletonManager()
+    {      
+		{
+			boost::unique_lock<boost::mutex>
+				mutex_lock;
+			if (SingletonManagerConfigurations::
+					cache_is_thread_safety_enabled)
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						cache_mutex_1
+					);
+
+			}		
+			
+			SingletonManagerConfigurations
+				::cache_configurations =
+					{};
+		}
+
+		try
+        {            
             _handle_construct();
         }
         catch
@@ -32,17 +63,40 @@ namespace QLogicaeCppCore
                 exception
         )
         {
-            SingletonManager::cache_error_log =
+            cache_boolean_1 =
+                false;
+
+            cache_error_log =
                 exception.what();
 
             _handle_error();
         }
     }
 
-    SingletonManager::~SingletonManager()
+    SingletonManager
+		::~SingletonManager()
     {
-        try
-        {
+		{
+			boost::unique_lock<boost::mutex>
+				mutex_lock;
+			if (SingletonManagerConfigurations::
+					cache_is_thread_safety_enabled)
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						cache_mutex_1
+					);
+
+			}		
+			
+			SingletonManagerConfigurations
+				::cache_configurations =
+					{};
+		}
+
+		try
+        {            
             _handle_destruct();
         }
         catch
@@ -51,7 +105,10 @@ namespace QLogicaeCppCore
                 exception
         )
         {
-            SingletonManager::cache_error_log =
+            cache_boolean_1 =
+                false;
+
+            cache_error_log =
                 exception.what();
 
             _handle_error();
@@ -59,82 +116,248 @@ namespace QLogicaeCppCore
     }
 
     bool
-        SingletonManager::construct()
-    {
+        SingletonManager
+			::construct(
+				const SingletonManagerConfigurations&
+					configurations
+			)
+    {        
+		{
+			boost::unique_lock<boost::mutex>
+				mutex_lock;
+			if (configurations
+					.is_thread_safety_enabled)
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						cache_mutex_1
+					);
+			}
+
+			SingletonManagerConfigurations
+				::cache_configurations =
+					configurations;
+		}
+		
         _handle_construct();
 
         return
-            SingletonManager::cache_boolean_1;
+            cache_boolean_1;
     }
 
     bool
-        SingletonManager::destruct()
-    {
+        SingletonManager
+			::destruct(
+				const SingletonManagerConfigurations&
+					configurations
+			)
+    {   
+        {
+			boost::unique_lock<boost::mutex>
+				mutex_lock;
+			if (configurations
+					.is_thread_safety_enabled)
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						cache_mutex_1
+					);
+			}
+
+			SingletonManagerConfigurations
+				::cache_configurations =
+					configurations;
+		}
+
         _handle_destruct();
 
         return
-            SingletonManager::cache_boolean_1;
+            cache_boolean_1;
     }
 
     bool
-        SingletonManager::setup(
-            const SingletonManagerConfigurations&
-                new_configurations
-        )
-    {
-        SingletonManagerConfigurations::cache =
-            new_configurations;
+        SingletonManager
+			::setup(
+				const SingletonManagerConfigurations&
+					configurations
+			)
+    {        
+        {
+			boost::unique_lock<boost::mutex>
+				mutex_lock;
+			if (configurations
+					.is_thread_safety_enabled)
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						cache_mutex_1
+					);
+			}
+
+			SingletonManagerConfigurations
+				::cache_configurations =
+					configurations;
+		}
 
         _handle_setup();
 
         return
-            SingletonManager::cache_boolean_1;
+            cache_boolean_1;
     }
 
     bool
-        SingletonManager::setup()
-    {
-        SingletonManagerConfigurations::cache =
-            {};
+        SingletonManager
+			::reset(
+				const SingletonManagerConfigurations&
+					configurations
+			)
+    {        
+        {
+			boost::unique_lock<boost::mutex>
+				mutex_lock;
+			if (configurations
+					.is_thread_safety_enabled)
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						cache_mutex_1
+					);
+			}
 
-        _handle_setup();
+			SingletonManagerConfigurations
+				::cache_configurations =
+					configurations;
+		}
 
-        return
-            SingletonManager::cache_boolean_1;
-    }
-
-    bool
-        SingletonManager::reset()
-    {
         _handle_reset();
 
         return
-            SingletonManager::cache_boolean_1;
+            cache_boolean_1;
     }
 
     bool
-        SingletonManager::handle_error(
-            const std::exception&
-                exception
-        )
-    {
-        SingletonManager::cache_error_log =
-            exception.what();
+        SingletonManager
+			::handle_error(
+				const std::exception&
+					exception,
+				const SingletonManagerConfigurations&
+					configurations
+			)
+    {   
+		{
+			boost::unique_lock<boost::mutex>
+				mutex_lock;
+			if (configurations
+					.is_thread_safety_enabled)
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						cache_mutex_1
+					);
+			}
+
+			SingletonManagerConfigurations
+				::cache_configurations =
+					configurations;
+			SingletonManagerConfigurations
+				::_handle_setup_caches();
+
+			cache_error_log =
+				exception.what();
+		}        
 
         _handle_error();
 
+		{
+			boost::unique_lock<boost::mutex>
+				mutex_lock;
+			if (configurations
+					.is_thread_safety_enabled)
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						cache_mutex_1
+					);
+			}
+
+			SingletonManagerConfigurations
+				::cache_configurations =
+					{};
+			SingletonManagerConfigurations
+				::_handle_setup_caches();
+		}
+        
         return
-            SingletonManager::cache_boolean_1;
+            cache_boolean_1;
+    }
+    
+    SingletonManager&
+        SingletonManager
+			::get_this_singleton(
+				const SingletonManagerConfigurations&
+					configurations
+			)
+    {
+		{
+			boost::unique_lock<boost::mutex>
+				mutex_lock;
+			if (configurations
+					.is_thread_safety_enabled)
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						cache_mutex_1
+					);
+			}
+
+			SingletonManagerConfigurations
+				::cache_configurations =
+					configurations;
+			SingletonManagerConfigurations
+				::_handle_setup_caches();
+		}
+
+        static SingletonManager
+            singleton;
+
+		{
+			boost::unique_lock<boost::mutex>
+				mutex_lock;
+			if (configurations
+					.is_thread_safety_enabled)
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						cache_mutex_1
+					);
+			}
+
+			SingletonManagerConfigurations
+				::cache_configurations =
+					{};
+			SingletonManagerConfigurations
+				::_handle_setup_caches();
+		}        
+
+        return
+            singleton;
     }
 
     void
-        SingletonManager::_handle_construct()
+        SingletonManager
+			::_handle_construct()
     {
         try
         {
-            SingletonManagerConfigurations::_handle_construct();
-
-            SingletonManager::cache_boolean_1 =
+            cache_boolean_1 =
                 true;
         }
         catch
@@ -143,7 +366,10 @@ namespace QLogicaeCppCore
                 exception
         )
         {            
-            SingletonManager::cache_error_log =
+            cache_boolean_1 =
+                false;
+
+            cache_error_log =
                 exception.what();
 
             _handle_error();
@@ -151,13 +377,12 @@ namespace QLogicaeCppCore
     }
 
     void
-        SingletonManager::_handle_destruct()
+        SingletonManager
+			::_handle_destruct()
     {
         try
         {
-            SingletonManagerConfigurations::_handle_destruct();
-
-            SingletonManager::cache_boolean_1 =
+            cache_boolean_1 =
                 true;
         }
         catch
@@ -166,7 +391,10 @@ namespace QLogicaeCppCore
                 exception
         )
         {
-            SingletonManager::cache_error_log =
+            cache_boolean_1 =
+                false;
+
+            cache_error_log =
                 exception.what();
 
             _handle_error();
@@ -174,13 +402,15 @@ namespace QLogicaeCppCore
     }
 
     void
-        SingletonManager::_handle_setup()
+        SingletonManager
+			::_handle_setup()
     {
         try
         {
-            SingletonManagerConfigurations::_handle_setup();
+            SingletonManagerConfigurations
+				::_handle_setup();
 
-            SingletonManager::cache_boolean_1 =
+            cache_boolean_1 =
                 true;
         }
         catch
@@ -189,7 +419,10 @@ namespace QLogicaeCppCore
                 exception
         )
         {
-            SingletonManager::cache_error_log =
+            cache_boolean_1 =
+                false;
+
+            cache_error_log =
                 exception.what();
 
             _handle_error();
@@ -197,13 +430,15 @@ namespace QLogicaeCppCore
     }
 
     void
-        SingletonManager::_handle_reset()
+        SingletonManager
+			::_handle_reset()
     {
         try
         {
-            SingletonManagerConfigurations::_handle_reset();
+            SingletonManagerConfigurations
+				::_handle_reset();
 
-            SingletonManager::cache_boolean_1 =
+            cache_boolean_1 =
                 true;
         }
         catch
@@ -212,7 +447,10 @@ namespace QLogicaeCppCore
                 exception
         )
         {
-            SingletonManager::cache_error_log =
+            cache_boolean_1 =
+                false;
+
+            cache_error_log =
                 exception.what();
 
             _handle_error();
@@ -220,19 +458,22 @@ namespace QLogicaeCppCore
     }
     
     void
-        SingletonManager::_handle_error()
+        SingletonManager
+			::_handle_error()
     {
         try
         {
-            SingletonManager::cache_boolean_1 =
+            cache_boolean_1 =
                 false;
             
-            if (!ErrorManagerConfigurations::cache_is_enabled)
+            if (!ErrorManagerConfigurations
+					::cache_is_enabled)
             {
                 return;
             }
 
-            if (ErrorManagerConfigurations::cache_is_asynchronous_output_enabled)
+            if (ErrorManagerConfigurations
+					::cache_is_asynchronous_output_enabled)
             {
                 _handle_error_asynchronously();
             }
@@ -243,19 +484,22 @@ namespace QLogicaeCppCore
         }
         catch (...)
         {
-            SingletonManager::cache_boolean_1 =
+            cache_boolean_1 =
                 false;
         }
     }
 
     void
-        SingletonManager::_handle_error_asynchronously()
+        SingletonManager
+			::_handle_error_asynchronously()
     {
         std::vector<std::future<void>>
             futures;
 
-        if (ErrorManagerConfigurations::cache_is_asynchronous_console_output_enabled &&
-            ErrorManagerConfigurations::cache_is_console_output_enabled
+        if (ErrorManagerConfigurations
+				::cache_is_asynchronous_console_output_enabled &&
+            ErrorManagerConfigurations
+				::cache_is_console_output_enabled
             )
         {
             futures.push_back(
@@ -264,16 +508,19 @@ namespace QLogicaeCppCore
                     [&]()
                     {
                         fast_io::io::println(
-                            SingletonManager::cache_fast_io_error_console_output_type,
-                            SingletonManager::cache_error_log
+                            SingletonManager
+			::cache_fast_io_error_console_output_type,
+                            cache_error_log
                         );
                     }
                 )
             );
         }
 
-        if (ErrorManagerConfigurations::cache_is_asynchronous_file_output_enabled &&
-            ErrorManagerConfigurations::cache_is_file_output_enabled
+        if (ErrorManagerConfigurations
+				::cache_is_asynchronous_file_output_enabled &&
+            ErrorManagerConfigurations
+				::cache_is_file_output_enabled
             )
         {
             for (const std::string& cache_full_file_output_path :
@@ -293,7 +540,7 @@ namespace QLogicaeCppCore
 
                             fast_io::io::println(
                                 fast_io_native_file,
-                                SingletonManager::cache_error_log
+                                cache_error_log
                             );
                         }
                     )
@@ -301,8 +548,10 @@ namespace QLogicaeCppCore
             }
         }
 
-        if (ErrorManagerConfigurations::cache_is_asynchronous_runtime_throw_output_enabled &&
-            ErrorManagerConfigurations::cache_is_runtime_throw_output_enabled
+        if (ErrorManagerConfigurations
+				::cache_is_asynchronous_runtime_throw_output_enabled &&
+            ErrorManagerConfigurations
+				::cache_is_runtime_throw_output_enabled
             )
         {
             futures.push_back(
@@ -310,9 +559,10 @@ namespace QLogicaeCppCore
                     std::launch::async,
                     [&]()
                     {
-                        throw std::runtime_error(
-                            SingletonManager::cache_error_log
-                        );
+                        throw
+							std::runtime_error(
+								cache_error_log
+							);
                     }
                 )
             );
@@ -325,20 +575,26 @@ namespace QLogicaeCppCore
     }
 
     void
-        SingletonManager::_handle_error_synchronously()
+        SingletonManager
+			::_handle_error_synchronously()
     {
-        if (ErrorManagerConfigurations::cache_is_console_output_enabled)
+        if (ErrorManagerConfigurations
+				::cache_is_console_output_enabled)
         {
             fast_io::io::println(
-                SingletonManager::cache_fast_io_error_console_output_type,
-                SingletonManager::cache_error_log
+                SingletonManager
+					::cache_fast_io_error_console_output_type,
+                cache_error_log
             );
         }
 
-        if (ErrorManagerConfigurations::cache_is_file_output_enabled)
+        if (ErrorManagerConfigurations
+				::cache_is_file_output_enabled)
         {
-            for (const std::string& cache_full_file_output_path :
-                ErrorManagerConfigurations::cache_full_file_output_paths
+            for (const std::string&
+					cache_full_file_output_path :
+					ErrorManagerConfigurations
+						::cache_full_file_output_paths
                 )
             {
                 fast_io::native_file
@@ -349,26 +605,18 @@ namespace QLogicaeCppCore
 
                 fast_io::io::println(
                     fast_io_native_file,
-                    SingletonManager::cache_error_log
+                    cache_error_log
                 );
             }
         }
 
-        if (ErrorManagerConfigurations::cache_is_runtime_throw_output_enabled)
+        if (ErrorManagerConfigurations
+				::cache_is_runtime_throw_output_enabled)
         {
-            throw std::runtime_error(
-                SingletonManager::cache_error_log
-            );
+            throw
+				std::runtime_error(
+					cache_error_log
+				);
         }
-    }
-
-    SingletonManager&
-        SingletonManager::get_this_singleton()
-    {
-        static SingletonManager
-            singleton;
-
-        return
-            singleton;
     }
 }

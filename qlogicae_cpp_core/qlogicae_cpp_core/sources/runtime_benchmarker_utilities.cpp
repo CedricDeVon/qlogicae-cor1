@@ -18,6 +18,9 @@ namespace QLogicaeCppCore
     {
         try
         {
+            RuntimeBenchmarkerConfigurations::cache_configurations =
+                {};
+
             _handle_construct();
         }
         catch
@@ -26,6 +29,9 @@ namespace QLogicaeCppCore
                 exception
         )
         {
+            cache_boolean_1 =
+                false;
+
             ErrorManager::cache_error_log =
                 exception.what();
 
@@ -38,6 +44,9 @@ namespace QLogicaeCppCore
     {
         try
         {
+            RuntimeBenchmarkerConfigurations::cache_configurations =
+                {};
+
             _handle_destruct();
         }
         catch
@@ -46,6 +55,9 @@ namespace QLogicaeCppCore
                 exception
         )
         {
+            cache_boolean_1 =
+                false;
+
             ErrorManager::cache_error_log =
                 exception.what();
 
@@ -55,9 +67,60 @@ namespace QLogicaeCppCore
     }
 
     bool
-        RuntimeBenchmarkerUtilities::construct()
+        RuntimeBenchmarkerUtilities::construct(
+            const RuntimeBenchmarkerConfigurations&
+                    configurations
+        )
     {
+        RuntimeBenchmarkerConfigurations::cache_configurations =
+            configurations;
+
         _handle_construct();
+
+        return
+            cache_boolean_1;
+    }
+    
+    bool
+        RuntimeBenchmarkerUtilities::destruct(
+            const RuntimeBenchmarkerConfigurations&
+                    configurations
+        )
+    {
+        RuntimeBenchmarkerConfigurations::cache_configurations =
+            configurations;
+
+        _handle_destruct();
+
+        return
+            cache_boolean_1;
+    }
+
+    bool
+        RuntimeBenchmarkerUtilities::setup(
+            const RuntimeBenchmarkerConfigurations&
+                configurations
+        )
+    {
+        RuntimeBenchmarkerConfigurations::cache_configurations =
+            configurations;
+
+        _handle_setup();
+
+        return
+            cache_boolean_1;
+    }
+
+    bool
+        RuntimeBenchmarkerUtilities::reset(
+            const RuntimeBenchmarkerConfigurations&
+                configurations
+        )
+    {
+        RuntimeBenchmarkerConfigurations::cache_configurations =
+            configurations;
+
+        _handle_reset();
 
         return
             cache_boolean_1;
@@ -77,21 +140,15 @@ namespace QLogicaeCppCore
                 exception
         )
         {
+            cache_boolean_1 =
+                false;
+
             ErrorManager::cache_error_log =
                 exception.what();
 
             ErrorManager::singleton
                 ._handle();
         }
-    }
-
-    bool
-        RuntimeBenchmarkerUtilities::destruct()
-    {
-        _handle_destruct();
-
-        return
-            cache_boolean_1;
     }
 
     void
@@ -116,20 +173,13 @@ namespace QLogicaeCppCore
         }
     }
 
-    bool
-        RuntimeBenchmarkerUtilities::setup()
-    {
-        _handle_setup();
-
-        return
-            cache_boolean_1;
-    }
-
     void
         RuntimeBenchmarkerUtilities::_handle_setup()
     {
         try
         {
+            RuntimeBenchmarkerConfigurations::_handle_setup();
+
             cache_boolean_1 =
                 true;
         }
@@ -139,6 +189,9 @@ namespace QLogicaeCppCore
                 exception
         )
         {
+            cache_boolean_1 =
+                false;
+
             ErrorManager::cache_error_log =
                 exception.what();
 
@@ -147,20 +200,13 @@ namespace QLogicaeCppCore
         }
     }
 
-    bool
-        RuntimeBenchmarkerUtilities::reset()
-    {
-        _handle_reset();
-
-        return
-            cache_boolean_1;
-    }
-
     void
         RuntimeBenchmarkerUtilities::_handle_reset()
     {
         try
         {
+            RuntimeBenchmarkerConfigurations::_handle_reset();
+
             cache_boolean_1 =
                 true;
         }
@@ -170,6 +216,9 @@ namespace QLogicaeCppCore
                 exception
         )
         {
+            cache_boolean_1 =
+                false;
+
             ErrorManager::cache_error_log =
                 exception.what();
 

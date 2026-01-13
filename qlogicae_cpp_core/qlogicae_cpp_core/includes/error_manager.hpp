@@ -10,6 +10,9 @@ namespace QLogicaeCppCore
     public:   
         static bool
             cache_boolean_1;
+            
+        static boost::mutex
+            cache_mutex_1;
 
         static std::string
             cache_error_log;
@@ -19,6 +22,8 @@ namespace QLogicaeCppCore
 
         static ErrorManager&
             singleton;
+
+
 
         ErrorManager();
 
@@ -47,49 +52,55 @@ namespace QLogicaeCppCore
             ) = delete;
 
         bool
-            construct();
+            construct(
+                const ErrorManagerConfigurations&
+                    configurations = {}
+            );
 
         bool
-            destruct();
+            destruct(
+                const ErrorManagerConfigurations&
+                    configurations = {}
+            );
 
         bool
             setup(
                 const ErrorManagerConfigurations&
-                    new_configurations
+                    configurations = {}
             );
 
         bool
-            setup();
-
-        bool
-            reset();
+            reset(
+                const ErrorManagerConfigurations&
+                    configurations = {}
+            );
 
         bool
             handle(
                 const std::string_view&
                     title,
                 const std::string_view&
-                    message
+                    message,
+                const ErrorManagerConfigurations&
+                    configurations = {}
             );
 
         bool
             handle(
                 const std::string_view&
-                    message
+                    message,
+                const ErrorManagerConfigurations&
+                    configurations = {}
             );
 
         bool
             handle(
                 const std::exception&
-                    exception
+                    exception,
+                const ErrorManagerConfigurations&
+                    configurations = {}
             );
-
-        void
-            _handle_asynchronously();
-
-        void
-            _handle_synchronously();
-
+        
         void
             _handle_construct();
 
@@ -104,5 +115,11 @@ namespace QLogicaeCppCore
 
         void
             _handle();
+
+        void
+            _handle_asynchronously();
+
+        void
+            _handle_synchronously();
     };        
 }

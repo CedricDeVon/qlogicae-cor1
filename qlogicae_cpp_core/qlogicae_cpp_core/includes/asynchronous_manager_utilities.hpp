@@ -12,17 +12,22 @@ namespace QLogicaeCppCore
         static bool
             cache_boolean_1;
 
+        static boost::mutex
+            cache_mutex_1;
+
+		static boost::mutex
+			cache_mutex_2;
+
         static std::shared_ptr<boost::asio::thread_pool>
             cache_main_thread_pool;
 
         static std::shared_ptr<boost::asio::thread_pool>
             cache_temporary_thread_pool;
 
-        static boost::mutex
-            cache_mutex;
-
         static AsynchronousManagerUtilities&
             singleton;
+
+
 
         AsynchronousManagerUtilities();
 
@@ -51,25 +56,34 @@ namespace QLogicaeCppCore
             ) = delete;
 
         bool
-            construct();
+            construct(
+                const AsynchronousManagerConfigurations&
+                    configurations = {}
+            );
 
         bool
-            destruct();
+            destruct(
+                const AsynchronousManagerConfigurations&
+                    configurations = {}
+            );
 
         bool
             setup(
                 const AsynchronousManagerConfigurations&
-                    new_configurations
+                    configurations = {}
             );
 
         bool
-            setup();
+            reset(
+                const AsynchronousManagerConfigurations&
+                    configurations = {}
+            );
 
         bool
-            reset();
-
-        bool
-            complete_all_threads();
+            complete_all_threads(
+                const AsynchronousManagerConfigurations&
+                    configurations = {}
+            );
 
         void
             _handle_construct();

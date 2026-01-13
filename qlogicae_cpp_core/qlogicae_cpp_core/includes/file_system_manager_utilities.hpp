@@ -8,7 +8,7 @@ namespace QLogicaeCppCore
 {
     class FileSystemManagerUtilities
     {
-    public:
+    public:        
         static std::string
             relative_private_qlogicae_folder_path;
 
@@ -129,11 +129,17 @@ namespace QLogicaeCppCore
         static int
             cache_int_1;
 
+        static size_t
+            cache_size_t_1;
+
         static std::string
             cache_string_1;
 
         static std::wstring
             cache_wstring_1;
+
+        static std::vector<std::string>
+            cache_vector_string_1;
 
         static wchar_t*
             cache_wchar_t_pointer_1;

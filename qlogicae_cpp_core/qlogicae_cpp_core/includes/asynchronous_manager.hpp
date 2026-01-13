@@ -2,17 +2,14 @@
 
 #include "error_manager.hpp"
 #include "singleton_manager.hpp"
-#include "asynchronous_manager_configurations.hpp"
 #include "asynchronous_manager_utilities.hpp"
+#include "asynchronous_manager_configurations.hpp"
 
 namespace QLogicaeCppCore
 {    
     class AsynchronousManager
     {
-    public:                
-        static bool
-            cache_boolean_1;
-
+    public:                        
         static AsynchronousManager&
             singleton;
 
@@ -43,27 +40,35 @@ namespace QLogicaeCppCore
         ) = delete;
         
         bool
-            construct();
+            construct(
+                const AsynchronousManagerConfigurations&
+                    configurations = {}
+            );
 
         bool
-            destruct();
+            destruct(
+                const AsynchronousManagerConfigurations&
+                    configurations = {}
+            );
 
         bool
             setup(
                 const AsynchronousManagerConfigurations&
-                    new_configurations
+                    configurations = {}
             );
 
         bool
-            setup();
-
-        bool
-            reset();
+            reset(
+                const AsynchronousManagerConfigurations&
+                    configurations = {}
+            );
 
         bool
             begin_one_thread(
                 const std::function<void()>&
-                    callback
+                    callback,
+                const AsynchronousManagerConfigurations&
+                    configurations = {}
             );
 
         void

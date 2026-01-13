@@ -9,13 +9,20 @@ namespace QLogicaeCppCore
             false;
 
     TimeDelayClockConfigurations
-        TimeDelayClockConfigurations::cache;
+        TimeDelayClockConfigurations::cache_configurations;
 
 
 
+    
     bool
-        TimeDelayClockConfigurations::construct()
+        TimeDelayClockConfigurations::construct(
+            const TimeDelayClockConfigurations&
+                configurations
+        )
     {
+        cache_configurations =
+            configurations;
+
         _handle_construct();
 
         return
@@ -23,8 +30,14 @@ namespace QLogicaeCppCore
     }
 
     bool
-        TimeDelayClockConfigurations::destruct()
+        TimeDelayClockConfigurations::destruct(
+            const TimeDelayClockConfigurations&
+                configurations
+        )
     {
+        cache_configurations =
+            configurations;
+
         _handle_destruct();
 
         return
@@ -34,11 +47,11 @@ namespace QLogicaeCppCore
     bool
         TimeDelayClockConfigurations::setup(
             const TimeDelayClockConfigurations&
-                    new_configurations
+                configurations
         )
     {
-        cache =
-            new_configurations;
+        cache_configurations =
+            configurations;
 
         _handle_setup();
 
@@ -47,21 +60,75 @@ namespace QLogicaeCppCore
     }
 
     bool
-        TimeDelayClockConfigurations::setup()
+        TimeDelayClockConfigurations::reset(
+            const TimeDelayClockConfigurations&
+                configurations
+        )
     {
-        cache =
-            {};
+        cache_configurations =
+            configurations;
 
-        _handle_setup();
-
-        return
-            cache_boolean_1;
-    }
-
-    bool
-        TimeDelayClockConfigurations::reset()
-    {
         _handle_reset();
+
+        return
+            cache_boolean_1;
+    }
+    
+    bool
+        TimeDelayClockConfigurations::setup_caches(
+            const TimeDelayClockConfigurations&
+                configurations
+        )
+    {
+        cache_configurations =
+            configurations;
+
+        _handle_setup_caches();
+
+        return
+            cache_boolean_1;
+    }
+    
+    bool
+        TimeDelayClockConfigurations::setup_defaults(
+            const TimeDelayClockConfigurations&
+                configurations
+        )
+    {
+        cache_configurations =
+            configurations;
+
+        _handle_setup_defaults();
+
+        return
+            cache_boolean_1;
+    }
+    
+    bool
+        TimeDelayClockConfigurations::reset_caches(
+            const TimeDelayClockConfigurations&
+                configurations
+        )
+    {
+        cache_configurations =
+            configurations;
+
+        _handle_reset_caches();
+
+        return
+            cache_boolean_1;
+    }
+    
+    bool
+        TimeDelayClockConfigurations::reset_defaults(
+            const TimeDelayClockConfigurations&
+                configurations
+        )
+    {
+        cache_configurations =
+            configurations;
+
+        _handle_reset_defaults();
 
         return
             cache_boolean_1;
@@ -89,7 +156,7 @@ namespace QLogicaeCppCore
 
             ErrorManager::singleton
                 ._handle();
-        }        
+        }
     }
 
     void
@@ -121,7 +188,10 @@ namespace QLogicaeCppCore
         TimeDelayClockConfigurations::_handle_setup()
     {
         try
-        {            
+        {
+            _handle_setup_caches();
+            _handle_setup_defaults();
+
             cache_boolean_1 =
                 true;
         }
@@ -147,6 +217,9 @@ namespace QLogicaeCppCore
     {
         try
         {
+            _handle_reset_caches();
+            _handle_reset_defaults();
+
             cache_boolean_1 =
                 true;
         }
@@ -165,5 +238,105 @@ namespace QLogicaeCppCore
             ErrorManager::singleton
                 ._handle();
         }
-    };
+    }
+    
+    void
+        TimeDelayClockConfigurations::_handle_setup_caches()
+    {
+        try
+        {         
+            cache_boolean_1 =
+                true;
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+            cache_boolean_1 =
+                false;
+
+            ErrorManager::cache_error_log =
+                exception.what();
+
+            ErrorManager::singleton
+                ._handle();
+        }
+    }
+
+    void
+        TimeDelayClockConfigurations::_handle_setup_defaults()
+    {
+        try
+        {         
+            cache_boolean_1 =
+                true;
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+            cache_boolean_1 =
+                false;
+
+            ErrorManager::cache_error_log =
+                exception.what();
+
+            ErrorManager::singleton
+                ._handle();
+        }
+    }
+    
+    void
+        TimeDelayClockConfigurations::_handle_reset_caches()
+    {
+        try
+        {            
+            cache_boolean_1 =
+                true;
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+            cache_boolean_1 =
+                false;
+
+            ErrorManager::cache_error_log =
+                exception.what();
+
+            ErrorManager::singleton
+                ._handle();
+        }
+    }
+
+    void
+        TimeDelayClockConfigurations::_handle_reset_defaults()
+    {
+        try
+        {            
+            cache_boolean_1 =
+                true;
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+            cache_boolean_1 =
+                false;
+
+            ErrorManager::cache_error_log =
+                exception.what();
+
+            ErrorManager::singleton
+                ._handle();
+        }
+    }
 }

@@ -64,13 +64,19 @@ namespace QLogicaeCppCore
             false;
 
     TemperatureManagerConfigurations
-        TemperatureManagerConfigurations::cache;
+        TemperatureManagerConfigurations::cache_configurations;
 
 
 
     bool
-        TemperatureManagerConfigurations::construct()
+        TemperatureManagerConfigurations::construct(
+            const TemperatureManagerConfigurations&
+                configurations
+        )
     {
+        cache_configurations =
+            configurations;
+
         _handle_construct();
 
         return
@@ -78,8 +84,14 @@ namespace QLogicaeCppCore
     }
 
     bool
-        TemperatureManagerConfigurations::destruct()
+        TemperatureManagerConfigurations::destruct(
+            const TemperatureManagerConfigurations&
+                configurations
+        )
     {
+        cache_configurations =
+            configurations;
+
         _handle_destruct();
 
         return
@@ -89,11 +101,11 @@ namespace QLogicaeCppCore
     bool
         TemperatureManagerConfigurations::setup(
             const TemperatureManagerConfigurations&
-                new_configurations
+                configurations
         )
     {
-        cache =
-            new_configurations;
+        cache_configurations =
+            configurations;
 
         _handle_setup();
 
@@ -102,21 +114,75 @@ namespace QLogicaeCppCore
     }
 
     bool
-        TemperatureManagerConfigurations::setup()
+        TemperatureManagerConfigurations::reset(
+            const TemperatureManagerConfigurations&
+                configurations
+        )
     {
-        cache =
-            {};
+        cache_configurations =
+            configurations;
 
-        _handle_setup();
-
-        return
-            cache_boolean_1;
-    }
-
-    bool
-        TemperatureManagerConfigurations::reset()
-    {
         _handle_reset();
+
+        return
+            cache_boolean_1;
+    }
+    
+    bool
+        TemperatureManagerConfigurations::setup_caches(
+            const TemperatureManagerConfigurations&
+                configurations
+        )
+    {
+        cache_configurations =
+            configurations;
+
+        _handle_setup_caches();
+
+        return
+            cache_boolean_1;
+    }
+    
+    bool
+        TemperatureManagerConfigurations::setup_defaults(
+            const TemperatureManagerConfigurations&
+                configurations
+        )
+    {
+        cache_configurations =
+            configurations;
+
+        _handle_setup_defaults();
+
+        return
+            cache_boolean_1;
+    }
+    
+    bool
+        TemperatureManagerConfigurations::reset_caches(
+            const TemperatureManagerConfigurations&
+                configurations
+        )
+    {
+        cache_configurations =
+            configurations;
+
+        _handle_reset_caches();
+
+        return
+            cache_boolean_1;
+    }
+    
+    bool
+        TemperatureManagerConfigurations::reset_defaults(
+            const TemperatureManagerConfigurations&
+                configurations
+        )
+    {
+        cache_configurations =
+            configurations;
+
+        _handle_reset_defaults();
 
         return
             cache_boolean_1;
@@ -177,21 +243,8 @@ namespace QLogicaeCppCore
     {
         try
         {
-            TemperatureManagerConfigurations::default_value =
-                TemperatureManagerConfigurations::cache_value =
-                TemperatureManagerConfigurations::cache.value;
-
-            TemperatureManagerConfigurations::default_is_enabled =
-                TemperatureManagerConfigurations::cache_is_enabled =
-                TemperatureManagerConfigurations::cache.is_enabled;
-
-            TemperatureManagerConfigurations::default_from_unit_type =
-                TemperatureManagerConfigurations::cache_from_unit_type =
-                TemperatureManagerConfigurations::cache.from_unit_type;
-
-            TemperatureManagerConfigurations::default_to_unit_type =
-                TemperatureManagerConfigurations::cache_to_unit_type =
-                TemperatureManagerConfigurations::cache.to_unit_type;
+            _handle_setup_caches();
+            _handle_setup_defaults();
 
             cache_boolean_1 =
                 true;
@@ -218,21 +271,156 @@ namespace QLogicaeCppCore
     {
         try
         {
-            TemperatureManagerConfigurations::default_value =
-                TemperatureManagerConfigurations::cache_value =
-                TemperatureManagerConfigurations::initial_value;
+            _handle_reset_caches();
+            _handle_reset_defaults();
 
-            TemperatureManagerConfigurations::default_is_enabled =
-                TemperatureManagerConfigurations::cache_is_enabled =
-                TemperatureManagerConfigurations::initial_is_enabled;
+            cache_boolean_1 =
+                true;
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+            cache_boolean_1 =
+                false;
 
-            TemperatureManagerConfigurations::default_from_unit_type =
-                TemperatureManagerConfigurations::cache_from_unit_type =
-                TemperatureManagerConfigurations::initial_from_unit_type;
+            ErrorManager::cache_error_log =
+                exception.what();
 
-            TemperatureManagerConfigurations::default_to_unit_type =
-                TemperatureManagerConfigurations::cache_to_unit_type =
-                TemperatureManagerConfigurations::initial_to_unit_type;
+            ErrorManager::singleton
+                ._handle();
+        }
+    }
+    
+    void
+        TemperatureManagerConfigurations::_handle_setup_caches()
+    {
+        try
+        {            
+            cache_value =
+                cache_configurations.value;
+
+            cache_is_enabled =
+                cache_configurations.is_enabled;
+
+            cache_from_unit_type =
+                cache_configurations.from_unit_type;
+
+            cache_to_unit_type =
+                cache_configurations.to_unit_type;
+
+            cache_boolean_1 =
+                true;
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+            cache_boolean_1 =
+                false;
+
+            ErrorManager::cache_error_log =
+                exception.what();
+
+            ErrorManager::singleton
+                ._handle();
+        }
+    }
+
+    void
+        TemperatureManagerConfigurations::_handle_setup_defaults()
+    {
+        try
+        {         
+            default_value =
+                cache_configurations.value;
+
+            default_is_enabled =
+                cache_configurations.is_enabled;
+
+            default_from_unit_type =
+                cache_configurations.from_unit_type;
+
+            default_to_unit_type =
+                cache_configurations.to_unit_type;
+
+            cache_boolean_1 =
+                true;
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+            cache_boolean_1 =
+                false;
+
+            ErrorManager::cache_error_log =
+                exception.what();
+
+            ErrorManager::singleton
+                ._handle();
+        }
+    }
+    
+    void
+        TemperatureManagerConfigurations::_handle_reset_caches()
+    {
+        try
+        {            
+            cache_value =
+                initial_value;
+
+            cache_is_enabled =
+                initial_is_enabled;
+
+            cache_from_unit_type =
+                initial_from_unit_type;
+
+            cache_to_unit_type =
+                initial_to_unit_type;
+
+            cache_boolean_1 =
+                true;
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+            cache_boolean_1 =
+                false;
+
+            ErrorManager::cache_error_log =
+                exception.what();
+
+            ErrorManager::singleton
+                ._handle();
+        }
+    }
+
+    void
+        TemperatureManagerConfigurations::_handle_reset_defaults()
+    {
+        try
+        {            
+            default_value =
+                initial_value;
+
+            default_is_enabled =
+                initial_is_enabled;
+
+            default_from_unit_type =
+                initial_from_unit_type;
+
+            default_to_unit_type =
+                initial_to_unit_type;
 
             cache_boolean_1 =
                 true;

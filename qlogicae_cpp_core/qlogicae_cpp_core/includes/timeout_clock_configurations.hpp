@@ -57,27 +57,57 @@ namespace QLogicaeCppCore
             cache_boolean_1;
 
         static TimeoutClockConfigurations
-            cache;
+            cache_configurations;
 
 
+        
+        static bool
+            construct(
+                const TimeoutClockConfigurations&
+                    configurations = {}
+            );
 
         static bool
-            construct();
-
-        static bool
-            destruct();
-
-        static bool
-            setup();
+            destruct(
+                const TimeoutClockConfigurations&
+                    configurations = {}
+            );
 
         static bool
             setup(
                 const TimeoutClockConfigurations&
-                    new_configurations
+                    configurations = {}
             );
 
         static bool
-            reset();
+            reset(
+                const TimeoutClockConfigurations&
+                    configurations = {}
+            );
+
+        static bool
+            setup_caches(
+                const TimeoutClockConfigurations&
+                    configurations = {}
+            );
+
+        static bool
+            setup_defaults(
+                const TimeoutClockConfigurations&
+                    configurations = {}
+            );
+
+        static bool
+            reset_caches(
+                const TimeoutClockConfigurations&
+                    configurations = {}
+            );
+
+        static bool
+            reset_defaults(
+                const TimeoutClockConfigurations&
+                    configurations = {}
+            );
 
         static void
             _handle_construct();
@@ -90,5 +120,17 @@ namespace QLogicaeCppCore
 
         static void
             _handle_reset();
+
+        static void
+            _handle_setup_caches();
+
+        static void
+            _handle_setup_defaults();
+
+        static void
+            _handle_reset_caches();
+
+        static void
+            _handle_reset_defaults();
     };
 }

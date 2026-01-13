@@ -161,6 +161,10 @@ namespace QLogicaeCppCore
         FileSystemManagerUtilities::cache_int_1 =
             0;
 
+    size_t
+        FileSystemManagerUtilities::cache_size_t_1 =
+            0;
+
     std::string
         FileSystemManagerUtilities::cache_string_1 =
             "";
@@ -173,10 +177,14 @@ namespace QLogicaeCppCore
         FileSystemManagerUtilities::cache_wchar_t_pointer_1 =
             nullptr;
 
+    std::vector<std::string>
+        FileSystemManagerUtilities::cache_vector_string_1;
 
     FileSystemManagerUtilities&
         FileSystemManagerUtilities::singleton =
             SingletonManager::get_singleton<FileSystemManagerUtilities>();
+
+
 
     FileSystemManagerUtilities::FileSystemManagerUtilities()
     {

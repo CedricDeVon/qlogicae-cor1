@@ -11,8 +11,13 @@ namespace QLogicaeCppCore
         static bool
             cache_boolean_1;
 
+		static boost::mutex
+			cache_mutex_1;
+
         static ApplicationManager&
             singleton;
+
+
 
         ApplicationManager();
 

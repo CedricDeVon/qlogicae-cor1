@@ -10,27 +10,57 @@ namespace QLogicaeCppCore
             cache_boolean_1;
 
         static TimeDelayClockConfigurations
-            cache;
+            cache_configurations;
 
 
+        
+        static bool
+            construct(
+                const TimeDelayClockConfigurations&
+                    configurations = {}
+            );
 
         static bool
-            construct();
-
-        static bool
-            destruct();
-
-        static bool
-            setup();
+            destruct(
+                const TimeDelayClockConfigurations&
+                    configurations = {}
+            );
 
         static bool
             setup(
                 const TimeDelayClockConfigurations&
-                    new_configurations
+                    configurations = {}
             );
 
         static bool
-            reset();
+            reset(
+                const TimeDelayClockConfigurations&
+                    configurations = {}
+            );
+
+        static bool
+            setup_caches(
+                const TimeDelayClockConfigurations&
+                    configurations = {}
+            );
+
+        static bool
+            setup_defaults(
+                const TimeDelayClockConfigurations&
+                    configurations = {}
+            );
+
+        static bool
+            reset_caches(
+                const TimeDelayClockConfigurations&
+                    configurations = {}
+            );
+
+        static bool
+            reset_defaults(
+                const TimeDelayClockConfigurations&
+                    configurations = {}
+            );
 
         static void
             _handle_construct();
@@ -43,5 +73,17 @@ namespace QLogicaeCppCore
 
         static void
             _handle_reset();
+
+        static void
+            _handle_setup_caches();
+
+        static void
+            _handle_setup_defaults();
+
+        static void
+            _handle_reset_caches();
+
+        static void
+            _handle_reset_defaults();
     };
 }

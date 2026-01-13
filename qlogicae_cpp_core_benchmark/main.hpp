@@ -142,7 +142,7 @@ void execute_nanobenchmark(
                 test_case.name;
 
             const std::string benchmark_name =
-                test_suite_name + "__" + test_case_name + "__" + std::to_string(iterations);
+                test_suite_name + " | " + test_case_name + " | " + std::to_string(iterations);
 
             const std::function<void()>& callback =
                 test_case.callback;
@@ -822,88 +822,7 @@ namespace Experiment4 // string_view
 }
 
 
-namespace Experiment5 // boost_async
-{
-    inline static std::shared_ptr<boost::asio::thread_pool> THREAD_POOL;
 
-    void boost_async()
-    {
-        boost::asio::post(
-            *THREAD_POOL,
-            []()
-            {
-
-            }
-        );
-    }
-
-    void std_async()
-    {
-        std::async(
-            std::launch::async,
-            []()
-            {
-
-            }
-        );
-    }
-
-    void execute()
-    {
-        std::cout << std::thread::hardware_concurrency() << "\n";
-
-        THREAD_POOL =
-            std::make_shared<boost::asio::thread_pool>(
-                std::thread::hardware_concurrency()
-            );
-
-        NanobenchBencchmarkingTestSuite test_suite
-        {
-            .name = "asynchronous",
-            .epoch_iteration_pairs =
-            {
-                {
-                    .epochs = 100'000,
-                    .iterations = 1
-                },
-                {
-                    .epochs = 10'000,
-                    .iterations = 10
-                },
-                {
-                    .epochs = 1'000,
-                    .iterations = 100
-                },
-                {
-                    .epochs = 100,
-                    .iterations = 1'000
-                },
-                {
-                    .epochs = 1,
-                    .iterations = 1'000'000
-                }
-            },
-            .test_cases =
-            {
-                {
-                    .name = "boost_async",
-                    .callback = boost_async
-                },
-                {
-                    .name = "std_async",
-                    .callback = std_async
-                }
-            }
-        };
-
-        execute_nanobenchmark(
-            test_suite
-        );
-
-        bool exit_code;
-        std::cin >> exit_code;
-    }
-}
 
 
 
@@ -1860,113 +1779,6 @@ namespace Experiment7 // no arguments
 
 
 
-namespace Experiment9 // folly and boost
-{
-    static folly::MicroSpinLock micro_spin_lock;
-
-    static std::mutex std_mutex;
-
-    static boost::mutex boost_mutex;
-
-    static std::unordered_map<std::string, folly::MicroSpinLock>
-        folly_micro_spin_lock_collection;
-
-    void lock_without_map()
-    {
-        micro_spin_lock.lock();
-        micro_spin_lock.unlock();
-    }
-
-    void lock_without_map_2()
-    {
-        try
-        {
-            micro_spin_lock.lock();
-            micro_spin_lock.unlock();
-        }
-        catch (...)
-        {
-        }
-    }
-
-    void lock_with_map()
-    {
-        folly_micro_spin_lock_collection["static"].lock();
-        folly_micro_spin_lock_collection["static"].unlock();
-    }
-
-    void lock_with_std_mutex()
-    {
-        std::unique_lock<std::mutex> lock(std_mutex);
-    }
-
-    void lock_with_boost_mutex()
-    {
-        boost::unique_lock<boost::mutex> lock(boost_mutex);
-    }
-
-    void execute()
-    {
-        NanobenchBencchmarkingTestSuite test_suite
-        {
-            .name = "object_instance_or_object_static",
-            .epoch_iteration_pairs =
-            {
-                {
-                    .epochs = 1'000'000,
-                    .iterations = 1
-                },
-                {
-                    .epochs = 100'000,
-                    .iterations = 10
-                },
-                {
-                    .epochs = 10'000,
-                    .iterations = 100
-                },
-                {
-                    .epochs = 1'000,
-                    .iterations = 1'000
-                },
-                {
-                    .epochs = 1,
-                    .iterations = 1'000'000
-                }
-            },
-
-            .test_cases =
-            {
-                {
-                    .name = "lock_without_map",
-                    .callback = lock_without_map
-                },
-                {
-                    .name = "lock_without_map_2",
-                    .callback = lock_without_map_2
-                },
-                {
-                    .name = "lock_with_map",
-                    .callback = lock_with_map
-                },{
-                    .name = "lock_with_std_mutex",
-                    .callback = lock_with_std_mutex
-                },
-                {
-                    .name = "lock_with_boost_mutex",
-                    .callback = lock_with_boost_mutex
-                }
-            }
-        };
-
-        execute_nanobenchmark(
-            test_suite
-        );
-
-        bool exit_code;
-        std::cin >> exit_code;
-    }
-}
-
 
 
 
@@ -2111,4 +1923,816 @@ namespace Experiment11 // while, ranged_based_for_loop
     }
 }
 
+
+
+
+namespace Experiment10 // pure
+{
+    static std::string benchmark_value = "0";
+
+    namespace Cache
+    {
+        static std::string pure_static_string_input_value = benchmark_value;
+
+        static std::string pure_static_string_output_value = "";
+
+        struct StructStringSample
+        {
+            inline static std::string struct_static_string_input_value = benchmark_value;
+
+            inline static std::string struct_static_string_output_value = "";
+        };
+
+        class ClassStringSample
+        {
+        public:
+            inline static std::string class_static_string_input_value = benchmark_value;
+
+            inline static std::string class_static_string_output_value = "";
+        };
+    };
+
+    extern std::string extern_static_string_input_value;
+
+    extern std::string extern_static_string_output_value;
+
+    static std::string pure_static_string_input_value = benchmark_value;
+
+    static std::string pure_static_string_output_value = "";
+
+    struct StructStringSample
+    {
+        inline static std::string struct_static_string_input_value = benchmark_value;
+
+        inline static std::string struct_static_string_output_value = "";
+    };
+
+    class ClassStringSample
+    {
+    public:
+        inline static std::string class_static_string_input_value = benchmark_value;
+
+        inline static std::string class_static_string_output_value = "";
+    };
+
+    void extern_static_string()
+    {
+        extern_static_string_output_value =
+            extern_static_string_input_value +
+            extern_static_string_input_value;
+    }
+
+    void pure_namespace_static_string()
+    {
+        Cache::pure_static_string_output_value =
+            Cache::pure_static_string_input_value +
+            Cache::pure_static_string_input_value;
+    }
+
+    void pure_static_string()
+    {
+        pure_static_string_output_value =
+            pure_static_string_input_value +
+            pure_static_string_input_value;
+    }
+
+    void struct_static_string()
+    {
+        StructStringSample::struct_static_string_output_value =
+            StructStringSample::struct_static_string_input_value +
+            StructStringSample::struct_static_string_input_value;
+    }
+
+    void class_static_string()
+    {
+        ClassStringSample::class_static_string_output_value =
+            ClassStringSample::class_static_string_input_value +
+            ClassStringSample::class_static_string_input_value;
+    }
+
+    static std::string pure_static_double_input_value = benchmark_value;
+
+    static std::string pure_static_double_output_value = "";
+
+    struct StructDoubleSample
+    {
+        inline static std::string struct_static_double_input_value = benchmark_value;
+
+        inline static std::string struct_static_double_output_value = "";
+    };
+
+    class ClassDoubleSample
+    {
+    public:
+        inline static std::string class_static_double_input_value = benchmark_value;
+
+        inline static std::string class_static_double_output_value = "";
+    };
+
+    void pure_static_double()
+    {
+        pure_static_double_output_value =
+            pure_static_double_input_value +
+            pure_static_double_input_value;
+    }
+
+    void struct_static_double()
+    {
+        StructDoubleSample::struct_static_double_output_value =
+            StructDoubleSample::struct_static_double_input_value +
+            StructDoubleSample::struct_static_double_input_value;
+    }
+
+    void class_static_double()
+    {
+        ClassDoubleSample::class_static_double_output_value =
+            ClassDoubleSample::class_static_double_input_value +
+            ClassDoubleSample::class_static_double_input_value;
+    }
+
+
+    void execute()
+    {
+        QLogicaeCppCore::RuntimeBenchmarkerTestSuite test_suite_1
+        {
+            .name = "pure_static_vs_struct_static_vs_class_static",
+            .warmup_count = 2,
+            .epoch_iteration_pairs =
+            {
+                {
+                    .epochs = 10'000'000,
+                    .iterations = 1
+                },
+                {
+                    .epochs = 1'000'000,
+                    .iterations = 10
+                },
+                {
+                    .epochs = 100'000,
+                    .iterations = 100
+                },
+                {
+                    .epochs = 10'000,
+                    .iterations = 1'000
+                },
+                {
+                    .epochs = 1,
+                    .iterations = 1'000'000
+                }
+            },
+
+            .test_cases =
+            {
+                {
+                    .name = "extern_static_string",
+                    .callback = extern_static_string
+                },
+                {
+                    .name = "struct_static_string",
+                    .callback = struct_static_string
+                },
+                {
+                    .name = "class_static_string",
+                    .callback = class_static_string
+                },
+                {
+                    .name = "pure_namespace_static_string",
+                    .callback = pure_namespace_static_string
+                },
+                {
+                    .name = "pure_static_string",
+                    .callback = pure_static_string
+                }
+            }
+        };
+
+        QLogicaeCppCore::RuntimeBenchmarker::singleton
+            .execute(
+                test_suite_1,
+                { .is_enabled = false }
+            );
+        QLogicaeCppCore::RuntimeBenchmarker::singleton
+            .execute(
+                test_suite_1,
+                { .is_enabled = true }
+            );
+
+        bool exit_code;
+        std::cin >> exit_code;
+    }
+}
+
+
+namespace Experiment9 // folly and boost
+{
+	class InstanceCollections
+	{
+	public:
+		folly::MicroSpinLock micro_spin_lock;
+
+		std::mutex std_mutex;
+
+		boost::mutex boost_mutex;
+
+		std::unordered_map<std::string, folly::MicroSpinLock>
+			folly_micro_spin_lock_collection;
+
+		std::string z;
+
+		std::string string_1(std::string x, std::string y)
+		{
+			return x + y;
+		}
+
+		void string_2(std::string x, std::string y)
+		{
+			//boost::unique_lock<boost::mutex> lock(boost_mutex);
+
+			z = x + y;
+		}
+	};
+
+	class StaticCollections
+	{
+	public:
+		inline static folly::MicroSpinLock micro_spin_lock;
+
+		inline static std::mutex std_mutex;
+
+		inline static boost::mutex boost_mutex;
+
+		inline static std::unordered_map<std::string, folly::MicroSpinLock>
+			folly_micro_spin_lock_collection;
+	};
+
+	inline static InstanceCollections singleton;
+
+	void instance_string_1()
+	{
+		singleton.string_1("a","b");
+	}
+
+	void instance_string_2()
+	{
+		singleton.string_2("a", "b");
+	}
+
+	void instance_lock_with_folly()
+	{
+		singleton.micro_spin_lock.lock();
+		singleton.micro_spin_lock.unlock();
+	}
+
+	void instance_lock_with_folly_2()
+	{
+		try
+		{
+			singleton.micro_spin_lock.lock();
+			singleton.micro_spin_lock.unlock();
+		}
+		catch (...)
+		{
+		}
+	}
+
+	void instance_lock_with_folly_map()
+	{
+		singleton.folly_micro_spin_lock_collection["instance"].lock();
+		singleton.folly_micro_spin_lock_collection["instance"].unlock();
+	}
+
+	void instance_lock_with_std_mutex()
+	{
+		std::unique_lock<std::mutex> lock(singleton.std_mutex);
+	}
+
+	void instance_lock_with_boost_mutex()
+	{
+		boost::unique_lock<boost::mutex> lock(singleton.boost_mutex);
+	}
+
+	void instance_lock_with_empty_boost_lock()
+	{
+		boost::unique_lock<boost::mutex> lock;
+	}
+
+	void instance_lock_with_boost_mutex_disabled()
+	{
+		if (false)
+		{
+			boost::unique_lock<boost::mutex> lock;
+		}
+	}
+
+	void instance_lock_with_boost_mutex_disabled_scoped()
+	{
+		{
+			if (false)
+			{
+				boost::unique_lock<boost::mutex> lock;
+			}
+		}
+	}
+
+	void static_lock_with_folly()
+	{
+		StaticCollections::micro_spin_lock.lock();
+		StaticCollections::micro_spin_lock.unlock();
+	}
+
+	void static_lock_with_folly_2()
+	{
+		try
+		{
+			StaticCollections::micro_spin_lock.lock();
+			StaticCollections::micro_spin_lock.unlock();
+		}
+		catch (...)
+		{
+		}
+	}
+
+	void static_lock_with_folly_map()
+	{
+		StaticCollections::folly_micro_spin_lock_collection["static"].lock();
+		StaticCollections::folly_micro_spin_lock_collection["static"].unlock();
+	}
+
+	void static_lock_with_std_mutex()
+	{
+		std::unique_lock<std::mutex> lock(StaticCollections::std_mutex);
+	}
+
+	void static_lock_with_boost_mutex()
+	{
+		boost::unique_lock<boost::mutex> lock(StaticCollections::boost_mutex);
+	}
+
+	void static_lock_with_empty_boost_lock()
+	{
+		boost::unique_lock<boost::mutex> lock;
+	}
+
+	void static_lock_with_boost_mutex_disabled()
+	{
+		if (false)
+		{
+			boost::unique_lock<boost::mutex> lock;
+		}
+	}
+
+	void static_lock_with_boost_mutex_disabled_scoped()
+	{
+		{
+			if (false)
+			{
+				boost::unique_lock<boost::mutex> lock;
+			}
+		}
+	}
+
+	inline static std::shared_ptr<boost::asio::thread_pool> THREAD_POOL =
+		std::make_shared<boost::asio::thread_pool>(
+			std::thread::hardware_concurrency()
+		);
+
+	inline static std::string static_a = "a";
+
+	inline static std::string static_b = "b";
+
+	void sync()
+	{
+		std::string a = static_a + static_b;
+	}
+
+	void async_1()
+	{
+		boost::asio::post(
+			*THREAD_POOL,
+			[]() mutable
+			{
+				std::string aaa = static_a + static_b;
+			}
+		);
+	}
+
+	void async_2()
+	{
+		std::async(
+			std::launch::async,
+			[]() mutable
+			{
+				std::string aaa = static_a + static_b;
+			}
+		);
+	}
+
+
+	void execute()
+	{
+		NanobenchBencchmarkingTestSuite test_suite
+		{
+			.name = "Experiment 9",
+			.epoch_iteration_pairs =
+			{
+				{
+					.epochs = 100000,
+					.iterations = 1
+				},
+				{
+					.epochs = 10000,
+					.iterations = 10
+				},
+				{
+					.epochs = 1000,
+					.iterations = 100
+				},
+				{
+					.epochs = 100,
+					.iterations = 1000
+				},
+				{
+					.epochs = 1,
+					.iterations = 1000000
+				}
+			},
+
+			.test_cases =
+			{
+				{
+					.name = "sync",
+					.callback = sync
+				},
+				{
+					.name = "async_1",
+					.callback = async_1
+				},
+				{
+					.name = "async_2",
+					.callback = async_2
+				}
+			}
+		};
+
+		execute_nanobenchmark(
+			test_suite
+		);
+
+		bool exit_code;
+		std::cin >> exit_code;
+	}
+}
+
+
+namespace Experiment_12 // std::string f(const std::string&, ...)
+{
+
+	// Results:
+	// - small const arguments -> std::string f(const std::string&, ...)
+	// - large const arguments -> std::string f(const std::string&, ...)
+
+	inline static std::shared_ptr<boost::asio::thread_pool> THREAD_POOL =
+		std::make_shared<boost::asio::thread_pool>(
+			std::thread::hardware_concurrency()
+		);
+
+	inline static std::string value = "0";
+
+	inline static std::string static_output_value_1 = "";
+
+	inline static std::string static_input_value_1 = "0";
+
+	inline static std::string static_input_value_2 = "0";
+
+	class InstanceObject
+	{
+	public:
+		InstanceObject() = default;
+
+		std::string instance_output_value_1 = "";
+
+
+		void function_11(std::string x, std::string y)
+		{
+			instance_output_value_1 = x + y;
+		}
+
+		void function_12(const std::string x, const std::string y)
+		{
+			instance_output_value_1 = x + y;
+		}
+
+		void function_13(const std::string& x, const std::string& y)
+		{
+			instance_output_value_1 = x + y;
+		}
+
+
+
+		std::string function_14(std::string x, std::string y)
+		{
+			return x + y;
+		}
+
+		std::string function_15(const std::string x, const std::string y)
+		{
+			return x + y;
+		}
+
+		std::string function_16(const std::string& x, const std::string_view& y)
+		{
+			return x + y.data();
+		}
+
+
+
+		std::string function_1(std::string x, std::string y)
+		{
+			return x + y;
+		}
+
+		std::string function_2(const std::string x, const std::string y)
+		{
+			return x + y;
+		}
+
+		std::string function_3(const std::string& x, const std::string& y)
+		{
+			return x + y;
+		}
+
+
+
+		void function_4(std::string& z, std::string x, std::string y)
+		{
+			z = x + y;
+		}
+
+		void function_5(std::string& z, const std::string x, const std::string y)
+		{
+			z = x + y;
+		}
+
+		void function_6(std::string& z, const std::string& x, const std::string& y)
+		{
+			z = x + y;
+		}
+
+		void function_11(std::string& z, const std::string& x, const std::string& y)
+		{
+			z = x + y;
+		}
+
+
+
+		void function_7(std::string x, std::string y)
+		{
+			static_output_value_1 = x + y;
+		}
+
+		void function_8(const std::string x, const std::string y)
+		{
+			static_output_value_1 = x + y;
+		}
+
+		void function_9(const std::string& x, const std::string& y)
+		{
+			static_output_value_1 = x + y;
+		}
+
+
+
+		void function_10()
+		{
+			static_output_value_1 = static_input_value_1 + static_input_value_2;
+		}
+
+		static InstanceObject instance;
+	};
+
+	InstanceObject InstanceObject::instance;
+
+	void execute()
+	{
+		NanobenchBencchmarkingTestSuite test_suite
+		{
+			.name = "Experiment_12",
+			.epoch_iteration_pairs =
+			{
+				{
+					.epochs = 1000000,
+					.iterations = 1
+				},
+				{
+					.epochs = 100000,
+					.iterations = 10
+				},
+				{
+					.epochs = 10000,
+					.iterations = 100
+				},
+				{
+					.epochs = 1000,
+					.iterations = 1000
+				},
+				{
+					.epochs = 1,
+					.iterations = 1000000
+				}
+			},
+
+			.test_cases =
+			{
+				{
+					.name = "function_signature__constant_arguments__16",
+					.callback = []() { std::string z = InstanceObject::instance.function_16("0", "0"); }
+				},
+				{
+					.name = "function_signature__constant_arguments__3",
+					.callback = []() { std::string z = InstanceObject::instance.function_3("0", "0"); }
+				},
+				{
+					.name = "function_signature__constant_arguments__6",
+					.callback = []() { InstanceObject::instance.function_6(static_output_value_1, "0", "0"); }
+				},
+				{
+					.name = "function_signature__constant_arguments__9",
+					.callback = []() { InstanceObject::instance.function_9("0", "0"); }
+				},
+				{
+					.name = "function_signature__constant_arguments__13",
+					.callback = []() { InstanceObject::instance.function_13("0", "0"); }
+				},
+				{
+					.name = "function_signature__reference_arguments__16",
+					.callback = []() { std::string z = InstanceObject::instance.function_16(static_input_value_1, static_input_value_2); }
+				},
+				{
+					.name = "function_signature__reference_arguments__3",
+					.callback = []() { std::string z = InstanceObject::instance.function_3(static_input_value_1, static_input_value_2); }
+				},
+				{
+					.name = "function_signature__reference_arguments__6",
+					.callback = []() { InstanceObject::instance.function_6(static_output_value_1, static_input_value_1, static_input_value_2); }
+				},
+				{
+					.name = "function_signature__reference_arguments__9",
+					.callback = []() { InstanceObject::instance.function_9(static_input_value_1, static_input_value_2); }
+				},
+				{
+					.name = "function_signature__reference_arguments__13",
+					.callback = []() { InstanceObject::instance.function_13(static_input_value_1, static_input_value_2); }
+				},
+			}
+		};
+
+		execute_nanobenchmark(
+			test_suite
+		);
+
+		bool exit_code;
+		std::cin >> exit_code;
+	}
+
+					{
+						.name = "function_signature__reference_arguments__1",
+						.callback = []() { std::string z = InstanceObject::instance.function_1(static_input_value_1, static_input_value_2); }
+					},
+					{
+						.name = "function_signature__reference_arguments__2",
+						.callback = []() { std::string z = InstanceObject::instance.function_2(static_input_value_1, static_input_value_2); }
+					},
+					{
+						.name = "function_signature__reference_arguments__4",
+						.callback = []() { InstanceObject::instance.function_4(static_output_value_1, static_input_value_1, static_input_value_2); }
+					},
+					{
+						.name = "function_signature__reference_arguments__5",
+						.callback = []() { InstanceObject::instance.function_5(static_output_value_1, static_input_value_1, static_input_value_2); }
+					},
+					{
+						.name = "function_signature__reference_arguments__7",
+						.callback = []() { InstanceObject::instance.function_7(static_input_value_1, static_input_value_2); }
+					},
+					{
+						.name = "function_signature__reference_arguments__8",
+						.callback = []() { InstanceObject::instance.function_8(static_input_value_1, static_input_value_2); }
+					},
+					{
+						.name = "function_signature__reference_arguments__10",
+						.callback = []() { InstanceObject::instance.function_10(); }
+					},
+					{
+						.name = "function_signature__constant_arguments__1",
+						.callback = []() { std::string z = InstanceObject::instance.function_1(value, value); }
+					},
+					{
+						.name = "function_signature__constant_arguments__2",
+						.callback = []() { std::string z = InstanceObject::instance.function_2(value, value); }
+					},
+					{
+						.name = "function_signature__constant_arguments__4",
+						.callback = []() { InstanceObject::instance.function_4(static_output_value_1, value, value); }
+					},
+					{
+						.name = "function_signature__constant_arguments__5",
+						.callback = []() { InstanceObject::instance.function_5(static_output_value_1, value, value); }
+					},
+					{
+						.name = "function_signature__constant_arguments__7",
+						.callback = []() { InstanceObject::instance.function_7(value, value); }
+					},
+					{
+						.name = "function_signature__constant_arguments__8",
+						.callback = []() { InstanceObject::instance.function_8(value, value); }
+					},
+					{
+						.name = "function_signature__constant_arguments__10",
+						.callback = []() { InstanceObject::instance.function_10(); }
+					},
+					{
+						.name = "function_signature__constant_arguments__11",
+						.callback = []() { InstanceObject::instance.function_11(value, value); }
+					},
+					{
+						.name = "function_signature__constant_arguments__12",
+						.callback = []() { InstanceObject::instance.function_12(value, value); }
+					},
+					{
+						.name = "instance_string_1",
+						.callback = instance_string_1
+					},
+					{
+						.name = "instance_string_2",
+						.callback = instance_string_2
+					},
+					{
+						.name = "instance_lock_with_folly",
+						.callback = instance_lock_with_folly
+					},
+					{
+						.name = "static_lock_with_folly",
+						.callback = static_lock_with_folly
+					},
+					{
+						.name = "instance_lock_with_folly_2",
+						.callback = instance_lock_with_folly_2
+					},
+					{
+						.name = "static_lock_with_folly_2",
+						.callback = static_lock_with_folly_2
+					},
+					{
+						.name = "instance_lock_with_folly_map",
+						.callback = instance_lock_with_folly_map
+					},
+					{
+						.name = "static_lock_with_folly_map",
+						.callback = static_lock_with_folly_map
+					},
+					{
+						.name = "instance_lock_with_std_mutex",
+						.callback = instance_lock_with_std_mutex
+					},
+					{
+						.name = "static_lock_with_std_mutex",
+						.callback = static_lock_with_std_mutex
+					},
+					{
+						.name = "instance_lock_with_boost_mutex",
+						.callback = instance_lock_with_boost_mutex
+					},
+					{
+						.name = "static_lock_with_boost_mutex",
+						.callback = static_lock_with_boost_mutex
+					},
+					{
+						.name = "instance_lock_with_empty_boost_lock",
+						.callback = instance_lock_with_empty_boost_lock
+					},
+					{
+						.name = "static_lock_with_empty_boost_lock",
+						.callback = static_lock_with_empty_boost_lock
+					},
+					{
+						.name = "instance_lock_with_boost_mutex_disabled",
+						.callback = instance_lock_with_boost_mutex_disabled
+					},
+					{
+						.name = "static_lock_with_boost_mutex_disabled",
+						.callback = static_lock_with_boost_mutex_disabled
+					},
+					{
+						.name = "instance_lock_with_boost_mutex_disabled_scoped",
+						.callback = instance_lock_with_boost_mutex_disabled_scoped
+					},
+					{
+						.name = "static_lock_with_boost_mutex_disabled_scoped",
+						.callback = static_lock_with_boost_mutex_disabled_scoped
+					}
+
+}
+
+
 */
+
