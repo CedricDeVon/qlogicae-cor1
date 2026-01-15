@@ -4,7 +4,7 @@
 
 
 
-namespace MutexOrNoneConcurrencyPerformance
+namespace WithOrWithoutMutexParallelismPerformance
 {
 	/*
 
@@ -18,24 +18,32 @@ namespace MutexOrNoneConcurrencyPerformance
 			- else
 				- use sync
 
-
 	| relative |               ns/op |                op/s |    err% |     total | benchmark
 	|---------:|--------------------:|--------------------:|--------:|----------:|:----------
-	|   100.0% |       23,776,918.18 |               42.06 |    3.5% |      3.01 | `Namespace Layers | string_concatenation__no_mutex__sync__n | 1`
-	|    96.5% |       24,639,350.00 |               40.59 |    3.8% |      3.22 | `Namespace Layers | string_concatenation__no_mutex__async__n | 1`
-	|    96.9% |       24,536,620.00 |               40.76 |    5.2% |      3.06 | :wavy_dash: `Namespace Layers | string_concatenation__with_semi_mutex__n | 1` (Unstable with ~11.1 iters. Increase `minEpochIterations` to e.g. 111)
-	|    99.6% |       23,881,309.09 |               41.87 |    3.1% |      3.10 | `Namespace Layers | string_concatenation__with_full_mutex__n | 1`
+	|   100.0% |       29,121,263.64 |               34.34 |    9.1% |      3.65 | :wavy_dash: `With Or Without Mutex Parallelism Performance | file_write_and_read__co_spawn__no_mutex__sync__n | 1` (Unstable with ~11.1 iters. Increase `minEpochIterations` to e.g. 111)
+	|   108.0% |       26,957,827.27 |               37.09 |    1.8% |      3.36 | `With Or Without Mutex Parallelism Performance | file_write_and_read__co_spawn__no_mutex__async__n | 1`
+	|   107.4% |       27,102,800.00 |               36.90 |    4.2% |      3.67 | `With Or Without Mutex Parallelism Performance | file_write_and_read__co_spawn__with_semi_mutex__n | 1`
+	|   102.8% |       28,332,445.45 |               35.30 |    4.3% |      3.49 | `With Or Without Mutex Parallelism Performance | file_write_and_read__co_spawn__with_full_mutex__n | 1`
+	|   114.7% |       25,380,550.00 |               39.40 |    4.2% |      3.42 | `With Or Without Mutex Parallelism Performance | file_write_and_read__post__no_mutex__async__n | 1`
+	|   102.5% |       28,410,790.91 |               35.20 |   13.0% |      3.50 | :wavy_dash: `With Or Without Mutex Parallelism Performance | file_write_and_read__post__with_semi_mutex__n | 1` (Unstable with ~11.1 iters. Increase `minEpochIterations` to e.g. 111)
+	|    83.4% |       34,929,100.00 |               28.63 |    4.9% |      4.20 | `With Or Without Mutex Parallelism Performance | file_write_and_read__post__with_full_mutex__n | 1`
 
-	|   100.0% |      239,994,500.00 |                4.17 |    3.4% |      2.70 | `Namespace Layers | string_concatenation__no_mutex__sync__n | 10`
-	|    84.3% |      284,594,400.00 |                3.51 |    4.6% |      3.08 | `Namespace Layers | string_concatenation__no_mutex__async__n | 10`
-	|    83.9% |      285,939,300.00 |                3.50 |    2.7% |      3.20 | `Namespace Layers | string_concatenation__with_semi_mutex__n | 10`
-	|    83.2% |      288,292,800.00 |                3.47 |    3.2% |      3.46 | `Namespace Layers | string_concatenation__with_full_mutex__n | 10`
+	|   100.0% |      302,526,600.00 |                3.31 |    2.3% |      3.59 | `With Or Without Mutex Parallelism Performance | file_write_and_read__co_spawn__no_mutex__sync__n | 10`
+	|   100.3% |      301,568,000.00 |                3.32 |    1.1% |      3.32 | `With Or Without Mutex Parallelism Performance | file_write_and_read__co_spawn__no_mutex__async__n | 10`
+	|   100.9% |      299,789,600.00 |                3.34 |    2.4% |      3.50 | `With Or Without Mutex Parallelism Performance | file_write_and_read__co_spawn__with_semi_mutex__n | 10`
+	|    97.8% |      309,206,300.00 |                3.23 |    0.7% |      3.40 | `With Or Without Mutex Parallelism Performance | file_write_and_read__co_spawn__with_full_mutex__n | 10`
+	|   104.6% |      289,108,900.00 |                3.46 |    5.1% |      3.20 | :wavy_dash: `With Or Without Mutex Parallelism Performance | file_write_and_read__post__no_mutex__async__n | 10` (Unstable with ~1.0 iters. Increase `minEpochIterations` to e.g. 10)
+	|   100.2% |      301,806,100.00 |                3.31 |    2.1% |      3.32 | `With Or Without Mutex Parallelism Performance | file_write_and_read__post__with_semi_mutex__n | 10`
+	|    76.3% |      396,437,700.00 |                2.52 |    3.1% |      4.44 | `With Or Without Mutex Parallelism Performance | file_write_and_read__post__with_full_mutex__n | 10`
 
 	About
-	- Timestamp Start:      2026-01-15 10:42:41.697899100
-	- Timestamp End:        2026-01-15 10:43:08.156973200
-
+	- Timestamp Start:      2026-01-15 12:33:46.227126000
+	- Timestamp End:        2026-01-15 12:34:39.336563600
 	*/
+
+	inline static boost::asio::thread_pool THREAD_POOL_INSTANCE{ std::thread::hardware_concurrency() };
+
+	inline static std::shared_ptr<boost::asio::thread_pool> THREAD_POOL_HEAP;
 
 	inline static boost::asio::io_context IO;
 
@@ -70,7 +78,7 @@ namespace MutexOrNoneConcurrencyPerformance
 	public:
 		// size_t size_1 = 128;
 
-		std::string input_1 = std::string(1000000, '0');
+		std::string input_1 = std::string(2000000, '0');
 		
 		std::string output_1 = "";
 
@@ -80,12 +88,18 @@ namespace MutexOrNoneConcurrencyPerformance
 
 		std::string output_4 = "";
 
+		std::string output_5 = "";
+
+		std::string output_6 = "";
+
+		std::string output_7 = "";
+
 		boost::mutex mutex;
 
 		static Samples instance;
 
 		std::future<void>
-			string_concatenation__with_semi_mutex(
+			file_write_and_read__co_spawn__with_semi_mutex(
 				const std::string&
 					file_output_path
 			)
@@ -99,10 +113,6 @@ namespace MutexOrNoneConcurrencyPerformance
 						fast_io::open_mode::out
 					);
 
-					fast_io::native_file_loader fast_io_read_file(
-						file_output_path
-					);
-
 					{
 						boost::unique_lock lock(mutex);
 						
@@ -112,16 +122,6 @@ namespace MutexOrNoneConcurrencyPerformance
 						);
 					}
 
-					{
-						boost::unique_lock lock(mutex);
-						
-						output_1 =
-						{
-							fast_io_read_file.begin(),
-							fast_io_read_file.end()
-						};
-					}
-						
 					co_return;
 				},
 				boost::asio::use_future
@@ -131,7 +131,7 @@ namespace MutexOrNoneConcurrencyPerformance
 		}
 
 		std::future<void>
-			string_concatenation__with_full_mutex(
+			file_write_and_read__co_spawn__with_full_mutex(
 				const std::string&
 					file_output_path
 			)
@@ -146,20 +146,11 @@ namespace MutexOrNoneConcurrencyPerformance
 						file_output_path,
 						fast_io::open_mode::out
 					);
-					fast_io::native_file_loader fast_io_read_file(
-						file_output_path
-					);
 
 					fast_io::io::print(
 						fast_io_write_file,
 						input_1
 					);
-
-					output_2 =
-					{
-						fast_io_read_file.begin(),
-						fast_io_read_file.end()
-					};
 
 					co_return;
 				},
@@ -170,7 +161,7 @@ namespace MutexOrNoneConcurrencyPerformance
 		}
 
 		std::future<void>
-			string_concatenation__no_mutex__async(
+			file_write_and_read__co_spawn__no_mutex__async(
 				const std::string&
 					file_output_path
 			)
@@ -183,20 +174,11 @@ namespace MutexOrNoneConcurrencyPerformance
 						file_output_path,
 						fast_io::open_mode::out
 					);
-					fast_io::native_file_loader fast_io_read_file(
-						file_output_path
-					);
-
+					
 					fast_io::io::print(
 						fast_io_write_file,
 						input_1
 					);
-
-					output_3 =
-					{
-						fast_io_read_file.begin(),
-						fast_io_read_file.end()
-					};
 
 					co_return;
 				},
@@ -207,7 +189,7 @@ namespace MutexOrNoneConcurrencyPerformance
 		}
 
 		void
-			string_concatenation__no_mutex__sync(
+			file_write_and_read__co_spawn__no_mutex__sync(
 				const std::string&
 					file_output_path
 			)
@@ -216,21 +198,109 @@ namespace MutexOrNoneConcurrencyPerformance
 				file_output_path,
 				fast_io::open_mode::out
 			);
-			fast_io::native_file_loader fast_io_read_file(
-				file_output_path
-			);
-
+			
 			fast_io::io::print(
 				fast_io_write_file,
 				input_1
 			);
 
-			output_4 =
-			{
-				fast_io_read_file.begin(),
-				fast_io_read_file.end()
-			};
 		};
+
+		std::future<void>
+			file_write_and_read__post__with_semi_mutex(
+				const std::string&
+				file_output_path
+			)
+		{
+			std::promise<void> promise;
+			std::future<void> future = promise.get_future();
+
+			boost::asio::post(
+				THREAD_POOL_INSTANCE,
+				[this, file_output_path, promise = std::move(promise)]() mutable
+				{
+					fast_io::native_file fast_io_write_file(
+						file_output_path,
+						fast_io::open_mode::out
+					);
+					
+					{
+						boost::unique_lock lock(mutex);
+
+						fast_io::io::print(
+							fast_io_write_file,
+							input_1
+						);
+					}
+
+					promise.set_value();
+				}
+			);
+
+			return future;
+		}
+
+		std::future<void>
+			file_write_and_read__post__with_full_mutex(
+				const std::string&
+				file_output_path
+			)
+		{
+			std::promise<void> promise;
+			std::future<void> future = promise.get_future();
+
+			boost::asio::post(
+				THREAD_POOL_INSTANCE,
+				[this, file_output_path, promise = std::move(promise)]() mutable
+				{
+					boost::unique_lock lock(mutex);
+
+					fast_io::native_file fast_io_write_file(
+						file_output_path,
+						fast_io::open_mode::out
+					);
+
+					fast_io::io::print(
+						fast_io_write_file,
+						input_1
+					);
+					
+					promise.set_value();
+				}
+			);
+
+			return future;
+		}
+
+		std::future<void>
+			file_write_and_read__post__no_mutex__async(
+				const std::string&
+				file_output_path
+			)
+		{
+			std::promise<void> promise;
+			std::future<void> future = promise.get_future();
+
+			boost::asio::post(
+				THREAD_POOL_INSTANCE,
+				[this, file_output_path, promise = std::move(promise)]() mutable
+				{
+					fast_io::native_file fast_io_write_file(
+						file_output_path,
+						fast_io::open_mode::out
+					);
+
+					fast_io::io::print(
+						fast_io_write_file,
+						input_1
+					);
+					
+					promise.set_value();
+				}
+			);
+
+			return future;
+		}
 	};
 
 	Samples Samples::instance;
@@ -239,7 +309,7 @@ namespace MutexOrNoneConcurrencyPerformance
 	{
 		NanobenchBenchmarkingTestSuite test_suite
 		{
-			.name = "Namespace Layers",
+			.name = "With Or Without Mutex Parallelism Performance",
 			.epoch_iteration_pairs =
 			{
 				{
@@ -253,76 +323,26 @@ namespace MutexOrNoneConcurrencyPerformance
 			},
 			.test_cases =
 			{
-				/*
 				{
-					.name = "string_concatenation__no_mutex__sync__1",
-					.callback = []()
-					{
-						Samples::instance.string_concatenation__no_mutex__sync();
-					}
-				},
-				{
-					.name = "string_concatenation__with_semi_mutex__1",
-					.callback = []()
-					{
-						std::future<void> future_value = Samples::instance.string_concatenation__with_semi_mutex();
-						future_value.get();
-					}
-				},
-				{
-					.name = "string_concatenation__with_full_mutex__1",
-					.callback = []()
-					{
-						std::future<void> future_value = Samples::instance.string_concatenation__with_full_mutex();
-						future_value.get();
-					}
-				},
-				{
-					.name = "string_concatenation__no_mutex__async__1",
-					.callback = []()
-					{
-						std::future<void> future_value = Samples::instance.string_concatenation__no_mutex__async();
-						future_value.get();
-					}
-				},
-				,
-				{
-					.name = "string_concatenation__no_mutex__async__n",
-					.callback = []()
-					{
-						std::vector<std::future<void>> futures;
-						for (size_t i = 0; i < size_2; ++i)
-						{
-							futures.push_back(Samples::instance.string_concatenation__no_mutex__async());
-						}
-
-						for (auto& future : futures)
-						{
-							future.get();
-						}
-					}
-				},
-				*/ 
-				{
-					.name = "string_concatenation__no_mutex__sync__n",
+					.name = "file_write_and_read__co_spawn__no_mutex__sync__n",
 					.callback = []()
 					{
 						for (int i = 0; i < size_2; ++i)
 						{
-							Samples::instance.string_concatenation__no_mutex__sync(
+							Samples::instance.file_write_and_read__co_spawn__no_mutex__sync(
 								std::string("temp/1_output_") + std::to_string(i) + ".txt"
 							);
 						}
 					}
 				},
 				{
-					.name = "string_concatenation__no_mutex__async__n",
+					.name = "file_write_and_read__co_spawn__no_mutex__async__n",
 					.callback = []()
 					{
 						std::vector<std::future<void>> futures;
 						for (int i = 0; i < size_2; ++i)
 						{
-							futures.push_back(Samples::instance.string_concatenation__no_mutex__async(
+							futures.push_back(Samples::instance.file_write_and_read__co_spawn__no_mutex__async(
 								std::string("temp/2_output_") + std::to_string(i) + ".txt"
 							));
 						}
@@ -334,13 +354,13 @@ namespace MutexOrNoneConcurrencyPerformance
 					}
 				},
 				{
-					.name = "string_concatenation__with_semi_mutex__n",
+					.name = "file_write_and_read__co_spawn__with_semi_mutex__n",
 					.callback = []()
 					{
 						std::vector<std::future<void>> futures;
 						for (int i = 0; i < size_2; ++i)
 						{
-							futures.push_back(Samples::instance.string_concatenation__with_semi_mutex(
+							futures.push_back(Samples::instance.file_write_and_read__co_spawn__with_semi_mutex(
 								std::string("temp/3_output_") + std::to_string(i) + ".txt"
 							));
 						}
@@ -352,14 +372,68 @@ namespace MutexOrNoneConcurrencyPerformance
 					}
 				},
 				{
-					.name = "string_concatenation__with_full_mutex__n",
+					.name = "file_write_and_read__co_spawn__with_full_mutex__n",
 					.callback = []()
 					{
 						std::vector<std::future<void>> futures;
 						for (int i = 0; i < size_2; ++i)
 						{
-							futures.push_back(Samples::instance.string_concatenation__with_full_mutex(
+							futures.push_back(Samples::instance.file_write_and_read__co_spawn__with_full_mutex(
 								std::string("temp/4_output_") + std::to_string(i) + ".txt"
+							));
+						}
+
+						for (auto& future : futures)
+						{
+							future.get();
+						}
+					}
+				},
+				{
+					.name = "file_write_and_read__post__no_mutex__async__n",
+					.callback = []()
+					{
+						std::vector<std::future<void>> futures;
+						for (int i = 0; i < size_2; ++i)
+						{
+							futures.push_back(Samples::instance.file_write_and_read__post__no_mutex__async(
+								std::string("temp/5_output_") + std::to_string(i) + ".txt"
+							));
+						}
+
+						for (auto& future : futures)
+						{
+							future.get();
+						}
+					}
+				},
+				{
+					.name = "file_write_and_read__post__with_semi_mutex__n",
+					.callback = []()
+					{
+						std::vector<std::future<void>> futures;
+						for (int i = 0; i < size_2; ++i)
+						{
+							futures.push_back(Samples::instance.file_write_and_read__post__with_semi_mutex(
+								std::string("temp/6_output_") + std::to_string(i) + ".txt"
+							));
+						}
+
+						for (auto& future : futures)
+						{
+							future.get();
+						}
+					}
+				},
+				{
+					.name = "file_write_and_read__post__with_full_mutex__n",
+					.callback = []()
+					{
+						std::vector<std::future<void>> futures;
+						for (int i = 0; i < size_2; ++i)
+						{
+							futures.push_back(Samples::instance.file_write_and_read__post__with_full_mutex(
+								std::string("temp/7_output_") + std::to_string(i) + ".txt"
 							));
 						}
 
@@ -386,7 +460,7 @@ namespace MutexOrNoneConcurrencyPerformance
 
 int main(int argc, char** argv)
 {	
-	MutexOrNoneConcurrencyPerformance::execute();
+	WithOrWithoutMutexParallelismPerformance::execute();
 
     return 0;
 }
