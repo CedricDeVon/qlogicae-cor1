@@ -1,9 +1,5 @@
 ﻿#pragma once
 
-/*
-
-*/ 
-
 #include "qlogicae_cpp_core_benchmark/includes/application.hpp"
 
 #include "qlogicae_cpp_core/includes/runtime_benchmarker.hpp"
@@ -76,10 +72,38 @@ struct NanobenchBenchmarkingTestSuite
     std::function<void()> after_test_case_iteration_callback = []() {};
 };
 
+std::string make_timestamp()
+{
+	auto now = std::chrono::system_clock::now();
+
+	auto seconds =
+		std::chrono::time_point_cast<std::chrono::seconds>(now);
+
+	auto nanoseconds =
+		std::chrono::duration_cast<std::chrono::nanoseconds>(
+			now - seconds
+		).count();
+
+	std::time_t tt =
+		std::chrono::system_clock::to_time_t(seconds);
+
+	std::tm tm{};
+	localtime_s(&tm, &tt);
+
+	std::ostringstream oss;
+	oss << std::put_time(&tm, "%Y-%m-%d %H:%M:%S")
+		<< '.' << std::setw(9) << std::setfill('0')
+		<< nanoseconds;
+
+	return oss.str();
+}
+
 void execute_nanobenchmark(
     const NanobenchBenchmarkingTestSuite& test_suite
 )
 {
+	std::string timestamp_start = make_timestamp();
+	
     const std::string test_suite_name =
         test_suite.name;
 
@@ -180,138 +204,39 @@ void execute_nanobenchmark(
             after_test_case_iteration_callback();
         }
 
-        std::cout << "\n";
+		fast_io::io::println("");
 
         after_test_case_callback();
     }
 
     after_test_suite_callback();
+
+	std::string timestamp_end = make_timestamp();
+
+	fast_io::io::println("About");
+	fast_io::io::println("- Timestamp Start:\t" + timestamp_start);
+	fast_io::io::println("- Timestamp End:\t" + timestamp_end);
 }
-
-/*
-
-,
-				{
-					.name = "assign__string_parameter_type__const_arguments__concatenate_string",
-					.callback = []()
-					{
-						Samples::instance
-							.assign__string_parameter_type__const_arguments__concatenate_string("a", "a");
-					}
-				},
-				{
-					.name = "assign__const_string_parameter_type__const_arguments__concatenate_string",
-					.callback = []()
-					{
-						Samples::instance
-							.assign__const_string_parameter_type__const_arguments__concatenate_string("a", "a");
-					}
-				},
-				{
-					.name = "assign__reference_string_parameter_type__instance_arguments__concatenate_string",
-					.callback = []()
-					{
-						Samples::instance
-							.assign__reference_string_parameter_type__instance_arguments__concatenate_string(Samples::instance.instance_string_output_2, Samples::instance.instance_string_output_2);
-					}
-				},
-				{
-					.name = "assign__const_reference_string_parameter_type__const_arguments__concatenate_string",
-					.callback = []()
-					{
-						Samples::instance
-							.assign__const_reference_string_parameter_type__const_arguments__concatenate_string("a", "a");
-					}
-				},
-
-				{
-					.name = "return_and_assign__string_parameter_type__const_arguments__concatenate_string",
-					.callback = []()
-					{
-						std::string v = Samples::instance
-							.return_and_assign__string_parameter_type__const_arguments__concatenate_string("a", "a");
-					}
-				},
-				{
-					.name = "return_and_assign__const_string_parameter_type__const_arguments__concatenate_string",
-					.callback = []()
-					{
-						std::string v = Samples::instance
-							.return_and_assign__const_string_parameter_type__const_arguments__concatenate_string("a", "a");
-					}
-				},
-				{
-					.name = "return_and_assign__reference_string_parameter_type__instance_arguments__concatenate_string",
-					.callback = []()
-					{
-						std::string v = Samples::instance
-							.return_and_assign__reference_string_parameter_type__instance_arguments__concatenate_string(Samples::instance.instance_string_output_2, Samples::instance.instance_string_output_2);
-					}
-				},
-				{
-					.name = "return_and_assign__const_reference_string_parameter_type__const_arguments__concatenate_string",
-					.callback = []()
-					{
-						std::string v = Samples::instance
-							.return_and_assign__const_reference_string_parameter_type__const_arguments__concatenate_string("a", "a");
-					}
-				},
-				{
-					.name = "recursive__pass_and_return__const_reference_string_parameter_type__const_arguments__concatenate_string",
-					.callback = []()
-					{
-						std::string v = Samples::instance
-							.recursive__pass_and_return__const_reference_string_parameter_type__const_arguments__concatenate_string("a", "a", 100);
-					}
-				},
-				{
-					.name = "recursive__pass_and_return__const_reference_string_view_parameter_type__const_arguments__concatenate_string",
-					.callback = []()
-					{
-						std::string v = Samples::instance
-							.recursive__pass_and_return__const_reference_string_view_parameter_type__const_arguments__concatenate_string("a", "a", 100);
-					}
-				},
-				{
-					.name = "recursive__pass__const_reference_string_parameter_type__const_arguments__concatenate_string",
-					.callback = []()
-					{
-						Samples::instance
-							.recursive__pass__const_reference_string_parameter_type__const_arguments__concatenate_string(Samples::instance.instance_string_output_2, "a", "a", 100);
-					}
-				},
-				{
-					.name = "recursive__pass__const_reference_string_view_parameter_type__const_arguments__concatenate_string",
-					.callback = []()
-					{
-						Samples::instance
-							.recursive__pass__const_reference_string_view_parameter_type__const_arguments__concatenate_string(Samples::instance.instance_string_output_2, "a", "a", 100);
-					}
-				}
-
-
-*/
 
 namespace AsynchronousBenchmarks
 {
 	/*
 
-	Results:
-
-	- Use:
+	Conclusions
+	- multi-threading (general usage)
 		- boost_asio_co_spawn_strand__detached__constant_lambda()
-			- multi-threading (general usage)
-
 		- boost_asio_co_spawn_strand__use_future__constant_lambda()
-			- multi-threading (general usage)
 
+	- fire-and-forget threads
 		- boost_asio_co_spawn_io__detached__constant_lambda()
-			- fire-and-forget
-
 		- boost_asio_co_spawn_io__use_future__constant_lambda()
-			- fire-and-forget
 
-	- Results:
+
+
+	About
+	- Timestamp Created
+		- 8:01 AM, January 14, 2026
+
 	| relative |               ns/op |                op/s |    err% |     total | benchmark
 	|---------:|--------------------:|--------------------:|--------:|----------:|:----------
 	|   100.0% |              465.05 |        2,150,298.05 |    2.3% |      0.52 | `thread_creation | boost_asio_co_spawn_strand__detached__constant_lambda | 1`
@@ -569,14 +494,6 @@ namespace AsynchronousBenchmarks
 					.iterations = 1
 				},
 				{
-					.epochs = 10000,
-					.iterations = 10
-				},
-				{
-					.epochs = 1000,
-					.iterations = 100
-				},
-				{
 					.epochs = 100,
 					.iterations = 1000
 				},
@@ -659,12 +576,19 @@ namespace ArithmeticOperationsPerTypes
 {
 	/*
 
-	Conclusion:
+	Conclusions
+	- index and loops
 		- size_t
+	- floating-point number calculations
 		- long double
+	- integer calculations
 		- long long int
 
-	Results:
+
+
+	About
+	- Timestamp Created
+		- 8:06 AM, January 14, 2026
 
 	| relative |               ns/op |                op/s |    err% |     total | benchmark
 	|---------:|--------------------:|--------------------:|--------:|----------:|:----------
@@ -1380,10 +1304,26 @@ namespace ArithmeticOperationsPerTypes
 }
 
 
-namespace StringOperations // string_view
+namespace StringOperations
 {
 	/*
-	Results:
+	
+	Conclusions
+	- general api method signature
+		- Type synchronous_method(const Type& a, ..., const ConfigurationType& configurations = {})
+		- std::future<Type> asynchronous_method(const Type& a, ..., const std::function<FunctionType>& callback = {}, const ConfigurationType& configurations = {})
+		- void asynchronous_method(const Type& a, ..., const ConfigurationType& configurations = {})
+	- strategies
+		- for method parameter types and local variables
+			- when string is processed within the method			
+				- std::string
+			- when passing by value (via recursion or iteration)			
+				- std::string_view
+
+	 
+	About
+	- Timestamp Created
+		- 8:06 AM, January 14, 2026
 
 	| relative |               ns/op |                op/s |    err% |     total | benchmark
 	|---------:|--------------------:|--------------------:|--------:|----------:|:----------
@@ -1843,15 +1783,18 @@ namespace StringOperations // string_view
 
 
 
-namespace ExecutionWithinNestedNamespaces // all
+namespace ExecutionWithinNestedNamespaces
 {
 	/*
 
 	Conclusion
-	- No significant performance difference
+	- Only one layered namespace, per C++ project, to avoid compilation re-definition errors
 
-	Usage
-	- Indiscriminate
+
+
+	About
+	- Timestamp Created
+		- 8:26 AM, January 14, 2026
 
 	| relative |               ns/op |                op/s |    err% |     total | benchmark
 	|---------:|--------------------:|--------------------:|--------:|----------:|:----------
@@ -2015,10 +1958,18 @@ namespace ExecutionWithinNestedTryCatchBlocks
 	/*
 
 	Conclusion:
-	- No significant performance difference
+	- Wrapping strategies
+		- class methods
+		- lambda functions
 
 	Usage
 	- Indiscriminate
+
+
+
+	About
+	- Timestamp Created
+		- 8:27 AM, January 14, 2026
 
 	| relative |               ns/op |                op/s |    err% |     total | benchmark
 	|---------:|--------------------:|--------------------:|--------:|----------:|:----------
@@ -2259,6 +2210,11 @@ namespace LoopExecution
 	- use 'while' or 'for each' loops
 
 
+
+	About
+	- Timestamp Created
+		- 8:31 AM, January 14, 2026
+
 	| relative |               ns/op |                op/s |    err% |     total | benchmark
 	|---------:|--------------------:|--------------------:|--------:|----------:|:----------
 	|   100.0% |               55.34 |       18,069,653.81 |    0.2% |      6.70 | `loops | for_loop | 1`
@@ -2425,12 +2381,17 @@ namespace FileInputAndOutput
 	/*
 
 	Conclusion
-	- read
+	- file read operations
 		fast_io
-	- write
+	- file write operations
 		fstream
-	- append
+	- file append operations
 		fstream
+
+
+	About
+	- Timestamp Created
+		- 8:32 AM, January 14, 2026
 
 	| relative |               ns/op |                op/s |    err% |     total | benchmark
 	|---------:|--------------------:|--------------------:|--------:|----------:|:----------
@@ -2776,7 +2737,14 @@ namespace RawOrInstanceOrStaticMethodSignaturesAndStringConcatenation
 	/*
 
 	Conclusion
-	- instance variables
+	- instance variables will be prioritized
+	- AVOID static-centric code design
+
+
+
+	About
+	- Timestamp Created
+		- 8:31 AM, January 14, 2026
 
 	| relative |               ns/op |                op/s |    err% |     total | benchmark
 	|---------:|--------------------:|--------------------:|--------:|----------:|:----------
@@ -3153,14 +3121,19 @@ namespace AsynchronousHandling
 {
 	/*
 
-	Conclusion
-	- priority option
-		- folly::MicroSpinLock
-	- secondary option
-		- boost::mutex
-	- legacy option
-		- std::mutex
+	Conclusions
+	- strategies
+		- priority option
+			- folly::MicroSpinLock
+		- secondary option
+			- boost::mutex
+		- legacy option
+			- std::mutex
 
+
+	About
+	- Timestamp Created
+		- 8:33 AM, January 14, 2026
 
 	| relative |               ns/op |                op/s |    err% |     total | benchmark
 	|---------:|--------------------:|--------------------:|--------:|----------:|:----------
@@ -3447,6 +3420,12 @@ namespace StaticValues
 
 	NOTE
 	- pure statics are unique, per file. They DO NOT represent a reliable true global state.
+
+
+
+	About
+	- Timestamp Created
+		- 8:33 AM, January 14, 2026
 
 	| relative |               ns/op |                op/s |    err% |     total | benchmark
 	|---------:|--------------------:|--------------------:|--------:|----------:|:----------
