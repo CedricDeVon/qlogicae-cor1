@@ -2,17 +2,21 @@
 
 #include "error_manager.hpp"
 #include "singleton_manager.hpp"
-#include "runtime_benchmarker_utilities.hpp"
 #include "runtime_benchmarker_test_case.hpp"
 #include "runtime_benchmarker_test_suite.hpp"
 #include "runtime_benchmarker_configurations.hpp"
 #include "runtime_benchmarker_epoch_iteration_pair.hpp"
 
-namespace QLogicaeCppCore
+namespace
+	QLogicaeCppCore
 {    
-    class RuntimeBenchmarker
+    class
+		RuntimeBenchmarker
     {
     public:        
+		RuntimeBenchmarkerConfigurations
+			configurations;
+
         static RuntimeBenchmarker&
             singleton;
 
@@ -20,71 +24,26 @@ namespace QLogicaeCppCore
 
         ~RuntimeBenchmarker();
 
-        RuntimeBenchmarker(
-            const RuntimeBenchmarker&
-                instance
-        ) = delete;
+		bool
+			construct();
 
-        RuntimeBenchmarker(
-            RuntimeBenchmarker&&
-                instance
-        ) noexcept = delete;
+		bool
+			destruct();
 
-        RuntimeBenchmarker& operator = (
-            RuntimeBenchmarker&&
-                instance
-        ) = delete;
+		bool
+			setup(
+				const RuntimeBenchmarkerConfigurations&
+					new_configurations =
+						{}
+			);
 
-        RuntimeBenchmarker& operator = (
-            const RuntimeBenchmarker&
-                instance
-        ) = delete;
-
-        bool
-            construct(
-                const RuntimeBenchmarkerConfigurations&
-                    configurations = {}
-        );
-
-        bool
-            destruct(
-                const RuntimeBenchmarkerConfigurations&
-                    configurations = {}
-        );
-
-        bool
-            setup(
-                const RuntimeBenchmarkerConfigurations&
-                    configurations = {}
-        );
-
-        bool
-            reset(
-                const RuntimeBenchmarkerConfigurations&
-                    configurations = {}
-        );
+		bool
+			reset();
 
         bool
             execute(
                 const RuntimeBenchmarkerTestSuite&
-                    test_suite,
-                const RuntimeBenchmarkerConfigurations&
-                    configurations = {}
+                    test_suite
         );
-
-        void
-            _handle_execute();
-
-        void
-            _handle_construct();
-
-        void
-            _handle_destruct();
-
-        void
-            _handle_setup();
-
-        void
-            _handle_reset();
     };    
 }

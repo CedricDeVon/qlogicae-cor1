@@ -2,7 +2,8 @@
 
 #include "../includes/all.hpp"
 
-namespace QLogicaeCppCore
+namespace
+	QLogicaeCppCore
 {
 
 }

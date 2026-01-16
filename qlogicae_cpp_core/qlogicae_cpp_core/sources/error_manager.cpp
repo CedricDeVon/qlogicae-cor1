@@ -2,62 +2,23 @@
 
 #include "../includes/error_manager.hpp"
 
-namespace QLogicaeCppCore
+namespace
+	QLogicaeCppCore
 {        
-    
-}
-
-/*
-
-bool
-		ErrorManager::
-			cache_boolean_1 =
-				false;
-
-	boost::mutex
-		ErrorManager::
-				cache_mutex_1;
-
-	std::string
-		ErrorManager::
-			cache_error_log =
-				"";
-
-	fast_io::native_io_observer
-		ErrorManager::
-			cache_fast_io_error_console_output_type =
-				fast_io::err();
-
-	ErrorManager&
-		ErrorManager::
-			singleton =
-				SingletonManager::
-					get_singleton<ErrorManager>();
+    ErrorManager&
+        ErrorManager
+			::singleton =
+				ErrorManager
+					::get_this_singleton();
 
 
 
 	ErrorManager
 		::ErrorManager()
 	{
-		boost::unique_lock<boost::mutex>
-			mutex_lock;
-		if (ErrorManagerConfigurations::
-				cache_is_thread_safety_enabled)
-		{
-			mutex_lock =
-				boost::unique_lock<boost::mutex>
-				(
-					cache_mutex_1
-				);
-
-			ErrorManagerConfigurations::
-				cache_configurations =
-					{};
-		}
-
 		try
 		{
-			_handle_construct();
+			construct();
 		}
 		catch
 		(
@@ -65,35 +26,18 @@ bool
 				exception
 		)
 		{
-			cache_boolean_1 =
-				false;
-			cache_error_log =
-				exception.what();
-
-			_handle();
-		}
+			handle_error_outputs(
+				exception
+			);
+		}		
 	}
-
+	
 	ErrorManager
-			::~ErrorManager()
+		::~ErrorManager()
 	{
-		boost::unique_lock<boost::mutex>
-			mutex_lock;
-		if (ErrorManagerConfigurations::cache_is_thread_safety_enabled)
-		{
-			mutex_lock =
-				boost::unique_lock<boost::mutex>
-				(
-					cache_mutex_1
-				);
-
-			ErrorManagerConfigurations::cache_configurations =
-				{};
-		}
-
 		try
 		{
-			_handle_destruct();
+			destruct();
 		}
 		catch
 		(
@@ -101,429 +45,307 @@ bool
 				exception
 		)
 		{
-			cache_boolean_1 =
-				false;
-			cache_error_log =
-				exception.what();
+			handle_error_outputs(
+				exception
+			);
+		}		
+	}
 
-			_handle();
+	bool
+		ErrorManager
+			::construct()
+	{
+		try
+		{
+			return
+				true;
+		}
+		catch
+		(
+			const std::exception&
+				exception
+		)
+		{
+			return
+				handle_error_outputs(
+					exception
+				);
 		}
 	}
 
 	bool
 		ErrorManager
-			::construct(
-				const ErrorManagerConfigurations&
-					configurations
-			)
+			::destruct()
 	{
+		try
 		{
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled)
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						cache_mutex_1
-					);
-			}
-
-			ErrorManagerConfigurations::cache_configurations =
-				configurations;
+			return
+				true;
 		}
-
-		_handle_construct();
-
-		return
-			cache_boolean_1;
-	}
-
-	bool
-		ErrorManager
-			::destruct(
-				const ErrorManagerConfigurations&
-					configurations
-			)
-	{
+		catch
+		(
+			const std::exception&
+				exception
+		)
 		{
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled)
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						cache_mutex_1
-					);
-			}
-
-			ErrorManagerConfigurations::cache_configurations =
-				configurations;
+			return
+				handle_error_outputs(
+					exception
+				);
 		}
-
-		_handle_destruct();
-
-		return
-			cache_boolean_1;
 	}
 
 	bool
 		ErrorManager
 			::setup(
 				const ErrorManagerConfigurations&
-					configurations
+					new_configurations
 			)
 	{
+		try
 		{
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled)
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						cache_mutex_1
-					);
-			}
+			configurations =
+				new_configurations;
 
-			ErrorManagerConfigurations::cache_configurations =
-				configurations;
+			return
+				true;
 		}
-
-		_handle_setup();
-
-		return
-			cache_boolean_1;
+		catch
+		(
+			const std::exception&
+				exception
+		)
+		{
+			return
+				handle_error_outputs(
+					exception
+				);
+		}
 	}
 
 	bool
 		ErrorManager
-			::reset(
-				const ErrorManagerConfigurations&
-					configurations
-			)
+			::reset()
 	{
+		try
 		{
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled)
-			{
-				mutex_lock = boost::unique_lock<boost::mutex>
-					(cache_mutex_1);
-			}
+			configurations =
+				{};
 
-			ErrorManagerConfigurations::cache_configurations =
-				configurations;
+			return
+				true;
 		}
-
-		_handle_reset();
-
-		return
-			cache_boolean_1;
-	}
+		catch
+		(
+			const std::exception&
+				exception
+		)
+		{
+			return
+				handle_error_outputs(
+					exception
+				);
+		}
+	}   
 
 	bool
 		ErrorManager
-			::handle(
-				const std::string_view&
+			::handle_error_outputs(
+				const std::string&
 					title,
-				const std::string_view&
-					message,
-				const ErrorManagerConfigurations&
-					configurations
+				const std::string&
+					message
 			)
 	{
-		{
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled)
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						cache_mutex_1
-					);
-			}
-
-			ErrorManagerConfigurations::cache_configurations =
-				configurations;
-			ErrorManagerConfigurations::_handle_setup_caches();
-
-			cache_error_log =
-				std::string(title.data()) +
-				ErrorManagerConfigurations::cache_title_message_separator +
-				message.data();
-		}
-
-		_handle();
-
-		{
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (ErrorManagerConfigurations::cache_is_thread_safety_enabled)
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						cache_mutex_1
-					);
-			}
-
-			ErrorManagerConfigurations::cache_configurations =
-				{};
-			ErrorManagerConfigurations::_handle_setup_caches();
-		}
-
-		return
-			cache_boolean_1;
+		handle_error_output_conditions(
+			transform_to_error_log(
+				title,
+				message
+			)
+		);
+	}
+	
+	bool
+		ErrorManager
+			::handle_error_outputs(
+				const std::string&
+					message
+			)
+	{
+		handle_error_output_conditions(
+			transform_to_error_log(
+				message
+			)
+		);
 	}
 
 	bool
 		ErrorManager
-			::handle(
-				const std::string_view&
-					message,
-				const ErrorManagerConfigurations&
-					configurations
-			)
-	{
-		{
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled)
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						cache_mutex_1
-					);
-			}
-
-			ErrorManagerConfigurations::cache_configurations =
-				configurations;
-			ErrorManagerConfigurations::_handle_setup_caches();
-			cache_error_log =
-				message;
-		}
-
-		_handle();
-
-		{
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (ErrorManagerConfigurations::cache_is_thread_safety_enabled)
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						cache_mutex_1
-					);
-			}
-
-			ErrorManagerConfigurations::cache_configurations =
-				{};
-			ErrorManagerConfigurations::_handle_setup_caches();
-		}
-
-		return
-			cache_boolean_1;
-	}
-
-	bool
-		ErrorManager
-			::handle(
+			::handle_error_outputs(
 				const std::exception&
-					exception,
-				const ErrorManagerConfigurations&
-					configurations
+					exception
 			)
 	{
-		{
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled)
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						cache_mutex_1
-					);
-			}
-
-			ErrorManagerConfigurations::cache_configurations =
-				configurations;
-			ErrorManagerConfigurations::_handle_setup_caches();
-			cache_error_log =
-				std::string(typeid(exception).name()) +
-				ErrorManagerConfigurations::cache_title_message_separator +
-				exception.what();
-		}
-
-		_handle();
-
-		{
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (ErrorManagerConfigurations::cache_is_thread_safety_enabled)
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						cache_mutex_1
-					);
-			}
-
-			ErrorManagerConfigurations::cache_configurations =
-				{};
-			ErrorManagerConfigurations::_handle_setup_caches();
-		}
-
-		return
-			cache_boolean_1;
-	}
-
-	void
-		ErrorManager
-			::_handle_construct()
-	{
-		try
-		{
-			cache_boolean_1 =
-				true;
-		}
-		catch
-		(
-			const std::exception&
+		handle_error_output_conditions(
+			transform_to_error_log(
 				exception
-		)
-		{
-			cache_boolean_1 =
-				false;
-
-			cache_error_log =
-				exception.what();
-
-			_handle();
-		}
-	}
-
-	void
-		ErrorManager
-			::_handle_destruct()
-	{
-		try
-		{
-			cache_boolean_1 =
-				true;
-		}
-		catch
-		(
-			const std::exception&
-				exception
-		)
-		{
-			cache_boolean_1 =
-				false;
-			cache_error_log =
-				exception.what();
-
-			_handle();
-		}
-	}
-
-	void
-		ErrorManager
-			::_handle_setup()
-	{
-		try
-		{
-			ErrorManagerConfigurations
-				::_handle_setup();
-
-			cache_boolean_1 =
-				true;
-		}
-		catch
-		(
-			const std::exception&
-				exception
-		)
-		{
-			cache_boolean_1 =
-				false;
-			cache_error_log =
-				exception.what();
-
-			_handle();
-		}
-	}
-
-	void
-		ErrorManager
-			::_handle_reset()
-	{
-		try
-		{
-			ErrorManagerConfigurations
-				::_handle_reset();
-
-			cache_boolean_1 =
-				true;
-		}
-		catch
-		(
-			const std::exception&
-				exception
-		)
-		{
-			cache_boolean_1 =
-				false;
-			cache_error_log =
-				exception.what();
-
-			_handle();
-		}
-	}
-
-	void
-		ErrorManager
-			::_handle()
-	{
-		cache_boolean_1 =
-			false;
-
-		if (!ErrorManagerConfigurations
-				::cache_is_enabled
 			)
-		{
-			return;
-		}
+		);
+	}
 
-		if (ErrorManagerConfigurations
-				::cache_is_asynchronous_output_enabled
+	bool
+		ErrorManager
+			::handle_error_output_conditions(
+				const std::string&
+					error_log	
 			)
+	{
+		if
+		(
+			configurations
+				.is_asynchronous_output_enabled
+		)
 		{
-			_handle_asynchronously();
+			handle_error_outputs_asynchronously(
+				error_log
+			);
 		}
 		else
 		{
-			_handle_synchronously();
+			handle_error_outputs_synchronously(
+				error_log
+			);
 		}
 	}
 
-	void
+	std::string
 		ErrorManager
-			::_handle_asynchronously()
+			::transform_to_error_log(
+				const std::string&
+					title,
+				const std::string&
+					message
+			)
+	{
+		return
+			title +
+			configurations.title_message_separator +
+			message;
+	}
+
+
+	std::string
+		ErrorManager
+			::transform_to_error_log(
+				const std::string&
+					message
+			)
+	{
+		return
+			configurations.default_title +
+			configurations.title_message_separator +
+			message;
+	}
+
+	std::string
+		ErrorManager
+			::transform_to_error_log(
+				const std::exception&
+					exception
+				)
+	{
+		return
+			configurations.default_title +
+			configurations.title_message_separator +
+			exception.what();
+	}
+
+	bool
+		ErrorManager
+			::handle_error_outputs_synchronously(
+				const std::string&
+					error_log
+			)
+	{
+		if
+		(
+			configurations
+				.is_console_output_enabled
+		)
+		{
+			fast_io::io::println(
+				fast_io::out(),
+				error_log
+			);
+		}
+
+		if
+		(
+			configurations
+				.is_file_output_enabled
+		)
+		{
+			for
+			(
+				const std::string&
+					full_file_output_path :
+					configurations
+	
+						.full_file_output_paths
+			)
+			{
+				fast_io::native_file
+					fast_io_native_file(
+						full_file_output_path,
+						fast_io::open_mode::app
+					);
+
+				fast_io::io::println(
+					fast_io_native_file,
+					error_log
+				);
+			}
+		}
+
+		if
+		(
+			configurations
+				.is_gui_output_enabled
+		)
+		{
+
+		}
+
+		if
+		(
+			configurations
+				.is_runtime_throw_output_enabled
+		)
+		{
+			throw
+				std::runtime_error(
+					error_log
+				);
+		}
+	}
+
+	bool
+		ErrorManager
+			::handle_error_outputs_asynchronously(
+				const std::string&
+					error_log
+			)
 	{
 		std::vector<std::future<void>>
 			futures;
 
-		if (ErrorManagerConfigurations
-				::cache_is_asynchronous_console_output_enabled &&
-			ErrorManagerConfigurations
-				::cache_is_console_output_enabled
-			)
+		if
+		(
+			configurations
+				.is_asynchronous_console_output_enabled &&
+			configurations
+				.is_console_output_enabled
+		)
 		{
 			futures.push_back(
 				std::async(
@@ -531,33 +353,31 @@ bool
 					[&]()
 					{
 						fast_io::io::println(
-							cache_fast_io_error_console_output_type,
-							cache_error_log
+							fast_io::out(),
+							error_log
 						);
 					}
 				)
 			);
 		}
 
-		if (ErrorManagerConfigurations
-				::cache_is_asynchronous_file_output_enabled &&
-			ErrorManagerConfigurations
-				::cache_is_file_output_enabled
-			)
+		if
+		(
+			configurations
+				.is_asynchronous_file_output_enabled &&
+			configurations
+				.is_file_output_enabled
+		)
 		{
-			for (const std::string&
-					cache_full_file_output_path :
-					ErrorManagerConfigurations
-						::cache_full_file_output_paths
-				)
+			for
+			(
+				const std::string&
+					full_file_output_path :
+					configurations
+	
+						.full_file_output_paths
+			)
 			{
-				if (!std::filesystem
-						::exists(cache_full_file_output_path)
-					)
-				{
-					continue;
-				}
-
 				futures.push_back(
 					std::async(
 						std::launch::async,
@@ -565,13 +385,13 @@ bool
 						{
 							fast_io::native_file
 								fast_io_native_file(
-									cache_full_file_output_path,
+									full_file_output_path,
 									fast_io::open_mode::app
 								);
 
 							fast_io::io::println(
 								fast_io_native_file,
-								cache_error_log
+								error_log
 							);
 						}
 					)
@@ -579,11 +399,32 @@ bool
 			}
 		}
 
-		if (ErrorManagerConfigurations
-				::cache_is_asynchronous_runtime_throw_output_enabled &&
-			ErrorManagerConfigurations
-				::cache_is_runtime_throw_output_enabled
-			)
+		if
+		(
+			configurations
+				.is_asynchronous_runtime_throw_output_enabled &&
+			configurations
+				.is_gui_output_enabled
+		)
+		{
+			futures.push_back(
+				std::async(
+					std::launch::async,
+					[&]()
+					{
+						
+					}
+				)
+			);
+		}
+
+		if
+		(
+			configurations
+				.is_asynchronous_runtime_throw_output_enabled &&
+			configurations
+				.is_runtime_throw_output_enabled
+		)
 		{
 			futures.push_back(
 				std::async(
@@ -592,71 +433,32 @@ bool
 					{
 						throw
 							std::runtime_error(
-								cache_error_log
+								error_log
 							);
 					}
 				)
 			);
 		}
 
-		for (std::future<void>&
-			future :
-			futures
+		for
+		(
+			std::future<void>&
+				future :
+				futures
 		)
 		{
 			future.get();
 		}
-	}
+	}	
 
-	void
+	ErrorManager&
 		ErrorManager
-			::_handle_synchronously()
+		::get_this_singleton()
 	{
-		if (ErrorManagerConfigurations
-				::cache_is_console_output_enabled)
-		{
-			fast_io::io::println(
-				cache_fast_io_error_console_output_type,
-				cache_error_log
-			);
-		}
+		static ErrorManager
+			singleton;
 
-		if (ErrorManagerConfigurations
-				::cache_is_file_output_enabled)
-		{
-			for (const std::string& cache_full_file_output_path :
-				ErrorManagerConfigurations
-					::cache_full_file_output_paths
-				)
-			{
-				if (!std::filesystem
-						::exists(cache_full_file_output_path)
-					)
-				{
-					continue;
-				}
-
-				fast_io::native_file
-					fast_io_native_file(
-						cache_full_file_output_path,
-						fast_io::open_mode::app
-					);
-
-				fast_io::io::println(
-					fast_io_native_file,
-					cache_error_log
-				);
-			}
-		}
-
-		if (ErrorManagerConfigurations
-				::cache_is_runtime_throw_output_enabled)
-		{
-			throw
-				std::runtime_error(
-					cache_error_log
-				);
-		}
+		return
+			singleton;
 	}
-
-*/ 
+}

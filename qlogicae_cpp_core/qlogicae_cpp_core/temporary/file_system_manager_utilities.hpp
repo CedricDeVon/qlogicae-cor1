@@ -114,6 +114,9 @@ namespace QLogicaeCppCore
         static std::string
             full_program_data_folder_path;
 
+        static bool
+            cache_boolean_1;
+
         static std::filesystem::path
             cache_directory_path;
 
@@ -122,9 +125,6 @@ namespace QLogicaeCppCore
 
         static wchar_t
             cache_wchar_t_buffer[MAX_PATH];
-
-        static bool
-            cache_boolean_1;
 
         static int
             cache_int_1;

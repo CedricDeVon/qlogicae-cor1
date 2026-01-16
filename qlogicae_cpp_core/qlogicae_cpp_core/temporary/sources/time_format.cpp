@@ -2,7 +2,7 @@
 
 #include "../includes/time_format.hpp"
 
-namespace QLogicaeCore
+namespace QLogicaeCppCore
 {
 
 }

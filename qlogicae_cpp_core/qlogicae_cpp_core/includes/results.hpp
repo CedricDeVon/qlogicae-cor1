@@ -586,7 +586,7 @@ namespace QLogicaeCppCore
     template <typename ValueType> bool
         Results<ValueType>::is_status_error()
     {
-        return _status == ResultsStatus::ERROR_;
+        return _status == ResultsStatus::ERROR_TYPE;
     }
 
     template <typename ValueType> bool
@@ -602,7 +602,7 @@ namespace QLogicaeCppCore
     {
         return _status == ResultsStatus::BAD ||
             _status == ResultsStatus::WARNING ||
-            _status == ResultsStatus::ERROR_;
+            _status == ResultsStatus::ERROR_TYPE;
     }
 
     template <typename ValueType> void
@@ -665,7 +665,7 @@ namespace QLogicaeCppCore
                 value
         )
     {
-        value = (_status == ResultsStatus::ERROR_);
+        value = (_status == ResultsStatus::ERROR_TYPE);
     }
 
     template <typename ValueType> void
@@ -687,7 +687,7 @@ namespace QLogicaeCppCore
     {
         value = (_status == ResultsStatus::BAD ||
             _status == ResultsStatus::WARNING ||
-            _status == ResultsStatus::ERROR_);
+            _status == ResultsStatus::ERROR_TYPE);
     }
 
     template <typename ValueType> void
@@ -781,7 +781,7 @@ namespace QLogicaeCppCore
     template <typename ValueType> void
         Results<ValueType>::set_status_to_error()
     {
-        set_status(ResultsStatus::ERROR_);
+        set_status(ResultsStatus::ERROR_TYPE);
     }
 
     template <typename ValueType>

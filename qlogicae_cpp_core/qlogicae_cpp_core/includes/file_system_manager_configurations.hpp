@@ -1,89 +1,30 @@
 #pragma once
 
-#include "error_manager.hpp"
+#include "abstract_configurations.hpp"
 
-namespace QLogicaeCppCore
+namespace
+	QLogicaeCppCore
 {
-    struct FileSystemManagerConfigurations
+    struct
+		FileSystemManagerConfigurations :
+			AbstractConfigurations
     {
-        static bool
-            cache_boolean_1;
+        bool
+			is_enabled =
+				default_configurations
+					.is_enabled;
 
-        static FileSystemManagerConfigurations
-            cache_configurations;
+		bool
+			is_thread_safety_enabled =
+				default_configurations
+					.is_thread_safety_enabled;
 
 
-        
-        static bool
-            construct(
-                const FileSystemManagerConfigurations&
-                    configurations = {}
-            );
 
-        static bool
-            destruct(
-                const FileSystemManagerConfigurations&
-                    configurations = {}
-            );
+		static FileSystemManagerConfigurations
+			initial_configurations;
 
-        static bool
-            setup(
-                const FileSystemManagerConfigurations&
-                    configurations = {}
-            );
-
-        static bool
-            reset(
-                const FileSystemManagerConfigurations&
-                    configurations = {}
-            );
-
-        static bool
-            setup_caches(
-                const FileSystemManagerConfigurations&
-                    configurations = {}
-            );
-
-        static bool
-            setup_defaults(
-                const FileSystemManagerConfigurations&
-                    configurations = {}
-            );
-
-        static bool
-            reset_caches(
-                const FileSystemManagerConfigurations&
-                    configurations = {}
-            );
-
-        static bool
-            reset_defaults(
-                const FileSystemManagerConfigurations&
-                    configurations = {}
-            );
-
-        static void
-            _handle_construct();
-
-        static void
-            _handle_destruct();
-
-        static void
-            _handle_setup();
-
-        static void
-            _handle_reset();
-
-        static void
-            _handle_setup_caches();
-
-        static void
-            _handle_setup_defaults();
-
-        static void
-            _handle_reset_caches();
-
-        static void
-            _handle_reset_defaults();
+		static FileSystemManagerConfigurations
+			default_configurations;
     };
 }

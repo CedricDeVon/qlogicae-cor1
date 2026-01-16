@@ -1,6 +1,8 @@
 #pragma once
 
-namespace QLogicaeCppCore
+#include <cstdint>
+
+namespace QLogicaeCore
 {
     enum class TimeScaleUnit :
         uint8_t

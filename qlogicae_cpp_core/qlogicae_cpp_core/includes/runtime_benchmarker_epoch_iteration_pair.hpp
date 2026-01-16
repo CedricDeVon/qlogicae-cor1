@@ -1,15 +1,27 @@
 #pragma once
 
-namespace QLogicaeCppCore
+namespace
+	QLogicaeCppCore
 {
-    struct RuntimeBenchmarkerEpochIterationPair
+    struct
+		RuntimeBenchmarkerEpochIterationPair
     {
         std::size_t
             epochs =
-                1;
+                default_configurations
+					.epochs;
 
         std::size_t
             iterations =
-                1;
+                default_configurations
+					.iterations;
+
+
+
+		static RuntimeBenchmarkerEpochIterationPair
+			initial_configurations;
+
+		static RuntimeBenchmarkerEpochIterationPair
+			default_configurations;
     };
 }

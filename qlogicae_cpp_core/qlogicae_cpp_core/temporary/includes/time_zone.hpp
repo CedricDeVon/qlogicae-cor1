@@ -1,8 +1,6 @@
 #pragma once
 
-#include <cstdint>
-
-namespace QLogicaeCore
+namespace QLogicaeCppCore
 {
     enum class TimeZone :
         uint8_t

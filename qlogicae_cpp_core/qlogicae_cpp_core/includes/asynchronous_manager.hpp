@@ -2,14 +2,27 @@
 
 #include "error_manager.hpp"
 #include "singleton_manager.hpp"
-#include "asynchronous_manager_utilities.hpp"
 #include "asynchronous_manager_configurations.hpp"
 
-namespace QLogicaeCppCore
+namespace
+	QLogicaeCppCore
 {    
-    class AsynchronousManager
+    class
+		AsynchronousManager
     {
     public:                        
+		boost::mutex
+			cache_mutex_1;
+
+		AsynchronousManagerConfigurations
+			configurations;
+		
+		static std::shared_ptr<boost::asio::thread_pool>
+			main_thread_pool;
+
+		static std::shared_ptr<boost::asio::thread_pool>
+			temporary_thread_pool;
+
         static AsynchronousManager&
             singleton;
 
@@ -17,76 +30,29 @@ namespace QLogicaeCppCore
 
         ~AsynchronousManager();
 
-        AsynchronousManager(
-            const AsynchronousManager&
-                instance
-        ) = delete;
-
-        AsynchronousManager(
-            AsynchronousManager&&
-                instance
-        ) noexcept = delete;
-
-        AsynchronousManager&
-            operator = (
-                AsynchronousManager&&
-                    instance
-        ) = delete;
-
-        AsynchronousManager&
-            operator = (
-                const AsynchronousManager&
-                    instance
-        ) = delete;
-        
         bool
-            construct(
-                const AsynchronousManagerConfigurations&
-                    configurations = {}
-            );
+            construct();
 
         bool
-            destruct(
-                const AsynchronousManagerConfigurations&
-                    configurations = {}
-            );
+            destruct();
 
         bool
             setup(
                 const AsynchronousManagerConfigurations&
-                    configurations = {}
+					new_configurations =
+						{}
             );
 
         bool
-            reset(
-                const AsynchronousManagerConfigurations&
-                    configurations = {}
-            );
+            reset();
 
         bool
             begin_one_thread(
                 const std::function<void()>&
-                    callback,
-                const AsynchronousManagerConfigurations&
-                    configurations = {}
-            );
-
-        void
-            _handle_construct();
-
-        void
-            _handle_destruct();
-
-        void
-            _handle_setup();
-
-        void
-            _handle_reset();
-
-        void
-            _handle_begin_one_thread(
-                const std::function<void()>&
                     callback
             );
+
+		bool
+			complete_all_threads();
     };   
 }

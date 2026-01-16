@@ -2,17 +2,161 @@
 
 #include "../includes/file_system_manager.hpp"
 
-namespace QLogicaeCppCore
+namespace
+	QLogicaeCppCore
 {
+	std::string
+        FileSystemManager::relative_private_qlogicae_folder_path =
+            ".qlogicae";
+
+    std::string
+        FileSystemManager::relative_public_qlogicae_folder_path =
+            "qlogicae";
+
+    std::string
+        FileSystemManager::relative_application_name_folder_path =
+            "qlogicae";
+
+    std::string
+        FileSystemManager::relative_application_version_name_folder_path =
+            "v1.0.0";
+
+    std::string
+        FileSystemManager::relative_application_environment_name_folder_path =
+            "development";
+
+    std::string
+        FileSystemManager::relative_log_folder_path =
+            "log";
+
+    std::string
+        FileSystemManager::relative_log_date_folder_path =
+            "date";
+
+    std::string
+        FileSystemManager::relative_log_level_folder_path =
+            "level";
+
+    std::string
+        FileSystemManager::relative_all_log_file_path =
+            "all.log";
+
+    std::string
+        FileSystemManager::relative_info_log_file_path =
+            "info.log";
+
+    std::string
+        FileSystemManager::relative_debug_log_file_path =
+            "debug.log";
+
+    std::string
+        FileSystemManager::relative_warning_log_file_path =
+            "warning.log";
+
+    std::string
+        FileSystemManager::relative_success_log_file_path =
+            "success.log";
+
+    std::string
+        FileSystemManager::relative_critical_log_file_path =
+            "critical.log";
+
+    std::string
+        FileSystemManager::relative_error_log_file_path =
+            "error.log";
+
+    std::string
+        FileSystemManager::relative_cache_folder_path =
+            "cache";
+
+    std::string
+        FileSystemManager::relative_main_folder_path =
+            "main";
+
+    std::string
+        FileSystemManager::relative_assets_folder_path =
+            "assets";
+
+    std::string
+        FileSystemManager::relative_documentation_folder_path =
+            "documentation";
+
+    std::string
+        FileSystemManager::relative_environment_json_file_path =
+            "environment.json";
+
+    std::string
+        FileSystemManager::relative_license_txt_file_path =
+            "LICENSE.txt";
+
+    std::string
+        FileSystemManager::relative_application_folder_path =
+            "application";
+
+    std::string
+        FileSystemManager::relative_application_icon_file_path =
+            "application.ico";
+
+    std::string
+        FileSystemManager::relative_qlogicae_json_file_path =
+            "qlogicae.json";
+
+    std::string
+        FileSystemManager::relative_configurations_folder_path =
+            "configurations";
+
+    std::string
+        FileSystemManager::relative_development_folder_path =
+            "development";
+
+    std::string
+        FileSystemManager::relative_debug_folder_path =
+            "debug";
+
+    std::string
+        FileSystemManager::relative_test_folder_path =
+            "test";
+
+    std::string
+        FileSystemManager::relative_release_folder_path =
+            "release";
+
+    std::string
+        FileSystemManager::relative_windows_registry_software_qlogicae_folder_path =
+            "Software\\QLogicae";
+
+    std::string
+        FileSystemManager::full_executable_folder_path =
+            "";
+
+    std::string
+        FileSystemManager::full_executed_folder_path =
+            "";
+
+    std::string
+        FileSystemManager::full_roaming_app_data_folder_path =
+            "";
+
+    std::string
+        FileSystemManager::full_local_app_data_folder_path =
+            "";
+
+    std::string
+        FileSystemManager::full_program_data_folder_path =
+            "";
+
     FileSystemManager&
         FileSystemManager::singleton =
             SingletonManager::get_singleton<FileSystemManager>();
 
-    FileSystemManager::FileSystemManager()
+
+	
+	FileSystemManager
+		::FileSystemManager()
     {
         try
         {
-            _handle_construct();
+            construct();
         }
         catch
         (
@@ -20,19 +164,19 @@ namespace QLogicaeCppCore
                 exception
         )
         {
-            ErrorManager::cache_error_log =
-                exception.what();
-
-            ErrorManager::singleton
-                ._handle();
-        }        
+			ErrorManager::singleton
+				.handle_error_outputs(
+					exception
+				);
+        }
     }
 
-    FileSystemManager::~FileSystemManager()
+    FileSystemManager
+		::~FileSystemManager()
     {
         try
         {
-            _handle_destruct();
+            destruct();
         }
         catch
         (
@@ -40,481 +184,450 @@ namespace QLogicaeCppCore
                 exception
         )
         {
-            ErrorManager::cache_error_log =
-                exception.what();
-
-            ErrorManager::singleton
-                ._handle();
-        }        
+			ErrorManager::singleton
+				.handle_error_outputs(
+					exception
+				);
+        }
     }
 
     bool
-        FileSystemManager::construct()
+        FileSystemManager
+			::construct()
     {
-        _handle_construct();
+        try
+        {			
+            full_executable_folder_path =
+				get_executable_folder_path();
+          
+            full_executed_folder_path =
+				get_executed_folder_path();
+            
+            full_roaming_app_data_folder_path =
+				get_roaming_app_data_folder_path();
+            
+            full_local_app_data_folder_path =
+				get_local_app_data_folder_path();
+            
+            full_program_data_folder_path =
+				get_program_data_folder_path();
 
-        return
-            FileSystemManagerUtilities::cache_boolean_1;
-    }
-
-    bool
-        FileSystemManager::destruct()
-    {
-        _handle_destruct();
-
-        return
-            FileSystemManagerUtilities::cache_boolean_1;
-    }
-    
-    bool
-        FileSystemManager::setup(
-            const FileSystemManagerConfigurations&
-                    new_configurations
+			return
+				true;
+        }
+        catch
+        (
+            const std::exception&
+                exception
         )
-    {        
-        FileSystemManagerConfigurations::cache =
-            new_configurations;
-
-        _handle_setup();
-
-        return
-            FileSystemManagerUtilities::cache_boolean_1;
+        {
+			return
+				ErrorManager::singleton
+					.handle_error_outputs(
+						exception
+				);
+        }
     }
 
     bool
-        FileSystemManager::setup()
+        FileSystemManager
+			::destruct()
     {
-        FileSystemManagerConfigurations::cache =
-            {};
-
-        _handle_setup();
-
-        return
-            FileSystemManagerUtilities::cache_boolean_1;
+        try
+        {
+			return
+				true;
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+			return
+				ErrorManager::singleton
+					.handle_error_outputs(
+						exception
+				);
+        }
     }
-    
+
     bool
-        FileSystemManager::reset()
+        FileSystemManager
+			::setup(
+				const FileSystemManagerConfigurations&
+					new_configurations
+			)
     {
-        _handle_reset();
+        try
+        {
+			configurations =
+				new_configurations;
 
-        return
-            FileSystemManagerUtilities::cache_boolean_1;
+			return
+				true;
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+			return
+				ErrorManager::singleton
+					.handle_error_outputs(
+						exception
+				);
+        }
     }
-        
-    size_t
-        FileSystemManager::get_file_byte_size(            
-            const std::string_view&
-                origin_path
-    )
+
+    bool
+        FileSystemManager
+			::reset()
     {
+        try
+        {
+			configurations =
+				{};
 
+			return
+				true;
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+			return
+				ErrorManager::singleton
+					.handle_error_outputs(
+						exception
+				);
+        }
+    }
+	
+	std::string
+        FileSystemManager::get_executable_folder_path()
+    {
+        try
+        {            
+			std::filesystem::path
+				cache_directory_path;
 
-        _handle_get_file_byte_size();
+			DWORD
+				cache_dword_path_length;
 
-        return
-            FileSystemManagerUtilities::cache_size_t_1;
+			wchar_t
+				cache_wchar_t_buffer[MAX_PATH];
+
+			int
+				cache_int_1;
+
+			std::string
+				cache_string_1;
+
+			std::wstring
+				cache_wstring_1;
+
+			std::vector<std::string>
+				cache_vector_string_1;
+
+            cache_dword_path_length =
+                GetModuleFileNameW(
+                    nullptr,
+                    cache_wchar_t_buffer,
+                    MAX_PATH
+                );
+
+            if (cache_dword_path_length == 0 ||
+                cache_dword_path_length == MAX_PATH
+                )
+            {
+                return
+					"";
+            }
+
+            cache_directory_path =
+                std::filesystem::path(cache_wchar_t_buffer)
+                    .parent_path();
+
+            cache_wstring_1 =
+                cache_directory_path.wstring();
+            
+            if (cache_wstring_1.empty())
+            {
+				return
+					"";
+            }
+
+            cache_int_1 =
+                WideCharToMultiByte(
+                    CP_UTF8,
+                    0,
+                    cache_wstring_1.data(),
+                    -1,
+                    nullptr,
+                    0,
+                    nullptr,
+                    nullptr
+                );
+
+            cache_string_1 = std::string(
+                cache_int_1 - 1,
+                0
+            );
+
+            WideCharToMultiByte(
+                CP_UTF8,
+                0,
+                cache_wstring_1.data(),
+                -1,
+                cache_string_1.data(),
+                cache_int_1,
+                nullptr,
+                nullptr
+            );         
+
+			return
+				cache_string_1;
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+			ErrorManager::singleton
+				.handle_error_outputs(
+					exception
+			);
+
+			return
+				"";
+        }
     }
 
-    size_t
-        FileSystemManager::get_folder_byte_size(            
-            const std::string_view&
-                origin_path,
-            const bool&
-                is_recursive
-    )
+	std::string
+        FileSystemManager::get_executed_folder_path()
     {
-        _handle_get_folder_byte_size();
+        try
+        {
+			std::filesystem::path
+				cache_directory_path;
 
-        return
-            FileSystemManagerUtilities::cache_size_t_1;
+			DWORD
+				cache_dword_path_length;
+
+			std::string
+				cache_string_1;
+
+			std::wstring
+				cache_wstring_1;
+
+			std::vector<std::string>
+				cache_vector_string_1;
+
+            cache_dword_path_length =
+                GetCurrentDirectoryA(
+                    0,
+                    nullptr
+                );
+
+            cache_string_1 =
+                std::string(
+                    cache_dword_path_length,
+                    '\0'
+                );
+
+            GetCurrentDirectoryA(
+                cache_dword_path_length,
+                cache_string_1.data()
+            );
+            
+            cache_string_1
+                .pop_back();
+
+			return
+				cache_string_1;
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+			ErrorManager::singleton
+				.handle_error_outputs(
+					exception
+			);
+
+			return
+				"";
+        }
+    }
+
+	std::string
+        FileSystemManager::get_program_data_folder_path()
+    {
+        try
+        {
+			std::filesystem::path
+				cache_directory_path;
+
+			int
+				cache_int_1;
+
+			std::string
+				cache_string_1;
+
+			std::wstring
+				cache_wstring_1;
+
+			std::vector<std::string>
+				cache_vector_string_1;
+
+			wchar_t*
+				cache_wchar_t_pointer_1;
+
+            if (SUCCEEDED(
+                SHGetKnownFolderPath(
+                    FOLDERID_ProgramData,
+                    0,
+                    NULL,
+                    &cache_wchar_t_pointer_1)
+            ))
+            {
+                cache_wstring_1.assign(
+                    cache_wchar_t_pointer_1
+                );
+                CoTaskMemFree(
+                    cache_wchar_t_pointer_1
+                );
+            }
+
+            cache_int_1 =
+                WideCharToMultiByte(
+                    CP_UTF8,
+                    0,
+                    cache_wstring_1.data(),
+                    -1,
+                    nullptr,
+                    0,
+                    nullptr,
+                    nullptr
+                );
+
+            cache_string_1 = std::string(
+                cache_int_1,
+                0
+            );
+
+            WideCharToMultiByte(
+                CP_UTF8,
+                0,
+                cache_wstring_1.data(),
+                -1,
+                &cache_string_1[0],
+                cache_int_1,
+                nullptr,
+                nullptr
+            );
+            
+            cache_string_1
+                .pop_back();
+
+			return
+				cache_string_1;
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+			ErrorManager::singleton
+				.handle_error_outputs(
+					exception
+			);
+
+			return
+				"";
+        }
     }
 
     std::string
-        FileSystemManager::get_absolute_path(
-            const std::string_view&
-                origin_path
-    )
-    {
-        _handle_get_absolute_path();
-
-        return
-            FileSystemManagerUtilities::cache_string_1;
-    }
-
-    std::string
-        FileSystemManager::get_relative_path(
-            const std::string_view&
-                origin_path,
-            const std::string_view&
-                target_path
-    )
-    {
-        _handle_get_relative_path();
-
-        return
-            FileSystemManagerUtilities::cache_string_1;
-    }
-
-    std::string
-        FileSystemManager::get_file_extension(
-            const std::string_view&
-                origin_path
-    )
-    {
-        _handle_get_file_extension();
-
-        return
-            FileSystemManagerUtilities::cache_string_1;
-    }
-
-    std::string
-        FileSystemManager::get_file_stem(
-            const std::string_view&
-                origin_path
-    )
-    {
-        _handle_get_file_stem();
-
-        return
-            FileSystemManagerUtilities::cache_string_1;
-    }
-
-    std::vector<std::string>
-        FileSystemManager::get_entity_paths(
-            const std::string_view&
-                origin_path,
-            const bool&
-                is_recursive
-    )
-    {
-        _handle_get_entity_paths();
-
-        return
-            FileSystemManagerUtilities::cache_vector_string_1;
-    }
-
-    std::vector<std::string>
-        FileSystemManager::get_file_paths(
-            const std::string_view&
-                origin_path,
-            const bool&
-                is_recursive
-    )
-    {
-        _handle_get_file_paths();
-
-        return
-            FileSystemManagerUtilities::cache_vector_string_1;
-    }
-
-    std::vector<std::string>
-        FileSystemManager::get_folder_paths(
-            const std::string_view&
-                origin_path,
-            const bool&
-                is_recursive
-    )
-    {
-        _handle_get_folder_paths();
-
-        return
-            FileSystemManagerUtilities::cache_vector_string_1;
-    }
-
-    bool
-        FileSystemManager::is_path_found(
-            const std::string_view&
-                origin_path
-    )
-    {
-        _handle_is_path_found();
-
-        return
-            FileSystemManagerUtilities::cache_boolean_1;
-    }
-
-    bool
-        FileSystemManager::is_entity(
-            const std::string_view&
-                origin_path
-    )
-    {
-        _handle_is_entity();
-
-        return
-            FileSystemManagerUtilities::cache_boolean_1;
-    }
-
-    bool
-        FileSystemManager::is_file(
-            const std::string_view&
-                origin_path
-    )
-    {
-        _handle_is_file();
-
-        return
-            FileSystemManagerUtilities::cache_boolean_1;
-    }
-
-    bool
-        FileSystemManager::is_folder(
-            const std::string_view&
-                origin_path
-    )
-    {
-        _handle_is_folder();
-
-        return
-            FileSystemManagerUtilities::cache_boolean_1;
-    }
-
-    bool
-        FileSystemManager::is_entity_user_permission_level_valid(
-            const std::string_view&
-                origin_path,
-            const std::filesystem::perms&
-                permission_level
-    )
-    {
-        _handle_is_entity_user_permission_level_valid();
-
-        return
-            FileSystemManagerUtilities::cache_boolean_1;
-    }
-
-    std::vector<std::string>
-        FileSystemManager::find_files_by_pattern(
-            const std::string_view&
-                origin_path,
-            const std::string_view&
-                pattern,
-            const bool&
-                is_recursive
-    )
-    {
-        _handle_find_files_by_pattern();
-
-        return
-            FileSystemManagerUtilities::cache_vector_string_1;
-    }
-
-    bool
-        FileSystemManager::set_entity_read_status(
-            const std::string_view&
-                origin_path,
-            const bool&
-                value
-    )
-    {
-        _handle_set_entity_read_status();
-
-        return
-            FileSystemManagerUtilities::cache_boolean_1;
-    }
-
-    bool
-        FileSystemManager::set_entity_write_status(
-            const std::string_view&
-                origin_path,
-            const bool&
-                value
-    )
-    {
-        _handle_set_entity_write_status();
-
-
-
-        return
-            FileSystemManagerUtilities::cache_boolean_1;
-    }
-
-    bool
-        FileSystemManager::set_entity_visibility(
-            const std::string_view&
-                origin_path,
-            const bool&
-                value
-    )
-    {
-        _handle_set_entity_visibility();
-
-        return
-            FileSystemManagerUtilities::cache_boolean_1;
-    }
-
-    bool
-        FileSystemManager::create_folder(
-            const std::string_view&
-                origin_path
-    )
-    {
-        _handle_create_folder();
-
-        return
-            FileSystemManagerUtilities::cache_boolean_1;
-    }
-
-    bool
-        FileSystemManager::copy_file(
-            const std::string_view&
-                origin_path,
-            const std::string_view&
-                target_path
-    )
-    {
-        _handle_copy_file();
-
-        return
-            FileSystemManagerUtilities::cache_boolean_1;
-    }
-
-    bool
-        FileSystemManager::copy_folder(
-            const std::string_view&
-                origin_path,
-            const std::string_view&
-                target_path,
-            const bool& is_recursive
-    )
-    {
-        _handle_copy_folder();
-
-        return
-            FileSystemManagerUtilities::cache_boolean_1;
-    }
-
-    bool
-        FileSystemManager::move_entity(
-            const std::string_view&
-                origin_path,
-            const std::string_view&
-                target_path
-    )
-    {
-        _handle_move_entity();
-
-        return
-            FileSystemManagerUtilities::cache_boolean_1;
-    }
-
-    bool
-        FileSystemManager::move_file(
-            const std::string_view&
-                origin_path,
-            const std::string_view&
-                target_path
-    )
-    {
-        _handle_move_file();
-
-        return
-            FileSystemManagerUtilities::cache_boolean_1;
-    }
-
-    bool
-        FileSystemManager::move_folder(
-            const std::string_view&
-                origin_path,
-            const std::string_view&
-                target_path
-    )
-    {
-        _handle_move_folder();
-
-        return
-            FileSystemManagerUtilities::cache_boolean_1;
-    }
-
-    bool
-        FileSystemManager::rename_entity(
-            const std::string_view&
-                origin_path,
-            const std::string_view&
-                name
-    )
-    {
-        _handle_rename_entity();
-
-        return
-            FileSystemManagerUtilities::cache_boolean_1;
-    }
-
-    bool
-        FileSystemManager::rename_file(
-            const std::string_view&
-                origin_path,
-            const std::string_view&
-                name
-    )
-    {
-        _handle_rename_file();
-
-        return
-            FileSystemManagerUtilities::cache_boolean_1;
-    }
-
-    bool
-        FileSystemManager::rename_folder(
-            const std::string_view&
-                origin_path,
-            const std::string_view&
-                name
-    )
-    {
-        _handle_rename_folder();
-
-        return
-            FileSystemManagerUtilities::cache_boolean_1;
-    }
-
-    bool
-        FileSystemManager::remove_file(
-            const std::string_view&
-                origin_path
-    )
-    {
-        _handle_remove_file();
-
-        return
-            FileSystemManagerUtilities::cache_boolean_1;
-    }
-
-    bool
-        FileSystemManager::remove_folder(
-            const std::string_view&
-                origin_path
-    )
-    {
-        _handle_remove_folder();
-
-        return
-            FileSystemManagerUtilities::cache_boolean_1;
-    }
-
-    bool
-        FileSystemManager::remove_folder_sub_files(
-            const std::string_view&
-                origin_path,
-            const bool&
-                is_recursive
-    )
-    {
-        _handle_remove_folder_sub_files();
-
-        return
-            FileSystemManagerUtilities::cache_boolean_1;
-    }
-
-
-    void
-        FileSystemManager::_handle_construct()
+        FileSystemManager::get_local_app_data_folder_path()
     {
         try
         {
-            FileSystemManagerUtilities::cache_boolean_1 =
-                true;
+			std::filesystem::path
+				cache_directory_path;
+
+			int
+				cache_int_1;
+
+			std::string
+				cache_string_1;
+
+			std::wstring
+				cache_wstring_1;
+
+			std::vector<std::string>
+				cache_vector_string_1;
+
+			wchar_t*
+				cache_wchar_t_pointer_1;
+
+            if (SUCCEEDED(SHGetKnownFolderPath(
+                FOLDERID_LocalAppData,
+                0,
+                NULL,
+                &cache_wchar_t_pointer_1))
+            )
+            {
+                cache_wstring_1.assign(
+                    cache_wchar_t_pointer_1
+                );
+                CoTaskMemFree(
+                    cache_wchar_t_pointer_1
+                );
+            }
+
+            cache_int_1 =
+                WideCharToMultiByte(
+                    CP_UTF8,
+                    0,
+                    cache_wstring_1.data(),
+                    -1,
+                    nullptr,
+                    0,
+                    nullptr,
+                    nullptr
+                );
+
+            cache_string_1 =
+                std::string(
+                    cache_int_1,
+                    0
+                );
+
+            WideCharToMultiByte(
+                CP_UTF8,
+                0,
+                cache_wstring_1.data(),
+                -1,
+                &cache_string_1[0],
+                cache_int_1,
+                nullptr,
+                nullptr
+            );
+
+            cache_string_1
+                .pop_back();
+
+			return
+				cache_string_1;
         }
         catch
         (
@@ -522,707 +635,1236 @@ namespace QLogicaeCppCore
                 exception
         )
         {
-            ErrorManager::cache_error_log =
-                exception.what();
-
-            ErrorManager::singleton
-                ._handle();
-        }
-    }
-
-    void
-        FileSystemManager::_handle_destruct()
-    {
-        try
-        {
-            FileSystemManagerUtilities::cache_boolean_1 =
-                true;
-        }
-        catch
-        (
-            const std::exception&
-                exception
-        )
-        {
-            ErrorManager::cache_error_log =
-                exception.what();
-
-            ErrorManager::singleton
-                ._handle();
-        }
-    }
-
-    void
-        FileSystemManager::_handle_setup()
-    {
-        try
-        {
-            FileSystemManagerUtilities::singleton
-                ._handle_setup();
-        }
-        catch
-        (
-            const std::exception&
-                exception
-        )
-        {
-            ErrorManager::cache_error_log =
-                exception.what();
-
-            ErrorManager::singleton
-                ._handle();
-        }
-    }
-
-    void
-        FileSystemManager::_handle_reset()
-    {
-        try
-        {
-            FileSystemManagerUtilities::singleton
-                ._handle_reset();
-        }
-        catch
-        (
-            const std::exception&
-                exception
-        )
-        {
-            ErrorManager::cache_error_log =
-                exception.what();
-
-            ErrorManager::singleton
-                ._handle();
-        }
-    }
-
-    void
-        FileSystemManager::_handle_get_file_byte_size()
-    {
-        try
-        {
-            
-        }
-        catch
-        (
-            const std::exception&
-                exception
-        )
-        {            
-            ErrorManager::cache_error_log =
-                exception.what();
-
-            ErrorManager::singleton
-                ._handle();
-        }
-    }
-
-    void
-        FileSystemManager::_handle_get_folder_byte_size()
-    {
-        try
-        {
-            
-        }
-        catch
-        (
-            const std::exception&
-                exception
-        )
-        {            
-            ErrorManager::cache_error_log =
-                exception.what();
-
-            ErrorManager::singleton
-                ._handle();
-        }
-    }
-
-    void
-        FileSystemManager::_handle_get_absolute_path()
-    {
-        try
-        {
-            
-        }
-        catch
-        (
-            const std::exception&
-                exception
-        )
-        {            
-            ErrorManager::cache_error_log =
-                exception.what();
-
-            ErrorManager::singleton
-                ._handle();
-        }
-    }
-
-    void
-        FileSystemManager::_handle_get_relative_path()
-    {
-        try
-        {
-            
-        }
-        catch
-        (
-            const std::exception&
-                exception
-        )
-        {            
-            ErrorManager::cache_error_log =
-                exception.what();
-
-            ErrorManager::singleton
-                ._handle();
-        }
-    }
-
-    void
-        FileSystemManager::_handle_get_file_extension()
-    {
-        try
-        {
-            
-        }
-        catch
-        (
-            const std::exception&
-                exception
-        )
-        {            
-            ErrorManager::cache_error_log =
-                exception.what();
-
-            ErrorManager::singleton
-                ._handle();
-        }
-    }
-
-    void
-        FileSystemManager::_handle_get_file_stem()
-    {
-        try
-        {
-            
-        }
-        catch
-        (
-            const std::exception&
-                exception
-        )
-        {            
-            ErrorManager::cache_error_log =
-                exception.what();
-
-            ErrorManager::singleton
-                ._handle();
-        }
-    }
-
-    void
-        FileSystemManager::_handle_get_entity_paths()
-    {
-        try
-        {
-            
-        }
-        catch
-        (
-            const std::exception&
-                exception
-        )
-        {            
-            ErrorManager::cache_error_log =
-                exception.what();
-
-            ErrorManager::singleton
-                ._handle();
-        }
-    }
-
-    void
-        FileSystemManager::_handle_get_file_paths()
-    {
-        try
-        {
-            
-        }
-        catch
-        (
-            const std::exception&
-                exception
-        )
-        {            
-            ErrorManager::cache_error_log =
-                exception.what();
-
-            ErrorManager::singleton
-                ._handle();
-        }
-    }
-
-    void
-        FileSystemManager::_handle_get_folder_paths()
-    {
-        try
-        {
-            
-        }
-        catch
-        (
-            const std::exception&
-                exception
-        )
-        {            
-            ErrorManager::cache_error_log =
-                exception.what();
-
-            ErrorManager::singleton
-                ._handle();
-        }
-    }
-
-    void
-        FileSystemManager::_handle_is_path_found()
-    {
-        try
-        {
-            
-        }
-        catch
-        (
-            const std::exception&
-                exception
-        )
-        {            
-            ErrorManager::cache_error_log =
-                exception.what();
-
-            ErrorManager::singleton
-                ._handle();
-        }
-    }
-
-    void
-        FileSystemManager::_handle_is_entity()
-    {
-        try
-        {
-            
-        }
-        catch
-        (
-            const std::exception&
-                exception
-        )
-        {            
-            ErrorManager::cache_error_log =
-                exception.what();
-
-            ErrorManager::singleton
-                ._handle();
-        }
-    }
-
-    void
-        FileSystemManager::_handle_is_file()
-    {
-        try
-        {
-            
-        }
-        catch
-        (
-            const std::exception&
-                exception
-        )
-        {            
-            ErrorManager::cache_error_log =
-                exception.what();
-
-            ErrorManager::singleton
-                ._handle();
-        }
-    }
-
-    void
-        FileSystemManager::_handle_is_folder()
-    {
-        try
-        {
-            
-        }
-        catch
-        (
-            const std::exception&
-                exception
-        )
-        {            
-            ErrorManager::cache_error_log =
-                exception.what();
-
-            ErrorManager::singleton
-                ._handle();
-        }
-    }
-
-    void
-        FileSystemManager::_handle_is_entity_user_permission_level_valid()
-    {
-        try
-        {
-            
-        }
-        catch
-        (
-            const std::exception&
-                exception
-        )
-        {            
-            ErrorManager::cache_error_log =
-                exception.what();
-
-            ErrorManager::singleton
-                ._handle();
-        }
-    }
-
-    void
-        FileSystemManager::_handle_find_files_by_pattern()
-    {
-        try
-        {
-            
-        }
-        catch
-        (
-            const std::exception&
-                exception
-        )
-        {            
-            ErrorManager::cache_error_log =
-                exception.what();
-
-            ErrorManager::singleton
-                ._handle();
-        }
-    }
-
-    void
-        FileSystemManager::_handle_set_entity_read_status()
-    {
-        try
-        {
-            
-        }
-        catch
-        (
-            const std::exception&
-                exception
-        )
-        {            
-            ErrorManager::cache_error_log =
-                exception.what();
-
-            ErrorManager::singleton
-                ._handle();
-        }
-    }
-
-    void
-        FileSystemManager::_handle_set_entity_write_status()
-    {
-        try
-        {
-            
-        }
-        catch
-        (
-            const std::exception&
-                exception
-        )
-        {            
-            ErrorManager::cache_error_log =
-                exception.what();
-
-            ErrorManager::singleton
-                ._handle();
-        }
-    }
-
-    void
-        FileSystemManager::_handle_set_entity_visibility()
-    {
-        try
-        {
-            
-        }
-        catch
-        (
-            const std::exception&
-                exception
-        )
-        {            
-            ErrorManager::cache_error_log =
-                exception.what();
-
-            ErrorManager::singleton
-                ._handle();
-        }
-    }
-
-    void
-        FileSystemManager::_handle_create_folder()
-    {
-        try
-        {
-            
-        }
-        catch
-        (
-            const std::exception&
-                exception
-        )
-        {            
-            ErrorManager::cache_error_log =
-                exception.what();
-
-            ErrorManager::singleton
-                ._handle();
-        }
-    }
-
-    void
-        FileSystemManager::_handle_copy_file()
-    {
-        try
-        {
-            
-        }
-        catch
-        (
-            const std::exception&
-                exception
-        )
-        {            
-            ErrorManager::cache_error_log =
-                exception.what();
-
-            ErrorManager::singleton
-                ._handle();
-        }
-    }
-
-    void
-        FileSystemManager::_handle_copy_folder()
-    {
-        try
-        {
-            
-        }
-        catch
-        (
-            const std::exception&
-                exception
-        )
-        {            
-            ErrorManager::cache_error_log =
-                exception.what();
-
-            ErrorManager::singleton
-                ._handle();
-        }
-    }
-
-    void
-        FileSystemManager::_handle_move_entity()
-    {
-        try
-        {
-            
-        }
-        catch
-        (
-            const std::exception&
-                exception
-        )
-        {            
-            ErrorManager::cache_error_log =
-                exception.what();
-
-            ErrorManager::singleton
-                ._handle();
-        }
-    }
-
-    void
-        FileSystemManager::_handle_move_file()
-    {
-        try
-        {
-            
-        }
-        catch
-        (
-            const std::exception&
-                exception
-        )
-        {            
-            ErrorManager::cache_error_log =
-                exception.what();
-
-            ErrorManager::singleton
-                ._handle();
-        }
-    }
-
-    void
-        FileSystemManager::_handle_move_folder()
-    {
-        try
-        {
-            
-        }
-        catch
-        (
-            const std::exception&
-                exception
-        )
-        {            
-            ErrorManager::cache_error_log =
-                exception.what();
-
-            ErrorManager::singleton
-                ._handle();
-        }
-    }
-
-    void
-        FileSystemManager::_handle_rename_entity()
-    {
-        try
-        {
-            
-        }
-        catch
-        (
-            const std::exception&
-                exception
-        )
-        {            
-            ErrorManager::cache_error_log =
-                exception.what();
-
-            ErrorManager::singleton
-                ._handle();
-        }
-    }
-
-    void
-        FileSystemManager::_handle_rename_file()
-    {
-        try
-        {
-            
-        }
-        catch
-        (
-            const std::exception&
-                exception
-        )
-        {            
-            ErrorManager::cache_error_log =
-                exception.what();
-
-            ErrorManager::singleton
-                ._handle();
-        }
-    }
-
-    void
-        FileSystemManager::_handle_rename_folder()
-    {
-        try
-        {
-            
-        }
-        catch
-        (
-            const std::exception&
-                exception
-        )
-        {            
-            ErrorManager::cache_error_log =
-                exception.what();
-
-            ErrorManager::singleton
-                ._handle();
-        }
-    }
-
-    void
-        FileSystemManager::_handle_remove_file()
-    {
-        try
-        {
-            
-        }
-        catch
-        (
-            const std::exception&
-                exception
-        )
-        {            
-            ErrorManager::cache_error_log =
-                exception.what();
-
-            ErrorManager::singleton
-                ._handle();
-        }
-    }
-
-    void
-        FileSystemManager::_handle_remove_folder()
-    {
-        try
-        {
-            
-        }
-        catch
-        (
-            const std::exception&
-                exception
-        )
-        {            
-            ErrorManager::cache_error_log =
-                exception.what();
-
-            ErrorManager::singleton
-                ._handle();
-        }
-    }
-
-    void
-        FileSystemManager::_handle_remove_folder_sub_files()
-    {
-        try
-        {
-            
-        }
-        catch
-        (
-            const std::exception&
-                exception
-        )
-        {            
-            ErrorManager::cache_error_log =
-                exception.what();
-
-            ErrorManager::singleton
-                ._handle();
+			ErrorManager::singleton
+					.handle_error_outputs(
+						exception
+				);
+
+            return
+				"";
+				
         }
     }
 }
+
+/*
+
+	FileSystemManager::FileSystemManager()
+	{
+		try
+		{
+			construct();
+		}
+		catch
+		(
+			const std::exception&
+				exception
+		)
+		{
+			ErrorManager::cache_error_log =
+				exception.what();
+
+			ErrorManager::singleton
+				._handle();
+		}
+	}
+
+	FileSystemManager::~FileSystemManager()
+	{
+		try
+		{
+			destruct();
+		}
+		catch
+		(
+			const std::exception&
+				exception
+		)
+		{
+			ErrorManager::cache_error_log =
+				exception.what();
+
+			ErrorManager::singleton
+				._handle();
+		}
+	}
+
+	bool
+		FileSystemManager::construct()
+	{
+		construct();
+
+		return
+			FileSystemManager::cache_boolean_1;
+	}
+
+	bool
+		FileSystemManager::destruct()
+	{
+		destruct();
+
+		return
+			FileSystemManager::cache_boolean_1;
+	}
+
+	bool
+		FileSystemManager::setup(
+			const FileSystemManagerConfigurations&
+					new_configurations
+		)
+	{
+		FileSystemManagerConfigurations::cache =
+			new_configurations;
+
+		setup();
+
+		return
+			FileSystemManager::cache_boolean_1;
+	}
+
+	bool
+		FileSystemManager::setup()
+	{
+		FileSystemManagerConfigurations::cache =
+			{};
+
+		setup();
+
+		return
+			FileSystemManager::cache_boolean_1;
+	}
+
+	bool
+		FileSystemManager::reset()
+	{
+		reset();
+
+		return
+			FileSystemManager::cache_boolean_1;
+	}
+
+	size_t
+		FileSystemManager::get_file_byte_size(
+			const std::string_view&
+				origin_path
+	)
+	{
+
+
+		get_file_byte_size();
+
+		return
+			FileSystemManager::cache_size_t_1;
+	}
+
+	size_t
+		FileSystemManager::get_folder_byte_size(
+			const std::string_view&
+				origin_path,
+			const bool&
+				is_recursive
+	)
+	{
+		get_folder_byte_size();
+
+		return
+			FileSystemManager::cache_size_t_1;
+	}
+
+	std::string
+		FileSystemManager::get_absolute_path(
+			const std::string_view&
+				origin_path
+	)
+	{
+		get_absolute_path();
+
+		return
+			FileSystemManager::cache_string_1;
+	}
+
+	std::string
+		FileSystemManager::get_relative_path(
+			const std::string_view&
+				origin_path,
+			const std::string_view&
+				target_path
+	)
+	{
+		get_relative_path();
+
+		return
+			FileSystemManager::cache_string_1;
+	}
+
+	std::string
+		FileSystemManager::get_file_extension(
+			const std::string_view&
+				origin_path
+	)
+	{
+		get_file_extension();
+
+		return
+			FileSystemManager::cache_string_1;
+	}
+
+	std::string
+		FileSystemManager::get_file_stem(
+			const std::string_view&
+				origin_path
+	)
+	{
+		get_file_stem();
+
+		return
+			FileSystemManager::cache_string_1;
+	}
+
+	std::vector<std::string>
+		FileSystemManager::get_entity_paths(
+			const std::string_view&
+				origin_path,
+			const bool&
+				is_recursive
+	)
+	{
+		get_entity_paths();
+
+		return
+			FileSystemManager::cache_vector_string_1;
+	}
+
+	std::vector<std::string>
+		FileSystemManager::get_file_paths(
+			const std::string_view&
+				origin_path,
+			const bool&
+				is_recursive
+	)
+	{
+		get_file_paths();
+
+		return
+			FileSystemManager::cache_vector_string_1;
+	}
+
+	std::vector<std::string>
+		FileSystemManager::get_folder_paths(
+			const std::string_view&
+				origin_path,
+			const bool&
+				is_recursive
+	)
+	{
+		get_folder_paths();
+
+		return
+			FileSystemManager::cache_vector_string_1;
+	}
+
+	bool
+		FileSystemManager::is_path_found(
+			const std::string_view&
+				origin_path
+	)
+	{
+		is_path_found();
+
+		return
+			FileSystemManager::cache_boolean_1;
+	}
+
+	bool
+		FileSystemManager::is_entity(
+			const std::string_view&
+				origin_path
+	)
+	{
+		is_entity();
+
+		return
+			FileSystemManager::cache_boolean_1;
+	}
+
+	bool
+		FileSystemManager::is_file(
+			const std::string_view&
+				origin_path
+	)
+	{
+		is_file();
+
+		return
+			FileSystemManager::cache_boolean_1;
+	}
+
+	bool
+		FileSystemManager::is_folder(
+			const std::string_view&
+				origin_path
+	)
+	{
+		is_folder();
+
+		return
+			FileSystemManager::cache_boolean_1;
+	}
+
+	bool
+		FileSystemManager::is_entity_user_permission_level_valid(
+			const std::string_view&
+				origin_path,
+			const std::filesystem::perms&
+				permission_level
+	)
+	{
+		is_entity_user_permission_level_valid();
+
+		return
+			FileSystemManager::cache_boolean_1;
+	}
+
+	std::vector<std::string>
+		FileSystemManager::find_files_by_pattern(
+			const std::string_view&
+				origin_path,
+			const std::string_view&
+				pattern,
+			const bool&
+				is_recursive
+	)
+	{
+		find_files_by_pattern();
+
+		return
+			FileSystemManager::cache_vector_string_1;
+	}
+
+	bool
+		FileSystemManager::set_entity_read_status(
+			const std::string_view&
+				origin_path,
+			const bool&
+				value
+	)
+	{
+		set_entity_read_status();
+
+		return
+			FileSystemManager::cache_boolean_1;
+	}
+
+	bool
+		FileSystemManager::set_entity_write_status(
+			const std::string_view&
+				origin_path,
+			const bool&
+				value
+	)
+	{
+		set_entity_write_status();
+
+
+
+		return
+			FileSystemManager::cache_boolean_1;
+	}
+
+	bool
+		FileSystemManager::set_entity_visibility(
+			const std::string_view&
+				origin_path,
+			const bool&
+				value
+	)
+	{
+		set_entity_visibility();
+
+		return
+			FileSystemManager::cache_boolean_1;
+	}
+
+	bool
+		FileSystemManager::create_folder(
+			const std::string_view&
+				origin_path
+	)
+	{
+		create_folder();
+
+		return
+			FileSystemManager::cache_boolean_1;
+	}
+
+	bool
+		FileSystemManager::copy_file(
+			const std::string_view&
+				origin_path,
+			const std::string_view&
+				target_path
+	)
+	{
+		copy_file();
+
+		return
+			FileSystemManager::cache_boolean_1;
+	}
+
+	bool
+		FileSystemManager::copy_folder(
+			const std::string_view&
+				origin_path,
+			const std::string_view&
+				target_path,
+			const bool& is_recursive
+	)
+	{
+		copy_folder();
+
+		return
+			FileSystemManager::cache_boolean_1;
+	}
+
+	bool
+		FileSystemManager::move_entity(
+			const std::string_view&
+				origin_path,
+			const std::string_view&
+				target_path
+	)
+	{
+		move_entity();
+
+		return
+			FileSystemManager::cache_boolean_1;
+	}
+
+	bool
+		FileSystemManager::move_file(
+			const std::string_view&
+				origin_path,
+			const std::string_view&
+				target_path
+	)
+	{
+		move_file();
+
+		return
+			FileSystemManager::cache_boolean_1;
+	}
+
+	bool
+		FileSystemManager::move_folder(
+			const std::string_view&
+				origin_path,
+			const std::string_view&
+				target_path
+	)
+	{
+		move_folder();
+
+		return
+			FileSystemManager::cache_boolean_1;
+	}
+
+	bool
+		FileSystemManager::rename_entity(
+			const std::string_view&
+				origin_path,
+			const std::string_view&
+				name
+	)
+	{
+		rename_entity();
+
+		return
+			FileSystemManager::cache_boolean_1;
+	}
+
+	bool
+		FileSystemManager::rename_file(
+			const std::string_view&
+				origin_path,
+			const std::string_view&
+				name
+	)
+	{
+		rename_file();
+
+		return
+			FileSystemManager::cache_boolean_1;
+	}
+
+	bool
+		FileSystemManager::rename_folder(
+			const std::string_view&
+				origin_path,
+			const std::string_view&
+				name
+	)
+	{
+		rename_folder();
+
+		return
+			FileSystemManager::cache_boolean_1;
+	}
+
+	bool
+		FileSystemManager::remove_file(
+			const std::string_view&
+				origin_path
+	)
+	{
+		remove_file();
+
+		return
+			FileSystemManager::cache_boolean_1;
+	}
+
+	bool
+		FileSystemManager::remove_folder(
+			const std::string_view&
+				origin_path
+	)
+	{
+		remove_folder();
+
+		return
+			FileSystemManager::cache_boolean_1;
+	}
+
+	bool
+		FileSystemManager::remove_folder_sub_files(
+			const std::string_view&
+				origin_path,
+			const bool&
+				is_recursive
+	)
+	{
+		remove_folder_sub_files();
+
+		return
+			FileSystemManager::cache_boolean_1;
+	}
+
+
+	void
+		FileSystemManager::construct()
+	{
+		try
+		{
+			FileSystemManager::cache_boolean_1 =
+				true;
+		}
+		catch
+		(
+			const std::exception&
+				exception
+		)
+		{
+			ErrorManager::cache_error_log =
+				exception.what();
+
+			ErrorManager::singleton
+				._handle();
+		}
+	}
+
+	void
+		FileSystemManager::destruct()
+	{
+		try
+		{
+			FileSystemManager::cache_boolean_1 =
+				true;
+		}
+		catch
+		(
+			const std::exception&
+				exception
+		)
+		{
+			ErrorManager::cache_error_log =
+				exception.what();
+
+			ErrorManager::singleton
+				._handle();
+		}
+	}
+
+	void
+		FileSystemManager::setup()
+	{
+		try
+		{
+			FileSystemManager::singleton
+				.setup();
+		}
+		catch
+		(
+			const std::exception&
+				exception
+		)
+		{
+			ErrorManager::cache_error_log =
+				exception.what();
+
+			ErrorManager::singleton
+				._handle();
+		}
+	}
+
+	void
+		FileSystemManager::reset()
+	{
+		try
+		{
+			FileSystemManager::singleton
+				.reset();
+		}
+		catch
+		(
+			const std::exception&
+				exception
+		)
+		{
+			ErrorManager::cache_error_log =
+				exception.what();
+
+			ErrorManager::singleton
+				._handle();
+		}
+	}
+
+	void
+		FileSystemManager::get_file_byte_size()
+	{
+		try
+		{
+
+		}
+		catch
+		(
+			const std::exception&
+				exception
+		)
+		{
+			ErrorManager::cache_error_log =
+				exception.what();
+
+			ErrorManager::singleton
+				._handle();
+		}
+	}
+
+	void
+		FileSystemManager::get_folder_byte_size()
+	{
+		try
+		{
+
+		}
+		catch
+		(
+			const std::exception&
+				exception
+		)
+		{
+			ErrorManager::cache_error_log =
+				exception.what();
+
+			ErrorManager::singleton
+				._handle();
+		}
+	}
+
+	void
+		FileSystemManager::get_absolute_path()
+	{
+		try
+		{
+
+		}
+		catch
+		(
+			const std::exception&
+				exception
+		)
+		{
+			ErrorManager::cache_error_log =
+				exception.what();
+
+			ErrorManager::singleton
+				._handle();
+		}
+	}
+
+	void
+		FileSystemManager::get_relative_path()
+	{
+		try
+		{
+
+		}
+		catch
+		(
+			const std::exception&
+				exception
+		)
+		{
+			ErrorManager::cache_error_log =
+				exception.what();
+
+			ErrorManager::singleton
+				._handle();
+		}
+	}
+
+	void
+		FileSystemManager::get_file_extension()
+	{
+		try
+		{
+
+		}
+		catch
+		(
+			const std::exception&
+				exception
+		)
+		{
+			ErrorManager::cache_error_log =
+				exception.what();
+
+			ErrorManager::singleton
+				._handle();
+		}
+	}
+
+	void
+		FileSystemManager::get_file_stem()
+	{
+		try
+		{
+
+		}
+		catch
+		(
+			const std::exception&
+				exception
+		)
+		{
+			ErrorManager::cache_error_log =
+				exception.what();
+
+			ErrorManager::singleton
+				._handle();
+		}
+	}
+
+	void
+		FileSystemManager::get_entity_paths()
+	{
+		try
+		{
+
+		}
+		catch
+		(
+			const std::exception&
+				exception
+		)
+		{
+			ErrorManager::cache_error_log =
+				exception.what();
+
+			ErrorManager::singleton
+				._handle();
+		}
+	}
+
+	void
+		FileSystemManager::get_file_paths()
+	{
+		try
+		{
+
+		}
+		catch
+		(
+			const std::exception&
+				exception
+		)
+		{
+			ErrorManager::cache_error_log =
+				exception.what();
+
+			ErrorManager::singleton
+				._handle();
+		}
+	}
+
+	void
+		FileSystemManager::get_folder_paths()
+	{
+		try
+		{
+
+		}
+		catch
+		(
+			const std::exception&
+				exception
+		)
+		{
+			ErrorManager::cache_error_log =
+				exception.what();
+
+			ErrorManager::singleton
+				._handle();
+		}
+	}
+
+	void
+		FileSystemManager::is_path_found()
+	{
+		try
+		{
+
+		}
+		catch
+		(
+			const std::exception&
+				exception
+		)
+		{
+			ErrorManager::cache_error_log =
+				exception.what();
+
+			ErrorManager::singleton
+				._handle();
+		}
+	}
+
+	void
+		FileSystemManager::is_entity()
+	{
+		try
+		{
+
+		}
+		catch
+		(
+			const std::exception&
+				exception
+		)
+		{
+			ErrorManager::cache_error_log =
+				exception.what();
+
+			ErrorManager::singleton
+				._handle();
+		}
+	}
+
+	void
+		FileSystemManager::is_file()
+	{
+		try
+		{
+
+		}
+		catch
+		(
+			const std::exception&
+				exception
+		)
+		{
+			ErrorManager::cache_error_log =
+				exception.what();
+
+			ErrorManager::singleton
+				._handle();
+		}
+	}
+
+	void
+		FileSystemManager::is_folder()
+	{
+		try
+		{
+
+		}
+		catch
+		(
+			const std::exception&
+				exception
+		)
+		{
+			ErrorManager::cache_error_log =
+				exception.what();
+
+			ErrorManager::singleton
+				._handle();
+		}
+	}
+
+	void
+		FileSystemManager::is_entity_user_permission_level_valid()
+	{
+		try
+		{
+
+		}
+		catch
+		(
+			const std::exception&
+				exception
+		)
+		{
+			ErrorManager::cache_error_log =
+				exception.what();
+
+			ErrorManager::singleton
+				._handle();
+		}
+	}
+
+	void
+		FileSystemManager::find_files_by_pattern()
+	{
+		try
+		{
+
+		}
+		catch
+		(
+			const std::exception&
+				exception
+		)
+		{
+			ErrorManager::cache_error_log =
+				exception.what();
+
+			ErrorManager::singleton
+				._handle();
+		}
+	}
+
+	void
+		FileSystemManager::set_entity_read_status()
+	{
+		try
+		{
+
+		}
+		catch
+		(
+			const std::exception&
+				exception
+		)
+		{
+			ErrorManager::cache_error_log =
+				exception.what();
+
+			ErrorManager::singleton
+				._handle();
+		}
+	}
+
+	void
+		FileSystemManager::set_entity_write_status()
+	{
+		try
+		{
+
+		}
+		catch
+		(
+			const std::exception&
+				exception
+		)
+		{
+			ErrorManager::cache_error_log =
+				exception.what();
+
+			ErrorManager::singleton
+				._handle();
+		}
+	}
+
+	void
+		FileSystemManager::set_entity_visibility()
+	{
+		try
+		{
+
+		}
+		catch
+		(
+			const std::exception&
+				exception
+		)
+		{
+			ErrorManager::cache_error_log =
+				exception.what();
+
+			ErrorManager::singleton
+				._handle();
+		}
+	}
+
+	void
+		FileSystemManager::create_folder()
+	{
+		try
+		{
+
+		}
+		catch
+		(
+			const std::exception&
+				exception
+		)
+		{
+			ErrorManager::cache_error_log =
+				exception.what();
+
+			ErrorManager::singleton
+				._handle();
+		}
+	}
+
+	void
+		FileSystemManager::copy_file()
+	{
+		try
+		{
+
+		}
+		catch
+		(
+			const std::exception&
+				exception
+		)
+		{
+			ErrorManager::cache_error_log =
+				exception.what();
+
+			ErrorManager::singleton
+				._handle();
+		}
+	}
+
+	void
+		FileSystemManager::copy_folder()
+	{
+		try
+		{
+
+		}
+		catch
+		(
+			const std::exception&
+				exception
+		)
+		{
+			ErrorManager::cache_error_log =
+				exception.what();
+
+			ErrorManager::singleton
+				._handle();
+		}
+	}
+
+	void
+		FileSystemManager::move_entity()
+	{
+		try
+		{
+
+		}
+		catch
+		(
+			const std::exception&
+				exception
+		)
+		{
+			ErrorManager::cache_error_log =
+				exception.what();
+
+			ErrorManager::singleton
+				._handle();
+		}
+	}
+
+	void
+		FileSystemManager::move_file()
+	{
+		try
+		{
+
+		}
+		catch
+		(
+			const std::exception&
+				exception
+		)
+		{
+			ErrorManager::cache_error_log =
+				exception.what();
+
+			ErrorManager::singleton
+				._handle();
+		}
+	}
+
+	void
+		FileSystemManager::move_folder()
+	{
+		try
+		{
+
+		}
+		catch
+		(
+			const std::exception&
+				exception
+		)
+		{
+			ErrorManager::cache_error_log =
+				exception.what();
+
+			ErrorManager::singleton
+				._handle();
+		}
+	}
+
+	void
+		FileSystemManager::rename_entity()
+	{
+		try
+		{
+
+		}
+		catch
+		(
+			const std::exception&
+				exception
+		)
+		{
+			ErrorManager::cache_error_log =
+				exception.what();
+
+			ErrorManager::singleton
+				._handle();
+		}
+	}
+
+	void
+		FileSystemManager::rename_file()
+	{
+		try
+		{
+
+		}
+		catch
+		(
+			const std::exception&
+				exception
+		)
+		{
+			ErrorManager::cache_error_log =
+				exception.what();
+
+			ErrorManager::singleton
+				._handle();
+		}
+	}
+
+	void
+		FileSystemManager::rename_folder()
+	{
+		try
+		{
+
+		}
+		catch
+		(
+			const std::exception&
+				exception
+		)
+		{
+			ErrorManager::cache_error_log =
+				exception.what();
+
+			ErrorManager::singleton
+				._handle();
+		}
+	}
+
+	void
+		FileSystemManager::remove_file()
+	{
+		try
+		{
+
+		}
+		catch
+		(
+			const std::exception&
+				exception
+		)
+		{
+			ErrorManager::cache_error_log =
+				exception.what();
+
+			ErrorManager::singleton
+				._handle();
+		}
+	}
+
+	void
+		FileSystemManager::remove_folder()
+	{
+		try
+		{
+
+		}
+		catch
+		(
+			const std::exception&
+				exception
+		)
+		{
+			ErrorManager::cache_error_log =
+				exception.what();
+
+			ErrorManager::singleton
+				._handle();
+		}
+	}
+
+	void
+		FileSystemManager::remove_folder_sub_files()
+	{
+		try
+		{
+
+		}
+		catch
+		(
+			const std::exception&
+				exception
+		)
+		{
+			ErrorManager::cache_error_log =
+				exception.what();
+
+			ErrorManager::singleton
+				._handle();
+		}
+	}
+
+*/ 

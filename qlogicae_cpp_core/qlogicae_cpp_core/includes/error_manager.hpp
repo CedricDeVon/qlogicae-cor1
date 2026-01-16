@@ -1,137 +1,99 @@
 #pragma once
 
-// #include "singleton_manager.hpp"
 #include "error_manager_configurations.hpp"
 
-namespace QLogicaeCppCore
+namespace
+	QLogicaeCppCore
 {    
-    class ErrorManager
+    class
+		ErrorManager
     {
     public:   
-		static ErrorManagerConfigurations
-			a_configurations;
-
-		void f(
-			const ErrorManagerConfigurations&
-				configurations = a_configurations
-		);
-    };        
-}
-
-/*
-
-static bool
-			cache_boolean_1;
-
-		static boost::mutex
-			cache_mutex_1;
-
-		static std::string
-			cache_error_log;
-
-		static fast_io::native_io_observer
-			cache_fast_io_error_console_output_type;
+		ErrorManagerConfigurations
+			configurations;
 
 		static ErrorManager&
 			singleton;
-
-
 
 		ErrorManager();
 
 		~ErrorManager();
 
-		ErrorManager(
-			const ErrorManager&
-				instance
-		) = delete;
-
-		ErrorManager(
-			ErrorManager&&
-				instance
-		) noexcept = delete;
-
-		ErrorManager&
-			operator = (
-				ErrorManager&&
-					instance
-			) = delete;
-
-		ErrorManager&
-			operator = (
-				const ErrorManager&
-					instance
-			) = delete;
+		bool
+			construct();
 
 		bool
-			construct(
-				const ErrorManagerConfigurations&
-					configurations = {}
-			);
-
-		bool
-			destruct(
-				const ErrorManagerConfigurations&
-					configurations = {}
-			);
+			destruct();
 
 		bool
 			setup(
 				const ErrorManagerConfigurations&
-					configurations = {}
+					new_configurations =
+						{}
 			);
 
 		bool
-			reset(
-				const ErrorManagerConfigurations&
-					configurations = {}
-			);
+			reset();
 
 		bool
-			handle(
-				const std::string_view&
+			handle_error_outputs(
+				const std::string&
 					title,
-				const std::string_view&
-					message,
-				const ErrorManagerConfigurations&
-					configurations = {}
+				const std::string&
+					message
 			);
 
 		bool
-			handle(
-				const std::string_view&
-					message,
-				const ErrorManagerConfigurations&
-					configurations = {}
+			handle_error_outputs(
+				const std::string&
+					message
 			);
 
 		bool
-			handle(
+			handle_error_outputs(
 				const std::exception&
-					exception,
-				const ErrorManagerConfigurations&
-					configurations = {}
+					exception
 			);
 
-		void
-			_handle_construct();
+		bool
+			handle_error_output_conditions(
+				const std::string&
+					error_log
+			);
 
-		void
-			_handle_destruct();
+		std::string
+			transform_to_error_log(
+				const std::string&
+					title,
+				const std::string&
+					message
+			);
 
-		void
-			_handle_setup();
+		std::string
+			transform_to_error_log(
+				const std::string&
+					message
+			);
 
-		void
-			_handle_reset();
+		std::string
+			transform_to_error_log(
+				const std::exception&
+					exception
+			);
 
-		void
-			_handle();
+		bool
+			handle_error_outputs_synchronously(
+				const std::string&
+					error_log
+			);
 
-		void
-			_handle_asynchronously();
+		bool
+			handle_error_outputs_asynchronously(
+				const std::string&
+					error_log
+			);
 
-		void
-			_handle_synchronously();
-
-*/
+		static ErrorManager&
+			get_this_singleton();
+    };        
+}

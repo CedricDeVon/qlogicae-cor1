@@ -2,7 +2,8 @@
 
 #include "../includes/results_status.hpp"
 
-namespace QLogicaeCppCore
+namespace
+	QLogicaeCppCore
 {
     
 }

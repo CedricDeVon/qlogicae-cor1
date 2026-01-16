@@ -1,108 +1,91 @@
 #pragma once
 
+#include "abstract_configurations.hpp"
+
 namespace
 	QLogicaeCppCore
 {    
     struct
-		ErrorManagerConfigurations
-    {
-        bool
-            is_enabled =
-                default_configurations.is_enabled;
+		ErrorManagerConfigurations :
+			AbstractConfigurations
+    {        
+		bool
+			is_enabled =
+				default_configurations
+					.is_enabled;
 
-        bool
-            is_thread_safety_enabled =
-                default_configurations.is_thread_safety_enabled;
+		bool
+			is_thread_safety_enabled =
+				default_configurations
+					.is_thread_safety_enabled;
 
-        bool
-            is_console_output_enabled =
-                default_configurations.is_console_output_enabled;
+		bool
+			is_console_output_enabled =
+				default_configurations
+					.is_console_output_enabled;
 
-        bool
-            is_file_output_enabled =
-                default_configurations.is_file_output_enabled;
+		bool
+			is_file_output_enabled =
+				default_configurations
+					.is_file_output_enabled;
 
-        bool
-            is_gui_output_enabled =
-                default_configurations.is_gui_output_enabled;
+		bool
+			is_gui_output_enabled =
+				default_configurations
+					.is_gui_output_enabled;
 
-        bool
-            is_runtime_throw_output_enabled =
-                default_configurations.is_runtime_throw_output_enabled;
+		bool
+			is_runtime_throw_output_enabled =
+				default_configurations
+					.is_runtime_throw_output_enabled;
 
-        bool
-            is_asynchronous_output_enabled =
-                default_configurations.is_asynchronous_output_enabled;
+		bool
+			is_asynchronous_output_enabled =
+				default_configurations
+					.is_asynchronous_output_enabled;
 
-        bool
-            is_asynchronous_console_output_enabled =
-                default_configurations.is_asynchronous_console_output_enabled;
+		bool
+			is_asynchronous_console_output_enabled =
+				default_configurations
+					.is_asynchronous_console_output_enabled;
 
-        bool
-            is_asynchronous_file_output_enabled =
-                default_configurations.is_asynchronous_file_output_enabled;
+		bool
+			is_asynchronous_file_output_enabled =
+				default_configurations
+					.is_asynchronous_file_output_enabled;
 
-        bool
-            is_asynchronous_gui_output_enabled =
-                default_configurations.is_asynchronous_gui_output_enabled;
+		bool
+			is_asynchronous_gui_output_enabled =
+				default_configurations
+					.is_asynchronous_gui_output_enabled;
 
-        bool
-            is_asynchronous_runtime_throw_output_enabled =
-                default_configurations.is_asynchronous_runtime_throw_output_enabled;
+		bool
+			is_asynchronous_runtime_throw_output_enabled =
+				default_configurations
+					.is_asynchronous_runtime_throw_output_enabled;
 
-        std::string
-            title_message_separator =
-                default_configurations.title_message_separator;
+		std::string
+			default_title =
+				default_configurations
+					.default_title;
 
-        std::vector<std::string>
-            full_file_output_paths =
-                default_configurations.full_file_output_paths;
-    
+		std::string
+			title_message_separator =
+				default_configurations
+					.title_message_separator;
 
-        
-        static ErrorManagerConfigurations
-            initial_configurations;
-
-        static ErrorManagerConfigurations
-            default_configurations;
-
+		std::vector<std::string>
+			full_file_output_paths =
+				default_configurations
+					.full_file_output_paths;
 
 
-        static bool
-            construct(
-                const ErrorManagerConfigurations&
-                    configurations = {}
-            );
 
-        static bool
-            destruct(
-                const ErrorManagerConfigurations&
-                    configurations = {}
-            );
+		static ErrorManagerConfigurations
+			initial_configurations;
 
-        static bool
-            setup(
-                const ErrorManagerConfigurations&
-                    configurations = {}
-            );
-
-        static bool
-            reset(
-                const ErrorManagerConfigurations&
-                    configurations = {}
-            );
-
-        static bool
-            setup_defaults(
-                const ErrorManagerConfigurations&
-                    configurations = {}
-            );
-
-        static bool
-            reset_defaults(
-                const ErrorManagerConfigurations&
-                    configurations = {}
-            );
+		static ErrorManagerConfigurations
+			default_configurations;
     };    
 }
  

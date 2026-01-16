@@ -4,15 +4,6 @@
 
 namespace QLogicaeCppCore
 {
-	bool
-		ApplicationManager
-			::cache_boolean_1 =
-				false;
-
-	boost::mutex
-		ApplicationManager
-			::cache_mutex_1;
-
     ApplicationManager&
         ApplicationManager
 			::singleton =
@@ -21,11 +12,12 @@ namespace QLogicaeCppCore
 
 
 
-    ApplicationManager::ApplicationManager()
+    ApplicationManager
+		::ApplicationManager()
     {
         try
         {
-            _handle_construct();
+            construct();
         }
         catch
         (
@@ -33,14 +25,10 @@ namespace QLogicaeCppCore
                 exception
         )
         {
-			cache_boolean_1 =
-				false;
-
-            ErrorManager::cache_error_log =
-                exception.what();
-
-            ErrorManager::singleton
-                ._handle();
+			ErrorManager::singleton
+				.handle_error_outputs(
+					exception
+				);
         }        
     }
 
@@ -49,7 +37,7 @@ namespace QLogicaeCppCore
     {
         try
         {
-            _handle_destruct();
+            destruct();
         }
         catch
         (
@@ -57,158 +45,102 @@ namespace QLogicaeCppCore
                 exception
         )
         {
-			cache_boolean_1 =
-				false;
-
-            ErrorManager::cache_error_log =
-                exception.what();
-
-            ErrorManager::singleton
-                ._handle();
+			ErrorManager::singleton
+				.handle_error_outputs(
+					exception
+				);
         }        
     }
 
-    bool
-        ApplicationManager
+	bool
+		ApplicationManager
 			::construct()
-    {
-        _handle_construct();
+	{
+		try
+		{
+			return
+				true;
+		}
+		catch
+		(
+			const std::exception&
+				exception
+		)
+		{
+			return
+				ErrorManager::singleton
+					.handle_error_outputs(
+						exception
+				);
+		}
+	}
 
-        return
-            cache_boolean_1;
-    }
-
-    void
-        ApplicationManager
-			::_handle_construct()
-    {
-        try
-        {
-            cache_boolean_1 =
-                true;
-        }
-        catch
-        (
-            const std::exception&
-                exception
-        )
-        {
-			cache_boolean_1 =
-				false;
-
-            ErrorManager::cache_error_log =
-                exception.what();
-
-            ErrorManager::singleton
-                ._handle();
-        }
-    }
-
-    bool
-        ApplicationManager
+	bool
+		ApplicationManager
 			::destruct()
-    {
-        _handle_destruct();
+	{
+		try
+		{
+			return
+				true;
+		}
+		catch
+		(
+			const std::exception&
+				exception
+		)
+		{
+			return
+				ErrorManager::singleton
+					.handle_error_outputs(
+						exception
+				);
+		}
+	}
 
-        return
-            cache_boolean_1;
-    }
-
-    void
-        ApplicationManager
-			::_handle_destruct()
-    {
-        try
-        {
-            cache_boolean_1 =
-                true;
-        }
-        catch
-        (
-            const std::exception&
-                exception
-        )
-        {
-			cache_boolean_1 =
-				false;
-
-            ErrorManager::cache_error_log =
-                exception.what();
-
-            ErrorManager::singleton
-                ._handle();
-        }
-    }
-
-    bool
-        ApplicationManager
+	bool
+		ApplicationManager
 			::setup()
-    {
-        _handle_setup();
+	{
+		try
+		{
+			return
+				true;
+		}
+		catch
+		(
+			const std::exception&
+				exception
+		)
+		{
+			return
+				ErrorManager::singleton
+					.handle_error_outputs(
+						exception
+				);
+		}
+	}
 
-        return
-            cache_boolean_1;
-    }
-
-    void
-        ApplicationManager
-			::_handle_setup()
-    {
-        try
-        {
-            cache_boolean_1 =
-                true;
-        }
-        catch
-        (
-            const std::exception&
-                exception
-        )
-        {
-			cache_boolean_1 =
-				false;
-
-            ErrorManager::cache_error_log =
-                exception.what();
-
-            ErrorManager::singleton
-                ._handle();
-        }
-    }
-
-    bool
-        ApplicationManager
+	bool
+		ApplicationManager
 			::reset()
-    {
-        _handle_reset();
-
-        return
-            cache_boolean_1;
-    }
-
-    void
-        ApplicationManager
-			::_handle_reset()
-    {
-        try
-        {
-            cache_boolean_1 =
-                true;
-        }
-        catch
-        (
-            const std::exception&
-                exception
-        )
-        {
-			cache_boolean_1 =
-				false;
-
-            ErrorManager::cache_error_log =
-                exception.what();
-
-            ErrorManager::singleton
-                ._handle();
-        }
-    }
+	{
+		try
+		{
+			return
+				true;
+		}
+		catch
+		(
+			const std::exception&
+				exception
+		)
+		{			
+			return
+				ErrorManager::singleton
+					.handle_error_outputs(
+						exception
+				);
+		}
+	}    
 }

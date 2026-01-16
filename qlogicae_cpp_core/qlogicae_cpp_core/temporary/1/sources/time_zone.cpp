@@ -2,7 +2,7 @@
 
 #include "../includes/time_zone.hpp"
 
-namespace QLogicaeCppCore
+namespace QLogicaeCore
 {
 
 }

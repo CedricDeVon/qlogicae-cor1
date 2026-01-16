@@ -1,6 +1,7 @@
 #pragma once
 
-#include "result.hpp"
+#include "error_manager.hpp"
+#include "timeout_clock_utilities.hpp"
 #include "timeout_clock_configurations.hpp"
 
 namespace QLogicaeCppCore
@@ -8,68 +9,117 @@ namespace QLogicaeCppCore
     class TimeoutClock
     {
     public:
-        ~TimeoutClock();
-        
-        TimeoutClock();
-        
+        std::jthread
+            cache_thread;
+
+        std::mutex
+            cache_thread_mutex;
+
+        std::atomic<bool>
+            cache_is_flag_stopped_async
+                { false };
+
+        std::atomic<bool>
+            cache_is_cancelled_async
+                { false };
+
+        std::atomic<bool>
+            cache_is_executed_immediately_async
+                { false };
+
+        bool
+            cache_boolean_1;
+                
+        TimeoutClockConfigurations
+            configurations;
+
         TimeoutClock(
-            const TimeoutClockConfigurations& initial_configurations
+            const TimeoutClockConfigurations&
+                new_configurations
         );
         
+        TimeoutClock();
+
+        ~TimeoutClock();
+        
         TimeoutClock(
-            const TimeoutClock& instance
+            const TimeoutClock&
+                instance
         ) = delete;
         
         TimeoutClock(
-            TimeoutClock&& instance
+            TimeoutClock&&
+                instance
         ) noexcept = delete;
         
         TimeoutClock& operator = (
-            TimeoutClock&& instance
+            TimeoutClock&&
+                instance
         ) = delete;
         
         TimeoutClock& operator = (
-            const TimeoutClock& instance
+            const TimeoutClock&
+                instance
         ) = delete;
-        void construct(
-            Result<bool>& result
-        );
 
-        void construct(
-            Result<bool>& result,
-            const TimeoutClockConfigurations& initial_configurations
-        );
+        bool
+            construct(
+                const TimeoutClockConfigurations&
+                    new_configurations
+            );
 
-        void destruct(
-            Result<bool>& result
-        );
+        bool
+            construct();
 
-        void cancel(
-            Result<bool>& result
-        );
+        bool
+            destruct();
 
-        void restart(
-            Result<bool>& result
-        );
+        bool
+            setup(
+                const TimeoutClockConfigurations&
+                    new_configurations
+            );
 
-        void is_cancelled(
-            Result<bool>& result
-        );
+        bool
+            setup();
 
-        std::jthread _thread;
+        bool
+            reset();
 
-        std::mutex _thread_mutex;
+        bool
+            cancel();
 
-        std::atomic<bool> _is_flag_stopped_async { false };
+        bool
+            restart();
 
-        std::atomic<bool> _is_cancelled_async { false };
+        bool
+            is_cancelled();
 
-        std::atomic<bool> _is_executed_immediately_async { false };
+        bool
+            start_thread();
 
-        TimeoutClockConfigurations _configurations;
-        
-        void _start_thread(
-            Result<bool>& result
-        );
+        void
+            _handle_construct();
+
+        void
+            _handle_destruct();
+
+        void
+            _handle_setup();
+
+        void
+            _handle_reset();
+
+        void
+            _handle_cancel();
+
+        void
+            _handle_restart();
+
+        void
+            _handle_is_cancelled();
+
+        void
+            _handle_start_thread();
     };
 }

@@ -190,8 +190,26 @@
   <ItemGroup>
     <ClInclude Include="framework.hpp" />
     <ClInclude Include="pch.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\abstract_configurations.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\all.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\application_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\assembly.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\asynchronous_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\asynchronous_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\configuration_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\configuration_manager_configurations.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\error_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\error_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\file_system_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\file_system_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\results.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\results_status.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\runtime_benchmarker.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\runtime_benchmarker_configurations.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\runtime_benchmarker_epoch_iteration_pair.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\runtime_benchmarker_test_case.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\runtime_benchmarker_test_suite.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\singleton_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\singleton_manager_configurations.hpp" />
   </ItemGroup>
   <ItemGroup>
@@ -199,8 +217,27 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="qlogicae_cpp_core\sources\abstract_configurations.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\all.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\application_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\assembly.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\asynchronous_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\asynchronous_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\configuration_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\configuration_manager_configurations.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\error_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\error_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\file_system_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\file_system_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\results.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\results_status.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\runtime_benchmarker.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\runtime_benchmarker_configurations.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\runtime_benchmarker_epoch_iteration_pair.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\runtime_benchmarker_test_case.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\runtime_benchmarker_test_suite.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\singleton_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\singleton_manager_configurations.cpp" />
   </ItemGroup>
   <ItemGroup>
     <MASM Include="qlogicae_cpp_core\assembly\x64_masm__main.asm" />

@@ -2,7 +2,8 @@
 
 #include "../includes/results.hpp"
 
-namespace QLogicaeCppCore
+namespace
+	QLogicaeCppCore
 {            
     ResultsStatus
         Results<void>::get_status()
@@ -139,7 +140,7 @@ namespace QLogicaeCppCore
     bool
         Results<void>::is_status_error()
     {
-        return _status == ResultsStatus::ERROR_;
+        return _status == ResultsStatus::ERROR_TYPE;
     }
 
     void
@@ -148,7 +149,7 @@ namespace QLogicaeCppCore
                 value
         )
     {
-        value = (_status == ResultsStatus::ERROR_);
+        value = (_status == ResultsStatus::ERROR_TYPE);
     }
 
     bool
@@ -176,7 +177,7 @@ namespace QLogicaeCppCore
         return (_status == ResultsStatus::BAD ||
             _status == ResultsStatus::WARNING ||
             _status == ResultsStatus::EXCEPTION ||
-            _status == ResultsStatus::ERROR_);
+            _status == ResultsStatus::ERROR_TYPE);
     }
 
     void
@@ -188,7 +189,7 @@ namespace QLogicaeCppCore
         value = (_status == ResultsStatus::BAD ||
             _status == ResultsStatus::WARNING ||
             _status == ResultsStatus::EXCEPTION ||
-            _status == ResultsStatus::ERROR_);
+            _status == ResultsStatus::ERROR_TYPE);
     }
 
     void
@@ -230,7 +231,7 @@ namespace QLogicaeCppCore
     void
         Results<void>::set_status_to_error()
     {
-        set_status(ResultsStatus::ERROR_);
+        set_status(ResultsStatus::ERROR_TYPE);
     }
 
     std::string

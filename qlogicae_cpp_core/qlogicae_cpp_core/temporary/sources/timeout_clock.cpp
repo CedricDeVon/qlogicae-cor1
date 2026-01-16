@@ -3,132 +3,464 @@
 #include "../includes/timeout_clock.hpp"
 
 namespace QLogicaeCppCore
-{
-    TimeoutClock::TimeoutClock()
-    {
-        Result<bool> result;
-        construct(result);
-    }
-
+{   
     TimeoutClock::TimeoutClock(
-        const TimeoutClockConfigurations& initial_configurations
+        const TimeoutClockConfigurations&
+            new_configurations
     )
     {
-        Result<bool> result;
-        construct(result, initial_configurations);
+        try
+        {
+            TimeoutClockConfigurations::cache =
+                new_configurations;
+
+            _handle_construct();
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+            cache_boolean_1 =
+                false;
+
+            ErrorManager::cache_error_log =
+                exception.what();
+
+            ErrorManager::singleton
+                ._handle();
+        }
+    }
+
+    TimeoutClock::TimeoutClock()
+    {
+        try
+        {
+            TimeoutClockConfigurations::cache =
+                {};
+
+            _handle_construct();
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+            cache_boolean_1 =
+                false;
+
+            ErrorManager::cache_error_log =
+                exception.what();
+
+            ErrorManager::singleton
+                ._handle();
+        }
     }
 
     TimeoutClock::~TimeoutClock()
     {
-        Result<bool> result;
-        destruct(result);
-    }
-
-    void TimeoutClock::construct(
-        Result<bool>& result
-    )
-    {
-        TimeoutClockConfigurations default_config;
-        construct(result, default_config);
-    }
-
-    void TimeoutClock::construct(
-        Result<bool>& result,
-        const TimeoutClockConfigurations& initial_configurations
-    )
-    {        
-        _configurations = initial_configurations;
-        _is_executed_immediately_async.store(_configurations.is_executed_immediately);
-        _is_flag_stopped_async.store(false);
-        _is_cancelled_async.store(false);
-
-        _start_thread(result);
-
-        result.set_to_good_status_with_value(true);
-    }
-
-    void TimeoutClock::destruct(
-        Result<bool>& result
-    )
-    {
-        cancel(result);
-        result.set_to_good_status_with_value(true);
-    }
-
-    void TimeoutClock::_start_thread(Result<bool>& result)
-    {
-        std::unique_lock<std::mutex> lock(_thread_mutex);
-
-        if (_thread.joinable())
+        try
         {
-            _thread.request_stop();
-            _thread.join();
+            _handle_destruct();
         }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+            cache_boolean_1 =
+                false;
 
-        auto local_callback = _configurations.callback;
-        auto local_delay = _configurations.delay_in_milliseconds;
-        bool execute_immediately = _configurations.is_executed_immediately || local_delay.count() == 0;
+            ErrorManager::cache_error_log =
+                exception.what();
 
-        _thread = std::jthread([local_callback, local_delay, execute_immediately](std::stop_token stop_token)
+            ErrorManager::singleton
+                ._handle();
+        }
+    }
+
+    bool TimeoutClock::construct(
+        const TimeoutClockConfigurations&
+            new_configurations
+    )
+    {
+        TimeoutClockConfigurations::cache =
+            new_configurations;
+
+        _handle_construct();
+
+        return
+            cache_boolean_1;
+    }
+
+    bool TimeoutClock::construct()
+    {
+        TimeoutClockConfigurations::cache =
+            {};
+
+        _handle_construct();
+
+        return
+            cache_boolean_1;
+    }
+
+    bool TimeoutClock::destruct()
+    {
+        _handle_destruct();
+
+        return
+            cache_boolean_1;
+    }
+
+    bool TimeoutClock::setup(
+        const TimeoutClockConfigurations&
+            new_configurations
+    )
+    {
+        TimeoutClockConfigurations::cache =
+            new_configurations;
+
+        _handle_construct();
+
+        return
+            cache_boolean_1;
+    }
+
+    bool TimeoutClock::setup()
+    {
+        TimeoutClockConfigurations::cache =
+            {};
+
+        _handle_construct();
+
+        return
+            cache_boolean_1;
+    }
+
+    bool TimeoutClock::reset()
+    {        
+        _handle_reset();
+
+        return
+            cache_boolean_1;
+    }
+
+    bool TimeoutClock::cancel()
+    {
+        _handle_cancel();
+
+        return
+            cache_boolean_1;
+    }
+
+    bool TimeoutClock::restart()
+    {
+        _handle_restart();
+
+        return
+            cache_boolean_1;
+    }
+
+    bool TimeoutClock::is_cancelled()
+    {
+        _handle_is_cancelled();
+
+        return
+            cache_boolean_1;
+    }
+
+    bool TimeoutClock::start_thread()
+    {
+        _handle_start_thread();
+
+        return
+            cache_boolean_1;
+    }
+
+    void TimeoutClock::_handle_construct()
+    {
+        try
+        {
+            configurations =
+                TimeoutClockConfigurations::cache;
+
+            cache_is_executed_immediately_async.store(
+                configurations.is_executed_immediately
+            );
+            cache_is_flag_stopped_async.store(false);
+            cache_is_cancelled_async.store(false);
+
+            _handle_start_thread();
+
+            cache_boolean_1 =
+                true;
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+            cache_boolean_1 =
+                false;
+
+            ErrorManager::cache_error_log =
+                exception.what();
+
+            ErrorManager::singleton
+                ._handle();
+        }
+    }
+
+    void TimeoutClock::_handle_destruct()
+    {
+        try
+        {
+            configurations =
+                {};
+
+            _handle_cancel();
+
+            cache_boolean_1 =
+                true;
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+            cache_boolean_1 =
+                false;
+
+            ErrorManager::cache_error_log =
+                exception.what();
+
+            ErrorManager::singleton
+                ._handle();
+        }
+    }
+
+    void TimeoutClock::_handle_setup()
+    {
+        try
+        {
+            configurations =
+                TimeoutClockConfigurations::cache;
+
+            cache_boolean_1 =
+                true;
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+            cache_boolean_1 =
+                false;
+
+            ErrorManager::cache_error_log =
+                exception.what();
+
+            ErrorManager::singleton
+                ._handle();
+        }
+    }
+
+    void TimeoutClock::_handle_reset()
+    {
+        try
+        {
+            configurations =
+                {};
+
+            _handle_cancel();
+
+            cache_boolean_1 =
+                true;
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+            cache_boolean_1 =
+                false;
+
+            ErrorManager::cache_error_log =
+                exception.what();
+
+            ErrorManager::singleton
+                ._handle();
+        }
+    }
+
+    void TimeoutClock::_handle_cancel()
+    {
+        try
+        {
+            std::lock_guard<std::mutex>
+                lock(
+                    cache_thread_mutex
+                );
+
+            cache_is_flag_stopped_async.store(true);
+
+            if (cache_thread.joinable())
             {
-                if (!execute_immediately)
-                {
-                    std::this_thread::sleep_for(local_delay);
-                }
+                cache_thread.request_stop();
+                cache_thread.join();
+            }
 
-                if (stop_token.stop_requested())
-                {
-                    return;
-                }
+            cache_is_cancelled_async.store(true);
 
-                try
-                {
-                    local_callback();
-                }
-                catch (...)
-                {
-                }
-            });
-
-        result.set_to_good_status_with_value(true);
-    }
-
-    void TimeoutClock::cancel(
-        Result<bool>& result
-    )
-    {        
-        std::lock_guard<std::mutex> lock(_thread_mutex);
-
-        _is_flag_stopped_async.store(true);
-
-        if (_thread.joinable())
-        {
-            _thread.request_stop();
-            _thread.join();
+            cache_boolean_1 =
+                true;
         }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+            cache_boolean_1 =
+                false;
 
-        _is_cancelled_async.store(true);
-        result.set_to_good_status_with_value(true);
+            ErrorManager::cache_error_log =
+                exception.what();
+
+            ErrorManager::singleton
+                ._handle();
+        }
     }
 
-    void TimeoutClock::restart(
-        Result<bool>& result
-    )
+    void TimeoutClock::_handle_restart()
     {
-        cancel(result);
-     
-        _is_flag_stopped_async.store(false);
-        _is_cancelled_async.store(false);
-        _is_executed_immediately_async.store(_configurations.is_executed_immediately);
+        try
+        {
+            _handle_cancel();
 
-        _start_thread(result);
-        result.set_to_good_status_with_value(true);
+            cache_is_flag_stopped_async.store(false);
+            cache_is_cancelled_async.store(false);
+            cache_is_executed_immediately_async.store(
+                configurations.is_executed_immediately
+            );
+
+            _handle_start_thread();
+
+            cache_boolean_1 =
+                true;
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+            cache_boolean_1 =
+                false;
+
+            ErrorManager::cache_error_log =
+                exception.what();
+
+            ErrorManager::singleton
+                ._handle();
+        }
     }
 
-    void TimeoutClock::is_cancelled(
-        Result<bool>& result
-    )
+    void TimeoutClock::_handle_is_cancelled()
     {
-        result.set_to_good_status_with_value(_is_cancelled_async.load());
+        try
+        {
+            cache_boolean_1 =
+                cache_is_cancelled_async.load();
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+            cache_boolean_1 =
+                false;
+
+            ErrorManager::cache_error_log =
+                exception.what();
+
+            ErrorManager::singleton
+                ._handle();
+        }
+    }
+
+    void TimeoutClock::_handle_start_thread()
+    {
+        try
+        {
+            std::unique_lock<std::mutex>
+                lock(
+                    cache_thread_mutex
+                );
+
+            if (cache_thread.joinable())
+            {
+                cache_thread.request_stop();
+                cache_thread.join();
+            }
+
+            auto local_callback =
+                configurations.callback;
+            
+            auto local_delay =
+                configurations.delay_in_milliseconds;
+            
+            bool execute_immediately =
+                configurations.is_executed_immediately || local_delay.count() == 0;
+
+            cache_thread = std::jthread([local_callback, local_delay, execute_immediately](std::stop_token stop_token)
+                {
+                    if (!execute_immediately)
+                    {
+                        std::this_thread::sleep_for(local_delay);
+                    }
+
+                    if (stop_token.stop_requested())
+                    {
+                        return;
+                    }
+
+                    try
+                    {
+                        local_callback();
+                    }
+                    catch (...)
+                    {
+
+                    }
+                }
+            );
+
+            cache_boolean_1 =
+                true;
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+            cache_boolean_1 =
+                false;
+
+            ErrorManager::cache_error_log =
+                exception.what();
+
+            ErrorManager::singleton
+                ._handle();
+        }
     }
 }

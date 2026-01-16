@@ -1,18 +1,136 @@
 #pragma once
 
-#include "instance_manager.hpp"
+#include "error_manager.hpp"
 
 namespace QLogicaeCppCore
 {    
     struct TimeoutClockConfigurations
     {
-        std::function<void()> callback = []() {};
+        std::function<void()>
+            callback =
+                default_callback;
 
-        std::chrono::milliseconds delay_in_milliseconds{ 100 };
+        std::chrono::milliseconds
+            delay_in_milliseconds =
+                default_delay_in_milliseconds;
 
-        bool is_executed_immediately = true;                 
+        bool
+            is_executed_immediately =
+                default_is_executed_immediately;
+
+
+
+        static std::function<void()>
+            initial_callback;
+
+        static std::chrono::milliseconds
+            initial_delay_in_milliseconds;
+
+        static bool
+            initial_is_executed_immediately;
+
+
+
+        static std::function<void()>
+            default_callback;
+
+        static std::chrono::milliseconds
+            default_delay_in_milliseconds;
+
+        static bool
+            default_is_executed_immediately;
+
+
+
+        static std::function<void()>
+            cache_callback;
+
+        static std::chrono::milliseconds
+            cache_delay_in_milliseconds;
+
+        static bool
+            cache_is_executed_immediately;
+
+
+
+        static bool
+            cache_boolean_1;
+
+        static TimeoutClockConfigurations
+            cache_configurations;
+
+
+        
+        static bool
+            construct(
+                const TimeoutClockConfigurations&
+                    configurations = {}
+            );
+
+        static bool
+            destruct(
+                const TimeoutClockConfigurations&
+                    configurations = {}
+            );
+
+        static bool
+            setup(
+                const TimeoutClockConfigurations&
+                    configurations = {}
+            );
+
+        static bool
+            reset(
+                const TimeoutClockConfigurations&
+                    configurations = {}
+            );
+
+        static bool
+            setup_caches(
+                const TimeoutClockConfigurations&
+                    configurations = {}
+            );
+
+        static bool
+            setup_defaults(
+                const TimeoutClockConfigurations&
+                    configurations = {}
+            );
+
+        static bool
+            reset_caches(
+                const TimeoutClockConfigurations&
+                    configurations = {}
+            );
+
+        static bool
+            reset_defaults(
+                const TimeoutClockConfigurations&
+                    configurations = {}
+            );
+
+        static void
+            _handle_construct();
+
+        static void
+            _handle_destruct();
+
+        static void
+            _handle_setup();
+
+        static void
+            _handle_reset();
+
+        static void
+            _handle_setup_caches();
+
+        static void
+            _handle_setup_defaults();
+
+        static void
+            _handle_reset_caches();
+
+        static void
+            _handle_reset_defaults();
     };
-
-    inline static TimeoutClockConfigurations& TIMEOUT_CLOCK_CONFIGURATIONS =
-        INSTANCE_MANAGER.get_instance<TimeoutClockConfigurations>();
 }

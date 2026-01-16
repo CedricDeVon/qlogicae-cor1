@@ -542,7 +542,7 @@ namespace QLogicaeCppCoreTest
             QLogicaeCppCore::ResultsStatus::DEBUG,
             QLogicaeCppCore::ResultsStatus::WARNING,
             QLogicaeCppCore::ResultsStatus::EXCEPTION,
-            QLogicaeCppCore::ResultsStatus::ERROR_
+            QLogicaeCppCore::ResultsStatus::ERROR_TYPE
         };
         for (auto st : all)
         {
@@ -773,7 +773,7 @@ namespace QLogicaeCppCoreTest
             QLogicaeCppCore::ResultsStatus::DEBUG,
             QLogicaeCppCore::ResultsStatus::WARNING,
             QLogicaeCppCore::ResultsStatus::EXCEPTION,
-            QLogicaeCppCore::ResultsStatus::ERROR_
+            QLogicaeCppCore::ResultsStatus::ERROR_TYPE
         };
 
         for (auto st : vals)
@@ -1015,11 +1015,11 @@ namespace QLogicaeCppCoreTest
             QLogicaeCppCore::ResultsStatus::WARNING, "m2");
 
         result_void_instance.set_to_status_without_value(
-            QLogicaeCppCore::ResultsStatus::ERROR_, "m3");
+            QLogicaeCppCore::ResultsStatus::ERROR_TYPE, "m3");
 
         QLogicaeCppCore::ResultsStatus st;
         result_void_instance.get_status(st);
-        ASSERT_EQ(st, QLogicaeCppCore::ResultsStatus::ERROR_);
+        ASSERT_EQ(st, QLogicaeCppCore::ResultsStatus::ERROR_TYPE);
 
         std::string_view msg;
         result_void_instance.get_message(msg);
@@ -1036,7 +1036,7 @@ namespace QLogicaeCppCoreTest
             QLogicaeCppCore::ResultsStatus::DEBUG,
             QLogicaeCppCore::ResultsStatus::WARNING,
             QLogicaeCppCore::ResultsStatus::EXCEPTION,
-            QLogicaeCppCore::ResultsStatus::ERROR_
+            QLogicaeCppCore::ResultsStatus::ERROR_TYPE
         };
 
         for (auto st : all)
@@ -1058,3 +1058,4 @@ namespace QLogicaeCppCoreTest
         }
     }
 }
+
