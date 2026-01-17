@@ -5,6 +5,22 @@
 namespace
 	QLogicaeCppCore
 {        
+	boost::asio::io_context
+		AsynchronousManager::io_context;
+
+	boost::asio::strand<decltype(AsynchronousManager::io_context.get_executor())>
+		AsynchronousManager::async_strand(
+			AsynchronousManager::io_context.get_executor());
+
+	boost::asio::executor_work_guard<boost::asio::io_context::executor_type>
+		AsynchronousManager::async_work_guard =
+			boost::asio::make_work_guard(
+				AsynchronousManager::io_context
+			);
+
+	std::vector<std::thread>
+		AsynchronousManager::thread_workers;
+
     AsynchronousManager&
         AsynchronousManager::singleton =
             SingletonManager::get_singleton<AsynchronousManager>();

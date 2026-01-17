@@ -2,7 +2,8 @@
 
 #include "../includes/pair_hash_operator.hpp"
 
-namespace QLogicaeCppCore
+namespace
+	QLogicaeCppCore
 {
 
 }

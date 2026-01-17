@@ -1,8 +1,8 @@
 #pragma once
 
 #include "error_manager.hpp"
-#include "valid_mutex_lock.hpp"
 #include "singleton_manager.hpp"
+#include "valid_mutex_lock.hpp"
 #include "pair_hash_operator.hpp"
 #include "mutex_manager_configurations.hpp"
 

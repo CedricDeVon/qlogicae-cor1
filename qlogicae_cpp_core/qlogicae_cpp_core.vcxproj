@@ -202,6 +202,11 @@
     <ClInclude Include="qlogicae_cpp_core\includes\error_manager_configurations.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\file_system_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\file_system_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\function_wrapper.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\function_wrapper_configurations.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\mutex_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\mutex_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\pair_hash_operator.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\results.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\results_status.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\runtime_benchmarker.hpp" />
@@ -211,6 +216,7 @@
     <ClInclude Include="qlogicae_cpp_core\includes\runtime_benchmarker_test_suite.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\singleton_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\singleton_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\valid_mutex_lock.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -229,6 +235,11 @@
     <ClCompile Include="qlogicae_cpp_core\sources\error_manager_configurations.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\file_system_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\file_system_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\function_wrapper.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\function_wrapper_configurations.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\mutex_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\mutex_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\pair_hash_operator.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\results.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\results_status.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\runtime_benchmarker.cpp" />
@@ -238,6 +249,7 @@
     <ClCompile Include="qlogicae_cpp_core\sources\runtime_benchmarker_test_suite.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\singleton_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\singleton_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\valid_mutex_lock.cpp" />
   </ItemGroup>
   <ItemGroup>
     <MASM Include="qlogicae_cpp_core\assembly\x64_masm__main.asm" />

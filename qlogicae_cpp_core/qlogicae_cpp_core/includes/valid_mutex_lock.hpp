@@ -1,6 +1,7 @@
 #pragma once
 
-namespace QLogicaeCppCore
+namespace
+	QLogicaeCppCore
 {
     template<typename LockType, typename MutexType>
     concept ValidLock =

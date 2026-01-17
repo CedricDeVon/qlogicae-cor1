@@ -1,8 +1,10 @@
 #pragma once
 
-namespace QLogicaeCppCore
+namespace
+	QLogicaeCppCore
 {
-    struct PairHashOperator
+    struct
+		PairHashOperator
     {
         std::size_t operator()(
             const std::pair<void*,
