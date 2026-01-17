@@ -3,9 +3,11 @@
 #include "error_manager.hpp"
 #include "singleton_manager.hpp"
 
-namespace QLogicaeCppCore
+namespace
+	QLogicaeCppCore
 {
-    class ApplicationManager
+    class
+		ApplicationManager
     {
     public:
         static ApplicationManager&

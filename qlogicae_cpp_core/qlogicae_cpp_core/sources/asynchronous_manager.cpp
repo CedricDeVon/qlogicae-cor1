@@ -2,7 +2,8 @@
 
 #include "../includes/asynchronous_manager.hpp"
 
-namespace QLogicaeCppCore
+namespace
+	QLogicaeCppCore
 {        
     AsynchronousManager&
         AsynchronousManager::singleton =
@@ -96,11 +97,9 @@ namespace QLogicaeCppCore
 			::destruct()
     {
         try
-        {
-			complete_all_threads();
-
+        {			
 			return
-				true;
+				complete_all_threads();
         }
         catch
         (
@@ -180,6 +179,12 @@ namespace QLogicaeCppCore
     {
         try
         {
+			if (!configurations.is_enabled)
+			{
+				return
+					false;
+			}
+
             boost::unique_lock<boost::mutex>
                 unique_lock(cache_mutex_1);
 

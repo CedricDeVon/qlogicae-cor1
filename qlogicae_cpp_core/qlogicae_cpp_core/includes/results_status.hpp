@@ -2,8 +2,9 @@
 
 namespace QLogicaeCppCore
 {
-	enum class ResultsStatus :
-		uint8_t
+	enum class
+		ResultsStatus :
+			uint8_t
 	{
 		GOOD,
 
@@ -21,5 +22,4 @@ namespace QLogicaeCppCore
 
 		NONE
 	};
-
 }

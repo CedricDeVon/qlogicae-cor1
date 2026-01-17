@@ -631,79 +631,6 @@ namespace QLogicaeCppCoreTest
     }
 
 	TEST(
-		SingletonManagerConfigurationTest,
-		Should_EnableThreadSafety_When_Configured
-	)
-	{
-		SingletonManagerConfigurations config;
-		config.is_thread_safety_enabled = true;
-
-		SingletonManager::get_this_singleton().setup(config);
-
-		ASSERT_TRUE(
-			SingletonManagerConfigurations::cache_is_thread_safety_enabled
-		);
-	}
-
-	TEST(
-		SingletonManagerConfigurationTest,
-		Should_DisableThreadSafety_When_Configured
-	)
-	{
-		SingletonManagerConfigurations config;
-		config.is_thread_safety_enabled = false;
-
-		SingletonManager::get_this_singleton().setup(config);
-
-		ASSERT_FALSE(
-			SingletonManagerConfigurations::cache_is_thread_safety_enabled
-		);
-	}
-
-	TEST(
-		SingletonManagerConfigurationTest,
-		Should_ResetToInitialDefaults_When_ResetCalled
-	)
-	{
-		SingletonManagerConfigurations config;
-		config.is_enabled = true;
-		config.is_thread_safety_enabled = true;
-
-		SingletonManager::get_this_singleton().setup(config);
-		SingletonManager::get_this_singleton().reset();
-
-		ASSERT_EQ(
-			SingletonManagerConfigurations::cache_is_enabled,
-			SingletonManagerConfigurations::initial_is_enabled
-		);
-
-		ASSERT_EQ(
-			SingletonManagerConfigurations::cache_is_thread_safety_enabled,
-			SingletonManagerConfigurations::initial_is_thread_safety_enabled
-		);
-	}
-
-	TEST(
-		SingletonManagerConfigurationTest,
-		Should_PersistDefaults_When_SetupDefaultsCalled
-	)
-	{
-		SingletonManagerConfigurations config;
-		config.is_enabled = true;
-		config.is_thread_safety_enabled = true;
-
-		SingletonManagerConfigurations::setup_defaults(config);
-
-		ASSERT_TRUE(
-			SingletonManagerConfigurations::default_is_enabled
-		);
-
-		ASSERT_TRUE(
-			SingletonManagerConfigurations::default_is_thread_safety_enabled
-		);
-	}
-
-	TEST(
 		SingletonManagerConcurrencyTest,
 		Should_NotDeadlock_When_MultipleThreadsConstructAndDestruct
 	)
@@ -838,39 +765,6 @@ namespace QLogicaeCppCoreTest
 	}
 
 	TEST(
-		SingletonManagerStateTest,
-		Should_ResetCachedConfigurationState
-	)
-	{
-		SingletonManagerConfigurations config;
-		config.is_enabled = true;
-
-		SingletonManager::get_this_singleton().setup(config);
-		SingletonManager::get_this_singleton().reset();
-
-		ASSERT_EQ(
-			SingletonManagerConfigurations::cache_is_enabled,
-			SingletonManagerConfigurations::initial_is_enabled
-		);
-	}
-
-	TEST(
-		SingletonManagerStateTest,
-		Should_AllowReconfiguration_AfterReset
-	)
-	{
-		SingletonManagerConfigurations config;
-		config.is_enabled = true;
-
-		SingletonManager::get_this_singleton().reset();
-		SingletonManager::get_this_singleton().setup(config);
-
-		ASSERT_TRUE(
-			SingletonManagerConfigurations::cache_is_enabled
-		);
-	}
-
-	TEST(
 		SingletonManagerConcurrencyTest,
 		Should_AllowConcurrentTypeInstantiation
 	)
@@ -924,6 +818,212 @@ namespace QLogicaeCppCoreTest
 		);
 
 		ASSERT_EQ(second, 7);
+	}
+	TEST(
+		SingletonManagerTest,
+		Should_IgnoreIsEnabledFlag_When_GetSingletonCalled
+	)
+	{
+		SingletonManager& manager =
+			SingletonManager::get_this_singleton();
+
+		SingletonManagerConfigurations configurations;
+		configurations.is_enabled = false;
+
+		manager.setup(configurations);
+
+		ASSERT_NO_THROW(
+			{
+				SingletonManager::get_singleton<int>();
+			}
+		);
+	}
+
+	TEST(
+		SingletonManagerTest,
+		Should_NotEnforceThreadSafetyFlag_OnTypedSingletonMutation
+	)
+	{
+		SingletonManager& manager =
+			SingletonManager::get_this_singleton();
+
+		SingletonManagerConfigurations configurations;
+		configurations.is_thread_safety_enabled = true;
+
+		manager.setup(configurations);
+
+		std::vector<std::thread> threads;
+
+		for (int i = 0; i < 64; ++i)
+		{
+			threads.emplace_back(
+				[]
+				{
+					int& value =
+						SingletonManager::get_singleton<int>();
+
+					value++;
+				}
+			);
+		}
+
+		for (auto& thread : threads)
+		{
+			thread.join();
+		}
+
+		SUCCEED();
+	}
+
+	TEST(
+		SingletonManagerTest,
+		Should_ReturnTrue_When_DestructCalledBeforeConstruct
+	)
+	{
+		SingletonManager& manager =
+			SingletonManager::get_this_singleton();
+
+		ASSERT_TRUE(
+			manager.destruct()
+		);
+	}
+
+	TEST(
+		SingletonManagerTest,
+		Should_ReturnTrue_When_ConstructCalledAfterDestruct
+	)
+	{
+		SingletonManager& manager =
+			SingletonManager::get_this_singleton();
+
+		ASSERT_TRUE(manager.construct());
+		ASSERT_TRUE(manager.destruct());
+		ASSERT_TRUE(manager.construct());
+	}
+
+	TEST(
+		SingletonManagerTest,
+		Should_PreserveTypedSingletonInstances_When_ResetCalled
+	)
+	{
+		int& first =
+			SingletonManager::get_singleton<int>();
+
+		first = 99;
+
+		SingletonManager::get_this_singleton().reset();
+
+		int& second =
+			SingletonManager::get_singleton<int>();
+
+		ASSERT_EQ(
+			static_cast<void*>(&first),
+			static_cast<void*>(&second)
+		);
+	}
+
+	TEST(
+		SingletonManagerTest,
+		Should_PreserveTypedSingletonValues_When_ResetCalled
+	)
+	{
+		int& value =
+			SingletonManager::get_singleton<int>();
+
+		value = 123;
+
+		SingletonManager::get_this_singleton().reset();
+
+		ASSERT_EQ(
+			SingletonManager::get_singleton<int>(),
+			123
+		);
+	}
+
+	TEST(
+		SingletonManagerTest,
+		Should_RetryInstantiation_When_ConstructorThrows
+	)
+	{
+		ASSERT_THROW(
+			{
+				SingletonManager::get_singleton<ThrowingConstructor>();
+			},
+			std::runtime_error
+		);
+
+		ASSERT_THROW(
+			{
+				SingletonManager::get_singleton<ThrowingConstructor>();
+			},
+			std::runtime_error
+		);
+	}
+
+	TEST(
+		SingletonManagerTest,
+		Should_NotDestroyTypedSingleton_On_ManagerDestruct
+	)
+	{
+		{
+			DestructionTracker& instance =
+				SingletonManager::get_singleton<DestructionTracker>();
+
+			static_cast<void>(instance);
+
+			SingletonManager::get_this_singleton().destruct();
+		}
+
+		ASSERT_EQ(
+			DestructionTracker::destruction_count.load(),
+			0
+		);
+	}
+
+	TEST(
+		SingletonManagerTest,
+		Should_AllowTypedSingletonAccess_After_ManagerDestruct
+	)
+	{
+		SingletonManager& manager =
+			SingletonManager::get_this_singleton();
+
+		manager.construct();
+		manager.destruct();
+
+		ASSERT_NO_THROW(
+			{
+				SingletonManager::get_singleton<int>();
+			}
+		);
+	}
+
+	TEST(
+		SingletonManagerTest,
+		Should_Allow_Concurrent_Construct_And_GetSingleton
+	)
+	{
+		SingletonManager& manager =
+			SingletonManager::get_this_singleton();
+
+		std::thread t1(
+			[&]
+			{
+				manager.construct();
+			}
+		);
+
+		std::thread t2(
+			[]
+			{
+				SingletonManager::get_singleton<int>();
+			}
+		);
+
+		t1.join();
+		t2.join();
+
+		SUCCEED();
 	}
 
 }

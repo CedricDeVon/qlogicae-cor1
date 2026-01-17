@@ -2,7 +2,8 @@
 
 #include "../includes/asynchronous_manager_configurations.hpp"
 
-namespace QLogicaeCppCore
+namespace
+	QLogicaeCppCore
 {
     AsynchronousManagerConfigurations
 		AsynchronousManagerConfigurations

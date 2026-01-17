@@ -2,7 +2,8 @@
 
 #include "../includes/application_manager.hpp"
 
-namespace QLogicaeCppCore
+namespace
+	QLogicaeCppCore
 {
     ApplicationManager&
         ApplicationManager

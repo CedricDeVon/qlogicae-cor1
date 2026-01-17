@@ -157,12 +157,13 @@ namespace
 					message
 			)
 	{
-		handle_error_output_conditions(
-			transform_to_error_log(
-				title,
-				message
-			)
-		);
+		return
+			handle_error_output_conditions(
+				transform_to_error_log(
+					title,
+					message
+				)
+			);
 	}
 	
 	bool
@@ -172,11 +173,12 @@ namespace
 					message
 			)
 	{
-		handle_error_output_conditions(
-			transform_to_error_log(
-				message
-			)
-		);
+		return
+			handle_error_output_conditions(
+				transform_to_error_log(
+					message
+				)
+			);
 	}
 
 	bool
@@ -186,11 +188,12 @@ namespace
 					exception
 			)
 	{
-		handle_error_output_conditions(
-			transform_to_error_log(
-				exception
-			)
-		);
+		return
+			handle_error_output_conditions(
+				transform_to_error_log(
+					exception
+				)
+			);
 	}
 
 	bool
@@ -216,6 +219,9 @@ namespace
 				error_log
 			);
 		}
+
+		return
+			false;
 	}
 
 	std::string
@@ -270,6 +276,8 @@ namespace
 		if
 		(
 			configurations
+				.is_enable_output_override_enabled ||
+			configurations
 				.is_console_output_enabled
 		)
 		{
@@ -282,9 +290,11 @@ namespace
 		if
 		(
 			configurations
+				.is_enable_output_override_enabled ||
+			configurations
 				.is_file_output_enabled
 		)
-		{
+		{		
 			for
 			(
 				const std::string&
@@ -294,6 +304,11 @@ namespace
 						.full_file_output_paths
 			)
 			{
+				if (!std::filesystem::exists(full_file_output_path))
+				{
+					continue;
+				}
+
 				fast_io::native_file
 					fast_io_native_file(
 						full_file_output_path,
@@ -310,6 +325,8 @@ namespace
 		if
 		(
 			configurations
+				.is_enable_output_override_enabled ||
+			configurations
 				.is_gui_output_enabled
 		)
 		{
@@ -319,6 +336,8 @@ namespace
 		if
 		(
 			configurations
+				.is_enable_output_override_enabled ||
+			configurations
 				.is_runtime_throw_output_enabled
 		)
 		{
@@ -327,6 +346,9 @@ namespace
 					error_log
 				);
 		}
+
+		return
+			false;
 	}
 
 	bool
@@ -343,8 +365,10 @@ namespace
 		(
 			configurations
 				.is_asynchronous_console_output_enabled &&
+			(configurations
+				.is_enable_output_override_enabled ||
 			configurations
-				.is_console_output_enabled
+				.is_console_output_enabled)
 		)
 		{
 			futures.push_back(
@@ -365,8 +389,10 @@ namespace
 		(
 			configurations
 				.is_asynchronous_file_output_enabled &&
+			(configurations
+				.is_enable_output_override_enabled ||
 			configurations
-				.is_file_output_enabled
+				.is_file_output_enabled)
 		)
 		{
 			for
@@ -378,11 +404,16 @@ namespace
 						.full_file_output_paths
 			)
 			{
+				if (!std::filesystem::exists(full_file_output_path))
+				{
+					continue;
+				}
+
 				futures.push_back(
 					std::async(
 						std::launch::async,
 						[&]()
-						{
+						{						
 							fast_io::native_file
 								fast_io_native_file(
 									full_file_output_path,
@@ -403,8 +434,10 @@ namespace
 		(
 			configurations
 				.is_asynchronous_runtime_throw_output_enabled &&
+			(configurations
+				.is_enable_output_override_enabled ||
 			configurations
-				.is_gui_output_enabled
+				.is_gui_output_enabled)
 		)
 		{
 			futures.push_back(
@@ -422,8 +455,10 @@ namespace
 		(
 			configurations
 				.is_asynchronous_runtime_throw_output_enabled &&
+			(configurations
+				.is_enable_output_override_enabled ||
 			configurations
-				.is_runtime_throw_output_enabled
+				.is_runtime_throw_output_enabled)
 		)
 		{
 			futures.push_back(
@@ -449,6 +484,9 @@ namespace
 		{
 			future.get();
 		}
+
+		return
+			false;
 	}	
 
 	ErrorManager&

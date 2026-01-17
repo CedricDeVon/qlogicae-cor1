@@ -10,9 +10,9 @@ namespace
 			AbstractConfigurations
     {        
 		bool
-			is_enabled =
+			is_enable_output_override_enabled =
 				default_configurations
-					.is_enabled;
+					.is_enable_output_override_enabled;
 
 		bool
 			is_thread_safety_enabled =

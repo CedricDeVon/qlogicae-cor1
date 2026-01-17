@@ -8,8 +8,8 @@ namespace
 	ErrorManagerConfigurations
 		ErrorManagerConfigurations::initial_configurations =
 		{
-			.is_enabled =
-				true,
+			.is_enable_output_override_enabled =
+				false,
 
 			.is_thread_safety_enabled =
 				false,

@@ -2,7 +2,8 @@
 
 #include "../includes/file_system_manager_configurations.hpp"
 
-namespace QLogicaeCppCore
+namespace
+	QLogicaeCppCore
 {    
     FileSystemManagerConfigurations
 		FileSystemManagerConfigurations

@@ -2,7 +2,8 @@
 
 #include "../includes/configuration_manager_configurations.hpp"
 
-namespace QLogicaeCppCore
+namespace
+	QLogicaeCppCore
 {
     ConfigurationManagerConfigurations
 		ConfigurationManagerConfigurations
