@@ -9,6 +9,9 @@ namespace
 		ErrorManager
     {
     public:   
+		boost::mutex
+			mutex_1;
+
 		ErrorManagerConfigurations
 			configurations;
 

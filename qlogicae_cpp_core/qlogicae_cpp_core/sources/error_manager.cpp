@@ -57,6 +57,11 @@ namespace
 	{
 		try
 		{
+			boost::unique_lock<boost::mutex>
+				unique_lock(
+					mutex_1
+				);
+
 			return
 				true;
 		}
@@ -79,6 +84,11 @@ namespace
 	{
 		try
 		{
+			boost::unique_lock<boost::mutex>
+				unique_lock(
+					mutex_1
+				);
+
 			return
 				true;
 		}
@@ -104,6 +114,11 @@ namespace
 	{
 		try
 		{
+			boost::unique_lock<boost::mutex>
+				unique_lock(
+					mutex_1
+				);
+
 			configurations =
 				new_configurations;
 
@@ -129,6 +144,11 @@ namespace
 	{
 		try
 		{
+			boost::unique_lock<boost::mutex>
+				unique_lock(
+					mutex_1
+				);
+
 			configurations =
 				{};
 

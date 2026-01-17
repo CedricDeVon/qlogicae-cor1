@@ -12,18 +12,22 @@ namespace
     {
     public:                        
 		boost::mutex
-			cache_mutex_1;
+			mutex_1;
 
 		AsynchronousManagerConfigurations
 			configurations;
 		
-		static boost::asio::io_context io_context;
+		static boost::asio::io_context
+			io_context;
 
-		static boost::asio::strand<decltype(io_context.get_executor())> async_strand;
+		static boost::asio::strand<decltype(io_context.get_executor())>
+			io_strand;
 
-		static boost::asio::executor_work_guard<boost::asio::io_context::executor_type> async_work_guard;
+		static boost::asio::executor_work_guard<boost::asio::io_context::executor_type>
+			work_guard;
 
-		static std::vector<std::thread> thread_workers;
+		static std::vector<std::thread>
+			thread_workers;
 
 		static std::shared_ptr<boost::asio::thread_pool>
 			main_thread_pool;
@@ -54,13 +58,988 @@ namespace
         bool
             reset();
 
-        bool
-            begin_one_thread(
-                const std::function<void()>&
-                    callback
-            );
+		bool
+			begin_io_workers();
+
+		bool
+			complete_io_workers();
 
 		bool
 			complete_all_threads();
+
+        bool
+            begin_one_thread(
+                const std::function<void()>&
+                    callback =
+						{}
+			);
+
+		bool
+			post_thread_async(
+				const std::function<void()>&
+					implementation_method
+			);
+
+		template <typename ReturnType> std::future<ReturnType>
+			post_thread_await(
+				const std::function<ReturnType()>&
+					implementation_method
+			);
+
+		template <typename ReturnType> bool
+			post_thread_async(
+				const std::function<ReturnType()>&
+					implementation_method,
+				const std::function<void(const ReturnType& result)>&
+					callback_method
+			);
+		
+		template <typename ReturnType> bool
+			post_thread_async(
+				const std::function<ReturnType()>&
+					implementation_method,
+				const std::function<void()>&
+					callback_method
+			);
+
+		bool
+			dispatch_thread_async(
+				const std::function<void()>&
+					implementation_method
+			);
+
+		template <typename ReturnType> std::future<ReturnType>
+			dispatch_thread_await(
+				const std::function<ReturnType()>&
+					implementation_method
+			);
+
+		template <typename ReturnType> bool
+			dispatch_thread_async(
+				const std::function<ReturnType()>&
+					implementation_method,
+				const std::function<void(const ReturnType& result)>&
+					callback_method
+			);
+		
+		template <typename ReturnType> bool
+			dispatch_thread_async(
+				const std::function<ReturnType()>&
+					implementation_method,
+				const std::function<void()>&
+					callback_method
+			);
+
+		bool
+			co_spawn_strand_async(
+				const std::function<void()>&
+					implementation_method
+			);
+
+		template <typename ReturnType> std::future<ReturnType>
+			co_spawn_strand_await(
+				const std::function<ReturnType()>&
+					implementation_method
+			);
+
+		template <typename ReturnType> bool
+			co_spawn_strand_async(
+				const std::function<ReturnType()>&
+					implementation_method,
+				const std::function<void(const ReturnType& result)>&
+					callback_method
+			);
+		
+		template <typename ReturnType> bool
+			co_spawn_strand_async(
+				const std::function<ReturnType()>&
+					implementation_method,
+				const std::function<void()>&
+					callback_method
+			);
+	
     };   
+
+	template <typename ReturnType> std::future<ReturnType>
+		AsynchronousManager
+			::co_spawn_strand_await(
+				const std::function<ReturnType()>&
+					implementation_method
+			)
+	{
+		try
+        {
+			if
+			(
+				!configurations
+					.is_enabled
+			)
+            {
+                return
+					std::future<ReturnType>();
+            }
+
+			boost::unique_lock<boost::mutex>
+				unique_lock(
+					mutex_1
+				);
+
+			if constexpr (std::is_void_v<ReturnType>)
+			{
+				std::future<void> future =
+					boost::asio::co_spawn(
+						io_strand,
+						[implementation_method]()
+							-> boost::asio::awaitable<void>
+						{
+							try
+							{
+								implementation_method();
+	
+								co_return;
+							}
+							catch
+							(
+								const std::exception&
+									exception
+							)
+							{
+								ErrorManager::singleton
+									.handle_error_outputs(
+										exception
+								);
+
+								co_return;
+							}	
+						},
+						boost::asio::use_future
+					);
+
+				return
+					future;
+			}
+			else
+			{
+				std::future<ReturnType> future =
+					boost::asio::co_spawn(
+						io_strand,
+						[implementation_method]()
+							-> boost::asio::awaitable<ReturnType>
+						{
+							try
+							{
+								co_return
+									implementation_method();
+							}
+							catch
+							(
+								const std::exception&
+									exception
+							)
+							{
+								ErrorManager::singleton
+									.handle_error_outputs(
+										exception
+								);
+
+								co_return
+									ReturnType{};
+							}								
+						},
+						boost::asio::use_future
+					);
+
+				return
+					future;
+			}
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+			ErrorManager::singleton
+				.handle_error_outputs(
+					exception
+				);
+
+            return
+				std::future<ReturnType>();
+        }
+	}
+
+	template <typename ReturnType> bool
+		AsynchronousManager
+			::co_spawn_strand_async(
+				const std::function<ReturnType()>&
+					implementation_method,
+				const std::function<void(const ReturnType& result)>&
+					callback_method
+			)
+	{
+		try
+        {
+            if
+			(
+				!configurations
+					.is_enabled
+			)
+            {
+                return
+					false;
+            }
+
+			{
+				boost::unique_lock<boost::mutex>
+					unique_lock(
+						mutex_1
+					);
+
+				boost::asio::co_spawn(
+					io_strand,
+					[implementation_method, callback_method]()
+						-> boost::asio::awaitable<void>
+					{
+						try
+						{
+							callback_method(
+								implementation_method()
+							);
+
+							co_return;
+						}
+						catch
+						(
+							const std::exception&
+								exception
+						)
+						{
+							ErrorManager::singleton
+								.handle_error_outputs(
+									exception
+							);
+
+							co_return;
+						}						
+					},
+					boost::asio::detached
+				);
+			}
+
+			return
+				true;
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+            return
+				ErrorManager::singleton
+					.handle_error_outputs(
+						exception
+				);
+        }
+	}
+
+	template <typename ReturnType> bool
+		AsynchronousManager
+			::co_spawn_strand_async(
+				const std::function<ReturnType()>&
+					implementation_method,
+				const std::function<void()>&
+					callback_method
+			)
+	{
+		try
+        {
+            if
+			(
+				!configurations
+					.is_enabled
+			)
+            {
+                return
+					false;
+            }
+			
+			boost::unique_lock<boost::mutex>
+				unique_lock(
+					mutex_1
+				);
+
+			if constexpr
+			(
+				std::is_void_v<ReturnType>
+			)
+			{
+				boost::asio::co_spawn(
+					io_strand,
+					[implementation_method, callback_method]()
+						-> boost::asio::awaitable<void>
+					{
+						try
+						{
+							implementation_method();
+							callback_method();
+
+							co_return;
+						}
+						catch
+						(
+							const std::exception&
+								exception
+						)
+						{
+							ErrorManager::singleton
+								.handle_error_outputs(
+									exception
+							);
+
+							co_return;
+						}							
+					},
+					boost::asio::detached
+				);
+			}
+			else
+			{
+				boost::asio::co_spawn(
+					io_strand,
+					[implementation_method, callback_method]()
+						-> boost::asio::awaitable<void>
+					{
+						try
+						{
+							(void) implementation_method();
+							callback_method();
+
+							co_return;
+						}
+						catch
+						(
+							const std::exception&
+								exception
+						)
+						{
+							ErrorManager::singleton
+								.handle_error_outputs(
+									exception
+							);
+
+							co_return;
+						}	
+					},
+					boost::asio::detached
+				);
+			}
+
+			return
+				true;
+			
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+            return
+				ErrorManager::singleton
+					.handle_error_outputs(
+						exception
+				);
+        }
+	}
+
+
+	template <typename ReturnType> std::future<ReturnType>
+		AsynchronousManager
+			::post_thread_await(
+				const std::function<ReturnType()>&
+					implementation_method
+			)
+	{
+		try
+        {
+			if
+			(
+				!configurations
+					.is_enabled
+			)
+            {
+                return
+					std::future<ReturnType>();
+            }
+
+			boost::unique_lock<boost::mutex>
+				unique_lock(
+					mutex_1
+				);
+
+			if (main_thread_pool == nullptr)
+            {
+                main_thread_pool =
+                    std::make_shared<boost::asio::thread_pool>(
+                        std::thread::hardware_concurrency()
+                    );
+            }
+
+			std::promise<ReturnType> promise;
+			std::future<ReturnType> future =
+				promise.get_future();
+
+			if constexpr (std::is_void_v<ReturnType>)
+			{
+				boost::asio::post(
+					*main_thread_pool,
+					[implementation_method, promise = std::move(promise)]() mutable
+					{
+						try
+						{
+							implementation_method();
+
+							promise.set_value();
+						}
+						catch
+						(
+							const std::exception&
+								exception
+						)
+						{
+							ErrorManager::singleton
+								.handle_error_outputs(
+									exception
+								);
+						}
+					}
+				);
+
+				return
+					future;
+			}
+			else
+			{
+				boost::asio::post(
+					*main_thread_pool,
+					[implementation_method, promise = std::move(promise)]() mutable
+					{
+						try
+						{
+							promise.set_value(
+								implementation_method()
+							);
+						}
+						catch
+						(
+							const std::exception&
+								exception
+						)
+						{
+							ErrorManager::singleton
+								.handle_error_outputs(
+									exception
+								);
+						}
+					}
+				);
+
+				return
+					future;
+			}
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+			ErrorManager::singleton
+				.handle_error_outputs(
+					exception
+				);
+
+            return
+				std::future<ReturnType>();
+        }
+	}
+
+	template <typename ReturnType> bool
+		AsynchronousManager
+			::post_thread_async(
+				const std::function<ReturnType()>&
+					implementation_method,
+				const std::function<void(const ReturnType& result)>&
+					callback_method
+			)
+	{
+		try
+        {
+            if
+			(
+				!configurations
+					.is_enabled
+			)
+            {
+                return
+					false;
+            }
+
+			{
+				boost::unique_lock<boost::mutex>
+					unique_lock(
+						mutex_1
+					);
+
+				if (main_thread_pool == nullptr)
+				{
+					main_thread_pool =
+						std::make_shared<boost::asio::thread_pool>(
+							std::thread::hardware_concurrency()
+						);
+				}
+	
+				boost::asio::post(
+					*main_thread_pool,
+					[implementation_method, callback_method]()
+					{
+						try
+						{
+							callback_method(
+								implementation_method()
+							);
+						}
+						catch
+						(
+							const std::exception&
+								exception
+						)
+						{
+							ErrorManager::singleton
+								.handle_error_outputs(
+									exception
+								);
+						}
+					}
+				);				
+			}
+
+			return
+				true;
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+            return
+				ErrorManager::singleton
+					.handle_error_outputs(
+						exception
+				);
+        }
+	}
+
+	template <typename ReturnType> bool
+		AsynchronousManager
+			::post_thread_async(
+				const std::function<ReturnType()>&
+					implementation_method,
+				const std::function<void()>&
+					callback_method
+			)
+	{
+		try
+        {
+            if
+			(
+				!configurations
+					.is_enabled
+			)
+            {
+                return
+					false;
+            }
+			
+			boost::unique_lock<boost::mutex>
+				unique_lock(
+					mutex_1
+				);
+
+			if (main_thread_pool == nullptr)
+            {
+                main_thread_pool =
+                    std::make_shared<boost::asio::thread_pool>(
+                        std::thread::hardware_concurrency()
+                    );
+            }
+
+			if constexpr
+			(
+				std::is_void_v<ReturnType>
+			)
+			{				
+				boost::asio::post(
+					*main_thread_pool,
+					[implementation_method, callback_method]()
+					{
+						try
+						{
+							implementation_method();
+							callback_method();
+						}
+						catch
+						(
+							const std::exception&
+								exception
+						)
+						{
+							ErrorManager::singleton
+								.handle_error_outputs(
+									exception
+								);
+						}
+					}
+				);
+			}
+			else
+			{
+				boost::asio::post(
+					*main_thread_pool,
+					[implementation_method, callback_method]()
+					{
+						try
+						{
+							(void)implementation_method();
+							callback_method();
+						}
+						catch
+						(
+							const std::exception&
+								exception
+						)
+						{
+							ErrorManager::singleton
+								.handle_error_outputs(
+									exception
+								);
+						}
+					}
+				);
+			}
+
+			return
+				true;
+			
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+            return
+				ErrorManager::singleton
+					.handle_error_outputs(
+						exception
+				);
+        }
+	}
+
+	template <typename ReturnType> std::future<ReturnType>
+		AsynchronousManager
+			::dispatch_thread_await(
+				const std::function<ReturnType()>&
+					implementation_method
+			)
+	{
+		try
+        {
+			if
+			(
+				!configurations
+					.is_enabled
+			)
+            {
+                return
+					std::future<ReturnType>();
+            }
+
+			boost::unique_lock<boost::mutex>
+				unique_lock(
+					mutex_1
+				);
+
+			if (main_thread_pool == nullptr)
+            {
+                main_thread_pool =
+                    std::make_shared<boost::asio::thread_pool>(
+                        std::thread::hardware_concurrency()
+                    );
+            }
+
+			std::promise<ReturnType> promise;
+			std::future<ReturnType> future =
+				promise.get_future();
+
+			if constexpr (std::is_void_v<ReturnType>)
+			{
+				boost::asio::dispatch(
+					*main_thread_pool,
+					[implementation_method, promise = std::move(promise)]() mutable
+					{
+						try
+						{
+							implementation_method();
+
+							promise.set_value();
+						}
+						catch
+						(
+							const std::exception&
+								exception
+						)
+						{
+							ErrorManager::singleton
+								.handle_error_outputs(
+									exception
+								);
+						}
+					}
+				);
+
+				return
+					future;
+			}
+			else
+			{
+				boost::asio::dispatch(
+					*main_thread_pool,
+					[implementation_method, promise = std::move(promise)]() mutable
+					{
+						try
+						{
+							promise.set_value(
+								implementation_method()
+							);
+						}
+						catch
+						(
+							const std::exception&
+								exception
+						)
+						{
+							ErrorManager::singleton
+								.handle_error_outputs(
+									exception
+								);
+						}
+					}
+				);
+
+				return
+					future;
+			}
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+			ErrorManager::singleton
+				.handle_error_outputs(
+					exception
+				);
+
+            return
+				std::future<ReturnType>();
+        }
+	}
+
+	template <typename ReturnType> bool
+		AsynchronousManager
+			::dispatch_thread_async(
+				const std::function<ReturnType()>&
+					implementation_method,
+				const std::function<void(const ReturnType& result)>&
+					callback_method
+			)
+	{
+		try
+        {
+            if
+			(
+				!configurations
+					.is_enabled
+			)
+            {
+                return
+					false;
+            }
+
+			{
+				boost::unique_lock<boost::mutex>
+					unique_lock(
+						mutex_1
+					);
+
+				if (main_thread_pool == nullptr)
+				{
+					main_thread_pool =
+						std::make_shared<boost::asio::thread_pool>(
+							std::thread::hardware_concurrency()
+						);
+				}
+	
+				boost::asio::dispatch(
+					*main_thread_pool,
+					[implementation_method, callback_method]()
+					{
+						try
+						{
+							callback_method(
+								implementation_method()
+							);
+						}
+						catch
+						(
+							const std::exception&
+								exception
+						)
+						{
+							ErrorManager::singleton
+								.handle_error_outputs(
+									exception
+								);
+						}
+					}
+				);				
+			}
+
+			return
+				true;
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+            return
+				ErrorManager::singleton
+					.handle_error_outputs(
+						exception
+				);
+        }
+	}
+
+	template <typename ReturnType> bool
+		AsynchronousManager
+			::dispatch_thread_async(
+				const std::function<ReturnType()>&
+					implementation_method,
+				const std::function<void()>&
+					callback_method
+			)
+	{
+		try
+        {
+            if
+			(
+				!configurations
+					.is_enabled
+			)
+            {
+                return
+					false;
+            }
+			
+			boost::unique_lock<boost::mutex>
+				unique_lock(
+					mutex_1
+				);
+
+			if (main_thread_pool == nullptr)
+            {
+                main_thread_pool =
+                    std::make_shared<boost::asio::thread_pool>(
+                        std::thread::hardware_concurrency()
+                    );
+            }
+
+			if constexpr
+			(
+				std::is_void_v<ReturnType>
+			)
+			{				
+				boost::asio::dispatch(
+					*main_thread_pool,
+					[implementation_method, callback_method]()
+					{
+						try
+						{
+							implementation_method();
+							callback_method();
+						}
+						catch
+						(
+							const std::exception&
+								exception
+						)
+						{
+							ErrorManager::singleton
+								.handle_error_outputs(
+									exception
+								);
+						}
+					}
+				);
+			}
+			else
+			{
+				boost::asio::dispatch(
+					*main_thread_pool,
+					[implementation_method, callback_method]()
+					{
+						try
+						{
+							(void)implementation_method();
+							callback_method();
+						}
+						catch
+						(
+							const std::exception&
+								exception
+						)
+						{
+							ErrorManager::singleton
+								.handle_error_outputs(
+									exception
+								);
+						}
+					}
+				);
+			}
+
+			return
+				true;
+			
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+            return
+				ErrorManager::singleton
+					.handle_error_outputs(
+						exception
+				);
+        }
+	}
 }

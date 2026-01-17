@@ -11,6 +11,9 @@ namespace
 		ConfigurationManager
 	{
 	public:
+		boost::mutex
+			mutex_1;
+
 		ConfigurationManagerConfigurations
 			configurations;
 

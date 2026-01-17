@@ -467,4 +467,576 @@ namespace QLogicaeCppCoreTest
             QLogicaeCppCore::AsynchronousManagerConfigurations::initial_configurations.is_enabled
         );
     }
+
+	TEST(
+		AsynchronousManagerTest,
+		Should_Post_Thread_Await_Return_Value
+	)
+	{
+		QLogicaeCppCore::AsynchronousManager&
+			manager =
+			QLogicaeCppCore::AsynchronousManager::singleton;
+
+		QLogicaeCppCore::AsynchronousManagerConfigurations
+			configurations;
+
+		configurations.is_enabled = true;
+
+		manager.setup(
+			configurations
+		);
+
+		auto future =
+			manager.post_thread_await<int>(
+				[]()
+				{
+					return 42;
+				}
+			);
+
+		EXPECT_EQ(
+			future.get(),
+			42
+		);
+	}
+
+	TEST(
+		AsynchronousManagerTest,
+		Should_Post_Thread_Async_With_Result_Callback
+	)
+	{
+		QLogicaeCppCore::AsynchronousManager&
+			manager =
+			QLogicaeCppCore::AsynchronousManager::singleton;
+
+		QLogicaeCppCore::AsynchronousManagerConfigurations
+			configurations;
+
+		configurations.is_enabled = true;
+
+		manager.setup(
+			configurations
+		);
+
+		std::atomic<int>
+			result{ 0 };
+
+		EXPECT_TRUE(
+			manager.post_thread_async<int>(
+				[]()
+				{
+					return 7;
+				},
+				[&](const int& value)
+				{
+					result.store(value);
+				}
+			)
+		);
+
+		manager.complete_all_threads();
+
+		EXPECT_EQ(
+			result.load(),
+			7
+		);
+	}
+
+	TEST(
+		AsynchronousManagerTest,
+		Should_Post_Thread_Async_With_Void_Callback
+	)
+	{
+		QLogicaeCppCore::AsynchronousManager&
+			manager =
+			QLogicaeCppCore::AsynchronousManager::singleton;
+
+		QLogicaeCppCore::AsynchronousManagerConfigurations
+			configurations;
+
+		configurations.is_enabled = true;
+
+		manager.setup(
+			configurations
+		);
+
+		std::atomic<bool>
+			called{ false };
+
+		EXPECT_TRUE(
+			manager.post_thread_async<int>(
+				[]()
+				{
+					return 1;
+				},
+				[&]()
+				{
+					called.store(true);
+				}
+			)
+		);
+
+		manager.complete_all_threads();
+
+		EXPECT_TRUE(
+			called.load()
+		);
+	}
+
+	TEST(
+		AsynchronousManagerTest,
+		Should_Dispatch_Thread_Async_Void
+	)
+	{
+		QLogicaeCppCore::AsynchronousManager&
+			manager =
+			QLogicaeCppCore::AsynchronousManager::singleton;
+
+		QLogicaeCppCore::AsynchronousManagerConfigurations
+			configurations;
+
+		configurations.is_enabled = true;
+
+		manager.setup(
+			configurations
+		);
+
+		std::atomic<bool>
+			called{ false };
+
+		EXPECT_TRUE(
+			manager.dispatch_thread_async(
+				[&]()
+				{
+					called.store(true);
+				}
+			)
+		);
+
+		manager.complete_all_threads();
+
+		EXPECT_TRUE(
+			called.load()
+		);
+	}
+
+	TEST(
+		AsynchronousManagerTest,
+		Should_Dispatch_Thread_Await_Return_Value
+	)
+	{
+		QLogicaeCppCore::AsynchronousManager&
+			manager =
+			QLogicaeCppCore::AsynchronousManager::singleton;
+
+		QLogicaeCppCore::AsynchronousManagerConfigurations
+			configurations;
+
+		configurations.is_enabled = true;
+
+		manager.setup(
+			configurations
+		);
+
+		auto future =
+			manager.dispatch_thread_await<int>(
+				[]()
+				{
+					return 9;
+				}
+			);
+
+		EXPECT_EQ(
+			future.get(),
+			9
+		);
+	}
+
+	TEST(
+		AsynchronousManagerTest,
+		Should_Dispatch_Thread_Async_With_Result_Callback
+	)
+	{
+		QLogicaeCppCore::AsynchronousManager&
+			manager =
+			QLogicaeCppCore::AsynchronousManager::singleton;
+
+		QLogicaeCppCore::AsynchronousManagerConfigurations
+			configurations;
+
+		configurations.is_enabled = true;
+
+		manager.setup(
+			configurations
+		);
+
+		std::atomic<int>
+			result{ 0 };
+
+		EXPECT_TRUE(
+			manager.dispatch_thread_async<int>(
+				[]()
+				{
+					return 11;
+				},
+				[&](const int& value)
+				{
+					result.store(value);
+				}
+			)
+		);
+
+		manager.complete_all_threads();
+
+		EXPECT_EQ(
+			result.load(),
+			11
+		);
+	}
+
+	TEST(
+		AsynchronousManagerTest,
+		Should_Dispatch_Thread_Async_With_Void_Callback
+	)
+	{
+		QLogicaeCppCore::AsynchronousManager&
+			manager =
+			QLogicaeCppCore::AsynchronousManager::singleton;
+
+		QLogicaeCppCore::AsynchronousManagerConfigurations
+			configurations;
+
+		configurations.is_enabled = true;
+
+		manager.setup(
+			configurations
+		);
+
+		std::atomic<bool>
+			called{ false };
+
+		EXPECT_TRUE(
+			manager.dispatch_thread_async<int>(
+				[]()
+				{
+					return 3;
+				},
+				[&]()
+				{
+					called.store(true);
+				}
+			)
+		);
+
+		manager.complete_all_threads();
+
+		EXPECT_TRUE(
+			called.load()
+		);
+	}
+
+	TEST(
+		AsynchronousManagerTest,
+		Should_CoSpawn_Strand_Await_Return_Value
+	)
+	{
+		QLogicaeCppCore::AsynchronousManager&
+			manager =
+			QLogicaeCppCore::AsynchronousManager::singleton;
+
+		QLogicaeCppCore::AsynchronousManagerConfigurations
+			configurations;
+
+		configurations.is_enabled = true;
+
+		manager.setup(
+			configurations
+		);
+
+		ASSERT_TRUE(
+			manager.begin_io_workers()
+		);
+
+		auto future =
+			manager.co_spawn_strand_await<int>(
+				[]()
+				{
+					return 21;
+				}
+			);
+
+		EXPECT_EQ(
+			future.get(),
+			21
+		);
+
+		EXPECT_TRUE(
+			manager.complete_io_workers()
+		);
+	}
+
+	TEST(
+		AsynchronousManagerTest,
+		Should_CoSpawn_Strand_Async_Void
+	)
+	{
+		QLogicaeCppCore::AsynchronousManager&
+			manager =
+			QLogicaeCppCore::AsynchronousManager::singleton;
+
+		QLogicaeCppCore::AsynchronousManagerConfigurations
+			configurations;
+
+		configurations.is_enabled = true;
+
+		manager.setup(configurations);
+
+		ASSERT_TRUE(manager.begin_io_workers());
+
+		std::atomic<bool> called{ false };
+
+		EXPECT_TRUE(
+			manager.co_spawn_strand_async(
+				[&]()
+				{
+					called.store(true);
+				}
+			)
+		);
+
+		EXPECT_TRUE(manager.complete_io_workers());
+
+		EXPECT_TRUE(called.load());
+	}
+
+	TEST(
+		AsynchronousManagerTest,
+		Should_CoSpawn_Strand_Async_With_Result_Callback
+	)
+	{
+		QLogicaeCppCore::AsynchronousManager&
+			manager =
+			QLogicaeCppCore::AsynchronousManager::singleton;
+
+		QLogicaeCppCore::AsynchronousManagerConfigurations
+			configurations;
+
+		configurations.is_enabled = true;
+
+		manager.setup(configurations);
+
+		ASSERT_TRUE(manager.begin_io_workers());
+
+		std::atomic<int> result{ 0 };
+
+		EXPECT_TRUE(
+			manager.co_spawn_strand_async<int>(
+				[]()
+				{
+					return 5;
+				},
+				[&](const int& value)
+				{
+					result.store(value);
+				}
+			)
+		);
+
+		EXPECT_TRUE(manager.complete_io_workers());
+
+		EXPECT_EQ(result.load(), 5);
+	}
+
+	TEST(
+		AsynchronousManagerTest,
+		Should_Begin_And_Complete_IO_Workers
+	)
+	{
+		QLogicaeCppCore::AsynchronousManager&
+			manager =
+			QLogicaeCppCore::AsynchronousManager::singleton;
+
+		QLogicaeCppCore::AsynchronousManagerConfigurations
+			configurations;
+
+		configurations.is_enabled = true;
+
+		manager.setup(
+			configurations
+		);
+
+		EXPECT_TRUE(
+			manager.begin_io_workers()
+		);
+
+		EXPECT_TRUE(
+			manager.complete_io_workers()
+		);
+	}
+
+	TEST(
+		AsynchronousManagerTest,
+		Should_NotCoSpawn_Strand_Async_When_Disabled_Void
+	)
+	{
+		QLogicaeCppCore::AsynchronousManager& manager =
+			QLogicaeCppCore::AsynchronousManager::singleton;
+
+		QLogicaeCppCore::AsynchronousManagerConfigurations configurations;
+		configurations.is_enabled = false;
+
+		manager.setup(configurations);
+
+		std::atomic<bool> called{ false };
+
+		EXPECT_FALSE(
+			manager.co_spawn_strand_async(
+				[&]() { called.store(true); }
+			)
+		);
+
+		manager.complete_io_workers();
+
+		EXPECT_FALSE(called.load());
+	}
+
+	TEST(
+		AsynchronousManagerTest,
+		Should_NotCoSpawn_Strand_Async_When_Disabled_With_Result_Callback
+	)
+	{
+		QLogicaeCppCore::AsynchronousManager& manager =
+			QLogicaeCppCore::AsynchronousManager::singleton;
+
+		QLogicaeCppCore::AsynchronousManagerConfigurations configurations;
+		configurations.is_enabled = false;
+
+		manager.setup(configurations);
+
+		std::atomic<int> result{ 0 };
+
+		EXPECT_FALSE(
+			manager.co_spawn_strand_async<int>(
+				[]() { return 10; },
+				[&](const int& value) { result.store(value); }
+			)
+		);
+
+		manager.complete_io_workers();
+
+		EXPECT_EQ(result.load(), 0);
+	}
+
+	TEST(
+		AsynchronousManagerTest,
+		Should_CoSpawn_Strand_Async_With_ReturnType_And_Void_Callback
+	)
+	{
+		QLogicaeCppCore::AsynchronousManager& manager =
+			QLogicaeCppCore::AsynchronousManager::singleton;
+
+		QLogicaeCppCore::AsynchronousManagerConfigurations configurations;
+		configurations.is_enabled = true;
+
+		manager.setup(configurations);
+
+		ASSERT_TRUE(manager.begin_io_workers());
+
+		std::atomic<bool> called{ false };
+
+		EXPECT_TRUE(
+			manager.co_spawn_strand_async<int>(
+				[]() { return 99; },
+				[&]() { called.store(true); }
+			)
+		);
+
+		EXPECT_TRUE(manager.complete_io_workers());
+
+		EXPECT_TRUE(called.load());
+	}
+
+	TEST(
+		AsynchronousManagerTest,
+		Should_Handle_Exception_In_CoSpawn_Strand_Await
+	)
+	{
+		QLogicaeCppCore::AsynchronousManager& manager =
+			QLogicaeCppCore::AsynchronousManager::singleton;
+
+		QLogicaeCppCore::AsynchronousManagerConfigurations configurations;
+		configurations.is_enabled = true;
+
+		manager.setup(configurations);
+
+		ASSERT_TRUE(manager.begin_io_workers());
+
+		auto future =
+			manager.co_spawn_strand_await<int>(
+				[]() -> int { throw std::runtime_error("fail"); return 0; }
+			);
+
+		EXPECT_NO_THROW(future.get());
+
+		EXPECT_TRUE(manager.complete_io_workers());
+	}
+
+	TEST(
+		AsynchronousManagerTest,
+		Should_Not_Call_Callback_When_CoSpawn_Strand_Async_Throws
+	)
+	{
+		QLogicaeCppCore::AsynchronousManager& manager =
+			QLogicaeCppCore::AsynchronousManager::singleton;
+
+		QLogicaeCppCore::AsynchronousManagerConfigurations configurations;
+		configurations.is_enabled = true;
+
+		manager.setup(configurations);
+
+		ASSERT_TRUE(manager.begin_io_workers());
+
+		std::atomic<bool> called{ false };
+
+		EXPECT_TRUE(
+			manager.co_spawn_strand_async<int>(
+				[]() { throw std::runtime_error("fail"); return 0; },
+				[&]() { called.store(true); }
+			)
+		);
+
+		EXPECT_TRUE(manager.complete_io_workers());
+
+		EXPECT_FALSE(called.load());
+	}
+
+	TEST(
+		AsynchronousManagerTest,
+		Should_Handle_Exception_In_CoSpawn_Strand_Async_With_Result_Callback
+	)
+	{
+		QLogicaeCppCore::AsynchronousManager& manager =
+			QLogicaeCppCore::AsynchronousManager::singleton;
+
+		QLogicaeCppCore::AsynchronousManagerConfigurations configurations;
+		configurations.is_enabled = true;
+
+		manager.setup(configurations);
+
+		ASSERT_TRUE(manager.begin_io_workers());
+
+		std::atomic<int> result{ 0 };
+
+		EXPECT_TRUE(
+			manager.co_spawn_strand_async<int>(
+				[]() -> int { throw std::runtime_error("fail"); return 0; },
+				[&](const int& value) { result.store(value); }
+			)
+		);
+
+		EXPECT_TRUE(manager.complete_io_workers());
+
+		EXPECT_EQ(result.load(), 0);
+	}
+
 }
