@@ -432,7 +432,7 @@ namespace QLogicaeCppCoreTest
 		configurations.is_enable_output_override_enabled =
 			true;
 
-		configurations.is_thread_safety_enabled =
+		configurations.is_thread_safety_override_enabled =
 			true;
 
 		configurations.is_asynchronous_output_enabled =

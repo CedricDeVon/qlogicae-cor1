@@ -1,40 +1,23 @@
 #pragma once
 
 #include "error_manager.hpp"
+#include "abstract_class.hpp"
 #include "singleton_manager_configurations.hpp"
 
 namespace
 	QLogicaeCppCore
 {        
     class
-		SingletonManager
+		SingletonManager :
+			public AbstractClass<SingletonManagerConfigurations>
     {
     public:          
-		SingletonManagerConfigurations
-			configurations;
-
 		static SingletonManager&
 			singleton;
 
         SingletonManager();
 
 		~SingletonManager();
-
-		bool
-			construct();
-
-		bool
-			destruct();
-
-		bool
-			setup(
-				const SingletonManagerConfigurations&
-					new_configurations =
-						{}
-			);
-
-		bool
-			reset();
 
 		template <typename Type> static Type&
 			get_singleton();

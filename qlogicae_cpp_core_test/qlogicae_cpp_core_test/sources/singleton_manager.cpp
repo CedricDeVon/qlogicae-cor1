@@ -828,7 +828,7 @@ namespace QLogicaeCppCoreTest
 			SingletonManager::get_this_singleton();
 
 		SingletonManagerConfigurations configurations;
-		configurations.is_enabled = false;
+		configurations.is_method_execution_enabled = false;
 
 		manager.setup(configurations);
 
@@ -848,7 +848,7 @@ namespace QLogicaeCppCoreTest
 			SingletonManager::get_this_singleton();
 
 		SingletonManagerConfigurations configurations;
-		configurations.is_thread_safety_enabled = true;
+		configurations.is_thread_safety_override_enabled = true;
 
 		manager.setup(configurations);
 

@@ -10,7 +10,7 @@ namespace
     {
     public:   
 		boost::mutex
-			mutex_1;
+			method_handling_layer_mutex_1;
 
 		ErrorManagerConfigurations
 			configurations;

@@ -7,20 +7,8 @@ namespace
 {
     struct
 		RuntimeBenchmarkerConfigurations :
-			AbstractConfigurations
+			AbstractConfigurations<RuntimeBenchmarkerConfigurations>
     {
-        bool
-			is_enabled =
-				default_configurations
-					.is_enabled;
-
-		bool
-			is_thread_safety_enabled =
-				default_configurations
-					.is_thread_safety_enabled;
-
-
-
 		static RuntimeBenchmarkerConfigurations
 			initial_configurations;
 

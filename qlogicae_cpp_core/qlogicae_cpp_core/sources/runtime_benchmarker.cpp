@@ -6,13 +6,16 @@ namespace
 	QLogicaeCppCore
 {	    
     RuntimeBenchmarker&
-        RuntimeBenchmarker::singleton =
-            SingletonManager::get_singleton<RuntimeBenchmarker>();
+        RuntimeBenchmarker
+			::singleton =
+				SingletonManager
+					::get_singleton<RuntimeBenchmarker>();
 
 
 
 	RuntimeBenchmarker
-		::RuntimeBenchmarker()
+		::RuntimeBenchmarker() :
+			AbstractClass<RuntimeBenchmarkerConfigurations>()
 	{
 		try
 		{
@@ -24,10 +27,9 @@ namespace
 				exception
 		)
 		{
-			ErrorManager::singleton
-				.handle_error_outputs(
-					exception
-				);
+			handle_error_outputs(
+				exception
+			);
 		}		
 	}
 
@@ -44,112 +46,10 @@ namespace
 				exception
 		)
 		{
-			ErrorManager::singleton
-				.handle_error_outputs(
-					exception
-				);
+			handle_error_outputs(
+				exception
+			);
 		}		
-	}
-
-	bool
-		RuntimeBenchmarker
-			::construct()
-	{
-		try
-		{
-			return
-				true;
-		}
-		catch
-		(
-			const std::exception&
-				exception
-		)
-		{
-			return
-				ErrorManager::singleton
-					.handle_error_outputs(
-						exception
-				);
-		}
-	}
-
-	bool
-		RuntimeBenchmarker
-			::destruct()
-	{
-		try
-		{
-			return
-				true;
-		}
-		catch
-		(
-			const std::exception&
-				exception
-		)
-		{
-			return
-				ErrorManager::singleton
-					.handle_error_outputs(
-						exception
-				);
-		}
-	}
-
-	bool
-		RuntimeBenchmarker
-			::setup(
-				const RuntimeBenchmarkerConfigurations&
-					new_configurations
-			)
-	{
-		try
-		{
-			configurations =
-				new_configurations;
-
-			return
-				true;
-		}
-		catch
-		(
-			const std::exception&
-				exception
-		)
-		{
-			return
-				ErrorManager::singleton
-					.handle_error_outputs(
-						exception
-				);
-		}
-	}
-
-	bool
-		RuntimeBenchmarker
-			::reset()
-	{
-		try
-		{
-			configurations =
-				{};
-
-			return
-				true;
-		}
-		catch
-		(
-			const std::exception&
-				exception
-		)
-		{			
-			return
-				ErrorManager::singleton
-					.handle_error_outputs(
-						exception
-				);
-		}
 	}
     
     bool
@@ -160,6 +60,17 @@ namespace
     {
 		try
 		{
+			boost::unique_lock<boost::mutex>
+				mutex_lock;
+			if (configurations.is_thread_safety_enabled_for_method_execution())
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						method_handling_layer_mutex_1
+					);
+			}
+
 			const std::string test_suite_name =
 				test_suite.name;
 
@@ -280,9 +191,8 @@ namespace
 		)
 		{			
 			return
-				ErrorManager::singleton
-					.handle_error_outputs(
-						exception
+				handle_error_outputs(
+					exception
 				);
 		}        
     }

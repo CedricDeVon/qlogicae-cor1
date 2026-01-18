@@ -14,7 +14,8 @@ namespace
 
 
     MutexManager
-		::MutexManager()
+		::MutexManager() :
+			AbstractClass<MutexManagerConfigurations>()
     {
         try
         {
@@ -26,10 +27,9 @@ namespace
                 exception
         )
         {
-			ErrorManager::singleton
-				.handle_error_outputs(
-					exception
-				);
+			handle_error_outputs(
+				exception
+			);
         }        
     }
 
@@ -46,113 +46,11 @@ namespace
                 exception
         )
         {
-			ErrorManager::singleton
-				.handle_error_outputs(
-					exception
-				);
+			handle_error_outputs(
+				exception
+			);
         }        
     }
-
-	bool
-		MutexManager
-			::construct()
-	{
-		try
-		{
-			return
-				true;
-		}
-		catch
-		(
-			const std::exception&
-				exception
-		)
-		{
-			return
-				ErrorManager::singleton
-					.handle_error_outputs(
-						exception
-				);
-		}
-	}
-
-	bool
-		MutexManager
-			::destruct()
-	{
-		try
-		{
-			return
-				true;
-		}
-		catch
-		(
-			const std::exception&
-				exception
-		)
-		{
-			return
-				ErrorManager::singleton
-					.handle_error_outputs(
-						exception
-				);
-		}
-	}
-
-	bool
-		MutexManager
-			::setup(
-				const MutexManagerConfigurations&
-					new_configurations
-			)
-	{
-		try
-		{
-			configurations =
-				new_configurations;
-
-			return
-				true;
-		}
-		catch
-		(
-			const std::exception&
-				exception
-		)
-		{
-			return
-				ErrorManager::singleton
-					.handle_error_outputs(
-						exception
-				);
-		}
-	}
-
-	bool
-		MutexManager
-			::reset()
-	{
-		try
-		{
-			configurations =
-				{};
-
-			return
-				true;
-		}
-		catch
-		(
-			const std::exception&
-				exception
-		)
-		{			
-			return
-				ErrorManager::singleton
-					.handle_error_outputs(
-						exception
-				);
-		}
-	}   
 
     bool
         MutexManager::lock_micro_mutex(
@@ -183,7 +81,19 @@ namespace
 					false;
 			}
 
-			void* raw_pointer = const_cast<void*>(pointer);
+			boost::unique_lock<boost::mutex>
+				mutex_lock;
+			if (configurations.is_thread_safety_enabled_for_method_execution())
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						method_handling_layer_mutex_1
+					);
+			}
+
+			void* raw_pointer =
+				const_cast<void*>(pointer);
 
             folly::MicroSpinLock*
                 micro_spin_lock =
@@ -208,9 +118,8 @@ namespace
         )
         {
             return
-				ErrorManager::singleton
-					.handle_error_outputs(
-						exception
+				handle_error_outputs(
+					exception
 				);
         }
     }
@@ -244,7 +153,19 @@ namespace
 					false;
 			}
 
-			void* raw_pointer = const_cast<void*>(pointer);
+			boost::unique_lock<boost::mutex>
+				mutex_lock;
+			if (configurations.is_thread_safety_enabled_for_method_execution())
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						method_handling_layer_mutex_1
+					);
+			}
+
+			void* raw_pointer =
+				const_cast<void*>(pointer);
 
             folly::MicroSpinLock*
                 micro_spin_lock =
@@ -269,9 +190,8 @@ namespace
         )
         {
             return
-				ErrorManager::singleton
-					.handle_error_outputs(
-						exception
+				handle_error_outputs(
+					exception
 				);
         }
     }
@@ -282,6 +202,17 @@ namespace
 	{
 		try
 		{
+			boost::unique_lock<boost::mutex>
+				mutex_lock;
+			if (configurations.is_thread_safety_enabled_for_method_execution())
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						method_handling_layer_mutex_1
+					);
+			}
+
 			mutex_collection
 				.clear();
 
@@ -325,9 +256,8 @@ namespace
 		)
 		{
 			return
-				ErrorManager::singleton
-					.handle_error_outputs(
-						exception
+				handle_error_outputs(
+					exception
 				);
 		}
 	}

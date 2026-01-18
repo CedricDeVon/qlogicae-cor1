@@ -68,18 +68,18 @@ namespace
 	TEST(FunctionWrapperTest, Should_SetupConfigurationsCorrectly_When_ValidInput)
 	{
 		QLogicaeCppCore::FunctionWrapperConfigurations configurations;
-		configurations.is_enabled = true;
+		configurations.is_method_execution_enabled = true;
 		ASSERT_TRUE(QLogicaeCppCore::FunctionWrapper::singleton.setup(configurations));
-		ASSERT_TRUE(QLogicaeCppCore::FunctionWrapper::singleton.configurations.is_enabled);
+		ASSERT_TRUE(QLogicaeCppCore::FunctionWrapper::singleton.configurations.is_method_execution_enabled);
 	}
 
 	TEST(FunctionWrapperTest, Should_ResetConfigurationsToDefault_When_Called)
 	{
 		QLogicaeCppCore::FunctionWrapperConfigurations configurations;
-		configurations.is_enabled = true;
+		configurations.is_method_execution_enabled = true;
 		QLogicaeCppCore::FunctionWrapper::singleton.setup(configurations);
 		ASSERT_TRUE(QLogicaeCppCore::FunctionWrapper::singleton.reset());
-		ASSERT_TRUE(QLogicaeCppCore::FunctionWrapper::singleton.configurations.is_enabled);
+		ASSERT_TRUE(QLogicaeCppCore::FunctionWrapper::singleton.configurations.is_method_execution_enabled);
 	}
 
 	TEST(FunctionWrapperTest, Should_HandleException_When_SetupThrows)
@@ -97,7 +97,7 @@ namespace
 	TEST(FunctionWrapperTest, Should_ReturnValue_When_NonPointerMemberFunction)
 	{
 		FunctionWrapperCallSafelyTest test_object;
-		int result = QLogicaeCppCore::FunctionWrapper::call_function<int>(
+		int result = QLogicaeCppCore::FunctionWrapper::singleton.call_function<int>(
 			test_object, &FunctionWrapperCallSafelyTest::add_value, 5);
 		ASSERT_EQ(result, 6);
 	}
@@ -106,7 +106,7 @@ namespace
 	{
 		FunctionWrapperCallSafelyTest test_object;
 		FunctionWrapperCallSafelyTest* ptr = &test_object;
-		int result = QLogicaeCppCore::FunctionWrapper::call_function<int>(
+		int result = QLogicaeCppCore::FunctionWrapper::singleton.call_function<int>(
 			ptr, &FunctionWrapperCallSafelyTest::add_value, 7);
 		ASSERT_EQ(result, 8);
 	}
@@ -114,7 +114,7 @@ namespace
 	TEST(FunctionWrapperTest, Should_HandleException_When_MemberFunctionThrows)
 	{
 		FunctionWrapperCallSafelyTest test_object;
-		int result = QLogicaeCppCore::FunctionWrapper::call_function<int>(
+		int result = QLogicaeCppCore::FunctionWrapper::singleton.call_function<int>(
 			test_object, &FunctionWrapperCallSafelyTest::throw_value, 1);
 		(void)result;
 		ASSERT_TRUE(true);
@@ -123,7 +123,7 @@ namespace
 	TEST(FunctionWrapperTest, Should_HandleZeroArgumentMemberFunction)
 	{
 		FunctionWrapperCallSafelyTest test_object;
-		int result = QLogicaeCppCore::FunctionWrapper::call_function<int>(
+		int result = QLogicaeCppCore::FunctionWrapper::singleton.call_function<int>(
 			test_object, &FunctionWrapperCallSafelyTest::zero_arg);
 		ASSERT_EQ(result, 42);
 	}
@@ -133,7 +133,7 @@ namespace
 		FunctionWrapperCallSafelyTest test_object;
 
 		int result =
-			QLogicaeCppCore::FunctionWrapper::call_function<int>(
+			QLogicaeCppCore::FunctionWrapper::singleton.call_function<int>(
 				test_object,
 				&FunctionWrapperCallSafelyTest::throw_value,
 				3
@@ -148,7 +148,7 @@ namespace
 		FunctionWrapperCallSafelyTest* ptr = &test_object;
 
 		int result =
-			QLogicaeCppCore::FunctionWrapper::call_function<int>(
+			QLogicaeCppCore::FunctionWrapper::singleton.call_function<int>(
 				ptr,
 				&FunctionWrapperCallSafelyTest::throw_value,
 				4
@@ -163,7 +163,7 @@ namespace
 		FunctionWrapperCallSafelyTest* ptr = &test_object;
 
 		int result =
-			QLogicaeCppCore::FunctionWrapper::call_function<int>(
+			QLogicaeCppCore::FunctionWrapper::singleton.call_function<int>(
 				ptr,
 				&FunctionWrapperCallSafelyTest::zero_arg
 			);
@@ -176,14 +176,14 @@ namespace
 		FunctionWrapperCallSafelyTest test_object;
 
 		int first =
-			QLogicaeCppCore::FunctionWrapper::call_function<int>(
+			QLogicaeCppCore::FunctionWrapper::singleton.call_function<int>(
 				test_object,
 				&FunctionWrapperCallSafelyTest::add_value,
 				1
 			);
 
 		int second =
-			QLogicaeCppCore::FunctionWrapper::call_function<int>(
+			QLogicaeCppCore::FunctionWrapper::singleton.call_function<int>(
 				test_object,
 				&FunctionWrapperCallSafelyTest::add_value,
 				10
@@ -198,14 +198,14 @@ namespace
 		FunctionWrapperCallSafelyTest test_object;
 
 		int failed =
-			QLogicaeCppCore::FunctionWrapper::call_function<int>(
+			QLogicaeCppCore::FunctionWrapper::singleton.call_function<int>(
 				test_object,
 				&FunctionWrapperCallSafelyTest::throw_value,
 				1
 			);
 
 		int success =
-			QLogicaeCppCore::FunctionWrapper::call_function<int>(
+			QLogicaeCppCore::FunctionWrapper::singleton.call_function<int>(
 				test_object,
 				&FunctionWrapperCallSafelyTest::add_value,
 				5
@@ -221,7 +221,7 @@ namespace
 
 		ASSERT_NO_THROW(
 			(
-				QLogicaeCppCore::FunctionWrapper::call_function<int>(
+				QLogicaeCppCore::FunctionWrapper::singleton.call_function<int>(
 					ptr,
 					&FunctionWrapperCallSafelyTest::add_value,
 					1
@@ -234,12 +234,12 @@ namespace
 	TEST(FunctionWrapperTest, Should_ExecuteCallSafely_When_DisabledConfiguration)
 	{
 		QLogicaeCppCore::FunctionWrapperConfigurations configurations;
-		configurations.is_enabled = false;
+		configurations.is_method_execution_enabled = false;
 		QLogicaeCppCore::FunctionWrapper::singleton.setup(configurations);
 
 		FunctionWrapperCallSafelyTest test_object;
 
-		int result = QLogicaeCppCore::FunctionWrapper::call_function<int>(
+		int result = QLogicaeCppCore::FunctionWrapper::singleton.call_function<int>(
 			test_object,
 			&FunctionWrapperCallSafelyTest::add_value,
 			3
@@ -254,7 +254,7 @@ namespace
 
 		FunctionWrapperCallSafelyTest test_object;
 
-		int result = QLogicaeCppCore::FunctionWrapper::call_function<int>(
+		int result = QLogicaeCppCore::FunctionWrapper::singleton.call_function<int>(
 			test_object,
 			&FunctionWrapperCallSafelyTest::add_value,
 			2
@@ -270,7 +270,7 @@ namespace
 
 		FunctionWrapperCallSafelyTest test_object;
 
-		int result = QLogicaeCppCore::FunctionWrapper::call_function<int>(
+		int result = QLogicaeCppCore::FunctionWrapper::singleton.call_function<int>(
 			test_object,
 			&FunctionWrapperCallSafelyTest::add_value,
 			4
@@ -294,7 +294,7 @@ namespace
 		bool called = false;
 		VoidTest test_object{ &called };
 
-		QLogicaeCppCore::FunctionWrapper::call_function<void>(
+		QLogicaeCppCore::FunctionWrapper::singleton.call_function<void>(
 			test_object,
 			&VoidTest::run
 		);
@@ -321,7 +321,7 @@ namespace
 		Test test_object;
 
 		NonDefaultConstructible result =
-			QLogicaeCppCore::FunctionWrapper::call_function<
+			QLogicaeCppCore::FunctionWrapper::singleton.call_function<
 			NonDefaultConstructible
 			>(
 				test_object,
@@ -347,7 +347,7 @@ namespace
 		VoidTest test_object{ &called };
 		VoidTest* ptr = &test_object;
 
-		QLogicaeCppCore::FunctionWrapper::call_function<void>(
+		QLogicaeCppCore::FunctionWrapper::singleton.call_function<void>(
 			ptr,
 			&VoidTest::run
 		);

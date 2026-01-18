@@ -146,13 +146,17 @@ namespace
             "";
 
     FileSystemManager&
-        FileSystemManager::singleton =
-            SingletonManager::get_singleton<FileSystemManager>();
+        FileSystemManager
+			::singleton =
+				SingletonManager
+					::singleton
+						.get_singleton<FileSystemManager>();
 
 
 	
 	FileSystemManager
-		::FileSystemManager()
+		::FileSystemManager() :
+			AbstractClass<FileSystemManagerConfigurations>()
     {
         try
         {
@@ -164,10 +168,9 @@ namespace
                 exception
         )
         {
-			ErrorManager::singleton
-				.handle_error_outputs(
-					exception
-				);
+			handle_error_outputs(
+				exception
+			);
         }
     }
 
@@ -184,10 +187,9 @@ namespace
                 exception
         )
         {
-			ErrorManager::singleton
-				.handle_error_outputs(
-					exception
-				);
+			handle_error_outputs(
+				exception
+			);
         }
     }
 
@@ -197,6 +199,17 @@ namespace
     {
         try
         {			
+			boost::unique_lock<boost::mutex>
+				mutex_lock;
+			if (configurations.is_thread_safety_enabled_for_method_execution())
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						method_handling_layer_mutex_1
+					);
+			}
+
             full_executable_folder_path =
 				get_executable_folder_path();
           
@@ -222,91 +235,12 @@ namespace
         )
         {
 			return
-				ErrorManager::singleton
-					.handle_error_outputs(
-						exception
+				handle_error_outputs(
+					exception
 				);
         }
     }
 
-    bool
-        FileSystemManager
-			::destruct()
-    {
-        try
-        {
-			return
-				true;
-        }
-        catch
-        (
-            const std::exception&
-                exception
-        )
-        {
-			return
-				ErrorManager::singleton
-					.handle_error_outputs(
-						exception
-				);
-        }
-    }
-
-    bool
-        FileSystemManager
-			::setup(
-				const FileSystemManagerConfigurations&
-					new_configurations
-			)
-    {
-        try
-        {
-			configurations =
-				new_configurations;
-
-			return
-				true;
-        }
-        catch
-        (
-            const std::exception&
-                exception
-        )
-        {
-			return
-				ErrorManager::singleton
-					.handle_error_outputs(
-						exception
-				);
-        }
-    }
-
-    bool
-        FileSystemManager
-			::reset()
-    {
-        try
-        {
-			configurations =
-				{};
-
-			return
-				true;
-        }
-        catch
-        (
-            const std::exception&
-                exception
-        )
-        {
-			return
-				ErrorManager::singleton
-					.handle_error_outputs(
-						exception
-				);
-        }
-    }
-	
 	std::string
         FileSystemManager::get_executable_folder_path()
     {
@@ -398,9 +332,8 @@ namespace
                 exception
         )
         {
-			ErrorManager::singleton
-				.handle_error_outputs(
-					exception
+			handle_error_outputs(
+				exception
 			);
 
 			return
@@ -457,9 +390,8 @@ namespace
                 exception
         )
         {
-			ErrorManager::singleton
-				.handle_error_outputs(
-					exception
+			handle_error_outputs(
+				exception
 			);
 
 			return
@@ -546,9 +478,8 @@ namespace
                 exception
         )
         {
-			ErrorManager::singleton
-				.handle_error_outputs(
-					exception
+			handle_error_outputs(
+				exception
 			);
 
 			return
@@ -635,10 +566,9 @@ namespace
                 exception
         )
         {
-			ErrorManager::singleton
-					.handle_error_outputs(
-						exception
-				);
+			handle_error_outputs(
+				exception
+			);
 
             return
 				"";
@@ -648,7 +578,6 @@ namespace
 }
 
 /*
-
 	FileSystemManager::FileSystemManager()
 	{
 		try

@@ -1,16 +1,16 @@
 #include "pch.hpp"
 
-#include "../includes/singleton_manager_configurations.hpp"
+#include "../includes/application_manager_configurations.hpp"
 
 namespace
 	QLogicaeCppCore
-{   
-	SingletonManagerConfigurations
-		SingletonManagerConfigurations
+{
+    ApplicationManagerConfigurations
+		ApplicationManagerConfigurations
 			::initial_configurations =
 				[]()
 				{
-					SingletonManagerConfigurations
+					ApplicationManagerConfigurations
 						configurations;
 
 					configurations
@@ -37,9 +37,9 @@ namespace
 						configurations;
 				}();
 
-	SingletonManagerConfigurations
-		SingletonManagerConfigurations
+	ApplicationManagerConfigurations
+		ApplicationManagerConfigurations
 			::default_configurations =
-				SingletonManagerConfigurations
+				ApplicationManagerConfigurations
 					::initial_configurations;
 }

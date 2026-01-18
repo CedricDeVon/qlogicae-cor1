@@ -7,20 +7,8 @@ namespace
 {
     struct
 		FileSystemManagerConfigurations :
-			AbstractConfigurations
+			AbstractConfigurations<FileSystemManagerConfigurations>
     {
-        bool
-			is_enabled =
-				default_configurations
-					.is_enabled;
-
-		bool
-			is_thread_safety_enabled =
-				default_configurations
-					.is_thread_safety_enabled;
-
-
-
 		static FileSystemManagerConfigurations
 			initial_configurations;
 

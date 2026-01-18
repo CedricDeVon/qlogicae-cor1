@@ -1,6 +1,7 @@
 #pragma once
 
 #include "error_manager.hpp"
+#include "abstract_class.hpp"
 #include "singleton_manager.hpp"
 #include "configuration_manager_configurations.hpp"
 
@@ -8,15 +9,10 @@ namespace
 	QLogicaeCppCore
 {
 	class
-		ConfigurationManager
+		ConfigurationManager :
+			public AbstractClass<ConfigurationManagerConfigurations>
 	{
 	public:
-		boost::mutex
-			mutex_1;
-
-		ConfigurationManagerConfigurations
-			configurations;
-
 		static ConfigurationManager&
 			singleton;
 
@@ -24,26 +20,10 @@ namespace
 
 		~ConfigurationManager();
 
-		bool
-			construct();
-
-		bool
-			destruct();
-
-		bool
-			setup(
-				const ConfigurationManagerConfigurations&
-					new_configurations =
-						{}
-			);
-
-		bool
-			reset();
-
 		template <typename TypeConfigurations> void
 			setup_defaults(
 				const TypeConfigurations&
-					configurations
+					new_configurations
 			);
 
 		template <typename TypeConfigurations> void
@@ -54,21 +34,69 @@ namespace
 		ConfigurationManager
 			::setup_defaults(
 				const TypeConfigurations&
-					configurations
+					new_configurations
 			)
 	{
-		TypeConfigurations
-			::default_configurations =
-				configurations;
+		try
+		{
+			boost::unique_lock<boost::mutex>
+				mutex_lock;
+			if (configurations.is_thread_safety_enabled_for_method_execution())
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						method_handling_layer_mutex_1
+					);
+			}
+
+			TypeConfigurations
+				::default_configurations =
+					new_configurations;
+		}
+		catch
+		(
+			const std::exception&
+				exception
+		)
+		{
+			handle_error_outputs(
+				exception
+			);
+		}		
 	}
 
 	template <typename TypeConfigurations> void
 		ConfigurationManager
 			::reset_defaults()
 	{
-		TypeConfigurations
-			::default_configurations =
-				TypeConfigurations::
-					initial_configurations;
+		try
+		{
+			boost::unique_lock<boost::mutex>
+				mutex_lock;
+			if (configurations.is_thread_safety_enabled_for_method_execution())
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						method_handling_layer_mutex_1
+					);
+			}
+
+			TypeConfigurations
+				::default_configurations =
+					TypeConfigurations::
+						initial_configurations;
+		}
+		catch
+		(
+			const std::exception&
+				exception
+		)
+		{
+			handle_error_outputs(
+				exception
+			);
+		}		
 	}
 }

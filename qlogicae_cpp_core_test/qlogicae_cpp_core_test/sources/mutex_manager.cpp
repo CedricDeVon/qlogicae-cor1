@@ -112,15 +112,15 @@ namespace QLogicaeCppCoreTest
     TEST_F(MutexManagerTest, Should_HandleEmptyConfiguration_When_DefaultValuesUsed)
     {
         MutexManagerConfigurations empty_configuration;
-        ASSERT_EQ(empty_configuration.name, MutexManagerConfigurations::default_name);
-        ASSERT_EQ(empty_configuration.name, MutexManagerConfigurations::default_name);
+        ASSERT_EQ(empty_configuration.name, MutexManagerConfigurations::default_configurations.name);
+        ASSERT_EQ(empty_configuration.name, MutexManagerConfigurations::default_configurations.name);
     }
 
     TEST_F(MutexManagerTest, Should_BeExceptionSafe_When_ConstructThrows)
     {
         try
         {
-            mutex_manager_instance._handle_construct();
+            mutex_manager_instance.construct();
         }
         catch (...)
         {
@@ -132,7 +132,7 @@ namespace QLogicaeCppCoreTest
     {
         try
         {
-            mutex_manager_instance._handle_destruct();
+            mutex_manager_instance.destruct();
         }
         catch (...)
         {
@@ -668,60 +668,5 @@ namespace QLogicaeCppCoreTest
         t2.join();
         EXPECT_TRUE(result1);
         EXPECT_TRUE(result2);
-    }
-
-    TEST_F(MutexManagerMicroSpinTest, LockMicroSpinMutex)
-    {
-        bool locked = manager.lock_micro_mutex();
-        bool unlocked = manager.unlock_micro_mutex();
-        EXPECT_TRUE(locked);
-    }
-
-    TEST_F(MutexManagerMicroSpinTest, UnlockMicroSpinMutex)
-    {
-        manager.lock_micro_mutex();
-        bool unlocked = manager.unlock_micro_mutex();
-        EXPECT_TRUE(unlocked);
-    }
-
-    TEST_F(MutexManagerMicroSpinTest, LockUnlockSequence)
-    {
-        bool lock1 = manager.lock_micro_mutex();
-        bool unlock1 = manager.unlock_micro_mutex();
-        bool lock2 = manager.lock_micro_mutex();
-        bool unlock2 = manager.unlock_micro_mutex();
-
-        EXPECT_TRUE(lock1);
-        EXPECT_TRUE(unlock1);
-        EXPECT_TRUE(lock2);
-        EXPECT_TRUE(unlock2);
-    }
-
-    TEST_F(MutexManagerMicroSpinTest, MultiThreadedMicroSpinLock)
-    {
-        bool result1 = false, result2 = false;
-
-        std::thread t1([&]() { result1 = manager.lock_micro_mutex(); manager.unlock_micro_mutex(); });
-        std::thread t2([&]() { result2 = manager.lock_micro_mutex(); manager.unlock_micro_mutex(); });
-
-        t1.join();
-        t2.join();
-
-        EXPECT_TRUE(result1);
-        EXPECT_TRUE(result2);
-    }
-
-    TEST_F(MutexManagerMicroSpinTest, MultipleSequentialLocks)
-    {
-        bool results[5] = {};
-
-        for (int i = 0; i < 5; ++i)
-        {
-            results[i] = manager.lock_micro_mutex();
-            manager.unlock_micro_mutex();
-        }
-
-        for (int i = 0; i < 5; ++i)
-            EXPECT_TRUE(results[i]);
     }
 }

@@ -12,7 +12,8 @@ namespace
 
 
 	FunctionWrapper
-		::FunctionWrapper()
+		::FunctionWrapper() :
+			AbstractClass<FunctionWrapperConfigurations>()
 	{
 		try
 		{
@@ -24,10 +25,9 @@ namespace
 				exception
 		)
 		{
-			ErrorManager::singleton
-				.handle_error_outputs(
-					exception
-				);
+			handle_error_outputs(
+				exception
+			);
 		}		
 	}
 
@@ -44,112 +44,9 @@ namespace
 				exception
 		)
 		{
-			ErrorManager::singleton
-				.handle_error_outputs(
-					exception
-				);
+			handle_error_outputs(
+				exception
+			);
 		}		
 	}
-
-	bool
-		FunctionWrapper
-			::construct()
-	{
-		try
-		{
-			return
-				true;
-		}
-		catch
-		(
-			const std::exception&
-				exception
-		)
-		{
-			return
-				ErrorManager::singleton
-					.handle_error_outputs(
-						exception
-				);
-		}
-	}
-
-	bool
-		FunctionWrapper
-			::destruct()
-	{
-		try
-		{
-			return
-				true;
-		}
-		catch
-		(
-			const std::exception&
-				exception
-		)
-		{
-			return
-				ErrorManager::singleton
-					.handle_error_outputs(
-						exception
-				);
-		}
-	}
-
-	bool
-		FunctionWrapper
-			::setup(
-				const FunctionWrapperConfigurations&
-					new_configurations
-			)
-	{
-		try
-		{
-			configurations =
-				new_configurations;
-
-			return
-				true;
-		}
-		catch
-		(
-			const std::exception&
-				exception
-		)
-		{
-			return
-				ErrorManager::singleton
-					.handle_error_outputs(
-						exception
-				);
-		}
-	}
-
-	bool
-		FunctionWrapper
-			::reset()
-	{
-		try
-		{
-			configurations =
-				{};
-
-			return
-				true;
-		}
-		catch
-		(
-			const std::exception&
-				exception
-		)
-		{			
-			return
-				ErrorManager::singleton
-					.handle_error_outputs(
-						exception
-				);
-		}
-	}
 }
-

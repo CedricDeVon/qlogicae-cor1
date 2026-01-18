@@ -1,5 +1,6 @@
 #pragma once
 
+#include "abstract_class.hpp"
 #include "valid_mutex_lock.hpp"
 #include "singleton_manager.hpp"
 #include "pair_hash_operator.hpp"
@@ -9,7 +10,8 @@ namespace
 	QLogicaeCppCore
 {        
     class
-		MutexManager
+		MutexManager :
+			public AbstractClass<MutexManagerConfigurations>
     {
     public:     
 		std::unordered_map<std::pair<void*, std::string>, std::mutex, PairHashOperator>
@@ -45,30 +47,12 @@ namespace
 		std::unordered_map<std::pair<void*, std::string>, folly::MicroSpinLock, PairHashOperator>
 			folly_micro_spin_lock_collection;
 
-		MutexManagerConfigurations
-			configurations;
-
         static MutexManager&
             singleton;
 
         MutexManager();
 
         ~MutexManager();
-
-        bool
-            construct();
-
-        bool
-            destruct();
-
-        bool
-            setup(
-                const MutexManagerConfigurations&
-                    new_configurations
-            );
-
-        bool
-            reset();
 
         bool
             lock_micro_mutex(
@@ -138,6 +122,17 @@ namespace
 			if (!pointer)
 			{
 				return false;
+			}
+
+			boost::unique_lock<boost::mutex>
+				mutex_lock;
+			if (configurations.is_thread_safety_enabled_for_method_execution())
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						method_handling_layer_mutex_1
+					);
 			}
 
 			MutexType* mutex_pointer = nullptr;
@@ -272,9 +267,16 @@ namespace
 
 			return true;
 		}
-		catch (const std::exception& exception)
+		catch
+		(
+			const std::exception&
+				exception
+		)
 		{
-			return ErrorManager::singleton.handle_error_outputs(exception);
+			return
+				handle_error_outputs(
+					exception
+				);
 		}
 	}
 

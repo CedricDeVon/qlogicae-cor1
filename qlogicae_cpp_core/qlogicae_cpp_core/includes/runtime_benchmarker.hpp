@@ -1,6 +1,7 @@
 #pragma once
 
 #include "error_manager.hpp"
+#include "abstract_class.hpp"
 #include "singleton_manager.hpp"
 #include "runtime_benchmarker_test_case.hpp"
 #include "runtime_benchmarker_test_suite.hpp"
@@ -11,34 +12,16 @@ namespace
 	QLogicaeCppCore
 {    
     class
-		RuntimeBenchmarker
+		RuntimeBenchmarker :
+			public AbstractClass<RuntimeBenchmarkerConfigurations>
     {
     public:        
-		RuntimeBenchmarkerConfigurations
-			configurations;
-
         static RuntimeBenchmarker&
             singleton;
 
         RuntimeBenchmarker();
 
         ~RuntimeBenchmarker();
-
-		bool
-			construct();
-
-		bool
-			destruct();
-
-		bool
-			setup(
-				const RuntimeBenchmarkerConfigurations&
-					new_configurations =
-						{}
-			);
-
-		bool
-			reset();
 
         bool
             execute(

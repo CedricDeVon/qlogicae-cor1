@@ -14,7 +14,8 @@ namespace
 
 
 	SingletonManager
-		::SingletonManager()
+		::SingletonManager() :
+			AbstractClass<SingletonManagerConfigurations>()
 	{
 		try
 		{
@@ -26,10 +27,9 @@ namespace
 				exception
 		)
 		{
-			ErrorManager::singleton
-				.handle_error_outputs(
-					exception
-				);
+			handle_error_outputs(
+				exception
+			);
 		}		
 	}
 
@@ -46,118 +46,16 @@ namespace
 				exception
 		)
 		{
-			ErrorManager::singleton
-				.handle_error_outputs(
-					exception
-				);
+			handle_error_outputs(
+				exception
+			);
 		}		
 	}
 
-	bool
-		SingletonManager
-			::construct()
-	{
-		try
-		{
-			return
-				true;
-		}
-		catch
-		(
-			const std::exception&
-				exception
-		)
-		{
-			return
-				ErrorManager::singleton
-					.handle_error_outputs(
-						exception
-				);
-		}
-	}
-
-	bool
-		SingletonManager
-			::destruct()
-	{
-		try
-		{
-			return
-				true;
-		}
-		catch
-		(
-			const std::exception&
-				exception
-		)
-		{
-			return
-				ErrorManager::singleton
-					.handle_error_outputs(
-						exception
-				);
-		}
-	}
-
-	bool
-		SingletonManager
-			::setup(
-				const SingletonManagerConfigurations&
-					new_configurations
-			)
-	{
-		try
-		{
-			configurations =
-				new_configurations;
-
-			return
-				true;
-		}
-		catch
-		(
-			const std::exception&
-				exception
-		)
-		{
-			return
-				ErrorManager::singleton
-					.handle_error_outputs(
-						exception
-				);
-		}
-	}
-
-	bool
-		SingletonManager
-			::reset()
-	{
-		try
-		{
-			configurations =
-				{};
-
-			return
-				true;
-		}
-		catch
-		(
-			const std::exception&
-				exception
-		)
-		{			
-			return
-				ErrorManager::singleton
-					.handle_error_outputs(
-						exception
-				);
-		}
-	}    
-	
 	SingletonManager&
 		SingletonManager
 			::get_this_singleton()
-	{		
+	{
 		static SingletonManager
 			singleton;
 

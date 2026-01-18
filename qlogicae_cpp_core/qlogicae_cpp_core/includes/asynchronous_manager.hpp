@@ -1,6 +1,7 @@
 #pragma once
 
 #include "error_manager.hpp"
+#include "abstract_class.hpp"
 #include "singleton_manager.hpp"
 #include "asynchronous_manager_configurations.hpp"
 
@@ -8,15 +9,10 @@ namespace
 	QLogicaeCppCore
 {    
     class
-		AsynchronousManager
+		AsynchronousManager :
+			public AbstractClass<AsynchronousManagerConfigurations>
     {
-    public:                        
-		boost::mutex
-			mutex_1;
-
-		AsynchronousManagerConfigurations
-			configurations;
-		
+    public:                        		
 		static boost::asio::io_context
 			io_context;
 
@@ -42,21 +38,11 @@ namespace
 
         ~AsynchronousManager();
 
-        bool
-            construct();
+		bool
+			construct();
 
-        bool
-            destruct();
-
-        bool
-            setup(
-                const AsynchronousManagerConfigurations&
-					new_configurations =
-						{}
-            );
-
-        bool
-            reset();
+		bool
+			destruct();
 
 		bool
 			begin_io_workers();
@@ -169,27 +155,23 @@ namespace
 	{
 		try
         {
-			if
-			(
-				!configurations
-					.is_enabled
-			)
-            {
-                return
-					std::future<ReturnType>();
-            }
-
 			boost::unique_lock<boost::mutex>
-				unique_lock(
-					mutex_1
-				);
+				mutex_lock;
+			if (configurations.is_thread_safety_enabled_for_method_execution())
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						method_handling_layer_mutex_1
+					);
+			}
 
 			if constexpr (std::is_void_v<ReturnType>)
 			{
 				std::future<void> future =
 					boost::asio::co_spawn(
 						io_strand,
-						[implementation_method]()
+						[this, implementation_method]()
 							-> boost::asio::awaitable<void>
 						{
 							try
@@ -204,9 +186,8 @@ namespace
 									exception
 							)
 							{
-								ErrorManager::singleton
-									.handle_error_outputs(
-										exception
+								handle_error_outputs(
+									exception
 								);
 
 								co_return;
@@ -223,7 +204,7 @@ namespace
 				std::future<ReturnType> future =
 					boost::asio::co_spawn(
 						io_strand,
-						[implementation_method]()
+						[this, implementation_method]()
 							-> boost::asio::awaitable<ReturnType>
 						{
 							try
@@ -237,9 +218,8 @@ namespace
 									exception
 							)
 							{
-								ErrorManager::singleton
-									.handle_error_outputs(
-										exception
+								handle_error_outputs(
+									exception
 								);
 
 								co_return
@@ -259,10 +239,9 @@ namespace
                 exception
         )
         {
-			ErrorManager::singleton
-				.handle_error_outputs(
-					exception
-				);
+			handle_error_outputs(
+				exception
+			);
 
             return
 				std::future<ReturnType>();
@@ -280,52 +259,45 @@ namespace
 	{
 		try
         {
-            if
-			(
-				!configurations
-					.is_enabled
-			)
-            {
-                return
-					false;
-            }
-
+			boost::unique_lock<boost::mutex>
+				mutex_lock;
+			if (configurations.is_thread_safety_enabled_for_method_execution())
 			{
-				boost::unique_lock<boost::mutex>
-					unique_lock(
-						mutex_1
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						method_handling_layer_mutex_1
 					);
-
-				boost::asio::co_spawn(
-					io_strand,
-					[implementation_method, callback_method]()
-						-> boost::asio::awaitable<void>
-					{
-						try
-						{
-							callback_method(
-								implementation_method()
-							);
-
-							co_return;
-						}
-						catch
-						(
-							const std::exception&
-								exception
-						)
-						{
-							ErrorManager::singleton
-								.handle_error_outputs(
-									exception
-							);
-
-							co_return;
-						}						
-					},
-					boost::asio::detached
-				);
 			}
+
+			boost::asio::co_spawn(
+				io_strand,
+				[this, implementation_method, callback_method]()
+					-> boost::asio::awaitable<void>
+				{
+					try
+					{
+						callback_method(
+							implementation_method()
+						);
+
+						co_return;
+					}
+					catch
+					(
+						const std::exception&
+							exception
+					)
+					{
+						handle_error_outputs(
+							exception
+						);
+
+						co_return;
+					}						
+				},
+				boost::asio::detached
+			);
 
 			return
 				true;
@@ -337,9 +309,8 @@ namespace
         )
         {
             return
-				ErrorManager::singleton
-					.handle_error_outputs(
-						exception
+				handle_error_outputs(
+					exception
 				);
         }
 	}
@@ -354,21 +325,17 @@ namespace
 			)
 	{
 		try
-        {
-            if
-			(
-				!configurations
-					.is_enabled
-			)
-            {
-                return
-					false;
-            }
-			
+        {            
 			boost::unique_lock<boost::mutex>
-				unique_lock(
-					mutex_1
-				);
+				mutex_lock;
+			if (configurations.is_thread_safety_enabled_for_method_execution())
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						method_handling_layer_mutex_1
+					);
+			}
 
 			if constexpr
 			(
@@ -377,7 +344,7 @@ namespace
 			{
 				boost::asio::co_spawn(
 					io_strand,
-					[implementation_method, callback_method]()
+					[this, implementation_method, callback_method]()
 						-> boost::asio::awaitable<void>
 					{
 						try
@@ -393,9 +360,8 @@ namespace
 								exception
 						)
 						{
-							ErrorManager::singleton
-								.handle_error_outputs(
-									exception
+							handle_error_outputs(
+								exception
 							);
 
 							co_return;
@@ -408,7 +374,7 @@ namespace
 			{
 				boost::asio::co_spawn(
 					io_strand,
-					[implementation_method, callback_method]()
+					[this, implementation_method, callback_method]()
 						-> boost::asio::awaitable<void>
 					{
 						try
@@ -424,9 +390,8 @@ namespace
 								exception
 						)
 						{
-							ErrorManager::singleton
-								.handle_error_outputs(
-									exception
+							handle_error_outputs(
+								exception
 							);
 
 							co_return;
@@ -447,9 +412,8 @@ namespace
         )
         {
             return
-				ErrorManager::singleton
-					.handle_error_outputs(
-						exception
+				handle_error_outputs(
+					exception
 				);
         }
 	}
@@ -464,20 +428,16 @@ namespace
 	{
 		try
         {
-			if
-			(
-				!configurations
-					.is_enabled
-			)
-            {
-                return
-					std::future<ReturnType>();
-            }
-
 			boost::unique_lock<boost::mutex>
-				unique_lock(
-					mutex_1
-				);
+				mutex_lock;
+			if (configurations.is_thread_safety_enabled_for_method_execution())
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						method_handling_layer_mutex_1
+					);
+			}
 
 			if (main_thread_pool == nullptr)
             {
@@ -495,7 +455,7 @@ namespace
 			{
 				boost::asio::post(
 					*main_thread_pool,
-					[implementation_method, promise = std::move(promise)]() mutable
+					[this, implementation_method, promise = std::move(promise)]() mutable
 					{
 						try
 						{
@@ -509,10 +469,9 @@ namespace
 								exception
 						)
 						{
-							ErrorManager::singleton
-								.handle_error_outputs(
-									exception
-								);
+							handle_error_outputs(
+								exception
+							);
 						}
 					}
 				);
@@ -524,7 +483,7 @@ namespace
 			{
 				boost::asio::post(
 					*main_thread_pool,
-					[implementation_method, promise = std::move(promise)]() mutable
+					[this, implementation_method, promise = std::move(promise)]() mutable
 					{
 						try
 						{
@@ -538,10 +497,9 @@ namespace
 								exception
 						)
 						{
-							ErrorManager::singleton
-								.handle_error_outputs(
-									exception
-								);
+							handle_error_outputs(
+								exception
+							);
 						}
 					}
 				);
@@ -556,10 +514,9 @@ namespace
                 exception
         )
         {
-			ErrorManager::singleton
-				.handle_error_outputs(
-					exception
-				);
+			handle_error_outputs(
+				exception
+			);
 
             return
 				std::future<ReturnType>();
@@ -577,54 +534,47 @@ namespace
 	{
 		try
         {
-            if
-			(
-				!configurations
-					.is_enabled
-			)
-            {
-                return
-					false;
-            }
-
+			boost::unique_lock<boost::mutex>
+				mutex_lock;
+			if (configurations.is_thread_safety_enabled_for_method_execution())
 			{
-				boost::unique_lock<boost::mutex>
-					unique_lock(
-						mutex_1
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						method_handling_layer_mutex_1
 					);
-
-				if (main_thread_pool == nullptr)
-				{
-					main_thread_pool =
-						std::make_shared<boost::asio::thread_pool>(
-							std::thread::hardware_concurrency()
-						);
-				}
-	
-				boost::asio::post(
-					*main_thread_pool,
-					[implementation_method, callback_method]()
-					{
-						try
-						{
-							callback_method(
-								implementation_method()
-							);
-						}
-						catch
-						(
-							const std::exception&
-								exception
-						)
-						{
-							ErrorManager::singleton
-								.handle_error_outputs(
-									exception
-								);
-						}
-					}
-				);				
 			}
+
+			if (main_thread_pool == nullptr)
+			{
+				main_thread_pool =
+					std::make_shared<boost::asio::thread_pool>(
+						std::thread::hardware_concurrency()
+					);
+			}
+	
+			boost::asio::post(
+				*main_thread_pool,
+				[this, implementation_method, callback_method]()
+				{
+					try
+					{
+						callback_method(
+							implementation_method()
+						);
+					}
+					catch
+					(
+						const std::exception&
+							exception
+					)
+					{
+						handle_error_outputs(
+							exception
+						);
+					}
+				}
+			);	
 
 			return
 				true;
@@ -636,9 +586,8 @@ namespace
         )
         {
             return
-				ErrorManager::singleton
-					.handle_error_outputs(
-						exception
+				handle_error_outputs(
+					exception
 				);
         }
 	}
@@ -654,20 +603,16 @@ namespace
 	{
 		try
         {
-            if
-			(
-				!configurations
-					.is_enabled
-			)
-            {
-                return
-					false;
-            }
-			
 			boost::unique_lock<boost::mutex>
-				unique_lock(
-					mutex_1
-				);
+				mutex_lock;
+			if (configurations.is_thread_safety_enabled_for_method_execution())
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						method_handling_layer_mutex_1
+					);
+			}
 
 			if (main_thread_pool == nullptr)
             {
@@ -684,7 +629,7 @@ namespace
 			{				
 				boost::asio::post(
 					*main_thread_pool,
-					[implementation_method, callback_method]()
+					[this, implementation_method, callback_method]()
 					{
 						try
 						{
@@ -697,10 +642,9 @@ namespace
 								exception
 						)
 						{
-							ErrorManager::singleton
-								.handle_error_outputs(
-									exception
-								);
+							handle_error_outputs(
+								exception
+							);
 						}
 					}
 				);
@@ -709,7 +653,7 @@ namespace
 			{
 				boost::asio::post(
 					*main_thread_pool,
-					[implementation_method, callback_method]()
+					[this, implementation_method, callback_method]()
 					{
 						try
 						{
@@ -722,10 +666,9 @@ namespace
 								exception
 						)
 						{
-							ErrorManager::singleton
-								.handle_error_outputs(
-									exception
-								);
+							handle_error_outputs(
+								exception
+							);
 						}
 					}
 				);
@@ -742,9 +685,8 @@ namespace
         )
         {
             return
-				ErrorManager::singleton
-					.handle_error_outputs(
-						exception
+				handle_error_outputs(
+					exception
 				);
         }
 	}
@@ -758,20 +700,16 @@ namespace
 	{
 		try
         {
-			if
-			(
-				!configurations
-					.is_enabled
-			)
-            {
-                return
-					std::future<ReturnType>();
-            }
-
 			boost::unique_lock<boost::mutex>
-				unique_lock(
-					mutex_1
-				);
+				mutex_lock;
+			if (configurations.is_thread_safety_enabled_for_method_execution())
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						method_handling_layer_mutex_1
+					);
+			}
 
 			if (main_thread_pool == nullptr)
             {
@@ -789,7 +727,7 @@ namespace
 			{
 				boost::asio::dispatch(
 					*main_thread_pool,
-					[implementation_method, promise = std::move(promise)]() mutable
+					[this, implementation_method, promise = std::move(promise)]() mutable
 					{
 						try
 						{
@@ -803,10 +741,9 @@ namespace
 								exception
 						)
 						{
-							ErrorManager::singleton
-								.handle_error_outputs(
-									exception
-								);
+							handle_error_outputs(
+								exception
+							);
 						}
 					}
 				);
@@ -818,7 +755,7 @@ namespace
 			{
 				boost::asio::dispatch(
 					*main_thread_pool,
-					[implementation_method, promise = std::move(promise)]() mutable
+					[this, implementation_method, promise = std::move(promise)]() mutable
 					{
 						try
 						{
@@ -832,10 +769,9 @@ namespace
 								exception
 						)
 						{
-							ErrorManager::singleton
-								.handle_error_outputs(
-									exception
-								);
+							handle_error_outputs(
+								exception
+							);
 						}
 					}
 				);
@@ -850,10 +786,9 @@ namespace
                 exception
         )
         {
-			ErrorManager::singleton
-				.handle_error_outputs(
-					exception
-				);
+			handle_error_outputs(
+				exception
+			);
 
             return
 				std::future<ReturnType>();
@@ -871,54 +806,47 @@ namespace
 	{
 		try
         {
-            if
-			(
-				!configurations
-					.is_enabled
-			)
-            {
-                return
-					false;
-            }
-
+            boost::unique_lock<boost::mutex>
+				mutex_lock;
+			if (configurations.is_thread_safety_enabled_for_method_execution())
 			{
-				boost::unique_lock<boost::mutex>
-					unique_lock(
-						mutex_1
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						method_handling_layer_mutex_1
 					);
-
-				if (main_thread_pool == nullptr)
-				{
-					main_thread_pool =
-						std::make_shared<boost::asio::thread_pool>(
-							std::thread::hardware_concurrency()
-						);
-				}
-	
-				boost::asio::dispatch(
-					*main_thread_pool,
-					[implementation_method, callback_method]()
-					{
-						try
-						{
-							callback_method(
-								implementation_method()
-							);
-						}
-						catch
-						(
-							const std::exception&
-								exception
-						)
-						{
-							ErrorManager::singleton
-								.handle_error_outputs(
-									exception
-								);
-						}
-					}
-				);				
 			}
+
+			if (main_thread_pool == nullptr)
+			{
+				main_thread_pool =
+					std::make_shared<boost::asio::thread_pool>(
+						std::thread::hardware_concurrency()
+					);
+			}
+	
+			boost::asio::dispatch(
+				*main_thread_pool,
+				[this, implementation_method, callback_method]()
+				{
+					try
+					{
+						callback_method(
+							implementation_method()
+						);
+					}
+					catch
+					(
+						const std::exception&
+							exception
+					)
+					{
+						handle_error_outputs(
+							exception
+						);
+					}
+				}
+			);
 
 			return
 				true;
@@ -930,9 +858,8 @@ namespace
         )
         {
             return
-				ErrorManager::singleton
-					.handle_error_outputs(
-						exception
+				handle_error_outputs(
+					exception
 				);
         }
 	}
@@ -948,20 +875,16 @@ namespace
 	{
 		try
         {
-            if
-			(
-				!configurations
-					.is_enabled
-			)
-            {
-                return
-					false;
-            }
-			
-			boost::unique_lock<boost::mutex>
-				unique_lock(
-					mutex_1
-				);
+            boost::unique_lock<boost::mutex>
+				mutex_lock;
+			if (configurations.is_thread_safety_enabled_for_method_execution())
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						method_handling_layer_mutex_1
+					);
+			}
 
 			if (main_thread_pool == nullptr)
             {
@@ -978,7 +901,7 @@ namespace
 			{				
 				boost::asio::dispatch(
 					*main_thread_pool,
-					[implementation_method, callback_method]()
+					[this, implementation_method, callback_method]()
 					{
 						try
 						{
@@ -991,10 +914,9 @@ namespace
 								exception
 						)
 						{
-							ErrorManager::singleton
-								.handle_error_outputs(
-									exception
-								);
+							handle_error_outputs(
+								exception
+							);
 						}
 					}
 				);
@@ -1003,7 +925,7 @@ namespace
 			{
 				boost::asio::dispatch(
 					*main_thread_pool,
-					[implementation_method, callback_method]()
+					[this, implementation_method, callback_method]()
 					{
 						try
 						{
@@ -1016,10 +938,9 @@ namespace
 								exception
 						)
 						{
-							ErrorManager::singleton
-								.handle_error_outputs(
-									exception
-								);
+							handle_error_outputs(
+								exception
+							);
 						}
 					}
 				);
@@ -1036,9 +957,8 @@ namespace
         )
         {
             return
-				ErrorManager::singleton
-					.handle_error_outputs(
-						exception
+				handle_error_outputs(
+					exception
 				);
         }
 	}

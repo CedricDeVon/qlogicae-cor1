@@ -7,17 +7,12 @@ namespace
 {    
     struct
 		ErrorManagerConfigurations :
-			AbstractConfigurations
+			AbstractConfigurations<ErrorManagerConfigurations>
     {        
 		bool
 			is_enable_output_override_enabled =
 				default_configurations
 					.is_enable_output_override_enabled;
-
-		bool
-			is_thread_safety_enabled =
-				default_configurations
-					.is_thread_safety_enabled;
 
 		bool
 			is_console_output_enabled =

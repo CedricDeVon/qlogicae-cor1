@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include "error_manager.hpp"
+#include "abstract_class.hpp"
 #include "singleton_manager.hpp"
 #include "file_system_manager_configurations.hpp"
 
@@ -8,12 +9,10 @@ namespace
 	QLogicaeCppCore
 {
     class
-		FileSystemManager
+		FileSystemManager :
+			public AbstractClass<FileSystemManagerConfigurations>
     {
     public:        
-		FileSystemManagerConfigurations
-			configurations;
-
 		static std::string
 			relative_private_qlogicae_folder_path;
 
@@ -126,41 +125,8 @@ namespace
 
         ~FileSystemManager();
 
-        FileSystemManager(
-            const FileSystemManager&
-                instance
-        ) = delete;
-
-        FileSystemManager(
-            FileSystemManager&&
-                instance
-        ) noexcept = delete;
-
-        FileSystemManager& operator = (
-            FileSystemManager&&
-                instance
-        ) = delete;
-
-        FileSystemManager& operator = (
-            const FileSystemManager&
-                instance
-        ) = delete;
-
         bool
             construct();
-
-        bool
-            destruct();
-
-        bool
-            setup(
-                const FileSystemManagerConfigurations&
-                    new_configurations = 
-						{}
-            );
-
-        bool
-            reset();
 
 		std::string
 			get_executable_folder_path();

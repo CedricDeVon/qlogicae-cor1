@@ -190,9 +190,11 @@
   <ItemGroup>
     <ClInclude Include="framework.hpp" />
     <ClInclude Include="pch.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\abstract_class.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\abstract_configurations.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\all.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\application_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\application_manager_configurations.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\assembly.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\asynchronous_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\asynchronous_manager_configurations.hpp" />
@@ -223,9 +225,11 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="qlogicae_cpp_core\sources\abstract_class.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\abstract_configurations.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\all.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\application_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\application_manager_configurations.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\assembly.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\asynchronous_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\asynchronous_manager_configurations.cpp" />

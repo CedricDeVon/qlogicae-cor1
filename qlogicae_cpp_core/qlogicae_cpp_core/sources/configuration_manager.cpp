@@ -14,7 +14,8 @@ namespace
 
 
 	ConfigurationManager
-		::ConfigurationManager()
+		::ConfigurationManager() :
+			AbstractClass<ConfigurationManagerConfigurations>()
 	{
 		try
 		{
@@ -26,10 +27,9 @@ namespace
 				exception
 		)
 		{
-			ErrorManager::singleton
-				.handle_error_outputs(
-					exception
-				);
+			handle_error_outputs(
+				exception
+			);
 		}		
 	}
 	
@@ -46,131 +46,9 @@ namespace
 				exception
 		)
 		{
-			ErrorManager::singleton
-				.handle_error_outputs(
-					exception
-				);
+			handle_error_outputs(
+				exception
+			);
 		}		
 	}
-
-	bool
-		ConfigurationManager
-			::construct()
-	{
-		try
-		{
-			boost::unique_lock<boost::mutex>
-				unique_lock(
-					mutex_1
-				);
-
-			return
-				true;
-		}
-		catch
-		(
-			const std::exception&
-				exception
-		)
-		{
-			return
-				ErrorManager::singleton
-					.handle_error_outputs(
-						exception
-				);
-		}
-	}
-
-	bool
-		ConfigurationManager
-			::destruct()
-	{
-		try
-		{
-			boost::unique_lock<boost::mutex>
-				unique_lock(
-					mutex_1
-				);
-
-			return
-				true;
-		}
-		catch
-		(
-			const std::exception&
-				exception
-		)
-		{
-			return
-				ErrorManager::singleton
-					.handle_error_outputs(
-						exception
-				);
-		}
-	}
-
-	bool
-		ConfigurationManager
-			::setup(
-				const ConfigurationManagerConfigurations&
-					new_configurations
-			)
-	{
-		try
-		{
-			boost::unique_lock<boost::mutex>
-				unique_lock(
-					mutex_1
-				);
-
-			configurations =
-				new_configurations;
-
-			return
-				true;
-		}
-		catch
-		(
-			const std::exception&
-				exception
-		)
-		{
-			return
-				ErrorManager::singleton
-					.handle_error_outputs(
-						exception
-				);
-		}
-	}
-
-	bool
-		ConfigurationManager
-			::reset()
-	{
-		try
-		{
-			boost::unique_lock<boost::mutex>
-				unique_lock(
-					mutex_1
-				);
-
-			configurations =
-				{};
-
-			return
-				true;
-		}
-		catch
-		(
-			const std::exception&
-				exception
-		)
-		{
-			return
-				ErrorManager::singleton
-					.handle_error_outputs(
-						exception
-				);
-		}
-	}   
 }

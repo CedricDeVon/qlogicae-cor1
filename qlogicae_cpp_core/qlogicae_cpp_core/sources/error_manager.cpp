@@ -58,9 +58,21 @@ namespace
 		try
 		{
 			boost::unique_lock<boost::mutex>
-				unique_lock(
-					mutex_1
-				);
+				mutex_lock;
+			if
+			(
+				configurations
+					.is_thread_safety_override_enabled ||
+				configurations
+					.is_method_execution_thread_safety_enabled
+			)
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+						(
+							method_handling_layer_mutex_1
+						);
+			}
 
 			return
 				true;
@@ -85,9 +97,21 @@ namespace
 		try
 		{
 			boost::unique_lock<boost::mutex>
-				unique_lock(
-					mutex_1
-				);
+				mutex_lock;
+			if
+			(
+				configurations
+					.is_thread_safety_override_enabled ||
+				configurations
+					.is_method_execution_thread_safety_enabled
+			)
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+						(
+							method_handling_layer_mutex_1
+						);
+			}
 
 			return
 				true;
@@ -115,9 +139,21 @@ namespace
 		try
 		{
 			boost::unique_lock<boost::mutex>
-				unique_lock(
-					mutex_1
-				);
+				mutex_lock;
+			if
+			(
+				configurations
+					.is_thread_safety_override_enabled ||
+				configurations
+					.is_method_execution_thread_safety_enabled
+			)
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+						(
+							method_handling_layer_mutex_1
+						);
+			}
 
 			configurations =
 				new_configurations;
@@ -145,9 +181,21 @@ namespace
 		try
 		{
 			boost::unique_lock<boost::mutex>
-				unique_lock(
-					mutex_1
-				);
+				mutex_lock;
+			if
+			(
+				configurations
+					.is_thread_safety_override_enabled ||
+				configurations
+					.is_method_execution_thread_safety_enabled
+			)
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+						(
+							method_handling_layer_mutex_1
+						);
+			}
 
 			configurations =
 				{};
@@ -293,6 +341,23 @@ namespace
 					error_log
 			)
 	{
+		boost::unique_lock<boost::mutex>
+			mutex_lock;
+		if
+		(
+			configurations
+				.is_thread_safety_override_enabled ||
+			configurations
+				.is_method_execution_thread_safety_enabled
+		)
+		{
+			mutex_lock =
+				boost::unique_lock<boost::mutex>
+				(
+					method_handling_layer_mutex_1
+				);
+		}
+
 		if
 		(
 			configurations
@@ -378,6 +443,23 @@ namespace
 					error_log
 			)
 	{
+		boost::unique_lock<boost::mutex>
+			mutex_lock;
+		if
+		(
+			configurations
+				.is_thread_safety_override_enabled ||
+			configurations
+				.is_method_execution_thread_safety_enabled
+		)
+		{
+			mutex_lock =
+				boost::unique_lock<boost::mutex>
+				(
+					method_handling_layer_mutex_1
+				);
+		}
+
 		std::vector<std::future<void>>
 			futures;
 
