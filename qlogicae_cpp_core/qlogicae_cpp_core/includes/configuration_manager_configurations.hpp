@@ -9,6 +9,7 @@ namespace
 		ConfigurationManagerConfigurations :
 			AbstractConfigurations<ConfigurationManagerConfigurations>
     {
+	public:
 		static ConfigurationManagerConfigurations
 			initial_configurations;
 

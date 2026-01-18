@@ -43,3 +43,4 @@ namespace
 				ConfigurationManagerConfigurations
 					::initial_configurations;
 }
+

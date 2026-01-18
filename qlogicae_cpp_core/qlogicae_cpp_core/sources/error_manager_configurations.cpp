@@ -92,7 +92,9 @@ namespace
 				}();
 
 	ErrorManagerConfigurations
-		ErrorManagerConfigurations::default_configurations =
-			ErrorManagerConfigurations::initial_configurations;
+		ErrorManagerConfigurations
+			::default_configurations =
+				ErrorManagerConfigurations
+					::initial_configurations;
 }
 		

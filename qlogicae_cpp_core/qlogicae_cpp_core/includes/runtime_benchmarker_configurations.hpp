@@ -9,6 +9,7 @@ namespace
 		RuntimeBenchmarkerConfigurations :
 			AbstractConfigurations<RuntimeBenchmarkerConfigurations>
     {
+	public:
 		static RuntimeBenchmarkerConfigurations
 			initial_configurations;
 

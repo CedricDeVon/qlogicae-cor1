@@ -9,6 +9,7 @@ namespace
 		AsynchronousManagerConfigurations :
 			AbstractConfigurations<AsynchronousManagerConfigurations>
     {
+	public:
 		static AsynchronousManagerConfigurations
 			initial_configurations;
 

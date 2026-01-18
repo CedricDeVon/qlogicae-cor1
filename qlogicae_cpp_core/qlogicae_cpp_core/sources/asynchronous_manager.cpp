@@ -93,7 +93,7 @@ namespace
 					(
 						method_handling_layer_mutex_1
 					);
-			}
+			}			
 
 			temporary_thread_pool =
 				nullptr;

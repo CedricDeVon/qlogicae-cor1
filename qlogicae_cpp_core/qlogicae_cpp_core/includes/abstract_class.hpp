@@ -13,14 +13,11 @@ namespace
 		boost::mutex
 			method_handling_layer_mutex_1;
 
-		folly::MicroSpinLock
-			method_handling_micro_spin_lock_1;
+		boost::mutex
+			method_handling_layer_mutex_2;
 
 		boost::mutex
 			error_handling_mutex;
-
-		folly::MicroSpinLock
-			error_handling_micro_spin_lock;
 
 		AbstractConfigurationsType
 			configurations;

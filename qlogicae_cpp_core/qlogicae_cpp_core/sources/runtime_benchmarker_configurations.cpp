@@ -43,3 +43,4 @@ namespace
 				RuntimeBenchmarkerConfigurations
 					::initial_configurations;
 }
+

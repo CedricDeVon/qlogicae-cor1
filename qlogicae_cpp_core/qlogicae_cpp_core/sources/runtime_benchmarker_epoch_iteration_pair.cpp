@@ -22,3 +22,4 @@ namespace
 				RuntimeBenchmarkerEpochIterationPair
 					::initial_configurations;
 }
+

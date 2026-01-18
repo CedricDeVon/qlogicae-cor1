@@ -27,7 +27,7 @@ namespace
 
 					configurations
 						.is_method_execution_thread_safety_enabled =
-							true;
+							false;
 
 					configurations
 						.is_error_handling_thread_safety_enabled =

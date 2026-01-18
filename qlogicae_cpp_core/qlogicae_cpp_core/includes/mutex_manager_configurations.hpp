@@ -9,6 +9,7 @@ namespace
 		MutexManagerConfigurations :
 			AbstractConfigurations<MutexManagerConfigurations>
     {
+	public:
         std::string
             name =
                 default_configurations

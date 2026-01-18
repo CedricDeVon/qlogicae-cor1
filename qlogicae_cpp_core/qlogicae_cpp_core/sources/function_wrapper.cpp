@@ -6,8 +6,10 @@ namespace
 	QLogicaeCppCore
 {    
     FunctionWrapper&
-        FunctionWrapper::singleton =
-            SingletonManager::get_singleton<FunctionWrapper>();
+        FunctionWrapper
+			::singleton =
+				SingletonManager
+					::get_singleton<FunctionWrapper>();
 
 
 
@@ -50,3 +52,4 @@ namespace
 		}		
 	}
 }
+

@@ -8,7 +8,8 @@ namespace
     struct
 		ErrorManagerConfigurations :
 			AbstractConfigurations<ErrorManagerConfigurations>
-    {        
+    {    
+	public:
 		bool
 			is_enable_output_override_enabled =
 				default_configurations

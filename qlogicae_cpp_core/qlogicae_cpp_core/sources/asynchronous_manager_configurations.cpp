@@ -43,3 +43,4 @@ namespace
 				AsynchronousManagerConfigurations
 					::initial_configurations;
 }
+

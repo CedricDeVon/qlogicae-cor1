@@ -1,6 +1,5 @@
 #pragma once
 
-#include "error_manager.hpp"
 #include "abstract_class.hpp"
 #include "singleton_manager.hpp"
 #include "function_wrapper_configurations.hpp"

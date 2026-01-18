@@ -6,6 +6,7 @@ namespace
 	template <typename DerivedConfigurations> struct
 		AbstractConfigurations
 	{
+	public:
 		bool
 			is_method_execution_enabled =
 				DerivedConfigurations

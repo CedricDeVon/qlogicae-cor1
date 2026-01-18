@@ -92,8 +92,11 @@ namespace
 					);
 			}
 
-			void* raw_pointer =
-				const_cast<void*>(pointer);
+			void*
+				raw_pointer =
+					const_cast<void*>(
+						pointer
+					);
 
             folly::MicroSpinLock*
                 micro_spin_lock =
@@ -164,8 +167,11 @@ namespace
 					);
 			}
 
-			void* raw_pointer =
-				const_cast<void*>(pointer);
+			void*
+				raw_pointer =
+					const_cast<void*>(
+						pointer
+					);
 
             folly::MicroSpinLock*
                 micro_spin_lock =

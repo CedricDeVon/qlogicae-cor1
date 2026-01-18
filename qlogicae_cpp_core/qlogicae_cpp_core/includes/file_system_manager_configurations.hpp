@@ -9,6 +9,7 @@ namespace
 		FileSystemManagerConfigurations :
 			AbstractConfigurations<FileSystemManagerConfigurations>
     {
+	public:
 		static FileSystemManagerConfigurations
 			initial_configurations;
 

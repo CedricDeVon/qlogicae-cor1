@@ -6,6 +6,7 @@ namespace
     struct
 		RuntimeBenchmarkerTestCase
     {
+	public:
         std::string
             name =
                 default_configurations

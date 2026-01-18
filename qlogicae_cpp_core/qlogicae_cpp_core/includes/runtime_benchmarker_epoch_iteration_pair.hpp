@@ -6,6 +6,7 @@ namespace
     struct
 		RuntimeBenchmarkerEpochIterationPair
     {
+	public:
         std::size_t
             epochs =
                 default_configurations

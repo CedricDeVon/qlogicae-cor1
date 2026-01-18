@@ -43,3 +43,4 @@ namespace
 				SingletonManagerConfigurations
 					::initial_configurations;
 }
+

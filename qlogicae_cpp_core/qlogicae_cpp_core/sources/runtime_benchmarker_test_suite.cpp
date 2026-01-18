@@ -49,3 +49,4 @@ namespace
 				RuntimeBenchmarkerTestSuite
 					::initial_configurations;
 }
+

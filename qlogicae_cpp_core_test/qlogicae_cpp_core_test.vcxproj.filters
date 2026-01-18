@@ -27,6 +27,7 @@
     <ClInclude Include="qlogicae_cpp_core_test\includes\asynchronous_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core_test\includes\function_wrapper.hpp" />
     <ClInclude Include="qlogicae_cpp_core_test\includes\configuration_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core_test\includes\mutex_manager.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

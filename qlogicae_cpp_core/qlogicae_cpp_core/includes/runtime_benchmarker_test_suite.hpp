@@ -9,6 +9,7 @@ namespace
     struct
 		RuntimeBenchmarkerTestSuite
     {
+	public:
         std::string
             name =
                 default_configurations

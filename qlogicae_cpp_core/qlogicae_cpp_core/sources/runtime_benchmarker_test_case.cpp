@@ -28,3 +28,4 @@ namespace
 				RuntimeBenchmarkerTestCase
 					::initial_configurations;
 }
+

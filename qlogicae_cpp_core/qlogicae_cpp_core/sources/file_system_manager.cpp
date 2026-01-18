@@ -5,146 +5,6 @@
 namespace
 	QLogicaeCppCore
 {
-	std::string
-        FileSystemManager::relative_private_qlogicae_folder_path =
-            ".qlogicae";
-
-    std::string
-        FileSystemManager::relative_public_qlogicae_folder_path =
-            "qlogicae";
-
-    std::string
-        FileSystemManager::relative_application_name_folder_path =
-            "qlogicae";
-
-    std::string
-        FileSystemManager::relative_application_version_name_folder_path =
-            "v1.0.0";
-
-    std::string
-        FileSystemManager::relative_application_environment_name_folder_path =
-            "development";
-
-    std::string
-        FileSystemManager::relative_log_folder_path =
-            "log";
-
-    std::string
-        FileSystemManager::relative_log_date_folder_path =
-            "date";
-
-    std::string
-        FileSystemManager::relative_log_level_folder_path =
-            "level";
-
-    std::string
-        FileSystemManager::relative_all_log_file_path =
-            "all.log";
-
-    std::string
-        FileSystemManager::relative_info_log_file_path =
-            "info.log";
-
-    std::string
-        FileSystemManager::relative_debug_log_file_path =
-            "debug.log";
-
-    std::string
-        FileSystemManager::relative_warning_log_file_path =
-            "warning.log";
-
-    std::string
-        FileSystemManager::relative_success_log_file_path =
-            "success.log";
-
-    std::string
-        FileSystemManager::relative_critical_log_file_path =
-            "critical.log";
-
-    std::string
-        FileSystemManager::relative_error_log_file_path =
-            "error.log";
-
-    std::string
-        FileSystemManager::relative_cache_folder_path =
-            "cache";
-
-    std::string
-        FileSystemManager::relative_main_folder_path =
-            "main";
-
-    std::string
-        FileSystemManager::relative_assets_folder_path =
-            "assets";
-
-    std::string
-        FileSystemManager::relative_documentation_folder_path =
-            "documentation";
-
-    std::string
-        FileSystemManager::relative_environment_json_file_path =
-            "environment.json";
-
-    std::string
-        FileSystemManager::relative_license_txt_file_path =
-            "LICENSE.txt";
-
-    std::string
-        FileSystemManager::relative_application_folder_path =
-            "application";
-
-    std::string
-        FileSystemManager::relative_application_icon_file_path =
-            "application.ico";
-
-    std::string
-        FileSystemManager::relative_qlogicae_json_file_path =
-            "qlogicae.json";
-
-    std::string
-        FileSystemManager::relative_configurations_folder_path =
-            "configurations";
-
-    std::string
-        FileSystemManager::relative_development_folder_path =
-            "development";
-
-    std::string
-        FileSystemManager::relative_debug_folder_path =
-            "debug";
-
-    std::string
-        FileSystemManager::relative_test_folder_path =
-            "test";
-
-    std::string
-        FileSystemManager::relative_release_folder_path =
-            "release";
-
-    std::string
-        FileSystemManager::relative_windows_registry_software_qlogicae_folder_path =
-            "Software\\QLogicae";
-
-    std::string
-        FileSystemManager::full_executable_folder_path =
-            "";
-
-    std::string
-        FileSystemManager::full_executed_folder_path =
-            "";
-
-    std::string
-        FileSystemManager::full_roaming_app_data_folder_path =
-            "";
-
-    std::string
-        FileSystemManager::full_local_app_data_folder_path =
-            "";
-
-    std::string
-        FileSystemManager::full_program_data_folder_path =
-            "";
-
     FileSystemManager&
         FileSystemManager
 			::singleton =
@@ -210,19 +70,109 @@ namespace
 					);
 			}
 
-            full_executable_folder_path =
+			relative_private_qlogicae_folder_path =
+				".qlogicae";
+
+			relative_public_qlogicae_folder_path =
+				"qlogicae";
+
+			relative_application_name_folder_path =
+				"qlogicae";
+
+			relative_application_version_name_folder_path =
+				"v1.0.0";
+
+			relative_application_environment_name_folder_path =
+				"development";
+
+			relative_log_folder_path =
+				"log";
+
+			relative_log_date_folder_path =
+				"date";
+
+			relative_log_level_folder_path =
+				"level";
+
+			relative_all_log_file_path =
+				"all.log";
+
+			relative_info_log_file_path =
+				"info.log";
+
+			relative_debug_log_file_path =
+				"debug.log";
+
+			relative_warning_log_file_path =
+				"warning.log";
+
+			relative_success_log_file_path =
+				"success.log";
+
+			relative_critical_log_file_path =
+				"critical.log";
+
+			relative_error_log_file_path =
+				"error.log";
+
+			relative_cache_folder_path =
+				"cache";
+
+			relative_main_folder_path =
+				"main";
+
+			relative_assets_folder_path =
+				"assets";
+
+			relative_documentation_folder_path =
+				"documentation";
+
+			relative_environment_json_file_path =
+				"environment.json";
+
+			relative_license_txt_file_path =
+				"LICENSE.txt";
+
+			relative_application_folder_path =
+				"application";
+
+			relative_application_icon_file_path =
+				"application.ico";
+
+			relative_qlogicae_json_file_path =
+				"qlogicae.json";
+
+			relative_configurations_folder_path =
+				"configurations";
+
+			relative_development_folder_path =
+				"development";
+
+			relative_debug_folder_path =
+				"debug";
+
+			relative_test_folder_path =
+				"test";
+
+			relative_release_folder_path =
+				"release";
+
+			relative_windows_registry_software_qlogicae_folder_path =
+				"Software\\QLogicae";
+
+			full_executable_folder_path =
 				get_executable_folder_path();
-          
-            full_executed_folder_path =
+
+			full_executed_folder_path =
 				get_executed_folder_path();
-            
-            full_roaming_app_data_folder_path =
+
+			full_roaming_app_data_folder_path =
 				get_roaming_app_data_folder_path();
-            
-            full_local_app_data_folder_path =
+
+			full_local_app_data_folder_path =
 				get_local_app_data_folder_path();
-            
-            full_program_data_folder_path =
+
+			full_program_data_folder_path =
 				get_program_data_folder_path();
 
 			return

@@ -9,6 +9,7 @@ namespace
 		ApplicationManagerConfigurations :
 			AbstractConfigurations<ApplicationManagerConfigurations>
     {
+	public:
 		static ApplicationManagerConfigurations
 			initial_configurations;
 

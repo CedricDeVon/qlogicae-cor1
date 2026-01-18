@@ -100,9 +100,11 @@ namespace
     };
 
     template<typename LockType, typename MutexType> bool
-        MutexManager::lock_mutex(
-            const void* pointer
-        ) requires ValidLock<LockType, MutexType>
+        MutexManager
+			::lock_mutex(
+				const void*
+					pointer
+			) requires ValidLock<LockType, MutexType>
     {
         return
 			lock_mutex<LockType, MutexType>(
@@ -111,17 +113,21 @@ namespace
 			);
     }
 
-	template<typename LockType, typename MutexType>
-	bool MutexManager::lock_mutex(
-		const void* pointer,
-		const std::string& name
-	) requires ValidLock<LockType, MutexType>
+	template<typename LockType, typename MutexType> bool
+	MutexManager
+		::lock_mutex(
+			const void*
+				pointer,
+			const std::string&
+				name
+		) requires ValidLock<LockType, MutexType>
 	{
 		try
 		{
 			if (!pointer)
 			{
-				return false;
+				return
+					false;
 			}
 
 			boost::unique_lock<boost::mutex>
@@ -135,8 +141,14 @@ namespace
 					);
 			}
 
-			MutexType* mutex_pointer = nullptr;
-			void* raw_pointer = const_cast<void*>(pointer);
+			MutexType*
+				mutex_pointer =
+					nullptr;
+			void*
+				raw_pointer =
+					const_cast<void*>(
+						pointer
+					);
 
 			if constexpr (std::is_same_v<MutexType, std::mutex>)
 			{
@@ -260,12 +272,17 @@ namespace
 			}
 			else
 			{
-				return false;
+				return
+					false;
 			}
 
-			LockType lock(*mutex_pointer);
+			LockType
+				lock(
+					*mutex_pointer
+				);
 
-			return true;
+			return
+				true;
 		}
 		catch
 		(
@@ -279,6 +296,4 @@ namespace
 				);
 		}
 	}
-
-
 }

@@ -23,7 +23,10 @@ namespace
                 mutex_type
             )
     {
-        lock_type.lock();
-        lock_type.unlock();
+        lock_type
+			.lock();
+        
+		lock_type
+			.unlock();
     };
 }

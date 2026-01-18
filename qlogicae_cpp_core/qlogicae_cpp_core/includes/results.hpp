@@ -313,7 +313,6 @@ namespace QLogicaeCppCore
             _message;
     };
 
-
     template <> struct
         Results<void>
     {

@@ -9,6 +9,7 @@ namespace
 		SingletonManagerConfigurations :
 			AbstractConfigurations<SingletonManagerConfigurations>
     {
+	public:
 		static SingletonManagerConfigurations
 			initial_configurations;
 

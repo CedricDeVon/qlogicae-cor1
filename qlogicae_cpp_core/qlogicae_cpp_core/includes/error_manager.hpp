@@ -31,8 +31,7 @@ namespace
 		bool
 			setup(
 				const ErrorManagerConfigurations&
-					new_configurations =
-						{}
+					new_configurations
 			);
 
 		bool

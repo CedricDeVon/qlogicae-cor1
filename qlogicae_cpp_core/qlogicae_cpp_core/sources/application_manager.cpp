@@ -41,10 +41,10 @@ namespace
 			destruct();
 		}
 		catch
-			(
-				const std::exception&
+		(
+			const std::exception&
 				exception
-				)
+		)
 		{
 			handle_error_outputs(
 				exception
