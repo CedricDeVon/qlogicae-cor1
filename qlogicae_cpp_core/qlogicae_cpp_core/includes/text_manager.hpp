@@ -25,184 +25,166 @@ namespace
 
 		bool
 			destruct();
+
+		std::string
+			convert_encoding(
+				const std::string&
+					value,
+				const Encoding&
+					original_encoding,
+				const Encoding&
+					target_encoding
+			);
+
+		std::string
+			format(
+				const std::string&
+					value,
+				const Encoding&
+					original_encoding,
+				const Encoding&
+					target_encoding
+			);
 	};
 }
 
 /*
-AsynchronousManager
-bool setup();
 
-        std::future<bool> setup_async(
-            const std::function<void(const bool& result)>& callback =
-            [](const bool& result) {}
-        );
+- null format
+- format
 
-        void setup(
-            Result<void>& result
-        );
+		std::string color_type(
+			const LogLevel& log_level
+		);
 
-        void setup_async(
-            Result<std::future<void>>& result,
-            const std::function<void(Result<void>& result)>& callback =
-            [](Result<void>& result) {}
-        );
+		std::string to_na_format(
+			const std::string& text = ""
+		);
 
-        std::string from_utf8_to_hex(
-            const std::string_view& text
-        );
+		std::string replace_tokens(
+			const std::string& text,
+			const std::unordered_map<std::string, std::string> dictionary
+		);
 
-        void from_utf8_to_hex(
-            Result<std::string>& result,
-            const std::string_view& text
-        );
+		std::string to_none_format(
+			const std::string& text = ""
+		);
 
-        std::string from_hex_to_utf8(
-            const std::string_view& text
-        );
+		std::vector<std::string> split(
+			const std::string& text,
+			const std::string& delimeters
+		);
 
-        void from_hex_to_utf8(
-            Result<std::string>& result,
-            const std::string_view& text
-        );
+		std::string to_log_format(
+			const std::string& text,
+			const LogLevel& log_level,
+			const size_t& length = 128
+		);
 
-        std::string from_hex_to_base64(
-            const std::string_view& text
-        );
+		std::string to_log_format(
+			const std::string& text,
+			const LogLevel& log_level,
+			const TimeFormat& time_format,
+			const size_t& length = 128
+		);
 
-        void from_hex_to_base64(
-            Result<std::string>& result,
-            const std::string_view& text
-        );
+		std::string to_log_format(
+			const std::string& name,
+			const std::string& text,
+			const LogLevel& log_level,
+			const TimeFormat& time_format,
+			const size_t& length = 128
+		);
 
-        std::string from_base64_to_hex(
-            const std::string_view& text
-        );
+		std::string to_log_level_color_format(
+			const std::string& text = "",
+			const LogLevel& log_level = LogLevel::INFO,
+			const size_t& length = 128
+		);
 
-        void from_base64_to_hex(
-            Result<std::string>& result,
-            const std::string_view& text
-        );
+		std::string to_result_message_format(
+			const std::string& text = "",
+			const ResultStatus& result_status = ResultStatus::INFO,
+			const TimeFormat& time_format =
+			TimeFormat::FULL_TIMESTAMP,
+			const size_t& length = 128
+		);
 
-        std::wstring from_utf8_to_utf16(
-            const std::string_view& text
-        );
+		std::string to_exception_text_format(
+			const std::string& origin,
+			const std::string& message
+		);
 
-        void from_utf8_to_utf16(
-            Result<std::wstring>& result,
-            const std::string_view& text
-        );
+		std::string to_uppercase(
+			const std::string text
+		);
 
-        std::string from_utf16_to_utf8(
-            const std::wstring_view& text
-        );
+		std::string to_lowercase(
+			const std::string text
+		);
 
-        void from_utf16_to_utf8(
-            Result<std::string>& result,
-            const std::wstring_view& text
-        );
+		std::string to_capitalized(
+			const std::string text
+		);
 
-        std::string from_base64_to_utf8(
-            const std::string_view& text
-        );
+		std::wstring to_uppercase(
+			const std::wstring text
+		);
 
-        void from_base64_to_utf8(
-            Result<std::string>& result,
-            const std::string_view& text
-        );
+		std::wstring to_lowercase(
+			const std::wstring text
+		);
 
-        std::string from_utf8_to_base64(
-            const std::string_view& text
-        );
+		std::wstring to_capitalized(
+			const std::wstring text
+		);
 
-        void from_utf8_to_base64(
-            Result<std::string>& result,
-            const std::string_view& text
-        );
+		const char* to_uppercase(
+			const char* text
+		);
 
-        std::string from_bytes_to_hex(
-            const unsigned char* bytes,
-            const size_t& length
-        );
+		const char* to_lowercase(
+			const char* text
+		);
 
-        void from_bytes_to_hex(
-            Result<std::string>& result,
-            const unsigned char* bytes,
-            const size_t& length
-        );
+		const char* to_capitalized(
+			const char* text
+		);
 
-        std::vector<unsigned char> from_hex_to_bytes(
-            const std::string_view& text
-        );
+	constexpr std::string get_log_level_string(
+		const LogLevel& level
+	)
+	{
+		switch (level)
+		{
+			case LogLevel::ALL:
+				return UTILITIES.LOG_LEVEL_INFO;
 
-        void from_hex_to_bytes(
-            Result<std::vector<unsigned char>>& result,
-            const std::string_view& text
-        );
+			case LogLevel::INFO:
+				return UTILITIES.LOG_LEVEL_INFO;
 
-        std::string from_bytes_to_base64(
-            const unsigned char* bytes,
-            const size_t& length
-        );
+			case LogLevel::DEBUG:
+				return UTILITIES.LOG_LEVEL_DEBUG;
 
-        void from_bytes_to_base64(
-            Result<std::string>& result,
-            const unsigned char* bytes,
-            const size_t& length
-        );
+			case LogLevel::SUCCESS:
+				return UTILITIES.LOG_LEVEL_SUCCESS;
 
-        std::vector<unsigned char> from_base64_to_bytes(
-            const std::string_view& text
-        );
+			case LogLevel::WARNING:
+				return UTILITIES.LOG_LEVEL_WARNING;
 
-        void from_base64_to_bytes(
-            Result<std::vector<unsigned char>>& result,
-            const std::string_view& text
-        );
+			case LogLevel::CRITICAL:
+				return UTILITIES.LOG_LEVEL_CRITICAL;
 
-        static Encoder& get_instance();
+			case LogLevel::EXCEPTION:
+				return UTILITIES.LOG_LEVEL_EXCEPTION;
 
-        static void get_instance(
-            Result<Encoder*>& result
-        );
+			case LogLevel::HIGHLIGHTED_INFO:
+				return UTILITIES.LOG_LEVEL_HIGHLIGHTED_INFO;
 
-    protected:
-        Encoder();
+			default:
+				return UTILITIES.LOG_LEVEL_INFO;
+		}
+	}
 
-        ~Encoder();
-
-        Encoder(
-            const Encoder& instance
-        ) = delete;
-
-        Encoder(
-            Encoder&& instance
-        ) noexcept = delete;
-
-        Encoder& operator = (
-            Encoder&& instance
-        ) = delete;
-
-        Encoder& operator = (
-            const Encoder& instance
-        ) = delete;
-
-        std::string _to_hex(
-            const std::string_view& text
-        );
-
-        void _to_hex(
-            Result<std::string>& result,
-            const std::string_view& text
-        );
-
-        std::string _to_base64(
-            const std::string_view& text
-        );
-
-        void _to_base64(
-            Result<std::string>& result,
-            const std::string_view& text
-        );
-    };
 
 */ 

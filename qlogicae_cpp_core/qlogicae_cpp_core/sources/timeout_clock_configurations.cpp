@@ -36,6 +36,18 @@ namespace QLogicaeCppCore
 						.is_error_handling_thread_safety_enabled =
 							true;
 
+					configurations
+						.callback =
+							[]() {};
+
+					configurations
+						.delay_in_milliseconds =
+							std::chrono::milliseconds{ 100 };
+
+					configurations
+						.is_executed_immediately =
+							true;
+
 					return
 						configurations;
 				}();

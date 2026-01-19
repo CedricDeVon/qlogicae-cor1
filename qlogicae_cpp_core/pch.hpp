@@ -4,14 +4,14 @@
 
 /*
 
-#define PCRE2_CODE_UNIT_WIDTH 8
-#include <pcre2.h>
 
 #include <sodium.h>
 #include <fmt/format.h>
 #include <stduuid/uuid.h>
 
 */
+#define PCRE2_CODE_UNIT_WIDTH 8
+#include <pcre2.h>
 
 #include <nanobench.h>
 
@@ -27,6 +27,11 @@
 #include <boost/thread/mutex.hpp>
 #include <boost/thread/shared_mutex.hpp>
 #include <boost/thread/recursive_mutex.hpp>
+
+#include <absl/time/time.h>
+#include <absl/time/clock.h>
+#include <absl/strings/str_cat.h>
+#include <absl/strings/str_split.h>
 
 #include <folly/init/Init.h>
 #include <folly/synchronization/MicroSpinLock.h>

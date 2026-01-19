@@ -200,8 +200,11 @@
     <ClInclude Include="qlogicae_cpp_core\includes\asynchronous_manager_configurations.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\configuration_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\configuration_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\file_system_entity.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\interval_clock.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\interval_clock_configurations.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\log_level.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\log_medium.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\runtime_execution_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\runtime_execution_manager_configurations.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\text_manager.hpp" />
@@ -213,8 +216,8 @@
     <ClInclude Include="qlogicae_cpp_core\includes\file_system_manager_configurations.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\function_wrapper.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\function_wrapper_configurations.hpp" />
-    <ClInclude Include="qlogicae_cpp_core\includes\value_generation_manager.hpp" />
-    <ClInclude Include="qlogicae_cpp_core\includes\value_generation_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\random_value_generation_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\random_value_generation_manager_configurations.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\gmail_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\gmail_manager_configurations.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\mutex_manager.hpp" />
@@ -261,8 +264,11 @@
     <ClCompile Include="qlogicae_cpp_core\sources\configuration_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\configuration_manager_configurations.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\encoding.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\file_system_entity.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\interval_clock.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\interval_clock_configurations.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\log_level.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\log_medium.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\runtime_execution_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\runtime_execution_manager_configurations.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\text_manager.cpp" />
@@ -273,8 +279,8 @@
     <ClCompile Include="qlogicae_cpp_core\sources\file_system_manager_configurations.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\function_wrapper.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\function_wrapper_configurations.cpp" />
-    <ClCompile Include="qlogicae_cpp_core\sources\value_generation_manager.cpp" />
-    <ClCompile Include="qlogicae_cpp_core\sources\value_generation_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\random_value_generation_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\random_value_generation_manager_configurations.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\gmail_mailer.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\gmail_manager_configurations.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\mutex_manager.cpp" />

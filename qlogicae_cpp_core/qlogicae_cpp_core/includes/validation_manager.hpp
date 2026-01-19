@@ -24,6 +24,8 @@ namespace
 
 		bool
 			destruct();
+
+
 	};
 }
 
@@ -567,6 +569,8 @@ class ValidationManager
 			const std::vector<std::string>& blacklist
 		);
 
+
+
 		template<std::ranges::input_range Range,
 		typename Predicate>
 			void is_valid_range(
@@ -712,9 +716,4 @@ class ValidationManager
 		Result<bool>&,
 		const std::vector<int>&, std::function<bool(const int&)>
 	);
-
-	inline static ValidationManager& VALIDATION_MANAGER =
-		INSTANCE_MANAGER.get_instance<ValidationManager>();
-
-
 */ 

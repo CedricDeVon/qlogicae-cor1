@@ -25,64 +25,53 @@ namespace
 
 		bool
 			destruct();
-    };
-}
 
-/*
-
-		bool
-			construct();
-
-		bool
-			destruct();
-
-		bool
-			setup(
-				const TemperatureManagerConfigurations&
-					new_configurations
+		long double
+			convert_unit(
+				const long double&
+					value,
+				const TemperatureUnit&
+					original_unit,
+				const TemperatureUnit&
+					target_unit
 			);
 
-		bool
-			setup();
-
-		bool
-			reset();
-
 		double
-			calculate(
+			convert_unit(
 				const double&
 					value,
-				const TemperatureUnitType&
-					from_unit_type,
-				const TemperatureUnitType&
-					to_unit_type
+				const TemperatureUnit&
+					original_unit,
+				const TemperatureUnit&
+					target_unit
 			);
 
-		double
-			calculate(
-				const double&
+		float
+			convert_unit(
+				const float&
+					value,
+				const TemperatureUnit&
+					original_unit,
+				const TemperatureUnit&
+					target_unit
+			);
+
+		long double
+			convert_unit(
+				const long double&
 					value
 			);
 
 		double
-			calculate(
-				const TemperatureManagerConfigurations&
-					new_configurations
+			convert_unit(
+				const double&
+					value
 			);
 
-		void
-			_handle_construct();
-
-		void
-			_handle_destruct();
-
-		void
-			_handle_setup();
-
-		void
-			_handle_reset();
-
-		void
-			_handle_calculate();
-
-*/ 
+		float
+			convert_unit(
+				const float&
+					value
+			);
+    };
+}

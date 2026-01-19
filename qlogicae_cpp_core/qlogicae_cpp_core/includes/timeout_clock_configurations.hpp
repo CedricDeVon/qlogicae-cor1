@@ -9,7 +9,24 @@ namespace
 		TimeoutClockConfigurations :
 			AbstractConfigurations<TimeoutClockConfigurations>
 	{
-	public:	
+	public:
+		std::function<void()>
+			callback =
+				default_configurations
+					.callback;
+
+		std::chrono::milliseconds
+			delay_in_milliseconds =
+				default_configurations
+					.delay_in_milliseconds;
+
+		bool
+			is_executed_immediately =
+				default_configurations
+					.is_executed_immediately;
+	
+
+
 		static TimeoutClockConfigurations
 			initial_configurations;
 
@@ -17,27 +34,3 @@ namespace
 			default_configurations;
 	};
 }
-
-
-/*
-
-#pragma once
-
-#include "instance_manager.hpp"
-
-namespace QLogicaeCppCore
-{
-	struct TimeoutClockConfigurations
-	{
-		std::function<void()> callback = []() {};
-
-		std::chrono::milliseconds delay_in_milliseconds{ 100 };
-
-		bool is_executed_immediately = true;
-	};
-
-	inline static TimeoutClockConfigurations& TIMEOUT_CLOCK_CONFIGURATIONS =
-		INSTANCE_MANAGER.get_instance<TimeoutClockConfigurations>();
-}
-
-*/ 

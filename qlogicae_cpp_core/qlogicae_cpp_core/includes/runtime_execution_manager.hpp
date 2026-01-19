@@ -1,5 +1,6 @@
 #pragma once
 
+#include "time_scale_unit.hpp"
 #include "abstract_class.hpp"
 #include "singleton_manager.hpp"
 #include "runtime_execution_manager_configurations.hpp"
@@ -12,6 +13,9 @@ namespace
 			public AbstractClass<RuntimeExecutionManagerConfigurations>
     {
     public:
+		double
+			cycles_per_microsecond;
+
 		static RuntimeExecutionManager&
 			singleton;
 
@@ -24,103 +28,28 @@ namespace
 
 		bool
 			destruct();
+
+		bool
+			delay_execution(			
+				const double&
+					value,
+				const TimeScaleUnit&
+					time_scale_unit
+			);
+
+		bool
+			calibrate();
+
+		bool
+			real_time_stamp_counter(			
+				const double&
+					microseconds
+			);
+
+		bool
+			query_performance_counter(			
+				const double&
+					microseconds
+			);
 	};
 }
-
-/*
-class TimeDelayClock
-	{
-	public:
-		TimeDelayClock();
-
-		~TimeDelayClock();
-
-		TimeDelayClock(
-			const TimeDelayClock& instance
-		) = delete;
-
-		TimeDelayClock(
-			TimeDelayClock&& instance
-		) noexcept = delete;
-
-		TimeDelayClock& operator = (
-			TimeDelayClock&& instance
-		) = delete;
-
-		TimeDelayClock& operator = (
-			const TimeDelayClock& instance
-		) = delete;
-
-		void construct(
-			Result<bool>& result
-		);
-
-		void destruct(
-			Result<bool>& result
-		);
-
-		void in_years(
-			Result<bool>& result,
-			const double& value
-		);
-
-		void in_months(
-			Result<bool>& result,
-			const double& value
-		);
-
-		void in_days(
-			Result<bool>& result,
-			const double& value
-		);
-
-		void in_hours(
-			Result<bool>& result,
-			const double& value
-		);
-
-		void in_minutes(
-			Result<bool>& result,
-			const double& value
-		);
-
-		void in_seconds(
-			Result<bool>& result,
-			const double& value
-		);
-
-		void in_milliseconds(
-			Result<bool>& result,
-			const double& value
-		);
-
-		void in_microseconds(
-			Result<bool>& result,
-			const double& value
-		);
-
-		void in_nanoseconds(
-			Result<bool>& result,
-			const double& value
-		);
-
-		void calibrate(
-			Result<bool>& result
-		);
-
-		void real_time_stamp_counter(
-			Result<bool>& result,
-			const double& microseconds
-		);
-
-		void query_performance_counter(
-			Result<bool>& result,
-			const double& microseconds
-		);
-
-		double cycles_per_microsecond;
-	};
-
-	inline static TimeDelayClock& TIME_DELAY_CLOCK =
-		INSTANCE_MANAGER.get_instance<TimeDelayClock>();
-*/

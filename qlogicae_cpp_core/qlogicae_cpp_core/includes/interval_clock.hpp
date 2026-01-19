@@ -12,6 +12,27 @@ namespace
 			public AbstractClass<IntervalClockConfigurations>
     {
     public:
+		std::thread
+			thread_1;
+
+		mutable std::mutex
+			mutex_1;
+
+		std::atomic<bool>
+			is_paused_async { false };
+
+		std::atomic<bool>
+			is_running_async { false };
+
+		std::atomic<bool>
+			is_cancelled_async { false };
+
+		std::atomic<size_t>
+			execution_count_async { 0 };
+
+		std::condition_variable
+			condition_variable;
+
 		static IntervalClock&
 			singleton;
 
@@ -24,110 +45,40 @@ namespace
 
 		bool
 			destruct();
+
+		bool
+			start();
+
+		bool
+			stop();
+
+		bool
+			pause();
+
+		bool
+			resume();
+
+		bool
+			cancel();
+
+		bool
+			restart();
+
+		bool
+			is_paused();
+
+		bool
+			is_running();
+
+		bool
+			is_cancelled();
+
+		size_t
+			get_execution_count();
+
+		bool
+			run_interval();
+		
 	};
 }
-
-/*
  
-class IntervalClock
-	{
-	public:
-		IntervalClock();
-
-		IntervalClock(
-			const IntervalClockConfigurations& initial_configurations
-		);
-
-		~IntervalClock();
-
-		IntervalClock(
-			const IntervalClock& instance
-		) = delete;
-
-		IntervalClock(
-			IntervalClock&& instance
-		) noexcept = delete;
-
-		IntervalClock& operator = (
-			IntervalClock&& instance
-		) = delete;
-
-		IntervalClock& operator = (
-			const IntervalClock& instance
-		) = delete;
-
-		void construct(
-			Result<bool>& result
-		);
-
-		void construct(
-			Result<bool>& result,
-			const IntervalClockConfigurations& initial_configurations
-		);
-
-		void destruct(
-			Result<bool>& result
-		);
-
-		void start(
-			Result<bool>& result
-		);
-
-		void stop(
-			Result<bool>& result
-		);
-
-		void pause(
-			Result<bool>& result
-		);
-
-		void resume(
-			Result<bool>& result
-		);
-
-		void cancel(
-			Result<bool>& result
-		);
-
-		void restart(
-			Result<bool>& result
-		);
-
-		void is_paused(
-			Result<bool>& result
-		);
-
-		void is_running(
-			Result<bool>& result
-		);
-
-		void is_cancelled(
-			Result<bool>& result
-		);
-
-		void get_execution_count(
-			Result<size_t>& result
-		);
-
-		std::thread _thread;
-
-		mutable std::mutex _mutex;
-
-		std::atomic<bool> _is_paused { false };
-
-		std::atomic<bool> _is_running { false };
-
-		std::atomic<bool> _is_cancelled { false };
-
-		std::atomic<size_t> _execution_count { 0 };
-
-		IntervalClockConfigurations _configurations;
-
-		std::condition_variable _condition_variable;
-
-		void _run_interval(
-			Result<bool>& result
-		);
-	};
-
-*/ 

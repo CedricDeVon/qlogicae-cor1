@@ -37,6 +37,14 @@ namespace
 						.is_error_handling_thread_safety_enabled =
 							true;
 
+					configurations
+						.original_unit =
+							TemperatureUnit::FAHRENHEIT;
+					
+					configurations
+						.target_unit =
+							TemperatureUnit::CELSIUS;
+
 					return
 						configurations;
 				}();

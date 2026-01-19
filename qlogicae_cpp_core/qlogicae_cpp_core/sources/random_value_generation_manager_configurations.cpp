@@ -1,16 +1,16 @@
 #include "pch.hpp"
 
-#include "../includes/value_generation_manager_configurations.hpp"
+#include "../includes/random_value_generation_manager_configurations.hpp"
 
 namespace
 	QLogicaeCppCore
 {
-	ValueGenerationManagerConfigurations
-		ValueGenerationManagerConfigurations
+	RandomValueGenerationManagerConfigurations
+		RandomValueGenerationManagerConfigurations
 			::initial_configurations =
 				[]()
 				{
-					ValueGenerationManagerConfigurations
+					RandomValueGenerationManagerConfigurations
 						configurations;
 
 					configurations
@@ -41,9 +41,9 @@ namespace
 						configurations;
 				}();
 
-	ValueGenerationManagerConfigurations
-		ValueGenerationManagerConfigurations
+	RandomValueGenerationManagerConfigurations
+		RandomValueGenerationManagerConfigurations
 			::default_configurations =
-				ValueGenerationManagerConfigurations
+				RandomValueGenerationManagerConfigurations
 					::initial_configurations;
 }

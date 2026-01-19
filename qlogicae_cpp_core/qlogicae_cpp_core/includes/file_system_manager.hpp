@@ -2,6 +2,7 @@
 
 #include "abstract_class.hpp"
 #include "singleton_manager.hpp"
+#include "file_system_entity.hpp"
 #include "file_system_manager_configurations.hpp"
 
 namespace
@@ -149,21 +150,22 @@ namespace
             get_file_byte_size(            
                 const std::string&
                     origin_path
-        );
+			);
 
         size_t
             get_folder_byte_size(            
                 const std::string&
                     origin_path,
                 const bool&
-                    is_recursive
-        );
+                    is_recursive =
+						true
+			);
 
         std::string
             get_absolute_path(
                 const std::string&
                     origin_path
-        );
+			);
 
         std::string
             get_relative_path(
@@ -171,67 +173,70 @@ namespace
                     origin_path,
                 const std::string&
                     target_path
-        );
+			);
 
         std::string
             get_file_extension(
                 const std::string&
                     origin_path
-        );
+			);
 
         std::string
             get_file_stem(
                 const std::string&
                     origin_path
-        );
+			);
 
         std::vector<std::string>
             get_entity_paths(
                 const std::string&
                     origin_path,
                 const bool&
-                    is_recursive
-        );
+                    is_recursive =
+						true
+			);
 
         std::vector<std::string>
             get_file_paths(
                 const std::string&
                     origin_path,
                 const bool&
-                    is_recursive
-        );
+                    is_recursive =
+						true
+			);
 
         std::vector<std::string>
             get_folder_paths(
                 const std::string&
                     origin_path,
                 const bool&
-                    is_recursive
-        );
+                    is_recursive =
+						true
+			);
 
         bool
             is_path_found(
                 const std::string&
                     origin_path
-        );
+			);
 
         bool
             is_entity(
                 const std::string&
                     origin_path
-        );
+			);
 
         bool
             is_file(
                 const std::string&
                     origin_path
-        );
+			);
 
         bool
             is_folder(
                 const std::string&
                     origin_path
-        );
+			);
 
         bool
             is_entity_user_permission_level_valid(
@@ -239,7 +244,7 @@ namespace
                     origin_path,
                 const std::filesystem::perms&
                     permission_level
-        );
+			);
 
         std::vector<std::string>
             find_files_by_pattern(
@@ -248,8 +253,9 @@ namespace
                 const std::string&
                     pattern,
                 const bool&
-                    is_recursive
-        );
+                    is_recursive =
+						true
+			);
 
         bool
             set_entity_read_status(
@@ -257,7 +263,7 @@ namespace
                     origin_path,
                 const bool&
                     value
-        );
+			);
 
         bool
             set_entity_write_status(
@@ -265,7 +271,7 @@ namespace
                     origin_path,
                 const bool&
                     value
-        );
+			);
 
         bool
             set_entity_visibility(
@@ -273,13 +279,13 @@ namespace
                     origin_path,
                 const bool&
                     value
-        );
+			);
 
         bool
             create_folder(
                 const std::string&
                     origin_path
-        );
+			);
 
         bool
             copy_file(
@@ -287,7 +293,7 @@ namespace
                     origin_path,
                 const std::string&
                     target_path
-        );
+			);
 
         bool
             copy_folder(
@@ -296,8 +302,9 @@ namespace
                 const std::string&
                     target_path,
                 const bool&
-                    is_recursive
-        );
+                    is_recursive =
+						true
+			);
 
         bool
             move_entity(
@@ -305,7 +312,7 @@ namespace
                     origin_path,
                 const std::string&
                     target_path
-        );
+			);
 
         bool
             move_file(
@@ -313,7 +320,7 @@ namespace
                     origin_path,
                 const std::string&
                     target_path
-        );
+			);
 
         bool
             move_folder(
@@ -321,7 +328,7 @@ namespace
                     origin_path,
                 const std::string&
                     target_path
-        );
+			);
 
         bool
             rename_entity(
@@ -329,7 +336,7 @@ namespace
                     origin_path,
                 const std::string&
                     name
-        );
+			);
 
         bool
             rename_file(
@@ -337,7 +344,7 @@ namespace
                     origin_path,
                 const std::string&
                     name
-        );
+			);
 
         bool
             rename_folder(
@@ -345,26 +352,27 @@ namespace
                     origin_path,
                 const std::string&
                     name
-        );
+			);
 
         bool
             remove_file(
                 const std::string&
                     origin_path
-        );
+			);
 
         bool
             remove_folder(
                 const std::string&
                     origin_path
-        );
+			);
 
         bool
             remove_folder_sub_files(
                 const std::string&
                     origin_path,
                 const bool&
-                    is_recursive
-        );      
+                    is_recursive = 
+						true
+			);      
     };
 }

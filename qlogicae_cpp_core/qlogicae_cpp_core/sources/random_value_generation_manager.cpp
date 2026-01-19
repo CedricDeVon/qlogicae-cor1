@@ -1,21 +1,21 @@
 #include "pch.hpp"
 
-#include "../includes/value_generation_manager.hpp"
+#include "../includes/random_value_generation_manager.hpp"
 
 namespace
 	QLogicaeCppCore
 {
-	ValueGenerationManager&
-        ValueGenerationManager
+	RandomValueGenerationManager&
+        RandomValueGenerationManager
 			::singleton =
 				SingletonManager
-					::get_singleton<ValueGenerationManager>();
+					::get_singleton<RandomValueGenerationManager>();
 
 
 
-    ValueGenerationManager
-		::ValueGenerationManager() :
-			AbstractClass<ValueGenerationManagerConfigurations>()
+    RandomValueGenerationManager
+		::RandomValueGenerationManager() :
+			AbstractClass<RandomValueGenerationManagerConfigurations>()
 	{
 		try
 		{
@@ -33,8 +33,8 @@ namespace
 		}		
 	}
 
-	ValueGenerationManager
-		::~ValueGenerationManager()
+	RandomValueGenerationManager
+		::~RandomValueGenerationManager()
 	{
 		try
 		{
@@ -53,7 +53,7 @@ namespace
 	}
     
     bool
-        ValueGenerationManager
+        RandomValueGenerationManager
 			::construct()
     {
         try
@@ -86,7 +86,7 @@ namespace
     }
 
     bool
-        ValueGenerationManager
+        RandomValueGenerationManager
 			::destruct()
     {
         try
