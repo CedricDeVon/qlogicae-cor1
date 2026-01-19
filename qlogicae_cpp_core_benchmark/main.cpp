@@ -1,50 +1,11 @@
 ﻿#include "pch.hpp"
 
-// #include "main.hpp"
-
-template <typename Derived>
-struct AbstractConfigurations
-{
-	bool is_enabled =
-			Derived::default_configurations.is_enabled;
-};
-
-struct ImplementationConfigurations :
-	AbstractConfigurations<ImplementationConfigurations>
-{
-	bool is_thread_safe_enabled =
-			default_configurations.is_thread_safe_enabled;
-
-	static ImplementationConfigurations
-		initial_configurations;
-
-	static ImplementationConfigurations
-		default_configurations;
-};
-
-ImplementationConfigurations
-	ImplementationConfigurations::initial_configurations = []()
-	{
-		ImplementationConfigurations c;
-		c.AbstractConfigurations::is_enabled = true;
-		c.is_thread_safe_enabled = true;
-
-		return c;
-	}();
-
-ImplementationConfigurations
-	ImplementationConfigurations::default_configurations =
-		ImplementationConfigurations::initial_configurations;
-
-
+#include "main.hpp"
 
 int main(int argc, char** argv)
 {
-	ImplementationConfigurations ic;
-
-	std::cout << ic.is_enabled << "\n";
-	std::cout << ic.is_thread_safe_enabled << "\n";
-
+	QLogicaeCppCore::AsynchronousManager::singleton;
+	
 	return 0;
 }
 

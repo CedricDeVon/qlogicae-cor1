@@ -19,6 +19,11 @@ namespace
 
 		~GmailManager();
 
+		bool
+			construct() override;
+
+		bool
+			destruct() override;
 	};
 }
 

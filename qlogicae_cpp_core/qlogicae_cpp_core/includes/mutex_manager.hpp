@@ -50,9 +50,15 @@ namespace
         static MutexManager&
             singleton;
 
-        MutexManager();
+		MutexManager();
 
-        ~MutexManager();
+		~MutexManager();
+
+		bool
+			construct() override;
+
+		bool
+			destruct() override;
 
         bool
             lock_micro_mutex(
@@ -132,7 +138,7 @@ namespace
 
 			boost::unique_lock<boost::mutex>
 				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_method_execution())
+			if (configurations.is_thread_safety_enabled_for_feature_handling())
 			{
 				mutex_lock =
 					boost::unique_lock<boost::mutex>

@@ -14,7 +14,7 @@ namespace
 						configurations;
 
 					configurations
-						.is_method_execution_enabled =
+						.is_feature_handling_enabled =
 							true;
 					
 					configurations
@@ -26,7 +26,11 @@ namespace
 							false;
 
 					configurations
-						.is_method_execution_thread_safety_enabled =
+						.is_feature_handling_thread_safety_enabled =
+							true;
+
+					configurations
+						.is_utility_handling_thread_safety_enabled =
 							true;
 
 					configurations

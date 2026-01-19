@@ -16,8 +16,14 @@ namespace
 			singleton;
 
 		FunctionWrapper();
-		
+
 		~FunctionWrapper();
+
+		bool
+			construct() override;
+
+		bool
+			destruct() override;
 
 		template <typename ResultType, typename InputObjectType, typename InputCallback, typename... InputCallbackArguments> ResultType
 		call_function(

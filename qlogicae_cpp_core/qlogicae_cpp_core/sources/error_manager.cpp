@@ -62,9 +62,7 @@ namespace
 			if
 			(
 				configurations
-					.is_thread_safety_override_enabled ||
-				configurations
-					.is_method_execution_thread_safety_enabled
+					.is_thread_safety_enabled_for_utility_handling()
 			)
 			{
 				mutex_lock =
@@ -101,9 +99,7 @@ namespace
 			if
 			(
 				configurations
-					.is_thread_safety_override_enabled ||
-				configurations
-					.is_method_execution_thread_safety_enabled
+					.is_thread_safety_enabled_for_utility_handling()
 			)
 			{
 				mutex_lock =
@@ -143,9 +139,7 @@ namespace
 			if
 			(
 				configurations
-					.is_thread_safety_override_enabled ||
-				configurations
-					.is_method_execution_thread_safety_enabled
+					.is_thread_safety_enabled_for_utility_handling()
 			)
 			{
 				mutex_lock =
@@ -185,9 +179,7 @@ namespace
 			if
 			(
 				configurations
-					.is_thread_safety_override_enabled ||
-				configurations
-					.is_method_execution_thread_safety_enabled
+					.is_thread_safety_enabled_for_utility_handling()
 			)
 			{
 				mutex_lock =
@@ -346,9 +338,7 @@ namespace
 		if
 		(
 			configurations
-				.is_thread_safety_override_enabled ||
-			configurations
-				.is_method_execution_thread_safety_enabled
+				.is_thread_safety_enabled_for_feature_handling()
 		)
 		{
 			mutex_lock =
@@ -448,9 +438,7 @@ namespace
 		if
 		(
 			configurations
-				.is_thread_safety_override_enabled ||
-			configurations
-				.is_method_execution_thread_safety_enabled
+				.is_thread_safety_enabled_for_feature_handling()
 		)
 		{
 			mutex_lock =

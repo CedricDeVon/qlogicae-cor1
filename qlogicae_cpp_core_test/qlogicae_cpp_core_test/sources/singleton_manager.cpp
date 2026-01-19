@@ -828,7 +828,7 @@ namespace QLogicaeCppCoreTest
 			SingletonManager::get_this_singleton();
 
 		SingletonManagerConfigurations configurations;
-		configurations.is_method_execution_enabled = false;
+		configurations.is_feature_handling_enabled = false;
 
 		manager.setup(configurations);
 

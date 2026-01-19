@@ -2,7 +2,7 @@
 
 #include "qlogicae_cpp_core_benchmark/includes/application.hpp"
 
-#include "qlogicae_cpp_core/includes/runtime_benchmarker.hpp"
+#include "qlogicae_cpp_core/includes/asynchronous_manager.hpp"
 
 namespace Experiment10 // pure
 {

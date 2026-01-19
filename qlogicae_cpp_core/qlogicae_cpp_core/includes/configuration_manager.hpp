@@ -19,6 +19,12 @@ namespace
 
 		~ConfigurationManager();
 
+		bool
+			construct() override;
+
+		bool
+			destruct() override;
+
 		template <typename TypeConfigurations> void
 			setup_defaults(
 				const TypeConfigurations&
@@ -40,7 +46,7 @@ namespace
 		{
 			boost::unique_lock<boost::mutex>
 				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_method_execution())
+			if (configurations.is_thread_safety_enabled_for_feature_handling())
 			{
 				mutex_lock =
 					boost::unique_lock<boost::mutex>
@@ -73,7 +79,7 @@ namespace
 		{
 			boost::unique_lock<boost::mutex>
 				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_method_execution())
+			if (configurations.is_thread_safety_enabled_for_feature_handling())
 			{
 				mutex_lock =
 					boost::unique_lock<boost::mutex>

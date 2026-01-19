@@ -46,7 +46,7 @@ namespace QLogicaeCppCoreTest
         QLogicaeCppCore::AsynchronousManagerConfigurations
             configurations;
 
-        configurations.is_method_execution_enabled =
+        configurations.is_feature_handling_enabled =
 			false;
 
 		QLogicaeCppCore::AsynchronousManager::singleton
@@ -59,7 +59,7 @@ namespace QLogicaeCppCoreTest
 		ASSERT_TRUE(reset_result);
 
 		ASSERT_TRUE(
-			QLogicaeCppCore::AsynchronousManager::singleton.configurations.is_method_execution_enabled
+			QLogicaeCppCore::AsynchronousManager::singleton.configurations.is_feature_handling_enabled
 		);
 	}
 
@@ -71,7 +71,7 @@ namespace QLogicaeCppCoreTest
 		QLogicaeCppCore::AsynchronousManagerConfigurations
 			configurations;
 
-		configurations.is_method_execution_enabled =
+		configurations.is_feature_handling_enabled =
 			true;
 
 		QLogicaeCppCore::AsynchronousManager::singleton
@@ -114,7 +114,7 @@ namespace QLogicaeCppCoreTest
 		QLogicaeCppCore::AsynchronousManagerConfigurations
 			configurations;
 
-		configurations.is_method_execution_enabled =
+		configurations.is_feature_handling_enabled =
 			true;
 
 		QLogicaeCppCore::AsynchronousManager::singleton
@@ -156,7 +156,7 @@ namespace QLogicaeCppCoreTest
 		QLogicaeCppCore::AsynchronousManagerConfigurations
 			configurations;
 
-		configurations.is_method_execution_enabled =
+		configurations.is_feature_handling_enabled =
 			true;
 
 		QLogicaeCppCore::AsynchronousManager::singleton
@@ -213,14 +213,14 @@ namespace QLogicaeCppCoreTest
 		QLogicaeCppCore::AsynchronousManagerConfigurations
 			configurations;
 
-		configurations.is_method_execution_enabled =
+		configurations.is_feature_handling_enabled =
 			GetParam();
 
 		QLogicaeCppCore::AsynchronousManager::singleton
 			.setup(configurations);
 
 		ASSERT_EQ(
-			QLogicaeCppCore::AsynchronousManager::singleton.configurations.is_method_execution_enabled,
+			QLogicaeCppCore::AsynchronousManager::singleton.configurations.is_feature_handling_enabled,
 			GetParam()
 		);
 	}
@@ -245,7 +245,7 @@ namespace QLogicaeCppCoreTest
 		QLogicaeCppCore::AsynchronousManagerConfigurations
 			configurations;
 
-		configurations.is_method_execution_enabled =
+		configurations.is_feature_handling_enabled =
 			true;
 
 		QLogicaeCppCore::AsynchronousManager::singleton
@@ -300,7 +300,7 @@ namespace QLogicaeCppCoreTest
 		QLogicaeCppCore::AsynchronousManagerConfigurations
 			configurations;
 
-		configurations.is_method_execution_enabled =
+		configurations.is_feature_handling_enabled =
 			true;
 
 		QLogicaeCppCore::AsynchronousManager::singleton
@@ -340,7 +340,7 @@ namespace QLogicaeCppCoreTest
 						QLogicaeCppCore::AsynchronousManagerConfigurations
 							configurations;
 
-						configurations.is_method_execution_enabled =
+						configurations.is_feature_handling_enabled =
 							true;
 
 						QLogicaeCppCore::AsynchronousManager::singleton
@@ -371,9 +371,9 @@ namespace QLogicaeCppCoreTest
 		reset_thread.join();
 
 		ASSERT_TRUE(
-			QLogicaeCppCore::AsynchronousManager::singleton.configurations.is_method_execution_enabled ==
+			QLogicaeCppCore::AsynchronousManager::singleton.configurations.is_feature_handling_enabled ==
 			true ||
-			QLogicaeCppCore::AsynchronousManager::singleton.configurations.is_method_execution_enabled ==
+			QLogicaeCppCore::AsynchronousManager::singleton.configurations.is_feature_handling_enabled ==
 			false
 		);
 	}
@@ -390,7 +390,7 @@ namespace QLogicaeCppCoreTest
 			QLogicaeCppCore::AsynchronousManagerConfigurations
 				configurations;
 
-			configurations.is_method_execution_enabled =
+			configurations.is_feature_handling_enabled =
 				static_cast<bool>(index % 2);
 
 			ASSERT_TRUE(
@@ -411,18 +411,18 @@ namespace QLogicaeCppCoreTest
 	)
 	{
 		ASSERT_EQ(
-			QLogicaeCppCore::AsynchronousManagerConfigurations::initial_configurations.is_method_execution_enabled,
+			QLogicaeCppCore::AsynchronousManagerConfigurations::initial_configurations.is_feature_handling_enabled,
 			true
 		);
 
 		ASSERT_EQ(
-			QLogicaeCppCore::AsynchronousManagerConfigurations::default_configurations.is_method_execution_enabled,
-			QLogicaeCppCore::AsynchronousManagerConfigurations::initial_configurations.is_method_execution_enabled
+			QLogicaeCppCore::AsynchronousManagerConfigurations::default_configurations.is_feature_handling_enabled,
+			QLogicaeCppCore::AsynchronousManagerConfigurations::initial_configurations.is_feature_handling_enabled
 		);
 
 		ASSERT_EQ(
-			QLogicaeCppCore::AsynchronousManager::singleton.configurations.is_method_execution_enabled,
-			QLogicaeCppCore::AsynchronousManagerConfigurations::initial_configurations.is_method_execution_enabled
+			QLogicaeCppCore::AsynchronousManager::singleton.configurations.is_feature_handling_enabled,
+			QLogicaeCppCore::AsynchronousManagerConfigurations::initial_configurations.is_feature_handling_enabled
 		);
 	}
 
@@ -438,7 +438,7 @@ namespace QLogicaeCppCoreTest
 		QLogicaeCppCore::AsynchronousManagerConfigurations
 			configurations;
 
-		configurations.is_method_execution_enabled = true;
+		configurations.is_feature_handling_enabled = true;
 
 		manager.setup(
 			configurations
@@ -470,7 +470,7 @@ namespace QLogicaeCppCoreTest
 		QLogicaeCppCore::AsynchronousManagerConfigurations
 			configurations;
 
-		configurations.is_method_execution_enabled = true;
+		configurations.is_feature_handling_enabled = true;
 
 		manager.setup(
 			configurations
@@ -512,7 +512,7 @@ namespace QLogicaeCppCoreTest
 		QLogicaeCppCore::AsynchronousManagerConfigurations
 			configurations;
 
-		configurations.is_method_execution_enabled = true;
+		configurations.is_feature_handling_enabled = true;
 
 		manager.setup(
 			configurations
@@ -553,7 +553,7 @@ namespace QLogicaeCppCoreTest
 		QLogicaeCppCore::AsynchronousManagerConfigurations
 			configurations;
 
-		configurations.is_method_execution_enabled = true;
+		configurations.is_feature_handling_enabled = true;
 
 		manager.setup(
 			configurations
@@ -590,7 +590,7 @@ namespace QLogicaeCppCoreTest
 		QLogicaeCppCore::AsynchronousManagerConfigurations
 			configurations;
 
-		configurations.is_method_execution_enabled = true;
+		configurations.is_feature_handling_enabled = true;
 
 		manager.setup(
 			configurations
@@ -622,7 +622,7 @@ namespace QLogicaeCppCoreTest
 		QLogicaeCppCore::AsynchronousManagerConfigurations
 			configurations;
 
-		configurations.is_method_execution_enabled = true;
+		configurations.is_feature_handling_enabled = true;
 
 		manager.setup(
 			configurations
@@ -664,7 +664,7 @@ namespace QLogicaeCppCoreTest
 		QLogicaeCppCore::AsynchronousManagerConfigurations
 			configurations;
 
-		configurations.is_method_execution_enabled = true;
+		configurations.is_feature_handling_enabled = true;
 
 		manager.setup(
 			configurations
@@ -705,7 +705,7 @@ namespace QLogicaeCppCoreTest
 		QLogicaeCppCore::AsynchronousManagerConfigurations
 			configurations;
 
-		configurations.is_method_execution_enabled = true;
+		configurations.is_feature_handling_enabled = true;
 
 		manager.setup(
 			configurations
@@ -745,7 +745,7 @@ namespace QLogicaeCppCoreTest
 		QLogicaeCppCore::AsynchronousManagerConfigurations
 			configurations;
 
-		configurations.is_method_execution_enabled = true;
+		configurations.is_feature_handling_enabled = true;
 
 		manager.setup(configurations);
 
@@ -779,7 +779,7 @@ namespace QLogicaeCppCoreTest
 		QLogicaeCppCore::AsynchronousManagerConfigurations
 			configurations;
 
-		configurations.is_method_execution_enabled = true;
+		configurations.is_feature_handling_enabled = true;
 
 		manager.setup(configurations);
 
@@ -817,7 +817,7 @@ namespace QLogicaeCppCoreTest
 		QLogicaeCppCore::AsynchronousManagerConfigurations
 			configurations;
 
-		configurations.is_method_execution_enabled = true;
+		configurations.is_feature_handling_enabled = true;
 
 		manager.setup(
 			configurations
@@ -841,7 +841,7 @@ namespace QLogicaeCppCoreTest
 			QLogicaeCppCore::AsynchronousManager::singleton;
 
 		QLogicaeCppCore::AsynchronousManagerConfigurations configurations;
-		configurations.is_method_execution_enabled = true;
+		configurations.is_feature_handling_enabled = true;
 
 		manager.setup(configurations);
 
@@ -870,7 +870,7 @@ namespace QLogicaeCppCoreTest
 			QLogicaeCppCore::AsynchronousManager::singleton;
 
 		QLogicaeCppCore::AsynchronousManagerConfigurations configurations;
-		configurations.is_method_execution_enabled = true;
+		configurations.is_feature_handling_enabled = true;
 
 		manager.setup(configurations);
 
@@ -895,7 +895,7 @@ namespace QLogicaeCppCoreTest
 			QLogicaeCppCore::AsynchronousManager::singleton;
 
 		QLogicaeCppCore::AsynchronousManagerConfigurations configurations;
-		configurations.is_method_execution_enabled = true;
+		configurations.is_feature_handling_enabled = true;
 
 		manager.setup(configurations);
 
@@ -924,7 +924,7 @@ namespace QLogicaeCppCoreTest
 			QLogicaeCppCore::AsynchronousManager::singleton;
 
 		QLogicaeCppCore::AsynchronousManagerConfigurations configurations;
-		configurations.is_method_execution_enabled = true;
+		configurations.is_feature_handling_enabled = true;
 
 		manager.setup(configurations);
 

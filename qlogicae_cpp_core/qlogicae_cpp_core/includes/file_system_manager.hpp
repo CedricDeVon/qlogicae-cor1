@@ -122,10 +122,13 @@ namespace
 
         FileSystemManager();
 
-        ~FileSystemManager();
+		~FileSystemManager();
 
         bool
-            construct();
+            construct() override;
+
+		bool
+			destruct() override;
 
 		std::string
 			get_executable_folder_path();

@@ -33,15 +33,15 @@ namespace
         static AsynchronousManager&
             singleton;
 
-        AsynchronousManager();
+		AsynchronousManager();
 
-        ~AsynchronousManager();
-
-		bool
-			construct();
+		~AsynchronousManager();
 
 		bool
-			destruct();
+			construct() override;
+
+		bool
+			destruct() override;
 
 		bool
 			begin_io_workers();
@@ -155,7 +155,7 @@ namespace
         {
 			boost::unique_lock<boost::mutex>
 				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_method_execution())
+			if (configurations.is_thread_safety_enabled_for_feature_handling())
 			{
 				mutex_lock =
 					boost::unique_lock<boost::mutex>
@@ -259,7 +259,7 @@ namespace
         {
 			boost::unique_lock<boost::mutex>
 				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_method_execution())
+			if (configurations.is_thread_safety_enabled_for_feature_handling())
 			{
 				mutex_lock =
 					boost::unique_lock<boost::mutex>
@@ -326,7 +326,7 @@ namespace
         {            
 			boost::unique_lock<boost::mutex>
 				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_method_execution())
+			if (configurations.is_thread_safety_enabled_for_feature_handling())
 			{
 				mutex_lock =
 					boost::unique_lock<boost::mutex>
@@ -428,7 +428,7 @@ namespace
         {
 			boost::unique_lock<boost::mutex>
 				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_method_execution())
+			if (configurations.is_thread_safety_enabled_for_feature_handling())
 			{
 				mutex_lock =
 					boost::unique_lock<boost::mutex>
@@ -534,7 +534,7 @@ namespace
         {
 			boost::unique_lock<boost::mutex>
 				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_method_execution())
+			if (configurations.is_thread_safety_enabled_for_feature_handling())
 			{
 				mutex_lock =
 					boost::unique_lock<boost::mutex>
@@ -603,7 +603,7 @@ namespace
         {
 			boost::unique_lock<boost::mutex>
 				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_method_execution())
+			if (configurations.is_thread_safety_enabled_for_feature_handling())
 			{
 				mutex_lock =
 					boost::unique_lock<boost::mutex>
@@ -700,7 +700,7 @@ namespace
         {
 			boost::unique_lock<boost::mutex>
 				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_method_execution())
+			if (configurations.is_thread_safety_enabled_for_feature_handling())
 			{
 				mutex_lock =
 					boost::unique_lock<boost::mutex>
@@ -806,7 +806,7 @@ namespace
         {
             boost::unique_lock<boost::mutex>
 				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_method_execution())
+			if (configurations.is_thread_safety_enabled_for_feature_handling())
 			{
 				mutex_lock =
 					boost::unique_lock<boost::mutex>
@@ -875,7 +875,7 @@ namespace
         {
             boost::unique_lock<boost::mutex>
 				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_method_execution())
+			if (configurations.is_thread_safety_enabled_for_feature_handling())
 			{
 				mutex_lock =
 					boost::unique_lock<boost::mutex>

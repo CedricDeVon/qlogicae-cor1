@@ -19,6 +19,11 @@ namespace
 
 		~TimeoutClock();
 
+		bool
+			construct() override;
+
+		bool
+			destruct() override;
 	};
 }
 

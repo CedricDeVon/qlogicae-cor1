@@ -19,6 +19,11 @@ namespace
 
 		~ValidationManager();
 
+		bool
+			construct() override;
+
+		bool
+			destruct() override;
 	};
 }
 

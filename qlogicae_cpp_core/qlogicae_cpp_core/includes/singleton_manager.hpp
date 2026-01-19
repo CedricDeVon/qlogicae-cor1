@@ -14,9 +14,15 @@ namespace
 		static SingletonManager&
 			singleton;
 
-        SingletonManager();
+		SingletonManager();
 
 		~SingletonManager();
+
+		bool
+			construct() override;
+
+		bool
+			destruct() override;
 
 		template <typename Type> static Type&
 			get_singleton();

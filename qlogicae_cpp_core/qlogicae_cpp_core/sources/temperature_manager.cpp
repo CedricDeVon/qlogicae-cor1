@@ -6,6 +6,110 @@ namespace
 	QLogicaeCppCore
 {       
     
+	TemperatureManager
+		::TemperatureManager() :
+			AbstractClass<TemperatureManagerConfigurations>()
+	{
+		try
+		{
+			construct();
+		}
+		catch
+		(
+			const std::exception&
+				exception
+		)
+		{
+			handle_error_outputs(
+				exception
+			);
+		}		
+	}
+
+	TemperatureManager
+		::~TemperatureManager()
+	{
+		try
+		{
+			destruct();
+		}
+		catch
+		(
+			const std::exception&
+				exception
+		)
+		{
+			handle_error_outputs(
+				exception
+			);
+		}		
+	}
+    
+    bool
+        TemperatureManager
+			::construct()
+    {
+        try
+        {			
+			boost::unique_lock<boost::mutex>
+				mutex_lock;
+			if (configurations.is_thread_safety_enabled_for_utility_handling())
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						method_handling_layer_mutex_1
+					);
+			}			
+
+			return
+				true;
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+			return
+				handle_error_outputs(
+					exception
+				);
+        }
+    }
+
+    bool
+        TemperatureManager
+			::destruct()
+    {
+        try
+        {		
+			boost::unique_lock<boost::mutex>
+				mutex_lock;
+			if (configurations.is_thread_safety_enabled_for_utility_handling())
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						method_handling_layer_mutex_1
+					);
+			}			
+
+			return
+				true;
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+			return
+				handle_error_outputs(
+					exception
+				);
+        }
+    }
 }
 
 /*
@@ -16,7 +120,7 @@ bool
 
 	TemperatureManager&
 		TemperatureManager::singleton =
-			SingletonManager::get_singleton<TemperatureManager>();
+			TemperatureManager::get_singleton<TemperatureManager>();
 
 	TemperatureManager::TemperatureManager()
 	{

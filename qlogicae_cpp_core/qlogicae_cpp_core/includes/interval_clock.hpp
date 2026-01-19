@@ -19,6 +19,11 @@ namespace
 
 		~IntervalClock();
 
+		bool
+			construct() override;
+
+		bool
+			destruct() override;
 	};
 }
 

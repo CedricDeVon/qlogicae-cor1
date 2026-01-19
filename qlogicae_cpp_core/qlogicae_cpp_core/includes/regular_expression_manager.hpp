@@ -19,6 +19,11 @@ namespace
 
 		~RegularExpressionManager();
 
+		bool
+			construct() override;
+
+		bool
+			destruct() override;
 	};
 }
 

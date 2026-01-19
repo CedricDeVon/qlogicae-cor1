@@ -18,9 +18,15 @@ namespace
         static RuntimeBenchmarker&
             singleton;
 
-        RuntimeBenchmarker();
+		RuntimeBenchmarker();
 
-        ~RuntimeBenchmarker();
+		~RuntimeBenchmarker();
+
+		bool
+			construct() override;
+
+		bool
+			destruct() override;
 
         bool
             execute(

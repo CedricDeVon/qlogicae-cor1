@@ -61,7 +61,7 @@ namespace
         {			
 			boost::unique_lock<boost::mutex>
 				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_method_execution())
+			if (configurations.is_thread_safety_enabled_for_utility_handling())
 			{
 				mutex_lock =
 					boost::unique_lock<boost::mutex>
@@ -174,6 +174,39 @@ namespace
 
 			full_program_data_folder_path =
 				get_program_data_folder_path();
+
+			return
+				true;
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+			return
+				handle_error_outputs(
+					exception
+				);
+        }
+    }
+
+    bool
+        FileSystemManager
+			::destruct()
+    {
+        try
+        {		
+			boost::unique_lock<boost::mutex>
+				mutex_lock;
+			if (configurations.is_thread_safety_enabled_for_utility_handling())
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						method_handling_layer_mutex_1
+					);
+			}			
 
 			return
 				true;

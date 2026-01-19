@@ -19,6 +19,11 @@ namespace
 
 		~RuntimeExecutionManager();
 
+		bool
+			construct() override;
+
+		bool
+			destruct() override;
 	};
 }
 

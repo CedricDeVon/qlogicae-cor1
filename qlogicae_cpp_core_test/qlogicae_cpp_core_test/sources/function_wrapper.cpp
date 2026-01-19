@@ -68,18 +68,18 @@ namespace
 	TEST(FunctionWrapperTest, Should_SetupConfigurationsCorrectly_When_ValidInput)
 	{
 		QLogicaeCppCore::FunctionWrapperConfigurations configurations;
-		configurations.is_method_execution_enabled = true;
+		configurations.is_feature_handling_enabled = true;
 		ASSERT_TRUE(QLogicaeCppCore::FunctionWrapper::singleton.setup(configurations));
-		ASSERT_TRUE(QLogicaeCppCore::FunctionWrapper::singleton.configurations.is_method_execution_enabled);
+		ASSERT_TRUE(QLogicaeCppCore::FunctionWrapper::singleton.configurations.is_feature_handling_enabled);
 	}
 
 	TEST(FunctionWrapperTest, Should_ResetConfigurationsToDefault_When_Called)
 	{
 		QLogicaeCppCore::FunctionWrapperConfigurations configurations;
-		configurations.is_method_execution_enabled = true;
+		configurations.is_feature_handling_enabled = true;
 		QLogicaeCppCore::FunctionWrapper::singleton.setup(configurations);
 		ASSERT_TRUE(QLogicaeCppCore::FunctionWrapper::singleton.reset());
-		ASSERT_TRUE(QLogicaeCppCore::FunctionWrapper::singleton.configurations.is_method_execution_enabled);
+		ASSERT_TRUE(QLogicaeCppCore::FunctionWrapper::singleton.configurations.is_feature_handling_enabled);
 	}
 
 	TEST(FunctionWrapperTest, Should_HandleException_When_SetupThrows)
@@ -234,7 +234,7 @@ namespace
 	TEST(FunctionWrapperTest, Should_ExecuteCallSafely_When_DisabledConfiguration)
 	{
 		QLogicaeCppCore::FunctionWrapperConfigurations configurations;
-		configurations.is_method_execution_enabled = false;
+		configurations.is_feature_handling_enabled = false;
 		QLogicaeCppCore::FunctionWrapper::singleton.setup(configurations);
 
 		FunctionWrapperCallSafelyTest test_object;

@@ -19,6 +19,11 @@ namespace
 
 		~ValueGenerationManager();
 
+		bool
+			construct() override;
+
+		bool
+			destruct() override;
 	};
 }
 

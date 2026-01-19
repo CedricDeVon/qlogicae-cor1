@@ -15,8 +15,14 @@ namespace
         static ApplicationManager&
             singleton;
 
-        ApplicationManager();
+		ApplicationManager();
 
-        ~ApplicationManager();
+		~ApplicationManager();
+
+		bool
+			construct() override;
+
+		bool
+			destruct() override;
     };
 }

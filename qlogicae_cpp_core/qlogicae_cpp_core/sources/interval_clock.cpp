@@ -5,7 +5,110 @@
 namespace
 	QLogicaeCppCore
 {
-    
+    IntervalClock
+		::IntervalClock() :
+			AbstractClass<IntervalClockConfigurations>()
+    {
+        try
+        {
+            construct();
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+			handle_error_outputs(
+				exception
+			);
+        }
+    }
+
+    IntervalClock
+		::~IntervalClock()
+    {
+        try
+        {
+            destruct();
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+			handle_error_outputs(
+				exception
+			);
+        }
+    }
+
+    bool
+        IntervalClock
+			::construct()
+    {
+        try
+        {			
+			boost::unique_lock<boost::mutex>
+				mutex_lock;
+			if (configurations.is_thread_safety_enabled_for_utility_handling())
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						method_handling_layer_mutex_1
+					);
+			}			
+
+			return
+				true;
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+			return
+				handle_error_outputs(
+					exception
+				);
+        }
+    }
+
+    bool
+        IntervalClock
+			::destruct()
+    {
+        try
+        {		
+			boost::unique_lock<boost::mutex>
+				mutex_lock;
+			if (configurations.is_thread_safety_enabled_for_utility_handling())
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						method_handling_layer_mutex_1
+					);
+			}			
+
+			return
+				true;
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+			return
+				handle_error_outputs(
+					exception
+				);
+        }
+    }
 }
 
 /*

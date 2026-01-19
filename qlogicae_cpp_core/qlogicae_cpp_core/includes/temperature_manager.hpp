@@ -16,10 +16,15 @@ namespace
         static TemperatureManager&
             singleton;
 
-        TemperatureManager();
-        
-        ~TemperatureManager();
+		TemperatureManager();
 
+		~TemperatureManager();
+
+		bool
+			construct() override;
+
+		bool
+			destruct() override;
     };
 }
 

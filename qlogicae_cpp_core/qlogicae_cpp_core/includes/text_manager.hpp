@@ -20,6 +20,11 @@ namespace
 
 		~TextManager();
 
+		bool
+			construct() override;
+
+		bool
+			destruct() override;
 	};
 }
 

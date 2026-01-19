@@ -21,6 +21,11 @@ namespace
 
 		~TimeManager();
 
+		bool
+			construct() override;
+
+		bool
+			destruct() override;
 	};
 }
 
