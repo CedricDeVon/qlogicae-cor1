@@ -19,10 +19,10 @@ namespace
 		~SingletonManager();
 
 		bool
-			construct() override;
+			construct();
 
 		bool
-			destruct() override;
+			destruct();
 
 		template <typename Type> static Type&
 			get_singleton();

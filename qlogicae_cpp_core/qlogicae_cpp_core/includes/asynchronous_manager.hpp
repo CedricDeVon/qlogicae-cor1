@@ -38,10 +38,10 @@ namespace
 		~AsynchronousManager();
 
 		bool
-			construct() override;
+			construct();
 
 		bool
-			destruct() override;
+			destruct();
 
 		bool
 			begin_io_workers();

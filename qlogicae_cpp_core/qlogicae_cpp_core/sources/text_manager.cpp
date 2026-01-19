@@ -5,6 +5,14 @@
 namespace
 	QLogicaeCppCore
 {
+    TextManager&
+        TextManager
+			::singleton =
+				SingletonManager
+					::get_singleton<TextManager>();
+
+
+
     TextManager
 		::TextManager() :
 			AbstractClass<TextManagerConfigurations>()

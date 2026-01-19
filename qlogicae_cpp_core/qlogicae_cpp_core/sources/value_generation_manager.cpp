@@ -5,6 +5,14 @@
 namespace
 	QLogicaeCppCore
 {
+	ValueGenerationManager&
+        ValueGenerationManager
+			::singleton =
+				SingletonManager
+					::get_singleton<ValueGenerationManager>();
+
+
+
     ValueGenerationManager
 		::ValueGenerationManager() :
 			AbstractClass<ValueGenerationManagerConfigurations>()

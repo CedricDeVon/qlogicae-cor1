@@ -5,6 +5,14 @@
 namespace
 	QLogicaeCppCore
 {    
+	RegularExpressionManager&
+        RegularExpressionManager
+			::singleton =
+				SingletonManager
+					::get_singleton<RegularExpressionManager>();
+
+
+
 	RegularExpressionManager
 		::RegularExpressionManager() :
 			AbstractClass<RegularExpressionManagerConfigurations>()

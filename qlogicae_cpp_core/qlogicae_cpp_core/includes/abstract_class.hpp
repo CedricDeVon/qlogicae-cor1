@@ -26,10 +26,10 @@ namespace
 
 		~AbstractClass();
 
-        virtual bool
+        bool
             construct();
 
-		virtual bool
+		bool
             destruct();
 
 		virtual bool

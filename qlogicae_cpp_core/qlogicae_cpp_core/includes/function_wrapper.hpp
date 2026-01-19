@@ -20,10 +20,10 @@ namespace
 		~FunctionWrapper();
 
 		bool
-			construct() override;
+			construct();
 
 		bool
-			destruct() override;
+			destruct();
 
 		template <typename ResultType, typename InputObjectType, typename InputCallback, typename... InputCallbackArguments> ResultType
 		call_function(

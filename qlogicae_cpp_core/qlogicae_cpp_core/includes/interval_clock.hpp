@@ -20,10 +20,10 @@ namespace
 		~IntervalClock();
 
 		bool
-			construct() override;
+			construct();
 
 		bool
-			destruct() override;
+			destruct();
 	};
 }
 

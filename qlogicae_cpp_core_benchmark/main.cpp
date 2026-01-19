@@ -1,11 +1,16 @@
 ﻿#include "pch.hpp"
 
-#include "main.hpp"
+// #include "main.hpp"
+
+#include "qlogicae_cpp_core/includes/asynchronous_manager.hpp"
 
 int main(int argc, char** argv)
 {
-	QLogicaeCppCore::AsynchronousManager::singleton;
-	
+	QLogicaeCppCore::SingletonManager am;
+
+	printf("%p \n", &QLogicaeCppCore::SingletonManager::singleton);
+	printf("%p \n", &am);
+
 	return 0;
 }
 

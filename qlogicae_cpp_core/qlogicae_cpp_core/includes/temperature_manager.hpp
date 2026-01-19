@@ -21,10 +21,10 @@ namespace
 		~TemperatureManager();
 
 		bool
-			construct() override;
+			construct();
 
 		bool
-			destruct() override;
+			destruct();
     };
 }
 

@@ -5,6 +5,14 @@
 namespace
 	QLogicaeCppCore
 {
+	TimeManager&
+        TimeManager
+			::singleton =
+				SingletonManager
+					::get_singleton<TimeManager>();
+
+
+
     TimeManager
 		::TimeManager() :
 			AbstractClass<TimeManagerConfigurations>()

@@ -5,6 +5,14 @@
 namespace
 	QLogicaeCppCore
 {
+	RuntimeExecutionManager&
+        RuntimeExecutionManager
+			::singleton =
+				SingletonManager
+					::get_singleton<RuntimeExecutionManager>();
+
+
+
 	RuntimeExecutionManager
 		::RuntimeExecutionManager() :
 			AbstractClass<RuntimeExecutionManagerConfigurations>()

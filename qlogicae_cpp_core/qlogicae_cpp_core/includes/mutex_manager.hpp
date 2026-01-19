@@ -55,10 +55,10 @@ namespace
 		~MutexManager();
 
 		bool
-			construct() override;
+			construct();
 
 		bool
-			destruct() override;
+			destruct();
 
         bool
             lock_micro_mutex(

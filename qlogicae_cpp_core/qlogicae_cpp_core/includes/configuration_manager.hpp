@@ -20,10 +20,10 @@ namespace
 		~ConfigurationManager();
 
 		bool
-			construct() override;
+			construct();
 
 		bool
-			destruct() override;
+			destruct();
 
 		template <typename TypeConfigurations> void
 			setup_defaults(

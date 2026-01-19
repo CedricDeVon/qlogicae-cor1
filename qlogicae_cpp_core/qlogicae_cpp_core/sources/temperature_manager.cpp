@@ -5,7 +5,14 @@
 namespace
 	QLogicaeCppCore
 {       
-    
+    TemperatureManager&
+        TemperatureManager
+			::singleton =
+				SingletonManager
+					::get_singleton<TemperatureManager>();
+
+
+
 	TemperatureManager
 		::TemperatureManager() :
 			AbstractClass<TemperatureManagerConfigurations>()

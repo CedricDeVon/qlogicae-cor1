@@ -5,6 +5,14 @@
 namespace
 	QLogicaeCppCore
 {
+	ValidationManager&
+        ValidationManager
+			::singleton =
+				SingletonManager
+					::get_singleton<ValidationManager>();
+
+
+
     ValidationManager
 		::ValidationManager() :
 			AbstractClass<ValidationManagerConfigurations>()

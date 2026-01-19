@@ -5,6 +5,14 @@
 namespace
 	QLogicaeCppCore
 {  
+	GmailManager&
+        GmailManager
+			::singleton =
+				SingletonManager
+					::get_singleton<GmailManager>();
+
+
+
 	GmailManager
 		::GmailManager() :
 			AbstractClass<GmailManagerConfigurations>()
