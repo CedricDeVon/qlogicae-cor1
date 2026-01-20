@@ -218,8 +218,6 @@
     <ClInclude Include="qlogicae_cpp_core\includes\function_wrapper_configurations.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\random_value_generation_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\random_value_generation_manager_configurations.hpp" />
-    <ClInclude Include="qlogicae_cpp_core\includes\gmail_manager.hpp" />
-    <ClInclude Include="qlogicae_cpp_core\includes\gmail_manager_configurations.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\mutex_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\mutex_manager_configurations.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\pair_hash_operator.hpp" />
@@ -281,8 +279,6 @@
     <ClCompile Include="qlogicae_cpp_core\sources\function_wrapper_configurations.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\random_value_generation_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\random_value_generation_manager_configurations.cpp" />
-    <ClCompile Include="qlogicae_cpp_core\sources\gmail_mailer.cpp" />
-    <ClCompile Include="qlogicae_cpp_core\sources\gmail_manager_configurations.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\mutex_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\mutex_manager_configurations.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\pair_hash_operator.cpp" />

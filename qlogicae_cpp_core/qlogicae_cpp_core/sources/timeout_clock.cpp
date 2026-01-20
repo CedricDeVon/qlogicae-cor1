@@ -57,9 +57,15 @@ namespace
 				mutex_lock =
 					boost::unique_lock<boost::mutex>
 					(
-						method_handling_layer_mutex_1
+						utility_handling_mutex_1
 					);
 			}			
+
+			is_executed_immediately_async.store(configurations.is_executed_immediately);
+			is_flag_stopped_async.store(false);
+			is_cancelled_async.store(false);
+
+			start();
 
 			return
 				true;
@@ -90,9 +96,76 @@ namespace
 				mutex_lock =
 					boost::unique_lock<boost::mutex>
 					(
-						method_handling_layer_mutex_1
+						utility_handling_mutex_1
 					);
 			}			
+			
+			cancel();
+
+			return
+				cancel();
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+			return
+				handle_error_outputs(
+					exception
+				);
+        }
+    }
+
+
+	bool
+		TimeoutClock
+			::start()
+	{
+		try
+        {		
+			boost::unique_lock<boost::mutex>
+				mutex_lock;
+			if (configurations.is_thread_safety_enabled_for_feature_handling())
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						feature_handling_mutex_1
+					);
+			}			
+			
+			if (thread_1.joinable())
+			{
+				thread_1.request_stop();
+				thread_1.join();
+			}
+
+			auto local_callback = configurations.callback;
+			auto local_delay = configurations.delay_in_milliseconds;
+			bool execute_immediately = configurations.is_executed_immediately || local_delay.count() == 0;
+
+			thread_1 = std::jthread([local_callback, local_delay, execute_immediately](std::stop_token stop_token)
+				{
+					if (!execute_immediately)
+					{
+						std::this_thread::sleep_for(local_delay);
+					}
+
+					if (stop_token.stop_requested())
+					{
+						return;
+					}
+
+					try
+					{
+						local_callback();
+					}
+					catch (...)
+					{
+					}
+				});
 
 			return
 				true;
@@ -108,139 +181,134 @@ namespace
 					exception
 				);
         }
-    }
-}
-
-/*
-
-TimeoutClock::TimeoutClock()
-	{
-		Result<bool> result;
-		construct(result);
 	}
 
-	TimeoutClock::TimeoutClock(
-		const TimeoutClockConfigurations& initial_configurations
-	)
+	bool
+		TimeoutClock
+			::cancel()
 	{
-		Result<bool> result;
-		construct(result, initial_configurations);
-	}
-
-	TimeoutClock::~TimeoutClock()
-	{
-		Result<bool> result;
-		destruct(result);
-	}
-
-	void TimeoutClock::construct(
-		Result<bool>& result
-	)
-	{
-		TimeoutClockConfigurations default_config;
-		construct(result, default_config);
-	}
-
-	void TimeoutClock::construct(
-		Result<bool>& result,
-		const TimeoutClockConfigurations& initial_configurations
-	)
-	{
-		_configurations = initial_configurations;
-		_is_executed_immediately_async.store(_configurations.is_executed_immediately);
-		_is_flag_stopped_async.store(false);
-		_is_cancelled_async.store(false);
-
-		_start_thread(result);
-
-		result.set_to_good_status_with_value(true);
-	}
-
-	void TimeoutClock::destruct(
-		Result<bool>& result
-	)
-	{
-		cancel(result);
-		result.set_to_good_status_with_value(true);
-	}
-
-	void TimeoutClock::_start_thread(Result<bool>& result)
-	{
-		std::unique_lock<std::mutex> lock(_thread_mutex);
-
-		if (_thread.joinable())
-		{
-			_thread.request_stop();
-			_thread.join();
-		}
-
-		auto local_callback = _configurations.callback;
-		auto local_delay = _configurations.delay_in_milliseconds;
-		bool execute_immediately = _configurations.is_executed_immediately || local_delay.count() == 0;
-
-		_thread = std::jthread([local_callback, local_delay, execute_immediately](std::stop_token stop_token)
+		try
+        {		
+			boost::unique_lock<boost::mutex>
+				mutex_lock;
+			if (configurations.is_thread_safety_enabled_for_feature_handling())
 			{
-				if (!execute_immediately)
-				{
-					std::this_thread::sleep_for(local_delay);
-				}
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						feature_handling_mutex_1
+					);
+			}			
+			
+			is_flag_stopped_async
+				.store(true);
 
-				if (stop_token.stop_requested())
-				{
-					return;
-				}
+			if
+			(
+				thread_1
+					.joinable()
+			)
+			{
+				thread_1
+					.request_stop();
+				thread_1
+					.join();
+			}
 
-				try
-				{
-					local_callback();
-				}
-				catch (...)
-				{
-				}
-			});
+			is_cancelled_async
+				.store(true);
 
-		result.set_to_good_status_with_value(true);
+			return
+				true;
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+			return
+				handle_error_outputs(
+					exception
+				);
+        }
 	}
 
-	void TimeoutClock::cancel(
-		Result<bool>& result
-	)
+	bool
+		TimeoutClock
+			::restart()
 	{
-		std::lock_guard<std::mutex> lock(_thread_mutex);
+		try
+        {		
+			boost::unique_lock<boost::mutex>
+				mutex_lock;
+			if (configurations.is_thread_safety_enabled_for_feature_handling())
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						feature_handling_mutex_1
+					);
+			}			
+			
+			cancel();
 
-		_is_flag_stopped_async.store(true);
-
-		if (_thread.joinable())
-		{
-			_thread.request_stop();
-			_thread.join();
-		}
-
-		_is_cancelled_async.store(true);
-		result.set_to_good_status_with_value(true);
+			is_flag_stopped_async
+				.store(false);
+			is_cancelled_async
+				.store(false);
+			is_executed_immediately_async
+				.store(
+					configurations.is_executed_immediately
+				);
+			
+			return
+				start();
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+			return
+				handle_error_outputs(
+					exception
+				);
+        }
 	}
 
-	void TimeoutClock::restart(
-		Result<bool>& result
-	)
+	bool
+		TimeoutClock
+			::is_cancelled()
 	{
-		cancel(result);
-
-		_is_flag_stopped_async.store(false);
-		_is_cancelled_async.store(false);
-		_is_executed_immediately_async.store(_configurations.is_executed_immediately);
-
-		_start_thread(result);
-		result.set_to_good_status_with_value(true);
+		try
+        {		
+			boost::unique_lock<boost::mutex>
+				mutex_lock;
+			if (configurations.is_thread_safety_enabled_for_feature_handling())
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						feature_handling_mutex_1
+					);
+			}			
+			
+			return
+				is_cancelled_async.load();
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+			return
+				handle_error_outputs(
+					exception
+				);
+        }
 	}
-
-	void TimeoutClock::is_cancelled(
-		Result<bool>& result
-	)
-	{
-		result.set_to_good_status_with_value(_is_cancelled_async.load());
-	}
- 
-*/
-
+}
  

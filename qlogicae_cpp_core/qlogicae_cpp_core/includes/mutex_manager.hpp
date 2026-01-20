@@ -143,7 +143,7 @@ namespace
 				mutex_lock =
 					boost::unique_lock<boost::mutex>
 					(
-						method_handling_layer_mutex_1
+						feature_handling_mutex_1
 					);
 			}
 

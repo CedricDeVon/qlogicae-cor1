@@ -42,7 +42,7 @@ namespace QLogicaeCppCore
 
 					configurations
 						.delay_in_milliseconds =
-							std::chrono::milliseconds{ 100 };
+							std::chrono::milliseconds{ 1000 };
 
 					configurations
 						.is_executed_immediately =

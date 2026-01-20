@@ -44,6 +44,9 @@ namespace
 			destruct();
 
 		bool
+			start();
+
+		bool
 			cancel();
 
 		bool
@@ -51,8 +54,5 @@ namespace
 
 		bool
 			is_cancelled();
-
-		bool
-			start_thread();
 	};
 }

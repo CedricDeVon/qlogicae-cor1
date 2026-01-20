@@ -26,16 +26,6 @@ namespace
 		bool
 			destruct();
 
-		long double
-			convert_unit(
-				const long double&
-					value,
-				const TemperatureUnit&
-					original_unit,
-				const TemperatureUnit&
-					target_unit
-			);
-
 		double
 			convert_unit(
 				const double&
@@ -46,31 +36,9 @@ namespace
 					target_unit
 			);
 
-		float
-			convert_unit(
-				const float&
-					value,
-				const TemperatureUnit&
-					original_unit,
-				const TemperatureUnit&
-					target_unit
-			);
-
-		long double
-			convert_unit(
-				const long double&
-					value
-			);
-
 		double
 			convert_unit(
 				const double&
-					value
-			);
-
-		float
-			convert_unit(
-				const float&
 					value
 			);
     };

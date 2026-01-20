@@ -11,13 +11,22 @@ namespace
     {
     public:
 		boost::mutex
-			method_handling_layer_mutex_1;
+			utility_handling_mutex_1;
 
 		boost::mutex
-			method_handling_layer_mutex_2;
+			feature_handling_mutex_1;
 
 		boost::mutex
-			error_handling_mutex;
+			feature_handling_mutex_2;
+
+		boost::mutex
+			feature_handling_mutex_3;
+
+		boost::mutex
+			feature_handling_mutex_4;
+
+		boost::mutex
+			error_handling_mutex_1;
 
 		AbstractConfigurationsType
 			configurations;
@@ -115,7 +124,7 @@ namespace
 				mutex_lock =
 					boost::unique_lock<boost::mutex>
 					(
-						method_handling_layer_mutex_1
+						utility_handling_mutex_1
 					);
 			}		
 
@@ -148,7 +157,7 @@ namespace
 				mutex_lock =
 					boost::unique_lock<boost::mutex>
 					(
-						method_handling_layer_mutex_1
+						utility_handling_mutex_1
 					);
 			}
 
@@ -184,7 +193,7 @@ namespace
 				mutex_lock =
 					boost::unique_lock<boost::mutex>
 					(
-						method_handling_layer_mutex_1
+						utility_handling_mutex_1
 					);
 			}			
 
@@ -220,7 +229,7 @@ namespace
 				mutex_lock =
 					boost::unique_lock<boost::mutex>
 					(
-						method_handling_layer_mutex_1
+						utility_handling_mutex_1
 					);
 			}
 
@@ -259,7 +268,7 @@ namespace
 			mutex_lock =
 				boost::unique_lock<boost::mutex>
 				(
-					error_handling_mutex
+					error_handling_mutex_1
 				);
 		}
 
@@ -285,7 +294,7 @@ namespace
 			mutex_lock =
 				boost::unique_lock<boost::mutex>
 				(
-					error_handling_mutex
+					error_handling_mutex_1
 				);
 		}
 		
@@ -310,7 +319,7 @@ namespace
 			mutex_lock =
 				boost::unique_lock<boost::mutex>
 				(
-					error_handling_mutex
+					error_handling_mutex_1
 				);
 		}
 

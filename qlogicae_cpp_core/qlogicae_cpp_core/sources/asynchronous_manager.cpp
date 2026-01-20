@@ -91,7 +91,7 @@ namespace
 				mutex_lock =
 					boost::unique_lock<boost::mutex>
 					(
-						method_handling_layer_mutex_1
+						utility_handling_mutex_1
 					);
 			}			
 
@@ -119,6 +119,17 @@ namespace
     {
         try
         {		
+			boost::unique_lock<boost::mutex>
+				mutex_lock;
+			if (configurations.is_thread_safety_enabled_for_utility_handling())
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						utility_handling_mutex_1
+					);
+			}			
+
 			return
 				complete_io_workers() ||
 				complete_all_threads();
@@ -152,7 +163,7 @@ namespace
 				mutex_lock =
 					boost::unique_lock<boost::mutex>
 					(
-						method_handling_layer_mutex_1
+						feature_handling_mutex_1
 					);
 			}
 
@@ -214,7 +225,7 @@ namespace
 				mutex_lock =
 					boost::unique_lock<boost::mutex>
 					(
-						method_handling_layer_mutex_1
+						feature_handling_mutex_1
 					);
 			}
 		
@@ -260,7 +271,7 @@ namespace
 				mutex_lock =
 					boost::unique_lock<boost::mutex>
 					(
-						method_handling_layer_mutex_1
+						feature_handling_mutex_1
 					);
 			}
 
@@ -303,7 +314,7 @@ namespace
 				mutex_lock =
 					boost::unique_lock<boost::mutex>
 					(
-						method_handling_layer_mutex_1
+						feature_handling_mutex_1
 					);
 			}
 		
@@ -355,7 +366,7 @@ namespace
 				mutex_lock =
 					boost::unique_lock<boost::mutex>
 					(
-						method_handling_layer_mutex_1
+						feature_handling_mutex_1
 					);
 			}
 
@@ -418,7 +429,7 @@ namespace
 				mutex_lock =
 					boost::unique_lock<boost::mutex>
 					(
-						method_handling_layer_mutex_1
+						feature_handling_mutex_1
 					);
 			}
 
@@ -484,7 +495,7 @@ namespace
 				mutex_lock =
 					boost::unique_lock<boost::mutex>
 					(
-						method_handling_layer_mutex_1
+						feature_handling_mutex_1
 					);
 			}
 

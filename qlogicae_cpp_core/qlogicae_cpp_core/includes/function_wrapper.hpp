@@ -48,6 +48,17 @@ namespace
 	{
 		try
 		{
+			boost::unique_lock<boost::mutex>
+				mutex_lock;
+			if (configurations.is_thread_safety_enabled_for_feature_handling())
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						feature_handling_mutex_1
+					);
+			}
+
 			if constexpr (std::is_pointer_v<InputObjectType>)
 			{
 				if (!input_object)

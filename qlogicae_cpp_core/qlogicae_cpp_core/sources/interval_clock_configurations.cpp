@@ -37,6 +37,22 @@ namespace
 						.is_error_handling_thread_safety_enabled =
 							true;
 
+					configurations
+						.callback =
+							[](const size_t& current_iteration) { return true; };
+
+					configurations
+						.maximum_interval_count =
+							1;
+
+					configurations
+						.delay_in_milliseconds =
+							std::chrono::milliseconds{ 1000 };
+
+					configurations
+						.is_executed_immediately =
+							true;
+
 					return
 						configurations;
 				}();
