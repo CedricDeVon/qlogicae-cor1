@@ -4,14 +4,18 @@ namespace
 	QLogicaeCppCore
 {
     enum class
-		Encoding :
+		TextCase :
 			uint8_t
     {
-        HEX,
-        
-        UTF8,
+        LOWERCASE,
 
-        BASE64,
+		UPPERCASE,
+
+		CAPITALIZE,
+
+		TITLE,
+
+		SENTENCE,
 
 		NONE
     };

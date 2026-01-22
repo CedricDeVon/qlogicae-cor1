@@ -1,16 +1,16 @@
 #include "pch.hpp"
 
-#include "../includes/file_system_manager_configurations.hpp"
+#include "../includes/text_placeholder_manager_configurations.hpp"
 
 namespace
 	QLogicaeCppCore
-{    
-    FileSystemManagerConfigurations
-		FileSystemManagerConfigurations
+{
+	TextPlaceholderManagerConfigurations
+		TextPlaceholderManagerConfigurations
 			::initial_configurations =
 				[]()
 				{
-					FileSystemManagerConfigurations
+					TextPlaceholderManagerConfigurations
 						configurations;
 
 					configurations
@@ -36,20 +36,27 @@ namespace
 					configurations
 						.is_error_handling_thread_safety_enabled =
 							true;
-
+			
 					configurations
-						.is_recursive =
+						.is_conditional_callback_enabled =
 							true;
 
+					configurations
+						.conditional_callback =
+							[](const std::string& text){ return text.empty(); };
+
+					configurations
+						.placeholder =
+							"None";
 
 					return
 						configurations;
 				}();
 
-	FileSystemManagerConfigurations
-		FileSystemManagerConfigurations
+	TextPlaceholderManagerConfigurations
+		TextPlaceholderManagerConfigurations
 			::default_configurations =
-				FileSystemManagerConfigurations
+				TextPlaceholderManagerConfigurations
 					::initial_configurations;
 }
 

@@ -1,16 +1,16 @@
 #include "pch.hpp"
 
-#include "../includes/file_system_manager_configurations.hpp"
+#include "../includes/text_encoding_manager_configurations.hpp"
 
 namespace
 	QLogicaeCppCore
-{    
-    FileSystemManagerConfigurations
-		FileSystemManagerConfigurations
+{
+	TextEncodingManagerConfigurations
+		TextEncodingManagerConfigurations
 			::initial_configurations =
 				[]()
 				{
-					FileSystemManagerConfigurations
+					TextEncodingManagerConfigurations
 						configurations;
 
 					configurations
@@ -38,18 +38,29 @@ namespace
 							true;
 
 					configurations
-						.is_recursive =
-							true;
+						.is_specified_length_enabled =
+							false;
 
+					configurations
+						.specified_length =
+							128;
+
+					configurations
+						.original_type =
+							TextEncoding::NONE;
+
+					configurations
+						.target_type =
+							TextEncoding::NONE;
 
 					return
 						configurations;
 				}();
 
-	FileSystemManagerConfigurations
-		FileSystemManagerConfigurations
+	TextEncodingManagerConfigurations
+		TextEncodingManagerConfigurations
 			::default_configurations =
-				FileSystemManagerConfigurations
+				TextEncodingManagerConfigurations
 					::initial_configurations;
 }
 

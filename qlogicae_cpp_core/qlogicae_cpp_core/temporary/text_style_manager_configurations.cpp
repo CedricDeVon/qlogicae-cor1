@@ -1,16 +1,16 @@
 #include "pch.hpp"
 
-#include "../includes/file_system_manager_configurations.hpp"
+#include "../includes/text_style_manager_configurations.hpp"
 
 namespace
 	QLogicaeCppCore
-{    
-    FileSystemManagerConfigurations
-		FileSystemManagerConfigurations
+{
+	TextStyleManagerConfigurations
+		TextStyleManagerConfigurations
 			::initial_configurations =
 				[]()
 				{
-					FileSystemManagerConfigurations
+					TextStyleManagerConfigurations
 						configurations;
 
 					configurations
@@ -38,18 +38,21 @@ namespace
 							true;
 
 					configurations
-						.is_recursive =
-							true;
+						.is_specified_length_enabled =
+							false;
 
+					configurations
+						.specified_length =
+							128;
 
 					return
 						configurations;
 				}();
 
-	FileSystemManagerConfigurations
-		FileSystemManagerConfigurations
+	TextStyleManagerConfigurations
+		TextStyleManagerConfigurations
 			::default_configurations =
-				FileSystemManagerConfigurations
+				TextStyleManagerConfigurations
 					::initial_configurations;
 }
 

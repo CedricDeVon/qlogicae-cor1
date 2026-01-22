@@ -28,7 +28,6 @@ namespace QLogicaeCppCoreBenchmark
 
 }
 
-
 struct NanobenchBenchmarkEpochIterationPair
 {
     std::size_t epochs = 1;
@@ -216,6 +215,186 @@ void execute_nanobenchmark(
 	fast_io::io::println("About");
 	fast_io::io::println("- Timestamp Start:\t" + timestamp_start);
 	fast_io::io::println("- Timestamp End:\t" + timestamp_end);
+}
+
+
+namespace CallbackOrNone
+{
+	/*
+
+	Conclusion:
+	- do wrap methods within a callback function, if performance is not a major concern
+
+
+	= 1 character(s)
+	| relative |               ns/op |                op/s |    err% |     total | benchmark
+	|---------:|--------------------:|--------------------:|--------:|----------:|:----------
+	|   100.0% |                9.31 |      107,459,927.90 |    1.8% |      0.10 | `Callback Or None__no_callback_function_called__1`
+	|    18.4% |               50.57 |       19,773,323.84 |    0.5% |      0.62 | `Callback Or None__with_callback_function_called__1`
+
+	|   100.0% |            8,944.84 |          111,796.33 |    0.2% |      0.10 | `Callback Or None__no_callback_function_called__1000`
+	|    17.8% |           50,389.06 |           19,845.58 |    0.2% |      0.61 | `Callback Or None__with_callback_function_called__1000`
+
+	|   100.0% |        8,933,600.00 |              111.94 |    0.4% |      0.10 | `Callback Or None__no_callback_function_called__1000000`
+	|    17.8% |       50,258,400.00 |               19.90 |    0.1% |      0.55 | `Callback Or None__with_callback_function_called__1000000`
+
+
+
+	= 100 character(s)
+	| relative |               ns/op |                op/s |    err% |     total | benchmark
+	|---------:|--------------------:|--------------------:|--------:|----------:|:----------
+	|   100.0% |               79.88 |       12,518,356.17 |    1.0% |      0.98 | `Callback Or None__no_callback_function_called__1`
+	|    42.0% |              190.23 |        5,256,757.10 |    0.2% |      2.31 | `Callback Or None__with_callback_function_called__1`
+
+	|   100.0% |           79,033.59 |           12,652.85 |    0.2% |      0.87 | `Callback Or None__no_callback_function_called__1000`
+	|    41.5% |          190,436.40 |            5,251.10 |    0.1% |      2.32 | `Callback Or None__with_callback_function_called__1000`
+
+	|   100.0% |       78,851,000.00 |               12.68 |    0.2% |      0.87 | `Callback Or None__no_callback_function_called__1000000`
+	|    41.4% |      190,532,100.00 |                5.25 |    0.3% |      2.10 | `Callback Or None__with_callback_function_called__1000000`
+
+	About
+	- Timestamp Created: 7:36 PM, January 20, 2026
+
+
+
+		bool
+			test_1(const std::string& v);
+
+		bool
+			test_2(const std::string& v);
+
+		bool
+			handle(
+				const std::function<void()>
+					callback = []() {}
+			);
+
+
+
+	template <typename AbstractConfigurationsType> bool
+		AbstractClass<AbstractConfigurationsType>
+			::test_1(const std::string& v)
+	{
+		try
+		{
+			boost::unique_lock<boost::mutex> mutex_lock;
+			if (configurations.is_thread_safety_enabled_for_feature_handling())
+			{
+				mutex_lock = boost::unique_lock<boost::mutex> (feature_handling_mutex_1);
+			}
+
+			std::string i = v;
+
+			return
+				true;
+		}
+		catch
+		(
+			const std::exception&
+				exception
+		)
+		{
+			return
+				handle_error_outputs(
+					exception
+				);
+		}
+	}
+
+	template <typename AbstractConfigurationsType> bool
+		AbstractClass<AbstractConfigurationsType>
+			::test_2(const std::string& v)
+	{
+		return handle(
+			[this, v]()
+			{
+				std::string i = v;
+			}
+		);
+	}
+
+	template <typename AbstractConfigurationsType> bool
+		AbstractClass<AbstractConfigurationsType>
+			::handle(
+				const std::function<void()>
+					callback
+			)
+	{
+		try
+		{
+			boost::unique_lock<boost::mutex>
+				mutex_lock;
+			if (configurations.is_thread_safety_enabled_for_feature_handling())
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						feature_handling_mutex_1
+					);
+			}
+
+			callback();
+
+			return
+				true;
+		}
+		catch
+		(
+			const std::exception&
+				exception
+		)
+		{
+			return
+				handle_error_outputs(
+					exception
+				);
+		}
+	}
+
+	*/
+
+	void execute()
+	{
+		QLogicaeCppCore::RuntimeBenchmarkerTestSuite test_suite
+		{
+			.name = "Callback Or None",
+			.epoch_iteration_pairs =
+			{
+				{
+					.epochs = 1000000,
+					.iterations = 1
+				},
+				{
+					.epochs = 1000,
+					.iterations = 1000
+				},
+				{
+					.epochs = 1,
+					.iterations = 1000000
+				},
+			},
+			.test_cases =
+			{
+				/*			
+				{
+					.name = "no_callback_function_called",
+					.callback = []() { QLogicaeCppCore::SingletonManager::singleton.test_1("0"); }
+				},
+				{
+					.name = "with_callback_function_called",
+					.callback = []() { QLogicaeCppCore::SingletonManager::singleton.test_2("0"); }
+				}
+				*/ 
+			}
+		};
+
+		QLogicaeCppCore::RuntimeBenchmarker::singleton.execute(
+			test_suite
+		);
+
+		bool exit_code;
+		std::cin >> exit_code;
+	}
 }
 
 namespace AsynchronousBenchmarks

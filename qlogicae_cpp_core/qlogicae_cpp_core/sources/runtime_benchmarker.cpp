@@ -203,7 +203,7 @@ namespace
 						test_case.name;
 
 					const std::string benchmark_name =
-						test_suite_name + "::" + test_case_name + "::" + std::to_string(iterations);
+						test_suite_name + "__" + test_case_name + "__" + std::to_string(iterations);
 
 					const std::function<void()>& callback =
 						test_case.callback;

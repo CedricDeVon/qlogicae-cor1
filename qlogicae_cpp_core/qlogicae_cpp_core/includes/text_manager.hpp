@@ -1,6 +1,6 @@
 #pragma once
 
-#include "encoding.hpp"
+#include "text_case.hpp"
 #include "abstract_class.hpp"
 #include "singleton_manager.hpp"
 #include "text_manager_configurations.hpp"
@@ -26,165 +26,158 @@ namespace
 		bool
 			destruct();
 
-		std::string
-			convert_encoding(
-				const std::string&
-					value,
-				const Encoding&
-					original_encoding,
-				const Encoding&
-					target_encoding
+		template <typename InputType, typename OutputType> OutputType
+			convert_text(
+				InputType
+					text
 			);
 
 		std::string
-			format(
+			replace_text_tokens(
 				const std::string&
-					value,
-				const Encoding&
-					original_encoding,
-				const Encoding&
-					target_encoding
+					text,
+				const std::unordered_map<std::string, std::string>&
+					dictionary
 			);
+
+		std::vector<std::string>
+			split_text(
+				const std::string&
+					text,
+				const std::string&
+					delimeter
+			);	
 	};
-}
 
-/*
-
-- null format
-- format
-
-		std::string color_type(
-			const LogLevel& log_level
-		);
-
-		std::string to_na_format(
-			const std::string& text = ""
-		);
-
-		std::string replace_tokens(
-			const std::string& text,
-			const std::unordered_map<std::string, std::string> dictionary
-		);
-
-		std::string to_none_format(
-			const std::string& text = ""
-		);
-
-		std::vector<std::string> split(
-			const std::string& text,
-			const std::string& delimeters
-		);
-
-		std::string to_log_format(
-			const std::string& text,
-			const LogLevel& log_level,
-			const size_t& length = 128
-		);
-
-		std::string to_log_format(
-			const std::string& text,
-			const LogLevel& log_level,
-			const TimeFormat& time_format,
-			const size_t& length = 128
-		);
-
-		std::string to_log_format(
-			const std::string& name,
-			const std::string& text,
-			const LogLevel& log_level,
-			const TimeFormat& time_format,
-			const size_t& length = 128
-		);
-
-		std::string to_log_level_color_format(
-			const std::string& text = "",
-			const LogLevel& log_level = LogLevel::INFO,
-			const size_t& length = 128
-		);
-
-		std::string to_result_message_format(
-			const std::string& text = "",
-			const ResultStatus& result_status = ResultStatus::INFO,
-			const TimeFormat& time_format =
-			TimeFormat::FULL_TIMESTAMP,
-			const size_t& length = 128
-		);
-
-		std::string to_exception_text_format(
-			const std::string& origin,
-			const std::string& message
-		);
-
-		std::string to_uppercase(
-			const std::string text
-		);
-
-		std::string to_lowercase(
-			const std::string text
-		);
-
-		std::string to_capitalized(
-			const std::string text
-		);
-
-		std::wstring to_uppercase(
-			const std::wstring text
-		);
-
-		std::wstring to_lowercase(
-			const std::wstring text
-		);
-
-		std::wstring to_capitalized(
-			const std::wstring text
-		);
-
-		const char* to_uppercase(
-			const char* text
-		);
-
-		const char* to_lowercase(
-			const char* text
-		);
-
-		const char* to_capitalized(
-			const char* text
-		);
-
-	constexpr std::string get_log_level_string(
-		const LogLevel& level
-	)
+	template <typename InputType, typename OutputType> OutputType
+		TextManager::
+			convert_text(
+				InputType
+					text
+			)
 	{
-		switch (level)
+		using input_type  = std::decay_t<InputType>;
+		using output_type = std::decay_t<OutputType>;
+
+		if constexpr (
+			std::is_same_v<output_type, std::string> ||
+			std::is_same_v<output_type, std::wstring>
+		)
 		{
-			case LogLevel::ALL:
-				return UTILITIES.LOG_LEVEL_INFO;
+			if constexpr (
+				std::is_same_v<input_type, std::wstring> ||
+				std::is_same_v<input_type, wchar_t*> ||
+				std::is_same_v<input_type, const wchar_t*>
+			)
+			{
+				std::wstring wide =
+					std::is_same_v<input_type, std::wstring>
+						? text
+						: (text ? std::wstring(text) : std::wstring());
 
-			case LogLevel::INFO:
-				return UTILITIES.LOG_LEVEL_INFO;
+				if constexpr (std::is_same_v<output_type, std::wstring>)
+				{
+					return wide;
+				}
+				else
+				{
+					if (wide.empty())
+					{
+						return {};
+					}
 
-			case LogLevel::DEBUG:
-				return UTILITIES.LOG_LEVEL_DEBUG;
+					int required_size =
+						WideCharToMultiByte(
+							CP_UTF8,
+							0,
+							wide.data(),
+							static_cast<int>(wide.size()),
+							nullptr,
+							0,
+							nullptr,
+							nullptr
+						);
 
-			case LogLevel::SUCCESS:
-				return UTILITIES.LOG_LEVEL_SUCCESS;
+					if (required_size <= 0)
+					{
+						return {};
+					}
 
-			case LogLevel::WARNING:
-				return UTILITIES.LOG_LEVEL_WARNING;
+					std::string result(required_size, '\0');
 
-			case LogLevel::CRITICAL:
-				return UTILITIES.LOG_LEVEL_CRITICAL;
+					WideCharToMultiByte(
+						CP_UTF8,
+						0,
+						wide.data(),
+						static_cast<int>(wide.size()),
+						result.data(),
+						required_size,
+						nullptr,
+						nullptr
+					);
 
-			case LogLevel::EXCEPTION:
-				return UTILITIES.LOG_LEVEL_EXCEPTION;
+					return result;
+				}
+			}
+			else if constexpr (
+				std::is_same_v<input_type, std::string> ||
+				std::is_same_v<input_type, char*> ||
+				std::is_same_v<input_type, const char*>
+			)
+			{
+				std::string narrow =
+					std::is_same_v<input_type, std::string>
+						? text
+						: (text ? std::string(text) : std::string());
 
-			case LogLevel::HIGHLIGHTED_INFO:
-				return UTILITIES.LOG_LEVEL_HIGHLIGHTED_INFO;
+				if constexpr (std::is_same_v<output_type, std::string>)
+				{
+					return narrow;
+				}
+				else
+				{
+					if (narrow.empty())
+					{
+						return {};
+					}
 
-			default:
-				return UTILITIES.LOG_LEVEL_INFO;
+					int required_size =
+						MultiByteToWideChar(
+							CP_UTF8,
+							0,
+							narrow.data(),
+							static_cast<int>(narrow.size()),
+							nullptr,
+							0
+						);
+
+					if (required_size <= 0)
+					{
+						return {};
+					}
+
+					std::wstring result(required_size, L'\0');
+
+					MultiByteToWideChar(
+						CP_UTF8,
+						0,
+						narrow.data(),
+						static_cast<int>(narrow.size()),
+						result.data(),
+						required_size
+					);
+
+					return result;
+				}
+			}
+			else
+			{
+				return {};
+			}
+		}
+		else
+		{
+			return {};
 		}
 	}
-
-
-*/ 
+}

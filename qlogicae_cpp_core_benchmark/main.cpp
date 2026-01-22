@@ -2,15 +2,11 @@
 
 // #include "main.hpp"
 
-#include "qlogicae_cpp_core/includes/asynchronous_manager.hpp"
+#include "qlogicae_cpp_core/includes/singleton_manager.hpp"
+#include "qlogicae_cpp_core/includes/runtime_benchmarker.hpp"
 
 int main(int argc, char** argv)
 {
-	QLogicaeCppCore::SingletonManager am;
-
-	printf("%p \n", &QLogicaeCppCore::SingletonManager::singleton);
-	printf("%p \n", &am);
-
 	return 0;
 }
 

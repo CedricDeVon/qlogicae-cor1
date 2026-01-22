@@ -200,6 +200,13 @@
     <ClInclude Include="qlogicae_cpp_core\includes\asynchronous_manager_configurations.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\configuration_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\configuration_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\text_case_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\text_case_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\text_encoding_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\text_error_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\text_error_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\text_case.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\text_encoding_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\file_system_entity.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\interval_clock.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\interval_clock_configurations.hpp" />
@@ -209,15 +216,13 @@
     <ClInclude Include="qlogicae_cpp_core\includes\runtime_execution_manager_configurations.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\text_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\text_manager_configurations.hpp" />
-    <ClInclude Include="qlogicae_cpp_core\includes\encoding.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\text_encoding.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\error_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\error_manager_configurations.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\file_system_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\file_system_manager_configurations.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\function_wrapper.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\function_wrapper_configurations.hpp" />
-    <ClInclude Include="qlogicae_cpp_core\includes\random_value_generation_manager.hpp" />
-    <ClInclude Include="qlogicae_cpp_core\includes\random_value_generation_manager_configurations.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\mutex_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\mutex_manager_configurations.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\pair_hash_operator.hpp" />
@@ -235,6 +240,7 @@
     <ClInclude Include="qlogicae_cpp_core\includes\temperature_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\temperature_manager_configurations.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\temperature_unit.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\text_placeholder_manager_configurations.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\timeout_clock.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\timeout_clock_configurations.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\time_format.hpp" />
@@ -242,8 +248,6 @@
     <ClInclude Include="qlogicae_cpp_core\includes\time_manager_configurations.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\time_scale_unit.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\time_zone.hpp" />
-    <ClInclude Include="qlogicae_cpp_core\includes\validation_manager.hpp" />
-    <ClInclude Include="qlogicae_cpp_core\includes\validation_manager_configurations.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\valid_mutex_lock.hpp" />
   </ItemGroup>
   <ItemGroup>
@@ -261,7 +265,14 @@
     <ClCompile Include="qlogicae_cpp_core\sources\asynchronous_manager_configurations.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\configuration_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\configuration_manager_configurations.cpp" />
-    <ClCompile Include="qlogicae_cpp_core\sources\encoding.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\text_case.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\text_case_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\text_case_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\text_encoding_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\text_encoding_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\text_error_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\text_error_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\text_encoding.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\file_system_entity.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\interval_clock.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\interval_clock_configurations.cpp" />
@@ -277,8 +288,6 @@
     <ClCompile Include="qlogicae_cpp_core\sources\file_system_manager_configurations.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\function_wrapper.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\function_wrapper_configurations.cpp" />
-    <ClCompile Include="qlogicae_cpp_core\sources\random_value_generation_manager.cpp" />
-    <ClCompile Include="qlogicae_cpp_core\sources\random_value_generation_manager_configurations.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\mutex_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\mutex_manager_configurations.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\pair_hash_operator.cpp" />
@@ -296,6 +305,8 @@
     <ClCompile Include="qlogicae_cpp_core\sources\temperature_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\temperature_manager_configurations.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\temperature_unit.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\text_placeholder_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\text_placeholder_manager_configurations.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\timeout_clock.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\timeout_clock_configurations.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\time_format.cpp" />
@@ -303,12 +314,13 @@
     <ClCompile Include="qlogicae_cpp_core\sources\time_manager_configurations.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\time_scale_unit.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\time_zone.cpp" />
-    <ClCompile Include="qlogicae_cpp_core\sources\validation_manager.cpp" />
-    <ClCompile Include="qlogicae_cpp_core\sources\validation_manager_configurations.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\valid_mutex_lock.cpp" />
   </ItemGroup>
   <ItemGroup>
     <MASM Include="qlogicae_cpp_core\assembly\x64_masm__main.asm" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="qlogicae_cpp_core\includes\text_placeholder_manager.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

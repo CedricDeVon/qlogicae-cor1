@@ -1,5 +1,6 @@
 #pragma once
 
+#include "time_zone.hpp"
 #include "abstract_configurations.hpp"
 
 namespace
@@ -10,6 +11,12 @@ namespace
 			AbstractConfigurations<TimeManagerConfigurations>
 	{
 	public:
+		TimeZone
+			time_zone =
+				default_configurations.time_zone;
+
+
+
 		static TimeManagerConfigurations
 			initial_configurations;
 

@@ -1,16 +1,16 @@
 #include "pch.hpp"
 
-#include "../includes/file_system_manager_configurations.hpp"
+#include "../includes/text_log_manager_configurations.hpp"
 
 namespace
 	QLogicaeCppCore
-{    
-    FileSystemManagerConfigurations
-		FileSystemManagerConfigurations
+{
+	TextLogManagerConfigurations
+		TextLogManagerConfigurations
 			::initial_configurations =
 				[]()
 				{
-					FileSystemManagerConfigurations
+					TextLogManagerConfigurations
 						configurations;
 
 					configurations
@@ -38,18 +38,21 @@ namespace
 							true;
 
 					configurations
-						.is_recursive =
-							true;
+						.is_specified_length_enabled =
+							false;
 
+					configurations
+						.specified_length =
+							128;
 
 					return
 						configurations;
 				}();
 
-	FileSystemManagerConfigurations
-		FileSystemManagerConfigurations
+	TextLogManagerConfigurations
+		TextLogManagerConfigurations
 			::default_configurations =
-				FileSystemManagerConfigurations
+				TextLogManagerConfigurations
 					::initial_configurations;
 }
 

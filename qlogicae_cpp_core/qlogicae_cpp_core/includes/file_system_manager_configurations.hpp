@@ -10,6 +10,12 @@ namespace
 			AbstractConfigurations<FileSystemManagerConfigurations>
     {
 	public:
+		bool
+			is_recursive =
+				default_configurations.is_recursive;
+
+
+
 		static FileSystemManagerConfigurations
 			initial_configurations;
 

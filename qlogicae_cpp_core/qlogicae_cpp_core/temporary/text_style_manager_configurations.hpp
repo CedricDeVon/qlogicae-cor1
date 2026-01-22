@@ -4,15 +4,15 @@
 
 namespace
 	QLogicaeCppCore
-{    
-    struct
-		TextManagerConfigurations :
-			AbstractConfigurations<TextManagerConfigurations>
-    {
+{
+	struct
+		TextStyleManagerConfigurations :
+			AbstractConfigurations<TextStyleManagerConfigurations>
+	{
 	public:
 		bool
 			is_specified_length_enabled =
-				default_configurations.is_specified_length_enabled;
+				default_configurations.is_specified_length_enabled;			
 
 		size_t
 			specified_length =
@@ -20,10 +20,10 @@ namespace
 
 
 
-		static TextManagerConfigurations
+		static TextStyleManagerConfigurations
 			initial_configurations;
 
-		static TextManagerConfigurations
+		static TextStyleManagerConfigurations
 			default_configurations;
-    };    
+	};
 }

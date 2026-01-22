@@ -330,3 +330,48 @@ namespace
 			);
 	} 	
 }
+
+/*
+
+- Potential Wrapper Method
+
+	template <typename AbstractConfigurationsType> bool
+		AbstractClass<AbstractConfigurationsType>
+			::handle(
+				const std::function<void()>
+					callback
+			)
+	{
+		try
+		{
+			boost::unique_lock<boost::mutex>
+				mutex_lock;
+			if (configurations.is_thread_safety_enabled_for_feature_handling())
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						feature_handling_mutex_1
+					);
+			}
+
+			callback();
+
+			return
+				true;
+		}
+		catch
+		(
+			const std::exception&
+				exception
+		)
+		{
+			return
+				handle_error_outputs(
+					exception
+				);
+		}
+	}
+
+
+*/ 

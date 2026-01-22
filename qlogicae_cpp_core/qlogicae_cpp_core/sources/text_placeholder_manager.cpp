@@ -1,21 +1,21 @@
 #include "pch.hpp"
 
-#include "../includes/text_manager.hpp"
+#include "../includes/text_placeholder_manager.hpp"
 
 namespace
 	QLogicaeCppCore
 {
-    TextManager&
-        TextManager
+    TextPlaceholderManager&
+        TextPlaceholderManager
 			::singleton =
 				SingletonManager
-					::get_singleton<TextManager>();
+					::get_singleton<TextPlaceholderManager>();
 
 
 
-    TextManager
-		::TextManager() :
-			AbstractClass<TextManagerConfigurations>()
+    TextPlaceholderManager
+		::TextPlaceholderManager() :
+			AbstractClass<TextPlaceholderManagerConfigurations>()
 	{
 		try
 		{
@@ -33,8 +33,8 @@ namespace
 		}		
 	}
 
-	TextManager
-		::~TextManager()
+	TextPlaceholderManager
+		::~TextPlaceholderManager()
 	{
 		try
 		{
@@ -53,7 +53,7 @@ namespace
 	}
     
     bool
-        TextManager
+        TextPlaceholderManager
 			::construct()
     {
         try
@@ -68,12 +68,6 @@ namespace
 						utility_handling_mutex_1
 					);
 			}			
-
-			if (sodium_init() < 0)
-			{
-				return
-					false;
-			}
 
 			return
 				true;
@@ -92,7 +86,7 @@ namespace
     }
 
     bool
-        TextManager
+        TextPlaceholderManager
 			::destruct()
     {
         try
@@ -123,33 +117,63 @@ namespace
 				);
         }
     }
+	
+	std::string
+		TextPlaceholderManager
+			::convert_text(
+				const std::string&
+					text,
+				const std::string&
+					placeholder
+			)
+	{
+		try
+        {		
+			boost::unique_lock<boost::mutex>
+				mutex_lock;
+			if (configurations.is_thread_safety_enabled_for_feature_handling())
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						feature_handling_mutex_1
+					);
+			}	
+
+			return
+				(configurations.is_conditional_callback_enabled &&
+					!configurations.conditional_callback(text)) ?
+						placeholder :
+						text;
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+			handle_error_outputs(
+				exception
+			);
+
+			return
+				"";
+        }
+	}	
 
 	std::string
-		TextManager
-			::replace_text_tokens(
+		TextPlaceholderManager
+			::convert_text(
 				const std::string&
-					text,
-				const std::unordered_map<std::string, std::string>&
-					dictionary
+					text
 			)
 	{
 		try
         {		
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_feature_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}			
-
 			return
-				absl::StrReplaceAll(
+				convert_text(
 					text,
-					dictionary
+					configurations.placeholder
 				);
         }
         catch
@@ -163,50 +187,7 @@ namespace
 			);
 
 			return
-				"";				
+				"";
         }
-	}
-
-	std::vector<std::string>
-		TextManager
-			::split_text(
-				const std::string&
-					text,
-				const std::string&
-					delimeter
-			)
-	{
-		try
-        {		
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_feature_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}			
-
-			return
-				absl::StrSplit(
-					text,
-					delimeter
-				);
-        }
-        catch
-        (
-            const std::exception&
-                exception
-        )
-        {
-			handle_error_outputs(
-				exception
-			);
-
-			return
-				{};				
-        }
-	}
+	}		
 }

@@ -1,6 +1,6 @@
 #include "pch.hpp"
 
-#include "../includes/encoding.hpp"
+#include "../includes/text_case.hpp"
 
 namespace
 	QLogicaeCppCore

@@ -1,0 +1,343 @@
+#include "pch.hpp"
+
+#include "../includes/text_case_manager.hpp"
+
+namespace
+	QLogicaeCppCore
+{
+    TextCaseManager&
+        TextCaseManager
+			::singleton =
+				SingletonManager
+					::get_singleton<TextCaseManager>();
+
+
+
+    TextCaseManager
+		::TextCaseManager() :
+			AbstractClass<TextCaseManagerConfigurations>()
+	{
+		try
+		{
+			construct();
+		}
+		catch
+		(
+			const std::exception&
+				exception
+		)
+		{
+			handle_error_outputs(
+				exception
+			);
+		}		
+	}
+
+	TextCaseManager
+		::~TextCaseManager()
+	{
+		try
+		{
+			destruct();
+		}
+		catch
+		(
+			const std::exception&
+				exception
+		)
+		{
+			handle_error_outputs(
+				exception
+			);
+		}		
+	}
+    
+    bool
+        TextCaseManager
+			::construct()
+    {
+        try
+        {			
+			boost::unique_lock<boost::mutex>
+				mutex_lock;
+			if (configurations.is_thread_safety_enabled_for_utility_handling())
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						utility_handling_mutex_1
+					);
+			}			
+
+			return
+				true;
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+			return
+				handle_error_outputs(
+					exception
+				);
+        }
+    }
+
+    bool
+        TextCaseManager
+			::destruct()
+    {
+        try
+        {		
+			boost::unique_lock<boost::mutex>
+				mutex_lock;
+			if (configurations.is_thread_safety_enabled_for_utility_handling())
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						utility_handling_mutex_1
+					);
+			}			
+
+			return
+				true;
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+			return
+				handle_error_outputs(
+					exception
+				);
+        }
+    }
+	
+	std::string
+		TextCaseManager
+			::convert_text(
+				const std::string&
+					text,
+				const TextCase&
+					target_type
+			)
+	{
+		try
+        {		
+			boost::unique_lock<boost::mutex>
+				mutex_lock;
+			if (configurations.is_thread_safety_enabled_for_feature_handling())
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						feature_handling_mutex_1
+					);
+			}			
+
+			std::string result = text;
+			if (configurations.is_specified_length_enabled)
+			{
+				result.resize(
+					configurations.specified_length
+				);
+			}
+
+			switch (target_type)
+			{
+				case TextCase::LOWERCASE:
+				{					
+					for (char& character : result)
+					{
+						character = static_cast<char>(
+							std::tolower(static_cast<unsigned char>(
+								character
+							))
+						);
+					}
+
+					return result;
+				}
+
+				case TextCase::UPPERCASE:
+				{
+					for (char& character : result)
+					{
+						character = static_cast<char>(
+							std::toupper(static_cast<unsigned char>(
+								character
+							))
+						);
+					}
+
+					return result;
+				}
+
+				case TextCase::CAPITALIZE:
+				{
+					bool done = false;
+
+					for (char& character : result)
+					{
+						if (std::isalpha(static_cast<unsigned char>(character)))
+						{
+							character = static_cast<char>(
+								std::toupper(static_cast<unsigned char>(
+									character
+								))
+							);
+							done = true;
+							break;
+						}
+					}
+
+					return result;
+				}
+
+				case TextCase::TITLE:
+				{
+					bool capitalize_next = true;
+
+					for (char& character : result)
+					{
+						if (std::isspace(static_cast<unsigned char>(character)))
+						{
+							capitalize_next = true;
+							continue;
+						}
+
+						if (capitalize_next && std::isalpha(static_cast<unsigned char>(character)))
+						{
+							character = static_cast<char>(
+								std::toupper(static_cast<unsigned char>(character))
+								);
+							capitalize_next = false;
+						}
+						else
+						{
+							character = static_cast<char>(
+								std::tolower(static_cast<unsigned char>(character))
+								);
+						}
+					}
+
+					return result;
+				}
+
+				case TextCase::SENTENCE:
+				{
+					bool capitalize_next = true;
+
+					for (char& character : result)
+					{
+						if (capitalize_next && std::isalpha(static_cast<unsigned char>(character)))
+						{
+							character = static_cast<char>(
+								std::toupper(static_cast<unsigned char>(character))
+								);
+							capitalize_next = false;
+						}
+						else
+						{
+							character = static_cast<char>(
+								std::tolower(static_cast<unsigned char>(character))
+							);
+						}
+
+						if (character == '.' || character == '!' || character == '?')
+						{
+							capitalize_next = true;
+						}
+					}
+
+					return result;
+				}
+			}
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+			handle_error_outputs(
+				exception
+			);
+
+			return
+				"";
+        }
+	}
+		
+	std::string
+		TextCaseManager
+			::convert_text(
+				const std::string&
+					text
+			)
+	{
+		try
+        {		
+			return
+				convert_text(
+					text,
+					configurations.target_type
+				);
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+			handle_error_outputs(
+				exception
+			);
+
+			return
+				"";
+        }
+	}
+}
+
+/*
+
+
+	bool
+		TextCaseManager
+			::convert_text(
+				const std::string&
+					text,
+				const TextCase&
+					original_type,
+				const TextCase&
+					target_type
+			)
+	{
+		try
+		{
+			return
+				"";
+		}
+		catch
+		(
+			const std::exception&
+				exception
+		)
+		{
+			handle_error_outputs(
+				exception
+			);
+
+			return
+				"";
+		}
+	}
+
+*/
+ 

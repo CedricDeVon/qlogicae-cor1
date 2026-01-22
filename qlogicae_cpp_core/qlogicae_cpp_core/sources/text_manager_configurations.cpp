@@ -37,6 +37,14 @@ namespace
 						.is_error_handling_thread_safety_enabled =
 							true;
 
+					configurations
+						.is_specified_length_enabled =
+							false;
+
+					configurations
+						.specified_length =
+							128;
+
 					return
 						configurations;
 				}();

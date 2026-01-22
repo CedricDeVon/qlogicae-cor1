@@ -1,16 +1,16 @@
 #include "pch.hpp"
 
-#include "../includes/file_system_manager_configurations.hpp"
+#include "../includes/text_error_manager_configurations.hpp"
 
 namespace
 	QLogicaeCppCore
-{    
-    FileSystemManagerConfigurations
-		FileSystemManagerConfigurations
+{
+	TextErrorManagerConfigurations
+		TextErrorManagerConfigurations
 			::initial_configurations =
 				[]()
 				{
-					FileSystemManagerConfigurations
+					TextErrorManagerConfigurations
 						configurations;
 
 					configurations
@@ -38,18 +38,34 @@ namespace
 							true;
 
 					configurations
-						.is_recursive =
-							true;
+						.is_specified_length_enabled =
+							false;
 
+					configurations
+						.specified_length =
+							128;
+
+					configurations
+						.title =
+							"Runtime Exception";
+
+					configurations
+						.origin =
+							"";
+
+					configurations
+						.separator =
+							" - ";
+					
 
 					return
 						configurations;
 				}();
 
-	FileSystemManagerConfigurations
-		FileSystemManagerConfigurations
+	TextErrorManagerConfigurations
+		TextErrorManagerConfigurations
 			::default_configurations =
-				FileSystemManagerConfigurations
+				TextErrorManagerConfigurations
 					::initial_configurations;
 }
 
