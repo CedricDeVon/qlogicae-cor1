@@ -52,4 +52,3 @@ namespace
 				TimeManagerConfigurations
 					::initial_configurations;
 }
-

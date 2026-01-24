@@ -59,4 +59,3 @@ namespace
 				TextPlaceholderManagerConfigurations
 					::initial_configurations;
 }
-

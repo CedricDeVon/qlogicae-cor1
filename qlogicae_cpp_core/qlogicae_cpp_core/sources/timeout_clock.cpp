@@ -5,6 +5,14 @@
 namespace
 	QLogicaeCppCore
 {
+	TimeoutClock&
+		TimeoutClock
+			::singleton =
+				SingletonManager
+					::get_singleton<TimeoutClock>();
+
+
+
     TimeoutClock
 		::TimeoutClock() :
 			AbstractClass<TimeoutClockConfigurations>()
@@ -132,7 +140,7 @@ namespace
 				mutex_lock =
 					boost::unique_lock<boost::mutex>
 					(
-						feature_handling_mutex_1
+						feature_handling_mutex_2
 					);
 			}			
 			
@@ -196,27 +204,21 @@ namespace
 				mutex_lock =
 					boost::unique_lock<boost::mutex>
 					(
-						feature_handling_mutex_1
+						feature_handling_mutex_2
 					);
 			}			
 			
-			is_flag_stopped_async
-				.store(true);
+			is_cancelled_async.store(true);
+			is_flag_stopped_async.store(true);
 
-			if
-			(
-				thread_1
-					.joinable()
-			)
+			if (thread_1.joinable())
 			{
-				thread_1
-					.request_stop();
-				thread_1
-					.join();
+				thread_1.request_stop();
+				if (std::this_thread::get_id() != thread_1.get_id())
+				{
+					thread_1.join();
+				}
 			}
-
-			is_cancelled_async
-				.store(true);
 
 			return
 				true;
@@ -311,4 +313,3 @@ namespace
         }
 	}
 }
- 

@@ -47,7 +47,7 @@ namespace
 
 					configurations
 						.title =
-							"Runtime Exception";
+							"Exception";
 
 					configurations
 						.origin =
@@ -55,7 +55,7 @@ namespace
 
 					configurations
 						.separator =
-							" - ";
+							"-";
 					
 
 					return

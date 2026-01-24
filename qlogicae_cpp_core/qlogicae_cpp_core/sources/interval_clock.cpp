@@ -5,6 +5,14 @@
 namespace
 	QLogicaeCppCore
 {
+	IntervalClock&
+		IntervalClock
+			::singleton =
+				SingletonManager
+					::get_singleton<IntervalClock>();
+
+
+
     IntervalClock
 		::IntervalClock() :
 			AbstractClass<IntervalClockConfigurations>()
@@ -106,6 +114,11 @@ namespace
 				thread_1.join();
 			}
 
+			is_cancelled_async.store(false);
+			is_paused_async.store(false);
+			is_running_async.store(false);
+			execution_count_async.store(0);
+
 			return
 				true;
         }
@@ -135,21 +148,25 @@ namespace
 				mutex_lock =
 					boost::unique_lock<boost::mutex>
 					(
-						feature_handling_mutex_1
+						feature_handling_mutex_2
 					);
 			}			
 
+			if (configurations.maximum_interval_count == 0 ||
+				configurations.delay_in_milliseconds.count() == 0)
+			{
+				return false;
+			}
+
+			if (is_running_async.load())
+			{
+				return true;
+			}
+
+
 			if (thread_1.joinable())
 			{
-				if (!is_running_async.load())
-				{
-					thread_1.join();
-				}
-				else
-				{
-					return
-						false;
-				}
+				thread_1.join();
 			}
 
 			is_cancelled_async.store(false);
@@ -195,6 +212,7 @@ namespace
 					);
 			}			
 
+			is_cancelled_async.store(true);
 			is_running_async.store(false);
 			is_paused_async.store(false);
 			condition_variable.notify_all();
@@ -307,7 +325,7 @@ namespace
 				mutex_lock =
 					boost::unique_lock<boost::mutex>
 					(
-						feature_handling_mutex_1
+						feature_handling_mutex_2
 					);
 			}			
 
@@ -359,7 +377,7 @@ namespace
 			execution_count_async.store(0);
 			is_cancelled_async.store(false);
 			is_paused_async.store(false);
-			is_running_async.store(false);
+			is_running_async.store(true);
 
 			start();
 
@@ -524,12 +542,15 @@ namespace
 				mutex_lock =
 					boost::unique_lock<boost::mutex>
 					(
-						feature_handling_mutex_1
+						feature_handling_mutex_3
 					);
 			}			
 
-			is_running_async.store(true);
-			is_cancelled_async.store(false);
+			if (!is_running_async.load())
+			{
+				is_running_async.store(true);
+				is_cancelled_async.store(false);
+			}
 
 			if (configurations.is_executed_immediately &&
 				!is_cancelled_async.load())
@@ -661,3 +682,4 @@ namespace
         }
 	}
 }
+

@@ -26,9 +26,6 @@ namespace
 			destruct();
 
 		bool
-			reset() override;
-
-		bool
 			is_direct_pattern_matched(
 				const std::string&
 					value,
@@ -37,7 +34,13 @@ namespace
 			);
 
 		bool
-			is_match(
+			is_direct_pattern_matched(
+				const std::string&
+					value
+			);
+
+		bool
+			is_pattern_matched(
 				const std::string&
 					value,
 				pcre2_code*

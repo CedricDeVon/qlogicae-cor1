@@ -63,3 +63,4 @@ namespace
 				IntervalClockConfigurations
 					::initial_configurations;
 }
+

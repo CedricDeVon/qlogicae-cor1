@@ -4,65 +4,7 @@
 
 namespace
 	QLogicaeCppCore
-{
-	const char
-		TextEncodingManager
-			::decode_base_16_table[] = "0123456789ABCDEF";
-
-	const int8_t
-		TextEncodingManager
-			::decode_base_32_table[256] =
-				{
-					-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
-					-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
-					-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
-					-1,-1,26,27,28,29,30,31,-1,-1,-1,-2,-1,-1,-1,-1,
-					-1,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,
-					15,16,17,18,19,20,21,22,23,24,25,-1,-1,-1,-1,-1,
-					-1,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,
-					15,16,17,18,19,20,21,22,23,24,25,-1,-1,-1,-1,-1,
-					-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
-					-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
-					-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
-					-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
-					-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
-					-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
-					-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
-					-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1
-				};
-
-	const char
-		TextEncodingManager
-			::encode_base_32_table[] =
-				"ABCDEFGHIJKLMNOPQRSTUVWXYZ234567";
-
-	const int8_t
-		TextEncodingManager
-			::decode_base_64_table[256] =
-				{
-					-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
-					-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
-					-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,62,-1,-1,-1,63,
-					52,53,54,55,56,57,58,59,60,61,-1,-1,-1,-2,-1,-1,
-					-1,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,
-					15,16,17,18,19,20,21,22,23,24,25,-1,-1,-1,-1,-1,
-					-1,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,
-					41,42,43,44,45,46,47,48,49,50,51,-1,-1,-1,-1,-1,
-					-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
-					-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
-					-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
-					-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
-					-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
-					-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
-					-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
-					-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1
-				};
-
-	const char
-		TextEncodingManager
-			::encode_base_64_table[] = 
-				"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
-
+{	
     TextEncodingManager&
         TextEncodingManager
 			::singleton =
@@ -192,19 +134,15 @@ namespace
 				mutex_lock =
 					boost::unique_lock<boost::mutex>
 					(
-						feature_handling_mutex_1
+						feature_handling_mutex_2
 					);
 			}			
 
-			if ((input.size() & 1) != 0)
-			{
+			if (input.size() % 2 != 0)
 				return {};
-			}
 
 			std::string output;
 			output.resize(input.size() / 2);
-
-			size_t written = 0;
 
 			if (sodium_hex2bin(
 				reinterpret_cast<unsigned char*>(&output[0]),
@@ -212,14 +150,12 @@ namespace
 				input.data(),
 				input.size(),
 				nullptr,
-				&written,
-				nullptr
-			) != 0)
+				nullptr,
+				nullptr) != 0)
 			{
 				return {};
 			}
 
-			output.resize(written);
 			return output;
         }
         catch
@@ -253,21 +189,19 @@ namespace
 				mutex_lock =
 					boost::unique_lock<boost::mutex>
 					(
-						feature_handling_mutex_1
+						feature_handling_mutex_2
 					);
 			}			
 
 			std::string output;
 			output.resize(input.size() * 2 + 1);
-
-			sodium_bin2hex(
-				&output[0],
-				output.size(),
+			sodium_bin2hex(&output[0], output.size(),
 				reinterpret_cast<const unsigned char*>(input.data()),
-				input.size()
-			);
-
+				input.size());
 			output.pop_back();
+			std::transform(output.begin(), output.end(), output.begin(),
+				[](unsigned char c) { return std::toupper(c); });
+
 			return output;
         }
         catch
@@ -300,42 +234,17 @@ namespace
 				mutex_lock =
 					boost::unique_lock<boost::mutex>
 					(
-						feature_handling_mutex_1
+						feature_handling_mutex_2
 					);
 			}			
 
-			std::string output;
+			using base32_codec = cppcodec::base32_rfc4648;
+			std::vector<uint8_t> decoded_bytes =
+				base32_codec::decode(input);
 
-			int buffer = 0;
-			int bits = 0;
-
-			for (char c : input)
-			{
-				int8_t v = decode_base_32_table[static_cast<uint8_t>(c)];
-
-				if (v == -1)
-				{
-					return {};
-				}
-
-				if (v == -2)
-				{
-					break;
-				}
-
-				buffer = (buffer << 5) | v;
-				bits += 5;
-
-				if (bits >= 8)
-				{
-					output.push_back(
-						static_cast<char>((buffer >> (bits - 8)) & 0xFF)
-					);
-					bits -= 8;
-				}
-			}
-
-			return output;
+			return std::string(
+				decoded_bytes.begin(),
+				decoded_bytes.end());
         }
         catch
         (
@@ -368,41 +277,15 @@ namespace
 				mutex_lock =
 					boost::unique_lock<boost::mutex>
 					(
-						feature_handling_mutex_1
+						feature_handling_mutex_2
 					);
 			}			
 			
-			std::string result;
-			int buffer = 0;
-			int bits = 0;
+			using base32_codec = cppcodec::base32_rfc4648;
+			std::vector<uint8_t> binary_data(
+				input.begin(), input.end());
 
-			for (unsigned char b : input)
-			{
-				buffer = (buffer << 8) | b;
-				bits += 8;
-
-				while (bits >= 5)
-				{
-					result.push_back(
-						encode_base_32_table[(buffer >> (bits - 5)) & 0x1F]
-					);
-					bits -= 5;
-				}
-			}
-
-			if (bits > 0)
-			{
-				result.push_back(
-					encode_base_32_table[(buffer << (5 - bits)) & 0x1F]
-				);
-			}
-
-			while ((result.size() & 7) != 0)
-			{
-				result.push_back('=');
-			}
-
-			return result;
+			return base32_codec::encode(binary_data);
         }
         catch
         (
@@ -434,25 +317,24 @@ namespace
 				mutex_lock =
 					boost::unique_lock<boost::mutex>
 					(
-						feature_handling_mutex_1
+						feature_handling_mutex_2
 					);
 			}			
 
-			std::string output;
-			output.resize(input.size());
+			std::string output = input;
+			size_t padding_needed = (4 - (output.size() % 4)) % 4;
+			output.append(padding_needed, '=');
 
 			size_t written = 0;
-
 			if (sodium_base642bin(
 				reinterpret_cast<unsigned char*>(&output[0]),
 				output.size(),
-				input.data(),
-				input.size(),
+				output.data(),
+				output.size(),
 				nullptr,
 				&written,
 				nullptr,
-				sodium_base64_VARIANT_ORIGINAL
-			) != 0)
+				sodium_base64_VARIANT_ORIGINAL) != 0)
 			{
 				return {};
 			}
@@ -490,16 +372,11 @@ namespace
 				mutex_lock =
 					boost::unique_lock<boost::mutex>
 					(
-						feature_handling_mutex_1
+						feature_handling_mutex_2
 					);
 			}			
 
-			size_t encoded_size =
-				sodium_base64_encoded_len(
-					input.size(),
-					sodium_base64_VARIANT_ORIGINAL
-				);
-
+			size_t encoded_size = sodium_base64_encoded_len(input.size(), sodium_base64_VARIANT_ORIGINAL);
 			std::string output;
 			output.resize(encoded_size);
 
@@ -508,10 +385,9 @@ namespace
 				output.size(),
 				reinterpret_cast<const unsigned char*>(input.data()),
 				input.size(),
-				sodium_base64_VARIANT_ORIGINAL
-			);
+				sodium_base64_VARIANT_ORIGINAL);
 
-			output.pop_back();
+			output.pop_back(); 
 			return output;
         }
         catch

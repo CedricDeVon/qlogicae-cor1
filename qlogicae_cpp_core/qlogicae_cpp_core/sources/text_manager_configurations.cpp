@@ -55,4 +55,3 @@ namespace
 				TextManagerConfigurations
 					::initial_configurations;
 }
-

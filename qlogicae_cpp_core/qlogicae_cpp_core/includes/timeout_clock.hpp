@@ -56,3 +56,4 @@ namespace
 			is_cancelled();
 	};
 }
+

@@ -257,6 +257,11 @@ namespace
 
 					return result;
 				}
+
+				default:
+				{
+					return result;
+				}
 			}
         }
         catch
@@ -304,40 +309,3 @@ namespace
         }
 	}
 }
-
-/*
-
-
-	bool
-		TextCaseManager
-			::convert_text(
-				const std::string&
-					text,
-				const TextCase&
-					original_type,
-				const TextCase&
-					target_type
-			)
-	{
-		try
-		{
-			return
-				"";
-		}
-		catch
-		(
-			const std::exception&
-				exception
-		)
-		{
-			handle_error_outputs(
-				exception
-			);
-
-			return
-				"";
-		}
-	}
-
-*/
- 

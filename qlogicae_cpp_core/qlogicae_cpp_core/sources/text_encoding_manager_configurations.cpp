@@ -38,14 +38,6 @@ namespace
 							true;
 
 					configurations
-						.is_specified_length_enabled =
-							false;
-
-					configurations
-						.specified_length =
-							128;
-
-					configurations
 						.original_type =
 							TextEncoding::NONE;
 
@@ -63,4 +55,3 @@ namespace
 				TextEncodingManagerConfigurations
 					::initial_configurations;
 }
-

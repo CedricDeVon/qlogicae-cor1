@@ -2,559 +2,851 @@
 
 #include "qlogicae_cpp_core/includes/temperature_manager.hpp"
 
-namespace QLogicaeCppCoreTest
+namespace
+	QLogicaeCppCoreTest
 {
-    class TemperatureManagerTest :
-        public ::testing::Test
-    {
-    public:
-        TemperatureManagerTest()
-        {
-            QLogicaeCppCore::TemperatureManager::singleton.reset();
-        }
-
-        ~TemperatureManagerTest() override
-        {
-            QLogicaeCppCore::TemperatureManager::singleton.reset();
-        }
-    };
-
-    struct TemperatureConversionParameters
-    {
-        double input_value;
-        QLogicaeCppCore::TemperatureUnitType from_unit;
-        QLogicaeCppCore::TemperatureUnitType to_unit;
-        double expected_value;
-    };
-
-    class TemperatureManagerParameterizedTest :
-        public ::testing::TestWithParam<
-        TemperatureConversionParameters
-        >
-    {
-    };
-
-    TEST_F(
-        TemperatureManagerTest,
-        Should_ConstructSuccessfully_When_Created
-    )
-    {
-        bool result =
-            QLogicaeCppCore::TemperatureManager::singleton.construct();
-
-        EXPECT_TRUE(result);
-    }
-
-    TEST_F(
-        TemperatureManagerTest,
-        Should_ResetDefaults_When_ResetIsCalled
-    )
-    {
-        bool result =
-            QLogicaeCppCore::TemperatureManager::singleton.reset();
-
-        EXPECT_TRUE(result);
-    }
-
-    TEST_P(
-        TemperatureManagerParameterizedTest,
-        Should_CalculateCorrectly_When_ValidUnitsProvided
-    )
-    {
-        const TemperatureConversionParameters parameters =
-            GetParam();
-
-        double result =
-            QLogicaeCppCore::TemperatureManager::singleton.calculate(
-                parameters.input_value,
-                parameters.from_unit,
-                parameters.to_unit
-            );
-
-        EXPECT_NEAR(result, parameters.expected_value, 0.0001);
-    }
-
-    TEST_F(
-        TemperatureManagerTest,
-        Should_NotModifyValue_When_Disabled
-    )
-    {
-        QLogicaeCppCore::TemperatureManagerConfigurations configurations;
-
-        configurations.is_enabled = false;
-
-        QLogicaeCppCore::TemperatureManager::singleton.setup(
-            configurations
-        );
-
-        double result =
-            QLogicaeCppCore::TemperatureManager::singleton.calculate(
-                100.0,
-                QLogicaeCppCore::TemperatureUnitType::CELSIUS,
-                QLogicaeCppCore::TemperatureUnitType::FAHRENHEIT
-            );
-
-        EXPECT_DOUBLE_EQ(result, 100.0);
-    }
-
-    TEST_F(
-        TemperatureManagerTest,
-        Should_CompleteAsyncCalculation_When_UsingStdAsync
-    )
-    {
-        std::future<double> future_result =
-            std::async(
-                std::launch::async,
-                []
-                {
-                    return
-                        QLogicaeCppCore::TemperatureManager::singleton
-                        .calculate(
-                            0.0,
-                            QLogicaeCppCore::TemperatureUnitType::CELSIUS,
-                            QLogicaeCppCore::TemperatureUnitType::KELVIN
-                        );
-                }
-            );
-
-        double result = future_result.get();
-
-        EXPECT_DOUBLE_EQ(result, 273.15);
-    }
-
-    TEST_F(
-        TemperatureManagerTest,
-        Should_HandleConcurrentAccess_When_MultipleThreadsRun
-    )
-    {
-        std::atomic<int> completion_counter = 0;
-        std::mutex synchronization_mutex;
-
-        std::vector<std::thread> worker_threads;
-
-        for (int index = 0; index < 8; index++)
-        {
-            worker_threads.emplace_back(
-                [&completion_counter, &synchronization_mutex]
-                {
-                    double result =
-                        QLogicaeCppCore::TemperatureManager::singleton
-                        .calculate(
-                            100.0,
-                            QLogicaeCppCore::TemperatureUnitType::CELSIUS,
-                            QLogicaeCppCore::TemperatureUnitType::KELVIN
-                        );
-
-                    {
-                        std::lock_guard<std::mutex> lock(
-                            synchronization_mutex
-                        );
-
-                        EXPECT_NEAR(result, 373.15, 0.0001);
-                    }
-
-                    completion_counter.fetch_add(1);
-                }
-            );
-        }
-
-        for (std::thread& worker_thread : worker_threads)
-        {
-            worker_thread.join();
-        }
-
-        EXPECT_EQ(completion_counter.load(), 8);
-    }
-
-    TEST_F(
-        TemperatureManagerTest,
-        Should_CompleteStressTest_When_ExecutedRepeatedly
-    )
-    {
-        const auto start_time =
-            std::chrono::steady_clock::now();
-
-        for (int iteration = 0; iteration < 100000; iteration++)
-        {
-            double result =
-                QLogicaeCppCore::TemperatureManager::singleton.calculate(
-                    25.0,
-                    QLogicaeCppCore::TemperatureUnitType::CELSIUS,
-                    QLogicaeCppCore::TemperatureUnitType::FAHRENHEIT
-                );
-
-            EXPECT_NEAR(result, 77.0, 0.0001);
-        }
-
-        const auto end_time =
-            std::chrono::steady_clock::now();
-
-        const auto duration =
-            std::chrono::duration_cast<
-            std::chrono::milliseconds
-            >(end_time - start_time);
-
-        EXPECT_LT(duration.count(), 2000);
-    }
-
-    TEST_F(
-        TemperatureManagerTest,
-        Should_CompleteAsyncCalculation_When_UsingPromiseAndFuture
-    )
-    {
-        std::promise<double> calculation_promise;
-
-        std::future<double> calculation_future =
-            calculation_promise.get_future();
-
-        std::thread worker_thread(
-            [&calculation_promise]
-            {
-                double result =
-                    QLogicaeCppCore::TemperatureManager::singleton
-                    .calculate(
-                        10.0,
-                        QLogicaeCppCore::TemperatureUnitType::CELSIUS,
-                        QLogicaeCppCore::TemperatureUnitType::KELVIN
-                    );
-
-                calculation_promise.set_value(result);
-            }
-        );
-
-        double result = calculation_future.get();
-
-        worker_thread.join();
-
-        EXPECT_DOUBLE_EQ(result, 283.15);
-    }
-
-    TEST_F(
-        TemperatureManagerTest,
-        Should_SynchronizeThreads_When_UsingConditionVariable
-    )
-    {
-        std::mutex synchronization_mutex;
-        std::condition_variable synchronization_condition;
-        bool is_ready = false;
-        double calculated_value = 0.0;
-
-        std::thread producer_thread(
-            [&]
-            {
-                std::unique_lock<std::mutex> lock(
-                    synchronization_mutex
-                );
-
-                calculated_value =
-                    QLogicaeCppCore::TemperatureManager::singleton
-                    .calculate(
-                        0.0,
-                        QLogicaeCppCore::TemperatureUnitType::CELSIUS,
-                        QLogicaeCppCore::TemperatureUnitType::FAHRENHEIT
-                    );
-
-                is_ready = true;
-                synchronization_condition.notify_one();
-            }
-        );
-
-        std::thread consumer_thread(
-            [&]
-            {
-                std::unique_lock<std::mutex> lock(
-                    synchronization_mutex
-                );
-
-                synchronization_condition.wait(
-                    lock,
-                    [&]
-                    {
-                        return is_ready;
-                    }
-                );
-
-                EXPECT_DOUBLE_EQ(calculated_value, 32.0);
-            }
-        );
-
-        producer_thread.join();
-        consumer_thread.join();
-    }
-
-    TEST_F(
-        TemperatureManagerTest,
-        Should_NotThrowException_When_InvalidEnumProvided
-    )
-    {
-        EXPECT_NO_THROW(
-            QLogicaeCppCore::TemperatureManager::singleton
-            .calculate(
-                100.0,
-                static_cast<QLogicaeCppCore::TemperatureUnitType>(255),
-                static_cast<QLogicaeCppCore::TemperatureUnitType>(255)
-            )
-        );
-    }
-
-    TEST_F(
-        TemperatureManagerTest,
-        Should_NotModifyValue_When_UnitTypeIsNone
-    )
-    {
-        double result =
-            QLogicaeCppCore::TemperatureManager::singleton
-            .calculate(
-                50.0,
-                QLogicaeCppCore::TemperatureUnitType::NONE,
-                QLogicaeCppCore::TemperatureUnitType::NONE
-            );
-
-        EXPECT_DOUBLE_EQ(result, 50.0);
-    }
-
-    TEST_F(
-        TemperatureManagerTest,
-        Should_HandleExtremeValues_When_MaximumDoubleUsed
-    )
-    {
-        const double maximum_value =
-            std::numeric_limits<double>::max();
-
-        double result =
-            QLogicaeCppCore::TemperatureManager::singleton
-            .calculate(
-                maximum_value,
-                QLogicaeCppCore::TemperatureUnitType::CELSIUS,
-                QLogicaeCppCore::TemperatureUnitType::CELSIUS
-            );
-
-        EXPECT_DOUBLE_EQ(result, maximum_value);
-    }
-
-    TEST_F(
-        TemperatureManagerTest,
-        Should_HandleNegativeValues_When_BelowAbsoluteZeroProvided
-    )
-    {
-        double result =
-            QLogicaeCppCore::TemperatureManager::singleton
-            .calculate(
-                -500.0,
-                QLogicaeCppCore::TemperatureUnitType::CELSIUS,
-                QLogicaeCppCore::TemperatureUnitType::KELVIN
-            );
-
-        EXPECT_NEAR(result, -226.85, 0.0001);
-    }
-
-    TEST_F(
-        TemperatureManagerTest,
-        Should_UseDefaults_When_EmptyConfigurationProvided
-    )
-    {
-        QLogicaeCppCore::TemperatureManagerConfigurations
-            empty_configurations;
-
-        QLogicaeCppCore::TemperatureManager::singleton
-            .setup(empty_configurations);
-
-        double result =
-            QLogicaeCppCore::TemperatureManager::singleton
-            .calculate(
-                empty_configurations
-            );
-
-        EXPECT_DOUBLE_EQ(result, 0.0);
-    }
-
-    TEST_F(
-        TemperatureManagerTest,
-        Should_RemainStable_When_SetupAndResetRepeatedConcurrently
-    )
-    {
-        std::atomic<int> completion_counter = 0;
-
-        std::vector<std::thread> worker_threads;
-
-        for (int iteration = 0; iteration < 16; iteration++)
-        {
-            worker_threads.emplace_back(
-                [&completion_counter]
-                {
-                    QLogicaeCppCore::TemperatureManager::singleton
-                        .setup();
-
-                    QLogicaeCppCore::TemperatureManager::singleton
-                        .reset();
-
-                    double result =
-                        QLogicaeCppCore::TemperatureManager::singleton
-                        .calculate(
-                            20.0,
-                            QLogicaeCppCore::TemperatureUnitType::CELSIUS,
-                            QLogicaeCppCore::TemperatureUnitType::FAHRENHEIT
-                        );
-
-                    EXPECT_NEAR(result, 68.0, 0.0001);
-
-                    completion_counter.fetch_add(1);
-                }
-            );
-        }
-
-        for (std::thread& worker_thread : worker_threads)
-        {
-            worker_thread.join();
-        }
-
-        EXPECT_EQ(completion_counter.load(), 16);
-    }
-
-    INSTANTIATE_TEST_CASE_P(
-        TemperatureConversions,
-        TemperatureManagerParameterizedTest,
-        ::testing::Values(
-            TemperatureConversionParameters
-            {
-                0.0,
-                QLogicaeCppCore::TemperatureUnitType::CELSIUS,
-                QLogicaeCppCore::TemperatureUnitType::FAHRENHEIT,
-                32.0
-            },
-            TemperatureConversionParameters
-            {
-                100.0,
-                QLogicaeCppCore::TemperatureUnitType::CELSIUS,
-                QLogicaeCppCore::TemperatureUnitType::FAHRENHEIT,
-                212.0
-            },
-            TemperatureConversionParameters
-            {
-                -40.0,
-                QLogicaeCppCore::TemperatureUnitType::CELSIUS,
-                QLogicaeCppCore::TemperatureUnitType::FAHRENHEIT,
-                -40.0
-            },
-            TemperatureConversionParameters
-            {
-                0.0,
-                QLogicaeCppCore::TemperatureUnitType::CELSIUS,
-                QLogicaeCppCore::TemperatureUnitType::KELVIN,
-                273.15
-            },
-            TemperatureConversionParameters
-            {
-                100.0,
-                QLogicaeCppCore::TemperatureUnitType::CELSIUS,
-                QLogicaeCppCore::TemperatureUnitType::KELVIN,
-                373.15
-            },
-            TemperatureConversionParameters
-            {
-                -273.15,
-                QLogicaeCppCore::TemperatureUnitType::CELSIUS,
-                QLogicaeCppCore::TemperatureUnitType::KELVIN,
-                0.0
-            },
-            TemperatureConversionParameters
-            {
-                32.0,
-                QLogicaeCppCore::TemperatureUnitType::FAHRENHEIT,
-                QLogicaeCppCore::TemperatureUnitType::CELSIUS,
-                0.0
-            },
-            TemperatureConversionParameters
-            {
-                212.0,
-                QLogicaeCppCore::TemperatureUnitType::FAHRENHEIT,
-                QLogicaeCppCore::TemperatureUnitType::CELSIUS,
-                100.0
-            },
-            TemperatureConversionParameters
-            {
-                -40.0,
-                QLogicaeCppCore::TemperatureUnitType::FAHRENHEIT,
-                QLogicaeCppCore::TemperatureUnitType::CELSIUS,
-                -40.0
-            },
-            TemperatureConversionParameters
-            {
-                32.0,
-                QLogicaeCppCore::TemperatureUnitType::FAHRENHEIT,
-                QLogicaeCppCore::TemperatureUnitType::KELVIN,
-                273.15
-            },
-            TemperatureConversionParameters
-            {
-                212.0,
-                QLogicaeCppCore::TemperatureUnitType::FAHRENHEIT,
-                QLogicaeCppCore::TemperatureUnitType::KELVIN,
-                373.15
-            },
-            TemperatureConversionParameters
-            {
-                273.15,
-                QLogicaeCppCore::TemperatureUnitType::KELVIN,
-                QLogicaeCppCore::TemperatureUnitType::CELSIUS,
-                0.0
-            },
-            TemperatureConversionParameters
-            {
-                373.15,
-                QLogicaeCppCore::TemperatureUnitType::KELVIN,
-                QLogicaeCppCore::TemperatureUnitType::CELSIUS,
-                100.0
-            },
-            TemperatureConversionParameters
-            {
-                0.0,
-                QLogicaeCppCore::TemperatureUnitType::KELVIN,
-                QLogicaeCppCore::TemperatureUnitType::CELSIUS,
-                -273.15
-            },
-            TemperatureConversionParameters
-            {
-                273.15,
-                QLogicaeCppCore::TemperatureUnitType::KELVIN,
-                QLogicaeCppCore::TemperatureUnitType::FAHRENHEIT,
-                32.0
-            },
-            TemperatureConversionParameters
-            {
-                373.15,
-                QLogicaeCppCore::TemperatureUnitType::KELVIN,
-                QLogicaeCppCore::TemperatureUnitType::FAHRENHEIT,
-                212.0
-            },
-            TemperatureConversionParameters
-            {
-                0.0,
-                QLogicaeCppCore::TemperatureUnitType::KELVIN,
-                QLogicaeCppCore::TemperatureUnitType::FAHRENHEIT,
-                -459.67
-            },
-            TemperatureConversionParameters
-            {
-                25.0,
-                QLogicaeCppCore::TemperatureUnitType::CELSIUS,
-                QLogicaeCppCore::TemperatureUnitType::CELSIUS,
-                25.0
-            },
-            TemperatureConversionParameters
-            {
-                77.0,
-                QLogicaeCppCore::TemperatureUnitType::FAHRENHEIT,
-                QLogicaeCppCore::TemperatureUnitType::FAHRENHEIT,
-                77.0
-            },
-            TemperatureConversionParameters
-            {
-                300.0,
-                QLogicaeCppCore::TemperatureUnitType::KELVIN,
-                QLogicaeCppCore::TemperatureUnitType::KELVIN,
-                300.0
-            }
-        )
-    );
+	class
+		TemperatureManagerTest :
+		public ::testing::Test
+	{
+	public:
+		TemperatureManagerTest()
+		{
+		}
+
+		QLogicaeCppCore::TemperatureManager&
+			temperature_manager =
+			QLogicaeCppCore
+			::TemperatureManager
+			::singleton;
+	};
+
+	struct
+		TemperatureConversionParameters
+	{
+		double
+			input_value;
+
+		QLogicaeCppCore::TemperatureUnit
+			original_unit;
+
+		QLogicaeCppCore::TemperatureUnit
+			target_unit;
+
+		double
+			expected_value;
+	};
+
+	class
+		TemperatureManagerParameterizedTest :
+		public TemperatureManagerTest,
+		public ::testing::WithParamInterface<
+		TemperatureConversionParameters
+		>
+	{
+	};
+
+	TEST_F(
+		TemperatureManagerTest,
+		Should_ReturnSameValue_When_UnitsAreEqual
+	)
+	{
+		double
+			input_value =
+			25.0;
+
+		double
+			result =
+			temperature_manager
+			.convert_unit(
+				input_value,
+				QLogicaeCppCore
+				::TemperatureUnit
+				::CELSIUS,
+				QLogicaeCppCore
+				::TemperatureUnit
+				::CELSIUS
+			);
+
+		EXPECT_DOUBLE_EQ(
+			result,
+			input_value
+		);
+	}
+
+	TEST_F(
+		TemperatureManagerTest,
+		Should_UseConfiguredUnits_When_NoUnitsProvided
+	)
+	{
+		QLogicaeCppCore
+			::TemperatureManagerConfigurations
+			configurations;
+
+		configurations
+			.original_unit =
+			QLogicaeCppCore
+			::TemperatureUnit
+			::FAHRENHEIT;
+
+		configurations
+			.target_unit =
+			QLogicaeCppCore
+			::TemperatureUnit
+			::CELSIUS;
+
+		temperature_manager
+			.setup(
+				configurations
+			);
+
+		double
+			result =
+			temperature_manager
+			.convert_unit(
+				32.0
+			);
+
+		EXPECT_DOUBLE_EQ(
+			result,
+			0.0
+		);
+	}
+
+	TEST_P(
+		TemperatureManagerParameterizedTest,
+		Should_ConvertCorrectly_When_ValidParametersProvided
+	)
+	{
+		TemperatureConversionParameters
+			parameters =
+			GetParam();
+
+		double
+			result =
+			temperature_manager
+			.convert_unit(
+				parameters.input_value,
+				parameters.original_unit,
+				parameters.target_unit
+			);
+
+		EXPECT_NEAR(
+			result,
+			parameters.expected_value,
+			1e-12
+		);
+	}
+
+	INSTANTIATE_TEST_CASE_P(
+		TemperatureManagerConversions,
+		TemperatureManagerParameterizedTest,
+		::testing::Values(
+			TemperatureConversionParameters
+			{
+				0.0,
+				QLogicaeCppCore::TemperatureUnit::CELSIUS,
+				QLogicaeCppCore::TemperatureUnit::FAHRENHEIT,
+				32.0
+			},
+			TemperatureConversionParameters
+			{
+				100.0,
+				QLogicaeCppCore::TemperatureUnit::CELSIUS,
+				QLogicaeCppCore::TemperatureUnit::FAHRENHEIT,
+				212.0
+			},
+			TemperatureConversionParameters
+			{
+				-40.0,
+				QLogicaeCppCore::TemperatureUnit::CELSIUS,
+				QLogicaeCppCore::TemperatureUnit::FAHRENHEIT,
+				-40.0
+			},
+			TemperatureConversionParameters
+			{
+				0.0,
+				QLogicaeCppCore::TemperatureUnit::CELSIUS,
+				QLogicaeCppCore::TemperatureUnit::KELVIN,
+				273.15
+			},
+			TemperatureConversionParameters
+			{
+				100.0,
+				QLogicaeCppCore::TemperatureUnit::CELSIUS,
+				QLogicaeCppCore::TemperatureUnit::KELVIN,
+				373.15
+			},
+			TemperatureConversionParameters
+			{
+				-273.15,
+				QLogicaeCppCore::TemperatureUnit::CELSIUS,
+				QLogicaeCppCore::TemperatureUnit::KELVIN,
+				0.0
+			},
+			TemperatureConversionParameters
+			{
+				32.0,
+				QLogicaeCppCore::TemperatureUnit::FAHRENHEIT,
+				QLogicaeCppCore::TemperatureUnit::CELSIUS,
+				0.0
+			},
+			TemperatureConversionParameters
+			{
+				212.0,
+				QLogicaeCppCore::TemperatureUnit::FAHRENHEIT,
+				QLogicaeCppCore::TemperatureUnit::CELSIUS,
+				100.0
+			},
+			TemperatureConversionParameters
+			{
+				-40.0,
+				QLogicaeCppCore::TemperatureUnit::FAHRENHEIT,
+				QLogicaeCppCore::TemperatureUnit::CELSIUS,
+				-40.0
+			},
+			TemperatureConversionParameters
+			{
+				32.0,
+				QLogicaeCppCore::TemperatureUnit::FAHRENHEIT,
+				QLogicaeCppCore::TemperatureUnit::KELVIN,
+				273.15
+			},
+			TemperatureConversionParameters
+			{
+				212.0,
+				QLogicaeCppCore::TemperatureUnit::FAHRENHEIT,
+				QLogicaeCppCore::TemperatureUnit::KELVIN,
+				373.15
+			},
+			TemperatureConversionParameters
+			{
+				-459.67,
+				QLogicaeCppCore::TemperatureUnit::FAHRENHEIT,
+				QLogicaeCppCore::TemperatureUnit::KELVIN,
+				0.0
+			},
+			TemperatureConversionParameters
+			{
+				273.15,
+				QLogicaeCppCore::TemperatureUnit::KELVIN,
+				QLogicaeCppCore::TemperatureUnit::CELSIUS,
+				0.0
+			},
+			TemperatureConversionParameters
+			{
+				373.15,
+				QLogicaeCppCore::TemperatureUnit::KELVIN,
+				QLogicaeCppCore::TemperatureUnit::CELSIUS,
+				100.0
+			},
+			TemperatureConversionParameters
+			{
+				0.0,
+				QLogicaeCppCore::TemperatureUnit::KELVIN,
+				QLogicaeCppCore::TemperatureUnit::CELSIUS,
+				-273.15
+			},
+			TemperatureConversionParameters
+			{
+				273.15,
+				QLogicaeCppCore::TemperatureUnit::KELVIN,
+				QLogicaeCppCore::TemperatureUnit::FAHRENHEIT,
+				32.0
+			},
+			TemperatureConversionParameters
+			{
+				373.15,
+				QLogicaeCppCore::TemperatureUnit::KELVIN,
+				QLogicaeCppCore::TemperatureUnit::FAHRENHEIT,
+				212.0
+			},
+			TemperatureConversionParameters
+			{
+				0.0,
+				QLogicaeCppCore::TemperatureUnit::KELVIN,
+				QLogicaeCppCore::TemperatureUnit::FAHRENHEIT,
+				-459.67
+			},
+			TemperatureConversionParameters
+			{
+				25.5,
+				QLogicaeCppCore::TemperatureUnit::CELSIUS,
+				QLogicaeCppCore::TemperatureUnit::FAHRENHEIT,
+				77.9
+			},
+			TemperatureConversionParameters
+			{
+				77.9,
+				QLogicaeCppCore::TemperatureUnit::FAHRENHEIT,
+				QLogicaeCppCore::TemperatureUnit::CELSIUS,
+				25.5
+			},
+			TemperatureConversionParameters
+			{
+				25.5,
+				QLogicaeCppCore::TemperatureUnit::CELSIUS,
+				QLogicaeCppCore::TemperatureUnit::KELVIN,
+				298.65
+			},
+			TemperatureConversionParameters
+			{
+				298.65,
+				QLogicaeCppCore::TemperatureUnit::KELVIN,
+				QLogicaeCppCore::TemperatureUnit::CELSIUS,
+				25.5
+			},
+			TemperatureConversionParameters
+			{
+				1234.56,
+				QLogicaeCppCore::TemperatureUnit::CELSIUS,
+				QLogicaeCppCore::TemperatureUnit::CELSIUS,
+				1234.56
+			},
+			TemperatureConversionParameters
+			{
+				-999.99,
+				QLogicaeCppCore::TemperatureUnit::FAHRENHEIT,
+				QLogicaeCppCore::TemperatureUnit::FAHRENHEIT,
+				-999.99
+			},
+			TemperatureConversionParameters
+			{
+				555.55,
+				QLogicaeCppCore::TemperatureUnit::KELVIN,
+				QLogicaeCppCore::TemperatureUnit::KELVIN,
+				555.55
+			}
+		)
+	);
+
+	TEST_F(
+		TemperatureManagerTest,
+		Should_HandleInvalidEnumGracefully_When_InvalidUnitProvided
+	)
+	{
+		double
+			result =
+			temperature_manager
+			.convert_unit(
+				10.0,
+				static_cast<
+				QLogicaeCppCore
+				::TemperatureUnit
+				>(
+					255
+					),
+				QLogicaeCppCore
+				::TemperatureUnit
+				::CELSIUS
+			);
+
+		EXPECT_DOUBLE_EQ(
+			result,
+			10.0
+		);
+	}
+
+	TEST_F(
+		TemperatureManagerTest,
+		Should_NotThrow_When_CalledConcurrently
+	)
+	{
+		std::atomic<bool>
+			completed =
+			false;
+
+		std::thread
+			worker_thread =
+			std::thread(
+				[&]()
+				{
+					for
+						(
+							std::size_t
+							iteration = 0;
+							iteration < 10000;
+							++iteration
+							)
+					{
+						temperature_manager
+							.convert_unit(
+								100.0,
+								QLogicaeCppCore
+								::TemperatureUnit
+								::CELSIUS,
+								QLogicaeCppCore
+								::TemperatureUnit
+								::FAHRENHEIT
+							);
+					}
+
+					completed =
+						true;
+				}
+			);
+
+		worker_thread
+			.join();
+
+		EXPECT_TRUE(
+			completed
+		);
+	}
+
+	TEST_F(
+		TemperatureManagerTest,
+		Should_ExecuteAsynchronously_When_UsingStdAsync
+	)
+	{
+		std::future<double>
+			result_future =
+			std::async(
+				std::launch::async,
+				[&]()
+				{
+					return
+						temperature_manager
+						.convert_unit(
+							0.0,
+							QLogicaeCppCore
+							::TemperatureUnit
+							::CELSIUS,
+							QLogicaeCppCore
+							::TemperatureUnit
+							::KELVIN
+						);
+				}
+			);
+
+		EXPECT_DOUBLE_EQ(
+			result_future.get(),
+			273.15
+		);
+	}
+
+	TEST_F(
+		TemperatureManagerTest,
+		Should_HandleExtremeValues_When_DoubleLimitsProvided
+	)
+	{
+		double
+			max_value =
+			std::numeric_limits<double>
+			::max();
+
+		double
+			result =
+			temperature_manager
+			.convert_unit(
+				max_value,
+				QLogicaeCppCore
+				::TemperatureUnit
+				::CELSIUS,
+				QLogicaeCppCore
+				::TemperatureUnit
+				::CELSIUS
+			);
+
+		EXPECT_DOUBLE_EQ(
+			result,
+			max_value
+		);
+	}
+
+	TEST_F(
+		TemperatureManagerTest,
+		Should_CompleteWithinTimeLimit_When_StressTested
+	)
+	{
+		auto
+			start_time =
+			std::chrono
+			::steady_clock
+			::now();
+
+		for
+			(
+				std::size_t
+				iteration = 0;
+				iteration < 500000;
+				++iteration
+				)
+		{
+			temperature_manager
+				.convert_unit(
+					50.0,
+					QLogicaeCppCore
+					::TemperatureUnit
+					::CELSIUS,
+					QLogicaeCppCore
+					::TemperatureUnit
+					::FAHRENHEIT
+				);
+		}
+
+		auto
+			end_time =
+			std::chrono
+			::steady_clock
+			::now();
+
+		auto
+			elapsed_time =
+			std::chrono
+			::duration_cast<
+			std::chrono::milliseconds
+			>(
+				end_time - start_time
+			)
+			.count();
+
+		EXPECT_LT(
+			elapsed_time,
+			2000
+		);
+	}
+
+	TEST_F(
+		TemperatureManagerTest,
+		Should_HandleLowestDoubleValue_When_MinimumDoubleProvided
+	)
+	{
+		double
+			minimum_value =
+			std::numeric_limits<double>
+			::lowest();
+
+		double
+			result =
+			temperature_manager
+			.convert_unit(
+				minimum_value,
+				QLogicaeCppCore
+				::TemperatureUnit
+				::CELSIUS,
+				QLogicaeCppCore
+				::TemperatureUnit
+				::CELSIUS
+			);
+
+		EXPECT_DOUBLE_EQ(
+			result,
+			minimum_value
+		);
+	}
+
+	TEST_F(
+		TemperatureManagerTest,
+		Should_HandleNaNValue_When_NaNProvided
+	)
+	{
+		double
+			nan_value =
+			std::numeric_limits<double>
+			::quiet_NaN();
+
+		double
+			result =
+			temperature_manager
+			.convert_unit(
+				nan_value,
+				QLogicaeCppCore
+				::TemperatureUnit
+				::CELSIUS,
+				QLogicaeCppCore
+				::TemperatureUnit
+				::CELSIUS
+			);
+
+		EXPECT_TRUE(
+			std::isnan(
+				result
+			)
+		);
+	}
+
+	TEST_F(
+		TemperatureManagerTest,
+		Should_HandleInfinityValues_When_InfiniteProvided
+	)
+	{
+		double
+			positive_infinity =
+			std::numeric_limits<double>
+			::infinity();
+
+		double
+			negative_infinity =
+			-std::numeric_limits<double>
+			::infinity();
+
+		double
+			positive_result =
+			temperature_manager
+			.convert_unit(
+				positive_infinity,
+				QLogicaeCppCore
+				::TemperatureUnit
+				::CELSIUS,
+				QLogicaeCppCore
+				::TemperatureUnit
+				::CELSIUS
+			);
+
+		double
+			negative_result =
+			temperature_manager
+			.convert_unit(
+				negative_infinity,
+				QLogicaeCppCore
+				::TemperatureUnit
+				::CELSIUS,
+				QLogicaeCppCore
+				::TemperatureUnit
+				::CELSIUS
+			);
+
+		EXPECT_TRUE(
+			std::isinf(
+				positive_result
+			)
+		);
+
+		EXPECT_TRUE(
+			std::isinf(
+				negative_result
+			)
+		);
+	}
+
+	TEST_F(
+		TemperatureManagerTest,
+		Should_NotDeadlock_When_MultipleThreadsConvertSimultaneously
+	)
+	{
+		std::atomic<std::size_t>
+			completed_threads =
+			0;
+
+		std::vector<std::thread>
+			worker_threads;
+
+		for
+			(
+				std::size_t
+				thread_index = 0;
+				thread_index < 8;
+				++thread_index
+				)
+		{
+			worker_threads
+				.emplace_back(
+					[&]()
+					{
+						for
+							(
+								std::size_t
+								iteration = 0;
+								iteration < 5000;
+								++iteration
+								)
+						{
+							temperature_manager
+								.convert_unit(
+									10.0,
+									QLogicaeCppCore
+									::TemperatureUnit
+									::FAHRENHEIT,
+									QLogicaeCppCore
+									::TemperatureUnit
+									::CELSIUS
+								);
+						}
+
+						++completed_threads;
+					}
+				);
+		}
+
+		for
+			(
+				std::thread&
+				worker_thread :
+				worker_threads
+				)
+		{
+			worker_thread
+				.join();
+		}
+
+		EXPECT_EQ(
+			completed_threads.load(),
+			static_cast<std::size_t>(
+				8
+				)
+		);
+	}
+
+	TEST_F(
+		TemperatureManagerTest,
+		Should_HandleConcurrentConfigurationChanges_When_MultiThreaded
+	)
+	{
+		std::atomic<bool>
+			completed =
+			false;
+
+		std::thread
+			writer_thread =
+			std::thread(
+				[&]()
+				{
+					QLogicaeCppCore
+						::TemperatureManagerConfigurations
+						configurations;
+
+					for
+						(
+							std::size_t
+							iteration = 0;
+							iteration < 1000;
+							++iteration
+							)
+					{
+						configurations
+							.original_unit =
+							QLogicaeCppCore
+							::TemperatureUnit
+							::CELSIUS;
+
+						configurations
+							.target_unit =
+							QLogicaeCppCore
+							::TemperatureUnit
+							::FAHRENHEIT;
+
+						temperature_manager
+							.setup(
+								configurations
+							);
+					}
+
+					completed =
+						true;
+				}
+			);
+
+		for
+			(
+				std::size_t
+				iteration = 0;
+				iteration < 1000;
+				++iteration
+				)
+		{
+			temperature_manager
+				.convert_unit(
+					20.0
+				);
+		}
+
+		writer_thread
+			.join();
+
+		EXPECT_TRUE(
+			completed
+		);
+	}
+
+	TEST_F(
+		TemperatureManagerTest,
+		Should_ExecuteMultipleAsyncTasks_When_UsingFutures
+	)
+	{
+		std::vector<
+			std::future<double>
+		>
+			futures;
+
+		for
+			(
+				std::size_t
+				iteration = 0;
+				iteration < 16;
+				++iteration
+				)
+		{
+			futures
+				.emplace_back(
+					std::async(
+						std::launch::async,
+						[&]()
+						{
+							return
+								temperature_manager
+								.convert_unit(
+									100.0,
+									QLogicaeCppCore
+									::TemperatureUnit
+									::CELSIUS,
+									QLogicaeCppCore
+									::TemperatureUnit
+									::KELVIN
+								);
+						}
+					)
+				);
+		}
+
+		for
+			(
+				std::future<double>&
+				result_future :
+				futures
+				)
+		{
+			EXPECT_DOUBLE_EQ(
+				result_future.get(),
+				373.15
+			);
+		}
+	}
+
+	TEST_F(
+		TemperatureManagerTest,
+		Should_RespectFeatureThreadSafetyDisabled_When_FeatureLockDisabled
+	)
+	{
+		QLogicaeCppCore
+			::TemperatureManagerConfigurations
+			configurations;
+
+		configurations
+			.is_feature_handling_thread_safety_enabled =
+			false;
+
+		temperature_manager
+			.setup(
+				configurations
+			);
+
+		double
+			result =
+			temperature_manager
+			.convert_unit(
+				0.0,
+				QLogicaeCppCore
+				::TemperatureUnit
+				::CELSIUS,
+				QLogicaeCppCore
+				::TemperatureUnit
+				::FAHRENHEIT
+			);
+
+		EXPECT_DOUBLE_EQ(
+			result,
+			32.0
+		);
+	}
 }

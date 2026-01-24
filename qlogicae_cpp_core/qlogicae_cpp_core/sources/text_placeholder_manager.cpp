@@ -139,12 +139,13 @@ namespace
 						feature_handling_mutex_1
 					);
 			}	
-
+		
 			return
-				(configurations.is_conditional_callback_enabled &&
-					!configurations.conditional_callback(text)) ?
-						placeholder :
-						text;
+				(
+					configurations.is_conditional_callback_enabled &&
+					configurations.conditional_callback != nullptr &&
+					configurations.conditional_callback(text)
+				) ? placeholder : text;			
         }
         catch
         (

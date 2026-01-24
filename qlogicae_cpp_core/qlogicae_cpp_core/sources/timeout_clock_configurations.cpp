@@ -58,3 +58,4 @@ namespace QLogicaeCppCore
 				TimeoutClockConfigurations
 					::initial_configurations;
 }
+

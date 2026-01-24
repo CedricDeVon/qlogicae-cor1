@@ -566,7 +566,7 @@ namespace
 			QueryPerformanceCounter(&start);
 
 			unsigned long long tsc_start = __rdtsc();
-			std::this_thread::sleep_for(std::chrono::milliseconds(10));
+			std::this_thread::sleep_for(std::chrono::microseconds(100));
 			unsigned long long tsc_end = __rdtsc();
 
 			QueryPerformanceCounter(&end);

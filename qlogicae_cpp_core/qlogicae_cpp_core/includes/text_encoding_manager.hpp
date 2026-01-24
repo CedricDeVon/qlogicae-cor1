@@ -13,21 +13,6 @@ namespace
 			public AbstractClass<TextEncodingManagerConfigurations>
     {
     public:        
-		static const char
-			decode_base_16_table[];
-
-		static const int8_t
-			decode_base_32_table[];
-
-		static const char
-			encode_base_32_table[];
-
-		static const int8_t
-			decode_base_64_table[];
-
-		static const char
-			encode_base_64_table[];
-
         static TextEncodingManager&
             singleton;
 
@@ -94,3 +79,4 @@ namespace
 			);
     };    
 }
+

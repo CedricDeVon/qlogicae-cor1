@@ -9,6 +9,7 @@
 #include <stduuid/uuid.h>
 
 */
+
 #define PCRE2_CODE_UNIT_WIDTH 8
 #include <pcre2.h>
 
@@ -41,6 +42,7 @@
 #include <folly/init/Init.h>
 #include <folly/synchronization/MicroSpinLock.h>
 
+#include <cppcodec/base32_rfc4648.hpp>
 
 #ifdef _MSC_VER
 #pragma warning(push)
@@ -52,7 +54,6 @@
 #ifdef _MSC_VER
 #pragma warning(pop)
 #endif
-
 
 #include <any>
 #include <compare>

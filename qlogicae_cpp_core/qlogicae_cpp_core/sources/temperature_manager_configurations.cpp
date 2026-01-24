@@ -55,3 +55,4 @@ namespace
 				TemperatureManagerConfigurations
 					::initial_configurations;
 }
+

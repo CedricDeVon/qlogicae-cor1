@@ -5,21 +5,6 @@
 namespace
 	QLogicaeCppCoreTest
 {
-    class FunctionWrapperTest :
-		public ::testing::Test
-	{
-	public:
-		FunctionWrapperTest()
-		{
-			QLogicaeCppCore::FunctionWrapper::singleton.reset();
-		}
-
-		~FunctionWrapperTest() override
-		{
-			QLogicaeCppCore::FunctionWrapper::singleton.reset();
-		}
-	};
-
 	struct NonDefaultConstructible
 	{
 		explicit NonDefaultConstructible(int value) : value(value) {}
@@ -50,6 +35,21 @@ namespace
 		int zero_arg()
 		{
 			return 42;
+		}
+	};
+
+    class FunctionWrapperTest :
+		public ::testing::Test
+	{
+	public:
+		FunctionWrapperTest()
+		{
+			QLogicaeCppCore::FunctionWrapper::singleton.reset();
+		}
+
+		~FunctionWrapperTest() override
+		{
+			QLogicaeCppCore::FunctionWrapper::singleton.reset();
 		}
 	};
 

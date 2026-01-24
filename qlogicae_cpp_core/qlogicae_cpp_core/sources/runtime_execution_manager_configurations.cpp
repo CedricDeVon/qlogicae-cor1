@@ -47,3 +47,4 @@ namespace
 				RuntimeExecutionManagerConfigurations
 					::initial_configurations;
 }
+

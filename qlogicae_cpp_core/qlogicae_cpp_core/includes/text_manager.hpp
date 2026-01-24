@@ -1,6 +1,5 @@
 #pragma once
 
-#include "text_case.hpp"
 #include "abstract_class.hpp"
 #include "singleton_manager.hpp"
 #include "text_manager_configurations.hpp"
@@ -73,7 +72,7 @@ namespace
 				std::wstring wide =
 					std::is_same_v<input_type, std::wstring>
 						? text
-						: (text ? std::wstring(text) : std::wstring());
+						: (!text.empty() ? std::wstring(text) : std::wstring());
 
 				if constexpr (std::is_same_v<output_type, std::wstring>)
 				{
@@ -128,7 +127,7 @@ namespace
 				std::string narrow =
 					std::is_same_v<input_type, std::string>
 						? text
-						: (text ? std::string(text) : std::string());
+						: (!text.empty() ? std::string(text) : std::string());
 
 				if constexpr (std::is_same_v<output_type, std::string>)
 				{

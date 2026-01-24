@@ -158,9 +158,20 @@
     <ClInclude Include="qlogicae_cpp_core_test\includes\configuration_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core_test\includes\error_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core_test\includes\function_wrapper.hpp" />
+    <ClInclude Include="qlogicae_cpp_core_test\includes\interval_clock.hpp" />
     <ClInclude Include="qlogicae_cpp_core_test\includes\mutex_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core_test\includes\regular_expression_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core_test\includes\results.hpp" />
+    <ClInclude Include="qlogicae_cpp_core_test\includes\runtime_execution_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core_test\includes\singleton_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core_test\includes\temperature_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core_test\includes\text_case_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core_test\includes\text_encoding_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core_test\includes\text_error_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core_test\includes\text_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core_test\includes\text_placeholder_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core_test\includes\timeout_clock.hpp" />
+    <ClInclude Include="qlogicae_cpp_core_test\includes\time_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core_test\resources\application.h" />
   </ItemGroup>
   <ItemGroup>
@@ -176,9 +187,20 @@
     <ClCompile Include="qlogicae_cpp_core_test\sources\configuration_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core_test\sources\error_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core_test\sources\function_wrapper.cpp" />
+    <ClCompile Include="qlogicae_cpp_core_test\sources\interval_clock.cpp" />
     <ClCompile Include="qlogicae_cpp_core_test\sources\mutex_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core_test\sources\regular_expression_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core_test\sources\results.cpp" />
+    <ClCompile Include="qlogicae_cpp_core_test\sources\runtime_execution_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core_test\sources\singleton_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core_test\sources\temperature_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core_test\sources\text_case_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core_test\sources\text_encoding_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core_test\sources\text_error_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core_test\sources\text_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core_test\sources\text_placeholder_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core_test\sources\timeout_clock.cpp" />
+    <ClCompile Include="qlogicae_cpp_core_test\sources\time_manager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

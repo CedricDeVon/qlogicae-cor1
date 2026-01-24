@@ -6,6 +6,24 @@ using namespace QLogicaeCppCore;
 
 namespace QLogicaeCppCoreTest
 {
+	struct MutexManagerParameterizedTestData
+	{
+		bool construct_first;
+	};
+
+	struct MutexLockCombinationTestData
+	{
+		std::string mutex_type_name;
+		bool construct_first;
+	};
+
+	struct FailingMutex
+	{
+		FailingMutex() { throw std::runtime_error("Constructor failure"); }
+		void lock() {}
+		void unlock() {}
+	};
+
     class MutexManagerTest : public ::testing::Test
     {
     protected:
@@ -27,21 +45,10 @@ namespace QLogicaeCppCoreTest
         }
     };
 
-    struct MutexManagerParameterizedTestData
-    {
-        bool construct_first;
-    };
-
     class MutexManagerParameterizedTest :
         public MutexManagerTest,
         public ::testing::WithParamInterface<MutexManagerParameterizedTestData>
     {
-    };
-
-    struct MutexLockCombinationTestData
-    {
-        std::string mutex_type_name;
-        bool construct_first;
     };
 
     class MutexManagerLockMutexTest :
@@ -68,13 +75,6 @@ namespace QLogicaeCppCoreTest
         {
             ASSERT_TRUE(mutex_manager_instance.destruct());
         }
-    };
-
-    struct FailingMutex
-    {
-        FailingMutex() { throw std::runtime_error("Constructor failure"); }
-        void lock() {}
-        void unlock() {}
     };
 
     class MutexManagerBoostTest : public ::testing::Test

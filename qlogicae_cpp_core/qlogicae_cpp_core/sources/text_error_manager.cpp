@@ -140,11 +140,33 @@ namespace
 					);
 			}			
 
-			return
-				configurations.title +
-				" " + (origin.empty() ? " found " : ("found at " + origin)) +
-				configurations.separator +
-				message;
+			if (configurations.is_specified_length_enabled)
+			{
+				std::string text;
+				text.resize(configurations.specified_length);
+
+				text = 
+					configurations.title +
+					(origin.empty() ? "" : (" at " + origin)) +
+					" " +
+					configurations.separator +
+					" " +
+					message;
+
+				return
+					text;
+			}
+			else
+
+			{
+				return
+					configurations.title +
+					(origin.empty() ? "" : (" at " + origin)) +
+					" " +
+					configurations.separator +
+					" " +
+					message;
+			}
         }
         catch
         (

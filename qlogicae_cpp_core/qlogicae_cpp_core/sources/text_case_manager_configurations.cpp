@@ -59,4 +59,3 @@ namespace
 				TextCaseManagerConfigurations
 					::initial_configurations;
 }
-

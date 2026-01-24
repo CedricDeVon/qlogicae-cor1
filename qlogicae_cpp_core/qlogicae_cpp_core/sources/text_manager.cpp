@@ -146,6 +146,12 @@ namespace
 					);
 			}			
 
+			if (text.empty())
+			{
+				return
+					"";
+			}
+
 			return
 				absl::StrReplaceAll(
 					text,
@@ -189,6 +195,12 @@ namespace
 					);
 			}			
 
+			if (text.empty())
+			{
+				return
+					{};
+			}
+
 			return
 				absl::StrSplit(
 					text,
@@ -210,3 +222,4 @@ namespace
         }
 	}
 }
+

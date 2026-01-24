@@ -6,10 +6,30 @@ using namespace QLogicaeCppCore;
 
 namespace QLogicaeCppCoreTest
 {
+	enum class TestPlainEnum
+	{
+		ZERO = 0,
+		ONE = 1,
+		MAXIMUM = 2
+	};
+
     struct TestPlainStruct
     {
         int value;
     };
+
+	struct NonDefaultConstructible
+	{
+		explicit NonDefaultConstructible(int) {}
+	};
+
+	struct ThrowingConstructor
+	{
+		ThrowingConstructor()
+		{
+			throw std::runtime_error("error");
+		}
+	};
 
     class TestPlainClass
     {
@@ -17,13 +37,6 @@ namespace QLogicaeCppCoreTest
         TestPlainClass() = default;
 
         int value;
-    };
-
-    enum class TestPlainEnum
-    {
-        ZERO = 0,
-        ONE = 1,
-        MAXIMUM = 2
     };
 
     class SingletonManagerTest : public ::testing::Test
@@ -695,11 +708,6 @@ namespace QLogicaeCppCoreTest
 		);
 	}
 
-	struct NonDefaultConstructible
-	{
-		explicit NonDefaultConstructible(int) {}
-	};
-
 	TEST(
 		SingletonManagerEdgeCaseTest,
 		Should_FailToCompile_For_NonDefaultConstructibleType
@@ -707,14 +715,6 @@ namespace QLogicaeCppCoreTest
 	{
 		SUCCEED();
 	}
-
-	struct ThrowingConstructor
-	{
-		ThrowingConstructor()
-		{
-			throw std::runtime_error("error");
-		}
-	};
 
 	TEST(
 		SingletonManagerExceptionTest,

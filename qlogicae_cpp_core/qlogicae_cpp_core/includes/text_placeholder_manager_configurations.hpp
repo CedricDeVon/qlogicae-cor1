@@ -31,3 +31,4 @@ namespace
 			default_configurations;
 	};
 }
+

@@ -164,7 +164,7 @@ namespace
 
 			bool
 				result =
-					is_match(
+					is_pattern_matched(
 						value,
 						regular_expression
 					);
@@ -191,7 +191,35 @@ namespace
 
 	bool
 		RegularExpressionManager
-			::is_match(
+			::is_direct_pattern_matched(
+				const std::string&
+					value
+			)
+	{
+		try
+        {					
+			return
+				is_direct_pattern_matched(
+					value,
+					configurations.pattern
+				);
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+			return
+				handle_error_outputs(
+					exception
+				);
+        }
+	}
+
+	bool
+		RegularExpressionManager
+			::is_pattern_matched(
 				const std::string&
 					value,
 				pcre2_code*
@@ -200,17 +228,6 @@ namespace
 	{
 		try
 		{
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_feature_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_2
-					);
-			}
-
 			pcre2_match_data*
 				match_data =
 					pcre2_match_data_create_from_pattern(

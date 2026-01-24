@@ -37,6 +37,10 @@ namespace
 						.is_error_handling_thread_safety_enabled =
 							true;
 
+					configurations
+						.pattern =
+							"";
+
 					return
 						configurations;
 				}();
