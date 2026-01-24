@@ -13,7 +13,8 @@ namespace
 	public:
 		TimeZone
 			time_zone =
-				default_configurations.time_zone;
+				default_configurations
+					.time_zone;
 
 
 

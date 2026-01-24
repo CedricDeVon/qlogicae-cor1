@@ -121,19 +121,6 @@ namespace
     bool
         MutexManager::lock_micro_mutex(
             const void*
-				pointer
-        )
-    {
-		return
-			lock_micro_mutex(
-				pointer,
-				configurations.name
-			);
-    }
-
-    bool
-        MutexManager::lock_micro_mutex(
-            const void*
 				pointer,
             const std::string&
 				name
@@ -194,13 +181,13 @@ namespace
     }
 
     bool
-        MutexManager::unlock_micro_mutex(
+        MutexManager::lock_micro_mutex(
             const void*
-	            pointer
+				pointer
         )
     {
-        return
-			unlock_micro_mutex(
+		return
+			lock_micro_mutex(
 				pointer,
 				configurations.name
 			);
@@ -266,6 +253,19 @@ namespace
 					exception
 				);
         }
+    }
+
+    bool
+        MutexManager::unlock_micro_mutex(
+            const void*
+	            pointer
+        )
+    {
+        return
+			unlock_micro_mutex(
+				pointer,
+				configurations.name
+			);
     }
 
     bool

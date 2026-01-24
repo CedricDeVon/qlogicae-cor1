@@ -25,17 +25,17 @@ namespace
 		bool
 			destruct();
 
-		template <typename TypeConfigurations> void
+		template <typename TypeConfigurations> bool
 			setup_defaults(
 				const TypeConfigurations&
 					new_configurations
 			);
 
-		template <typename TypeConfigurations> void
+		template <typename TypeConfigurations> bool
 			reset_defaults();
 	};
 
-	template <typename TypeConfigurations> void
+	template <typename TypeConfigurations> bool
 		ConfigurationManager
 			::setup_defaults(
 				const TypeConfigurations&
@@ -58,6 +58,9 @@ namespace
 			TypeConfigurations
 				::default_configurations =
 					new_configurations;
+
+			return
+				true;
 		}
 		catch
 		(
@@ -65,13 +68,14 @@ namespace
 				exception
 		)
 		{
-			handle_error_outputs(
-				exception
-			);
+			return
+				handle_error_outputs(
+					exception
+				);
 		}		
 	}
 
-	template <typename TypeConfigurations> void
+	template <typename TypeConfigurations> bool
 		ConfigurationManager
 			::reset_defaults()
 	{
@@ -92,6 +96,9 @@ namespace
 				::default_configurations =
 					TypeConfigurations::
 						initial_configurations;
+
+			return
+				true;
 		}
 		catch
 		(
@@ -99,9 +106,10 @@ namespace
 				exception
 		)
 		{
-			handle_error_outputs(
-				exception
-			);
+			return
+				handle_error_outputs(
+					exception
+				);
 		}		
 	}
 }

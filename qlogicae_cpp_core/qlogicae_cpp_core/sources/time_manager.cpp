@@ -127,6 +127,17 @@ namespace
 	{
 		try
         {		
+			boost::unique_lock<boost::mutex>
+				mutex_lock;
+			if (configurations.is_thread_safety_enabled_for_feature_handling())
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						feature_handling_mutex_1
+					);
+			}
+
 			absl::Time now_time = absl::Now();
 			absl::Duration since_epoch = now_time - absl::UnixEpoch();
 			std::tm tm = get_time_zone();
@@ -226,6 +237,17 @@ namespace
 	{
 		try
         {		
+			boost::unique_lock<boost::mutex>
+				mutex_lock;
+			if (configurations.is_thread_safety_enabled_for_feature_handling())
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						feature_handling_mutex_2
+					);
+			}
+
 			switch (time_format)
 			{
 				case TimeFormat::ISO8601:
@@ -295,6 +317,17 @@ namespace
 	{
 		try
         {		
+			boost::unique_lock<boost::mutex>
+				mutex_lock;
+			if (configurations.is_thread_safety_enabled_for_feature_handling())
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						feature_handling_mutex_2
+					);
+			}
+
 			std::time_t time =
 				std::chrono::system_clock::to_time_t(
 					std::chrono::system_clock::now()
@@ -335,7 +368,18 @@ namespace
 			)
 	{
 		try
-        {		
+        {	
+			boost::unique_lock<boost::mutex>
+				mutex_lock;
+			if (configurations.is_thread_safety_enabled_for_feature_handling())
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						feature_handling_mutex_3
+					);
+			}
+	
 			char buf[4];
 			std::snprintf(buf, sizeof(buf), "%03d", value);
 
@@ -367,6 +411,17 @@ namespace
 	{
 		try
         {		
+			boost::unique_lock<boost::mutex>
+				mutex_lock;
+			if (configurations.is_thread_safety_enabled_for_feature_handling())
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						feature_handling_mutex_2
+					);
+			}
+
 			switch (format)
 			{
 				case TimeScaleUnit::NANOSECONDS: return time / 1'000'000'000.0;
@@ -408,6 +463,17 @@ namespace
 	{
 		try
         {		
+			boost::unique_lock<boost::mutex>
+				mutex_lock;
+			if (configurations.is_thread_safety_enabled_for_feature_handling())
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						feature_handling_mutex_2
+					);
+			}
+
 			switch (format)
 			{
 				case TimeScaleUnit::NANOSECONDS: return time;
@@ -449,6 +515,17 @@ namespace
 	{
 		try
         {		
+			boost::unique_lock<boost::mutex>
+				mutex_lock;
+			if (configurations.is_thread_safety_enabled_for_feature_handling())
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						feature_handling_mutex_2
+					);
+			}
+
 			return absl::StrCat(
 				pad3(static_cast<int>(
 					absl::ToInt64Milliseconds(since_epoch) % 1000)),
@@ -481,6 +558,17 @@ namespace
 	{
 		try
         {		
+			boost::unique_lock<boost::mutex>
+				mutex_lock;
+			if (configurations.is_thread_safety_enabled_for_feature_handling())
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						feature_handling_mutex_2
+					);
+			}
+
 			return absl::StrCat(
 				pad3(static_cast<int>(
 					absl::ToInt64Milliseconds(since_epoch) % 1000)),
@@ -516,6 +604,17 @@ namespace
 	{
 		try
         {		
+			boost::unique_lock<boost::mutex>
+				mutex_lock;
+			if (configurations.is_thread_safety_enabled_for_feature_handling())
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						feature_handling_mutex_2
+					);
+			}
+
 			return absl::StrCat(
 				pad3(static_cast<int>(
 					absl::ToInt64Milliseconds(since_epoch) % 1000)),
@@ -552,6 +651,17 @@ namespace
 	{
 		try
         {		
+			boost::unique_lock<boost::mutex>
+				mutex_lock;
+			if (configurations.is_thread_safety_enabled_for_feature_handling())
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						feature_handling_mutex_2
+					);
+			}
+
 			char buffer[64];
 			if (std::strftime(buffer, sizeof(buffer), fmt, &tm))
 			{

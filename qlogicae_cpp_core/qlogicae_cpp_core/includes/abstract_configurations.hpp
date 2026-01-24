@@ -43,7 +43,7 @@ namespace
 					::default_configurations
 						.is_error_handling_thread_safety_enabled;
 
-
+		AbstractConfigurations();
 
 		bool
 			is_thread_safety_enabled_for_utility_handling();
@@ -54,6 +54,29 @@ namespace
 		bool
 			is_thread_safety_enabled_for_error_handling();
 	};
+
+	template <typename DerivedConfigurations>
+		AbstractConfigurations<DerivedConfigurations>
+			::AbstractConfigurations()
+	{			
+			is_feature_handling_enabled =
+				true;
+			
+			is_error_handling_enabled =
+				true;
+			
+			is_thread_safety_override_enabled =
+				false;	
+			
+			is_utility_handling_thread_safety_enabled =
+				true;
+			
+			is_feature_handling_thread_safety_enabled =
+				false;
+			
+			is_error_handling_thread_safety_enabled =
+				true;
+	}
 
 	template <typename DerivedConfigurations> bool
 		AbstractConfigurations<DerivedConfigurations>

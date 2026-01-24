@@ -12,7 +12,8 @@ namespace
 	public:
 		std::string
 			pattern =
-				default_configurations.pattern;
+				default_configurations
+					.pattern;
 
 
 

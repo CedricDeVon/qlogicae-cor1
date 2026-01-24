@@ -25,18 +25,18 @@ namespace
 		bool
 			destruct();
 
-		template <typename InputType, typename OutputType> OutputType
-			convert_text(
-				InputType
-					text
-			);
-
 		std::string
 			replace_text_tokens(
 				const std::string&
 					text,
 				const std::unordered_map<std::string, std::string>&
 					dictionary
+			);
+
+		std::string //
+			replace_text_tokens(
+				const std::string&
+					text
 			);
 
 		std::vector<std::string>
@@ -46,6 +46,18 @@ namespace
 				const std::string&
 					delimeter
 			);	
+
+		std::vector<std::string> //
+			split_text(
+				const std::string&
+					text
+			);	
+
+		template <typename InputType, typename OutputType> OutputType
+			convert_text(
+				InputType
+					text
+			);
 	};
 
 	template <typename InputType, typename OutputType> OutputType

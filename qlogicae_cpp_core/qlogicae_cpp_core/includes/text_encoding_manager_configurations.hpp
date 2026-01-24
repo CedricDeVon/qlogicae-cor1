@@ -13,11 +13,13 @@ namespace
 	public:
 		TextEncoding
 			original_type =
-				default_configurations.original_type;
+				default_configurations
+					.original_type;
 
 		TextEncoding
 			target_type =
-				default_configurations.target_type;
+				default_configurations
+					.target_type;
 
 
 

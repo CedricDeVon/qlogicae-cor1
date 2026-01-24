@@ -36,21 +36,25 @@ namespace
 		);
 	};
 
-	template <typename ResultType, typename InputObjectType, typename InputCallback, typename... InputCallbackArguments>
-	ResultType FunctionWrapper::call_function(
-		InputObjectType&
-			input_object,
-		const InputCallback&
-			input_callback,
-		const InputCallbackArguments&...
-			input_callback_arguments
-	)
+	template <typename ResultType, typename InputObjectType, typename InputCallback, typename... InputCallbackArguments> ResultType
+		FunctionWrapper::call_function(
+			InputObjectType&
+				input_object,
+			const InputCallback&
+				input_callback,
+			const InputCallbackArguments&...
+				input_callback_arguments
+		)
 	{
 		try
 		{
 			boost::unique_lock<boost::mutex>
 				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_feature_handling())
+			if
+			(
+				configurations
+					.is_thread_safety_enabled_for_feature_handling()
+			)
 			{
 				mutex_lock =
 					boost::unique_lock<boost::mutex>

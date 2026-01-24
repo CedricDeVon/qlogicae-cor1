@@ -58,10 +58,20 @@ namespace
                     callback
 			);
 
-		bool
+		template <typename ReturnType> bool
 			post_thread_async(
+				const std::function<ReturnType()>&
+					implementation_method,
+				const std::function<void(const ReturnType& result)>&
+					callback_method
+			);
+		
+		template <typename ReturnType> bool
+			post_thread_async(
+				const std::function<ReturnType()>&
+					implementation_method,
 				const std::function<void()>&
-					implementation_method
+					callback_method
 			);
 
 		template <typename ReturnType> std::future<ReturnType>
@@ -70,8 +80,14 @@ namespace
 					implementation_method
 			);
 
-		template <typename ReturnType> bool
+		bool
 			post_thread_async(
+				const std::function<void()>&
+					implementation_method
+			);
+
+		template <typename ReturnType> bool
+			dispatch_thread_async(
 				const std::function<ReturnType()>&
 					implementation_method,
 				const std::function<void(const ReturnType& result)>&
@@ -79,17 +95,11 @@ namespace
 			);
 		
 		template <typename ReturnType> bool
-			post_thread_async(
+			dispatch_thread_async(
 				const std::function<ReturnType()>&
 					implementation_method,
 				const std::function<void()>&
 					callback_method
-			);
-
-		bool
-			dispatch_thread_async(
-				const std::function<void()>&
-					implementation_method
 			);
 
 		template <typename ReturnType> std::future<ReturnType>
@@ -98,8 +108,14 @@ namespace
 					implementation_method
 			);
 
-		template <typename ReturnType> bool
+		bool
 			dispatch_thread_async(
+				const std::function<void()>&
+					implementation_method
+			);
+
+		template <typename ReturnType> bool
+			co_spawn_strand_async(
 				const std::function<ReturnType()>&
 					implementation_method,
 				const std::function<void(const ReturnType& result)>&
@@ -107,17 +123,11 @@ namespace
 			);
 		
 		template <typename ReturnType> bool
-			dispatch_thread_async(
+			co_spawn_strand_async(
 				const std::function<ReturnType()>&
 					implementation_method,
 				const std::function<void()>&
 					callback_method
-			);
-
-		bool
-			co_spawn_strand_async(
-				const std::function<void()>&
-					implementation_method
 			);
 
 		template <typename ReturnType> std::future<ReturnType>
@@ -126,22 +136,11 @@ namespace
 					implementation_method
 			);
 
-		template <typename ReturnType> bool
+		bool
 			co_spawn_strand_async(
-				const std::function<ReturnType()>&
-					implementation_method,
-				const std::function<void(const ReturnType& result)>&
-					callback_method
-			);
-		
-		template <typename ReturnType> bool
-			co_spawn_strand_async(
-				const std::function<ReturnType()>&
-					implementation_method,
 				const std::function<void()>&
-					callback_method
-			);
-	
+					implementation_method
+			);	
     };   
 
 	template <typename ReturnType> std::future<ReturnType>

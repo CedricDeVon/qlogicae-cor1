@@ -69,14 +69,8 @@ namespace
 					);
 			}			
 
-			if (sodium_init() < 0)
-			{
-				return
-					false;
-			}
-
 			return
-				true;
+				!(sodium_init() < 0);
         }
         catch
         (
@@ -146,16 +140,43 @@ namespace
 					);
 			}			
 
-			if (text.empty())
-			{
-				return
-					"";
-			}
+			return
+				(text.empty()) ?
+					"" :
+					absl::StrReplaceAll(
+						text,
+						dictionary
+					);
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+			handle_error_outputs(
+				exception
+			);
 
 			return
-				absl::StrReplaceAll(
+				"";				
+        }
+	}
+
+	std::string
+		TextManager
+			::replace_text_tokens(
+				const std::string&
+					text
+			)
+	{
+		try
+        {	
+			return
+				replace_text_tokens(
 					text,
-					dictionary
+					configurations
+						.replace_text_tokens_dictionary
 				);
         }
         catch
@@ -195,16 +216,43 @@ namespace
 					);
 			}			
 
-			if (text.empty())
-			{
-				return
-					{};
-			}
+			return
+				(text.empty()) ?
+					std::vector<std::string>{} :
+					absl::StrSplit(
+						text,
+						delimeter
+					);
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+			handle_error_outputs(
+				exception
+			);
 
 			return
-				absl::StrSplit(
+				{};				
+        }
+	}
+
+	std::vector<std::string>
+		TextManager
+			::split_text(
+				const std::string&
+					text
+			)
+	{
+		try
+        {		
+			return
+				split_text(
 					text,
-					delimeter
+					configurations
+						.split_text_delimeter
 				);
         }
         catch

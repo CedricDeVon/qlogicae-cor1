@@ -133,29 +133,54 @@ namespace
 	{
 		try
 		{
+			boost::unique_lock<boost::mutex>
+				mutex_lock;
+			if (configurations.is_thread_safety_enabled_for_feature_handling())
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						feature_handling_mutex_1
+					);
+			}
+
 			auto ns = std::chrono::duration_cast<std::chrono::nanoseconds>(
 				std::chrono::high_resolution_clock::now().time_since_epoch()
 			).count();
 
 			if constexpr (std::is_same_v<Type, double>)
+			{
 				return static_cast<double>(ns);
-
+			}			
 			else if constexpr (std::is_same_v<Type, int64_t>)
+			{
 				return static_cast<int64_t>(ns);
-
+			}			
 			else if constexpr (std::is_same_v<Type, std::string>)
+			{
 				return absl::StrCat(ns);
-
+			}			
 			else if constexpr (std::is_same_v<Type, std::wstring>)
+			{
 				return std::to_wstring(ns);
-
+			}			
 			else
+			{
 				return Type{};
+			}
 		}
-		catch (const std::exception& ex)
+		catch
+		(
+			const std::exception& 
+				exception
+		)
 		{
-			handle_error_outputs(ex);
-			return Type{};
+			handle_error_outputs(
+				exception
+			);
+
+			return
+				Type{};
 		}
 	}
 	
@@ -164,29 +189,55 @@ namespace
 	{
 		try
 		{
+			boost::unique_lock<boost::mutex>
+				mutex_lock;
+			if (configurations.is_thread_safety_enabled_for_feature_handling())
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						feature_handling_mutex_1
+					);
+			}
+
 			auto ns = std::chrono::duration_cast<std::chrono::nanoseconds>(
 				std::chrono::system_clock::now().time_since_epoch()
 			).count() % 1'000'000'000;
 
 			if constexpr (std::is_same_v<Type, double>)
+			{
 				return static_cast<double>(ns);
-
+			}			
 			else if constexpr (std::is_same_v<Type, int64_t>)
+			{
 				return static_cast<int64_t>(ns);
-
+			}			
 			else if constexpr (std::is_same_v<Type, std::string>)
+			{
 				return absl::StrCat(ns);
-
+			}			
 			else if constexpr (std::is_same_v<Type, std::wstring>)
+			{
 				return std::to_wstring(ns);
-
+			}			
 			else
+			{
 				return Type{};
+			}
 		}
-		catch (const std::exception& ex)
+		catch
+		(
+			const std::exception& 
+				exception
+		)
 		{
-			handle_error_outputs(ex);
-			return Type{};
+			handle_error_outputs(
+				exception
+			);
+
+
+			return
+				Type{};
 		}
 	}
 
@@ -195,29 +246,54 @@ namespace
 	{
 		try
 		{
+			boost::unique_lock<boost::mutex>
+				mutex_lock;
+			if (configurations.is_thread_safety_enabled_for_feature_handling())
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						feature_handling_mutex_1
+					);
+			}
+
 			auto us = std::chrono::duration_cast<std::chrono::microseconds>(
 				std::chrono::system_clock::now().time_since_epoch()
 			).count() % 1'000'000;
 
 			if constexpr (std::is_same_v<Type, double>)
+			{
 				return static_cast<double>(us);
-
+			}			
 			else if constexpr (std::is_same_v<Type, int64_t>)
+			{
 				return static_cast<int64_t>(us);
-
+			}			
 			else if constexpr (std::is_same_v<Type, std::string>)
+			{
 				return absl::StrCat(us);
-
+			}			
 			else if constexpr (std::is_same_v<Type, std::wstring>)
+			{
 				return std::to_wstring(us);
-
+			}			
 			else
+			{
 				return Type{};
+			}
 		}
-		catch (const std::exception& ex)
+		catch
+		(
+			const std::exception& 
+				exception
+		)
 		{
-			handle_error_outputs(ex);
-			return Type{};
+			handle_error_outputs(
+				exception
+			);
+
+			return
+				Type{};
 		}
 	}
 
@@ -226,29 +302,54 @@ namespace
 	{
 		try
 		{
+			boost::unique_lock<boost::mutex>
+				mutex_lock;
+			if (configurations.is_thread_safety_enabled_for_feature_handling())
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						feature_handling_mutex_1
+					);
+			}
+
 			auto ms = std::chrono::duration_cast<std::chrono::milliseconds>(
 				std::chrono::system_clock::now().time_since_epoch()
 			).count() % 1'000;
 
 			if constexpr (std::is_same_v<Type, double>)
+			{
 				return static_cast<double>(ms);
-
+			}			
 			else if constexpr (std::is_same_v<Type, int64_t>)
+			{
 				return static_cast<int64_t>(ms);
-
+			}			
 			else if constexpr (std::is_same_v<Type, std::string>)
+			{
 				return absl::StrCat(ms);
-
+			}			
 			else if constexpr (std::is_same_v<Type, std::wstring>)
+			{
 				return std::to_wstring(ms);
-
+			}			
 			else
+			{
 				return Type{};
+			}
 		}
-		catch (const std::exception& ex)
+		catch
+		(
+			const std::exception& 
+				exception
+		)
 		{
-			handle_error_outputs(ex);
-			return Type{};
+			handle_error_outputs(
+				exception
+			);
+
+			return
+				Type{};
 		}
 	}
 
@@ -257,26 +358,56 @@ namespace
 	{
 		try
 		{
+			boost::unique_lock<boost::mutex>
+				mutex_lock;
+			if (configurations.is_thread_safety_enabled_for_feature_handling())
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						feature_handling_mutex_1
+					);
+			}
+
 			auto sec = get_time_zone().tm_sec;
+
 			if constexpr (std::is_same_v<Type, double>)
+			{
 				return static_cast<double>(sec);
+			}			
 
 			else if constexpr (std::is_same_v<Type, int>)
+			{
 				return static_cast<int>(sec);
+			}			
 
 			else if constexpr (std::is_same_v<Type, std::string>)
+			{
 				return absl::StrCat(sec);
+			}			
 
 			else if constexpr (std::is_same_v<Type, std::wstring>)
+			{
 				return std::to_wstring(sec);
+			}			
 
 			else
+			{
 				return Type{};
+			}
 		}
-		catch (const std::exception& ex)
+		catch
+		(
+			const std::exception& 
+				exception
+		)
 		{
-			handle_error_outputs(ex);
-			return Type{};
+			handle_error_outputs(
+				exception
+			);
+
+			return
+				Type{};
 		}
 	}
 
@@ -285,26 +416,52 @@ namespace
 	{
 		try
 		{
+			boost::unique_lock<boost::mutex>
+				mutex_lock;
+			if (configurations.is_thread_safety_enabled_for_feature_handling())
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						feature_handling_mutex_1
+					);
+			}
+
 			auto min = get_time_zone().tm_min;
+
 			if constexpr (std::is_same_v<Type, double>)
+			{
 				return static_cast<double>(min);
-
+			}			
 			else if constexpr (std::is_same_v<Type, int>)
+			{
 				return static_cast<int>(min);
-
+			}			
 			else if constexpr (std::is_same_v<Type, std::string>)
+			{
 				return absl::StrCat(min);
-
+			}			
 			else if constexpr (std::is_same_v<Type, std::wstring>)
+			{
 				return std::to_wstring(min);
-
+			}			
 			else
+			{
 				return Type{};
+			}
 		}
-		catch (const std::exception& ex)
+		catch
+		(
+			const std::exception& 
+				exception
+		)
 		{
-			handle_error_outputs(ex);
-			return Type{};
+			handle_error_outputs(
+				exception
+			);
+
+			return
+				Type{};
 		}
 	}
 
@@ -313,26 +470,52 @@ namespace
 	{
 		try
 		{
+			boost::unique_lock<boost::mutex>
+				mutex_lock;
+			if (configurations.is_thread_safety_enabled_for_feature_handling())
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						feature_handling_mutex_1
+					);
+			}
+
 			auto h = get_time_zone().tm_hour;
+
 			if constexpr (std::is_same_v<Type, double>)
+			{
 				return static_cast<double>(h);
-
+			}			
 			else if constexpr (std::is_same_v<Type, int>)
+			{
 				return h;
-
+			}			
 			else if constexpr (std::is_same_v<Type, std::string>)
+			{
 				return absl::StrCat(h);
-
+			}			
 			else if constexpr (std::is_same_v<Type, std::wstring>)
+			{
 				return std::to_wstring(h);
-
+			}			
 			else
+			{
 				return Type{};
+			}
 		}
-		catch (const std::exception& ex)
+		catch
+		(
+			const std::exception& 
+				exception
+		)
 		{
-			handle_error_outputs(ex);
-			return Type{};
+			handle_error_outputs(
+				exception
+			);
+
+			return
+				Type{};
 		}
 	}
 
@@ -341,26 +524,52 @@ namespace
 	{
 		try
 		{
+			boost::unique_lock<boost::mutex>
+				mutex_lock;
+			if (configurations.is_thread_safety_enabled_for_feature_handling())
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						feature_handling_mutex_1
+					);
+			}
+
 			auto d = get_time_zone().tm_mday;
+
 			if constexpr (std::is_same_v<Type, double>)
+			{
 				return static_cast<double>(d);
-
+			}			
 			else if constexpr (std::is_same_v<Type, int>)
+			{
 				return d;
-
+			}			
 			else if constexpr (std::is_same_v<Type, std::string>)
+			{
 				return absl::StrCat(d);
-
+			}			
 			else if constexpr (std::is_same_v<Type, std::wstring>)
+			{
 				return std::to_wstring(d);
-
+			}			
 			else
+			{
 				return Type{};
+			}
 		}
-		catch (const std::exception& ex)
+		catch
+		(
+			const std::exception& 
+				exception
+		)
 		{
-			handle_error_outputs(ex);
-			return Type{};
+			handle_error_outputs(
+				exception
+			);
+
+			return
+				Type{};
 		}
 	}
 
@@ -369,26 +578,52 @@ namespace
 	{
 		try
 		{
+			boost::unique_lock<boost::mutex>
+				mutex_lock;
+			if (configurations.is_thread_safety_enabled_for_feature_handling())
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						feature_handling_mutex_1
+					);
+			}
+
 			auto m = get_time_zone().tm_mon + 1;
+
 			if constexpr (std::is_same_v<Type, double>)
+			{
 				return static_cast<double>(m);
-
+			}			
 			else if constexpr (std::is_same_v<Type, int>)
+			{
 				return m;
-
+			}			
 			else if constexpr (std::is_same_v<Type, std::string>)
+			{
 				return absl::StrCat(m);
-
+			}			
 			else if constexpr (std::is_same_v<Type, std::wstring>)
+			{
 				return std::to_wstring(m);
-
+			}			
 			else
+			{
 				return Type{};
+			}
 		}
-		catch (const std::exception& ex)
+		catch
+		(
+			const std::exception& 
+				exception
+		)
 		{
-			handle_error_outputs(ex);
-			return Type{};
+			handle_error_outputs(
+				exception
+			);
+
+			return
+				Type{};
 		}
 	}
 
@@ -397,26 +632,52 @@ namespace
 	{
 		try
 		{
+			boost::unique_lock<boost::mutex>
+				mutex_lock;
+			if (configurations.is_thread_safety_enabled_for_feature_handling())
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						feature_handling_mutex_1
+					);
+			}
+
 			auto y = get_time_zone().tm_year + 1900;
+
 			if constexpr (std::is_same_v<Type, double>)
+			{
 				return static_cast<double>(y);
-
+			}			
 			else if constexpr (std::is_same_v<Type, int>)
+			{
 				return y;
-
+			}			
 			else if constexpr (std::is_same_v<Type, std::string>)
+			{
 				return absl::StrCat(y);
-
+			}			
 			else if constexpr (std::is_same_v<Type, std::wstring>)
+			{
 				return std::to_wstring(y);
-
+			}			
 			else
+			{
 				return Type{};
+			}
 		}
-		catch (const std::exception& ex)
+		catch
+		(
+			const std::exception& 
+				exception
+		)
 		{
-			handle_error_outputs(ex);
-			return Type{};
+			handle_error_outputs(
+				exception
+			);
+
+			return
+				Type{};
 		}
 	}
 }

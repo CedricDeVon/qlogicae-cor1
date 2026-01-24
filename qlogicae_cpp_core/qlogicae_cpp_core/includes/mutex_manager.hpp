@@ -63,20 +63,15 @@ namespace
         bool
             lock_micro_mutex(
                 const void*
-                    pointer
-            );
-
-        bool
-            lock_micro_mutex(
-                const void*
                     pointer,
                 const std::string&
                     name
             );
 
         bool
-            unlock_micro_mutex(
-                const void* pointer
+            lock_micro_mutex(
+                const void*
+                    pointer
             );
 
         bool
@@ -85,6 +80,11 @@ namespace
 					pointer,
                 const std::string&
 					name
+            );
+
+        bool
+            unlock_micro_mutex(
+                const void* pointer
             );
 
 		bool
@@ -130,12 +130,6 @@ namespace
 	{
 		try
 		{
-			if (!pointer)
-			{
-				return
-					false;
-			}
-
 			boost::unique_lock<boost::mutex>
 				mutex_lock;
 			if (configurations.is_thread_safety_enabled_for_feature_handling())
@@ -145,6 +139,12 @@ namespace
 					(
 						feature_handling_mutex_1
 					);
+			}
+
+			if (!pointer)
+			{
+				return
+					false;
 			}
 
 			MutexType*

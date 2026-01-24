@@ -13,11 +13,13 @@ namespace
 	public:
 		TemperatureUnit
 			original_unit =
-				default_configurations.original_unit;
+				default_configurations
+					.original_unit;
 
 		TemperatureUnit
 			target_unit =
-				default_configurations.target_unit;
+				default_configurations
+					.target_unit;
 
 		
 

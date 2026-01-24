@@ -12,7 +12,8 @@ namespace
 	public:
 		bool
 			is_recursive =
-				default_configurations.is_recursive;
+				default_configurations
+					.is_recursive;
 
 
 

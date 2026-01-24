@@ -139,7 +139,9 @@ namespace
 			}			
 
 			if (input.size() % 2 != 0)
+			{
 				return {};
+			}
 
 			std::string output;
 			output.resize(input.size() / 2);
@@ -429,17 +431,13 @@ namespace
 					);
 			}			
 
-			if (text.empty())
-			{
-				return {};
-			}
-
 			if (original_type == target_type)
 			{
 				return text;
 			}
 
 			if (
+				text.empty() ||
 				original_type == TextEncoding::NONE ||
 				target_type == TextEncoding::NONE
 			)

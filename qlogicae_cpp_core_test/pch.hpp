@@ -2,11 +2,6 @@
 
 #include <gtest/gtest.h>
 
-/*
-#define PCRE2_CODE_UNIT_WIDTH 8
-#include <pcre2.h>
-*/
-
 #define PCRE2_CODE_UNIT_WIDTH 8
 #include <pcre2.h>
 
@@ -38,6 +33,8 @@
 
 #include <folly/init/Init.h>
 #include <folly/synchronization/MicroSpinLock.h>
+
+#include <cppcodec/base32_rfc4648.hpp>
 
 #ifdef _MSC_VER
 #pragma warning(push)
@@ -150,8 +147,9 @@
 #include <codecvt>
 #include <shlobj.h>
 
-#include <windows.h>
 #include <winnt.h>
+#include <aclapi.h>
+#include <windows.h>
 #include <winsock2.h>
 #include <ws2tcpip.h>
 

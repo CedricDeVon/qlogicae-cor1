@@ -13,15 +13,18 @@ namespace
 	public:
 		bool
 			is_specified_length_enabled =
-				default_configurations.is_specified_length_enabled;			
+				default_configurations
+					.is_specified_length_enabled;			
 
 		size_t
 			specified_length =
-				default_configurations.specified_length;
+				default_configurations
+					.specified_length;
 
 		TextCase
 			target_type =
-				default_configurations.target_type;
+				default_configurations
+					.target_type;
 
 
 

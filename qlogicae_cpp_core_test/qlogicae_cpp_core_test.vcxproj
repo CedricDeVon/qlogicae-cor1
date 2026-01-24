@@ -151,6 +151,7 @@
   <ItemGroup>
     <ClInclude Include="main.hpp" />
     <ClInclude Include="pch.hpp" />
+    <ClInclude Include="qlogicae_cpp_core_test\includes\abstract_class.hpp" />
     <ClInclude Include="qlogicae_cpp_core_test\includes\all.hpp" />
     <ClInclude Include="qlogicae_cpp_core_test\includes\application.hpp" />
     <ClInclude Include="qlogicae_cpp_core_test\includes\assembly.hpp" />

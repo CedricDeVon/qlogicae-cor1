@@ -154,11 +154,13 @@ namespace
 				{					
 					for (char& character : result)
 					{
-						character = static_cast<char>(
-							std::tolower(static_cast<unsigned char>(
-								character
-							))
-						);
+						character =
+								static_cast<char>(
+									std::tolower(static_cast<unsigned char>(
+										character
+									)
+								)
+							);
 					}
 
 					return result;
@@ -168,11 +170,13 @@ namespace
 				{
 					for (char& character : result)
 					{
-						character = static_cast<char>(
-							std::toupper(static_cast<unsigned char>(
-								character
-							))
-						);
+						character =
+								static_cast<char>(
+									std::toupper(static_cast<unsigned char>(
+										character
+									)
+								)
+							);
 					}
 
 					return result;
@@ -186,10 +190,12 @@ namespace
 					{
 						if (std::isalpha(static_cast<unsigned char>(character)))
 						{
-							character = static_cast<char>(
-								std::toupper(static_cast<unsigned char>(
-									character
-								))
+							character =
+								static_cast<char>(
+									std::toupper(static_cast<unsigned char>(
+										character
+									)
+								)
 							);
 							done = true;
 							break;
@@ -213,18 +219,20 @@ namespace
 
 						if (capitalize_next && std::isalpha(static_cast<unsigned char>(character)))
 						{
-							character = static_cast<char>(
-								std::toupper(static_cast<unsigned char>(character))
+							character =
+								static_cast<char>(
+									std::toupper(static_cast<unsigned char>(character))
 								);
-							capitalize_next = false;
-						}
+								capitalize_next = false;
+							}
 						else
 						{
-							character = static_cast<char>(
-								std::tolower(static_cast<unsigned char>(character))
+							character =
+								static_cast<char>(
+									std::tolower(static_cast<unsigned char>(character))
 								);
+							}
 						}
-					}
 
 					return result;
 				}
@@ -237,17 +245,19 @@ namespace
 					{
 						if (capitalize_next && std::isalpha(static_cast<unsigned char>(character)))
 						{
-							character = static_cast<char>(
-								std::toupper(static_cast<unsigned char>(character))
+							character =
+								static_cast<char>(
+									std::toupper(static_cast<unsigned char>(character))
 								);
-							capitalize_next = false;
-						}
+								capitalize_next = false;
+							}
 						else
 						{
-							character = static_cast<char>(
-								std::tolower(static_cast<unsigned char>(character))
-							);
-						}
+							character =
+								static_cast<char>(
+									std::tolower(static_cast<unsigned char>(character))
+								);
+							}
 
 						if (character == '.' || character == '!' || character == '?')
 						{
