@@ -276,7 +276,6 @@ namespace
         }
     }
 
-
     bool
         FileSystemManager
 			::destruct()
@@ -569,11 +568,10 @@ namespace
         }
     }
 	
-
     size_t
 		FileSystemManager
 			::get_file_byte_size(
-				const wchar_t*
+				const std::wstring&
 					origin_path
 			)
 	{
@@ -592,7 +590,7 @@ namespace
 
 			WIN32_FILE_ATTRIBUTE_DATA data;
 			if (!GetFileAttributesExW(
-				origin_path, GetFileExInfoStandard, &data)
+				origin_path.data(), GetFileExInfoStandard, &data)
 			)
 			{
 				return
@@ -629,7 +627,7 @@ namespace
 	size_t
 		FileSystemManager
 			::get_folder_byte_size(
-				const wchar_t*
+				const std::wstring&
 					origin_path
 			)
 	{
@@ -647,7 +645,7 @@ namespace
 			}			
 
 			wchar_t search_path[MAX_PATH];
-			wsprintfW(search_path, L"%s\\*", origin_path);
+			wsprintfW(search_path, L"%s\\*", origin_path.data());
 
 			WIN32_FIND_DATAW find_data;
 			HANDLE handle =
@@ -672,7 +670,7 @@ namespace
 				wsprintfW(
 					entity_path,
 					L"%s\\%s",
-					origin_path,
+					origin_path.data(),
 					find_data.cFileName
 				);
 
@@ -719,7 +717,7 @@ namespace
 	std::wstring
 		FileSystemManager
 			::get_absolute_path(
-				const wchar_t*
+				const std::wstring&
 					origin_path
 			)
 	{
@@ -736,24 +734,10 @@ namespace
 					);
 			}			
 
-			std::wstring buffer;
-			buffer.assign(MAX_PATH, L'\0');
-			DWORD len = GetFullPathNameW(
-				origin_path,
-				MAX_PATH, buffer.data(),
-				nullptr
-			);
-        
-			if (len == 0 || len > MAX_PATH)
-			{	
-				return
-					0;
-			}
-        
-			buffer.resize(len);
-
-			return
-				buffer;
+			wchar_t buffer[MAX_PATH];
+			DWORD len = GetFullPathNameW(origin_path.data(), MAX_PATH, buffer, nullptr);
+			if (len == 0 || len > MAX_PATH) return L"";
+			return std::wstring(buffer, len);
         }
         catch
         (
@@ -773,9 +757,9 @@ namespace
 	std::wstring
 		FileSystemManager
 			::get_relative_path(
-				const wchar_t*
+				const std::wstring&
 					origin_path,
-				const wchar_t*
+				const std::wstring&
 					target_path
 			)
 	{
@@ -796,12 +780,12 @@ namespace
 
 			const DWORD origin_attributes =
 				GetFileAttributesW(
-					origin_path
+					origin_path.data()
 				);
 
 			const DWORD target_attributes =
 				GetFileAttributesW(
-					target_path
+					target_path.data()
 				);
 
 			if (origin_attributes == INVALID_FILE_ATTRIBUTES ||
@@ -810,24 +794,16 @@ namespace
 				return L"";
 			}
 
-			const DWORD origin_type =
-				(origin_attributes & FILE_ATTRIBUTE_DIRECTORY) != 0
-					? FILE_ATTRIBUTE_DIRECTORY
-					: FILE_ATTRIBUTE_NORMAL;
+			DWORD attr_from = (std::filesystem::is_directory(origin_path) ? FILE_ATTRIBUTE_DIRECTORY : 0);
+			DWORD attr_to = (std::filesystem::is_directory(target_path) ? FILE_ATTRIBUTE_DIRECTORY : 0);
 
-			const DWORD target_type =
-				(target_attributes & FILE_ATTRIBUTE_DIRECTORY) != 0
-					? FILE_ATTRIBUTE_DIRECTORY
-					: FILE_ATTRIBUTE_NORMAL;
-
-			const BOOL result =
-				PathRelativePathToW(
-					buffer,
-					origin_path,
-					origin_type,
-					target_path,
-					target_type
-				);
+			BOOL result = PathRelativePathToW(
+				buffer,
+				origin_path.c_str(),
+				attr_from,
+				target_path.c_str(),
+				attr_to
+			);
 
 			return (result == FALSE) ? L"" : buffer;
         }
@@ -849,7 +825,7 @@ namespace
 	std::wstring
 		FileSystemManager
 			::get_file_extension(
-				const wchar_t*
+				const std::wstring&
 					origin_path
 			)
 	{
@@ -867,7 +843,7 @@ namespace
 			}			
 
 			return
-				std::wstring(PathFindExtensionW(origin_path));
+				std::wstring(PathFindExtensionW(origin_path.data()));
         }
         catch
         (
@@ -887,7 +863,7 @@ namespace
 	std::wstring
 		FileSystemManager
 			::get_file_stem(
-				const wchar_t*
+				const std::wstring&
 					origin_path
 			)
 	{
@@ -904,11 +880,9 @@ namespace
 					);
 			}			
 
-			wchar_t* filename = PathFindFileNameW(origin_path);
+			wchar_t* filename = PathFindFileNameW(origin_path.data());
 			PathRemoveExtensionW(filename);
-
-			return
-				std::wstring(filename);
+			return std::wstring(filename);
         }
         catch
         (
@@ -928,7 +902,7 @@ namespace
 	bool
 		FileSystemManager
 			::is_path_found(
-				const wchar_t*
+				const std::wstring&
 					origin_path
 			)
 	{
@@ -947,7 +921,7 @@ namespace
 
 			return
 				(GetFileAttributesW(
-					origin_path
+					origin_path.data()
 				) != INVALID_FILE_ATTRIBUTES);
         }
         catch
@@ -966,7 +940,7 @@ namespace
 	bool
 		FileSystemManager
 			::is_entity(
-				const wchar_t*
+				const std::wstring&
 					origin_path
 			)
 	{
@@ -985,7 +959,7 @@ namespace
 
 			return
 				(GetFileAttributesW(
-					origin_path
+					origin_path.data()
 				) != INVALID_FILE_ATTRIBUTES);
         }
         catch
@@ -1004,7 +978,7 @@ namespace
 	bool
 		FileSystemManager
 			::is_file(
-				const wchar_t*
+				const std::wstring&
 					origin_path
 			)
 	{
@@ -1023,7 +997,7 @@ namespace
 
 			DWORD file_attribute =
 				GetFileAttributesW(
-					origin_path
+					origin_path.data()
 				);
 
 			return
@@ -1046,7 +1020,7 @@ namespace
 	bool
 		FileSystemManager
 			::is_folder(
-				const wchar_t*
+				const std::wstring&
 					origin_path
 			)
 	{
@@ -1065,7 +1039,7 @@ namespace
 
 			DWORD file_attribute =
 				GetFileAttributesW(
-					origin_path
+					origin_path.data()
 				);
 
 			return
@@ -1088,7 +1062,7 @@ namespace
 	bool
 		FileSystemManager
 			::is_entity_user_permission_level_valid(
-				const wchar_t*
+				const std::wstring&
 					origin_path,
 				const std::filesystem::perms&
 					permission_level
@@ -1107,87 +1081,10 @@ namespace
 					);
 			}			
 
-			DWORD
-				desired_access =
-					0;
-
-			if ((permission_level & std::filesystem::perms::owner_read)
-				!= std::filesystem::perms::none)
-			{
-				desired_access |= GENERIC_READ;
-			}
-
-			if ((permission_level & std::filesystem::perms::owner_write)
-				!= std::filesystem::perms::none)
-			{
-				desired_access |= GENERIC_WRITE;
-			}
-
-			if ((permission_level & std::filesystem::perms::owner_exec)
-				!= std::filesystem::perms::none)
-			{
-				desired_access |= GENERIC_EXECUTE;
-			}
-
-			HANDLE
-				token =
-					nullptr;
-
-			if (!OpenProcessToken(
-				GetCurrentProcess(),
-				TOKEN_QUERY,
-				&token)
-			)
-			{
-				return
-					false;
-			}
-
-			DWORD access_status = 0;
-			BOOL access_allowed = FALSE;
-			PRIVILEGE_SET privileges{};
-			DWORD privilege_size = sizeof(PRIVILEGE_SET);
-
-			PSECURITY_DESCRIPTOR security_descriptor = nullptr;
-
-			if (GetNamedSecurityInfoW(
-				origin_path,
-				SE_FILE_OBJECT,
-				DACL_SECURITY_INFORMATION,
-				nullptr,
-				nullptr,
-				nullptr,
-				nullptr,
-				&security_descriptor) != ERROR_SUCCESS)
-			{
-				CloseHandle(token);
-
-				return
-					false;
-			}
-
-			if (!AccessCheck(
-				security_descriptor,
-				token,
-				desired_access,
-				nullptr,
-				&privileges,
-				&privilege_size,
-				&access_status,
-				&access_allowed))
-			{
-				LocalFree(security_descriptor);
-				CloseHandle(token);
-
-				return
-					false;
-			}
-
-			LocalFree(security_descriptor);
-			CloseHandle(token);
-
-			return
-				access_allowed == TRUE;
+			std::error_code ec;
+			auto perms = std::filesystem::status(origin_path.data(), ec).permissions();
+			if (ec) return false;
+			return (perms & permission_level) == permission_level;
         }
         catch
         (
@@ -1205,7 +1102,7 @@ namespace
 	bool
 		FileSystemManager
 			::set_entity_read_status(
-				const wchar_t*
+				const std::wstring&
 					origin_path,
 				const bool&
 					value
@@ -1224,7 +1121,7 @@ namespace
 					);
 			}			
 
-			DWORD attributes = ::GetFileAttributesW(origin_path);
+			DWORD attributes = ::GetFileAttributesW(origin_path.data());
 			if (attributes == INVALID_FILE_ATTRIBUTES)
 			{
 				return false;
@@ -1239,7 +1136,7 @@ namespace
 				attributes |= FILE_ATTRIBUTE_READONLY; 
 			}
 
-			return SetFileAttributesW(origin_path, attributes) != FALSE;
+			return SetFileAttributesW(origin_path.data(), attributes) != FALSE;
         }
         catch
         (
@@ -1257,7 +1154,7 @@ namespace
 	bool
 		FileSystemManager
 			::set_entity_write_status(
-				const wchar_t*
+				const std::wstring&
 					origin_path,
 				const bool&
 					value
@@ -1276,7 +1173,7 @@ namespace
 					);
 			}			
 
-			DWORD attributes = GetFileAttributesW(origin_path);
+			DWORD attributes = GetFileAttributesW(origin_path.data());
 			if (attributes == INVALID_FILE_ATTRIBUTES)
 			{
 				return
@@ -1293,7 +1190,7 @@ namespace
 			}
 
 			return
-				SetFileAttributesW(origin_path, attributes) != FALSE;
+				SetFileAttributesW(origin_path.data(), attributes) != FALSE;
         }
         catch
         (
@@ -1311,7 +1208,7 @@ namespace
 	bool
 		FileSystemManager
 			::set_entity_visibility(
-				const wchar_t*
+				const std::wstring&
 					origin_path,
 				const bool&
 					value
@@ -1330,7 +1227,7 @@ namespace
 					);
 			}			
 
-			DWORD attributes = GetFileAttributesW(origin_path);
+			DWORD attributes = GetFileAttributesW(origin_path.data());
 			if (attributes == INVALID_FILE_ATTRIBUTES)
 			{
 				return
@@ -1347,7 +1244,7 @@ namespace
 			}
 
 			return
-				SetFileAttributesW(origin_path, attributes) != FALSE;
+				SetFileAttributesW(origin_path.data(), attributes) != FALSE;
         }
         catch
         (
@@ -1365,7 +1262,7 @@ namespace
 	bool
 		FileSystemManager
 			::create_folder(
-				const wchar_t*
+				const std::wstring&
 					origin_path
 			)
 	{
@@ -1383,7 +1280,7 @@ namespace
 			}			
 
 			return
-				(CreateDirectoryW(origin_path, nullptr) ||
+				(CreateDirectoryW(origin_path.data(), nullptr) ||
 					GetLastError() == ERROR_ALREADY_EXISTS);
         }
         catch
@@ -1402,9 +1299,9 @@ namespace
 	bool
 		FileSystemManager
 			::copy_file(
-				const wchar_t*
+				const std::wstring&
 					origin_path,
-				const wchar_t*
+				const std::wstring&
 					target_path
 			)
 	{
@@ -1422,7 +1319,7 @@ namespace
 			}			
 
 			return
-				CopyFileW(origin_path, target_path, FALSE);
+				CopyFileW(origin_path.data(), target_path.data(), FALSE);
         }
         catch
         (
@@ -1440,9 +1337,9 @@ namespace
 	bool
 		FileSystemManager
 			::copy_folder(
-				const wchar_t*
+				const std::wstring&
 					origin_path,
-				const wchar_t*
+				const std::wstring&
 					target_path
 			)
 	{
@@ -1460,7 +1357,7 @@ namespace
 			}			
 
 			return
-				CopyFileW(origin_path, target_path, FALSE);
+				CopyFileW(origin_path.data(), target_path.data(), FALSE);
         }
         catch
         (
@@ -1478,9 +1375,9 @@ namespace
 	bool
 		FileSystemManager
 			::move_entity(
-				const wchar_t*
+				const std::wstring&
 					origin_path,
-				const wchar_t*
+				const std::wstring&
 					target_path
 			)
 	{
@@ -1499,8 +1396,8 @@ namespace
 
 			return
 				MoveFileExW(
-					origin_path,
-					target_path,
+					origin_path.data(),
+					target_path.data(),
 					MOVEFILE_COPY_ALLOWED |
 					MOVEFILE_REPLACE_EXISTING |
 					MOVEFILE_WRITE_THROUGH
@@ -1522,9 +1419,9 @@ namespace
 	bool
 		FileSystemManager
 			::move_file(
-				const wchar_t*
+				const std::wstring&
 					origin_path,
-				const wchar_t*
+				const std::wstring&
 					target_path
 			)
 	{
@@ -1544,7 +1441,7 @@ namespace
 			DWORD
 				attributes =
 					GetFileAttributesW(
-						origin_path
+						origin_path.data()
 					);
 
 			if (attributes == INVALID_FILE_ATTRIBUTES ||
@@ -1556,8 +1453,8 @@ namespace
 
 			return
 				move_entity(
-					origin_path,
-					target_path
+					origin_path.data(),
+					target_path.data()
 				);
         }
         catch
@@ -1576,9 +1473,9 @@ namespace
 	bool
 		FileSystemManager
 			::move_folder(
-				const wchar_t*
+				const std::wstring&
 					origin_path,
-				const wchar_t*
+				const std::wstring&
 					target_path
 			)
 	{
@@ -1598,7 +1495,7 @@ namespace
 			DWORD
 				attributes =
 					::GetFileAttributesW(
-						origin_path
+						origin_path.data()
 					);
 
 			if (attributes == INVALID_FILE_ATTRIBUTES ||
@@ -1610,8 +1507,8 @@ namespace
 
 			return
 				move_entity(
-					origin_path,
-					target_path
+					origin_path.data(),
+					target_path.data()
 				);
         }
         catch
@@ -1630,9 +1527,9 @@ namespace
 	bool
 		FileSystemManager
 			::rename_entity(
-				const wchar_t*
+				const std::wstring&
 					origin_path,
-				const wchar_t*
+				const std::wstring&
 					name
 			)
 	{
@@ -1653,7 +1550,7 @@ namespace
 
 			const DWORD length =
 				GetFullPathNameW(
-					origin_path,
+					origin_path.data(),
 					MAX_PATH,
 					buffer,
 					nullptr
@@ -1677,8 +1574,8 @@ namespace
 
 			return
 				move_entity(
-					origin_path,
-					(std::wstring(buffer) + std::wstring(name)).data()
+					origin_path.data(),
+					(std::wstring(buffer) + name).data()
 				);
         }
         catch
@@ -1697,9 +1594,9 @@ namespace
 	bool
 		FileSystemManager
 			::rename_file(
-				const wchar_t*
+				const std::wstring&
 					origin_path,
-				const wchar_t*
+				const std::wstring&
 					name
 			)
 	{
@@ -1719,7 +1616,7 @@ namespace
 			const DWORD
 				attributes =
 					GetFileAttributesW(
-						origin_path
+						origin_path.data()
 					);
 
 			if (attributes == INVALID_FILE_ATTRIBUTES ||
@@ -1751,9 +1648,9 @@ namespace
 	bool
 		FileSystemManager
 			::rename_folder(
-				const wchar_t*
+				const std::wstring&
 					origin_path,
-				const wchar_t*
+				const std::wstring&
 					name
 			)
 	{
@@ -1773,7 +1670,7 @@ namespace
 			const DWORD
 				attributes =
 					GetFileAttributesW(
-						origin_path
+						origin_path.data()
 					);
 
 			if (attributes == INVALID_FILE_ATTRIBUTES ||
@@ -1957,96 +1854,12 @@ namespace
     {
         try
         {       
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_feature_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}
-     
-			std::filesystem::path
-				cache_directory_path;
-
-			DWORD
-				cache_dword_path_length;
-
-			wchar_t
-				cache_wchar_t_buffer[MAX_PATH];
-
-			int
-				cache_int_1;
-
-			std::string
-				cache_string_1;
-
-			std::wstring
-				cache_wstring_1;
-
-			std::vector<std::string>
-				cache_vector_string_1;
-
-            cache_dword_path_length =
-                GetModuleFileNameW(
-                    nullptr,
-                    cache_wchar_t_buffer,
-                    MAX_PATH
-                );
-
-            if (cache_dword_path_length == 0 ||
-                cache_dword_path_length == MAX_PATH
-                )
-            {
-                return
-					"";
-            }
-
-            cache_directory_path =
-                std::filesystem::path(cache_wchar_t_buffer)
-                    .parent_path();
-
-            cache_wstring_1 =
-                cache_directory_path.wstring();
-            
-            if (cache_wstring_1.empty())
-            {
-				return
-					"";
-            }
-
-            cache_int_1 =
-                WideCharToMultiByte(
-                    CP_UTF8,
-                    0,
-                    cache_wstring_1.data(),
-                    -1,
-                    nullptr,
-                    0,
-                    nullptr,
-                    nullptr
-                );
-
-            cache_string_1 = std::string(
-                cache_int_1 - 1,
-                0
-            );
-
-            WideCharToMultiByte(
-                CP_UTF8,
-                0,
-                cache_wstring_1.data(),
-                -1,
-                cache_string_1.data(),
-                cache_int_1,
-                nullptr,
-                nullptr
-            );         
-
 			return
-				cache_string_1;
+				TextManager
+					::singleton
+						.convert_text<std::wstring, std::string>(
+							get_executable_folder_wstring_path()
+						);
         }
         catch
         (
@@ -2069,54 +1882,12 @@ namespace
     {
         try
         {
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_feature_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}
-
-			std::filesystem::path
-				cache_directory_path;
-
-			DWORD
-				cache_dword_path_length;
-
-			std::string
-				cache_string_1;
-
-			std::wstring
-				cache_wstring_1;
-
-			std::vector<std::string>
-				cache_vector_string_1;
-
-            cache_dword_path_length =
-                GetCurrentDirectoryA(
-                    0,
-                    nullptr
-                );
-
-            cache_string_1 =
-                std::string(
-                    cache_dword_path_length,
-                    '\0'
-                );
-
-            GetCurrentDirectoryA(
-                cache_dword_path_length,
-                cache_string_1.data()
-            );
-            
-            cache_string_1
-                .pop_back();
-
 			return
-				cache_string_1;
+				TextManager
+					::singleton
+						.convert_text<std::wstring, std::string>(
+							get_executed_folder_wstring_path()
+						);
         }
         catch
         (
@@ -2139,84 +1910,12 @@ namespace
     {
         try
         {
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_feature_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}
-
-			std::filesystem::path
-				cache_directory_path;
-
-			int
-				cache_int_1;
-
-			std::string
-				cache_string_1;
-
-			std::wstring
-				cache_wstring_1;
-
-			std::vector<std::string>
-				cache_vector_string_1;
-
-			wchar_t*
-				cache_wchar_t_pointer_1;
-
-            if (SUCCEEDED(
-                SHGetKnownFolderPath(
-                    FOLDERID_ProgramData,
-                    0,
-                    NULL,
-                    &cache_wchar_t_pointer_1)
-            ))
-            {
-                cache_wstring_1.assign(
-                    cache_wchar_t_pointer_1
-                );
-                CoTaskMemFree(
-                    cache_wchar_t_pointer_1
-                );
-            }
-
-            cache_int_1 =
-                WideCharToMultiByte(
-                    CP_UTF8,
-                    0,
-                    cache_wstring_1.data(),
-                    -1,
-                    nullptr,
-                    0,
-                    nullptr,
-                    nullptr
-                );
-
-            cache_string_1 = std::string(
-                cache_int_1,
-                0
-            );
-
-            WideCharToMultiByte(
-                CP_UTF8,
-                0,
-                cache_wstring_1.data(),
-                -1,
-                &cache_string_1[0],
-                cache_int_1,
-                nullptr,
-                nullptr
-            );
-            
-            cache_string_1
-                .pop_back();
-
 			return
-				cache_string_1;
+				TextManager
+					::singleton
+						.convert_text<std::wstring, std::string>(
+							get_program_data_folder_wstring_path()
+						);
         }
         catch
         (
@@ -2239,84 +1938,12 @@ namespace
     {
         try
         {
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_feature_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}
-
-			std::filesystem::path
-				cache_directory_path;
-
-			int
-				cache_int_1;
-
-			std::string
-				cache_string_1;
-
-			std::wstring
-				cache_wstring_1;
-
-			std::vector<std::string>
-				cache_vector_string_1;
-
-			wchar_t*
-				cache_wchar_t_pointer_1;
-
-            if (SUCCEEDED(SHGetKnownFolderPath(
-                FOLDERID_LocalAppData,
-                0,
-                NULL,
-                &cache_wchar_t_pointer_1))
-            )
-            {
-                cache_wstring_1.assign(
-                    cache_wchar_t_pointer_1
-                );
-                CoTaskMemFree(
-                    cache_wchar_t_pointer_1
-                );
-            }
-
-            cache_int_1 =
-                WideCharToMultiByte(
-                    CP_UTF8,
-                    0,
-                    cache_wstring_1.data(),
-                    -1,
-                    nullptr,
-                    0,
-                    nullptr,
-                    nullptr
-                );
-
-            cache_string_1 =
-                std::string(
-                    cache_int_1,
-                    0
-                );
-
-            WideCharToMultiByte(
-                CP_UTF8,
-                0,
-                cache_wstring_1.data(),
-                -1,
-                &cache_string_1[0],
-                cache_int_1,
-                nullptr,
-                nullptr
-            );
-
-            cache_string_1
-                .pop_back();
-
 			return
-				cache_string_1;
+				TextManager
+					::singleton
+						.convert_text<std::wstring, std::string>(
+							get_local_app_data_folder_wstring_path()
+						);
         }
         catch
         (
@@ -2341,65 +1968,12 @@ namespace
     {
         try
         {
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_feature_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}
-
-			wchar_t buffer[MAX_PATH];
-			
-			HRESULT result =
-				SHGetFolderPathW(
-					nullptr,
-					CSIDL_APPDATA,
-					nullptr,
-					SHGFP_TYPE_CURRENT,
-					buffer
-				);
-
-			if (FAILED(result))
-			{
-				return std::string();
-			}
-			
-			int required_size =
-				WideCharToMultiByte(
-					CP_UTF8,
-					0,
-					buffer,
-					-1,
-					nullptr,
-					0,
-					nullptr,
-					nullptr
-				);
-
-			if (required_size <= 0)
-			{
-				return std::string();
-			}
-
-			std::string utf8_path;
-			utf8_path.resize(required_size - 1); 
-
-			WideCharToMultiByte(
-				CP_UTF8,
-				0,
-				buffer,
-				-1,
-				utf8_path.data(),
-				required_size,
-				nullptr,
-				nullptr
-			);
-
-			return utf8_path;
+			return
+				TextManager
+					::singleton
+						.convert_text<std::wstring, std::string>(
+							get_roaming_app_data_folder_wstring_path()
+						);
         }
         catch
         (
@@ -2412,14 +1986,10 @@ namespace
 			);
 
             return
-				"";
-				
+				"";				
         }
     }
 	
-
-
-
 	size_t
         FileSystemManager
 			::get_file_byte_size(            
@@ -2427,7 +1997,30 @@ namespace
 					origin_path
 			)
 	{
-		
+		try
+        {
+			return
+				get_file_byte_size(
+					TextManager
+						::singleton
+							.convert_text<std::string, std::wstring>(
+								origin_path
+							)
+				);
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+			handle_error_outputs(
+				exception
+			);
+
+            return
+				0;				
+        }
 	}
 
     size_t
@@ -2437,7 +2030,30 @@ namespace
 					origin_path
 			)
 	{
-		
+		try
+        {
+			return
+				get_folder_byte_size(
+					TextManager
+						::singleton
+							.convert_text<std::string, std::wstring>(
+								origin_path
+							)
+				);
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+			handle_error_outputs(
+				exception
+			);
+
+            return
+				0;				
+        }
 	}
 
     std::string
@@ -2447,7 +2063,34 @@ namespace
 					origin_path
 			)
 	{
-		
+		try
+        {
+			return
+				TextManager
+					::singleton
+						.convert_text<std::wstring, std::string>(
+							get_absolute_path(
+								TextManager
+									::singleton
+										.convert_text<std::string, std::wstring>(
+											origin_path
+										)
+							)
+						);			
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+			handle_error_outputs(
+				exception
+			);
+
+            return
+				"";				
+        }
 	}
 
     std::string
@@ -2459,7 +2102,39 @@ namespace
 					target_path
 			)
 	{
-		
+		try
+        {
+			return
+				TextManager
+					::singleton
+						.convert_text<std::wstring, std::string>(
+							get_relative_path(
+								TextManager
+									::singleton
+										.convert_text<std::string, std::wstring>(
+											origin_path
+										),
+								TextManager
+									::singleton
+										.convert_text<std::string, std::wstring>(
+											target_path
+										)
+							)
+						);	
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+			handle_error_outputs(
+				exception
+			);
+
+            return
+				"";				
+        }
 	}
 
     std::string
@@ -2469,7 +2144,34 @@ namespace
 					origin_path
 			)
 	{
-		
+		try
+        {
+			return
+				TextManager
+					::singleton
+						.convert_text<std::wstring, std::string>(
+							get_file_extension(
+								TextManager
+									::singleton
+										.convert_text<std::string, std::wstring>(
+											origin_path
+										)
+							)
+						);			
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+			handle_error_outputs(
+				exception
+			);
+
+            return
+				"";				
+        }
 	}
 
     std::string
@@ -2479,7 +2181,34 @@ namespace
 					origin_path
 			)
 	{
-		
+		try
+        {
+			return
+				TextManager
+					::singleton
+						.convert_text<std::wstring, std::string>(
+							get_file_stem(
+								TextManager
+									::singleton
+										.convert_text<std::string, std::wstring>(
+											origin_path
+										)
+							)
+						);			
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+			handle_error_outputs(
+				exception
+			);
+
+            return
+				"";				
+        }
 	}
 
     bool
@@ -2489,7 +2218,28 @@ namespace
 					origin_path
 			)
 	{
-		
+		try
+        {
+			return
+				is_path_found(
+					TextManager
+						::singleton
+							.convert_text<std::string, std::wstring>(
+								origin_path
+							)
+				);			
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+			return
+				handle_error_outputs(
+					exception
+				);				
+        }
 	}
 
     bool
@@ -2499,7 +2249,28 @@ namespace
 					origin_path
 			)
 	{
-		
+		try
+        {
+			return
+				is_entity(
+					TextManager
+						::singleton
+							.convert_text<std::string, std::wstring>(
+								origin_path
+							)
+				);			
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+			return
+				handle_error_outputs(
+					exception
+				);				
+        }
 	}
 
     bool
@@ -2509,7 +2280,28 @@ namespace
 					origin_path
 			)
 	{
-		
+		try
+        {
+			return
+				is_file(
+					TextManager
+						::singleton
+							.convert_text<std::string, std::wstring>(
+								origin_path
+							)
+				);			
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+			return
+				handle_error_outputs(
+					exception
+				);				
+        }
 	}
 
     bool
@@ -2519,7 +2311,28 @@ namespace
 					origin_path
 			)
 	{
-		
+		try
+        {
+			return
+				is_folder(
+					TextManager
+						::singleton
+							.convert_text<std::string, std::wstring>(
+								origin_path
+							)
+				);			
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+			return
+				handle_error_outputs(
+					exception
+				);				
+        }
 	}
 
     bool
@@ -2531,7 +2344,29 @@ namespace
 					permission_level
 			)
 	{
-		
+		try
+        {
+			return
+				is_entity_user_permission_level_valid(
+					TextManager
+						::singleton
+							.convert_text<std::string, std::wstring>(
+								origin_path
+							),
+					permission_level
+				);			
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+			return
+				handle_error_outputs(
+					exception
+				);				
+        }
 	}
 
     bool
@@ -2543,7 +2378,29 @@ namespace
 					value
 			)
 	{
-		
+		try
+        {
+			return
+				set_entity_read_status(
+					TextManager
+						::singleton
+							.convert_text<std::string, std::wstring>(
+								origin_path
+							),
+					value
+				);			
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+			return
+				handle_error_outputs(
+					exception
+				);				
+        }
 	}
 
     bool
@@ -2555,7 +2412,29 @@ namespace
 					value
 			)
 	{
-		
+		try
+        {
+			return
+				set_entity_write_status(
+					TextManager
+						::singleton
+							.convert_text<std::string, std::wstring>(
+								origin_path
+							),
+					value
+				);			
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+			return
+				handle_error_outputs(
+					exception
+				);				
+        }
 	}
 
     bool
@@ -2567,7 +2446,29 @@ namespace
 					value
 			)
 	{
-		
+		try
+        {
+			return
+				set_entity_visibility(
+					TextManager
+						::singleton
+							.convert_text<std::string, std::wstring>(
+								origin_path
+							),
+					value
+				);			
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+			return
+				handle_error_outputs(
+					exception
+				);				
+        }
 	}
 
     bool
@@ -2577,7 +2478,28 @@ namespace
 					origin_path
 			)
 	{
-		
+		try
+        {
+			return
+				create_folder(
+					TextManager
+						::singleton
+							.convert_text<std::string, std::wstring>(
+								origin_path
+							)
+				);			
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+			return
+				handle_error_outputs(
+					exception
+				);				
+        }
 	}
 
     bool
@@ -2589,7 +2511,33 @@ namespace
 					target_path
 			)
 	{
-		
+		try
+        {
+			return
+				copy_file(
+					TextManager
+						::singleton
+							.convert_text<std::string, std::wstring>(
+								origin_path
+							),
+					TextManager
+						::singleton
+							.convert_text<std::string, std::wstring>(
+								target_path
+							)
+				);			
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+			return
+				handle_error_outputs(
+					exception
+				);				
+        }
 	}
 
     bool
@@ -2601,7 +2549,33 @@ namespace
 					target_path
 			)
 	{
-		
+		try
+        {
+			return
+				copy_folder(
+					TextManager
+						::singleton
+							.convert_text<std::string, std::wstring>(
+								origin_path
+							),
+					TextManager
+						::singleton
+							.convert_text<std::string, std::wstring>(
+								target_path
+							)
+				);			
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+			return
+				handle_error_outputs(
+					exception
+				);				
+        }
 	}
 
     bool
@@ -2613,7 +2587,33 @@ namespace
 					target_path
 			)
 	{
-		
+		try
+        {
+			return
+				move_entity(
+					TextManager
+						::singleton
+							.convert_text<std::string, std::wstring>(
+								origin_path
+							),
+					TextManager
+						::singleton
+							.convert_text<std::string, std::wstring>(
+								target_path
+							)
+				);			
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+			return
+				handle_error_outputs(
+					exception
+				);				
+        }
 	}
 
     bool
@@ -2625,7 +2625,33 @@ namespace
 					target_path
 			)
 	{
-		
+		try
+        {
+			return
+				move_file(
+					TextManager
+						::singleton
+							.convert_text<std::string, std::wstring>(
+								origin_path
+							),
+					TextManager
+						::singleton
+							.convert_text<std::string, std::wstring>(
+								target_path
+							)
+				);			
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+			return
+				handle_error_outputs(
+					exception
+				);				
+        }
 	}
 
     bool
@@ -2637,7 +2663,33 @@ namespace
 					target_path
 			)
 	{
-		
+		try
+        {
+			return
+				move_folder(
+					TextManager
+						::singleton
+							.convert_text<std::string, std::wstring>(
+								origin_path
+							),
+					TextManager
+						::singleton
+							.convert_text<std::string, std::wstring>(
+								target_path
+							)
+				);			
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+			return
+				handle_error_outputs(
+					exception
+				);				
+        }
 	}
 
     bool
@@ -2649,7 +2701,33 @@ namespace
 					name
 			)
 	{
-		
+		try
+        {
+			return
+				rename_entity(
+					TextManager
+						::singleton
+							.convert_text<std::string, std::wstring>(
+								origin_path
+							),
+					TextManager
+						::singleton
+							.convert_text<std::string, std::wstring>(
+								name
+							)
+				);			
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+			return
+				handle_error_outputs(
+					exception
+				);				
+        }
 	}
 
     bool
@@ -2661,7 +2739,33 @@ namespace
 					name
 			)
 	{
-		
+		try
+        {
+			return
+				rename_file(
+					TextManager
+						::singleton
+							.convert_text<std::string, std::wstring>(
+								origin_path
+							),
+					TextManager
+						::singleton
+							.convert_text<std::string, std::wstring>(
+								name
+							)
+				);			
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+			return
+				handle_error_outputs(
+					exception
+				);				
+        }
 	}
 
     bool
@@ -2673,7 +2777,33 @@ namespace
 					name
 			)
 	{
-		
+		try
+        {
+			return
+				rename_folder(
+					TextManager
+						::singleton
+							.convert_text<std::string, std::wstring>(
+								origin_path
+							),
+					TextManager
+						::singleton
+							.convert_text<std::string, std::wstring>(
+								name
+							)
+				);			
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+			return
+				handle_error_outputs(
+					exception
+				);				
+        }
 	}
 
     bool
@@ -2683,7 +2813,28 @@ namespace
 					origin_path
 			)
 	{
-		
+		try
+		{
+			return
+				remove_file(
+					TextManager
+						::singleton
+							.convert_text<std::string, wchar_t*>(
+								origin_path
+							)
+				);			
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+			return
+				handle_error_outputs(
+					exception
+				);				
+        }
 	}
 
     bool
@@ -2693,7 +2844,28 @@ namespace
 					origin_path
 			)
 	{
-		
+		try
+		{
+			return
+				remove_folder(
+					TextManager
+						::singleton
+							.convert_text<std::string, wchar_t*>(
+								origin_path
+							)
+				);			
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+			return
+				handle_error_outputs(
+					exception
+				);				
+        }
 	}
 
     bool
@@ -2703,6 +2875,27 @@ namespace
 					origin_path
 			)
 	{
-		
+		try
+		{
+			return
+				remove_folder_sub_files(
+					TextManager
+						::singleton
+							.convert_text<std::string, wchar_t*>(
+								origin_path
+							)
+				);			
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+			return
+				handle_error_outputs(
+					exception
+				);				
+        }
 	}
 }

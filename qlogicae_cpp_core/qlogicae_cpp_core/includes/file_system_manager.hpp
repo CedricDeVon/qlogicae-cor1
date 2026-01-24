@@ -1,5 +1,6 @@
 ﻿#pragma once
 
+#include "text_manager.hpp"
 #include "abstract_class.hpp"
 #include "singleton_manager.hpp"
 #include "file_system_entity.hpp"
@@ -150,69 +151,69 @@ namespace
 
         size_t
             get_file_byte_size(            
-                const wchar_t*
+                const std::wstring&
                     origin_path
 			);
 
         size_t
             get_folder_byte_size(            
-				const wchar_t*
+				const std::wstring&
                     origin_path
 			);
 
         std::wstring
             get_absolute_path(
-				const wchar_t*
+				const std::wstring&
                     origin_path
 			);
 
         std::wstring
             get_relative_path(
-				const wchar_t*
+				const std::wstring&
                     origin_path,
-				const wchar_t*
+				const std::wstring&
                     target_path
 			);
 
         std::wstring
             get_file_extension(
-				const wchar_t*
+				const std::wstring&
                     origin_path
 			);
 
 		std::wstring
             get_file_stem(
-                const wchar_t*
+                const std::wstring&
                     origin_path
 			);
 
         bool
             is_path_found(
-                const wchar_t*
+                const std::wstring&
                     origin_path
 			);
 
         bool
             is_entity(
-                const wchar_t*
+                const std::wstring&
                     origin_path
 			);
 
         bool
             is_file(
-                const wchar_t*
+                const std::wstring&
                     origin_path
 			);
 
         bool
             is_folder(
-                const wchar_t*
+                const std::wstring&
                     origin_path
 			);
 
         bool
             is_entity_user_permission_level_valid(
-				const wchar_t*
+				const std::wstring&
                     origin_path,
                 const std::filesystem::perms&
                     permission_level
@@ -220,7 +221,7 @@ namespace
 
         bool
             set_entity_read_status(
-                const wchar_t*
+                const std::wstring&
                     origin_path,
                 const bool&
                     value
@@ -228,7 +229,7 @@ namespace
 
         bool
             set_entity_write_status(
-				const wchar_t*
+				const std::wstring&
                     origin_path,
                 const bool&
                     value
@@ -236,7 +237,7 @@ namespace
 
         bool
             set_entity_visibility(
-				const wchar_t*
+				const std::wstring&
                     origin_path,
                 const bool&
                     value
@@ -244,71 +245,71 @@ namespace
 
         bool
             create_folder(
-				const wchar_t*
+				const std::wstring&
                     origin_path
 			);
 
         bool
             copy_file(
-                const wchar_t*
+                const std::wstring&
                     origin_path,
-                const wchar_t*
+                const std::wstring&
                     target_path
 			);
 
         bool
             copy_folder(
-                const wchar_t*
+                const std::wstring&
                     origin_path,
-                const wchar_t*
+                const std::wstring&
                     target_path
 			);
 
         bool
             move_entity(
-                const wchar_t*
+                const std::wstring&
                     origin_path,
-                const wchar_t*
+                const std::wstring&
                     target_path
 			);
 
         bool
             move_file(
-                const wchar_t*
+                const std::wstring&
                     origin_path,
-                const wchar_t*
+                const std::wstring&
                     target_path
 			);
 
         bool
             move_folder(
-                const wchar_t*
+                const std::wstring&
                     origin_path,
-                const wchar_t*
+                const std::wstring&
                     target_path
 			);
 
         bool
             rename_entity(
-                const wchar_t*
+                const std::wstring&
                     origin_path,
-                const wchar_t*
+                const std::wstring&
                     name
 			);
 
         bool
             rename_file(
-                const wchar_t*
+                const std::wstring&
                     origin_path,
-                const wchar_t*
+                const std::wstring&
                     name
 			);
 
         bool
             rename_folder(
-                const wchar_t*
+                const std::wstring&
                     origin_path,
-                const wchar_t*
+                const std::wstring&
                     name
 			);
 

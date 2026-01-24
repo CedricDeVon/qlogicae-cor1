@@ -158,6 +158,7 @@
     <ClInclude Include="qlogicae_cpp_core_test\includes\asynchronous_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core_test\includes\configuration_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core_test\includes\error_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core_test\includes\file_system_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core_test\includes\function_wrapper.hpp" />
     <ClInclude Include="qlogicae_cpp_core_test\includes\interval_clock.hpp" />
     <ClInclude Include="qlogicae_cpp_core_test\includes\mutex_manager.hpp" />
@@ -181,12 +182,14 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="qlogicae_cpp_core_test\sources\abstract_class.cpp" />
     <ClCompile Include="qlogicae_cpp_core_test\sources\all.cpp" />
     <ClCompile Include="qlogicae_cpp_core_test\sources\application.cpp" />
     <ClCompile Include="qlogicae_cpp_core_test\sources\assembly.cpp" />
     <ClCompile Include="qlogicae_cpp_core_test\sources\asynchronous_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core_test\sources\configuration_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core_test\sources\error_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core_test\sources\file_system_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core_test\sources\function_wrapper.cpp" />
     <ClCompile Include="qlogicae_cpp_core_test\sources\interval_clock.cpp" />
     <ClCompile Include="qlogicae_cpp_core_test\sources\mutex_manager.cpp" />
