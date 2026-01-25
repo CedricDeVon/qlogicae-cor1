@@ -315,19 +315,19 @@ namespace
 
         bool
             remove_file(
-				const wchar_t*
+				const std::wstring
                     origin_path
 			);
 
         bool
             remove_folder(
-				const wchar_t*
+				const std::wstring
                     origin_path
 			);
 
         bool
             remove_folder_sub_files(
-				const wchar_t*
+				const std::wstring
                     origin_path
 			);
 

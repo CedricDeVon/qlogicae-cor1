@@ -776,36 +776,34 @@ namespace
 					);
 			}			
 
-			wchar_t buffer[MAX_PATH];
-
-			const DWORD origin_attributes =
-				GetFileAttributesW(
-					origin_path.data()
-				);
-
-			const DWORD target_attributes =
-				GetFileAttributesW(
-					target_path.data()
-				);
-
-			if (origin_attributes == INVALID_FILE_ATTRIBUTES ||
-				target_attributes == INVALID_FILE_ATTRIBUTES)
+			if (!std::filesystem::exists(origin_path) ||
+				!std::filesystem::exists(target_path))
 			{
 				return L"";
 			}
 
-			DWORD attr_from = (std::filesystem::is_directory(origin_path) ? FILE_ATTRIBUTE_DIRECTORY : 0);
-			DWORD attr_to = (std::filesystem::is_directory(target_path) ? FILE_ATTRIBUTE_DIRECTORY : 0);
+			std::wstring origin = origin_path;
+			std::wstring target = target_path;
 
+			if (std::filesystem::is_directory(origin) &&
+				origin.back() != L'\\')
+			{
+				origin.push_back(L'\\'); 
+			}
+
+			DWORD attr_from = std::filesystem::is_directory(origin) ? FILE_ATTRIBUTE_DIRECTORY : 0;
+			DWORD attr_to = std::filesystem::is_directory(target) ? FILE_ATTRIBUTE_DIRECTORY : 0;
+
+			wchar_t buffer[MAX_PATH];
 			BOOL result = PathRelativePathToW(
 				buffer,
-				origin_path.c_str(),
+				origin.c_str(),
 				attr_from,
-				target_path.c_str(),
+				target.c_str(),
 				attr_to
 			);
 
-			return (result == FALSE) ? L"" : buffer;
+			return (result == FALSE) ? L"" : std::wstring(buffer);
         }
         catch
         (
@@ -1129,11 +1127,11 @@ namespace
 
 			if (value)
 			{
-				attributes &= ~FILE_ATTRIBUTE_READONLY;
+				attributes |= FILE_ATTRIBUTE_READONLY;
 			}
 			else
 			{
-				attributes |= FILE_ATTRIBUTE_READONLY; 
+				attributes &= ~FILE_ATTRIBUTE_READONLY;
 			}
 
 			return SetFileAttributesW(origin_path.data(), attributes) != FALSE;
@@ -1356,8 +1354,17 @@ namespace
 					);
 			}			
 
-			return
-				CopyFileW(origin_path.data(), target_path.data(), FALSE);
+			if (!std::filesystem::exists(origin_path) ||
+				!std::filesystem::is_directory(origin_path))
+			{
+				return false;
+			}
+
+			std::filesystem::copy(origin_path, target_path,
+				std::filesystem::copy_options::recursive |
+				std::filesystem::copy_options::overwrite_existing);
+
+			return true;
         }
         catch
         (
@@ -1394,14 +1401,16 @@ namespace
 					);
 			}			
 
-			return
-				MoveFileExW(
-					origin_path.data(),
-					target_path.data(),
-					MOVEFILE_COPY_ALLOWED |
-					MOVEFILE_REPLACE_EXISTING |
-					MOVEFILE_WRITE_THROUGH
-				) != FALSE;
+			std::filesystem::path from(origin_path);
+			std::filesystem::path to(target_path);
+
+			if (!std::filesystem::exists(from))
+			{
+				return false;
+			}
+
+			std::filesystem::rename(from, to);
+			return true;
         }
         catch
         (
@@ -1434,28 +1443,20 @@ namespace
 				mutex_lock =
 					boost::unique_lock<boost::mutex>
 					(
-						feature_handling_mutex_1
+						feature_handling_mutex_2
 					);
 			}			
 
-			DWORD
-				attributes =
-					GetFileAttributesW(
-						origin_path.data()
-					);
+			std::filesystem::path from(origin_path);
+			std::filesystem::path to(target_path);
 
-			if (attributes == INVALID_FILE_ATTRIBUTES ||
-				(attributes & FILE_ATTRIBUTE_DIRECTORY) != 0)
+			if (!std::filesystem::exists(from) || std::filesystem::is_directory(from))
 			{
-				return
-					false;
+				return false;
 			}
 
-			return
-				move_entity(
-					origin_path.data(),
-					target_path.data()
-				);
+			std::filesystem::rename(from, to);
+			return true;
         }
         catch
         (
@@ -1488,28 +1489,20 @@ namespace
 				mutex_lock =
 					boost::unique_lock<boost::mutex>
 					(
-						feature_handling_mutex_1
+						feature_handling_mutex_2
 					);
 			}			
 
-			DWORD
-				attributes =
-					::GetFileAttributesW(
-						origin_path.data()
-					);
+			std::filesystem::path from(origin_path);
+			std::filesystem::path to(target_path);
 
-			if (attributes == INVALID_FILE_ATTRIBUTES ||
-				(attributes & FILE_ATTRIBUTE_DIRECTORY) == 0)
+			if (!std::filesystem::exists(from) || !std::filesystem::is_directory(from))
 			{
-				return
-					false;
+				return false;
 			}
 
-			return
-				move_entity(
-					origin_path.data(),
-					target_path.data()
-				);
+			std::filesystem::rename(from, to);
+			return true;
         }
         catch
         (
@@ -1542,41 +1535,13 @@ namespace
 				mutex_lock =
 					boost::unique_lock<boost::mutex>
 					(
-						feature_handling_mutex_2
+						feature_handling_mutex_1
 					);
 			}			
 
-			wchar_t buffer[MAX_PATH];
-
-			const DWORD length =
-				GetFullPathNameW(
-					origin_path.data(),
-					MAX_PATH,
-					buffer,
-					nullptr
-				);
-
-			if (length == 0 || length >= MAX_PATH)
-			{
-				return false;
-			}
-
-			wchar_t* filename =
-				::wcsrchr(buffer, L'\\');
-
-			if (filename == nullptr)
-			{
-				return false;
-			}
-
-			++filename;
-			*filename = L'\0';
-
-			return
-				move_entity(
-					origin_path.data(),
-					(std::wstring(buffer) + name).data()
-				);
+			auto parent_path = std::filesystem::path(origin_path).parent_path();
+			auto target_path = parent_path / name;
+			return move_file(origin_path, target_path.wstring());
         }
         catch
         (
@@ -1613,24 +1578,9 @@ namespace
 					);
 			}			
 
-			const DWORD
-				attributes =
-					GetFileAttributesW(
-						origin_path.data()
-					);
-
-			if (attributes == INVALID_FILE_ATTRIBUTES ||
-				(attributes & FILE_ATTRIBUTE_DIRECTORY) != 0)
-			{
-				return
-					false;
-			}
-
-			return
-				rename_entity(
-					origin_path,
-					name
-				);
+			auto parent_path = std::filesystem::path(origin_path).parent_path();
+			auto target_path = parent_path / name;
+			return move_file(origin_path, target_path.wstring());
         }
         catch
         (
@@ -1667,24 +1617,9 @@ namespace
 					);
 			}			
 
-			const DWORD
-				attributes =
-					GetFileAttributesW(
-						origin_path.data()
-					);
-
-			if (attributes == INVALID_FILE_ATTRIBUTES ||
-				(attributes & FILE_ATTRIBUTE_DIRECTORY) == 0)
-			{
-				return
-					false;
-			}
-
-			return
-				rename_entity(
-					origin_path,
-					name
-				);
+			auto parent_path = std::filesystem::path(origin_path).parent_path();
+			auto target_path = parent_path / name;
+			return move_folder(origin_path, target_path.wstring());
         }
         catch
         (
@@ -1702,7 +1637,7 @@ namespace
 	bool
 		FileSystemManager
 			::remove_file(
-				const wchar_t*
+				const std::wstring
 					origin_path
 			)
 	{
@@ -1720,7 +1655,7 @@ namespace
 			}			
 
 			return
-				DeleteFileW(origin_path);
+				DeleteFileW(origin_path.data());
         }
         catch
         (
@@ -1738,7 +1673,7 @@ namespace
 	bool
 		FileSystemManager
 			::remove_folder(
-				const wchar_t*
+				const std::wstring
 					origin_path
 			)
 	{
@@ -1755,8 +1690,16 @@ namespace
 					);
 			}			
 
-			return
-				RemoveDirectoryW(origin_path);
+			if (!std::filesystem::exists(origin_path) ||
+				!std::filesystem::is_directory(origin_path))
+			{
+				return false;
+			}
+
+			std::error_code ec;
+			std::filesystem::remove_all(origin_path, ec);
+
+			return !std::filesystem::exists(origin_path);
         }
         catch
         (
@@ -1774,7 +1717,7 @@ namespace
 	bool
 		FileSystemManager
 			::remove_folder_sub_files(
-				const wchar_t*
+				const std::wstring
 					origin_path
 			)
 	{
@@ -1792,7 +1735,7 @@ namespace
 			}			
 
 			wchar_t search_path[MAX_PATH];
-			wsprintfW(search_path, L"%s\\*", origin_path);
+			wsprintfW(search_path, L"%s\\*", origin_path.data());
 
 			WIN32_FIND_DATAW find_data;
 			HANDLE handle =
@@ -1820,7 +1763,7 @@ namespace
 					wsprintfW(
 						file_path,
 						L"%s\\%s",
-						origin_path,
+						origin_path.data(),
 						find_data.cFileName
 					);
 
@@ -2591,16 +2534,8 @@ namespace
         {
 			return
 				move_entity(
-					TextManager
-						::singleton
-							.convert_text<std::string, std::wstring>(
-								origin_path
-							),
-					TextManager
-						::singleton
-							.convert_text<std::string, std::wstring>(
-								target_path
-							)
+					std::filesystem::path(origin_path).wstring(),
+					std::filesystem::path(target_path).wstring()
 				);			
         }
         catch
@@ -2629,16 +2564,8 @@ namespace
         {
 			return
 				move_file(
-					TextManager
-						::singleton
-							.convert_text<std::string, std::wstring>(
-								origin_path
-							),
-					TextManager
-						::singleton
-							.convert_text<std::string, std::wstring>(
-								target_path
-							)
+					std::filesystem::path(origin_path).wstring(),
+					std::filesystem::path(target_path).wstring()
 				);			
         }
         catch
@@ -2667,16 +2594,8 @@ namespace
         {
 			return
 				move_folder(
-					TextManager
-						::singleton
-							.convert_text<std::string, std::wstring>(
-								origin_path
-							),
-					TextManager
-						::singleton
-							.convert_text<std::string, std::wstring>(
-								target_path
-							)
+					std::filesystem::path(origin_path).wstring(),
+					std::filesystem::path(target_path).wstring()
 				);			
         }
         catch
@@ -2819,7 +2738,7 @@ namespace
 				remove_file(
 					TextManager
 						::singleton
-							.convert_text<std::string, wchar_t*>(
+							.convert_text<std::string, std::wstring>(
 								origin_path
 							)
 				);			
@@ -2850,7 +2769,7 @@ namespace
 				remove_folder(
 					TextManager
 						::singleton
-							.convert_text<std::string, wchar_t*>(
+							.convert_text<std::string, std::wstring>(
 								origin_path
 							)
 				);			
@@ -2881,7 +2800,7 @@ namespace
 				remove_folder_sub_files(
 					TextManager
 						::singleton
-							.convert_text<std::string, wchar_t*>(
+							.convert_text<std::string, std::wstring>(
 								origin_path
 							)
 				);			

@@ -190,11 +190,12 @@ namespace QLogicaeCppCoreTest
 		auto base_w = file_system_manager.get_executed_folder_wstring_path();
 		auto base_s = file_system_manager.get_executed_folder_path();
 
-		auto rel_w = file_system_manager.get_relative_path(base_w, test_file_w);
-		auto rel_s = file_system_manager.get_relative_path(base_s, test_file_s);
+		auto rel_w = file_system_manager.get_relative_path(base_w, base_w + L"\\" + test_file_w);
+		auto rel_s = file_system_manager.get_relative_path(base_s, base_s + "\\" + test_file_s);
 
 		EXPECT_FALSE(rel_w.empty());
 		EXPECT_FALSE(rel_s.empty());
+
 	}
 
 	TEST_F(FileSystemManagerPathOperationsTest, Should_ReturnFileExtension)
@@ -501,4 +502,151 @@ namespace QLogicaeCppCoreTest
         EXPECT_FALSE(std::filesystem::exists(test_folder_s));
         EXPECT_TRUE(std::filesystem::exists("renamed_folder"));
     }
+
+	class FileSystemManagerRemoveOperationsTest : public ::testing::Test
+    {
+    protected:
+        QLogicaeCppCore::FileSystemManager& file_system_manager =
+            QLogicaeCppCore::FileSystemManager::singleton;
+
+        const std::wstring test_file_w = L"test_file.txt";
+        const std::string test_file_s = "test_file.txt";
+
+        const std::wstring test_folder_w = L"test_folder";
+        const std::string test_folder_s = "test_folder";
+
+        void SetUp() override
+        {
+            std::ofstream(test_file_s).put('x');
+
+            if (!std::filesystem::exists(test_folder_w))
+                std::filesystem::create_directory(test_folder_w);
+
+            std::ofstream("test_folder/sub_file.txt").put('x');
+            std::ofstream("test_folder/sub_file_s.txt").put('x');
+        }
+
+        void TearDown() override
+        {
+            std::filesystem::remove(test_file_s);
+            std::filesystem::remove_all(test_folder_w);
+        }
+    };
+
+    TEST_F(FileSystemManagerRemoveOperationsTest, Should_RemoveFile)
+    {
+        EXPECT_TRUE(file_system_manager.remove_file(test_file_w));
+        EXPECT_FALSE(std::filesystem::exists(test_file_w));
+
+        std::ofstream(test_file_s).put('x');
+        EXPECT_TRUE(file_system_manager.remove_file(test_file_s));
+        EXPECT_FALSE(std::filesystem::exists(test_file_s));
+    }
+
+    TEST_F(FileSystemManagerRemoveOperationsTest, Should_RemoveFolder)
+    {
+        EXPECT_TRUE(file_system_manager.remove_folder(test_folder_w));
+        EXPECT_FALSE(std::filesystem::exists(test_folder_w));
+
+        std::filesystem::create_directory(test_folder_s);
+        EXPECT_TRUE(file_system_manager.remove_folder(test_folder_s));
+        EXPECT_FALSE(std::filesystem::exists(test_folder_s));
+    }
+
+    TEST_F(FileSystemManagerRemoveOperationsTest, Should_RemoveFolderSubFiles)
+    {
+        const std::wstring folder_w = L"folder_with_files_w";
+        const std::string folder_s = "folder_with_files_s";
+
+        std::filesystem::create_directory(folder_w);
+        std::ofstream("folder_with_files_w/file1.txt").put('x');
+        std::ofstream("folder_with_files_w/file2.txt").put('x');
+
+        std::filesystem::create_directory(folder_s);
+        std::ofstream("folder_with_files_s/file1.txt").put('x');
+        std::ofstream("folder_with_files_s/file2.txt").put('x');
+
+        EXPECT_TRUE(file_system_manager.remove_folder_sub_files(folder_w));
+        EXPECT_TRUE(std::filesystem::exists(folder_w));
+        EXPECT_TRUE(std::filesystem::is_empty(folder_w));
+
+        EXPECT_TRUE(file_system_manager.remove_folder_sub_files(folder_s));
+        EXPECT_TRUE(std::filesystem::exists(folder_s));
+        EXPECT_TRUE(std::filesystem::is_empty(folder_s));
+    }
+
+    TEST_F(FileSystemManagerRemoveOperationsTest, Should_HandleNonexistentEntitiesGracefully)
+    {
+        EXPECT_FALSE(file_system_manager.remove_file(L"nonexistent_file.txt"));
+        EXPECT_FALSE(file_system_manager.remove_file("nonexistent_file.txt"));
+
+        EXPECT_FALSE(file_system_manager.remove_folder(L"nonexistent_folder"));
+        EXPECT_FALSE(file_system_manager.remove_folder("nonexistent_folder"));
+
+        EXPECT_FALSE(file_system_manager.remove_folder_sub_files(L"nonexistent_folder"));
+        EXPECT_FALSE(file_system_manager.remove_folder_sub_files("nonexistent_folder"));
+    }
+
+	TEST_F(FileSystemManagerEntityOperationsTest, Should_HandleNestedFoldersCopyMoveRemove)
+	{
+		std::filesystem::create_directory(test_folder_w + L"/sub1");
+		std::ofstream((test_folder_w + L"/sub1/file1.txt").c_str()).put('x');
+
+		std::filesystem::create_directory(test_folder_s + "/sub1");
+		std::ofstream((test_folder_s + "/sub1/file1.txt").c_str()).put('x');
+
+		EXPECT_TRUE(file_system_manager.copy_folder(test_folder_w, L"nested_copy_w"));
+		EXPECT_TRUE(std::filesystem::exists(L"nested_copy_w/sub1/file1.txt"));
+
+		EXPECT_TRUE(file_system_manager.copy_folder(test_folder_s, "nested_copy_s"));
+		EXPECT_TRUE(std::filesystem::exists("nested_copy_s/sub1/file1.txt"));
+
+		EXPECT_TRUE(file_system_manager.move_folder(L"nested_copy_w", L"nested_move_w"));
+		EXPECT_FALSE(std::filesystem::exists(L"nested_copy_w"));
+		EXPECT_TRUE(std::filesystem::exists(L"nested_move_w/sub1/file1.txt"));
+
+		EXPECT_TRUE(file_system_manager.move_folder("nested_copy_s", "nested_move_s"));
+		EXPECT_FALSE(std::filesystem::exists("nested_copy_s"));
+		EXPECT_TRUE(std::filesystem::exists("nested_move_s/sub1/file1.txt"));
+
+		EXPECT_TRUE(file_system_manager.remove_folder(L"nested_move_w"));
+		EXPECT_FALSE(std::filesystem::exists(L"nested_move_w"));
+
+		EXPECT_TRUE(file_system_manager.remove_folder("nested_move_s"));
+		EXPECT_FALSE(std::filesystem::exists("nested_move_s"));
+	}
+
+	TEST_F(FileSystemManagerEntityOperationsTest, Should_HandleNonexistentAndInvalidPaths)
+	{
+		EXPECT_FALSE(file_system_manager.copy_file(L"<>invalid.txt", L"dest.txt"));
+		EXPECT_FALSE(file_system_manager.copy_file("invalid<>.txt", "dest.txt"));
+
+		EXPECT_FALSE(file_system_manager.move_file(L"nonexistent.txt", L"dest.txt"));
+		EXPECT_FALSE(file_system_manager.move_file("nonexistent.txt", "dest.txt"));
+
+		EXPECT_FALSE(file_system_manager.rename_file(L"nonexistent.txt", L"renamed.txt"));
+		EXPECT_FALSE(file_system_manager.rename_file("nonexistent.txt", "renamed.txt"));
+
+		EXPECT_FALSE(file_system_manager.rename_folder(L"nonexistent_folder", L"renamed"));
+		EXPECT_FALSE(file_system_manager.rename_entity(L"nonexistent_entity", L"renamed"));
+	}	
+
+	TEST_F(FileSystemManagerEntityOperationsTest, Should_HandleSymbolicLinksAndJunctions)
+	{
+#ifdef _WIN32
+		std::filesystem::create_directory("target_folder");
+		BOOL result = CreateSymbolicLinkA("link_folder", "target_folder", SYMBOLIC_LINK_FLAG_DIRECTORY);
+		if (result == 0) SUCCEED(); 
+		else
+		{
+			EXPECT_TRUE(file_system_manager.is_folder("target_folder"));
+			EXPECT_TRUE(file_system_manager.is_folder("link_folder"));
+			EXPECT_TRUE(file_system_manager.remove_folder("link_folder"));
+			EXPECT_TRUE(file_system_manager.remove_folder("target_folder"));
+		}
+#else
+		SUCCEED();
+#endif
+	}
+
 }
