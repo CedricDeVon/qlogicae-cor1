@@ -4,16 +4,16 @@
 
 namespace
 	QLogicaeCppCore
-{
+{	
 	RandomValueGenerationManager&
-        RandomValueGenerationManager
+		RandomValueGenerationManager
 			::singleton =
 				SingletonManager
 					::get_singleton<RandomValueGenerationManager>();
 
 
 
-    RandomValueGenerationManager
+	RandomValueGenerationManager
 		::RandomValueGenerationManager() :
 			AbstractClass<RandomValueGenerationManagerConfigurations>()
 	{
@@ -30,7 +30,7 @@ namespace
 			handle_error_outputs(
 				exception
 			);
-		}		
+		}
 	}
 
 	RandomValueGenerationManager
@@ -49,15 +49,15 @@ namespace
 			handle_error_outputs(
 				exception
 			);
-		}		
+		}
 	}
-    
-    bool
-        RandomValueGenerationManager
+
+	bool
+		RandomValueGenerationManager
 			::construct()
-    {
-        try
-        {			
+	{
+		try
+		{
 			boost::unique_lock<boost::mutex>
 				mutex_lock;
 			if (configurations.is_thread_safety_enabled_for_utility_handling())
@@ -67,30 +67,30 @@ namespace
 					(
 						utility_handling_mutex_1
 					);
-			}			
+			}
 
 			return
-				true;
-        }
-        catch
-        (
-            const std::exception&
-                exception
-        )
-        {
+				!(sodium_init() < 0);
+		}
+		catch
+		(
+			const std::exception&
+				exception
+		)
+		{
 			return
 				handle_error_outputs(
 					exception
 				);
-        }
-    }
+		}
+	}
 
-    bool
-        RandomValueGenerationManager
+	bool
+		RandomValueGenerationManager
 			::destruct()
-    {
-        try
-        {		
+	{
+		try
+		{
 			boost::unique_lock<boost::mutex>
 				mutex_lock;
 			if (configurations.is_thread_safety_enabled_for_utility_handling())
@@ -100,161 +100,142 @@ namespace
 					(
 						utility_handling_mutex_1
 					);
-			}			
+			}
 
 			return
 				true;
-        }
-        catch
-        (
-            const std::exception&
-                exception
-        )
-        {
+		}
+		catch
+		(
+			const std::exception&
+				exception
+		)
+		{
 			return
 				handle_error_outputs(
 					exception
 				);
-        }
-    }
+		}
+	}
+
+	std::mt19937&
+		RandomValueGenerationManager
+			::generate_random_seed()
+	{
+		static thread_local std::mt19937
+			random_seed_generator
+		{
+			std::random_device{}()
+		};
+
+		return
+			random_seed_generator;
+	}
+
+	std::array<unsigned char, 16>
+		RandomValueGenerationManager
+			::generate_random_salt()
+	{
+		try
+		{
+			boost::unique_lock<boost::mutex>
+				mutex_lock;
+			if (configurations.is_thread_safety_enabled_for_feature_handling())
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						feature_handling_mutex_1
+					);
+			}
+
+			std::array<unsigned char, 16>
+				output{};
+			
+			randombytes_buf(
+				output.data(),
+				output.size()
+			);
+
+			return
+				output;
+		}
+		catch
+		(
+			const std::exception&
+				exception
+		)
+		{
+			handle_error_outputs(
+				exception
+			);
+
+			return
+				{};				
+		}
+	}
+
+	void
+		RandomValueGenerationManager
+			::generate_random_bytes(
+				unsigned char*
+					buffer,
+				const size_t&
+					size
+		)
+	{
+		try
+		{
+			boost::unique_lock<boost::mutex>
+				mutex_lock;
+			if (configurations.is_thread_safety_enabled_for_feature_handling())
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						feature_handling_mutex_1
+					);
+			}
+			
+			if (buffer == nullptr && size > 0)
+			{
+				return;
+			}
+
+			randombytes_buf(
+				buffer,
+				size
+			);
+		}
+		catch
+		(
+			const std::exception&
+				exception
+		)
+		{
+			handle_error_outputs(
+				exception
+			);		
+		}
+	}
 }
 
 /*
 
-Generator::Generator()
-	{
-		static const int status = sodium_init();
-		if (status < 0)
-		{
-			LOGGER.handle_exception_async(
-				"QLogicaeCore::Generator::Generator()",
-				"Sodium initialization failed"
-			);
-
-			throw std::runtime_error(
-				"QLogicaeCore::Generator::Generator() - Sodium initialization failed"
-			);
-		}
-	}
-
-	Generator::~Generator()
-	{
-
-	}
-
-	bool Generator::setup()
-	{
-		try
-		{
-			Result<void> void_result;
-
-			setup(void_result);
-
-			return void_result.is_status_safe();
-		}
-		catch (const std::exception& exception)
-		{
-			LOGGER.handle_exception_async(
-				"QLogicaeCore::Generator::setup()",
-				exception.what()
-			);
-
-			return false;
-		}
-	}
-
-	void Generator::setup(
-		Result<void>& result
+	void Generator::random_salt(
+		Result<std::array<unsigned char, 16>>& result
 	)
 	{
-		result.set_to_good_status_without_value();
-	}
-
-	std::future<bool> Generator::setup_async(
-		const std::function<void(const bool& value)>& callback
-	)
-	{
-		std::promise<bool> promise;
-		auto future = promise.get_future();
-
-		boost::asio::post(
-			UTILITIES.BOOST_ASIO_POOL,
-			[this, callback, promise = std::move(promise)]() mutable
-			{
-				bool value = setup();
-
-				promise.set_value(
-					value
-				);
-
-				if (callback)
-				{
-					callback(
-						value
-					);
-				}
-			}
-		);
-
-		return future;
-	}
-
-	void Generator::setup_async(
-		Result<std::future<void>>& result,
-		const std::function<void(Result<void>& result)>& callback
-	)
-	{
-		std::promise<void> promise;
-		auto future = promise.get_future();
-
-		boost::asio::post(
-			UTILITIES.BOOST_ASIO_POOL,
-			[this, callback, promise = std::move(promise)]() mutable
-			{
-				Result<void> result;
-
-				setup(result);
-
-				promise.set_value();
-
-				callback(
-					result
-				);
-			}
-		);
+		std::array<unsigned char, 16> salt{};
+		randombytes_buf(salt.data(), salt.size());
 
 		result.set_to_good_status_with_value(
-			std::move(future)
+			salt
 		);
 	}
 
-	std::string Generator::random_hex(
-		const size_t& length,
-		const std::string_view& character_set
-	)
-	{
-		try
-		{
-			Result<std::string> string_result;
 
-			random_hex(
-				string_result,
-				length,
-				character_set
-			);
-
-			return string_result.get_value();
-		}
-		catch (const std::exception& exception)
-		{
-			LOGGER.handle_exception_async(
-				"QLogicaeCore::Generator::random_hex()",
-				exception.what()
-			);
-
-			return "";
-		}
-	}
+	
 
 	void Generator::random_hex(
 		Result<std::string>& result,
@@ -443,41 +424,6 @@ Generator::Generator()
 		);
 	}
 
-
-	std::array<unsigned char, 16> Generator::random_salt()
-	{
-		try
-		{
-			Result<std::array<unsigned char, 16>> result;
-
-			random_salt(
-				result
-			);
-
-			return result.get_value();
-		}
-		catch (const std::exception& exception)
-		{
-			LOGGER.handle_exception_async(
-				"QLogicaeCore::Generator::random_salt()",
-				exception.what()
-			);
-
-			return {};
-		}
-	}
-
-	void Generator::random_salt(
-		Result<std::array<unsigned char, 16>>& result
-	)
-	{
-		std::array<unsigned char, 16> salt{};
-		randombytes_buf(salt.data(), salt.size());
-
-		result.set_to_good_status_with_value(
-			salt
-		);
-	}
 
 	bool Generator::random_bool(
 		const double& true_probability
@@ -719,73 +665,6 @@ Generator::Generator()
 			std::uniform_real_distribution<double>(
 				minimum, maximum)(_random_m19937())
 		);
-	}
-
-	void Generator::random_bytes(
-		unsigned char* buffer,
-		size_t size
-	)
-	{
-		try
-		{
-			Result<void> result;
-
-			random_bytes(
-				result,
-				buffer,
-				size
-			);
-		}
-		catch (const std::exception& exception)
-		{
-			LOGGER.handle_exception_async(
-				"QLogicaeCore::Generator::random_bytes()",
-				exception.what()
-			);
-		}
-	}
-
-	void Generator::random_bytes(
-		Result<void>& result,
-		unsigned char* buffer,
-		size_t size
-	)
-	{
-		if (buffer == nullptr && size > 0)
-		{
-			return result.set_to_bad_status_without_value(
-				"Buffer is empty and size is greater than 0"
-			);
-		}
-
-		randombytes_buf(buffer, size);
-		result.set_to_good_status_without_value();
-	}
-
-	Generator& Generator::get_instance()
-	{
-		static Generator get_instance;
-
-		return get_instance;
-	}
-
-	void Generator::get_instance(
-		Result<Generator*>& result
-	)
-	{
-		static Generator instance;
-
-		result.set_to_good_status_with_value(&instance);
-	}
-
-	std::mt19937& Generator::_random_m19937()
-	{
-		static thread_local std::mt19937 generator
-		{
-			std::random_device{}()
-		};
-
-		return generator;
 	}
 
 */

@@ -1,0 +1,44 @@
+#pragma once
+
+#include "abstract_class.hpp"
+#include "singleton_manager.hpp"
+#include "argon2id_hash_cryptography_manager_configurations.hpp"
+
+namespace
+	QLogicaeCppCore
+{
+    class
+		Argon2idHashCryptographyManager :
+			public AbstractClass<Argon2idHashCryptographyManagerConfigurations>
+    {
+    public:
+        static Argon2idHashCryptographyManager&
+            singleton;
+
+		Argon2idHashCryptographyManager();
+
+		~Argon2idHashCryptographyManager();
+
+		bool
+			construct();
+
+		bool
+			destruct();
+
+		std::string
+			hash_text(
+				const std::string&
+					text,
+				const std::string&
+					private_key
+			);
+
+		std::string
+			verify_text(
+				const std::string&
+					text,
+				const std::string&
+					private_key
+			);
+    };
+}

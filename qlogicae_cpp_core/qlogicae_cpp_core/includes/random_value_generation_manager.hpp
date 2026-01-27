@@ -15,9 +15,6 @@ namespace
 		static RandomValueGenerationManager&
 			singleton;
 
-		static std::mt19937&
-			generate_randomization_seed();
-
 		RandomValueGenerationManager();
 
 		~RandomValueGenerationManager();
@@ -27,6 +24,24 @@ namespace
 
 		bool
 			destruct();
+
+		std::mt19937&
+			generate_random_seed();
+
+		std::array<unsigned char, 16>
+			generate_random_salt();
+
+		void
+			generate_random_bytes(
+				unsigned char*
+					buffer,
+				const size_t&
+					size
+			);
+	};
+}
+
+/*
 
 		std::string
 			generate_uuid4();
@@ -40,16 +55,6 @@ namespace
 		std::string
 			generate_rgba_hexadecimal();
 
-		std::array<unsigned char, 16>
-			generate_salt();
-
-		void
-			generate_bytes(
-				unsigned char*
-					buffer,
-				const size_t&
-					size
-			);
 
 		bool
 			generate_bool(
@@ -75,10 +80,5 @@ namespace
 					inclusive_maximum =
 						std::numeric_limits<Type>::max()
 		);
-	};
-}
-
-/*
-
 
 */ 
