@@ -215,6 +215,7 @@
     <ClInclude Include="qlogicae_cpp_core\includes\jsonwebtoken_cryptography_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\jsonwebtoken_cryptography_manager_configurations.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\network_ping_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\network_ping_response.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\regular_key_delete_handler.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\sha256_hash_cryptography_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\sha256_hash_cryptography_manager_configurations.hpp" />

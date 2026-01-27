@@ -24,5 +24,12 @@ namespace
 
 		bool
 			destruct();
+
+		bool
+			start_listening();
+
+		bool
+			pause_listening();
+
 	};
 }

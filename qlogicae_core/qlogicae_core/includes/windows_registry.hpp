@@ -10,6 +10,18 @@
 
 namespace QLogicaeCore
 {
+	struct
+		RegularKeyDeleteHandler
+	{
+		void operator() (HKEY handler)
+		{
+			if (handler)
+			{
+				RegCloseKey(handler);
+			}
+		}
+	};
+
     class WindowsRegistry
     {
     public:        
