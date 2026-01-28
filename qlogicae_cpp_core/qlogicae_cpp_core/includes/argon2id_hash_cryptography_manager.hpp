@@ -2,6 +2,7 @@
 
 #include "abstract_class.hpp"
 #include "singleton_manager.hpp"
+#include "random_value_generation_manager.hpp"
 #include "argon2id_hash_cryptography_manager_configurations.hpp"
 
 namespace
@@ -28,17 +29,15 @@ namespace
 		std::string
 			hash_text(
 				const std::string&
-					text,
-				const std::string&
-					private_key
+					text
 			);
 
-		std::string
+		bool
 			verify_text(
 				const std::string&
 					text,
 				const std::string&
-					private_key
+					hash
 			);
     };
 }

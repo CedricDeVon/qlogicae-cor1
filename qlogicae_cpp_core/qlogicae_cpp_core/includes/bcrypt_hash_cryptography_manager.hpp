@@ -28,17 +28,15 @@ namespace
 		std::string
 			hash_text(
 				const std::string&
-					text,
-				const std::string&
-					private_key
+					text
 			);
 
-		std::string
+		bool
 			verify_text(
 				const std::string&
 					text,
 				const std::string&
-					private_key
+					hash
 			);
     };
 }

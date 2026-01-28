@@ -1,5 +1,6 @@
 #pragma once
 
+#include "text_manager.hpp"
 #include "abstract_class.hpp"
 #include "singleton_manager.hpp"
 #include "xchacha20_poly1305_cipher_cryptography_manager_configurations.hpp"

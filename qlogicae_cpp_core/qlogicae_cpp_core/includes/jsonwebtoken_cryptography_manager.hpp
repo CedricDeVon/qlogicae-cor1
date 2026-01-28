@@ -26,7 +26,7 @@ namespace
 			destruct();		
 
 		std::string
-			sign(
+			sign_text(
 				const std::string&
 					text,
 				const std::string&
@@ -36,13 +36,11 @@ namespace
 			);
 
 		std::string
-			verify(
+			verify_text(
 				const std::string&
 					text,
 				const std::string&
-					public_key,
-				const std::string&
-					private_key
+					public_key
 			);
     };
 }

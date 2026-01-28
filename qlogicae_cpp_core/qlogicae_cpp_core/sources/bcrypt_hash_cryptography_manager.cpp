@@ -117,4 +117,96 @@ namespace
 				);
         }
     }
+	
+	std::string
+		BcryptHashCryptographyManager
+			::hash_text(
+				const std::string&
+					text
+			)
+	{
+		try
+        {		
+			boost::unique_lock<boost::mutex>
+				mutex_lock;
+			if (configurations.is_thread_safety_enabled_for_feature_handling())
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						feature_handling_mutex_1
+					);
+			}			
+
+			std::string hash;
+			hash.resize(crypto_pwhash_STRBYTES);
+
+			return
+				(crypto_pwhash_str(
+					hash.data(),
+					text.c_str(), text.size(),
+					crypto_pwhash_OPSLIMIT_MODERATE,
+					crypto_pwhash_MEMLIMIT_MODERATE
+				) != 0) ?
+					hash.c_str() :
+					"";
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+			handle_error_outputs(
+				exception
+			);
+
+			return
+				"";
+        }
+	}
+
+	bool
+		BcryptHashCryptographyManager
+			::verify_text(
+				const std::string&
+					text,
+				const std::string&
+					hash
+			)
+	{
+		try
+        {		
+			boost::unique_lock<boost::mutex>
+				mutex_lock;
+			if (configurations.is_thread_safety_enabled_for_feature_handling())
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						feature_handling_mutex_1
+					);
+			}			
+
+			return
+				crypto_pwhash_str_verify(
+					text.c_str(),
+					hash.c_str(),
+					hash.size()
+				) == 0;
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+			handle_error_outputs(
+				exception
+			);
+
+			return
+				"";
+        }
+	}
 }

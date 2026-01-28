@@ -30,9 +30,9 @@ namespace
 				const std::string&
 					text,
 				const std::string&
-					private_key,
+					public_key,
 				const std::string&
-					nonce
+					private_key
 			);
 
 		std::string
@@ -40,9 +40,8 @@ namespace
 				const std::string&
 					text,
 				const std::string&
-					private_key,
-				const std::string&
-					nonce
+					public_key
 			);
     };
 }
+
