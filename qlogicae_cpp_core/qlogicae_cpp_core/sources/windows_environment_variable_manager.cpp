@@ -143,14 +143,14 @@ namespace
 				return L"";
 			}
 
-			DWORD size = GetEnvironmentVariableW(key.data(), nullptr, 0);
-			if (size == 0 || GetLastError() == ERROR_ENVVAR_NOT_FOUND)
+			DWORD size = GetEnvironmentVariableW(key.c_str(), nullptr, 0);
+			if (size == 0)
 			{
 				return L"";
 			}
 
 			std::wstring result(size - 1, L'\0');
-			if (GetEnvironmentVariableW(key.data(), &result[0], size) == 0)
+			if (GetEnvironmentVariableW(key.c_str(), &result[0], size) == 0)
 			{
 				return L"";
 			}
@@ -198,8 +198,8 @@ namespace
 				(key.empty() || value.empty()) ?
 					false :
 					SetEnvironmentVariableW(
-						key.data(),
-						value.data()
+						key.c_str(),
+						value.c_str()
 					) != 0;
         }
         catch
@@ -239,7 +239,7 @@ namespace
 				(key.empty()) ?
 					false :
 					SetEnvironmentVariableW(
-						key.data(),
+						key.c_str(),
 						nullptr
 					) != 0;
         }

@@ -130,57 +130,27 @@ namespace
 			)
 	{
 		try
-        {		
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_feature_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}
-
-			HKEY raw_key = nullptr;
-			if (RegOpenKeyExW(root_key, sub_key.data(),
-				0, KEY_READ | KEY_SET_VALUE, &raw_key) != ERROR_SUCCESS)
-			{
+        {					
+			HKEY hKey = nullptr;
+			if (RegOpenKeyExW(root_key, sub_key.c_str(), 0, KEY_READ, &hKey)
+				!= ERROR_SUCCESS)
 				return L"";
-			}
 
-			DWORD hkey_value_type = 0, hkey_value_size = 0;
-			std::unique_ptr<
-				std::remove_pointer<HKEY>::type,
-				RegularKeyDeleteHandler> hKey(raw_key);
-			if (RegQueryValueExW(hKey.get(), name_key.empty() ?
-				nullptr : name_key.data(), nullptr,
-				&hkey_value_type, nullptr, &hkey_value_size) !=
-				ERROR_SUCCESS || hkey_value_type != REG_SZ)
-			{
+			std::unique_ptr<std::remove_pointer<HKEY>::type, RegularKeyDeleteHandler>
+				key_ptr(hKey);
+
+			DWORD type = 0, size = 0;
+			if (RegQueryValueExW(hKey, name_key.c_str(), nullptr, &type, nullptr, &size)
+				!= ERROR_SUCCESS || type != REG_SZ)
 				return L"";
-			}
 
-			if (hkey_value_size > (1 << 16))
-			{
+			std::vector<wchar_t> buffer(size / sizeof(wchar_t));
+			if (RegQueryValueExW(hKey, name_key.c_str(), nullptr, &type,
+				reinterpret_cast<BYTE*>(buffer.data()), &size) != ERROR_SUCCESS)
 				return L"";
-			}
 
-			std::vector<wchar_t> hkey_value_buffer(
-				(hkey_value_size / sizeof(wchar_t)) + 1);
-			if (!(RegQueryValueExW(hKey.get(), name_key.empty() ?
-				nullptr : name_key.data(), nullptr, &hkey_value_type,
-				reinterpret_cast<LPBYTE>(
-					hkey_value_buffer.data()), &hkey_value_size) ==
-				ERROR_SUCCESS && hkey_value_type == REG_SZ))
-			{
-				return L"";
-			}
-
-			hkey_value_buffer.back() = L'\0';
-
-			return
-				std::wstring(hkey_value_buffer.data());
+			if (!buffer.empty() && buffer.back() == L'\0') buffer.pop_back();
+			return std::wstring(buffer.data(), buffer.size());
         }
         catch
         (
@@ -211,36 +181,19 @@ namespace
 		)
 	{
 		try
-        {		
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_feature_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}			
-
-			HKEY raw_key = nullptr;
-			if (RegCreateKeyExW(root_key, sub_key.data(), 0, nullptr, 0,
-				KEY_SET_VALUE, nullptr, &raw_key, nullptr) != ERROR_SUCCESS)
-			{
+        {					
+			HKEY hKey = nullptr;
+			if (RegCreateKeyExW(root_key, sub_key.c_str(), 0, nullptr, 0,
+				KEY_WRITE, nullptr, &hKey, nullptr) != ERROR_SUCCESS)
 				return false;
-			}
-			std::unique_ptr<
-				std::remove_pointer<HKEY>::type, RegularKeyDeleteHandler>
-					hKey(
-						raw_key
-					);
 
-			return
-					RegSetValueExW(hKey.get(), name_key.data(), 0, REG_SZ,
-				reinterpret_cast<const BYTE*>(value.data()),
-				static_cast<DWORD>(
-					(value.size() + 1) * sizeof(wchar_t))) == ERROR_SUCCESS;
-        }
+			std::unique_ptr<std::remove_pointer<HKEY>::type, RegularKeyDeleteHandler>
+				key_ptr(hKey);
+
+			return RegSetValueExW(hKey, name_key.c_str(), 0, REG_SZ,
+				reinterpret_cast<const BYTE*>(value.c_str()),
+				static_cast<DWORD>((value.size() + 1) * sizeof(wchar_t))) == ERROR_SUCCESS;
+		}
         catch
         (
             const std::exception&
@@ -264,65 +217,37 @@ namespace
 			)
 	{
 		try
-        {		
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_feature_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}
-
+        {					
 			std::unordered_map<std::wstring, std::wstring> result;
-
-			HKEY raw_key = nullptr;
-			if (RegOpenKeyExW(root_key, sub_key.data(), 0, KEY_READ, &raw_key) != ERROR_SUCCESS)
-			{
+			HKEY hKey = nullptr;
+			if (RegOpenKeyExW(root_key, sub_key.c_str(), 0, KEY_READ, &hKey) != ERROR_SUCCESS)
 				return result;
-			}
 
-			std::unique_ptr<std::remove_pointer<HKEY>::type, ValueEnumKeyDeleteHandler> hkey(raw_key);
+			std::unique_ptr<std::remove_pointer<HKEY>::type, ValueEnumKeyDeleteHandler>
+				key_ptr(hKey);
 
 			DWORD index = 0;
-			wchar_t value_name[32767] = { 0 };
-			DWORD value_name_size = 32767;
-			DWORD value_type = 0;
-			BYTE value_data[65535] = { 0 };
-			DWORD value_data_size = 65535;
-
 			while (true)
 			{
-				value_name_size = 32767;
-				value_data_size = 65535;
+				wchar_t name[32767] = {};
+				DWORD name_len = 32767;
+				DWORD type = 0;
+				BYTE data[65535] = {};
+				DWORD data_len = 65535;
 
-				LONG enum_result = RegEnumValueW(
-					hkey.get(),
-					index++,
-					value_name,
-					&value_name_size,
-					nullptr,
-					&value_type,
-					value_data,
-					&value_data_size);
+				LONG ret = RegEnumValueW(hKey, index++, name, &name_len, nullptr, &type, data, &data_len);
+				if (ret == ERROR_NO_MORE_ITEMS) break;
 
-				if (enum_result == ERROR_NO_MORE_ITEMS)
+				if (ret == ERROR_SUCCESS && type == REG_SZ)
 				{
-					break;
-				}
-
-				if (enum_result == ERROR_SUCCESS && value_type == REG_SZ)
-				{
-					std::wstring name(value_name, value_name_size);
-					std::wstring value(reinterpret_cast<wchar_t*>(value_data));
-					result.emplace(name, value);
+					std::wstring key_name(name, name_len);
+					std::wstring key_value(reinterpret_cast<wchar_t*>(data), data_len / sizeof(wchar_t));
+					if (!key_value.empty() && key_value.back() == L'\0') key_value.pop_back();
+					result.emplace(key_name, key_value);
 				}
 			}
 
-			return
-				result;
+			return result;
         }
         catch
         (
@@ -351,33 +276,15 @@ namespace
 			)
 	{
 		try
-        {		
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_feature_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}			
-
-			HKEY raw_key = nullptr;
-			if (RegOpenKeyExW(root_key, sub_key.data(), 0,
-				KEY_SET_VALUE, &raw_key) != ERROR_SUCCESS)
-			{
+        {					
+			HKEY hKey = nullptr;
+			if (RegOpenKeyExW(root_key, sub_key.c_str(), 0, KEY_SET_VALUE, &hKey) != ERROR_SUCCESS)
 				return false;
-			}
-			std::unique_ptr<
-				std::remove_pointer<HKEY>::type,
-				RegularKeyDeleteHandler> hKey(raw_key);
 
-			return
-				RegDeleteValueW(
-					hKey.get(),
-					name_key.data()
-				) == ERROR_SUCCESS;
+			std::unique_ptr<std::remove_pointer<HKEY>::type, RegularKeyDeleteHandler>
+				key_ptr(hKey);
+
+			return RegDeleteValueW(hKey, name_key.c_str()) == ERROR_SUCCESS;
         }
         catch
         (
@@ -405,17 +312,6 @@ namespace
 	{
 		try
         {		
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_feature_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}			
-
 			return
 				!get_value(
 					root_key,

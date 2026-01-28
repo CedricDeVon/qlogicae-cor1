@@ -26,6 +26,13 @@
     <ClCompile Include="qlogicae_cpp_core_test\sources\text_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core_test\sources\abstract_class.cpp" />
     <ClCompile Include="qlogicae_cpp_core_test\sources\file_system_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core_test\sources\windows_environment_variable_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core_test\sources\windows_registry_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core_test\sources\windows_system_access_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core_test\sources\uuid_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core_test\sources\validation_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core_test\sources\value_extractor_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core_test\sources\console_manager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.hpp" />
@@ -54,6 +61,13 @@
     <ClInclude Include="qlogicae_cpp_core_test\includes\text_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core_test\includes\abstract_class.hpp" />
     <ClInclude Include="qlogicae_cpp_core_test\includes\file_system_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core_test\includes\windows_system_access_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core_test\includes\windows_registry_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core_test\includes\windows_environment_variable_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core_test\includes\console_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core_test\includes\uuid_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core_test\includes\validation_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core_test\includes\value_extractor_manager.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -146,11 +146,15 @@ namespace
 				{
 					boost::uuids::string_generator
 						generator;
-					boost::uuids::uuid uuid =
-						generator(value);
-
-					return
-						uuid.version() == boost::uuids::uuid::version_random_number_based;
+					try
+					{
+						boost::uuids::uuid uuid = generator(value);
+						return uuid.version() == boost::uuids::uuid::version_random_number_based;
+					}
+					catch (...)
+					{
+						return false;
+					}
 				}
 				default:
 				{

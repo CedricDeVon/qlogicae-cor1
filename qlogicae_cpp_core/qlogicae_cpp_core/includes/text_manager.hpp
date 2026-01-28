@@ -114,14 +114,17 @@ namespace
 						return {};
 					}
 
-					std::string result(required_size, '\0');
+					std::string result(
+						static_cast<std::size_t>(required_size),
+						'\0'
+					);
 
 					WideCharToMultiByte(
 						CP_UTF8,
 						0,
-						wide.data(),
+						wide.c_str(),
 						static_cast<int>(wide.size()),
-						result.data(),
+						&result[0],
 						required_size,
 						nullptr,
 						nullptr
@@ -167,14 +170,17 @@ namespace
 						return {};
 					}
 
-					std::wstring result(required_size, L'\0');
+					std::wstring result(
+						static_cast<std::size_t>(required_size),
+						L'\0'
+					);
 
 					MultiByteToWideChar(
 						CP_UTF8,
 						0,
-						narrow.data(),
+						narrow.c_str(),
 						static_cast<int>(narrow.size()),
-						result.data(),
+						&result[0],
 						required_size
 					);
 
