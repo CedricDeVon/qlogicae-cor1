@@ -210,10 +210,10 @@
     <ClInclude Include="qlogicae_cpp_core\includes\random_value_generation_manager_configurations.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="qlogicae_cpp_core\includes\console_manager.hpp">
+    <ClInclude Include="qlogicae_cpp_core\includes\console_io_manager.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="qlogicae_cpp_core\includes\console_manager_configurations.hpp">
+    <ClInclude Include="qlogicae_cpp_core\includes\console_io_manager_configurations.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="qlogicae_cpp_core\includes\windows_system_access_manager.hpp">
@@ -520,10 +520,10 @@
     <ClCompile Include="qlogicae_cpp_core\sources\random_value_generation_manager_configurations.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="qlogicae_cpp_core\sources\console_manager.cpp">
+    <ClCompile Include="qlogicae_cpp_core\sources\console_io_manager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="qlogicae_cpp_core\sources\console_manager_configurations.cpp">
+    <ClCompile Include="qlogicae_cpp_core\sources\console_io_manager_configurations.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="qlogicae_cpp_core\sources\windows_system_access_manager.cpp">

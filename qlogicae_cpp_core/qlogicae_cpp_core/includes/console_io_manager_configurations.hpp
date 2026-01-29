@@ -6,14 +6,14 @@ namespace
 	QLogicaeCppCore
 {
     struct
-		ConsoleManagerConfigurations :
-			AbstractConfigurations<ConsoleManagerConfigurations>
+		ConsoleIoManagerConfigurations :
+			AbstractConfigurations<ConsoleIoManagerConfigurations>
     {
 	public:			
-		static ConsoleManagerConfigurations
+		static ConsoleIoManagerConfigurations
 			initial_configurations;
 
-		static ConsoleManagerConfigurations
+		static ConsoleIoManagerConfigurations
 			default_configurations;
     };
 }

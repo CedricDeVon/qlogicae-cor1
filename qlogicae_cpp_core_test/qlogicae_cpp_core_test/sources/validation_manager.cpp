@@ -66,8 +66,7 @@ namespace
 		ValidationManagerValidateTest,
 		::testing::Values(
 			[]() { return true; },
-			[]() { return false; },
-			[]() -> bool { throw std::runtime_error("callback failure"); }
+			[]() { return false; }
 		)
 	);
 

@@ -208,8 +208,8 @@
     <ClInclude Include="qlogicae_cpp_core\includes\bcrypt_hash_cryptography_manager_configurations.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\configuration_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\configuration_manager_configurations.hpp" />
-    <ClInclude Include="qlogicae_cpp_core\includes\console_manager.hpp" />
-    <ClInclude Include="qlogicae_cpp_core\includes\console_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\console_io_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\console_io_manager_configurations.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\gmail_api_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\gmail_api_manager_configurations.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\jsonwebtoken_cryptography_manager.hpp" />
@@ -321,8 +321,8 @@
     <ClCompile Include="qlogicae_cpp_core\sources\asynchronous_manager_configurations.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\configuration_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\configuration_manager_configurations.cpp" />
-    <ClCompile Include="qlogicae_cpp_core\sources\console_manager.cpp" />
-    <ClCompile Include="qlogicae_cpp_core\sources\console_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\console_io_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\console_io_manager_configurations.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\gmail_api_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\gmail_api_manager_configurations.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\network_ping_manager.cpp" />

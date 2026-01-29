@@ -1,22 +1,22 @@
 #include "pch.hpp"
 
-#include "../includes/console_manager.hpp"
+#include "../includes/console_io_manager.hpp"
 
 namespace
 	QLogicaeCppCore
 {
-    ConsoleManager&
-        ConsoleManager
+    ConsoleIoManager&
+        ConsoleIoManager
 			::singleton =
 				SingletonManager
 					::singleton
-						.get_singleton<ConsoleManager>();
+						.get_singleton<ConsoleIoManager>();
 
 
 
-	ConsoleManager
-		::ConsoleManager() :
-			AbstractClass<ConsoleManagerConfigurations>()
+	ConsoleIoManager
+		::ConsoleIoManager() :
+			AbstractClass<ConsoleIoManagerConfigurations>()
 	{
 		try
 		{
@@ -34,8 +34,8 @@ namespace
 		}
 	}
 
-	ConsoleManager
-		::~ConsoleManager()
+	ConsoleIoManager
+		::~ConsoleIoManager()
 	{
 		try
 		{
@@ -54,7 +54,7 @@ namespace
 	}
 
 	bool
-		ConsoleManager
+		ConsoleIoManager
 			::construct()
 	{
 		try
@@ -87,7 +87,7 @@ namespace
 	}
 
 	bool
-		ConsoleManager
+		ConsoleIoManager
 			::destruct()
 	{
 		try
@@ -120,7 +120,7 @@ namespace
 	}
 
 	std::string
-		ConsoleManager
+		ConsoleIoManager
 			::scan()
 	{
 		try
@@ -168,7 +168,7 @@ namespace
 	}
 
 	std::string
-		ConsoleManager
+		ConsoleIoManager
 			::builtin_scan()
 	{
 		try
@@ -206,7 +206,7 @@ namespace
 	}
 
 	bool
-		ConsoleManager
+		ConsoleIoManager
 			::print(
 				const std::string&
 					text
@@ -247,7 +247,7 @@ namespace
 	}
 
 	bool
-		ConsoleManager
+		ConsoleIoManager
 			::builtin_print(
 				const std::string&
 					text
@@ -285,7 +285,7 @@ namespace
 	}
 
 	bool
-		ConsoleManager
+		ConsoleIoManager
 			::print_with_new_line(
 				const std::string&
 					text
@@ -326,7 +326,7 @@ namespace
 	}
 
 	bool
-		ConsoleManager
+		ConsoleIoManager
 			::builtin_print_with_new_line(
 				const std::string&
 					text

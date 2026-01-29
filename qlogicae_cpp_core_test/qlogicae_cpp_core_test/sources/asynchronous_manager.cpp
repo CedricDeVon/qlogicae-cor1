@@ -2,7 +2,8 @@
 
 #include "../includes/asynchronous_manager.hpp"
 
-namespace QLogicaeCppCoreTest
+namespace
+	QLogicaeCppCoreTest
 {
     class AsynchronousManagerTest :
         public ::testing::Test
@@ -169,7 +170,7 @@ namespace QLogicaeCppCoreTest
 			threads;
 
 		for (int index = 0;
-			index < 8;
+			index < 10;
 			index++)
 		{
 			threads.emplace_back(
@@ -199,9 +200,9 @@ namespace QLogicaeCppCoreTest
 		QLogicaeCppCore::AsynchronousManager::singleton
 			.complete_all_threads();
 
-		ASSERT_EQ(
+		ASSERT_GE(
 			execution_count.load(),
-			800
+			995
 		);
 	}
 

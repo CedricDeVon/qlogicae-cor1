@@ -2,22 +2,22 @@
 
 #include "abstract_class.hpp"
 #include "singleton_manager.hpp"
-#include "console_manager_configurations.hpp"
+#include "console_io_manager_configurations.hpp"
 
 namespace
 	QLogicaeCppCore
 {
     class
-		ConsoleManager :
-			public AbstractClass<ConsoleManagerConfigurations>
+		ConsoleIoManager :
+			public AbstractClass<ConsoleIoManagerConfigurations>
     {
     public:
-		static ConsoleManager&
+		static ConsoleIoManager&
 			singleton;
 
-		ConsoleManager();
+		ConsoleIoManager();
 
-		~ConsoleManager();
+		~ConsoleIoManager();
 
 		bool
 			construct();

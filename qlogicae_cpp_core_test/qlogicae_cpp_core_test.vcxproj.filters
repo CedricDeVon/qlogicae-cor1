@@ -32,7 +32,14 @@
     <ClCompile Include="qlogicae_cpp_core_test\sources\uuid_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core_test\sources\validation_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core_test\sources\value_extractor_manager.cpp" />
-    <ClCompile Include="qlogicae_cpp_core_test\sources\console_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core_test\sources\console_io_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core_test\sources\aes256_cipher_cryptography_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core_test\sources\aes256_signature_cryptography_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core_test\sources\argon2id_hash_cryptography_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core_test\sources\bcrypt_hash_cryptography_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core_test\sources\jsonwebtoken_cryptography_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core_test\sources\sha256_hash_cryptography_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core_test\sources\xchacha20_poly1305_cipher_cryptography_manager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.hpp" />
@@ -64,10 +71,17 @@
     <ClInclude Include="qlogicae_cpp_core_test\includes\windows_system_access_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core_test\includes\windows_registry_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core_test\includes\windows_environment_variable_manager.hpp" />
-    <ClInclude Include="qlogicae_cpp_core_test\includes\console_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core_test\includes\console_io_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core_test\includes\uuid_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core_test\includes\validation_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core_test\includes\value_extractor_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core_test\includes\xchacha20_poly1305_cipher_cryptography_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core_test\includes\sha256_hash_cryptography_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core_test\includes\jsonwebtoken_cryptography_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core_test\includes\bcrypt_hash_cryptography_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core_test\includes\argon2id_hash_cryptography_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core_test\includes\aes256_cipher_cryptography_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core_test\includes\aes256_signature_cryptography_manager.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
