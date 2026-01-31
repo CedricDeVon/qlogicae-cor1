@@ -9,14 +9,20 @@ namespace QLogicaeCppCoreTest
 	class ConfigurationManagerTest : public ::testing::Test
     {
     public:
-        ConfigurationManagerTest()
-        {
-			ConfigurationManager::singleton.reset();
+		ConfigurationManager manager;
+
+		void
+			SetUp() override
+		{
+			manager.construct();
+			manager.reset();
 		}
 
-		~ConfigurationManagerTest() override
+		void
+			TearDown() override
 		{
-			ConfigurationManager::singleton.reset();
+			manager.destruct();
+			manager.reset();
 		}
 	};
 
@@ -39,48 +45,48 @@ namespace QLogicaeCppCoreTest
     TEST_F(ConfigurationManagerTest, Should_SetupConfigurationsCorrectly_When_ValidInput)
     {
         ConfigurationManagerConfigurations configurations;
-        configurations.is_feature_handling_enabled = true;
+        configurations.is_feature_runtime_execution_handling_enabled = true;
 		configurations.is_thread_safety_override_enabled = false;
 
 		ASSERT_TRUE(ConfigurationManager::singleton.setup(configurations));
-		ASSERT_TRUE(ConfigurationManager::singleton.configurations.is_feature_handling_enabled);
+		ASSERT_TRUE(ConfigurationManager::singleton.configurations.is_feature_runtime_execution_handling_enabled);
 		ASSERT_FALSE(ConfigurationManager::singleton.configurations.is_thread_safety_override_enabled);
 	}
 
 	TEST_F(ConfigurationManagerTest, Should_ResetConfigurationsToDefault_When_Called)
 	{
 		ConfigurationManagerConfigurations configurations;
-		configurations.is_feature_handling_enabled = false;
+		configurations.is_feature_runtime_execution_handling_enabled = false;
 		configurations.is_thread_safety_override_enabled = true;
 
 		ConfigurationManager::singleton.setup(configurations);
 		ASSERT_TRUE(ConfigurationManager::singleton.reset());
-		ASSERT_TRUE(ConfigurationManager::singleton.configurations.is_feature_handling_enabled);
+		ASSERT_TRUE(ConfigurationManager::singleton.configurations.is_feature_runtime_execution_handling_enabled);
 		ASSERT_FALSE(ConfigurationManager::singleton.configurations.is_thread_safety_override_enabled);
 	}
 
 	TEST_F(ConfigurationManagerTest, Should_UpdateDefaultConfigurations_When_SetupDefaultsCalled)
 	{
 		ConfigurationManagerConfigurations defaults;
-		defaults.is_feature_handling_enabled = false;
+		defaults.is_feature_runtime_execution_handling_enabled = false;
 		defaults.is_thread_safety_override_enabled = true;
 
 		ConfigurationManager::singleton.setup_defaults<ConfigurationManagerConfigurations>(defaults);
 
-		ASSERT_FALSE(ConfigurationManagerConfigurations::default_configurations.is_feature_handling_enabled);
+		ASSERT_FALSE(ConfigurationManagerConfigurations::default_configurations.is_feature_runtime_execution_handling_enabled);
 		ASSERT_TRUE(ConfigurationManagerConfigurations::default_configurations.is_thread_safety_override_enabled);
 	}
 
 	TEST_F(ConfigurationManagerTest, Should_ResetDefaultConfigurations_When_ResetDefaultsCalled)
 	{
 		ConfigurationManagerConfigurations temp;
-		temp.is_feature_handling_enabled = false;
+		temp.is_feature_runtime_execution_handling_enabled = false;
 		temp.is_thread_safety_override_enabled = true;
 
 		ConfigurationManager::singleton.setup_defaults(temp);
 		ConfigurationManager::singleton.reset_defaults<ConfigurationManagerConfigurations>();
 
-		ASSERT_TRUE(ConfigurationManagerConfigurations::default_configurations.is_feature_handling_enabled);
+		ASSERT_TRUE(ConfigurationManagerConfigurations::default_configurations.is_feature_runtime_execution_handling_enabled);
 		ASSERT_FALSE(ConfigurationManagerConfigurations::default_configurations.is_thread_safety_override_enabled);
 	}
 
@@ -89,12 +95,12 @@ namespace QLogicaeCppCoreTest
 		auto [enabled, thread_safety] = GetParam();
 
 		ConfigurationManagerConfigurations configurations;
-		configurations.is_feature_handling_enabled = enabled;
+		configurations.is_feature_runtime_execution_handling_enabled = enabled;
 		configurations.is_thread_safety_override_enabled = thread_safety;
 
 		ConfigurationManager::singleton.setup(configurations);
 
-		ASSERT_EQ(ConfigurationManager::singleton.configurations.is_feature_handling_enabled, enabled);
+		ASSERT_EQ(ConfigurationManager::singleton.configurations.is_feature_runtime_execution_handling_enabled, enabled);
 		ASSERT_EQ(ConfigurationManager::singleton.configurations.is_thread_safety_override_enabled, thread_safety);
 	}
 
@@ -112,7 +118,7 @@ namespace QLogicaeCppCoreTest
 	TEST_F(ConfigurationManagerTest, Should_HandleSingletonAccessAcrossThreads_When_ThreadSafetyEnabled)
 	{
 		ConfigurationManagerConfigurations configurations;
-		configurations.is_feature_handling_enabled = true;
+		configurations.is_feature_runtime_execution_handling_enabled = true;
 		configurations.is_thread_safety_override_enabled = true;
 		ConfigurationManager::singleton.setup(configurations);
 
@@ -120,7 +126,7 @@ namespace QLogicaeCppCoreTest
 		auto task = []()
 			{
 				ConfigurationManagerConfigurations conf;
-				conf.is_feature_handling_enabled = true;
+				conf.is_feature_runtime_execution_handling_enabled = true;
 				conf.is_thread_safety_override_enabled = true;
 				ConfigurationManager::singleton.setup(conf);
 			};
@@ -136,7 +142,7 @@ namespace QLogicaeCppCoreTest
 			t.join();
 		}
 
-		ASSERT_TRUE(ConfigurationManager::singleton.configurations.is_feature_handling_enabled);
+		ASSERT_TRUE(ConfigurationManager::singleton.configurations.is_feature_runtime_execution_handling_enabled);
 		ASSERT_TRUE(ConfigurationManager::singleton.configurations.is_thread_safety_override_enabled);
 	}
 
@@ -145,7 +151,7 @@ namespace QLogicaeCppCoreTest
 		auto setup_reset_task = []()
 			{
 				ConfigurationManagerConfigurations conf;
-				conf.is_feature_handling_enabled = true;
+				conf.is_feature_runtime_execution_handling_enabled = true;
 				conf.is_thread_safety_override_enabled = false;
 
 				for (int i = 0; i < 100; ++i)
@@ -166,14 +172,14 @@ namespace QLogicaeCppCoreTest
 			t.join();
 		}
 
-		ASSERT_TRUE(ConfigurationManager::singleton.configurations.is_feature_handling_enabled);
+		ASSERT_TRUE(ConfigurationManager::singleton.configurations.is_feature_runtime_execution_handling_enabled);
 		ASSERT_FALSE(ConfigurationManager::singleton.configurations.is_thread_safety_override_enabled);
 	}
 
 	TEST_F(ConfigurationManagerTest, Should_CompleteUnderStress_When_CalledManyTimes)
 	{
 		ConfigurationManagerConfigurations conf;
-		conf.is_feature_handling_enabled = true;
+		conf.is_feature_runtime_execution_handling_enabled = true;
 		conf.is_thread_safety_override_enabled = true;
 
 		for (int i = 0; i < 1000; ++i)
@@ -182,14 +188,14 @@ namespace QLogicaeCppCoreTest
 			ConfigurationManager::singleton.setup(conf);
 		}
 
-		ASSERT_TRUE(ConfigurationManager::singleton.configurations.is_feature_handling_enabled);
+		ASSERT_TRUE(ConfigurationManager::singleton.configurations.is_feature_runtime_execution_handling_enabled);
 		ASSERT_TRUE(ConfigurationManager::singleton.configurations.is_thread_safety_override_enabled);
 	}
 
 	TEST_F(ConfigurationManagerTest, Should_HandleAsyncSetupReset_When_CalledViaStdAsync)
 	{
 		ConfigurationManagerConfigurations conf;
-		conf.is_feature_handling_enabled = true;
+		conf.is_feature_runtime_execution_handling_enabled = true;
 		conf.is_thread_safety_override_enabled = true;
 
 		auto future2 = std::async(std::launch::async, [&]()
@@ -212,7 +218,7 @@ namespace QLogicaeCppCoreTest
 
 		future1.get();
 
-		ASSERT_TRUE(ConfigurationManager::singleton.configurations.is_feature_handling_enabled);
+		ASSERT_TRUE(ConfigurationManager::singleton.configurations.is_feature_runtime_execution_handling_enabled);
 		ASSERT_TRUE(ConfigurationManager::singleton.configurations.is_thread_safety_override_enabled);
 	}
 
@@ -221,7 +227,7 @@ namespace QLogicaeCppCoreTest
 		ConfigurationManagerConfigurations default_conf;
 		ASSERT_TRUE(ConfigurationManager::singleton.setup(default_conf));
 
-		ASSERT_TRUE(ConfigurationManager::singleton.configurations.is_feature_handling_enabled);
+		ASSERT_TRUE(ConfigurationManager::singleton.configurations.is_feature_runtime_execution_handling_enabled);
 		ASSERT_FALSE(ConfigurationManager::singleton.configurations.is_thread_safety_override_enabled);
     }
 }

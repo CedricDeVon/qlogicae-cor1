@@ -7,342 +7,321 @@ namespace QLogicaeCppCoreTest
     class ErrorManagerTest :
         public ::testing::Test
     {
-    public:
-        ErrorManagerTest()
-        {
-            QLogicaeCppCore::ErrorManager::singleton.reset();
-        }
+    public: 
+		QLogicaeCppCore::ErrorManager manager;
+      
+		void
+			SetUp() override
+		{
+			manager.construct();
+			manager.reset();
+		}
 
-        ~ErrorManagerTest() override
-        {
-            QLogicaeCppCore::ErrorManager::singleton.reset();
-        }
-    };
+		void
+			TearDown() override
+		{
+			manager.destruct();
+			manager.reset();
+		}
+	};
 
-    class ErrorManagerParameterizedTest :
-        public ::testing::TestWithParam<bool>
-    {
-    public:
-        ErrorManagerParameterizedTest()
-        {
-            QLogicaeCppCore::ErrorManager::singleton.reset();
-        }
+	class ErrorManagerParameterizedTest :
+		public ::testing::TestWithParam<bool>
+	{
+	public:
+		QLogicaeCppCore::ErrorManager manager;
 
-        ~ErrorManagerParameterizedTest() override
-        {
-            QLogicaeCppCore::ErrorManager::singleton.reset();
-        }
-    };
+		void
+			SetUp() override
+		{
+			manager.construct();
+			manager.reset();
+		}
 
-    class ErrorManagerConfigurationMatrixTest :
-        public ::testing::TestWithParam<
-        std::tuple<bool, bool>
-        >
-    {
-    public:
-        ErrorManagerConfigurationMatrixTest()
-        {
-            QLogicaeCppCore::ErrorManager::singleton.reset();
-        }
+		void
+			TearDown() override
+		{
+			manager.destruct();
+			manager.reset();
+		}
+	};
 
-        ~ErrorManagerConfigurationMatrixTest() override
-        {
-            QLogicaeCppCore::ErrorManager::singleton.reset();
-        }
-    };
+	class ErrorManagerConfigurationMatrixTest :
+		public ::testing::TestWithParam<
+		std::tuple<bool, bool>
+		>
+	{
+	public:
+		QLogicaeCppCore::ErrorManager manager;
 
-    class ErrorManagerFullParameterizedTest :
-        public ::testing::TestWithParam<std::tuple<
-        bool,
-        bool,
-        bool,
-        bool,
-        bool,
-        bool
-        >>
-    {
-    public:
-        ErrorManagerFullParameterizedTest()
-        {
-            QLogicaeCppCore::ErrorManager::singleton.reset();
-        }
+		void
+			SetUp() override
+		{
+			manager.construct();
+			manager.reset();
+		}
 
-        ~ErrorManagerFullParameterizedTest() override
-        {
-            QLogicaeCppCore::ErrorManager::singleton.reset();
-        }
-    };
+		void
+			TearDown() override
+		{
+			manager.destruct();
+			manager.reset();
+		}
+	};
 
-    TEST(ErrorManagerTest,
-        Should_ConstructSuccessfully_When_Created)
-    {
-        bool result =
-            QLogicaeCppCore::ErrorManager::singleton.construct();
+	class ErrorManagerFullParameterizedTest :
+		public ::testing::TestWithParam<std::tuple<
+		bool,
+		bool,
+		bool,
+		bool,
+		bool,
+		bool
+		>>
+	{
+	public:
+		QLogicaeCppCore::ErrorManager manager;
 
-        EXPECT_TRUE(result);
-    }
+		void
+			SetUp() override
+		{
+			manager.construct();
+			manager.reset();
+		}
 
-    TEST(ErrorManagerTest,
-        Should_HandleSynchronously_When_AsynchronousDisabled)
-    {
-        QLogicaeCppCore::ErrorManagerConfigurations configurations;
+		void
+			TearDown() override
+		{
+			manager.destruct();
+			manager.reset();
+		}
+	};
 
-        configurations.is_enable_output_override_enabled =
-            false;
+	TEST_F(ErrorManagerTest,
+		Should_ConstructSuccessfully_When_Created)
+	{
+		bool result =
+			manager.construct();
 
-        configurations.is_runtime_throw_output_enabled =
-            false;
+		EXPECT_TRUE(result);
+	}
 
-        configurations.is_asynchronous_output_enabled =
-            false;
+	TEST_F(ErrorManagerTest,
+		Should_HandleSynchronously_When_AsynchronousDisabled)
+	{
+		QLogicaeCppCore::ErrorManagerConfigurations configurations;
 
-        QLogicaeCppCore::ErrorManager::singleton.setup(
-            configurations
-        );
-
-        bool result =
-            QLogicaeCppCore::ErrorManager::singleton.handle_error_outputs(
-                "title",
-                "message"
-            );
-
-        EXPECT_FALSE(result);
-    }
-
-    TEST(ErrorManagerTest,
-        Should_HandleAsynchronously_When_AsynchronousEnabled)
-    {
-        QLogicaeCppCore::ErrorManagerConfigurations configurations;
-
-        configurations.is_enable_output_override_enabled =
-            true;
-
-        configurations.is_asynchronous_output_enabled =
-            true;
-
-        QLogicaeCppCore::ErrorManager::singleton.setup(
-            configurations
-        );
-
-        bool result =
-            QLogicaeCppCore::ErrorManager::singleton.handle_error_outputs(
-                "message"
-            );
-
-        EXPECT_FALSE(result);
-    }
-
-    TEST(ErrorManagerTest,
-        Should_NotHandle_When_Disabled)
-    {
-        QLogicaeCppCore::ErrorManagerConfigurations configurations;
-
-        configurations.is_enable_output_override_enabled =
-            false;
+		configurations.is_enable_output_override_enabled =
+			false;
 
 		configurations.is_runtime_throw_output_enabled =
 			false;
 
-        QLogicaeCppCore::ErrorManager::singleton.setup(
-            configurations
-        );
+		configurations.is_asynchronous_output_enabled =
+			false;
 
-        bool result =
-            QLogicaeCppCore::ErrorManager::singleton.handle_error_outputs(
-                "message"
-            );
+		manager.setup(
+			configurations
+		);
 
-        EXPECT_FALSE(result);
-    }
+		bool result =
+			manager.handle_error_outputs(
+				"title",
+				"message"
+			);
 
-    TEST(ErrorManagerTest,
-        Should_ThrowRuntimeError_When_RuntimeThrowEnabled)
-    {
-        QLogicaeCppCore::ErrorManagerConfigurations configurations;
+		EXPECT_FALSE(result);
+	}
 
-        configurations.is_enable_output_override_enabled =
-            true;
+	TEST_F(ErrorManagerTest,
+		Should_HandleAsynchronously_When_AsynchronousEnabled)
+	{
+		QLogicaeCppCore::ErrorManagerConfigurations configurations;
 
-        configurations.is_asynchronous_output_enabled =
-            false;
+		configurations.is_enable_output_override_enabled =
+			true;
 
-        configurations.is_runtime_throw_output_enabled =
-            true;
+		configurations.is_asynchronous_output_enabled =
+			true;
 
-        QLogicaeCppCore::ErrorManager::singleton.setup(
-            configurations
-        );
+		manager.setup(
+			configurations
+		);
 
-        EXPECT_THROW(
-            QLogicaeCppCore::ErrorManager::singleton.handle_error_outputs(
-                "message"
-            ),
-            std::runtime_error
-        );
-    }
+		bool result =
+			manager.handle_error_outputs(
+				"message"
+			);
 
-    TEST(ErrorManagerTest,
-        Should_HandleExceptionInput_When_ExceptionPassed)
-    {
-        QLogicaeCppCore::ErrorManagerConfigurations configurations;
+		EXPECT_FALSE(result);
+	}
 
-        configurations.is_enable_output_override_enabled =
-            false;
-	
+	TEST_F(ErrorManagerTest,
+		Should_NotHandle_When_Disabled)
+	{
+		QLogicaeCppCore::ErrorManagerConfigurations configurations;
+
+		configurations.is_enable_output_override_enabled =
+			false;
+
 		configurations.is_runtime_throw_output_enabled =
 			false;
 
-        QLogicaeCppCore::ErrorManager::singleton.setup(
-            configurations
-        );
+		manager.setup(
+			configurations
+		);
 
-        try
-        {
-            throw std::logic_error(
-                "failure"
-            );
-        }
-        catch (
-            const std::exception&
-            exception
-            )
-        {
-            bool result =
-                QLogicaeCppCore::ErrorManager::singleton.handle_error_outputs(
-                    exception
-                );
+		bool result =
+			manager.handle_error_outputs(
+				"message"
+			);
 
-            EXPECT_FALSE(result);
-        }
-    }
+		EXPECT_FALSE(result);
+	}
 
-    TEST(ErrorManagerTest,
-        Should_BeThreadSafe_When_MultipleThreadsInvokeHandle)
-    {
-        QLogicaeCppCore::ErrorManagerConfigurations configurations;
+	TEST_F(ErrorManagerTest,
+		Should_ThrowRuntimeError_When_RuntimeThrowEnabled)
+	{
+		QLogicaeCppCore::ErrorManagerConfigurations configurations;
 
-        configurations.is_enable_output_override_enabled =
-            true;
+		configurations.is_enable_output_override_enabled =
+			true;
 
-        configurations.is_asynchronous_output_enabled =
-            true;
+		configurations.is_asynchronous_output_enabled =
+			false;
 
-        QLogicaeCppCore::ErrorManager::singleton.setup(
-            configurations
-        );
+		configurations.is_runtime_throw_output_enabled =
+			true;
 
-        std::atomic<bool>
-            completed =
-            false;
+		manager.setup(
+			configurations
+		);
 
-        std::thread worker_thread(
-            [&]()
-            {
-                for (
-                    std::size_t iteration_index = 0;
-                    iteration_index < 1000;
-                    iteration_index++
-                    )
-                {
-                    QLogicaeCppCore::ErrorManager::singleton.handle_error_outputs(
-                        "message"
-                    );
-                }
+		EXPECT_THROW(
+			manager.handle_error_outputs(
+				"message"
+			),
+			std::runtime_error
+		);
+	}
 
-                completed.store(
-                    true
-                );
-            }
-        );
+	TEST_F(ErrorManagerTest,
+		Should_HandleExceptionInput_When_ExceptionPassed)
+	{
+		QLogicaeCppCore::ErrorManagerConfigurations configurations;
 
-        worker_thread.join();
+		configurations.is_enable_output_override_enabled =
+			false;
 
-        EXPECT_TRUE(
-            completed.load()
-        );
-    }
+		configurations.is_runtime_throw_output_enabled =
+			false;
 
-    TEST(ErrorManagerTest,
-        Should_CompleteUnderTimeLimit_When_StressTested)
-    {
-        QLogicaeCppCore::ErrorManagerConfigurations configurations;
+		manager.setup(
+			configurations
+		);
 
-        configurations.is_enable_output_override_enabled =
-            false;
+		try
+		{
+			throw std::logic_error(
+				"failure"
+			);
+		}
+		catch (
+			const std::exception&
+			exception
+			)
+		{
+			bool result =
+				manager.handle_error_outputs(
+					exception
+				);
 
-        configurations.is_runtime_throw_output_enabled =
-            false;
+			EXPECT_FALSE(result);
+		}
+	}
 
-        QLogicaeCppCore::ErrorManager::singleton.setup(
-            configurations
-        );
+	TEST_F(ErrorManagerTest,
+		Should_BeThreadSafe_When_MultipleThreadsInvokeHandle)
+	{
+		QLogicaeCppCore::ErrorManagerConfigurations configurations;
 
-        auto start_time =
-            std::chrono::steady_clock::now();
+		configurations.is_enable_output_override_enabled =
+			true;
 
-        for (
-            std::size_t iteration_index = 0;
-            iteration_index < 10000;
-            iteration_index++
-            )
-        {
-            QLogicaeCppCore::ErrorManager::singleton.handle_error_outputs(
-                "message"
-            );
-        }
+		configurations.is_asynchronous_output_enabled =
+			true;
 
-        auto end_time =
-            std::chrono::steady_clock::now();
+		manager.setup(
+			configurations
+		);
 
-        auto duration =
-            std::chrono::duration_cast<
-            std::chrono::seconds
-            >(
-                end_time - start_time
-            ).count();
+		std::atomic<bool>
+			completed =
+			false;
 
-        EXPECT_LT(
-            duration,
-            2
-        );
-    }
+		std::thread worker_thread(
+			[&]()
+			{
+				for (
+					std::size_t iteration_index = 0;
+					iteration_index < 1000;
+					iteration_index++
+					)
+				{
+					manager.handle_error_outputs(
+						"message"
+					);
+				}
 
-    TEST_P(ErrorManagerParameterizedTest,
-        Should_HandleCorrectly_When_AsynchronousFlagVaries)
-    {
-        QLogicaeCppCore::ErrorManagerConfigurations configurations;
+				completed.store(
+					true
+				);
+			}
+		);
 
-        configurations.is_enable_output_override_enabled =
-            false;
+		worker_thread.join();
 
-        configurations.is_runtime_throw_output_enabled =
-            false;
+		EXPECT_TRUE(
+			completed.load()
+		);
+	}
 
-        configurations.is_asynchronous_output_enabled =
-            GetParam();
+	TEST_P(ErrorManagerParameterizedTest,
+		Should_HandleCorrectly_When_AsynchronousFlagVaries)
+	{
+		QLogicaeCppCore::ErrorManagerConfigurations configurations;
 
-        QLogicaeCppCore::ErrorManager::singleton.setup(
-            configurations
-        );
+		configurations.is_enable_output_override_enabled =
+			false;
 
-        bool result =
-            QLogicaeCppCore::ErrorManager::singleton.handle_error_outputs(
-                "message"
-            );
+		configurations.is_runtime_throw_output_enabled =
+			false;
 
-        EXPECT_FALSE(result);
-    }
+		configurations.is_asynchronous_output_enabled =
+			GetParam();
 
-    INSTANTIATE_TEST_CASE_P(
-        ErrorManagerAsyncVariants,
-        ErrorManagerParameterizedTest,
-        ::testing::Values(
-            true,
-            false
-        )
-    );
+		manager.setup(
+			configurations
+		);
 
-	TEST(ErrorManagerTest,
+		bool result =
+			manager.handle_error_outputs(
+				"message"
+			);
+
+		EXPECT_FALSE(result);
+	}
+
+	INSTANTIATE_TEST_CASE_P(
+		ErrorManagerAsyncVariants,
+		ErrorManagerParameterizedTest,
+		::testing::Values(
+			true,
+			false
+		)
+	);
+
+	TEST_F(ErrorManagerTest,
 		Should_HandleConcurrentContention_When_FourThreadsInvoke)
 	{
 		QLogicaeCppCore::ErrorManagerConfigurations configurations;
@@ -356,7 +335,7 @@ namespace QLogicaeCppCoreTest
 		configurations.is_asynchronous_output_enabled =
 			true;
 
-		QLogicaeCppCore::ErrorManager::singleton.setup(
+		manager.setup(
 			configurations
 		);
 
@@ -373,7 +352,7 @@ namespace QLogicaeCppCoreTest
 					iteration_index++
 					)
 				{
-					QLogicaeCppCore::ErrorManager::singleton.handle_error_outputs(
+					manager.handle_error_outputs(
 						"message"
 					);
 				}
@@ -399,7 +378,7 @@ namespace QLogicaeCppCoreTest
 		);
 	}
 
-	TEST(ErrorManagerTest,
+	TEST_F(ErrorManagerTest,
 		Should_CaptureAsyncException_When_RuntimeThrowEnabledAsync)
 	{
 		QLogicaeCppCore::ErrorManagerConfigurations configurations;
@@ -416,19 +395,19 @@ namespace QLogicaeCppCoreTest
 		configurations.is_runtime_throw_output_enabled =
 			true;
 
-		QLogicaeCppCore::ErrorManager::singleton.setup(
+		manager.setup(
 			configurations
 		);
 
 		EXPECT_THROW(
-			QLogicaeCppCore::ErrorManager::singleton.handle_error_outputs(
+			manager.handle_error_outputs(
 				"async_exception"
 			),
 			std::runtime_error
 		);
 	}
 
-	TEST(ErrorManagerTest,
+	TEST_F(ErrorManagerTest,
 		Should_HandleInvalidFilePath_When_FileOutputEnabled)
 	{
 		QLogicaeCppCore::ErrorManagerConfigurations configurations;
@@ -447,19 +426,19 @@ namespace QLogicaeCppCoreTest
 			std::string(4096, '\0')
 		};
 
-		QLogicaeCppCore::ErrorManager::singleton.setup(
+		manager.setup(
 			configurations
 		);
 
 		bool result =
-			QLogicaeCppCore::ErrorManager::singleton.handle_error_outputs(
+			manager.handle_error_outputs(
 				"invalid_path"
 			);
 
 		EXPECT_FALSE(result);
 	}
 
-	TEST(ErrorManagerTest,
+	TEST_F(ErrorManagerTest,
 		Should_HandleEmptyMessage_When_MessageIsEmpty)
 	{
 		QLogicaeCppCore::ErrorManagerConfigurations configurations;
@@ -470,19 +449,19 @@ namespace QLogicaeCppCoreTest
 		configurations.is_runtime_throw_output_enabled =
 			false;
 
-		QLogicaeCppCore::ErrorManager::singleton.setup(
+		manager.setup(
 			configurations
 		);
 
 		bool result =
-			QLogicaeCppCore::ErrorManager::singleton.handle_error_outputs(
+			manager.handle_error_outputs(
 				""
 			);
 
 		EXPECT_FALSE(result);
 	}
 
-	TEST(ErrorManagerTest,
+	TEST_F(ErrorManagerTest,
 		Should_HandleVeryLargeMessage_When_MessageIsLarge)
 	{
 		QLogicaeCppCore::ErrorManagerConfigurations configurations;
@@ -493,7 +472,7 @@ namespace QLogicaeCppCoreTest
 		configurations.is_runtime_throw_output_enabled =
 			false;
 
-		QLogicaeCppCore::ErrorManager::singleton.setup(
+		manager.setup(
 			configurations
 		);
 
@@ -504,7 +483,7 @@ namespace QLogicaeCppCoreTest
 			);
 
 		bool result =
-			QLogicaeCppCore::ErrorManager::singleton.handle_error_outputs(
+			manager.handle_error_outputs(
 				large_message
 			);
 
@@ -522,7 +501,7 @@ namespace QLogicaeCppCoreTest
 		configurations.is_runtime_throw_output_enabled =
 			std::get<1>(GetParam());
 
-		QLogicaeCppCore::ErrorManager::singleton.setup(
+		manager.setup(
 			configurations
 		);
 
@@ -530,7 +509,7 @@ namespace QLogicaeCppCoreTest
 			configurations.is_runtime_throw_output_enabled)
 		{
 			EXPECT_THROW(
-				QLogicaeCppCore::ErrorManager::singleton.handle_error_outputs(
+				manager.handle_error_outputs(
 					"matrix"
 				),
 				std::runtime_error
@@ -539,7 +518,7 @@ namespace QLogicaeCppCoreTest
 		else
 		{
 			bool result =
-				QLogicaeCppCore::ErrorManager::singleton.handle_error_outputs(
+				manager.handle_error_outputs(
 					"matrix"
 				);
 
@@ -558,16 +537,16 @@ namespace QLogicaeCppCoreTest
 		)
 	);
 
-	TEST(ErrorManagerTest,
+	TEST_F(ErrorManagerTest,
 		Should_ReturnSameInstance_When_GettingSingletonMultipleTimes)
 	{
 		QLogicaeCppCore::ErrorManager&
 			first_reference =
-			QLogicaeCppCore::ErrorManager::singleton;
+			manager;
 
 		QLogicaeCppCore::ErrorManager&
 			second_reference =
-			QLogicaeCppCore::ErrorManager::singleton;
+			manager;
 
 		EXPECT_EQ(
 			&first_reference,
@@ -575,7 +554,7 @@ namespace QLogicaeCppCoreTest
 		);
 	}
 
-	TEST(ErrorManagerTest,
+	TEST_F(ErrorManagerTest,
 		Should_NotCrash_When_ResetAndSetupRaceOccurs)
 	{
 		QLogicaeCppCore::ErrorManagerConfigurations configurations;
@@ -596,7 +575,7 @@ namespace QLogicaeCppCoreTest
 					iteration_index++
 					)
 				{
-					QLogicaeCppCore::ErrorManager::singleton.setup(
+					manager.setup(
 						configurations
 					);
 				}
@@ -612,7 +591,7 @@ namespace QLogicaeCppCoreTest
 					iteration_index++
 					)
 				{
-					QLogicaeCppCore::ErrorManager::singleton.reset();
+					manager.reset();
 				}
 
 				completed.store(
@@ -629,7 +608,7 @@ namespace QLogicaeCppCoreTest
 		);
 	}
 
-	TEST(ErrorManagerTest,
+	TEST_F(ErrorManagerTest,
 		Should_HandleReentrantCalls_When_HandleIsCalledRecursively)
 	{
 		QLogicaeCppCore::ErrorManagerConfigurations configurations;
@@ -637,7 +616,7 @@ namespace QLogicaeCppCoreTest
 		configurations.is_enable_output_override_enabled =
 			true;
 
-		QLogicaeCppCore::ErrorManager::singleton.setup(
+		manager.setup(
 			configurations
 		);
 
@@ -652,7 +631,7 @@ namespace QLogicaeCppCoreTest
 					return;
 				}
 
-				QLogicaeCppCore::ErrorManager::singleton.handle_error_outputs(
+				manager.handle_error_outputs(
 					"reentrant"
 				);
 
@@ -679,7 +658,7 @@ namespace QLogicaeCppCoreTest
 		EXPECT_FALSE(result);
 	}
 
-	TEST(ErrorManagerTest,
+	TEST_F(ErrorManagerTest,
 		Should_ThrowAsyncRuntimeError_When_AsyncAndRuntimeThrowEnabled)
 	{
 		QLogicaeCppCore::ErrorManagerConfigurations configurations;
@@ -696,19 +675,19 @@ namespace QLogicaeCppCoreTest
 		configurations.is_runtime_throw_output_enabled =
 			true;
 
-		QLogicaeCppCore::ErrorManager::singleton.setup(
+		manager.setup(
 			configurations
 		);
 
 		EXPECT_THROW(
-			QLogicaeCppCore::ErrorManager::singleton.handle_error_outputs(
+			manager.handle_error_outputs(
 				"async_runtime_throw"
 			),
 			std::runtime_error
 		);
 	}
 
-	TEST(ErrorManagerTest,
+	TEST_F(ErrorManagerTest,
 		Should_HandleGuiOutput_When_GuiEnabled)
 	{
 		QLogicaeCppCore::ErrorManagerConfigurations configurations;
@@ -718,14 +697,14 @@ namespace QLogicaeCppCoreTest
 		configurations.is_asynchronous_gui_output_enabled = false;
 		configurations.is_runtime_throw_output_enabled = false;
 
-		QLogicaeCppCore::ErrorManager::singleton.setup(configurations);
+		manager.setup(configurations);
 
-		bool result = QLogicaeCppCore::ErrorManager::singleton.handle_error_outputs("gui_message");
+		bool result = manager.handle_error_outputs("gui_message");
 
 		EXPECT_FALSE(result);
 	}
 
-	TEST(ErrorManagerTest,
+	TEST_F(ErrorManagerTest,
 		Should_HandleAsyncGuiOutput_When_AsynchronousGuiEnabled)
 	{
 		QLogicaeCppCore::ErrorManagerConfigurations configurations;
@@ -736,14 +715,14 @@ namespace QLogicaeCppCoreTest
 		configurations.is_asynchronous_output_enabled = true;
 		configurations.is_runtime_throw_output_enabled = false;
 
-		QLogicaeCppCore::ErrorManager::singleton.setup(configurations);
+		manager.setup(configurations);
 
-		bool result = QLogicaeCppCore::ErrorManager::singleton.handle_error_outputs("async_gui_message");
+		bool result = manager.handle_error_outputs("async_gui_message");
 
 		EXPECT_FALSE(result);
 	}
 
-	TEST(ErrorManagerTest,
+	TEST_F(ErrorManagerTest,
 		Should_HandleMultipleFilePaths_When_FileOutputEnabled)
 	{
 		std::vector<std::string> temp_paths;
@@ -761,9 +740,9 @@ namespace QLogicaeCppCoreTest
 		configurations.full_file_output_paths = temp_paths;
 		configurations.is_runtime_throw_output_enabled = false;
 
-		QLogicaeCppCore::ErrorManager::singleton.setup(configurations);
+		manager.setup(configurations);
 
-		bool result = QLogicaeCppCore::ErrorManager::singleton.handle_error_outputs("file_message");
+		bool result = manager.handle_error_outputs("file_message");
 
 		EXPECT_FALSE(result);
 
@@ -773,7 +752,7 @@ namespace QLogicaeCppCoreTest
 		}
 	}
 
-	TEST(ErrorManagerTest,
+	TEST_F(ErrorManagerTest,
 		Should_HandleInternalExceptionsDuringConstruct)
 	{
 		struct FaultyConfigurations : QLogicaeCppCore::ErrorManagerConfigurations
@@ -784,12 +763,12 @@ namespace QLogicaeCppCoreTest
 			}
 		};
 
-		bool result = QLogicaeCppCore::ErrorManager::singleton.construct();
+		bool result = manager.construct();
 
 		EXPECT_TRUE(result);
 	}
 
-	TEST(ErrorManagerTest,
+	TEST_F(ErrorManagerTest,
 		Should_HandleInternalExceptionsDuringSetup)
 	{
 		struct FaultyConfigurations : QLogicaeCppCore::ErrorManagerConfigurations
@@ -802,12 +781,12 @@ namespace QLogicaeCppCoreTest
 
 		QLogicaeCppCore::ErrorManagerConfigurations configurations = FaultyConfigurations();
 
-		bool result = QLogicaeCppCore::ErrorManager::singleton.setup(configurations);
+		bool result = manager.setup(configurations);
 
 		EXPECT_TRUE(result);
 	}
 
-	TEST(ErrorManagerTest,
+	TEST_F(ErrorManagerTest,
 		Should_HandleInternalExceptionsDuringDestruct)
 	{
 		struct FaultyConfigurations : QLogicaeCppCore::ErrorManagerConfigurations
@@ -820,12 +799,12 @@ namespace QLogicaeCppCoreTest
 
 		QLogicaeCppCore::ErrorManagerConfigurations configurations = FaultyConfigurations();
 
-		bool result = QLogicaeCppCore::ErrorManager::singleton.destruct();
+		bool result = manager.destruct();
 
 		EXPECT_TRUE(result);
 	}
 
-	TEST(ErrorManagerTest,
+	TEST_F(ErrorManagerTest,
 		Should_HandleInternalExceptionsDuringReset)
 	{
 		struct FaultyConfigurations : QLogicaeCppCore::ErrorManagerConfigurations
@@ -833,86 +812,86 @@ namespace QLogicaeCppCoreTest
 			FaultyConfigurations()
 			{
 				is_enable_output_override_enabled = true;
-            }
-        };
+			}
+		};
 
-        QLogicaeCppCore::ErrorManagerConfigurations configurations = FaultyConfigurations();
+		QLogicaeCppCore::ErrorManagerConfigurations configurations = FaultyConfigurations();
 
-        bool result = QLogicaeCppCore::ErrorManager::singleton.reset();
+		bool result = manager.reset();
 
-        EXPECT_TRUE(result);
-    }
+		EXPECT_TRUE(result);
+	}
 
-    TEST(ErrorManagerTest,
-        Should_UpdateCacheVariablesCorrectly_AfterHandle)
-    {
-        QLogicaeCppCore::ErrorManagerConfigurations configurations;
+	TEST_F(ErrorManagerTest,
+		Should_UpdateCacheVariablesCorrectly_AfterHandle)
+	{
+		QLogicaeCppCore::ErrorManagerConfigurations configurations;
 
-        configurations.is_enable_output_override_enabled = false;
-        configurations.is_runtime_throw_output_enabled = false;
-        configurations.is_asynchronous_output_enabled = false;
+		configurations.is_enable_output_override_enabled = false;
+		configurations.is_runtime_throw_output_enabled = false;
+		configurations.is_asynchronous_output_enabled = false;
 
-        QLogicaeCppCore::ErrorManager::singleton.setup(configurations);
+		manager.setup(configurations);
 
-        EXPECT_FALSE(QLogicaeCppCore::ErrorManager::singleton.handle_error_outputs("cache_test"));
-    }
+		EXPECT_FALSE(manager.handle_error_outputs("cache_test"));
+	}
 
-    TEST(ErrorManagerTest,
-        Should_HandleTitleAndMessageCorrectly)
-    {
-        QLogicaeCppCore::ErrorManagerConfigurations configurations;
-        configurations.is_enable_output_override_enabled = false;
-        configurations.is_runtime_throw_output_enabled = false;
-        configurations.is_asynchronous_output_enabled = false;
-        QLogicaeCppCore::ErrorManager::singleton.setup(configurations);
+	TEST_F(ErrorManagerTest,
+		Should_HandleTitleAndMessageCorrectly)
+	{
+		QLogicaeCppCore::ErrorManagerConfigurations configurations;
+		configurations.is_enable_output_override_enabled = false;
+		configurations.is_runtime_throw_output_enabled = false;
+		configurations.is_asynchronous_output_enabled = false;
+		manager.setup(configurations);
 
-        bool result =
-            QLogicaeCppCore::ErrorManager::singleton.handle_error_outputs(
-                "ErrorTitle",
-                "ErrorMessage"
-            );
+		bool result =
+			manager.handle_error_outputs(
+				"ErrorTitle",
+				"ErrorMessage"
+			);
 
-        EXPECT_FALSE(result);
-    }
+		EXPECT_FALSE(result);
+	}
 
-    TEST(ErrorManagerTest,
-        Should_HandleGUIOutputWhenEnabled)
-    {
-        QLogicaeCppCore::ErrorManagerConfigurations configurations;
-        configurations.is_enable_output_override_enabled = false;
-        configurations.is_gui_output_enabled = true;
-        configurations.is_asynchronous_gui_output_enabled = false;
-        configurations.is_runtime_throw_output_enabled = false;
-        QLogicaeCppCore::ErrorManager::singleton.setup(configurations);
+	TEST_F(ErrorManagerTest,
+		Should_HandleGUIOutputWhenEnabled)
+	{
+		QLogicaeCppCore::ErrorManagerConfigurations configurations;
+		configurations.is_enable_output_override_enabled = false;
+		configurations.is_gui_output_enabled = true;
+		configurations.is_asynchronous_gui_output_enabled = false;
+		configurations.is_runtime_throw_output_enabled = false;
+		manager.setup(configurations);
 
-        bool result =
-            QLogicaeCppCore::ErrorManager::singleton.handle_error_outputs(
-                "GUI message"
-            );
+		bool result =
+			manager.handle_error_outputs(
+				"GUI message"
+			);
 
-        EXPECT_FALSE(result);
-    }
+		EXPECT_FALSE(result);
+	}
 
-    TEST(ErrorManagerTest,
-        Should_HandleGUIOutputAsyncWhenEnabled)
-    {
-        QLogicaeCppCore::ErrorManagerConfigurations configurations;
-        configurations.is_enable_output_override_enabled = true;
-        configurations.is_gui_output_enabled = true;
-        configurations.is_asynchronous_gui_output_enabled = true;
-        configurations.is_runtime_throw_output_enabled = false;
-        configurations.is_asynchronous_output_enabled = true;
-        QLogicaeCppCore::ErrorManager::singleton.setup(configurations);
+	TEST_F(ErrorManagerTest,
+		Should_HandleGUIOutputAsyncWhenEnabled)
+	{
+		QLogicaeCppCore::ErrorManagerConfigurations configurations;
+		configurations.is_enable_output_override_enabled = true;
+		configurations.is_gui_output_enabled = true;
+		configurations.is_asynchronous_gui_output_enabled = true;
+		configurations.is_runtime_throw_output_enabled = false;
+		configurations.is_asynchronous_output_enabled = true;
+		manager.setup(configurations);
 
-        bool result =
-            QLogicaeCppCore::ErrorManager::singleton.handle_error_outputs(
-                "GUI async message"
-            );
+		bool result =
+			manager.handle_error_outputs(
+				"GUI async message"
+			);
 
-        EXPECT_FALSE(result);
-    }
+		EXPECT_FALSE(result);
+	}
 
-	TEST(ErrorManagerTest,
+	TEST_F(ErrorManagerTest,
 		Should_CreateFile_When_FileDoesNotExist)
 	{
 		std::string file_path = "temp_missing_file.log";
@@ -924,15 +903,15 @@ namespace QLogicaeCppCoreTest
 		configurations.full_file_output_paths = { file_path };
 		configurations.is_runtime_throw_output_enabled = false;
 
-		QLogicaeCppCore::ErrorManager::singleton.setup(configurations);
+		manager.setup(configurations);
 
-		bool result = QLogicaeCppCore::ErrorManager::singleton.handle_error_outputs("missing_file_test");
+		bool result = manager.handle_error_outputs("missing_file_test");
 
 		EXPECT_FALSE(result);
 		std::filesystem::remove(file_path);
 	}
 
-	TEST(ErrorManagerTest,
+	TEST_F(ErrorManagerTest,
 		Should_HandleMessageWithSpecialCharacters)
 	{
 		QLogicaeCppCore::ErrorManagerConfigurations configurations;
@@ -940,15 +919,15 @@ namespace QLogicaeCppCoreTest
 		configurations.is_runtime_throw_output_enabled = false;
 		configurations.is_asynchronous_output_enabled = false;
 
-		QLogicaeCppCore::ErrorManager::singleton.setup(configurations);
+		manager.setup(configurations);
 
 		std::string special_message = "Line1\nLine2\tUnicode: \u03A9";
-		bool result = QLogicaeCppCore::ErrorManager::singleton.handle_error_outputs(special_message);
+		bool result = manager.handle_error_outputs(special_message);
 
 		EXPECT_FALSE(result);
 	}
 
-	TEST(ErrorManagerTest,
+	TEST_F(ErrorManagerTest,
 		Should_HandleExtremelyLargeMessage)
 	{
 		QLogicaeCppCore::ErrorManagerConfigurations configurations;
@@ -956,15 +935,15 @@ namespace QLogicaeCppCoreTest
 		configurations.is_runtime_throw_output_enabled = false;
 		configurations.is_asynchronous_output_enabled = false;
 
-		QLogicaeCppCore::ErrorManager::singleton.setup(configurations);
+		manager.setup(configurations);
 
 		std::string very_large_message(static_cast<std::size_t>(10000), 'X');
-		bool result = QLogicaeCppCore::ErrorManager::singleton.handle_error_outputs(very_large_message);
+		bool result = manager.handle_error_outputs(very_large_message);
 
 		EXPECT_FALSE(result);
 	}
 
-	TEST(ErrorManagerTest,
+	TEST_F(ErrorManagerTest,
 		Should_HandleRecursiveAsyncCallsUnderConcurrency)
 	{
 		QLogicaeCppCore::ErrorManagerConfigurations configurations;
@@ -973,12 +952,12 @@ namespace QLogicaeCppCoreTest
 		configurations.is_asynchronous_runtime_throw_output_enabled = false;
 		configurations.is_runtime_throw_output_enabled = false;
 
-		QLogicaeCppCore::ErrorManager::singleton.setup(configurations);
+		manager.setup(configurations);
 
 		auto recursive_async_handle = [&](std::size_t depth, auto& self)
 			{
 				if (depth == 0) return;
-				QLogicaeCppCore::ErrorManager::singleton.handle_error_outputs("recursive_async");
+				manager.handle_error_outputs("recursive_async");
 				self(depth - 1, self);
 			};
 
@@ -991,7 +970,7 @@ namespace QLogicaeCppCoreTest
 		EXPECT_TRUE(true);
 	}
 
-	TEST(ErrorManagerTest,
+	TEST_F(ErrorManagerTest,
 		Should_HandleAsyncFileExceptionPropagation)
 	{
 		std::string invalid_file_path = "\0_invalid_path.log";
@@ -1002,9 +981,9 @@ namespace QLogicaeCppCoreTest
 		configurations.full_file_output_paths = { invalid_file_path };
 		configurations.is_runtime_throw_output_enabled = false;
 
-		QLogicaeCppCore::ErrorManager::singleton.setup(configurations);
+		manager.setup(configurations);
 
-		bool result = QLogicaeCppCore::ErrorManager::singleton.handle_error_outputs("async_file_exception");
+		bool result = manager.handle_error_outputs("async_file_exception");
 		EXPECT_FALSE(result);
 	}
 

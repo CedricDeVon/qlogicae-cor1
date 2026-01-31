@@ -141,6 +141,12 @@ namespace
 						feature_handling_mutex_1
 					);
 			}			
+
+			if (text.empty() || private_key.empty() || nonce.empty())
+			{
+				return
+					"";
+			}
 			
 			std::vector<unsigned char>
 				ciphertext(
@@ -229,6 +235,12 @@ namespace
 					);
 			}			
 
+			if (text.empty() || private_key.empty() || nonce.empty())
+			{
+				return
+					"";
+			}
+
 			std::vector<unsigned char>
 				decoded(text.size());
 
@@ -304,3 +316,4 @@ namespace
         }
 	}
 }
+

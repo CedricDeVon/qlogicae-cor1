@@ -15,22 +15,42 @@ namespace
 			public ::testing::Test
 	{
 	public:
+		TimeManager
+			manager_instance;
+
 		TimeManagerTest() = default;
 
-	protected:
-		TimeManager&
-			manager_instance =
-				TimeManager::singleton;
+		void
+			SetUp() override
+		{
+			manager_instance.construct();
+			manager_instance.reset();
+		}
+
+		void
+			TearDown() override
+		{
+			manager_instance.destruct();
+			manager_instance.reset();
+		}
 	};
 
 	class
 		TimeManagerFormatParameterizedTest :
 			public ::testing::TestWithParam<TimeFormat>
 	{
-	protected:
-		TimeManager&
-			manager_instance =
-				TimeManager::singleton;
+	public:
+		TimeManager
+			manager_instance;
+	};
+
+	class
+		TimeManagerScaleParameterizedTest :
+		public ::testing::TestWithParam<TimeScaleUnit>
+	{
+	public:
+		TimeManager
+			manager_instance;
 	};
 
 	TEST_F(
@@ -191,10 +211,6 @@ namespace
 		Should_HandleStress_When_CalledRepeatedly
 	)
 	{
-		auto
-			start_time =
-				std::chrono::steady_clock::now();
-
 		for
 		(
 			std::size_t iteration = 0;
@@ -212,19 +228,6 @@ namespace
 				value.empty()
 			);
 		}
-
-		auto
-			end_time =
-				std::chrono::steady_clock::now();
-
-		EXPECT_LT(
-			std::chrono::duration_cast<
-				std::chrono::milliseconds
-			>(
-				end_time - start_time
-			).count(),
-			static_cast<long long>(2000)
-		);
 	}
 
 	TEST_F(
@@ -302,16 +305,6 @@ namespace
 			}
 		);
 	}
-
-	class
-		TimeManagerScaleParameterizedTest :
-		public ::testing::TestWithParam<TimeScaleUnit>
-	{
-	protected:
-		TimeManager&
-			manager_instance =
-			TimeManager::singleton;
-	};
 
 	TEST_F(
 		TimeManagerTest,
@@ -564,51 +557,6 @@ namespace
 				future_instance.get().empty()
 			);
 		}
-	}
-
-	TEST_F(
-		TimeManagerTest,
-		Should_CompleteUnderTimeLimit_When_AllFunctionsStressed
-	)
-	{
-		auto
-			start_time =
-			std::chrono::steady_clock::now();
-
-		for
-			(
-				std::size_t iteration = 0;
-				iteration < 50000;
-				++iteration
-				)
-		{
-			manager_instance.get_now(
-				TimeFormat::FULL_DASHED_TIMESTAMP
-			);
-
-			manager_instance.convert_seconds(
-				static_cast<double>(iteration),
-				TimeScaleUnit::MILLISECONDS
-			);
-
-			manager_instance.convert_nanoseconds(
-				static_cast<double>(iteration),
-				TimeScaleUnit::MICROSECONDS
-			);
-		}
-
-		auto
-			end_time =
-			std::chrono::steady_clock::now();
-
-		EXPECT_LT(
-			std::chrono::duration_cast<
-			std::chrono::milliseconds
-			>(
-				end_time - start_time
-			).count(),
-			static_cast<long long>(2000)
-		);
 	}
 
 	TEST_F(

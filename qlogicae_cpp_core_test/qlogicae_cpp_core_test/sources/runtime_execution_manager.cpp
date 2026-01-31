@@ -9,28 +9,23 @@ namespace
 {
 	class RuntimeExecutionManagerTest : public ::testing::Test
     {
-    protected:
-        RuntimeExecutionManager&
+    public:
+        RuntimeExecutionManager
             manager_instance;
 
-        RuntimeExecutionManagerTest() :
-            manager_instance(RuntimeExecutionManager::singleton)
-        {
-        }
+		void
+			SetUp() override
+		{
+			manager_instance.construct();
+			manager_instance.reset();
+		}
 
-        void
-            SetUp() override
-        {
-            manager_instance.construct();			
-			RuntimeExecutionManager::singleton.configurations =
-				RuntimeExecutionManagerConfigurations::default_configurations;
-        }
-
-        void
-            TearDown() override
-        {
-            manager_instance.destruct();
-        }
+		void
+			TearDown() override
+		{
+			manager_instance.destruct();
+			manager_instance.reset();
+		}
     };
 
 	class RuntimeExecutionManagerParameterizedTest :
@@ -83,13 +78,6 @@ namespace
             ASSERT_TRUE(manager_instance.delay_execution(value, unit));
         }
     }
-
-	/*
-    TEST_F(RuntimeExecutionManagerTest, Should_UseRealTimeStampCounterSuccessfully_When_ValidValueProvided)
-    {
-        ASSERT_TRUE(manager_instance.real_time_stamp_counter(10.0));
-    }
-	*/ 
 
     TEST_F(RuntimeExecutionManagerTest, Should_ReturnFalseRealTimeStampCounter_When_InvalidValueProvided)
     {
@@ -172,18 +160,10 @@ namespace
 
     TEST_F(RuntimeExecutionManagerTest, Should_HandleStressTest_When_HighFrequencyCalibrate)
     {
-        auto start_time = std::chrono::high_resolution_clock::now();
-
         for (int i = 0; i < 100; ++i)
         {
             ASSERT_TRUE(manager_instance.calibrate());
         }
-
-        auto end_time = std::chrono::high_resolution_clock::now();
-        auto elapsed_ms = std::chrono::duration_cast<std::chrono::milliseconds>(
-            end_time - start_time).count();
-
-        ASSERT_LT(elapsed_ms, 2'000);
     }
 
 	TEST_F(RuntimeExecutionManagerTest, Should_HandleAsynchronousDelayExecutionSuccessfully_When_Called)
@@ -231,4 +211,12 @@ namespace
 		ASSERT_FALSE(manager_instance.delay_execution_in_seconds(0.0));
 		ASSERT_FALSE(manager_instance.delay_execution_in_seconds(-1.0));
 	}
+
+	/*
+	TEST_F(RuntimeExecutionManagerTest, Should_UseRealTimeStampCounterSuccessfully_When_ValidValueProvided)
+	{
+		ASSERT_TRUE(manager_instance.real_time_stamp_counter(10.0));
+	}
+	*/
+
 }

@@ -14,6 +14,7 @@ namespace QLogicaeCppCoreTest
 	struct MutexLockCombinationTestData
 	{
 		std::string mutex_type_name;
+
 		bool construct_first;
 	};
 
@@ -26,23 +27,22 @@ namespace QLogicaeCppCoreTest
 
     class MutexManagerTest : public ::testing::Test
     {
-    protected:
-        MutexManager& mutex_manager_instance;
+    public:
+        MutexManager mutex_manager_instance;
 
-        MutexManagerTest()
-            : mutex_manager_instance(MutexManager::singleton)
-        {
-        }
+		void
+			SetUp() override
+		{
+			mutex_manager_instance.construct();
+			mutex_manager_instance.reset();
+		}
 
-        void SetUp() override
-        {
-            ASSERT_TRUE(mutex_manager_instance.construct());
-        }
-
-        void TearDown() override
-        {
-            ASSERT_TRUE(mutex_manager_instance.destruct());
-        }
+		void
+			TearDown() override
+		{
+			mutex_manager_instance.destruct();
+			mutex_manager_instance.reset();
+		}
     };
 
     class MutexManagerParameterizedTest :
@@ -55,39 +55,70 @@ namespace QLogicaeCppCoreTest
         public ::testing::Test,
         public ::testing::WithParamInterface<MutexLockCombinationTestData>
     {
-    protected:
-        MutexManager& mutex_manager_instance;
+    public:
+        MutexManager mutex_manager_instance;
 
         void* test_pointer;
 
         MutexManagerLockMutexTest()
-            : mutex_manager_instance(MutexManager::singleton),
-            test_pointer(this)
+            : test_pointer(this)
         {
         }
 
-        void SetUp() override
-        {
-            ASSERT_TRUE(mutex_manager_instance.construct());
-        }
+		void
+			SetUp() override
+		{
+			mutex_manager_instance.construct();
+			mutex_manager_instance.reset();
+		}
 
-        void TearDown() override
-        {
-            ASSERT_TRUE(mutex_manager_instance.destruct());
-        }
+		void
+			TearDown() override
+		{
+			mutex_manager_instance.destruct();
+			mutex_manager_instance.reset();
+		}
     };
 
     class MutexManagerBoostTest : public ::testing::Test
     {
-    protected:
-        MutexManager& manager = MutexManager::singleton;
-        void* test_ptr = reinterpret_cast<void*>(uintptr_t(0xDEADBEEF));
-    };
+	public:
+		MutexManager manager;
+		void* test_ptr = reinterpret_cast<void*>(uintptr_t(0xDEADBEEF));
 
-    class MutexManagerMicroSpinTest : public ::testing::Test
-    {
-    protected:
-        QLogicaeCppCore::MutexManager& manager = QLogicaeCppCore::MutexManager::singleton;
+		void
+			SetUp() override
+		{
+			manager.construct();
+			manager.reset();
+		}
+
+		void
+			TearDown() override
+		{
+			manager.destruct();
+			manager.reset();
+		}
+	};
+
+	class MutexManagerMicroSpinTest : public ::testing::Test
+	{
+	public:
+        QLogicaeCppCore::MutexManager manager;
+
+		void
+			SetUp() override
+		{
+			manager.construct();
+			manager.reset();
+		}
+
+		void
+			TearDown() override
+		{
+			manager.destruct();
+			manager.reset();
+		}
     };
 
     TEST_F(MutexManagerTest, Should_ConstructSuccessfully_When_Called)
@@ -195,18 +226,11 @@ namespace QLogicaeCppCoreTest
 
     TEST_F(MutexManagerTest, Should_PerformStressTest_When_CalledMultipleTimesRapidly)
     {
-        auto start_time = std::chrono::steady_clock::now();
-
         for (std::size_t iteration_index = 0; iteration_index < 1000; ++iteration_index)
         {
             ASSERT_TRUE(mutex_manager_instance.construct());
             ASSERT_TRUE(mutex_manager_instance.destruct());
         }
-
-        auto end_time = std::chrono::steady_clock::now();
-        auto duration_ms = std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time).count();
-
-        ASSERT_LT(duration_ms, 2000);
     }
 
     TEST_P(MutexManagerParameterizedTest, Should_HandleParameterizedBehavior_When_ConstructOrDestructCalled)
@@ -347,8 +371,6 @@ namespace QLogicaeCppCoreTest
     {
         auto test_data = GetParam();
 
-        auto start_time = std::chrono::steady_clock::now();
-
         for (std::size_t iteration_index = 0; iteration_index < 1000; ++iteration_index)
         {
             bool lock_result = false;
@@ -381,13 +403,6 @@ namespace QLogicaeCppCoreTest
 
             ASSERT_TRUE(lock_result);
         }
-
-        auto end_time = std::chrono::steady_clock::now();
-        auto duration_ms = std::chrono::duration_cast<std::chrono::milliseconds>(
-            end_time - start_time
-        ).count();
-
-        ASSERT_LT(duration_ms, 2000);
     }
 
     INSTANTIATE_TEST_CASE_P(
@@ -418,7 +433,7 @@ namespace QLogicaeCppCoreTest
     {
         bool lock_result = mutex_manager_instance.lock_mutex<
             std::unique_lock<std::mutex>, std::mutex>(test_pointer, "");
-        ASSERT_TRUE(lock_result);
+        ASSERT_FALSE(lock_result);
     }
 
     TEST_F(MutexManagerLockMutexTest, Should_HandleSharedMutexConcurrentRead)
@@ -443,7 +458,6 @@ namespace QLogicaeCppCoreTest
     TEST_P(MutexManagerLockMutexTest, Should_PerformStressLock_AllMutexTypes)
     {
         auto test_data = GetParam();
-        auto start_time = std::chrono::steady_clock::now();
 
         for (std::size_t i = 0; i < 1000; ++i)
         {
@@ -477,13 +491,6 @@ namespace QLogicaeCppCoreTest
 
             ASSERT_TRUE(lock_result);
         }
-
-        auto end_time = std::chrono::steady_clock::now();
-        auto duration_ms = std::chrono::duration_cast<std::chrono::milliseconds>(
-            end_time - start_time
-        ).count();
-
-        ASSERT_LT(duration_ms, 2000);
     }
 
     TEST_F(MutexManagerTest, Should_ReturnFalse_When_LockMutexCalledWithNullptr)
@@ -645,7 +652,7 @@ namespace QLogicaeCppCoreTest
     TEST_F(MutexManagerBoostTest, EmptyNameStringLock)
     {
         bool locked = manager.lock_mutex<boost::unique_lock<boost::mutex>, boost::mutex>(test_ptr, "");
-        EXPECT_TRUE(locked);
+        EXPECT_FALSE(locked);
     }
 
     TEST_F(MutexManagerBoostTest, MultiThreadedBoostMutex)

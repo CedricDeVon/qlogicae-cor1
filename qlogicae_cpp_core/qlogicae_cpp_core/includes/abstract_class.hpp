@@ -17,15 +17,6 @@ namespace
 			feature_handling_mutex_1;
 
 		boost::mutex
-			feature_handling_mutex_2;
-
-		boost::mutex
-			feature_handling_mutex_3;
-
-		boost::mutex
-			feature_handling_mutex_4;
-
-		boost::mutex
 			error_handling_mutex_1;
 
 		AbstractConfigurationsType
@@ -50,7 +41,7 @@ namespace
 		virtual bool
             reset();
 
-		bool
+		template <typename OutputType = bool> OutputType
 			handle_error_outputs(
 				const std::string&
 					title,
@@ -58,13 +49,13 @@ namespace
 					message
 			);
 
-		bool
+		template <typename OutputType = bool> OutputType
 			handle_error_outputs(
 				const std::string&
 					message
 			);
 
-		bool
+		template <typename OutputType = bool> OutputType
 			handle_error_outputs(
 				const std::exception&
 					exception
@@ -85,7 +76,7 @@ namespace
 				exception
 		)
 		{
-			handle_error_outputs(
+			handle_error_outputs<bool>(
 				exception
 			);
 		}
@@ -105,7 +96,7 @@ namespace
 				exception
 		)
 		{
-			handle_error_outputs(
+			handle_error_outputs<bool>(
 				exception
 			);
 		}
@@ -116,7 +107,17 @@ namespace
 			::construct()
 	{		
 		try
-		{		
+		{	
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_utility_handling()
+			)
+			{
+				return
+					false;
+			}
+	
 			boost::unique_lock<boost::mutex>
 				mutex_lock;
 			if (configurations.is_thread_safety_enabled_for_utility_handling())
@@ -138,7 +139,7 @@ namespace
 		)
 		{
 			return
-				handle_error_outputs(
+				handle_error_outputs<bool>(
 					exception
 				);
 		}
@@ -150,6 +151,16 @@ namespace
 	{
 		try
 		{		
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_utility_handling()
+			)
+			{
+				return
+					false;
+			}
+
 			boost::unique_lock<boost::mutex>
 				mutex_lock;
 			if (configurations.is_thread_safety_enabled_for_utility_handling())
@@ -171,7 +182,7 @@ namespace
 		)
 		{
 			return
-				handle_error_outputs(
+				handle_error_outputs<bool>(
 					exception
 				);
 		}
@@ -185,7 +196,17 @@ namespace
 			)
 	{
 		try
-		{				
+		{	
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_utility_handling()
+			)
+			{
+				return
+					false;
+			}
+			
 			boost::unique_lock<boost::mutex>
 				mutex_lock;
 			if (configurations.is_thread_safety_enabled_for_utility_handling())
@@ -210,7 +231,7 @@ namespace
 		)
 		{
 			return
-				handle_error_outputs(
+				handle_error_outputs<bool>(
 					exception
 				);
 		}
@@ -222,6 +243,16 @@ namespace
 	{
 		try
 		{	
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_utility_handling()
+			)
+			{
+				return
+					false;
+			}
+
 			boost::unique_lock<boost::mutex>
 				mutex_lock;
 			if (configurations.is_thread_safety_enabled_for_utility_handling())
@@ -246,13 +277,14 @@ namespace
 		)
 		{			
 			return
-				handle_error_outputs(
+				handle_error_outputs<bool>(
 					exception
 				);
 		}
 	} 
-
-	template <typename AbstractConfigurationsType> bool
+	
+	template <typename AbstractConfigurationsType>
+	template <typename OutputType> OutputType
 		AbstractClass<AbstractConfigurationsType>
 			::handle_error_outputs(
 				const std::string&
@@ -261,6 +293,16 @@ namespace
 					message
 			)
 	{				
+		if
+		(
+			configurations
+				.is_runtime_execution_disabled_for_feature_handling()
+		)
+		{
+			return
+				OutputType{};
+		}
+
 		boost::unique_lock<boost::mutex>
 			mutex_lock;
 		if (configurations.is_thread_safety_enabled_for_error_handling())
@@ -274,19 +316,30 @@ namespace
 
 		return
 			ErrorManager::singleton
-				.handle_error_outputs(
+				.handle_error_outputs<OutputType>(
 					title,
 					message
 			);
 	}
 
-	template <typename AbstractConfigurationsType> bool
+	template <typename AbstractConfigurationsType>
+	template <typename OutputType> OutputType
 		AbstractClass<AbstractConfigurationsType>
 			::handle_error_outputs(
 				const std::string&
 					message
 			)
 	{	
+		if
+		(
+			configurations
+				.is_runtime_execution_disabled_for_feature_handling()
+		)
+		{
+			return
+				OutputType{};
+		}
+
 		boost::unique_lock<boost::mutex>
 			mutex_lock;
 		if (configurations.is_thread_safety_enabled_for_error_handling())
@@ -300,18 +353,29 @@ namespace
 		
 		return
 			ErrorManager::singleton
-				.handle_error_outputs(
+				.handle_error_outputs<OutputType>(
 					message
 			);
 	}
 
-	template <typename AbstractConfigurationsType> bool
+	template <typename AbstractConfigurationsType>
+	template <typename OutputType> OutputType
 		AbstractClass<AbstractConfigurationsType>
 			::handle_error_outputs(
 				const std::exception&
 					exception
 			)
 	{
+		if
+		(
+			configurations
+				.is_runtime_execution_disabled_for_feature_handling()
+		)
+		{
+			return
+				OutputType{};
+		}
+
 		boost::unique_lock<boost::mutex>
 			mutex_lock;
 		if (configurations.is_thread_safety_enabled_for_error_handling())
@@ -325,7 +389,7 @@ namespace
 
 		return
 			ErrorManager::singleton
-				.handle_error_outputs(
+				.handle_error_outputs<OutputType>(
 					exception
 			);
 	} 	

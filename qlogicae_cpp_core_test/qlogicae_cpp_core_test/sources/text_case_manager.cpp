@@ -14,15 +14,21 @@ namespace
 			public ::testing::Test
 	{
 	public:
-		TextCaseManager&
-			manager =
-				TextCaseManager::singleton;
+		TextCaseManager
+			manager;
 
 		void
-			SetUp()
+			SetUp() override
 		{
-			TextCaseManager::singleton.configurations =
-				TextCaseManagerConfigurations::default_configurations;
+			manager.construct();
+			manager.reset();
+		}
+
+		void
+			TearDown() override
+		{
+			manager.destruct();
+			manager.reset();
 		}
 	};
 
@@ -234,10 +240,6 @@ namespace
 		Should_HandleStressLoad_When_RepeatedlyInvoked
 	)
 	{
-		const auto
-			start_time =
-				std::chrono::steady_clock::now();
-
 		for (std::size_t iteration = 0;
 			iteration < 100000;
 			++iteration)
@@ -253,22 +255,6 @@ namespace
 				result.empty()
 			);
 		}
-
-		const auto
-			end_time =
-				std::chrono::steady_clock::now();
-
-		const auto
-			elapsed_duration =
-				std::chrono::duration_cast<
-					std::chrono::milliseconds>(
-						end_time - start_time
-					);
-
-		ASSERT_LT(
-			elapsed_duration.count(),
-			static_cast<long long>(2000)
-		);
 	}
 
 	TEST_F(

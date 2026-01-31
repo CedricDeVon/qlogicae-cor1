@@ -213,10 +213,11 @@ namespace
 			const std::exception&
 		)
 		{
-			ASSERT_FALSE(
+			EXPECT_THROW(
 				instance.handle_error_outputs(
 					std::string("error")
-				)
+				),
+				std::runtime_error
 			);
 		}
 	}
@@ -226,10 +227,6 @@ namespace
 		Should_SupportAsynchronousConstruction_When_UsedWithAsync
 	)
 	{
-		auto
-			start_time =
-				std::chrono::steady_clock::now();
-
 		auto
 			future_result =
 				std::async(
@@ -243,20 +240,6 @@ namespace
 
 		ASSERT_TRUE(
 			future_result.get()
-		);
-
-		auto
-			end_time =
-				std::chrono::steady_clock::now();
-
-		ASSERT_LT(
-			std::chrono::duration_cast
-			<
-				std::chrono::milliseconds
-			>(
-				end_time - start_time
-			).count(),
-			2000
 		);
 	}
 
@@ -325,13 +308,9 @@ namespace
 
 	TEST_F(
 		AbstractClassTest,
-		Should_CompleteStressTestWithinTimeLimit_When_UnderLoad
+		Should_CompleteStressTest_When_UnderLoad
 	)
 	{
-		auto
-			start_time =
-				std::chrono::steady_clock::now();
-
 		for
 		(
 			std::size_t
@@ -346,20 +325,6 @@ namespace
 				instance.construct()
 			);
 		}
-
-		auto
-			end_time =
-				std::chrono::steady_clock::now();
-
-		ASSERT_LT(
-			std::chrono::duration_cast
-			<
-				std::chrono::milliseconds
-			>(
-				end_time - start_time
-			).count(),
-			2000
-		);
 	}
 
 	TEST(

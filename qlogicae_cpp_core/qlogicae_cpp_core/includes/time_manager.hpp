@@ -15,6 +15,12 @@ namespace
 			public AbstractClass<TimeManagerConfigurations>
     {
     public:
+		boost::mutex
+			feature_handling_mutex_2;
+
+		boost::mutex
+			feature_handling_mutex_3;
+
 		static TimeManager&
 			singleton;
 

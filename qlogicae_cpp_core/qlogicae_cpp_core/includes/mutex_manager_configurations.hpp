@@ -15,12 +15,13 @@ namespace
                 default_configurations
 					.name;
 
-
-
 		static MutexManagerConfigurations
 			initial_configurations;
 
 		static MutexManagerConfigurations
 			default_configurations;
+
+		MutexManagerConfigurations();
     };
 }
+

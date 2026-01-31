@@ -65,12 +65,13 @@ namespace
                 default_configurations
 					.after_test_case_iteration_callback;
 
-
-
 		static RuntimeBenchmarkerTestSuite
 			initial_configurations;
 
 		static RuntimeBenchmarkerTestSuite
 			default_configurations;
+
+		RuntimeBenchmarkerTestSuite();
     };
 }
+

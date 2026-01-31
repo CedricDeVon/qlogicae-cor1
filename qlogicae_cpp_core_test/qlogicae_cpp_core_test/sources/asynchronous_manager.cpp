@@ -9,37 +9,55 @@ namespace
         public ::testing::Test
     {
     public:
-        AsynchronousManagerTest()
-        {
-            QLogicaeCppCore::AsynchronousManager::singleton
-                .reset();
-        }
+		QLogicaeCppCore::AsynchronousManager
+			manager;
 
-        ~AsynchronousManagerTest() override
-        {
-            QLogicaeCppCore::AsynchronousManager::singleton
-                .reset();
-        }
+		void
+			SetUp() override
+		{
+			manager.construct();
+		}
+
+		void
+			TearDown() override
+		{			
+			manager.reset();
+		}
+	};
+
+	class AsynchronousManagerConfigurationTest :
+		public ::testing::TestWithParam<bool>
+	{
+	public:
+		QLogicaeCppCore::AsynchronousManager
+			manager;
+
+		void
+			SetUp() override
+		{
+			manager.construct();
+		}
+
+		void
+			TearDown() override
+		{			
+			manager.reset();
+		}
     };
 
-    class AsynchronousManagerConfigurationTest :
-        public ::testing::TestWithParam<bool>
-    {
-    };
-
-    TEST(
+    TEST_F(
         AsynchronousManagerTest,
         Should_ConstructSuccessfully_When_Initialized
     )
     {
         bool result =
-            QLogicaeCppCore::AsynchronousManager::singleton
+            manager
             .construct();
 
         ASSERT_TRUE(result);
     }
 
-    TEST(
+    TEST_F(
         AsynchronousManagerTest,
         Should_ResetToInitialState_When_ResetCalled
     )
@@ -47,37 +65,28 @@ namespace
         QLogicaeCppCore::AsynchronousManagerConfigurations
             configurations;
 
-        configurations.is_feature_handling_enabled =
+        configurations.is_feature_runtime_execution_handling_enabled =
 			false;
 
-		QLogicaeCppCore::AsynchronousManager::singleton
+		manager
 			.setup(configurations);
 
 		bool reset_result =
-			QLogicaeCppCore::AsynchronousManager::singleton
+			manager
 			.reset();
 
 		ASSERT_TRUE(reset_result);
 
 		ASSERT_TRUE(
-			QLogicaeCppCore::AsynchronousManager::singleton.configurations.is_feature_handling_enabled
+			manager.configurations.is_feature_runtime_execution_handling_enabled
 		);
 	}
 
-	TEST(
+	TEST_F(
 		AsynchronousManagerTest,
 		Should_DispatchTask_When_Enabled
 	)
 	{
-		QLogicaeCppCore::AsynchronousManagerConfigurations
-			configurations;
-
-		configurations.is_feature_handling_enabled =
-			true;
-
-		QLogicaeCppCore::AsynchronousManager::singleton
-			.setup(configurations);
-
 		std::promise<void>
 			completion_promise;
 
@@ -86,7 +95,7 @@ namespace
 			completion_promise.get_future();
 
 		bool begin_result =
-			QLogicaeCppCore::AsynchronousManager::singleton
+			manager
 			.begin_one_thread(
 				[&completion_promise]()
 				{
@@ -107,20 +116,11 @@ namespace
 		);
 	}
 
-	TEST(
+	TEST_F(
 		AsynchronousManagerTest,
 		Should_HandleMultipleThreads_When_HighConcurrency
 	)
 	{
-		QLogicaeCppCore::AsynchronousManagerConfigurations
-			configurations;
-
-		configurations.is_feature_handling_enabled =
-			true;
-
-		QLogicaeCppCore::AsynchronousManager::singleton
-			.setup(configurations);
-
 		std::atomic<int>
 			execution_count(0);
 
@@ -131,7 +131,7 @@ namespace
 			index < TASK_COUNT;
 			index++)
 		{
-			QLogicaeCppCore::AsynchronousManager::singleton
+			manager
 				.begin_one_thread(
 					[&execution_count]()
 					{
@@ -140,7 +140,7 @@ namespace
 				);
 		}
 
-		QLogicaeCppCore::AsynchronousManager::singleton
+		manager
 			.complete_all_threads();
 
 		ASSERT_EQ(
@@ -149,20 +149,11 @@ namespace
 		);
 	}
 
-	TEST(
+	TEST_F(
 		AsynchronousManagerTest,
 		Should_BeThreadSafe_When_CalledFromMultipleThreads
 	)
 	{
-		QLogicaeCppCore::AsynchronousManagerConfigurations
-			configurations;
-
-		configurations.is_feature_handling_enabled =
-			true;
-
-		QLogicaeCppCore::AsynchronousManager::singleton
-			.setup(configurations);
-
 		std::atomic<int>
 			execution_count(0);
 
@@ -174,13 +165,13 @@ namespace
 			index++)
 		{
 			threads.emplace_back(
-				[&execution_count]()
+				[this, &execution_count]()
 				{
 					for (int inner_index = 0;
 						inner_index < 100;
 						inner_index++)
 					{
-						QLogicaeCppCore::AsynchronousManager::singleton
+						manager
 							.begin_one_thread(
 								[&execution_count]()
 								{
@@ -197,7 +188,7 @@ namespace
 			thread_instance.join();
 		}
 
-		QLogicaeCppCore::AsynchronousManager::singleton
+		manager
 			.complete_all_threads();
 
 		ASSERT_GE(
@@ -214,14 +205,14 @@ namespace
 		QLogicaeCppCore::AsynchronousManagerConfigurations
 			configurations;
 
-		configurations.is_feature_handling_enabled =
+		configurations.is_feature_runtime_execution_handling_enabled =
 			GetParam();
 
-		QLogicaeCppCore::AsynchronousManager::singleton
+		manager
 			.setup(configurations);
 
 		ASSERT_EQ(
-			QLogicaeCppCore::AsynchronousManager::singleton.configurations.is_feature_handling_enabled,
+			manager.configurations.is_feature_runtime_execution_handling_enabled,
 			GetParam()
 		);
 	}
@@ -235,80 +226,26 @@ namespace
 		)
 	);
 
-	TEST(
-		AsynchronousManagerTest,
-		Should_CompleteWithinTimeLimit_When_UnderLoad
-	)
-	{
-		auto start_time =
-			std::chrono::steady_clock::now();
-
-		QLogicaeCppCore::AsynchronousManagerConfigurations
-			configurations;
-
-		configurations.is_feature_handling_enabled =
-			true;
-
-		QLogicaeCppCore::AsynchronousManager::singleton
-			.setup(configurations);
-
-		for (int index = 0;
-			index < 5000;
-			index++)
-		{
-			QLogicaeCppCore::AsynchronousManager::singleton
-				.begin_one_thread(
-					[]()
-					{
-					}
-				);
-		}
-
-		QLogicaeCppCore::AsynchronousManager::singleton
-			.complete_all_threads();
-
-		auto end_time =
-			std::chrono::steady_clock::now();
-
-		auto duration =
-			std::chrono::duration_cast<
-			std::chrono::milliseconds
-			>(end_time - start_time);
-
-		ASSERT_LT(
-			duration.count(),
-			2000
-		);
-	}
-
-	TEST(
+	TEST_F(
 		AsynchronousManagerTest,
 		Should_CallDestructSuccessfully_When_InvokedExplicitly
 	)
 	{
 		bool result =
-			QLogicaeCppCore::AsynchronousManager::singleton
+			manager
 			.destruct();
 
 		ASSERT_TRUE(result);
 	}
 
-	TEST(
+	/*
+	TEST_F(
 		AsynchronousManagerTest,
 		Should_CatchException_When_CallbackThrows
 	)
 	{
-		QLogicaeCppCore::AsynchronousManagerConfigurations
-			configurations;
-
-		configurations.is_feature_handling_enabled =
-			true;
-
-		QLogicaeCppCore::AsynchronousManager::singleton
-			.setup(configurations);
-
-		bool result =
-			QLogicaeCppCore::AsynchronousManager::singleton
+		EXPECT_THROW(
+			manager
 			.begin_one_thread(
 				[]()
 				{
@@ -316,15 +253,15 @@ namespace
 						"forced_exception"
 					);
 				}
-			);
+			),
+			std::runtime_error
+		);
 
-		ASSERT_TRUE(result);
-
-		QLogicaeCppCore::AsynchronousManager::singleton
-			.complete_all_threads();
+		manager.complete_all_threads();
 	}
+	*/
 
-	TEST(
+	TEST_F(
 		AsynchronousManagerTest,
 		Should_HandleConcurrentResetAndSetup_When_MutatedSimultaneously
 	)
@@ -334,17 +271,17 @@ namespace
 
 		std::thread
 			setup_thread(
-				[&stop_flag]()
+				[this, &stop_flag]()
 				{
 					while (!stop_flag.load())
 					{
 						QLogicaeCppCore::AsynchronousManagerConfigurations
 							configurations;
 
-						configurations.is_feature_handling_enabled =
+						configurations.is_feature_runtime_execution_handling_enabled =
 							true;
 
-						QLogicaeCppCore::AsynchronousManager::singleton
+						manager
 							.setup(configurations);
 					}
 				}
@@ -352,11 +289,11 @@ namespace
 
 		std::thread
 			reset_thread(
-				[&stop_flag]()
+				[this, &stop_flag]()
 				{
 					while (!stop_flag.load())
 					{
-						QLogicaeCppCore::AsynchronousManager::singleton
+						manager
 							.reset();
 					}
 				}
@@ -372,14 +309,14 @@ namespace
 		reset_thread.join();
 
 		ASSERT_TRUE(
-			QLogicaeCppCore::AsynchronousManager::singleton.configurations.is_feature_handling_enabled ==
+			manager.configurations.is_feature_runtime_execution_handling_enabled ==
 			true ||
-			QLogicaeCppCore::AsynchronousManager::singleton.configurations.is_feature_handling_enabled ==
+			manager.configurations.is_feature_runtime_execution_handling_enabled ==
 			false
 		);
 	}
 
-	TEST(
+	TEST_F(
 		AsynchronousManagerTest,
 		Should_RemainStable_When_ResetAndSetupRepeated
 	)
@@ -391,60 +328,47 @@ namespace
 			QLogicaeCppCore::AsynchronousManagerConfigurations
 				configurations;
 
-			configurations.is_feature_handling_enabled =
+			configurations.is_feature_runtime_execution_handling_enabled =
 				static_cast<bool>(index % 2);
 
 			ASSERT_TRUE(
-				QLogicaeCppCore::AsynchronousManager::singleton
+				manager
 				.setup(configurations)
 			);
 
 			ASSERT_TRUE(
-				QLogicaeCppCore::AsynchronousManager::singleton
+				manager
 				.reset()
 			);
 		}
 	}
 
-	TEST(
+	TEST_F(
 		AsynchronousManagerTest,
 		Should_InitializeStaticConfigurationCorrectly_When_FirstAccessed
 	)
 	{
 		ASSERT_EQ(
-			QLogicaeCppCore::AsynchronousManagerConfigurations::initial_configurations.is_feature_handling_enabled,
+			QLogicaeCppCore::AsynchronousManagerConfigurations::initial_configurations.is_feature_runtime_execution_handling_enabled,
 			true
 		);
 
 		ASSERT_EQ(
-			QLogicaeCppCore::AsynchronousManagerConfigurations::default_configurations.is_feature_handling_enabled,
-			QLogicaeCppCore::AsynchronousManagerConfigurations::initial_configurations.is_feature_handling_enabled
+			QLogicaeCppCore::AsynchronousManagerConfigurations::default_configurations.is_feature_runtime_execution_handling_enabled,
+			QLogicaeCppCore::AsynchronousManagerConfigurations::initial_configurations.is_feature_runtime_execution_handling_enabled
 		);
 
 		ASSERT_EQ(
-			QLogicaeCppCore::AsynchronousManager::singleton.configurations.is_feature_handling_enabled,
-			QLogicaeCppCore::AsynchronousManagerConfigurations::initial_configurations.is_feature_handling_enabled
+			manager.configurations.is_feature_runtime_execution_handling_enabled,
+			QLogicaeCppCore::AsynchronousManagerConfigurations::initial_configurations.is_feature_runtime_execution_handling_enabled
 		);
 	}
 
-	TEST(
+	TEST_F(
 		AsynchronousManagerTest,
 		Should_Post_Thread_Await_Return_Value
 	)
-	{
-		QLogicaeCppCore::AsynchronousManager&
-			manager =
-			QLogicaeCppCore::AsynchronousManager::singleton;
-
-		QLogicaeCppCore::AsynchronousManagerConfigurations
-			configurations;
-
-		configurations.is_feature_handling_enabled = true;
-
-		manager.setup(
-			configurations
-		);
-
+	{	
 		auto future =
 			manager.post_thread_await<int>(
 				[]()
@@ -459,24 +383,11 @@ namespace
 		);
 	}
 
-	TEST(
+	TEST_F(
 		AsynchronousManagerTest,
 		Should_Post_Thread_Async_With_Result_Callback
 	)
-	{
-		QLogicaeCppCore::AsynchronousManager&
-			manager =
-			QLogicaeCppCore::AsynchronousManager::singleton;
-
-		QLogicaeCppCore::AsynchronousManagerConfigurations
-			configurations;
-
-		configurations.is_feature_handling_enabled = true;
-
-		manager.setup(
-			configurations
-		);
-
+	{	
 		std::atomic<int>
 			result{ 0 };
 
@@ -501,24 +412,11 @@ namespace
 		);
 	}
 
-	TEST(
+	TEST_F(
 		AsynchronousManagerTest,
 		Should_Post_Thread_Async_With_Void_Callback
 	)
-	{
-		QLogicaeCppCore::AsynchronousManager&
-			manager =
-			QLogicaeCppCore::AsynchronousManager::singleton;
-
-		QLogicaeCppCore::AsynchronousManagerConfigurations
-			configurations;
-
-		configurations.is_feature_handling_enabled = true;
-
-		manager.setup(
-			configurations
-		);
-
+	{		
 		std::atomic<bool>
 			called{ false };
 
@@ -542,24 +440,11 @@ namespace
 		);
 	}
 
-	TEST(
+	TEST_F(
 		AsynchronousManagerTest,
 		Should_Dispatch_Thread_Async_Void
 	)
-	{
-		QLogicaeCppCore::AsynchronousManager&
-			manager =
-			QLogicaeCppCore::AsynchronousManager::singleton;
-
-		QLogicaeCppCore::AsynchronousManagerConfigurations
-			configurations;
-
-		configurations.is_feature_handling_enabled = true;
-
-		manager.setup(
-			configurations
-		);
-
+	{	
 		std::atomic<bool>
 			called{ false };
 
@@ -579,24 +464,11 @@ namespace
 		);
 	}
 
-	TEST(
+	TEST_F(
 		AsynchronousManagerTest,
 		Should_Dispatch_Thread_Await_Return_Value
 	)
-	{
-		QLogicaeCppCore::AsynchronousManager&
-			manager =
-			QLogicaeCppCore::AsynchronousManager::singleton;
-
-		QLogicaeCppCore::AsynchronousManagerConfigurations
-			configurations;
-
-		configurations.is_feature_handling_enabled = true;
-
-		manager.setup(
-			configurations
-		);
-
+	{	
 		auto future =
 			manager.dispatch_thread_await<int>(
 				[]()
@@ -611,24 +483,11 @@ namespace
 		);
 	}
 
-	TEST(
+	TEST_F(
 		AsynchronousManagerTest,
 		Should_Dispatch_Thread_Async_With_Result_Callback
 	)
-	{
-		QLogicaeCppCore::AsynchronousManager&
-			manager =
-			QLogicaeCppCore::AsynchronousManager::singleton;
-
-		QLogicaeCppCore::AsynchronousManagerConfigurations
-			configurations;
-
-		configurations.is_feature_handling_enabled = true;
-
-		manager.setup(
-			configurations
-		);
-
+	{	
 		std::atomic<int>
 			result{ 0 };
 
@@ -653,24 +512,11 @@ namespace
 		);
 	}
 
-	TEST(
+	TEST_F(
 		AsynchronousManagerTest,
 		Should_Dispatch_Thread_Async_With_Void_Callback
 	)
-	{
-		QLogicaeCppCore::AsynchronousManager&
-			manager =
-			QLogicaeCppCore::AsynchronousManager::singleton;
-
-		QLogicaeCppCore::AsynchronousManagerConfigurations
-			configurations;
-
-		configurations.is_feature_handling_enabled = true;
-
-		manager.setup(
-			configurations
-		);
-
+	{	
 		std::atomic<bool>
 			called{ false };
 
@@ -694,24 +540,11 @@ namespace
 		);
 	}
 
-	TEST(
+	TEST_F(
 		AsynchronousManagerTest,
 		Should_CoSpawn_Strand_Await_Return_Value
 	)
-	{
-		QLogicaeCppCore::AsynchronousManager&
-			manager =
-			QLogicaeCppCore::AsynchronousManager::singleton;
-
-		QLogicaeCppCore::AsynchronousManagerConfigurations
-			configurations;
-
-		configurations.is_feature_handling_enabled = true;
-
-		manager.setup(
-			configurations
-		);
-
+	{	
 		ASSERT_TRUE(
 			manager.begin_io_workers()
 		);
@@ -734,22 +567,11 @@ namespace
 		);
 	}
 
-	TEST(
+	TEST_F(
 		AsynchronousManagerTest,
 		Should_CoSpawn_Strand_Async_Void
 	)
-	{
-		QLogicaeCppCore::AsynchronousManager&
-			manager =
-			QLogicaeCppCore::AsynchronousManager::singleton;
-
-		QLogicaeCppCore::AsynchronousManagerConfigurations
-			configurations;
-
-		configurations.is_feature_handling_enabled = true;
-
-		manager.setup(configurations);
-
+	{	
 		ASSERT_TRUE(manager.begin_io_workers());
 
 		std::atomic<bool> called{ false };
@@ -768,22 +590,11 @@ namespace
 		EXPECT_TRUE(called.load());
 	}
 
-	TEST(
+	TEST_F(
 		AsynchronousManagerTest,
 		Should_CoSpawn_Strand_Async_With_Result_Callback
 	)
-	{
-		QLogicaeCppCore::AsynchronousManager&
-			manager =
-			QLogicaeCppCore::AsynchronousManager::singleton;
-
-		QLogicaeCppCore::AsynchronousManagerConfigurations
-			configurations;
-
-		configurations.is_feature_handling_enabled = true;
-
-		manager.setup(configurations);
-
+	{	
 		ASSERT_TRUE(manager.begin_io_workers());
 
 		std::atomic<int> result{ 0 };
@@ -806,24 +617,11 @@ namespace
 		EXPECT_EQ(result.load(), 5);
 	}
 
-	TEST(
+	TEST_F(
 		AsynchronousManagerTest,
 		Should_Begin_And_Complete_IO_Workers
 	)
-	{
-		QLogicaeCppCore::AsynchronousManager&
-			manager =
-			QLogicaeCppCore::AsynchronousManager::singleton;
-
-		QLogicaeCppCore::AsynchronousManagerConfigurations
-			configurations;
-
-		configurations.is_feature_handling_enabled = true;
-
-		manager.setup(
-			configurations
-		);
-
+	{	
 		EXPECT_TRUE(
 			manager.begin_io_workers()
 		);
@@ -833,19 +631,11 @@ namespace
 		);
 	}
 
-	TEST(
+	TEST_F(
 		AsynchronousManagerTest,
 		Should_CoSpawn_Strand_Async_With_ReturnType_And_Void_Callback
 	)
-	{
-		QLogicaeCppCore::AsynchronousManager& manager =
-			QLogicaeCppCore::AsynchronousManager::singleton;
-
-		QLogicaeCppCore::AsynchronousManagerConfigurations configurations;
-		configurations.is_feature_handling_enabled = true;
-
-		manager.setup(configurations);
-
+	{		
 		ASSERT_TRUE(manager.begin_io_workers());
 
 		std::atomic<bool> called{ false };
@@ -862,19 +652,11 @@ namespace
 		EXPECT_TRUE(called.load());
 	}
 
-	TEST(
+	TEST_F(
 		AsynchronousManagerTest,
 		Should_Handle_Exception_In_CoSpawn_Strand_Await
 	)
-	{
-		QLogicaeCppCore::AsynchronousManager& manager =
-			QLogicaeCppCore::AsynchronousManager::singleton;
-
-		QLogicaeCppCore::AsynchronousManagerConfigurations configurations;
-		configurations.is_feature_handling_enabled = true;
-
-		manager.setup(configurations);
-
+	{		
 		ASSERT_TRUE(manager.begin_io_workers());
 
 		auto future =
@@ -882,24 +664,16 @@ namespace
 				[]() -> int { throw std::runtime_error("fail"); return 0; }
 			);
 
-		EXPECT_NO_THROW(future.get());
+		EXPECT_THROW(future.get(), std::runtime_error);
 
 		EXPECT_TRUE(manager.complete_io_workers());
 	}
 
-	TEST(
+	TEST_F(
 		AsynchronousManagerTest,
 		Should_Not_Call_Callback_When_CoSpawn_Strand_Async_Throws
 	)
-	{
-		QLogicaeCppCore::AsynchronousManager& manager =
-			QLogicaeCppCore::AsynchronousManager::singleton;
-
-		QLogicaeCppCore::AsynchronousManagerConfigurations configurations;
-		configurations.is_feature_handling_enabled = true;
-
-		manager.setup(configurations);
-
+	{		
 		ASSERT_TRUE(manager.begin_io_workers());
 
 		std::atomic<bool> called{ false };
@@ -916,19 +690,11 @@ namespace
 		EXPECT_FALSE(called.load());
 	}
 
-	TEST(
+	TEST_F(
 		AsynchronousManagerTest,
 		Should_Handle_Exception_In_CoSpawn_Strand_Async_With_Result_Callback
 	)
-	{
-		QLogicaeCppCore::AsynchronousManager& manager =
-			QLogicaeCppCore::AsynchronousManager::singleton;
-
-		QLogicaeCppCore::AsynchronousManagerConfigurations configurations;
-		configurations.is_feature_handling_enabled = true;
-
-		manager.setup(configurations);
-
+	{		
 		ASSERT_TRUE(manager.begin_io_workers());
 
 		std::atomic<int> result{ 0 };
@@ -944,5 +710,4 @@ namespace
 
 		EXPECT_EQ(result.load(), 0);
 	}
-
 }

@@ -15,5 +15,8 @@ namespace
 
 		static ConfigurationManagerConfigurations
 			default_configurations;
+
+		ConfigurationManagerConfigurations();
     };    
 }
+

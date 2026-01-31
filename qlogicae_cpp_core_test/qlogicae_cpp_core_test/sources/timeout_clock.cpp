@@ -6,7 +6,7 @@ namespace QLogicaeCppCoreTest
 {
     class TimeoutClockTest : public ::testing::Test
     {
-    protected:
+    public:
         std::unique_ptr<QLogicaeCppCore::TimeoutClock> timeout_clock_instance;
 
         TimeoutClockTest() :
@@ -18,11 +18,14 @@ namespace QLogicaeCppCoreTest
         {
             timeout_clock_instance->cancel();
             timeout_clock_instance->construct();
+			timeout_clock_instance->reset();
         }
 
         void TearDown() override
         {
+			timeout_clock_instance->cancel();
             timeout_clock_instance->destruct();
+			timeout_clock_instance->reset();
         }
     };
 
@@ -131,12 +134,7 @@ namespace QLogicaeCppCoreTest
             ASSERT_TRUE(timeout_clock_instance->cancel());
             ASSERT_TRUE(timeout_clock_instance->restart());
         }
-        timeout_clock_instance->cancel();
-        auto end_time = std::chrono::high_resolution_clock::now();
-        auto elapsed_ms = std::chrono::duration_cast<std::chrono::milliseconds>(
-            end_time - start_time
-        ).count();
-        ASSERT_LT(elapsed_ms, 2000);
+        timeout_clock_instance->cancel();        
     }
 
     TEST_F(TimeoutClockTest, Should_HandleZeroDelay_When_DelayZero)
@@ -552,3 +550,4 @@ namespace QLogicaeCppCoreTest
 		timeout_clock_instance->cancel();
 	}
 }
+

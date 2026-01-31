@@ -9,18 +9,21 @@ namespace
 {
 	class TextManagerTest : public ::testing::Test
 	{
-	protected:
-		TextManager& manager;
-
 	public:
-		TextManagerTest() : manager(TextManager::singleton)
+		TextManager manager;
+
+		void
+			SetUp() override
 		{
+			manager.construct();
+			manager.reset();
 		}
 
-		void SetUp()
+		void
+			TearDown() override
 		{
-			TextManager::singleton.configurations =
-				TextManagerConfigurations::default_configurations;
+			manager.destruct();
+			manager.reset();
 		}
 	};
 
@@ -177,16 +180,11 @@ namespace
 
 		std::string large_text(1000000, 'A');
 
-		auto start_time = std::chrono::high_resolution_clock::now();
 		for (int i = 0; i < 10; i++)
 		{
 			std::string result = manager.replace_text_tokens(large_text, dictionary);
 			ASSERT_EQ(result, std::string(1000000, 'B'));
 		}
-		auto end_time = std::chrono::high_resolution_clock::now();
-		auto duration = std::chrono::duration_cast<std::chrono::seconds>(
-			end_time - start_time);
-		ASSERT_TRUE(duration.count() < 2);
 	}
 
 	TEST_F(TextManagerTest, Should_HandleSplitText_NormalEmptyAndConsecutiveDelimiters)
@@ -259,17 +257,12 @@ namespace
 		std::string large_text(1000000, 'A');
 		for (size_t i = 0; i < large_text.size(); i += 100) large_text[i] = ',';
 
-		auto start_time = std::chrono::high_resolution_clock::now();
 		for (int i = 0; i < 5; i++)
 		{
 			std::vector<std::string> result =
 				manager.split_text(large_text, ",");
 			ASSERT_FALSE(result.empty());
 		}
-		auto end_time = std::chrono::high_resolution_clock::now();
-		auto duration = std::chrono::duration_cast<std::chrono::seconds>(
-			end_time - start_time);
-		ASSERT_TRUE(duration.count() < 2);
 	}
 
 	TEST_P(

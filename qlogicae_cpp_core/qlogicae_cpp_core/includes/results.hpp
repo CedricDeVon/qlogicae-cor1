@@ -2,7 +2,8 @@
 
 #include "results_status.hpp"
 
-namespace QLogicaeCppCore
+namespace
+	QLogicaeCppCore
 {
     template <typename ValueType = std::string> struct
         Results

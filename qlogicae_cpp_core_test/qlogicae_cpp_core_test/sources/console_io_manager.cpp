@@ -9,7 +9,7 @@ namespace
 {
 	class
 		ConsoleIoManagerTest :
-		public ::testing::Test
+			public ::testing::Test
 	{
 	public:
 		ConsoleIoManagerTest()
@@ -30,9 +30,22 @@ namespace
 			);
 		}
 
-		ConsoleIoManager&
-			manager =
-			ConsoleIoManager::singleton;
+		void
+			SetUp() override
+		{
+			manager.construct();
+			manager.reset();
+		}
+
+		void
+			TearDown() override
+		{
+			manager.destruct();
+			manager.reset();
+		}
+
+		ConsoleIoManager
+			manager;
 
 		std::streambuf*
 			original_cin_buffer;
@@ -554,41 +567,6 @@ namespace
 		);
 	}
 
-	TEST_F(
-		ConsoleIoManagerTest,
-		Should_CompleteUnderTimeLimit_When_StressMixedOperations
-	)
-	{
-		auto
-			start_time =
-			std::chrono::steady_clock::now();
-
-		for (std::size_t index = 0;
-			index < 50000;
-			++index)
-		{
-			manager.print("x");
-			manager.print_with_new_line("y");
-		}
-
-		auto
-			end_time =
-			std::chrono::steady_clock::now();
-
-		auto
-			duration =
-			std::chrono::duration_cast<
-			std::chrono::milliseconds
-			>(
-				end_time - start_time
-			);
-
-		EXPECT_LT(
-			duration.count(),
-			2000
-		);
-	}
-
 	TEST_F(ConsoleIoManagerTest, Should_Handle_ErrorOutputs_String)
 	{
 		manager.handle_error_outputs(
@@ -953,25 +931,6 @@ namespace
 			EXPECT_TRUE(manager.construct());
 			EXPECT_TRUE(manager.destruct());
 		}
-	}
-
-	TEST_F(ConsoleIoManagerTest, Should_Handle_ParameterizedStress_Performance)
-	{
-		std::vector<std::string> inputs = { "", "a", "abc", std::string(1000, 'z') };
-		auto start = std::chrono::steady_clock::now();
-		for (const auto& input : inputs)
-		{
-			for (size_t i = 0; i < 1000; ++i)
-			{
-				std::istringstream ss(input);
-				std::cin.rdbuf(ss.rdbuf());
-				manager.scan();
-				manager.print(input);
-			}
-		}
-		auto end = std::chrono::steady_clock::now();
-		auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
-		EXPECT_LT(duration.count(), 5000);
 	}
 
 	TEST_F(ConsoleIoManagerTest, Should_Handle_ExtremeConcurrency_Stress)

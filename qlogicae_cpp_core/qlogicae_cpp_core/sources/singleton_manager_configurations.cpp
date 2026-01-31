@@ -6,16 +6,15 @@ namespace
 	QLogicaeCppCore
 {   
 	SingletonManagerConfigurations
-		SingletonManagerConfigurations
-			::initial_configurations =
-				[]()
-				{
-					SingletonManagerConfigurations
-						configurations;
+		::SingletonManagerConfigurations() :
+			AbstractConfigurations<SingletonManagerConfigurations>()
+	{
+		
+	}
 
-					return
-						configurations;
-				}();
+	SingletonManagerConfigurations
+		SingletonManagerConfigurations
+			::initial_configurations;
 
 	SingletonManagerConfigurations
 		SingletonManagerConfigurations
@@ -23,4 +22,3 @@ namespace
 				SingletonManagerConfigurations
 					::initial_configurations;
 }
-

@@ -15,5 +15,8 @@ namespace
 
 		static ApplicationManagerConfigurations
 			default_configurations;
+
+		ApplicationManagerConfigurations();
     };    
 }
+

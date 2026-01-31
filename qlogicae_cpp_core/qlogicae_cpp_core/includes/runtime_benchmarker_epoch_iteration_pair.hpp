@@ -17,12 +17,13 @@ namespace
                 default_configurations
 					.iterations;
 
-
-
 		static RuntimeBenchmarkerEpochIterationPair
 			initial_configurations;
 
 		static RuntimeBenchmarkerEpochIterationPair
 			default_configurations;
+
+		RuntimeBenchmarkerEpochIterationPair();
     };
 }
+

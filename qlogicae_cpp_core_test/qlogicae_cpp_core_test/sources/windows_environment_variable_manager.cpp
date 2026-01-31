@@ -12,27 +12,31 @@ namespace
 			public ::testing::Test
 	{
 	public:
-		WindowsEnvironmentVariableManager&
+		WindowsEnvironmentVariableManager
 			manager;
-
-		WindowsEnvironmentVariableManagerTest() :
-			manager(
-				WindowsEnvironmentVariableManager::singleton
-			)
-		{
-		}
 
 		void
 			SetUp()
 		{
+			manager.construct();
 			manager.reset();
 		}
 
 		void
 			TearDown()
 		{
+			manager.destruct();
 			manager.reset();
 		}
+	};
+
+	class
+		WindowsEnvironmentVariableManagerParameterizedTest :
+		public WindowsEnvironmentVariableManagerTest,
+		public ::testing::WithParamInterface<
+		std::wstring
+		>
+	{
 	};
 
 	TEST_F(
@@ -254,15 +258,6 @@ namespace
 			);
 		}
 	}
-
-	class
-		WindowsEnvironmentVariableManagerParameterizedTest :
-			public WindowsEnvironmentVariableManagerTest,
-			public ::testing::WithParamInterface<
-				std::wstring
-			>
-	{
-	};
 
 	TEST_P(
 		WindowsEnvironmentVariableManagerParameterizedTest,

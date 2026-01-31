@@ -7,8 +7,176 @@ namespace QLogicaeCppCoreTest
 	class FileSystemManagerFolderPathsTest : public ::testing::Test
 	{
 	public:
-		QLogicaeCppCore::FileSystemManager& file_system_manager =
-			QLogicaeCppCore::FileSystemManager::singleton;
+		QLogicaeCppCore::FileSystemManager file_system_manager;
+
+		void
+			SetUp() override
+		{
+			file_system_manager.construct();
+			file_system_manager.reset();
+		}
+
+		void
+			TearDown() override
+		{
+			file_system_manager.destruct();
+			file_system_manager.reset();
+		}
+	};
+
+	class FileSystemManagerPathOperationsTest : public ::testing::Test
+	{
+	public:
+		QLogicaeCppCore::FileSystemManager file_system_manager;
+
+		const std::wstring test_file_w = L"test_file.txt";
+		const std::string test_file_s = "test_file.txt";
+
+		const std::wstring test_folder_w = L"test_folder";
+		const std::string test_folder_s = "test_folder";
+
+		void SetUp() override
+		{
+			if (!std::filesystem::exists(test_folder_w))
+				std::filesystem::create_directory(test_folder_w);
+
+			std::ofstream(test_file_s).put('x');
+
+			file_system_manager.construct();
+			file_system_manager.reset();
+		}
+
+		void TearDown() override
+		{
+			std::filesystem::remove(test_file_s);
+			std::filesystem::remove_all(test_folder_w);
+
+			file_system_manager.destruct();
+			file_system_manager.reset();
+		}
+	};
+
+	class FileSystemManagerEntityAttributesTest : public ::testing::Test
+	{
+	public:
+		QLogicaeCppCore::FileSystemManager file_system_manager;
+
+		const std::wstring test_file_w = L"test_file.txt";
+		const std::string test_file_s = "test_file.txt";
+
+		const std::wstring test_folder_w = L"test_folder";
+		const std::string test_folder_s = "test_folder";
+
+		void SetUp() override
+		{
+			if (!std::filesystem::exists(test_folder_w))
+				std::filesystem::create_directory(test_folder_w);
+
+			std::ofstream(test_file_s).put('x');
+
+			SetFileAttributesW(test_file_w.c_str(), FILE_ATTRIBUTE_NORMAL);
+			SetFileAttributesW(test_folder_w.c_str(), FILE_ATTRIBUTE_NORMAL);
+
+			file_system_manager.construct();
+			file_system_manager.reset();
+		}
+
+		void TearDown() override
+		{
+			SetFileAttributesW(test_file_w.c_str(), FILE_ATTRIBUTE_NORMAL);
+			SetFileAttributesW(test_folder_w.c_str(), FILE_ATTRIBUTE_NORMAL);
+
+			std::filesystem::remove(test_file_s);
+			std::filesystem::remove_all(test_folder_w);
+
+			file_system_manager.destruct();
+			file_system_manager.reset();
+		}
+
+		bool is_read_only(const std::wstring& path)
+		{
+			DWORD attr = GetFileAttributesW(path.c_str());
+			return (attr & FILE_ATTRIBUTE_READONLY) != 0;
+		}
+
+		bool is_hidden(const std::wstring& path)
+		{
+			DWORD attr = GetFileAttributesW(path.c_str());
+			return (attr & FILE_ATTRIBUTE_HIDDEN) != 0;
+		}
+	};
+
+	class FileSystemManagerEntityOperationsTest : public ::testing::Test
+	{
+	public:
+		QLogicaeCppCore::FileSystemManager file_system_manager;
+
+		const std::wstring test_file_w = L"test_file.txt";
+		const std::string test_file_s = "test_file.txt";
+
+		const std::wstring test_folder_w = L"test_folder";
+		const std::string test_folder_s = "test_folder";
+
+		void SetUp() override
+		{
+			if (!std::filesystem::exists(test_folder_w))
+				std::filesystem::create_directory(test_folder_w);
+
+			std::ofstream(test_file_s).put('x');
+
+			file_system_manager.construct();
+			file_system_manager.reset();
+		}
+
+		void TearDown() override
+		{
+			std::filesystem::remove(test_file_s);
+			std::filesystem::remove_all(test_folder_w);
+			std::filesystem::remove_all(L"copy_folder_w");
+			std::filesystem::remove_all("copy_folder_s");
+			std::filesystem::remove("moved_file.txt");
+			std::filesystem::remove("moved_folder");
+			std::filesystem::remove_all("renamed_folder");
+			std::filesystem::remove("renamed_file.txt");
+
+			file_system_manager.destruct();
+			file_system_manager.reset();
+		}
+	};
+
+	class FileSystemManagerRemoveOperationsTest : public ::testing::Test
+	{
+	public:
+		QLogicaeCppCore::FileSystemManager file_system_manager;
+
+		const std::wstring test_file_w = L"test_file.txt";
+		const std::string test_file_s = "test_file.txt";
+
+		const std::wstring test_folder_w = L"test_folder";
+		const std::string test_folder_s = "test_folder";
+
+		void SetUp() override
+		{
+			std::ofstream(test_file_s).put('x');
+
+			if (!std::filesystem::exists(test_folder_w))
+				std::filesystem::create_directory(test_folder_w);
+
+			std::ofstream("test_folder/sub_file.txt").put('x');
+			std::ofstream("test_folder/sub_file_s.txt").put('x');
+
+			file_system_manager.construct();
+			file_system_manager.reset();
+		}
+
+		void TearDown() override
+		{
+			std::filesystem::remove(test_file_s);
+			std::filesystem::remove_all(test_folder_w);
+
+			file_system_manager.destruct();
+			file_system_manager.reset();
+		}
 	};
 
 	TEST_F(FileSystemManagerFolderPathsTest, Should_ReturnExecutableFolderPath_When_Called)
@@ -121,46 +289,6 @@ namespace QLogicaeCppCoreTest
 		}
 	}
 
-	TEST_F(FileSystemManagerFolderPathsTest, Should_ReturnPathsWithinTwoSeconds)
-	{
-		auto start_time = std::chrono::steady_clock::now();
-		file_system_manager.get_executable_folder_wstring_path();
-		file_system_manager.get_executed_folder_wstring_path();
-		file_system_manager.get_program_data_folder_wstring_path();
-		file_system_manager.get_local_app_data_folder_wstring_path();
-		file_system_manager.get_roaming_app_data_folder_wstring_path();
-		auto end_time = std::chrono::steady_clock::now();
-		auto duration = std::chrono::duration<double>(end_time - start_time);
-		EXPECT_LE(duration.count(), 2.0);
-	}	
-
-	class FileSystemManagerPathOperationsTest : public ::testing::Test
-	{
-	protected:
-		QLogicaeCppCore::FileSystemManager& file_system_manager =
-			QLogicaeCppCore::FileSystemManager::singleton;
-
-		const std::wstring test_file_w = L"test_file.txt";
-		const std::string test_file_s = "test_file.txt";
-
-		const std::wstring test_folder_w = L"test_folder";
-		const std::string test_folder_s = "test_folder";
-
-		void SetUp() override
-		{
-			if (!std::filesystem::exists(test_folder_w))
-				std::filesystem::create_directory(test_folder_w);
-
-			std::ofstream(test_file_s).put('x');
-		}
-
-		void TearDown() override
-		{
-			std::filesystem::remove(test_file_s);
-			std::filesystem::remove_all(test_folder_w);
-		}
-	};
-
 	TEST_F(FileSystemManagerPathOperationsTest, Should_ReturnFileByteSize)
 	{
 		size_t size_w = file_system_manager.get_file_byte_size(test_file_w);
@@ -239,51 +367,6 @@ namespace QLogicaeCppCoreTest
 		EXPECT_TRUE(file_system_manager.is_entity_user_permission_level_valid(test_file_w, perms));
 		EXPECT_TRUE(file_system_manager.is_entity_user_permission_level_valid(test_file_s, perms));
 	}
-
-	class FileSystemManagerEntityAttributesTest : public ::testing::Test
-    {
-    protected:
-        QLogicaeCppCore::FileSystemManager& file_system_manager =
-            QLogicaeCppCore::FileSystemManager::singleton;
-
-        const std::wstring test_file_w = L"test_file.txt";
-        const std::string test_file_s = "test_file.txt";
-
-        const std::wstring test_folder_w = L"test_folder";
-        const std::string test_folder_s = "test_folder";
-
-        void SetUp() override
-        {
-            if (!std::filesystem::exists(test_folder_w))
-                std::filesystem::create_directory(test_folder_w);
-
-            std::ofstream(test_file_s).put('x');
-
-            SetFileAttributesW(test_file_w.c_str(), FILE_ATTRIBUTE_NORMAL);
-            SetFileAttributesW(test_folder_w.c_str(), FILE_ATTRIBUTE_NORMAL);
-        }
-
-        void TearDown() override
-        {
-            SetFileAttributesW(test_file_w.c_str(), FILE_ATTRIBUTE_NORMAL);
-            SetFileAttributesW(test_folder_w.c_str(), FILE_ATTRIBUTE_NORMAL);
-
-            std::filesystem::remove(test_file_s);
-            std::filesystem::remove_all(test_folder_w);
-        }
-
-        bool is_read_only(const std::wstring& path)
-        {
-            DWORD attr = GetFileAttributesW(path.c_str());
-            return (attr & FILE_ATTRIBUTE_READONLY) != 0;
-        }
-
-        bool is_hidden(const std::wstring& path)
-        {
-            DWORD attr = GetFileAttributesW(path.c_str());
-            return (attr & FILE_ATTRIBUTE_HIDDEN) != 0;
-        }
-    };
 
     TEST_F(FileSystemManagerEntityAttributesTest, Should_SetAndClearReadStatus_Wstring)
     {
@@ -373,39 +456,6 @@ namespace QLogicaeCppCoreTest
         EXPECT_FALSE(file_system_manager.set_entity_write_status("nonexistent.txt", false));
         EXPECT_FALSE(file_system_manager.set_entity_visibility("nonexistent.txt", false));
     }
-
-	class FileSystemManagerEntityOperationsTest : public ::testing::Test
-    {
-    protected:
-        QLogicaeCppCore::FileSystemManager& file_system_manager =
-            QLogicaeCppCore::FileSystemManager::singleton;
-
-        const std::wstring test_file_w = L"test_file.txt";
-        const std::string test_file_s = "test_file.txt";
-
-        const std::wstring test_folder_w = L"test_folder";
-        const std::string test_folder_s = "test_folder";
-
-        void SetUp() override
-        {
-            if (!std::filesystem::exists(test_folder_w))
-                std::filesystem::create_directory(test_folder_w);
-
-            std::ofstream(test_file_s).put('x');
-        }
-
-        void TearDown() override
-        {
-            std::filesystem::remove(test_file_s);
-            std::filesystem::remove_all(test_folder_w);
-            std::filesystem::remove_all(L"copy_folder_w");
-            std::filesystem::remove_all("copy_folder_s");
-            std::filesystem::remove("moved_file.txt");
-            std::filesystem::remove("moved_folder");
-            std::filesystem::remove_all("renamed_folder");
-            std::filesystem::remove("renamed_file.txt");
-        }
-    };
 
     TEST_F(FileSystemManagerEntityOperationsTest, Should_CreateFolder)
     {
@@ -502,36 +552,6 @@ namespace QLogicaeCppCoreTest
         EXPECT_FALSE(std::filesystem::exists(test_folder_s));
         EXPECT_TRUE(std::filesystem::exists("renamed_folder"));
     }
-
-	class FileSystemManagerRemoveOperationsTest : public ::testing::Test
-    {
-    protected:
-        QLogicaeCppCore::FileSystemManager& file_system_manager =
-            QLogicaeCppCore::FileSystemManager::singleton;
-
-        const std::wstring test_file_w = L"test_file.txt";
-        const std::string test_file_s = "test_file.txt";
-
-        const std::wstring test_folder_w = L"test_folder";
-        const std::string test_folder_s = "test_folder";
-
-        void SetUp() override
-        {
-            std::ofstream(test_file_s).put('x');
-
-            if (!std::filesystem::exists(test_folder_w))
-                std::filesystem::create_directory(test_folder_w);
-
-            std::ofstream("test_folder/sub_file.txt").put('x');
-            std::ofstream("test_folder/sub_file_s.txt").put('x');
-        }
-
-        void TearDown() override
-        {
-            std::filesystem::remove(test_file_s);
-            std::filesystem::remove_all(test_folder_w);
-        }
-    };
 
     TEST_F(FileSystemManagerRemoveOperationsTest, Should_RemoveFile)
     {

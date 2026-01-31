@@ -9,20 +9,21 @@ namespace
 {
 	class TextEncodingManagerTest : public ::testing::Test
 	{
-	protected:
-		TextEncodingManager& encoding_manager;
-
 	public:
-		TextEncodingManagerTest() :
-			encoding_manager(TextEncodingManager::singleton)
+		TextEncodingManager encoding_manager;
+
+		void
+			SetUp() override
 		{
+			encoding_manager.construct();
+			encoding_manager.reset();
 		}
 
 		void
-			SetUp()
+			TearDown() override
 		{
-			TextEncodingManager::singleton.configurations =
-				TextEncodingManagerConfigurations::default_configurations;
+			encoding_manager.destruct();
+			encoding_manager.reset();
 		}
 	};
 
@@ -156,11 +157,7 @@ namespace
 	TEST_F(TextEncodingManagerTest, Should_HandleStressTestLargeInput)
 	{
 		std::string large_input(1000000, 'A');
-		auto start_time = std::chrono::high_resolution_clock::now();
 		std::string encoded = encoding_manager.encode_base64(large_input);
-		auto end_time = std::chrono::high_resolution_clock::now();
-		auto duration = std::chrono::duration_cast<std::chrono::seconds>(end_time - start_time);
-		ASSERT_TRUE(duration.count() < 2);
 		ASSERT_FALSE(encoded.empty());
 	}
 

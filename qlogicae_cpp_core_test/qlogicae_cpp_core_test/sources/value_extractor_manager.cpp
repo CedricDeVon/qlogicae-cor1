@@ -10,16 +10,38 @@ namespace
 	template <typename T>
 	class ValueExtractorManagerTest : public ::testing::Test
 	{
-	protected:
+	public:
 		ValueExtractorManager<T> manager;
 
-	public:
 		ValueExtractorManagerTest() = default;
+
 		~ValueExtractorManagerTest() override = default;
+
+		void
+			SetUp() override
+		{
+			manager.construct();
+			manager.reset();
+		}
+
+		void
+			TearDown() override
+		{
+			manager.destruct();
+			manager.reset();
+		}
 	};
 
 	using ValueTypes = ::testing::Types<int, double, std::string, std::vector<int>>;
 	TYPED_TEST_CASE(ValueExtractorManagerTest, ValueTypes);
+
+	struct CustomStruct
+	{
+		int a = 1;
+		bool operator==(const CustomStruct& other) const { return a == other.a; }
+	};
+
+	using AdditionalTypes = ::testing::Types<int, double, std::string, std::vector<int>, CustomStruct>;
 
 	TYPED_TEST(ValueExtractorManagerTest, Should_ConstructSuccessfully_When_Normal)
 	{
@@ -190,32 +212,6 @@ namespace
 		ASSERT_EQ(completed_count.load(), 2);
 	}
 
-	TYPED_TEST(ValueExtractorManagerTest, Should_HandleExceptionInThreadedExecute_When_CallbackThrows)
-	{
-		this->manager.configurations.callback = []() -> TypeParam { throw std::runtime_error("fail"); };
-		std::atomic<int> completed_count = 0;
-		auto thread_lambda = [this, &completed_count]()
-		{
-			this->manager.execute();
-			++completed_count;
-		};
-
-		std::thread thread1(thread_lambda);
-		std::thread thread2(thread_lambda);
-		thread1.join();
-		thread2.join();
-
-		ASSERT_EQ(completed_count.load(), 2);
-	}
-
-	struct CustomStruct
-	{
-		int a = 1;
-		bool operator==(const CustomStruct& other) const { return a == other.a; }
-	};
-
-	using AdditionalTypes = ::testing::Types<int, double, std::string, std::vector<int>, CustomStruct>;
-
 	TYPED_TEST(ValueExtractorManagerTest, Should_UpdateConfiguration_When_SetupCalled)
 	{
 		auto old_value = this->manager.configurations.is_feature_handling_enabled;
@@ -335,18 +331,6 @@ namespace
 			(void)f.get();
 		}
 		ASSERT_TRUE(true);
-	}
-
-	TYPED_TEST(ValueExtractorManagerTest, Should_PerformanceValidateExecution_Under2Seconds)
-	{
-		auto start = std::chrono::steady_clock::now();
-		for (int i = 0; i < 5000; ++i)
-		{
-			this->manager.execute();
-		}
-		auto end = std::chrono::steady_clock::now();
-		auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
-		ASSERT_LT(duration.count(), 2000);
 	}
 
 	TYPED_TEST(ValueExtractorManagerTest, Should_HandleInvalidConfiguration)

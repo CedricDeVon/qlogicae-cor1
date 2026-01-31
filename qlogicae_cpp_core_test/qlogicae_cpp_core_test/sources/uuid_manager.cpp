@@ -9,13 +9,64 @@ namespace
 {
 	class UuidManagerTest : public ::testing::Test
 	{
-	protected:
-		UuidManager& manager;
-
 	public:
-		UuidManagerTest() : manager(UuidManager::singleton) {}
+		UuidManager manager;
 
-		~UuidManagerTest() override = default;
+		void
+			SetUp() override
+		{
+			manager.construct();
+			manager.reset();
+		}
+
+		void
+			TearDown() override
+		{
+			manager.destruct();
+			manager.reset();
+		}
+	};
+
+	class UuidManagerIsValidTest :
+		public ::testing::TestWithParam<std::tuple<Uuid, std::string, bool>>
+	{
+	public:
+		UuidManager manager;
+
+		void
+			SetUp() override
+		{
+			manager.construct();
+			manager.reset();
+		}
+
+		void
+			TearDown() override
+		{
+			manager.destruct();
+			manager.reset();
+		}
+	};
+
+	class UuidManagerGenerateUuidTest :
+		public ::testing::TestWithParam<Uuid>
+	{
+	public:
+		UuidManager manager;
+
+		void
+			SetUp() override
+		{
+			manager.construct();
+			manager.reset();
+		}
+
+		void
+			TearDown() override
+		{
+			manager.destruct();
+			manager.reset();
+		}
 	};
 
 	TEST_F(UuidManagerTest, Should_ReturnSameInstance_When_AccessedMultipleTimes)
@@ -34,17 +85,6 @@ namespace
 	{
 		ASSERT_TRUE(manager.destruct());
 	}
-
-	class UuidManagerIsValidTest :
-		public ::testing::TestWithParam<std::tuple<Uuid, std::string, bool>>
-	{
-	protected:
-		UuidManager& manager;
-
-	public:
-		UuidManagerIsValidTest() : manager(UuidManager::singleton) {}
-
-	};
 
 	INSTANTIATE_TEST_CASE_P(
 		UuidValidationVariants,
@@ -111,17 +151,6 @@ namespace
 			ASSERT_TRUE(manager.is_valid(valid_uuid));
 		}
 	}
-
-	class UuidManagerGenerateUuidTest :
-		public ::testing::TestWithParam<Uuid>
-	{
-	protected:
-		UuidManager& manager;
-
-	public:
-		UuidManagerGenerateUuidTest() : manager(UuidManager::singleton) {}
-
-	};
 
 	INSTANTIATE_TEST_CASE_P(
 		UuidTypeVariants,

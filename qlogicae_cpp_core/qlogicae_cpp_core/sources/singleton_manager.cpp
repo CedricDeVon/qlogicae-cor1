@@ -11,7 +11,9 @@ namespace
 				SingletonManager
 					::get_this_singleton();
 
-
+	boost::mutex
+		SingletonManager
+			::feature_handling_mutex_2;
 
 	SingletonManager
 		::SingletonManager() :
@@ -58,9 +60,23 @@ namespace
     {
         try
         {			
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_utility_handling()
+			)
+			{
+				return
+					false;
+			}
+
 			boost::unique_lock<boost::mutex>
 				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_utility_handling())
+			if
+			(
+				configurations
+					.is_thread_safety_enabled_for_utility_handling()
+			)
 			{
 				mutex_lock =
 					boost::unique_lock<boost::mutex>
@@ -91,9 +107,23 @@ namespace
     {
         try
         {		
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_utility_handling()
+			)
+			{
+				return
+					false;
+			}
+
 			boost::unique_lock<boost::mutex>
 				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_utility_handling())
+			if
+			(
+				configurations
+					.is_thread_safety_enabled_for_utility_handling()
+			)
 			{
 				mutex_lock =
 					boost::unique_lock<boost::mutex>
@@ -122,6 +152,22 @@ namespace
 		SingletonManager
 			::get_this_singleton()
 	{
+		boost::unique_lock<boost::mutex>
+			mutex_lock;
+		if
+		(
+			SingletonManagerConfigurations
+				::default_configurations
+					.is_thread_safety_enabled_for_feature_handling()
+		)
+		{
+			mutex_lock =
+				boost::unique_lock<boost::mutex>
+				(
+					feature_handling_mutex_2
+				);
+		}
+
 		static SingletonManager
 			singleton;
 
@@ -129,4 +175,3 @@ namespace
 			singleton;
 	}
 }
-

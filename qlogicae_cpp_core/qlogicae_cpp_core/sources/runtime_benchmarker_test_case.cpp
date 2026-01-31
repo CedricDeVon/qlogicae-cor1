@@ -6,21 +6,24 @@ namespace
 	QLogicaeCppCore
 {
 	RuntimeBenchmarkerTestCase
+		::RuntimeBenchmarkerTestCase()
+	{
+		name =
+			"";
+
+		callback =
+			[]() {};
+
+		before_test_callback =
+			[]() {};
+
+		after_test_callback =
+			[]() {};
+	}
+
+	RuntimeBenchmarkerTestCase
 		RuntimeBenchmarkerTestCase
-			::initial_configurations =
-				{
-					.name =
-						"",
-
-					.callback =
-						[]() {},
-
-					.before_test_callback =
-						[]() {},
-
-					.after_test_callback =
-						[]() {},
-				};
+			::initial_configurations;
 
 	RuntimeBenchmarkerTestCase
 		RuntimeBenchmarkerTestCase
@@ -28,4 +31,3 @@ namespace
 				RuntimeBenchmarkerTestCase
 					::initial_configurations;
 }
-

@@ -27,12 +27,13 @@ namespace
                 default_configurations
 					.after_test_callback;
 
-
-
 		static RuntimeBenchmarkerTestCase
 			initial_configurations;
 
 		static RuntimeBenchmarkerTestCase
 			default_configurations;
+
+		RuntimeBenchmarkerTestCase();
     };
 }
+

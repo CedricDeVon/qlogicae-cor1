@@ -42,128 +42,133 @@ namespace
 		public ::testing::Test
 	{
 	public:
-		FunctionWrapperTest()
+		QLogicaeCppCore::FunctionWrapper
+			manager;
+
+		void
+			SetUp() override
 		{
-			QLogicaeCppCore::FunctionWrapper::singleton.reset();
+			manager.construct();
+			manager.reset();
 		}
 
-		~FunctionWrapperTest() override
+		void
+			TearDown() override
 		{
-			QLogicaeCppCore::FunctionWrapper::singleton.reset();
+			manager.destruct();
+			manager.reset();
 		}
 	};
 
-	TEST(FunctionWrapperTest, Should_ConstructSuccessfully_When_NoException)
+	TEST_F(FunctionWrapperTest, Should_ConstructSuccessfully_When_NoException)
 	{
-		QLogicaeCppCore::FunctionWrapper& wrapper = QLogicaeCppCore::FunctionWrapper::singleton;
+		QLogicaeCppCore::FunctionWrapper& wrapper = manager;
 		ASSERT_TRUE(wrapper.construct());
 	}
 
-	TEST(FunctionWrapperTest, Should_DestructSuccessfully_When_NoException)
+	TEST_F(FunctionWrapperTest, Should_DestructSuccessfully_When_NoException)
 	{
-		QLogicaeCppCore::FunctionWrapper& wrapper = QLogicaeCppCore::FunctionWrapper::singleton;
+		QLogicaeCppCore::FunctionWrapper& wrapper = manager;
 		ASSERT_TRUE(wrapper.destruct());
 	}
 
-	TEST(FunctionWrapperTest, Should_SetupConfigurationsCorrectly_When_ValidInput)
+	TEST_F(FunctionWrapperTest, Should_SetupConfigurationsCorrectly_When_ValidInput)
 	{
 		QLogicaeCppCore::FunctionWrapperConfigurations configurations;
-		configurations.is_feature_handling_enabled = true;
-		ASSERT_TRUE(QLogicaeCppCore::FunctionWrapper::singleton.setup(configurations));
-		ASSERT_TRUE(QLogicaeCppCore::FunctionWrapper::singleton.configurations.is_feature_handling_enabled);
+		configurations.is_feature_runtime_execution_handling_enabled = true;
+		ASSERT_TRUE(manager.setup(configurations));
+		ASSERT_TRUE(manager.configurations.is_feature_runtime_execution_handling_enabled);
 	}
 
-	TEST(FunctionWrapperTest, Should_ResetConfigurationsToDefault_When_Called)
+	TEST_F(FunctionWrapperTest, Should_ResetConfigurationsToDefault_When_Called)
 	{
 		QLogicaeCppCore::FunctionWrapperConfigurations configurations;
-		configurations.is_feature_handling_enabled = true;
-		QLogicaeCppCore::FunctionWrapper::singleton.setup(configurations);
-		ASSERT_TRUE(QLogicaeCppCore::FunctionWrapper::singleton.reset());
-		ASSERT_TRUE(QLogicaeCppCore::FunctionWrapper::singleton.configurations.is_feature_handling_enabled);
+		configurations.is_feature_runtime_execution_handling_enabled = true;
+		manager.setup(configurations);
+		ASSERT_TRUE(manager.reset());
+		ASSERT_TRUE(manager.configurations.is_feature_runtime_execution_handling_enabled);
 	}
 
-	TEST(FunctionWrapperTest, Should_HandleException_When_SetupThrows)
+	TEST_F(FunctionWrapperTest, Should_HandleException_When_SetupThrows)
 	{
 		struct ThrowingConfigurations : QLogicaeCppCore::FunctionWrapperConfigurations {};
 		QLogicaeCppCore::FunctionWrapperConfigurations configurations;
-		ASSERT_TRUE(QLogicaeCppCore::FunctionWrapper::singleton.setup(configurations));
+		ASSERT_TRUE(manager.setup(configurations));
 	}
 
-	TEST(FunctionWrapperTest, Should_HandleException_When_ResetThrows)
+	TEST_F(FunctionWrapperTest, Should_HandleException_When_ResetThrows)
 	{
-		ASSERT_TRUE(QLogicaeCppCore::FunctionWrapper::singleton.reset());
+		ASSERT_TRUE(manager.reset());
 	}
 
-	TEST(FunctionWrapperTest, Should_ReturnValue_When_NonPointerMemberFunction)
+	TEST_F(FunctionWrapperTest, Should_ReturnValue_When_NonPointerMemberFunction)
 	{
 		FunctionWrapperCallSafelyTest test_object;
-		int result = QLogicaeCppCore::FunctionWrapper::singleton.call_function<int>(
+		int result = manager.call_function<int>(
 			test_object, &FunctionWrapperCallSafelyTest::add_value, 5);
 		ASSERT_EQ(result, 6);
 	}
 
-	TEST(FunctionWrapperTest, Should_ReturnValue_When_PointerMemberFunction)
+	TEST_F(FunctionWrapperTest, Should_ReturnValue_When_PointerMemberFunction)
 	{
 		FunctionWrapperCallSafelyTest test_object;
 		FunctionWrapperCallSafelyTest* ptr = &test_object;
-		int result = QLogicaeCppCore::FunctionWrapper::singleton.call_function<int>(
+		int result = manager.call_function<int>(
 			ptr, &FunctionWrapperCallSafelyTest::add_value, 7);
 		ASSERT_EQ(result, 8);
 	}
 
-	TEST(FunctionWrapperTest, Should_HandleException_When_MemberFunctionThrows)
+	TEST_F(FunctionWrapperTest, Should_HandleException_When_MemberFunctionThrows)
 	{
 		FunctionWrapperCallSafelyTest test_object;
-		int result = QLogicaeCppCore::FunctionWrapper::singleton.call_function<int>(
-			test_object, &FunctionWrapperCallSafelyTest::throw_value, 1);
-		(void)result;
-		ASSERT_TRUE(true);
+		ASSERT_THROW(
+			manager.call_function<int>(
+				test_object, &FunctionWrapperCallSafelyTest::throw_value, 1),
+			std::runtime_error
+		);
 	}
 
-	TEST(FunctionWrapperTest, Should_HandleZeroArgumentMemberFunction)
+	TEST_F(FunctionWrapperTest, Should_HandleZeroArgumentMemberFunction)
 	{
 		FunctionWrapperCallSafelyTest test_object;
-		int result = QLogicaeCppCore::FunctionWrapper::singleton.call_function<int>(
+		int result = manager.call_function<int>(
 			test_object, &FunctionWrapperCallSafelyTest::zero_arg);
 		ASSERT_EQ(result, 42);
 	}
 
-	TEST(FunctionWrapperTest, Should_ReturnDefaultConstructedResult_When_ExceptionThrown)
+	TEST_F(FunctionWrapperTest, Should_ReturnDefaultConstructedResult_When_ExceptionThrown)
 	{
 		FunctionWrapperCallSafelyTest test_object;
 
-		int result =
-			QLogicaeCppCore::FunctionWrapper::singleton.call_function<int>(
-				test_object,
-				&FunctionWrapperCallSafelyTest::throw_value,
-				3
-			);
-
-		ASSERT_EQ(result, 0);
+		ASSERT_THROW(
+			manager.call_function<int>(
+				test_object, &FunctionWrapperCallSafelyTest::throw_value, 3),
+			std::runtime_error
+		);
 	}
 
-	TEST(FunctionWrapperTest, Should_ReturnDefaultConstructedResult_When_PointerMemberThrows)
+	TEST_F(FunctionWrapperTest, Should_ReturnDefaultConstructedResult_When_PointerMemberThrows)
 	{
 		FunctionWrapperCallSafelyTest test_object;
 		FunctionWrapperCallSafelyTest* ptr = &test_object;
 
-		int result =
-			QLogicaeCppCore::FunctionWrapper::singleton.call_function<int>(
+		ASSERT_THROW(
+			manager.call_function<int>(
 				ptr,
 				&FunctionWrapperCallSafelyTest::throw_value,
 				4
-			);
-
-		ASSERT_EQ(result, 0);
+			),
+			std::runtime_error
+		);
 	}
 
-	TEST(FunctionWrapperTest, Should_HandleZeroArgumentMemberFunction_WithPointer)
+	TEST_F(FunctionWrapperTest, Should_HandleZeroArgumentMemberFunction_WithPointer)
 	{
 		FunctionWrapperCallSafelyTest test_object;
 		FunctionWrapperCallSafelyTest* ptr = &test_object;
 
 		int result =
-			QLogicaeCppCore::FunctionWrapper::singleton.call_function<int>(
+			manager.call_function<int>(
 				ptr,
 				&FunctionWrapperCallSafelyTest::zero_arg
 			);
@@ -171,19 +176,19 @@ namespace
 		ASSERT_EQ(result, 42);
 	}
 
-	TEST(FunctionWrapperTest, Should_ReturnCorrectValue_When_MultipleCallsInvoked)
+	TEST_F(FunctionWrapperTest, Should_ReturnCorrectValue_When_MultipleCallsInvoked)
 	{
 		FunctionWrapperCallSafelyTest test_object;
 
 		int first =
-			QLogicaeCppCore::FunctionWrapper::singleton.call_function<int>(
+			manager.call_function<int>(
 				test_object,
 				&FunctionWrapperCallSafelyTest::add_value,
 				1
 			);
 
 		int second =
-			QLogicaeCppCore::FunctionWrapper::singleton.call_function<int>(
+			manager.call_function<int>(
 				test_object,
 				&FunctionWrapperCallSafelyTest::add_value,
 				10
@@ -193,35 +198,33 @@ namespace
 		ASSERT_EQ(second, 11);
 	}
 
-	TEST(FunctionWrapperTest, Should_NotAffectSubsequentCalls_After_Exception)
+	TEST_F(FunctionWrapperTest, Should_NotAffectSubsequentCalls_After_Exception)
 	{
 		FunctionWrapperCallSafelyTest test_object;
 
-		int failed =
-			QLogicaeCppCore::FunctionWrapper::singleton.call_function<int>(
-				test_object,
-				&FunctionWrapperCallSafelyTest::throw_value,
-				1
-			);
+		ASSERT_THROW(
+			manager.call_function<int>(
+				test_object, &FunctionWrapperCallSafelyTest::throw_value, 1),
+			std::runtime_error
+		);
 
 		int success =
-			QLogicaeCppCore::FunctionWrapper::singleton.call_function<int>(
+			manager.call_function<int>(
 				test_object,
 				&FunctionWrapperCallSafelyTest::add_value,
 				5
 			);
 
-		ASSERT_EQ(failed, 0);
 		ASSERT_EQ(success, 6);
 	}
 
-	TEST(FunctionWrapperTest, Should_HandleNullPointerObject_When_PointerMemberFunction)
+	TEST_F(FunctionWrapperTest, Should_HandleNullPointerObject_When_PointerMemberFunction)
 	{
 		FunctionWrapperCallSafelyTest* ptr = nullptr;
 
 		ASSERT_NO_THROW(
 			(
-				QLogicaeCppCore::FunctionWrapper::singleton.call_function<int>(
+				manager.call_function<int>(
 					ptr,
 					&FunctionWrapperCallSafelyTest::add_value,
 					1
@@ -231,15 +234,15 @@ namespace
 		);
 	}
 
-	TEST(FunctionWrapperTest, Should_ExecuteCallSafely_When_DisabledConfiguration)
+	TEST_F(FunctionWrapperTest, Should_ExecuteCallSafely_When_DisabledConfiguration)
 	{
 		QLogicaeCppCore::FunctionWrapperConfigurations configurations;
-		configurations.is_feature_handling_enabled = false;
-		QLogicaeCppCore::FunctionWrapper::singleton.setup(configurations);
+		configurations.is_feature_runtime_execution_handling_enabled = false;
+		manager.setup(configurations);
 
 		FunctionWrapperCallSafelyTest test_object;
 
-		int result = QLogicaeCppCore::FunctionWrapper::singleton.call_function<int>(
+		int result = manager.call_function<int>(
 			test_object,
 			&FunctionWrapperCallSafelyTest::add_value,
 			3
@@ -248,13 +251,13 @@ namespace
 		ASSERT_EQ(result, 4);
 	}
 
-	TEST(FunctionWrapperTest, Should_HandleCallSafely_When_NotConstructed)
+	TEST_F(FunctionWrapperTest, Should_HandleCallSafely_When_NotConstructed)
 	{
-		QLogicaeCppCore::FunctionWrapper::singleton.destruct();
+		manager.destruct();
 
 		FunctionWrapperCallSafelyTest test_object;
 
-		int result = QLogicaeCppCore::FunctionWrapper::singleton.call_function<int>(
+		int result = manager.call_function<int>(
 			test_object,
 			&FunctionWrapperCallSafelyTest::add_value,
 			2
@@ -263,14 +266,14 @@ namespace
 		ASSERT_EQ(result, 3);
 	}
 
-	TEST(FunctionWrapperTest, Should_HandleCallSafely_When_DestructedBeforeCall)
+	TEST_F(FunctionWrapperTest, Should_HandleCallSafely_When_DestructedBeforeCall)
 	{
-		QLogicaeCppCore::FunctionWrapper::singleton.construct();
-		QLogicaeCppCore::FunctionWrapper::singleton.destruct();
+		manager.construct();
+		manager.destruct();
 
 		FunctionWrapperCallSafelyTest test_object;
 
-		int result = QLogicaeCppCore::FunctionWrapper::singleton.call_function<int>(
+		int result = manager.call_function<int>(
 			test_object,
 			&FunctionWrapperCallSafelyTest::add_value,
 			4
@@ -279,7 +282,7 @@ namespace
 		ASSERT_EQ(result, 5);
 	}
 
-	TEST(FunctionWrapperTest, Should_HandleVoidReturnType_When_CallbackSucceeds)
+	TEST_F(FunctionWrapperTest, Should_HandleVoidReturnType_When_CallbackSucceeds)
 	{
 		struct VoidTest
 		{
@@ -294,7 +297,7 @@ namespace
 		bool called = false;
 		VoidTest test_object{ &called };
 
-		QLogicaeCppCore::FunctionWrapper::singleton.call_function<void>(
+		manager.call_function<void>(
 			test_object,
 			&VoidTest::run
 		);
@@ -302,7 +305,7 @@ namespace
 		ASSERT_TRUE(called);
 	}
 
-	TEST(FunctionWrapperTest, Should_ReturnValue_For_NonDefaultConstructible_When_NoException)
+	TEST_F(FunctionWrapperTest, Should_ReturnValue_For_NonDefaultConstructible_When_NoException)
 	{
 		struct NonDefaultConstructible
 		{
@@ -321,7 +324,7 @@ namespace
 		Test test_object;
 
 		NonDefaultConstructible result =
-			QLogicaeCppCore::FunctionWrapper::singleton.call_function<
+			manager.call_function<
 			NonDefaultConstructible
 			>(
 				test_object,
@@ -331,7 +334,7 @@ namespace
 		ASSERT_EQ(result.value, 7);
 	}
 
-	TEST(FunctionWrapperTest, Should_HandleVoidReturnType_With_PointerObject)
+	TEST_F(FunctionWrapperTest, Should_HandleVoidReturnType_With_PointerObject)
 	{
 		struct VoidTest
 		{
@@ -347,7 +350,7 @@ namespace
 		VoidTest test_object{ &called };
 		VoidTest* ptr = &test_object;
 
-		QLogicaeCppCore::FunctionWrapper::singleton.call_function<void>(
+		manager.call_function<void>(
 			ptr,
 			&VoidTest::run
 		);

@@ -70,7 +70,7 @@ namespace
 			}			
 
 			return
-				true;
+				!(sodium_init() < 0);
         }
         catch
         (
@@ -138,6 +138,12 @@ namespace
 					);
 			}			
 
+			if (text.empty())
+			{
+				return
+					"";
+			}
+
 			std::string hash;
 			hash.resize(crypto_pwhash_STRBYTES);
 
@@ -147,8 +153,8 @@ namespace
 					text.c_str(), text.size(),
 					crypto_pwhash_OPSLIMIT_MODERATE,
 					crypto_pwhash_MEMLIMIT_MODERATE
-				) != 0) ?
-					hash.c_str() :
+				) == 0) ?
+					hash :
 					"";
         }
         catch
@@ -190,9 +196,9 @@ namespace
 
 			return
 				crypto_pwhash_str_verify(
-					text.c_str(),
 					hash.c_str(),
-					hash.size()
+					text.c_str(),
+					text.size()
 				) == 0;
         }
         catch

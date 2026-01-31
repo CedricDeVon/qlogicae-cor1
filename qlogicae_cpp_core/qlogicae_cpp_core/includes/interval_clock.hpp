@@ -15,6 +15,12 @@ namespace
 		std::thread
 			thread_1;
 
+		boost::mutex
+			feature_handling_mutex_2;
+
+		boost::mutex
+			feature_handling_mutex_3;
+
 		mutable std::mutex
 			mutex_1;
 

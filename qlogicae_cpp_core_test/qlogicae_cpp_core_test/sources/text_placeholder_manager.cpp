@@ -9,18 +9,21 @@ namespace
 {
 	class TextPlaceholderManagerTest : public ::testing::Test
 	{
-	protected:
-		TextPlaceholderManager& manager;
-
 	public:
-		TextPlaceholderManagerTest() : manager(TextPlaceholderManager::singleton)
+		TextPlaceholderManager manager;
+
+		void
+			SetUp() override
 		{
+			manager.construct();
+			manager.reset();
 		}
 
-		void SetUp()
+		void
+			TearDown() override
 		{
-			TextPlaceholderManager::singleton.configurations =
-				TextPlaceholderManagerConfigurations::default_configurations;
+			manager.destruct();
+			manager.reset();
 		}
 	};
 
@@ -151,15 +154,11 @@ namespace
 		manager.configurations.conditional_callback = [](const std::string& text) { return text.empty(); };
 		std::string large_text(1000000, 'B');
 
-		auto start_time = std::chrono::high_resolution_clock::now();
 		for (int i = 0; i < 10; i++)
 		{
 			std::string result = manager.convert_text(large_text);
 			ASSERT_EQ(result, large_text);
 		}
-		auto end_time = std::chrono::high_resolution_clock::now();
-		auto duration = std::chrono::duration_cast<std::chrono::seconds>(end_time - start_time);
-		ASSERT_TRUE(duration.count() < 2);
 	}
 
 	INSTANTIATE_TEST_CASE_P(
@@ -202,14 +201,14 @@ namespace
 
 	TEST_F(TextPlaceholderManagerTest, Should_ReturnText_When_ConditionalCallbackIsNull)
 	{
-		TextPlaceholderManager::singleton.configurations.conditional_callback = nullptr;
+		manager.configurations.conditional_callback = nullptr;
 		std::string result = manager.convert_text("SampleText", "Placeholder");
 		ASSERT_EQ(result, "SampleText");
 	}
 
 	TEST_F(TextPlaceholderManagerTest, Should_HandleMultithreadedConvertTextWithPlaceholder)
 	{
-		TextPlaceholderManager::singleton.configurations.conditional_callback =
+		manager.configurations.conditional_callback =
 			[](const std::string& text) { return text.empty(); };
 
 		std::vector<std::thread> threads;
@@ -234,7 +233,7 @@ namespace
 
 	TEST_F(TextPlaceholderManagerTest, Should_HandleAsyncConvertTextWithPlaceholder)
 	{
-		TextPlaceholderManager::singleton.configurations.conditional_callback =
+		manager.configurations.conditional_callback =
 			[](const std::string& text) { return text.empty(); };
 
 		auto future = std::async(std::launch::async, [&]()

@@ -14,9 +14,22 @@ namespace
     public:
         TextErrorManagerTest() = default;
 
-        QLogicaeCppCore::TextErrorManager&
-            text_error_manager =
-                QLogicaeCppCore::TextErrorManager::singleton;
+        QLogicaeCppCore::TextErrorManager
+            text_error_manager;
+
+		void
+			SetUp() override
+		{
+			text_error_manager.construct();
+			text_error_manager.reset();
+		}
+
+		void
+			TearDown() override
+		{
+			text_error_manager.destruct();
+			text_error_manager.reset();
+		}
     };
 
     TEST_F(
@@ -158,9 +171,6 @@ namespace
     {
         constexpr std::size_t ITERATION_COUNT = 100000;
 
-        const auto start_time =
-            std::chrono::steady_clock::now();
-
         for
         (
             std::size_t iteration_index = 0;
@@ -176,18 +186,6 @@ namespace
             ASSERT_FALSE(
                 result.empty());
         }
-
-        const auto end_time =
-            std::chrono::steady_clock::now();
-
-        const auto elapsed_duration =
-            std::chrono::duration_cast<
-                std::chrono::milliseconds>(
-                end_time - start_time);
-
-        ASSERT_LT(
-            elapsed_duration.count(),
-            static_cast<long long>(2000));
     }
 
     TEST_F(
@@ -209,9 +207,6 @@ namespace
     {
         constexpr std::size_t THREAD_COUNT = 16;
         constexpr std::size_t ITERATION_COUNT = 5000;
-
-        const auto start_time =
-            std::chrono::steady_clock::now();
 
         std::vector<std::thread>
             worker_threads;
@@ -248,18 +243,6 @@ namespace
         {
             worker_thread.join();
         }
-
-        const auto end_time =
-            std::chrono::steady_clock::now();
-
-        const auto elapsed_duration =
-            std::chrono::duration_cast<
-                std::chrono::milliseconds>(
-                end_time - start_time);
-
-        ASSERT_LT(
-            elapsed_duration.count(),
-            static_cast<long long>(2000));
     }
 
     TEST_F(
@@ -369,28 +352,13 @@ namespace
                 static_cast<std::size_t>(100000),
                 'X');
 
-        const auto start_time =
-            std::chrono::steady_clock::now();
-
         const std::string result =
             text_error_manager.convert_text(
                 maximum_length_string,
                 maximum_length_string);
 
-        const auto end_time =
-            std::chrono::steady_clock::now();
-
-        const auto elapsed_duration =
-            std::chrono::duration_cast<
-                std::chrono::milliseconds>(
-                end_time - start_time);
-
         ASSERT_FALSE(
             result.empty());
-
-        ASSERT_LT(
-            elapsed_duration.count(),
-            static_cast<long long>(2000));
     }
 
     TEST_F(

@@ -75,13 +75,13 @@ namespace
 				default_configurations
 					.full_file_output_paths;
 
-
-
 		static ErrorManagerConfigurations
 			initial_configurations;
 
 		static ErrorManagerConfigurations
 			default_configurations;
+
+		ErrorManagerConfigurations();
     };    
 }
  

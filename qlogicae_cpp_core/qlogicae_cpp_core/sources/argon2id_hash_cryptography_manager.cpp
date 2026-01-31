@@ -138,6 +138,12 @@ namespace
 					);
 			}			
 
+			if (text.empty())
+			{
+				return
+					"";
+			}
+
 			std::array<char, 512> vb{};
 			int vc = argon2id_hash_encoded(
 				3,
@@ -148,13 +154,14 @@ namespace
 				RandomValueGenerationManager::singleton.generate_random_salt().data(),
 				16,
 				32,
-				vb.data(), vb.size());
-			if (vc != ARGON2_OK)
-			{
-				return "";
-			}
+				vb.data(),
+				vb.size()
+			);
 
-			return vb.data();
+			return
+				(vc == ARGON2_OK) ?
+					vb.data() :
+					"";
         }
         catch
         (

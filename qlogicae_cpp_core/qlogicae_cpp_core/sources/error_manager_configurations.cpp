@@ -6,74 +6,57 @@ namespace
 	QLogicaeCppCore
 {    
 	ErrorManagerConfigurations
+		::ErrorManagerConfigurations() :
+			AbstractConfigurations<ErrorManagerConfigurations>()
+	{
+		is_feature_handling_thread_safety_enabled =
+			true;
+
+		is_enable_output_override_enabled =
+			false;
+
+		is_console_output_enabled =
+			true;
+
+		is_file_output_enabled =
+			false;
+
+		is_gui_output_enabled =
+			false;
+
+		is_runtime_throw_output_enabled =
+			true;
+
+		is_asynchronous_output_enabled =
+			false;
+
+		is_asynchronous_console_output_enabled =
+			false;
+
+		is_asynchronous_file_output_enabled =
+			false;
+
+		is_asynchronous_gui_output_enabled =
+			false;
+
+		is_asynchronous_runtime_throw_output_enabled =
+			false;
+
+		default_title =
+			"Error";
+
+		title_message_separator =
+			" - ";
+
+		full_file_output_paths =
+			{
+				"errors.log"
+			};
+	}
+
+	ErrorManagerConfigurations
 		ErrorManagerConfigurations
-			::initial_configurations =
-				[]()
-				{
-					ErrorManagerConfigurations
-						configurations;
-
-					configurations
-						.is_feature_handling_thread_safety_enabled =
-							true;
-
-					configurations
-						.is_enable_output_override_enabled =
-							false;
-
-					configurations
-						.is_console_output_enabled =
-							true;
-
-					configurations
-						.is_file_output_enabled =
-							false;
-
-					configurations
-						.is_gui_output_enabled =
-							false;
-
-					configurations
-						.is_runtime_throw_output_enabled =
-							true;
-
-					configurations
-						.is_asynchronous_output_enabled =
-							false;
-
-					configurations
-						.is_asynchronous_console_output_enabled =
-							false;
-
-					configurations
-						.is_asynchronous_file_output_enabled =
-							false;
-
-					configurations
-						.is_asynchronous_gui_output_enabled =
-							false;
-
-					configurations
-						.is_asynchronous_runtime_throw_output_enabled =
-							false;
-
-					configurations
-						.default_title =
-							"Exrror";
-
-					configurations
-						.title_message_separator =
-							" - ";
-
-					configurations
-						.full_file_output_paths =
-							{
-							"errors.log"
-						};
-
-					return
-						configurations;
-				}();
+			::initial_configurations;
 
 	ErrorManagerConfigurations
 		ErrorManagerConfigurations
@@ -81,4 +64,3 @@ namespace
 				ErrorManagerConfigurations
 					::initial_configurations;
 }
-		

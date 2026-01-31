@@ -9,13 +9,45 @@ namespace
 {
 	class ValidationManagerTest : public ::testing::Test
 	{
-	protected:
-		ValidationManager& manager;
-
 	public:
-		ValidationManagerTest() : manager(ValidationManager::singleton) {}
+		ValidationManager manager;
 
 		~ValidationManagerTest() override = default;
+
+		void
+			SetUp() override
+		{
+			manager.construct();
+			manager.reset();
+		}
+
+		void
+			TearDown() override
+		{
+			manager.destruct();
+			manager.reset();
+		}
+	};
+
+	class ValidationManagerValidateTest :
+		public ::testing::TestWithParam<std::function<bool()>>
+	{
+	public:
+		ValidationManager manager;
+
+		void
+			SetUp() override
+		{
+			manager.construct();
+			manager.reset();
+		}
+
+		void
+			TearDown() override
+		{
+			manager.destruct();
+			manager.reset();
+		}
 	};
 
 	TEST_F(ValidationManagerTest, Should_ConstructSuccessfully_When_Normal)
@@ -50,16 +82,6 @@ namespace
 			ASSERT_TRUE(manager.destruct());
 		}
 	}
-
-	class ValidationManagerValidateTest :
-		public ::testing::TestWithParam<std::function<bool()>>
-	{
-	protected:
-		ValidationManager& manager;
-
-	public:
-		ValidationManagerValidateTest() : manager(ValidationManager::singleton) {}
-	};
 
 	INSTANTIATE_TEST_CASE_P(
 		CallbackVariants,

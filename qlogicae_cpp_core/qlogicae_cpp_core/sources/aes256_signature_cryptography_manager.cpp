@@ -142,45 +142,33 @@ namespace
 					);
 			}			
 			
-			unsigned char
-				signature[crypto_sign_BYTES];
+			std::vector<unsigned char> signature(crypto_sign_BYTES);
 
-			unsigned long long
-				signature_length =
-				0;
-
-			if (
-				crypto_sign_detached(
-					signature,
-					&signature_length,
-					reinterpret_cast<const unsigned char*>(text.data()),
-					static_cast<unsigned long long>(text.size()),
-					reinterpret_cast<const unsigned char*>(private_key.data())
-				) != 0
-				)
+			if (crypto_sign_detached(
+				signature.data(),
+				nullptr,
+				reinterpret_cast<const unsigned char*>(text.data()),
+				static_cast<unsigned long long>(text.size()),
+				reinterpret_cast<const unsigned char*>(private_key.data())
+			) != 0)
 			{
 				return {};
 			}
 
-			std::string
-				encoded(
-					sodium_base64_ENCODED_LEN(
-						signature_length,
-						sodium_base64_VARIANT_ORIGINAL
-					),
-					'\0'
-				);
+			std::string encoded(
+				sodium_base64_ENCODED_LEN(signature.size(), sodium_base64_VARIANT_ORIGINAL),
+				'\0'
+			);
 
 			sodium_bin2base64(
 				encoded.data(),
 				encoded.size(),
-				signature,
-				signature_length,
+				signature.data(),
+				signature.size(),
 				sodium_base64_VARIANT_ORIGINAL
 			);
 
 			encoded.resize(std::strlen(encoded.c_str()));
-
 			return encoded;
         }
         catch
@@ -278,3 +266,4 @@ namespace
         }
 	}
 }
+

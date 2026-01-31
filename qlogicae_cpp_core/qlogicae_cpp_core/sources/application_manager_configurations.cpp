@@ -5,17 +5,16 @@
 namespace
 	QLogicaeCppCore
 {
-    ApplicationManagerConfigurations
-		ApplicationManagerConfigurations
-			::initial_configurations =
-				[]()
-				{
-					ApplicationManagerConfigurations
-						configurations;
+	ApplicationManagerConfigurations
+		::ApplicationManagerConfigurations() :
+			AbstractConfigurations<ApplicationManagerConfigurations>()
+	{
+		
+	}
 
-					return
-						configurations;
-				}();
+	ApplicationManagerConfigurations
+		ApplicationManagerConfigurations
+			::initial_configurations;
 
 	ApplicationManagerConfigurations
 		ApplicationManagerConfigurations
@@ -23,3 +22,4 @@ namespace
 				ApplicationManagerConfigurations
 					::initial_configurations;
 }
+

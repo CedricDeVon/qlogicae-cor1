@@ -15,5 +15,7 @@ namespace
 
 		static AsynchronousManagerConfigurations
 			default_configurations;
+
+		AsynchronousManagerConfigurations();
     };    
 }

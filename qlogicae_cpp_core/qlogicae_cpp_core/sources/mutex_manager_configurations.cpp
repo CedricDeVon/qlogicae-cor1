@@ -6,24 +6,22 @@ namespace
 	QLogicaeCppCore
 {   
 	MutexManagerConfigurations
+		::MutexManagerConfigurations() :
+			AbstractConfigurations<MutexManagerConfigurations>()
+	{
+		is_feature_edge_case_handling_enabled =
+			true;
+
+		is_feature_handling_thread_safety_enabled =
+			true;
+
+		name =
+			"static";
+	}
+
+	MutexManagerConfigurations
 		MutexManagerConfigurations
-			::initial_configurations =
-				[]()
-				{
-					MutexManagerConfigurations
-						configurations;
-
-					configurations
-						.is_feature_handling_thread_safety_enabled =
-							true;
-
-					configurations
-						.name =
-							"static";
-
-					return
-						configurations;
-				}();
+			::initial_configurations;
 
 	MutexManagerConfigurations
 		MutexManagerConfigurations
@@ -31,4 +29,3 @@ namespace
 				MutexManagerConfigurations
 					::initial_configurations;
 }
-

@@ -15,5 +15,8 @@ namespace
 
 		static RuntimeBenchmarkerConfigurations
 			default_configurations;
+
+		RuntimeBenchmarkerConfigurations();
     };
 }
+

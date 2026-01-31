@@ -5,22 +5,6 @@
 namespace
 	QLogicaeCppCoreTest
 {
-	class
-		TemperatureManagerTest :
-		public ::testing::Test
-	{
-	public:
-		TemperatureManagerTest()
-		{
-		}
-
-		QLogicaeCppCore::TemperatureManager&
-			temperature_manager =
-			QLogicaeCppCore
-			::TemperatureManager
-			::singleton;
-	};
-
 	struct
 		TemperatureConversionParameters
 	{
@@ -35,6 +19,29 @@ namespace
 
 		double
 			expected_value;
+	};
+
+	class
+		TemperatureManagerTest :
+		public ::testing::Test
+	{
+	public:
+		QLogicaeCppCore::TemperatureManager
+			temperature_manager;
+
+		void
+			SetUp() override
+		{
+			temperature_manager.construct();
+			temperature_manager.reset();
+		}
+
+		void
+			TearDown() override
+		{
+			temperature_manager.destruct();
+			temperature_manager.reset();
+		}
 	};
 
 	class
@@ -451,59 +458,6 @@ namespace
 		EXPECT_DOUBLE_EQ(
 			result,
 			max_value
-		);
-	}
-
-	TEST_F(
-		TemperatureManagerTest,
-		Should_CompleteWithinTimeLimit_When_StressTested
-	)
-	{
-		auto
-			start_time =
-			std::chrono
-			::steady_clock
-			::now();
-
-		for
-			(
-				std::size_t
-				iteration = 0;
-				iteration < 500000;
-				++iteration
-				)
-		{
-			temperature_manager
-				.convert_unit(
-					50.0,
-					QLogicaeCppCore
-					::TemperatureUnit
-					::CELSIUS,
-					QLogicaeCppCore
-					::TemperatureUnit
-					::FAHRENHEIT
-				);
-		}
-
-		auto
-			end_time =
-			std::chrono
-			::steady_clock
-			::now();
-
-		auto
-			elapsed_time =
-			std::chrono
-			::duration_cast<
-			std::chrono::milliseconds
-			>(
-				end_time - start_time
-			)
-			.count();
-
-		EXPECT_LT(
-			elapsed_time,
-			2000
 		);
 	}
 

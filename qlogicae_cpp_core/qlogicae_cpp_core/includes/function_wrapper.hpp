@@ -47,7 +47,7 @@ namespace
 		)
 	{
 		try
-		{
+		{		
 			boost::unique_lock<boost::mutex>
 				mutex_lock;
 			if
@@ -69,7 +69,8 @@ namespace
 				{
 					if constexpr (std::is_default_constructible_v<ResultType>)
 					{
-						return ResultType{};
+						return
+							ResultType{};
 					}
 					else
 					{
@@ -91,7 +92,8 @@ namespace
 
 			if constexpr (std::is_default_constructible_v<ResultType>)
 			{
-				return ResultType{};
+				return
+					ResultType{};
 			}
 			else
 			{
@@ -100,3 +102,4 @@ namespace
 		}
 	}
 }
+

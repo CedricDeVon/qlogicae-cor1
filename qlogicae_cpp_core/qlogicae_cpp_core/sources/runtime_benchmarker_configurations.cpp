@@ -6,16 +6,15 @@ namespace
 	QLogicaeCppCore
 {
 	RuntimeBenchmarkerConfigurations
-		RuntimeBenchmarkerConfigurations
-			::initial_configurations =
-				[]()
-				{
-					RuntimeBenchmarkerConfigurations
-						configurations;
+		::RuntimeBenchmarkerConfigurations() :
+			AbstractConfigurations<RuntimeBenchmarkerConfigurations>()
+	{
+		
+	}
 
-					return
-						configurations;
-				}();
+	RuntimeBenchmarkerConfigurations
+		RuntimeBenchmarkerConfigurations
+			::initial_configurations;
 
 	RuntimeBenchmarkerConfigurations
 		RuntimeBenchmarkerConfigurations
@@ -23,4 +22,3 @@ namespace
 				RuntimeBenchmarkerConfigurations
 					::initial_configurations;
 }
-

@@ -13,6 +13,9 @@ namespace
 			public AbstractClass<TextEncodingManagerConfigurations>
     {
     public:        
+		boost::mutex
+			feature_handling_mutex_2;
+
         static TextEncodingManager&
             singleton;
 

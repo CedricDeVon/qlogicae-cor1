@@ -10,20 +10,30 @@ namespace
 	class WindowsRegistryManagerTest : public ::testing::Test
 	{
 	protected:
-		WindowsRegistryManager& manager;
+		WindowsRegistryManager manager;
+
 		std::wstring test_sub_key;
 
 	public:
-		WindowsRegistryManagerTest() : manager(WindowsRegistryManager::singleton)
+		WindowsRegistryManagerTest()
 		{
 			test_sub_key = L"Software\\QLogicaeCppCoreTest_" +
 				std::to_wstring(GetTickCount64());
 			manager.configurations.sub_key = test_sub_key;
 		}
 
-		void TearDown() override
+		void
+			SetUp()
 		{
-			// manager.remove_value_via_wstring();
+			manager.construct();
+			manager.reset();
+		}
+
+		void
+			TearDown()
+		{
+			manager.destruct();
+			manager.reset();
 		}
 	};
 
@@ -48,16 +58,6 @@ namespace
 		ASSERT_TRUE(manager.set_value_via_wstring(second_value));
 		ASSERT_EQ(manager.get_value_via_wstring(), second_value);
 	}
-
-	/*
-	TEST_F(WindowsRegistryManagerTest, Should_RemoveValue_When_KeyExists)
-	{
-		std::wstring value = L"TempValue";
-		ASSERT_TRUE(manager.set_value_via_wstring(value));
-		ASSERT_TRUE(manager.remove_value_via_wstring());
-		ASSERT_EQ(manager.get_value_via_wstring(), L"");
-	}
-	*/ 
 
 	TEST_F(WindowsRegistryManagerTest, Should_HandleEmptyValue_When_SetEmptyString)
 	{
@@ -150,18 +150,91 @@ namespace
 		ASSERT_NO_THROW(manager.set_value_via_wstring(param));
 	}
 
-	/*
-	TEST_F(WindowsRegistryManagerTest, Should_ReturnFalse_When_PathNotFound)
-	{
-		manager.remove_value_via_wstring();
-		ASSERT_FALSE(manager.is_path_found_via_wstring());
-	}
-	*/ 
-
 	TEST_F(WindowsRegistryManagerTest, Should_ReturnTrue_When_PathFound)
 	{
 		std::wstring value = L"Exists";
 		ASSERT_TRUE(manager.set_value_via_wstring(value));
 		ASSERT_TRUE(manager.is_path_found_via_wstring());
 	}
+
+	TEST_F(WindowsRegistryManagerTest, Should_HandleGetValuesViaWstring_WithMultipleValues)
+	{
+		manager.set_value_via_wstring(L"Value1");
+		manager.set_value(HKEY_CURRENT_USER, manager.configurations.sub_key, L"ExtraKey", L"ExtraValue");
+		auto result = manager.get_values_via_wstring();
+		ASSERT_GE(result.size(), 2);
+		ASSERT_EQ(result[manager.configurations.name_key], L"Value1");
+		ASSERT_EQ(result[L"ExtraKey"], L"ExtraValue");
+	}
+
+	TEST_F(WindowsRegistryManagerTest, Should_HandleGetValuesViaString_WithMultipleValues)
+	{
+		manager.set_value_via_string("Value1");
+		manager.set_value(HKEY_CURRENT_USER, manager.configurations.sub_key, L"ExtraKey", L"ExtraValue");
+		auto result = manager.get_values_via_string();
+		ASSERT_GE(result.size(), 2);
+		ASSERT_EQ(result["ExtraKey"], "ExtraValue");
+	}
+
+	TEST_F(WindowsRegistryManagerTest, Should_HandleCrossEncodingGet_When_SetWstringGetString)
+	{
+		std::wstring value = L"CrossValue";
+		manager.set_value_via_wstring(value);
+		ASSERT_EQ(manager.get_value_via_wstring(), value);
+	}
+
+	TEST_F(WindowsRegistryManagerTest, Should_HandleCrossEncodingGet_When_SetStringGetWstring)
+	{
+		std::string value = "CrossValue";
+		manager.set_value_via_string(value);
+		ASSERT_EQ(manager.get_value_via_wstring(), L"CrossValue");
+	}
+
+	TEST_F(WindowsRegistryManagerTest, Should_HandleEmptySubKey)
+	{
+		manager.configurations.sub_key = L"";
+		ASSERT_TRUE(manager.set_value_via_wstring(L"EmptyKey"));
+		ASSERT_EQ(manager.get_value_via_wstring(), L"EmptyKey");
+	}
+
+	TEST_F(WindowsRegistryManagerTest, Should_HandleNonExistentSubKey)
+	{
+		std::wstring value = manager.get_value(HKEY_CURRENT_USER, L"NonExistentKey", L"Name");
+		ASSERT_TRUE(value.empty());
+	}
+
+	TEST_F(WindowsRegistryManagerTest, Should_HandleThreadSafetyFlagsDisabled)
+	{
+		manager.configurations.is_feature_handling_thread_safety_enabled = false;
+		manager.configurations.is_feature_handling_thread_safety_enabled = false;
+		std::wstring value = L"ThreadSafetyOff";
+		ASSERT_TRUE(manager.set_value_via_wstring(value));
+		ASSERT_EQ(manager.get_value_via_wstring(), value);
+	}
+
+	TEST_F(WindowsRegistryManagerTest, Should_HandleConstructDestructIdempotency)
+	{
+		ASSERT_TRUE(manager.construct());
+		ASSERT_TRUE(manager.construct());
+		ASSERT_TRUE(manager.destruct());
+		ASSERT_TRUE(manager.destruct());
+	}
 }
+
+/*
+TEST_F(WindowsRegistryManagerTest, Should_ReturnFalse_When_PathNotFound)
+{
+	manager.remove_value_via_wstring();
+	ASSERT_FALSE(manager.is_path_found_via_wstring());
+}
+*/
+
+/*
+TEST_F(WindowsRegistryManagerTest, Should_RemoveValue_When_KeyExists)
+{
+	std::wstring value = L"TempValue";
+	ASSERT_TRUE(manager.set_value_via_wstring(value));
+	ASSERT_TRUE(manager.remove_value_via_wstring());
+	ASSERT_EQ(manager.get_value_via_wstring(), L"");
+}
+*/

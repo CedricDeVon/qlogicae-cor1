@@ -47,6 +47,9 @@ namespace
 		std::unordered_map<std::pair<void*, std::string>, folly::MicroSpinLock, PairHashOperator>
 			folly_micro_spin_lock_collection;
 
+		boost::mutex
+			feature_handling_mutex_3;
+
         static MutexManager&
             singleton;
 
@@ -103,7 +106,27 @@ namespace
                 const std::string&
 	                name
             ) requires ValidLock<LockType, MutexType>;
+
+		template <template <typename> typename LockType, typename MutexType> LockType<MutexType>
+			lock_mutex(
+				MutexType&
+					mutex
+			);
     };
+
+	template <template <typename> typename LockType, typename MutexType>
+		LockType<MutexType>
+			MutexManager
+				::lock_mutex(
+					MutexType&
+						mutex
+			)
+	{
+		return
+			LockType<MutexType>(
+				mutex
+			);
+	}
 
     template<typename LockType, typename MutexType> bool
         MutexManager
@@ -111,7 +134,7 @@ namespace
 				const void*
 					pointer
 			) requires ValidLock<LockType, MutexType>
-    {
+    {		
         return
 			lock_mutex<LockType, MutexType>(
 				pointer,
@@ -120,16 +143,34 @@ namespace
     }
 
 	template<typename LockType, typename MutexType> bool
-	MutexManager
-		::lock_mutex(
-			const void*
-				pointer,
-			const std::string&
-				name
-		) requires ValidLock<LockType, MutexType>
+		MutexManager
+			::lock_mutex(
+				const void*
+					pointer,
+				const std::string&
+					name
+			) requires ValidLock<LockType, MutexType>
 	{
 		try
 		{
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_feature_handling() ||				
+				(
+					configurations
+						.is_edge_case_enabled_for_feature_handling() &&
+					(
+						pointer == nullptr ||
+						name.empty()
+					)
+				)
+			)
+			{
+				return
+					false;
+			}
+
 			boost::unique_lock<boost::mutex>
 				mutex_lock;
 			if (configurations.is_thread_safety_enabled_for_feature_handling())
@@ -139,12 +180,6 @@ namespace
 					(
 						feature_handling_mutex_1
 					);
-			}
-
-			if (!pointer)
-			{
-				return
-					false;
 			}
 
 			MutexType*

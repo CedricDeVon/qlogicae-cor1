@@ -9,14 +9,43 @@ namespace
 {
 	class WindowsSystemAccessManagerTest : public ::testing::Test
 	{
-	protected:
-		WindowsSystemAccessManager& manager;
-
 	public:
-		WindowsSystemAccessManagerTest() : manager(
-			WindowsSystemAccessManager::singleton) {}
+		WindowsSystemAccessManager manager;
 
-		~WindowsSystemAccessManagerTest() override = default;
+		void
+			SetUp() override
+		{
+			manager.construct();
+			manager.reset();
+		}
+
+		void
+			TearDown() override
+		{
+			manager.destruct();
+			manager.reset();
+		}
+	};
+
+	class WindowsSystemAccessManagerRunProcessTest :
+		public ::testing::TestWithParam<std::string>
+	{
+	public:
+		WindowsSystemAccessManager manager;
+
+		void
+			SetUp() override
+		{
+			manager.construct();
+			manager.reset();
+		}
+
+		void
+			TearDown() override
+		{
+			manager.destruct();
+			manager.reset();
+		}
 	};
 
 	TEST_F(WindowsSystemAccessManagerTest, Should_ReturnSameInstance_When_AccessedMultipleTimes)
@@ -36,11 +65,6 @@ namespace
 		ASSERT_TRUE(manager.destruct());
 	}
 
-	class WindowsSystemAccessManagerRunProcessTest :
-		public ::testing::TestWithParam<std::string>
-	{
-	};
-
 	INSTANTIATE_TEST_CASE_P(
 		CommandVariants,
 		WindowsSystemAccessManagerRunProcessTest,
@@ -57,7 +81,7 @@ namespace
 	TEST_P(WindowsSystemAccessManagerRunProcessTest, Should_ReturnBool_When_RunProcess)
 	{
 		std::string command = GetParam();
-		bool result = WindowsSystemAccessManager::singleton.run_process(command);
+		bool result = manager.run_process(command);
 		ASSERT_TRUE(result || !command.empty());
 	}
 

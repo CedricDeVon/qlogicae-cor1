@@ -6,16 +6,15 @@ namespace
 	QLogicaeCppCore
 {
 	FunctionWrapperConfigurations
-		FunctionWrapperConfigurations
-			::initial_configurations =
-				[]()
-				{
-					FunctionWrapperConfigurations
-						configurations;
+		::FunctionWrapperConfigurations() :
+			AbstractConfigurations<FunctionWrapperConfigurations>()
+	{
+		
+	}
 
-					return
-						configurations;
-				}();
+	FunctionWrapperConfigurations
+		FunctionWrapperConfigurations
+			::initial_configurations;
 
 	FunctionWrapperConfigurations
 		FunctionWrapperConfigurations
@@ -23,4 +22,3 @@ namespace
 				FunctionWrapperConfigurations
 					::initial_configurations;
 }
-

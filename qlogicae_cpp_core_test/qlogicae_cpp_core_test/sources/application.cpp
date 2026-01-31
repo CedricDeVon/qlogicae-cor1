@@ -6,3 +6,4 @@ namespace QLogicaeCppCoreTest
 {
 	
 }
+

@@ -15,5 +15,8 @@ namespace
 
 		static SingletonManagerConfigurations
 			default_configurations;
+
+		SingletonManagerConfigurations();
     };    
 }
+

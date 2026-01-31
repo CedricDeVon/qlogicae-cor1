@@ -200,16 +200,12 @@ namespace
 					);
 			}			
 
-			const std::string computed_base64_hash = hash_text(hash);
-			if (computed_base64_hash.empty())
-			{
-				return false;
-			}
+			const std::string computed_hash = hash_text(text);
 
-			return sodium_memcmp(
-				computed_base64_hash.data(),
-				text.data(),
-				text.size()) == 0;
+			if (computed_hash.empty())
+				return false;
+
+			return computed_hash == hash;
         }
         catch
         (

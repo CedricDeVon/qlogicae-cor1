@@ -15,5 +15,8 @@ namespace
 
 		static FunctionWrapperConfigurations
 			default_configurations;
+
+		FunctionWrapperConfigurations();
     };
 }
+

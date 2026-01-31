@@ -45,6 +45,20 @@ namespace QLogicaeCppCoreTest
         SingletonManagerTest() = default;
 
         ~SingletonManagerTest() override = default;
+
+		void
+			SetUp() override
+		{
+			SingletonManager::get_this_singleton().construct();
+			SingletonManager::get_this_singleton().reset();
+		}
+
+		void
+			TearDown() override
+		{
+			SingletonManager::get_this_singleton().destruct();
+			SingletonManager::get_this_singleton().reset();
+		}
     };
 
     class SingletonManagerTypeParameterizedTest :
@@ -828,7 +842,7 @@ namespace QLogicaeCppCoreTest
 			SingletonManager::get_this_singleton();
 
 		SingletonManagerConfigurations configurations;
-		configurations.is_feature_handling_enabled = false;
+		configurations.is_feature_runtime_execution_handling_enabled = false;
 
 		manager.setup(configurations);
 

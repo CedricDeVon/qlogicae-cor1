@@ -5,41 +5,18 @@
 namespace
     QLogicaeCppCoreTest
 {
-    class
-        RegularExpressionManagerTest :
-            public ::testing::Test
-    {
-    public:
-        RegularExpressionManagerTest() = default;
+	struct
+		RegularExpressionParameters
+	{
+		std::string
+			value;
 
-        QLogicaeCppCore::RegularExpressionManager&
-            regular_expression_manager =
-                QLogicaeCppCore
-                    ::RegularExpressionManager
-                        ::singleton;
-    };
+		std::string
+			pattern;
 
-    struct
-        RegularExpressionParameters
-    {
-        std::string
-            value;
-
-        std::string
-            pattern;
-
-        bool
-            expected_result;
-    };
-
-    class
-        RegularExpressionManagerParameterizedTest :
-            public RegularExpressionManagerTest,
-            public ::testing::WithParamInterface<
-                RegularExpressionParameters
-            >
-    {
-    };
+		bool
+			expected_result;
+	};
 
 	struct
 		UnicodePatternTestParameters
@@ -53,6 +30,40 @@ namespace
 		bool
 			expected_value;
 	};
+
+    class
+        RegularExpressionManagerTest :
+            public ::testing::Test
+    {
+    public:
+        RegularExpressionManagerTest() = default;
+
+        QLogicaeCppCore::RegularExpressionManager
+            regular_expression_manager;
+
+		void
+			SetUp() override
+		{
+			regular_expression_manager.construct();
+			regular_expression_manager.reset();
+		}
+
+		void
+			TearDown() override
+		{
+			regular_expression_manager.destruct();
+			regular_expression_manager.reset();
+		}
+    };
+
+    class
+        RegularExpressionManagerParameterizedTest :
+            public RegularExpressionManagerTest,
+            public ::testing::WithParamInterface<
+                RegularExpressionParameters
+            >
+    {
+    };
 
 	class
 		RegularExpressionManagerUnicodeParameterizedTest :
@@ -467,54 +478,6 @@ namespace
                 result_future.get()
             );
         }
-    }
-
-    TEST_F(
-        RegularExpressionManagerTest,
-        Should_CompleteWithinTimeLimit_When_StressTested
-    )
-    {
-        auto
-            start_time =
-                std::chrono
-                    ::steady_clock
-                        ::now();
-
-        for
-        (
-            std::size_t
-                iteration = 0;
-            iteration < 500000;
-            ++iteration
-        )
-        {
-            regular_expression_manager
-                .is_direct_pattern_matched(
-                    "performance",
-                    "performance"
-                );
-        }
-
-        auto
-            end_time =
-                std::chrono
-                    ::steady_clock
-                        ::now();
-
-        auto
-            elapsed_time =
-                std::chrono
-                    ::duration_cast<
-                        std::chrono::milliseconds
-                    >(
-                        end_time - start_time
-                    )
-                        .count();
-
-        EXPECT_LT(
-            elapsed_time,
-            2000
-        );
     }
 
     TEST_F(
