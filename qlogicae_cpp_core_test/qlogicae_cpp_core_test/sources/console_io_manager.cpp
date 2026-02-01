@@ -507,12 +507,13 @@ namespace
 			)
 		);
 
-		EXPECT_FALSE(
+		ASSERT_THROW(
 			manager.handle_error_outputs(
 				std::runtime_error(
 					"error"
 				)
-			)
+			),
+			std::runtime_error
 		);
 	}
 
@@ -569,16 +570,22 @@ namespace
 
 	TEST_F(ConsoleIoManagerTest, Should_Handle_ErrorOutputs_String)
 	{
-		manager.handle_error_outputs(
-			std::string("error")
+		ASSERT_THROW(
+			manager.handle_error_outputs(
+				std::string("error")
+			),
+			std::runtime_error
 		);
 	}
 
 	TEST_F(ConsoleIoManagerTest, Should_Handle_ErrorOutputs_TitleAndMessage)
 	{
-		manager.handle_error_outputs(
-			std::string("title"),
-			std::string("message")
+		ASSERT_THROW(
+			manager.handle_error_outputs(
+				std::string("title"),
+				std::string("message")
+			),
+			std::runtime_error
 		);
 	}
 
@@ -587,8 +594,11 @@ namespace
 		manager.configurations.is_error_handling_thread_safety_enabled =
 			false;
 
-		manager.handle_error_outputs(
-			std::string("error")
+		ASSERT_THROW(
+			manager.handle_error_outputs(
+				std::string("error")
+			),
+			std::runtime_error
 		);
 	}
 
@@ -597,27 +607,12 @@ namespace
 		manager.destruct();
 		manager.construct();
 
-		manager.handle_error_outputs(
-			std::string("error")
+		ASSERT_THROW(
+			manager.handle_error_outputs(
+				std::string("error")
+			),
+			std::runtime_error
 		);
-	}
-
-	TEST_F(ConsoleIoManagerTest, Should_Handle_Nested_ErrorOutputs)
-	{
-		try
-		{
-			throw std::runtime_error("error");
-		}
-		catch (const std::exception& exception)
-		{
-			manager.handle_error_outputs(
-				exception
-			);
-
-			manager.handle_error_outputs(
-				std::string("secondary")
-			);
-		}
 	}
 
 	TEST_F(ConsoleIoManagerTest, Should_Handle_Scan_When_Eof)

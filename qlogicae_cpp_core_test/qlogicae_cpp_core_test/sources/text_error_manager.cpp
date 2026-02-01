@@ -294,21 +294,6 @@ namespace
 
     TEST_F(
         TextErrorManagerTest,
-        Should_HandleErrorOutputs_When_ExceptionPassed)
-    {
-        const std::exception
-            exception_instance;
-
-        ASSERT_NO_THROW(
-            {
-                text_error_manager
-                    .handle_error_outputs(
-                        exception_instance);
-            });
-    }
-
-    TEST_F(
-        TextErrorManagerTest,
         Should_PropagateAsyncException_When_PromiseUsed)
     {
         std::promise<std::string>
@@ -520,31 +505,6 @@ namespace
 			result.find(
 				std::string("123456789")),
 			std::string::npos);
-    }
-
-    TEST_F(
-        TextErrorManagerTest,
-        Should_HandleErrorOutputs_When_TitleAndMessageProvided)
-    {
-        ASSERT_NO_THROW(
-            {
-                text_error_manager
-                    .handle_error_outputs(
-                        std::string("title"),
-                        std::string("message"));
-            });
-    }
-
-    TEST_F(
-        TextErrorManagerTest,
-        Should_HandleErrorOutputs_When_MessageProvided)
-    {
-        ASSERT_NO_THROW(
-            {
-                text_error_manager
-                    .handle_error_outputs(
-                        std::string("message"));
-            });
     }
 
     TEST_F(

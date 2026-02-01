@@ -15,30 +15,27 @@ namespace
 				default_configurations
 					.callback;
 
-
-
 		static ValueExtractorManagerConfigurations<OutputType>
 			initial_configurations;
 
 		static ValueExtractorManagerConfigurations<OutputType>
 			default_configurations;
+
+		ValueExtractorManagerConfigurations();
 	};
+
+	template <typename OutputType>
+		ValueExtractorManagerConfigurations<OutputType>
+			::ValueExtractorManagerConfigurations() :
+				AbstractConfigurations<ValueExtractorManagerConfigurations>()
+	{
+		callback =
+			[]() { return OutputType{}; };
+	}
 
 	template <typename OutputType> ValueExtractorManagerConfigurations<OutputType>
 		ValueExtractorManagerConfigurations<OutputType>
-			::initial_configurations =
-				[]()
-				{
-					ValueExtractorManagerConfigurations<OutputType>
-						configurations;
-
-					configurations
-						.callback =
-							[]() { return OutputType{}; };
-
-					return
-						configurations;
-				}();
+			::initial_configurations;
 
 	template <typename OutputType> ValueExtractorManagerConfigurations<OutputType>
 		ValueExtractorManagerConfigurations<OutputType>

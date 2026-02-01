@@ -5,17 +5,16 @@
 namespace
 	QLogicaeCppCore
 {
-    RuntimeExecutionManagerConfigurations
-		RuntimeExecutionManagerConfigurations
-			::initial_configurations =
-				[]()
-				{
-					RuntimeExecutionManagerConfigurations
-						configurations;
+	RuntimeExecutionManagerConfigurations
+		::RuntimeExecutionManagerConfigurations() :
+			AbstractConfigurations<RuntimeExecutionManagerConfigurations>()
+	{
+		
+	}
 
-					return
-						configurations;
-				}();
+	RuntimeExecutionManagerConfigurations
+		RuntimeExecutionManagerConfigurations
+			::initial_configurations;
 
 	RuntimeExecutionManagerConfigurations
 		RuntimeExecutionManagerConfigurations

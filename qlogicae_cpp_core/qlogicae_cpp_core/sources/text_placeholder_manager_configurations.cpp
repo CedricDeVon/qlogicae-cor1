@@ -4,30 +4,24 @@
 
 namespace
 	QLogicaeCppCore
-{
+{	
+	TextPlaceholderManagerConfigurations
+		::TextPlaceholderManagerConfigurations() :
+			AbstractConfigurations<TextPlaceholderManagerConfigurations>()
+	{
+		is_conditional_callback_enabled =
+			true;
+
+		conditional_callback =
+			[](const std::string& text){ return text.empty(); };
+
+		placeholder =
+			"None";
+	}
+
 	TextPlaceholderManagerConfigurations
 		TextPlaceholderManagerConfigurations
-			::initial_configurations =
-				[]()
-				{
-					TextPlaceholderManagerConfigurations
-						configurations;
-
-					configurations
-						.is_conditional_callback_enabled =
-							true;
-
-					configurations
-						.conditional_callback =
-							[](const std::string& text){ return text.empty(); };
-
-					configurations
-						.placeholder =
-							"None";
-
-					return
-						configurations;
-				}();
+			::initial_configurations;
 
 	TextPlaceholderManagerConfigurations
 		TextPlaceholderManagerConfigurations

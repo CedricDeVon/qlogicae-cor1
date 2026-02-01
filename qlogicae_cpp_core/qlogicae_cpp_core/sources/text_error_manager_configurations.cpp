@@ -4,39 +4,30 @@
 
 namespace
 	QLogicaeCppCore
-{
+{	
+	TextErrorManagerConfigurations
+		::TextErrorManagerConfigurations() :
+			AbstractConfigurations<TextErrorManagerConfigurations>()
+	{
+		is_specified_length_enabled =
+			false;
+
+		specified_length =
+			128;
+
+		title =
+			"Exception";
+
+		origin =
+			"";
+
+		separator =
+			"-";
+	}
+
 	TextErrorManagerConfigurations
 		TextErrorManagerConfigurations
-			::initial_configurations =
-				[]()
-				{
-					TextErrorManagerConfigurations
-						configurations;
-
-					configurations
-						.is_specified_length_enabled =
-							false;
-
-					configurations
-						.specified_length =
-							128;
-
-					configurations
-						.title =
-							"Exception";
-
-					configurations
-						.origin =
-							"";
-
-					configurations
-						.separator =
-							"-";
-					
-
-					return
-						configurations;
-				}();
+			::initial_configurations;
 
 	TextErrorManagerConfigurations
 		TextErrorManagerConfigurations

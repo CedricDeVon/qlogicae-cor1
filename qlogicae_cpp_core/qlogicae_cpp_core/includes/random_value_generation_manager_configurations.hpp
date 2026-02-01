@@ -15,5 +15,7 @@ namespace
 
 		static RandomValueGenerationManagerConfigurations
 			default_configurations;
+
+		RandomValueGenerationManagerConfigurations();
     };
 }

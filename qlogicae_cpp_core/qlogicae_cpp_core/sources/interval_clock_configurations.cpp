@@ -4,38 +4,30 @@
 
 namespace
 	QLogicaeCppCore
-{
-    IntervalClockConfigurations
+{   
+	IntervalClockConfigurations
+		::IntervalClockConfigurations() :
+			AbstractConfigurations<IntervalClockConfigurations>()
+	{
+		is_feature_handling_thread_safety_enabled =
+			true;
+
+		callback =
+			[](const size_t& current_iteration) { return true; };
+
+		maximum_interval_count =
+			1;
+
+		delay_in_milliseconds =
+			std::chrono::milliseconds{ 1000 };
+
+		is_executed_immediately =
+			true;
+	}
+
+	IntervalClockConfigurations
 		IntervalClockConfigurations
-			::initial_configurations =
-				[]()
-				{
-					IntervalClockConfigurations
-						configurations;
-
-					configurations
-						.is_feature_handling_thread_safety_enabled =
-							true;
-
-					configurations
-						.callback =
-							[](const size_t& current_iteration) { return true; };
-
-					configurations
-						.maximum_interval_count =
-							1;
-
-					configurations
-						.delay_in_milliseconds =
-							std::chrono::milliseconds{ 1000 };
-
-					configurations
-						.is_executed_immediately =
-							true;
-
-					return
-						configurations;
-				}();
+			::initial_configurations;
 
 	IntervalClockConfigurations
 		IntervalClockConfigurations

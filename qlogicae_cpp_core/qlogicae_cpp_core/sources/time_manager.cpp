@@ -57,7 +57,17 @@ namespace
 			::construct()
     {
         try
-        {			
+        {	
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_utility_handling()
+			)
+			{
+				return
+					false;
+			}
+		
 			boost::unique_lock<boost::mutex>
 				mutex_lock;
 			if (configurations.is_thread_safety_enabled_for_utility_handling())
@@ -91,6 +101,16 @@ namespace
     {
         try
         {		
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_utility_handling()
+			)
+			{
+				return
+					false;
+			}
+
 			boost::unique_lock<boost::mutex>
 				mutex_lock;
 			if (configurations.is_thread_safety_enabled_for_utility_handling())
@@ -127,6 +147,23 @@ namespace
 	{
 		try
         {		
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_feature_handling() ||				
+				(
+					configurations
+						.is_edge_case_enabled_for_feature_handling() &&
+					(
+						format == TimeFormat::NONE
+					)
+				)
+			)
+			{
+				return
+					"";
+			}
+
 			boost::unique_lock<boost::mutex>
 				mutex_lock;
 			if (configurations.is_thread_safety_enabled_for_feature_handling())
@@ -217,13 +254,11 @@ namespace
             const std::exception&
                 exception
         )
-        {
-			handle_error_outputs(
-				exception
-			);
-
+        {			
 			return
-				"";				
+				handle_error_outputs<std::string>(
+					exception
+				);
         }
 	}
 
@@ -237,6 +272,23 @@ namespace
 	{
 		try
         {		
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_feature_handling() ||				
+				(
+					configurations
+						.is_edge_case_enabled_for_feature_handling() &&
+					(
+						time_format == TimeFormat::NONE
+					)
+				)
+			)
+			{
+				return
+					"";
+			}
+
 			boost::unique_lock<boost::mutex>
 				mutex_lock;
 			if (configurations.is_thread_safety_enabled_for_feature_handling())
@@ -292,7 +344,7 @@ namespace
 				}
 				default:
 				{
-					return "%A, %B %d, %Y";
+					return "";
 				}
 			}
         }
@@ -302,12 +354,10 @@ namespace
                 exception
         )
         {
-			handle_error_outputs(
-				exception
-			);
-
 			return
-				"";				
+				handle_error_outputs<std::string>(
+					exception
+				).data();
         }
 	}
 
@@ -317,6 +367,16 @@ namespace
 	{
 		try
         {		
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_feature_handling()
+			)
+			{
+				return
+					std::tm{};
+			}
+
 			boost::unique_lock<boost::mutex>
 				mutex_lock;
 			if (configurations.is_thread_safety_enabled_for_feature_handling())
@@ -351,13 +411,11 @@ namespace
             const std::exception&
                 exception
         )
-        {
-			handle_error_outputs(
-				exception
-			);
-
+        {			
 			return
-				{};				
+				handle_error_outputs<std::tm>(
+					exception
+				);
         }
 	}
 	
@@ -369,6 +427,16 @@ namespace
 	{
 		try
         {	
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_feature_handling()
+			)
+			{
+				return
+					"";
+			}
+
 			boost::unique_lock<boost::mutex>
 				mutex_lock;
 			if (configurations.is_thread_safety_enabled_for_feature_handling())
@@ -383,7 +451,8 @@ namespace
 			char buf[4];
 			std::snprintf(buf, sizeof(buf), "%03d", value);
 
-			return std::string(buf);
+			return
+				std::string(buf);
         }
         catch
         (
@@ -391,12 +460,10 @@ namespace
                 exception
         )
         {
-			handle_error_outputs(
-				exception
-			);
-
 			return
-				"";				
+				handle_error_outputs<std::string>(
+					exception
+				);
         }
 	}
 
@@ -411,6 +478,24 @@ namespace
 	{
 		try
         {		
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_feature_handling() ||				
+				(
+					configurations
+						.is_edge_case_enabled_for_feature_handling() &&
+					(
+						time <= 0.0 ||
+						format == TimeScaleUnit::NONE
+					)
+				)
+			)
+			{
+				return
+					0.0;
+			}
+
 			boost::unique_lock<boost::mutex>
 				mutex_lock;
 			if (configurations.is_thread_safety_enabled_for_feature_handling())
@@ -434,7 +519,7 @@ namespace
 				case TimeScaleUnit::WEEKS: return time * 604'800.0;
 				case TimeScaleUnit::MONTHS: return time * 2'629'746.0;
 				case TimeScaleUnit::YEARS: return time * 31'557'600.0;
-				default: return time;
+				default: return 0.0;
 			}
         }
         catch
@@ -443,12 +528,10 @@ namespace
                 exception
         )
         {
-			handle_error_outputs(
-				exception
-			);
-
 			return
-				0.0;				
+				handle_error_outputs<double>(
+					exception
+				);
         }
 	}
 
@@ -463,6 +546,24 @@ namespace
 	{
 		try
         {		
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_feature_handling() ||				
+				(
+					configurations
+						.is_edge_case_enabled_for_feature_handling() &&
+					(
+						time <= 0.0 ||
+						format == TimeScaleUnit::NONE
+					)
+				)
+			)
+			{
+				return
+					0.0;
+			}
+
 			boost::unique_lock<boost::mutex>
 				mutex_lock;
 			if (configurations.is_thread_safety_enabled_for_feature_handling())
@@ -486,7 +587,7 @@ namespace
 				case TimeScaleUnit::WEEKS: return time / (1'000'000'000.0 * 604'800.0);
 				case TimeScaleUnit::MONTHS: return time / (1'000'000'000.0 * 2'629'746.0);
 				case TimeScaleUnit::YEARS: return time / (1'000'000'000.0 * 31'557'600.0);
-				default: return time;
+				default: return 0.0;
 			}
         }
         catch
@@ -495,12 +596,10 @@ namespace
                 exception
         )
         {
-			handle_error_outputs(
-				exception
-			);
-
 			return
-				0.0;				
+				handle_error_outputs<double>(
+					exception
+				);
         }
 	}
 
@@ -514,7 +613,17 @@ namespace
 			)
 	{
 		try
-        {		
+        {	
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_feature_handling()
+			)
+			{
+				return
+					"";
+			}
+	
 			boost::unique_lock<boost::mutex>
 				mutex_lock;
 			if (configurations.is_thread_safety_enabled_for_feature_handling())
@@ -526,11 +635,12 @@ namespace
 					);
 			}
 
-			return absl::StrCat(
-				pad3(static_cast<int>(
-					absl::ToInt64Milliseconds(since_epoch) % 1000)),
-				sep
-			);
+			return
+				absl::StrCat(
+					pad3(static_cast<int>(
+						absl::ToInt64Milliseconds(since_epoch) % 1000)),
+					sep
+				);
         }
         catch
         (
@@ -538,12 +648,10 @@ namespace
                 exception
         )
         {
-			handle_error_outputs(
-				exception
-			);
-
 			return
-				"";				
+				handle_error_outputs<std::string>(
+					exception
+				);
         }
 	}
 
@@ -558,6 +666,16 @@ namespace
 	{
 		try
         {		
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_feature_handling()
+			)
+			{
+				return
+					"";
+			}
+
 			boost::unique_lock<boost::mutex>
 				mutex_lock;
 			if (configurations.is_thread_safety_enabled_for_feature_handling())
@@ -569,14 +687,15 @@ namespace
 					);
 			}
 
-			return absl::StrCat(
-				pad3(static_cast<int>(
-					absl::ToInt64Milliseconds(since_epoch) % 1000)),
-				sep,
-				pad3(static_cast<int>(
-					absl::ToInt64Microseconds(since_epoch) % 1000)),
-				sep
-			);
+			return
+				absl::StrCat(
+					pad3(static_cast<int>(
+						absl::ToInt64Milliseconds(since_epoch) % 1000)),
+					sep,
+					pad3(static_cast<int>(
+						absl::ToInt64Microseconds(since_epoch) % 1000)),
+					sep
+				);
         }
         catch
         (
@@ -584,12 +703,10 @@ namespace
                 exception
         )
         {
-			handle_error_outputs(
-				exception
-			);
-
 			return
-				"";				
+				handle_error_outputs<std::string>(
+					exception
+				);
         }
 	}
 
@@ -604,6 +721,16 @@ namespace
 	{
 		try
         {		
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_feature_handling()
+			)
+			{
+				return
+					"";
+			}
+
 			boost::unique_lock<boost::mutex>
 				mutex_lock;
 			if (configurations.is_thread_safety_enabled_for_feature_handling())
@@ -615,15 +742,17 @@ namespace
 					);
 			}
 
-			return absl::StrCat(
-				pad3(static_cast<int>(
-					absl::ToInt64Milliseconds(since_epoch) % 1000)),
-				sep,
-				pad3(static_cast<int>(
-					absl::ToInt64Microseconds(since_epoch) % 1000)),
-				sep,
-				pad3(static_cast<int>(
-					absl::ToInt64Nanoseconds(since_epoch) % 1000)));
+			return
+				absl::StrCat(
+					pad3(static_cast<int>(
+						absl::ToInt64Milliseconds(since_epoch) % 1000)),
+					sep,
+					pad3(static_cast<int>(
+						absl::ToInt64Microseconds(since_epoch) % 1000)),
+					sep,
+					pad3(static_cast<int>(
+						absl::ToInt64Nanoseconds(since_epoch) % 1000))
+				);
         }
         catch
         (
@@ -631,12 +760,10 @@ namespace
                 exception
         )
         {
-			handle_error_outputs(
-				exception
-			);
-
 			return
-				"";				
+				handle_error_outputs<std::string>(
+					exception
+				);
         }
 	}
 
@@ -651,6 +778,16 @@ namespace
 	{
 		try
         {		
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_feature_handling()
+			)
+			{
+				return
+					"";
+			}
+
 			boost::unique_lock<boost::mutex>
 				mutex_lock;
 			if (configurations.is_thread_safety_enabled_for_feature_handling())
@@ -676,12 +813,10 @@ namespace
                 exception
         )
         {
-			handle_error_outputs(
-				exception
-			);
-
 			return
-				"";				
+				handle_error_outputs<std::string>(
+					exception
+				);
         }
 	}
 } 

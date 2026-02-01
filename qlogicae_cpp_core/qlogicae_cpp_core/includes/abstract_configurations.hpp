@@ -144,13 +144,13 @@ namespace
 				false;
 
 			is_utility_edge_case_handling_enabled =
-				false;
+				true;
 
 			is_feature_edge_case_handling_enabled =
-				false;
+				true;
 
 			is_error_edge_case_handling_enabled =
-				false;
+				true;
 
 			is_runtime_execution_handling_override_enabled =
 				false;

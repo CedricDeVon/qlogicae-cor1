@@ -138,8 +138,8 @@ namespace QLogicaeCppCoreTest
         Should_ReturnTrue_Expect_Success_When_ConstructCalled
     )
     {
-        SingletonManager& instance_manager =
-            SingletonManager::get_this_singleton();
+        SingletonManager instance_manager;
+            
 
         bool result = instance_manager.construct();
 
@@ -151,8 +151,8 @@ namespace QLogicaeCppCoreTest
         Should_ReturnTrue_Expect_Success_When_DestructCalled
     )
     {
-        SingletonManager& instance_manager =
-            SingletonManager::get_this_singleton();
+        SingletonManager instance_manager;
+            
 
         bool result = instance_manager.destruct();
 
@@ -164,8 +164,8 @@ namespace QLogicaeCppCoreTest
         Should_ReturnSameTypedInstance_Expect_SameAddress_When_GetInstanceCalled
     )
     {
-        SingletonManager& instance_manager =
-            SingletonManager::get_this_singleton();
+        SingletonManager instance_manager;
+            
 
         int& first_instance =
             SingletonManager::get_singleton<int>();
@@ -184,8 +184,8 @@ namespace QLogicaeCppCoreTest
         Should_ReturnDifferentTypedInstances_Expect_DifferentAddresses_When_GetInstanceCalled
     )
     {
-        SingletonManager& instance_manager =
-            SingletonManager::get_this_singleton();
+        SingletonManager instance_manager;
+            
 
         int& integer_instance =
             SingletonManager::get_singleton<int>();
@@ -204,14 +204,13 @@ namespace QLogicaeCppCoreTest
         Should_CompleteSuccessfully_Expect_NoException_When_CalledAsynchronously
     )
     {
+		SingletonManager instance_manager;
+
         std::future<SingletonManager*> async_result =
             std::async(
                 std::launch::async,
-                []
-                {
-                    SingletonManager& instance_manager =
-                        SingletonManager::get_this_singleton();
-
+                [&instance_manager]
+                {                                           
                     instance_manager.construct();
 
                     return static_cast<SingletonManager*>(&instance_manager);
@@ -239,8 +238,8 @@ namespace QLogicaeCppCoreTest
             worker_threads.emplace_back(
                 [&execution_completed]
                 {
-                    SingletonManager& instance_manager =
-                        SingletonManager::get_this_singleton();
+                    SingletonManager instance_manager;
+                        
 
                     int& instance_value =
                         SingletonManager::get_singleton<int>();
@@ -268,8 +267,8 @@ namespace QLogicaeCppCoreTest
         Should_CompleteUnderLoad_Expect_NoFailure_When_StressTested
     )
     {
-        SingletonManager& instance_manager =
-            SingletonManager::get_this_singleton();
+        SingletonManager instance_manager;
+            
 
         std::size_t const ITERATION_COUNT =
             static_cast<std::size_t>(1'000'000);
@@ -290,8 +289,8 @@ namespace QLogicaeCppCoreTest
         Should_NotThrow_Expect_NoException_When_RepeatedCallsMade
     )
     {
-        SingletonManager& instance_manager =
-            SingletonManager::get_this_singleton();
+        SingletonManager instance_manager;
+            
 
         ASSERT_NO_THROW(
             {
@@ -533,8 +532,8 @@ namespace QLogicaeCppCoreTest
         Should_ReturnTrue_When_ConstructCalledMultipleTimes
     )
     {
-        SingletonManager& manager =
-            SingletonManager::get_this_singleton();
+        SingletonManager manager;
+            
 
         ASSERT_TRUE(manager.construct());
         ASSERT_TRUE(manager.construct());
@@ -545,8 +544,8 @@ namespace QLogicaeCppCoreTest
         Should_ReturnTrue_When_DestructCalledWithoutConstruct
     )
     {
-        SingletonManager& manager =
-            SingletonManager::get_this_singleton();
+        SingletonManager manager;
+            
 
         ASSERT_TRUE(manager.destruct());
     }
@@ -556,8 +555,8 @@ namespace QLogicaeCppCoreTest
         Should_ResetStateSuccessfully_When_ResetCalledRepeatedly
     )
     {
-        SingletonManager& manager =
-            SingletonManager::get_this_singleton();
+        SingletonManager manager;
+            
 
         ASSERT_TRUE(manager.reset());
         ASSERT_TRUE(manager.reset());
@@ -568,8 +567,8 @@ namespace QLogicaeCppCoreTest
         Should_PreserveSingletonIdentity_Across_ConstructDestructCycles
     )
     {
-        SingletonManager& manager =
-            SingletonManager::get_this_singleton();
+        SingletonManager manager;
+            
 
         int& first =
             SingletonManager::get_singleton<int>();
@@ -610,8 +609,8 @@ namespace QLogicaeCppCoreTest
         Should_MaintainOrdering_When_ConstructThen_DestructCalled
     )
     {
-        SingletonManager& manager =
-            SingletonManager::get_this_singleton();
+        SingletonManager manager;
+            
 
         ASSERT_TRUE(manager.construct());
         ASSERT_TRUE(manager.destruct());
@@ -622,8 +621,8 @@ namespace QLogicaeCppCoreTest
         Should_MaintainOrdering_When_DestructThen_ConstructCalled
     )
     {
-        SingletonManager& manager =
-            SingletonManager::get_this_singleton();
+        SingletonManager manager;
+            
 
         ASSERT_TRUE(manager.destruct());
         ASSERT_TRUE(manager.construct());
@@ -634,8 +633,8 @@ namespace QLogicaeCppCoreTest
         Should_HandleResetBetweenConstructAndDestruct
     )
     {
-        SingletonManager& manager =
-            SingletonManager::get_this_singleton();
+        SingletonManager manager;
+            
 
         ASSERT_TRUE(manager.construct());
         ASSERT_TRUE(manager.reset());
@@ -647,8 +646,8 @@ namespace QLogicaeCppCoreTest
         Should_NotThrow_When_ResetCalledWithoutPriorOperations
     )
     {
-        SingletonManager& manager =
-            SingletonManager::get_this_singleton();
+        SingletonManager manager;
+            
 
         ASSERT_NO_THROW(
             {
@@ -669,8 +668,7 @@ namespace QLogicaeCppCoreTest
 			threads.emplace_back(
 				[]
 				{
-					SingletonManager& manager =
-						SingletonManager::get_this_singleton();
+					SingletonManager manager;						
 
 					manager.construct();
 					manager.reset();
@@ -705,8 +703,10 @@ namespace QLogicaeCppCoreTest
 		std::thread t2(
 			[]
 			{
-				SingletonManager::get_this_singleton().construct();
-				SingletonManager::get_this_singleton().destruct();
+				SingletonManager manager;
+
+				manager.construct();
+				manager.destruct();
 			}
 		);
 
@@ -769,8 +769,8 @@ namespace QLogicaeCppCoreTest
 		Should_MaintainCorrectOrdering_UnderInterleavedCalls
 	)
 	{
-		SingletonManager& manager =
-			SingletonManager::get_this_singleton();
+		SingletonManager manager;
+			
 
 		ASSERT_TRUE(manager.construct());
 		ASSERT_TRUE(manager.reset());
@@ -838,8 +838,8 @@ namespace QLogicaeCppCoreTest
 		Should_IgnoreIsEnabledFlag_When_GetSingletonCalled
 	)
 	{
-		SingletonManager& manager =
-			SingletonManager::get_this_singleton();
+		SingletonManager manager;
+			
 
 		SingletonManagerConfigurations configurations;
 		configurations.is_feature_runtime_execution_handling_enabled = false;
@@ -858,8 +858,8 @@ namespace QLogicaeCppCoreTest
 		Should_NotEnforceThreadSafetyFlag_OnTypedSingletonMutation
 	)
 	{
-		SingletonManager& manager =
-			SingletonManager::get_this_singleton();
+		SingletonManager manager;
+			
 
 		SingletonManagerConfigurations configurations;
 		configurations.is_thread_safety_override_enabled = true;
@@ -894,8 +894,8 @@ namespace QLogicaeCppCoreTest
 		Should_ReturnTrue_When_DestructCalledBeforeConstruct
 	)
 	{
-		SingletonManager& manager =
-			SingletonManager::get_this_singleton();
+		SingletonManager manager;
+			
 
 		ASSERT_TRUE(
 			manager.destruct()
@@ -907,8 +907,8 @@ namespace QLogicaeCppCoreTest
 		Should_ReturnTrue_When_ConstructCalledAfterDestruct
 	)
 	{
-		SingletonManager& manager =
-			SingletonManager::get_this_singleton();
+		SingletonManager manager;
+			
 
 		ASSERT_TRUE(manager.construct());
 		ASSERT_TRUE(manager.destruct());
@@ -999,8 +999,8 @@ namespace QLogicaeCppCoreTest
 		Should_AllowTypedSingletonAccess_After_ManagerDestruct
 	)
 	{
-		SingletonManager& manager =
-			SingletonManager::get_this_singleton();
+		SingletonManager manager;
+			
 
 		manager.construct();
 		manager.destruct();
@@ -1017,8 +1017,8 @@ namespace QLogicaeCppCoreTest
 		Should_Allow_Concurrent_Construct_And_GetSingleton
 	)
 	{
-		SingletonManager& manager =
-			SingletonManager::get_this_singleton();
+		SingletonManager manager;
+			
 
 		std::thread t1(
 			[&]
@@ -1040,4 +1040,90 @@ namespace QLogicaeCppCoreTest
 		SUCCEED();
 	}
 
+	TEST(
+		SingletonManagerFlagTest,
+		Should_ReturnFalse_When_RuntimeExecutionDisabledForUtilityHandling
+	)
+	{
+		SingletonManagerConfigurations configurations;
+		configurations.is_utility_runtime_execution_handling_enabled = false;
+		configurations.is_runtime_execution_handling_override_enabled = false;
+
+		SingletonManager manager; 
+		manager.setup(configurations);
+
+		ASSERT_FALSE(manager.construct());
+		ASSERT_FALSE(manager.destruct());
+	}
+
+	TEST(
+		SingletonManagerFlagTest,
+		Should_NotAcquireMutex_When_ThreadSafetyDisabledForUtilityHandling
+	)
+	{
+		SingletonManagerConfigurations configurations;
+		configurations.is_utility_handling_thread_safety_enabled = false;
+		configurations.is_thread_safety_override_enabled = false;
+
+		SingletonManager manager;
+
+		ASSERT_TRUE(manager.construct());
+		ASSERT_TRUE(manager.destruct());
+	}
+
+	TEST(
+		SingletonManagerFlagTest,
+		Should_EnableEdgeCaseHandling_When_OverrideEnabled
+	)
+	{
+		SingletonManagerConfigurations configurations;
+		configurations.is_edge_case_handling_override_enabled = true;
+		configurations.is_utility_edge_case_handling_enabled = false;
+		configurations.is_feature_edge_case_handling_enabled = false;
+		configurations.is_error_edge_case_handling_enabled = false;
+
+		SingletonManager manager;
+		manager.setup(
+			configurations
+		);
+
+		ASSERT_TRUE(
+			manager
+				.configurations.is_edge_case_enabled_for_utility_handling()
+		);
+
+		ASSERT_TRUE(
+			manager
+				.configurations.is_edge_case_enabled_for_feature_handling()
+		);
+
+		ASSERT_TRUE(
+			manager
+				.configurations.is_edge_case_enabled_for_error_handling()
+		);
+	}
+
+	TEST(
+		SingletonManagerExceptionTest,
+		Should_HandleExceptions_From_ConstructAndDestruct
+	)
+	{
+		struct ExceptionManager : SingletonManager
+		{
+			bool construct()
+			{
+				throw std::runtime_error("construct error");
+			}
+
+			bool destruct()
+			{
+				throw std::runtime_error("destruct error");
+			}
+		};
+
+		ExceptionManager manager;
+
+		ASSERT_THROW(manager.construct(), std::runtime_error);
+		ASSERT_THROW(manager.destruct(), std::runtime_error);
+	}
 }

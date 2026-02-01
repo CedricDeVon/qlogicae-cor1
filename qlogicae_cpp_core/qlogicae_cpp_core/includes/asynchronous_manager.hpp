@@ -152,6 +152,23 @@ namespace
 	{
 		try
         {
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_feature_handling() ||				
+				(
+					configurations
+						.is_edge_case_enabled_for_feature_handling() &&
+					(
+						implementation_method == nullptr
+					)
+				)
+			)
+			{
+				return
+					std::future<ReturnType>();
+			}
+
 			boost::unique_lock<boost::mutex>
 				mutex_lock;
 			if (configurations.is_thread_safety_enabled_for_feature_handling())
@@ -256,6 +273,24 @@ namespace
 	{
 		try
         {
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_feature_handling() ||				
+				(
+					configurations
+						.is_edge_case_enabled_for_feature_handling() &&
+					(
+						implementation_method == nullptr ||
+						callback_method == nullptr
+					)
+				)
+			)
+			{
+				return
+					false;
+			}
+
 			boost::unique_lock<boost::mutex>
 				mutex_lock;
 			if (configurations.is_thread_safety_enabled_for_feature_handling())
@@ -323,6 +358,24 @@ namespace
 	{
 		try
         {            
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_feature_handling() ||				
+				(
+					configurations
+						.is_edge_case_enabled_for_feature_handling() &&
+					(
+						implementation_method == nullptr ||
+						callback_method == nullptr
+					)
+				)
+			)
+			{
+				return
+					false;
+			}
+
 			boost::unique_lock<boost::mutex>
 				mutex_lock;
 			if (configurations.is_thread_safety_enabled_for_feature_handling())
@@ -425,6 +478,23 @@ namespace
 	{
 		try
         {
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_feature_handling() ||				
+				(
+					configurations
+						.is_edge_case_enabled_for_feature_handling() &&
+					(
+						implementation_method == nullptr
+					)
+				)
+			)
+			{
+				return
+					std::future<ReturnType>();
+			}
+
 			boost::unique_lock<boost::mutex>
 				mutex_lock;
 			if (configurations.is_thread_safety_enabled_for_feature_handling())
@@ -531,6 +601,24 @@ namespace
 	{
 		try
         {
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_feature_handling() ||				
+				(
+					configurations
+						.is_edge_case_enabled_for_feature_handling() &&
+					(
+						implementation_method == nullptr ||
+						callback_method == nullptr
+					)
+				)
+			)
+			{
+				return
+					false;
+			}
+
 			boost::unique_lock<boost::mutex>
 				mutex_lock;
 			if (configurations.is_thread_safety_enabled_for_feature_handling())
@@ -600,6 +688,24 @@ namespace
 	{
 		try
         {
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_feature_handling() ||				
+				(
+					configurations
+						.is_edge_case_enabled_for_feature_handling() &&
+					(
+						implementation_method == nullptr ||
+						callback_method == nullptr
+					)
+				)
+			)
+			{
+				return
+					false;
+			}
+
 			boost::unique_lock<boost::mutex>
 				mutex_lock;
 			if (configurations.is_thread_safety_enabled_for_feature_handling())
@@ -697,6 +803,23 @@ namespace
 	{
 		try
         {
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_feature_handling() ||				
+				(
+					configurations
+						.is_edge_case_enabled_for_feature_handling() &&
+					(
+						implementation_method == nullptr
+					)
+				)
+			)
+			{
+				return
+					std::future<ReturnType>();
+			}
+
 			boost::unique_lock<boost::mutex>
 				mutex_lock;
 			if (configurations.is_thread_safety_enabled_for_feature_handling())
@@ -803,6 +926,24 @@ namespace
 	{
 		try
         {
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_feature_handling() ||				
+				(
+					configurations
+						.is_edge_case_enabled_for_feature_handling() &&
+					(
+						implementation_method == nullptr ||
+						callback_method == nullptr
+					)
+				)
+			)
+			{
+				return
+					false;
+			}
+
             boost::unique_lock<boost::mutex>
 				mutex_lock;
 			if (configurations.is_thread_safety_enabled_for_feature_handling())
@@ -872,6 +1013,24 @@ namespace
 	{
 		try
         {
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_feature_handling() ||				
+				(
+					configurations
+						.is_edge_case_enabled_for_feature_handling() &&
+					(
+						implementation_method == nullptr ||
+						callback_method == nullptr
+					)
+				)
+			)
+			{
+				return
+					false;
+			}
+
             boost::unique_lock<boost::mutex>
 				mutex_lock;
 			if (configurations.is_thread_safety_enabled_for_feature_handling())

@@ -457,5 +457,269 @@ namespace
 				.is_thread_safety_enabled_for_error_handling()
 		);
 	}
+
+	TEST_F(
+		AbstractConfigurationsTest,
+		Should_DisableUtilityRuntimeExecution_When_FlagFalse
+	)
+	{
+		configurations
+			.is_utility_runtime_execution_handling_enabled =
+				false;
+
+		ASSERT_TRUE(
+			configurations
+				.is_runtime_execution_disabled_for_utility_handling()
+		);
+	}
+
+	TEST_F(
+		AbstractConfigurationsTest,
+		Should_DisableFeatureRuntimeExecution_When_FlagFalse
+	)
+	{
+		configurations
+			.is_feature_runtime_execution_handling_enabled =
+				false;
+
+		ASSERT_TRUE(
+			configurations
+				.is_runtime_execution_disabled_for_feature_handling()
+		);
+	}
+
+	TEST_F(
+		AbstractConfigurationsTest,
+		Should_DisableErrorRuntimeExecution_When_FlagFalse
+	)
+	{
+		configurations
+			.is_error_runtime_execution_handling_enabled =
+				false;
+
+		ASSERT_TRUE(
+			configurations
+				.is_runtime_execution_disabled_for_error_handling()
+		);
+	}
+
+	TEST_P(
+		AbstractConfigurationsParameterizedTest,
+		Should_OverrideRuntimeExecution_When_OverrideEnabled
+	)
+	{
+		configurations
+			.is_runtime_execution_handling_override_enabled =
+				GetParam();
+
+		ASSERT_EQ(
+			configurations
+				.is_runtime_execution_enabled_for_utility_handling(),
+			GetParam() ||
+			configurations
+				.is_utility_runtime_execution_handling_enabled
+		);
+
+		ASSERT_EQ(
+			configurations
+				.is_runtime_execution_enabled_for_feature_handling(),
+			GetParam() ||
+			configurations
+				.is_feature_runtime_execution_handling_enabled
+		);
+
+		ASSERT_EQ(
+			configurations
+				.is_runtime_execution_enabled_for_error_handling(),
+			GetParam() ||
+			configurations
+				.is_error_runtime_execution_handling_enabled
+		);
+	}
+
+	INSTANTIATE_TEST_CASE_P(
+		RuntimeOverrideValues,
+		AbstractConfigurationsParameterizedTest,
+		::testing::Values(
+			false,
+			true
+		)
+	);
+
+	TEST_F(
+		AbstractConfigurationsTest,
+		Should_EnableEdgeCase_When_OverrideEnabled
+	)
+	{
+		configurations
+			.is_edge_case_handling_override_enabled =
+				true;
+
+		ASSERT_TRUE(
+			configurations
+				.is_edge_case_enabled_for_utility_handling()
+		);
+
+		ASSERT_TRUE(
+			configurations
+				.is_edge_case_enabled_for_feature_handling()
+		);
+
+		ASSERT_TRUE(
+			configurations
+				.is_edge_case_enabled_for_error_handling()
+		);
+	}
+
+	TEST_F(
+		AbstractClassTest,
+		Should_Not_Construct_When_RuntimeExecutionDisabled
+	)
+	{
+		instance
+			.configurations
+			.is_utility_runtime_execution_handling_enabled =
+				false;
+
+		ASSERT_FALSE(
+			instance.construct()
+		);
+	}
+
+	TEST_F(
+		AbstractClassTest,
+		Should_Not_Destruct_When_RuntimeExecutionDisabled
+	)
+	{
+		instance
+			.configurations
+			.is_utility_runtime_execution_handling_enabled =
+				false;
+
+		ASSERT_FALSE(
+			instance.destruct()
+		);
+	}
+
+	TEST_F(
+		AbstractClassTest,
+		Should_Not_Reset_When_RuntimeExecutionDisabled
+	)
+	{
+		instance
+			.configurations
+			.is_utility_runtime_execution_handling_enabled =
+				false;
+
+		ASSERT_FALSE(
+			instance.reset()
+		);
+	}
+
+	TEST_F(
+		AbstractClassTest,
+		Should_Not_Setup_When_RuntimeExecutionDisabled
+	)
+	{
+		TestConfigurations
+			new_configurations;
+
+		instance
+			.configurations
+			.is_utility_runtime_execution_handling_enabled =
+				false;
+
+		ASSERT_FALSE(
+			instance.setup(
+				new_configurations
+			)
+		);
+	}
+
+	TEST_F(
+		AbstractClassTest,
+		Should_Handle_Null_Callback_When_EdgeCaseEnabled
+	)
+	{
+		instance
+			.configurations
+			.is_edge_case_handling_override_enabled =
+				true;
+
+		ASSERT_NO_THROW(
+			instance.handle_callback_wrapper<void>(
+				nullptr
+			)
+		);
+	}
+
+	TEST_F(
+		AbstractClassTest,
+		Should_Invoke_Callback_When_Valid
+	)
+	{
+		std::atomic<bool>
+			called =
+				false;
+
+		instance.handle_callback_wrapper<void>(
+			[&called]()
+			{
+				called =
+					true;
+			}
+		);
+
+		ASSERT_TRUE(
+			called.load()
+		);
+	}
+
+	TEST(
+		AbstractClassFailureTest,
+		Should_ReturnFalse_When_ErrorHandlerFails
+	)
+	{
+		FailingTestClass
+			instance;
+
+		ASSERT_THROW(
+			{
+				instance.handle_callback_wrapper<bool>(
+					[]()
+					{
+						throw std::runtime_error(
+							"failure"
+						);
+					}
+				);
+			},
+			std::runtime_error
+		);
+	}
+
+	TEST(
+		AbstractClassDestructorTest,
+		Should_Not_Throw_When_DestructThrows
+	)
+	{
+		ASSERT_NO_THROW(
+			{
+				class LocalClass :
+					public AbstractClass<TestConfigurations>
+				{
+				public:
+					bool
+						destruct()
+					{
+						throw std::runtime_error(
+							"destruct"
+						);
+					}
+				} instance;
+			}
+		);
+	}
+
 }
 

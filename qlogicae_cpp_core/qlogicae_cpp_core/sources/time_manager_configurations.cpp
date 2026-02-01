@@ -6,21 +6,16 @@ namespace
 	QLogicaeCppCore
 {
 	TimeManagerConfigurations
-		TimeManagerConfigurations
-			::initial_configurations =
-				[]()
-				{
-					TimeManagerConfigurations
-						configurations;
-				
-					configurations
-						.time_zone =
-							TimeZone::UTC;
-					
+		::TimeManagerConfigurations() :
+			AbstractConfigurations<TimeManagerConfigurations>()
+	{
+		time_zone =
+			TimeZone::UTC;
+	}
 
-					return
-						configurations;
-				}();
+	TimeManagerConfigurations
+		TimeManagerConfigurations
+			::initial_configurations;
 
 	TimeManagerConfigurations
 		TimeManagerConfigurations

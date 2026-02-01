@@ -15,5 +15,7 @@ namespace
 
 		static ConsoleIoManagerConfigurations
 			default_configurations;
+
+		ConsoleIoManagerConfigurations();
     };
 }

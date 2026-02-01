@@ -5,25 +5,20 @@
 namespace
 	QLogicaeCppCore
 {
-    TemperatureManagerConfigurations
+	TemperatureManagerConfigurations
+		::TemperatureManagerConfigurations() :
+			AbstractConfigurations<TemperatureManagerConfigurations>()
+	{
+		original_unit =
+			TemperatureUnit::FAHRENHEIT;
+
+		target_unit =
+			TemperatureUnit::CELSIUS;
+	}
+
+	TemperatureManagerConfigurations
 		TemperatureManagerConfigurations
-			::initial_configurations =
-				[]()
-				{
-					TemperatureManagerConfigurations
-						configurations;
-
-					configurations
-						.original_unit =
-							TemperatureUnit::FAHRENHEIT;
-					
-					configurations
-						.target_unit =
-							TemperatureUnit::CELSIUS;
-
-					return
-						configurations;
-				}();
+			::initial_configurations;
 
 	TemperatureManagerConfigurations
 		TemperatureManagerConfigurations

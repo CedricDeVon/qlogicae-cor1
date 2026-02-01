@@ -4,22 +4,18 @@
 
 namespace
 	QLogicaeCppCore
-{
+{	
+	UuidManagerConfigurations
+		::UuidManagerConfigurations() :
+			AbstractConfigurations<UuidManagerConfigurations>()
+	{
+		type =
+			Uuid::V4;
+	}
+
 	UuidManagerConfigurations
 		UuidManagerConfigurations
-			::initial_configurations =
-				[]()
-				{
-					UuidManagerConfigurations
-						configurations;
-
-					configurations
-						.type =
-							Uuid::V4;
-
-					return
-						configurations;
-				}();
+			::initial_configurations;
 
 	UuidManagerConfigurations
 		UuidManagerConfigurations

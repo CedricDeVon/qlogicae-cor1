@@ -29,13 +29,13 @@ namespace
 				default_configurations
 					.specified_length;
 
-
-
 		static TextManagerConfigurations
 			initial_configurations;
 
 		static TextManagerConfigurations
 			default_configurations;
+
+		TextManagerConfigurations();
     };    
 }
 

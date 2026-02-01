@@ -24,14 +24,14 @@ namespace
 			is_executed_immediately =
 				default_configurations
 					.is_executed_immediately;
-	
-
 
 		static TimeoutClockConfigurations
 			initial_configurations;
 
 		static TimeoutClockConfigurations
 			default_configurations;
+
+		TimeoutClockConfigurations();
 	};
 }
 

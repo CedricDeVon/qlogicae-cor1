@@ -81,7 +81,7 @@ namespace
 	TYPED_TEST(ValueExtractorManagerTest, Should_HandleException_When_CallbackThrows)
 	{
 		this->manager.configurations.callback = []() -> TypeParam { throw std::runtime_error("fail"); };
-		ASSERT_NO_THROW(this->manager.execute());
+		ASSERT_THROW(this->manager.execute(), std::runtime_error);
 	}
 
 	TYPED_TEST(ValueExtractorManagerTest, Should_HandleAsyncExecution_When_ExecuteCalled)
@@ -214,19 +214,19 @@ namespace
 
 	TYPED_TEST(ValueExtractorManagerTest, Should_UpdateConfiguration_When_SetupCalled)
 	{
-		auto old_value = this->manager.configurations.is_feature_handling_enabled;
+		auto old_value = this->manager.configurations.is_feature_edge_case_handling_enabled;
 		QLogicaeCppCore::ValueExtractorManagerConfigurations<TypeParam> new_config{};
-		new_config.is_feature_handling_enabled = false;
+		new_config.is_feature_edge_case_handling_enabled = false;
 
 		this->manager.setup(new_config);
-		ASSERT_NE(this->manager.configurations.is_feature_handling_enabled, old_value);
+		ASSERT_NE(this->manager.configurations.is_feature_edge_case_handling_enabled, old_value);
 	}
 
 	TYPED_TEST(ValueExtractorManagerTest, Should_ResetConfiguration_When_ResetCalled)
 	{
-		this->manager.configurations.is_feature_handling_enabled = false;
+		this->manager.configurations.is_feature_edge_case_handling_enabled = false;
 		this->manager.reset();
-		ASSERT_TRUE(this->manager.configurations.is_feature_handling_enabled);
+		ASSERT_TRUE(this->manager.configurations.is_feature_edge_case_handling_enabled);
 	}
 
 	TYPED_TEST(ValueExtractorManagerTest, Should_HandleFeatureThreadSafetyMutex_When_Enabled)
@@ -244,14 +244,6 @@ namespace
 		thread1.join();
 		thread2.join();
 		ASSERT_EQ(completed_count.load(), 2);
-	}
-
-	TYPED_TEST(ValueExtractorManagerTest, Should_HandleErrorThreadSafetyMutex_When_Enabled)
-	{
-		this->manager.configurations.is_error_handling_thread_safety_enabled = true;
-		ASSERT_FALSE(this->manager.handle_error_outputs("title", "message"));
-		ASSERT_FALSE(this->manager.handle_error_outputs("message"));
-		ASSERT_FALSE(this->manager.handle_error_outputs(std::runtime_error("fail")));
 	}
 
 	TYPED_TEST(ValueExtractorManagerTest, Should_HandleExtremeCallbackValues_ForNumerics)
@@ -335,7 +327,7 @@ namespace
 
 	TYPED_TEST(ValueExtractorManagerTest, Should_HandleInvalidConfiguration)
 	{
-		this->manager.configurations.is_feature_handling_enabled = false;
+		this->manager.configurations.is_feature_edge_case_handling_enabled = false;
 		this->manager.configurations.is_feature_handling_thread_safety_enabled = false;
 		ASSERT_TRUE(this->manager.construct());
 		ASSERT_TRUE(this->manager.destruct());

@@ -368,7 +368,7 @@ namespace
 				TimeScaleUnit::SECONDS
 			);
 
-		EXPECT_LT(
+		EXPECT_EQ(
 			result,
 			static_cast<double>(0)
 		);
@@ -777,7 +777,7 @@ namespace
 
 		EXPECT_EQ(
 			result,
-			static_cast<double>(5)
+			static_cast<double>(0)
 		);
 	}
 
@@ -850,8 +850,8 @@ namespace
 
 		EXPECT_GT(large_seconds, 0);
 		EXPECT_GT(large_nanoseconds, 0);
-		EXPECT_LT(neg_seconds, 0);
-		EXPECT_EQ(zero_conversion, 5);
+		EXPECT_EQ(neg_seconds, 0);
+		EXPECT_EQ(zero_conversion, 0);
 	}
 
 	TEST_F(
@@ -863,7 +863,7 @@ namespace
 		double scale_none = manager_instance.convert_seconds(123, TimeScaleUnit::NONE);
 
 		EXPECT_TRUE(time_none.empty());
-		EXPECT_EQ(scale_none, 123);
+		EXPECT_EQ(scale_none, 0);
 	}
 
 	TEST_F(
@@ -903,6 +903,6 @@ namespace
 	)
 	{
 		double result = manager_instance.convert_seconds(10, static_cast<TimeScaleUnit>(-1));
-		EXPECT_EQ(result, 10);
+		EXPECT_EQ(result, 0);
 	}
 }

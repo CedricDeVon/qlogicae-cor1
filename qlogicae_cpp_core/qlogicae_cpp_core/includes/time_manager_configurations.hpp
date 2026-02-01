@@ -16,13 +16,13 @@ namespace
 				default_configurations
 					.time_zone;
 
-
-
 		static TimeManagerConfigurations
 			initial_configurations;
 
 		static TimeManagerConfigurations
 			default_configurations;
+
+		TimeManagerConfigurations();
 	};
 }
 

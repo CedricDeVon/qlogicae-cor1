@@ -6,16 +6,15 @@ namespace
 	QLogicaeCppCore
 {
 	RandomValueGenerationManagerConfigurations
-		RandomValueGenerationManagerConfigurations
-			::initial_configurations =
-				[]()
-				{
-					RandomValueGenerationManagerConfigurations
-						configurations;
+		::RandomValueGenerationManagerConfigurations() :
+			AbstractConfigurations<RandomValueGenerationManagerConfigurations>()
+	{
+		
+	}
 
-					return
-						configurations;
-				}();
+	RandomValueGenerationManagerConfigurations
+		RandomValueGenerationManagerConfigurations
+			::initial_configurations;
 
 	RandomValueGenerationManagerConfigurations
 		RandomValueGenerationManagerConfigurations

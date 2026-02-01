@@ -162,7 +162,16 @@ namespace
 	{
 		Uuid type = GetParam();
 		std::string result = manager.generate_uuid(type);
-		ASSERT_FALSE(result.empty());
+		switch (type)
+		{
+			case Uuid::V4:
+				ASSERT_FALSE(result.empty());
+				break;
+
+			case Uuid::NONE:
+				ASSERT_TRUE(result.empty());
+				break;			
+		}		
 	}
 
 	TEST_F(UuidManagerTest, Should_DelegateToDefaultType_When_GenerateUuidWithoutType)

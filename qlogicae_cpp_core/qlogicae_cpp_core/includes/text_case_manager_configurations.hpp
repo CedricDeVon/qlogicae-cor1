@@ -26,13 +26,13 @@ namespace
 				default_configurations
 					.target_type;
 
-
-
 		static TextCaseManagerConfigurations
 			initial_configurations;
 
 		static TextCaseManagerConfigurations
 			default_configurations;
+
+		TextCaseManagerConfigurations();
 	};
 }
 

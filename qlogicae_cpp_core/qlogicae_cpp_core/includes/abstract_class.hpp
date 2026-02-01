@@ -60,6 +60,12 @@ namespace
 				const std::exception&
 					exception
 			);
+
+		template <typename OutputType = bool> OutputType
+			handle_callback_wrapper(
+				const std::function<void()>&
+					callback
+			);
     };
 
 	template <typename AbstractConfigurationsType>
@@ -392,22 +398,35 @@ namespace
 				.handle_error_outputs<OutputType>(
 					exception
 			);
-	} 	
-}
+	} 
 
-/*
-
-- Potential Wrapper Method
-
-	template <typename AbstractConfigurationsType> bool
+	template <typename AbstractConfigurationsType>
+	template <typename OutputType> OutputType
 		AbstractClass<AbstractConfigurationsType>
-			::handle(
-				const std::function<void()>
+			::handle_callback_wrapper(
+				const std::function<void()>&
 					callback
 			)
 	{
 		try
 		{
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_feature_handling() ||				
+				(
+					configurations
+						.is_edge_case_enabled_for_feature_handling() &&
+					(
+						callback == nullptr
+					)
+				)
+			)
+			{
+				return
+					OutputType{};
+			}
+
 			boost::unique_lock<boost::mutex>
 				mutex_lock;
 			if (configurations.is_thread_safety_enabled_for_feature_handling())
@@ -422,7 +441,7 @@ namespace
 			callback();
 
 			return
-				true;
+				OutputType{};
 		}
 		catch
 		(
@@ -431,11 +450,9 @@ namespace
 		)
 		{
 			return
-				handle_error_outputs(
+				handle_error_outputs<OutputType>(
 					exception
 				);
 		}
-	}
-
-
-*/ 
+	}	
+}

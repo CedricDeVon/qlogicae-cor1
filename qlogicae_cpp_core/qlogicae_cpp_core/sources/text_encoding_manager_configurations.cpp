@@ -4,26 +4,21 @@
 
 namespace
 	QLogicaeCppCore
-{
+{	
+	TextEncodingManagerConfigurations
+		::TextEncodingManagerConfigurations() :
+			AbstractConfigurations<TextEncodingManagerConfigurations>()
+	{
+		original_type =
+			TextEncoding::NONE;
+
+		target_type =
+			TextEncoding::NONE;
+	}
+
 	TextEncodingManagerConfigurations
 		TextEncodingManagerConfigurations
-			::initial_configurations =
-				[]()
-				{
-					TextEncodingManagerConfigurations
-						configurations;
-
-					configurations
-						.original_type =
-							TextEncoding::NONE;
-
-					configurations
-						.target_type =
-							TextEncoding::NONE;
-
-					return
-						configurations;
-				}();
+			::initial_configurations;
 
 	TextEncodingManagerConfigurations
 		TextEncodingManagerConfigurations

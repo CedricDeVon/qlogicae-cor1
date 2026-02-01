@@ -30,13 +30,13 @@ namespace
 				default_configurations
 					.is_executed_immediately;
 
-
-
 		static IntervalClockConfigurations
 			initial_configurations;
 
 		static IntervalClockConfigurations
 			default_configurations;
+
+		IntervalClockConfigurations();
     };
 }
 

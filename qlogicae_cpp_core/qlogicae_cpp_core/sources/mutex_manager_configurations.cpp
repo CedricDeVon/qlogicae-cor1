@@ -9,9 +9,6 @@ namespace
 		::MutexManagerConfigurations() :
 			AbstractConfigurations<MutexManagerConfigurations>()
 	{
-		is_feature_edge_case_handling_enabled =
-			true;
-
 		is_feature_handling_thread_safety_enabled =
 			true;
 

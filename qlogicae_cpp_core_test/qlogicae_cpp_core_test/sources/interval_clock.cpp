@@ -112,6 +112,8 @@ namespace
 
 	TEST_F(IntervalClockTest, Should_HandleEdgeCases_When_MaximumIntervalCountZero)
 	{
+		manager_instance->configurations.is_feature_edge_case_handling_enabled = true;
+
 		manager_instance->configurations.maximum_interval_count = 0;
 		ASSERT_FALSE(manager_instance->start());
 		std::this_thread::sleep_for(std::chrono::milliseconds(5));

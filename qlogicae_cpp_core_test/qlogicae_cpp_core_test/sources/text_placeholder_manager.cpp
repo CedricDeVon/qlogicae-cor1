@@ -67,8 +67,11 @@ namespace
 	{
 		manager.configurations.conditional_callback = [](const std::string&) { throw std::runtime_error("fail"); return true; };
 		manager.configurations.is_conditional_callback_enabled = true;
-		std::string result = manager.convert_text("Hello", "Placeholder");
-		ASSERT_TRUE(result.empty());
+
+		ASSERT_THROW(
+			manager.convert_text("Hello", "Placeholder"),
+			std::runtime_error
+		);
 	}
 
 	TEST_F(TextPlaceholderManagerTest, Should_UseDefaultPlaceholder_When_ConvertTextOverloadCalled)

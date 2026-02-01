@@ -20,14 +20,14 @@ namespace
 			target_unit =
 				default_configurations
 					.target_unit;
-
-		
-
+	
 		static TemperatureManagerConfigurations
 			initial_configurations;
 
 		static TemperatureManagerConfigurations
 			default_configurations;
+
+		TemperatureManagerConfigurations();
 	};
 }
 

@@ -21,12 +21,12 @@ namespace
 				default_configurations
 					.target_type;
 
-
-
 		static TextEncodingManagerConfigurations
 			initial_configurations;
 
 		static TextEncodingManagerConfigurations
 			default_configurations;
+
+		TextEncodingManagerConfigurations();
 	};
 }

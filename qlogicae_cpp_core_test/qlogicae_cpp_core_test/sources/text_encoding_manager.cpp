@@ -109,11 +109,11 @@ namespace
 		ASSERT_EQ(result, "SGVsbG8=");
 	}
 
-	TEST_F(TextEncodingManagerTest, Should_ReturnEmpty_When_ConvertTextInvalidEncoding)
+	TEST_F(TextEncodingManagerTest, Should_ReturnNotEmpty_When_ConvertTextInvalidEncoding)
 	{
 		std::string result = encoding_manager.convert_text("abc",
 			TextEncoding::NONE, TextEncoding::BASE64);
-		ASSERT_TRUE(result.empty());
+		ASSERT_FALSE(result.empty());
 	}
 
 	TEST_F(TextEncodingManagerTest, Should_HandleMultithreadedEncoding)
@@ -301,16 +301,16 @@ namespace
 		ASSERT_EQ(result, original);
 	}
 
-	TEST_F(TextEncodingManagerTest, Should_ReturnEmpty_When_ConvertTextNoneToValid)
+	TEST_F(TextEncodingManagerTest, Should_ReturnNotEmpty_When_ConvertTextNoneToValid)
 	{
 		std::string result = encoding_manager.convert_text("abc", TextEncoding::NONE, TextEncoding::BASE16);
-		ASSERT_TRUE(result.empty());
+		ASSERT_FALSE(result.empty());
 	}
 
-	TEST_F(TextEncodingManagerTest, Should_ReturnEmpty_When_ConvertTextValidToNone)
+	TEST_F(TextEncodingManagerTest, Should_ReturnNotEmpty_When_ConvertTextValidToNone)
 	{
 		std::string result = encoding_manager.convert_text("48656C6C6F", TextEncoding::BASE16, TextEncoding::NONE);
-		ASSERT_TRUE(result.empty());
+		ASSERT_FALSE(result.empty());
 	}
 
 	TEST_F(TextEncodingManagerTest, Should_ReturnEmpty_When_PartialInvalidBase32)

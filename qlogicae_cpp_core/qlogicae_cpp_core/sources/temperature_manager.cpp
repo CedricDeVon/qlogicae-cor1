@@ -57,7 +57,17 @@ namespace
 			::construct()
     {
         try
-        {			
+        {	
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_utility_handling()
+			)
+			{
+				return
+					false;
+			}
+		
 			boost::unique_lock<boost::mutex>
 				mutex_lock;
 			if (configurations.is_thread_safety_enabled_for_utility_handling())
@@ -91,6 +101,16 @@ namespace
     {
         try
         {		
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_utility_handling()
+			)
+			{
+				return
+					false;
+			}
+
 			boost::unique_lock<boost::mutex>
 				mutex_lock;
 			if (configurations.is_thread_safety_enabled_for_utility_handling())
@@ -131,6 +151,24 @@ namespace
 	{
 		try
 		{		
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_feature_handling() ||				
+				(
+					configurations
+						.is_edge_case_enabled_for_feature_handling() &&
+					(
+						original_unit == TemperatureUnit::NONE ||
+						target_unit == TemperatureUnit::NONE
+					)
+				)
+			)
+			{
+				return
+					0.0;
+			}
+
 			boost::unique_lock<boost::mutex>
 				mutex_lock;
 			if (configurations.is_thread_safety_enabled_for_feature_handling())
@@ -207,7 +245,7 @@ namespace
 		)
 		{
 			return
-				handle_error_outputs(
+				handle_error_outputs<double>(
 					exception
 				);
 		}

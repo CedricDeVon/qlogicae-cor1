@@ -4,34 +4,27 @@
 
 namespace
 	QLogicaeCppCore
-{
+{	
+	TextManagerConfigurations
+		::TextManagerConfigurations() :
+			AbstractConfigurations<TextManagerConfigurations>()
+	{
+		replace_text_tokens_dictionary =
+			{};
+
+		split_text_delimeter =
+			",";
+
+		is_specified_length_enabled =
+			false;
+
+		specified_length =
+			128;
+	}
+
 	TextManagerConfigurations
 		TextManagerConfigurations
-			::initial_configurations =
-				[]()
-				{
-					TextManagerConfigurations
-						configurations;
-
-					configurations
-						.replace_text_tokens_dictionary =
-							{};
-
-					configurations
-						.split_text_delimeter =
-							",";
-
-					configurations
-						.is_specified_length_enabled =
-							false;
-
-					configurations
-						.specified_length =
-							128;
-
-					return
-						configurations;
-				}();
+			::initial_configurations;
 
 	TextManagerConfigurations
 		TextManagerConfigurations

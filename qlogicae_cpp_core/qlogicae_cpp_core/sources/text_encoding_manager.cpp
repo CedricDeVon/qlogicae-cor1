@@ -57,7 +57,17 @@ namespace
 			::construct()
     {
         try
-        {			
+        {		
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_utility_handling()
+			)
+			{
+				return
+					false;
+			}
+	
 			boost::unique_lock<boost::mutex>
 				mutex_lock;
 			if (configurations.is_thread_safety_enabled_for_utility_handling())
@@ -91,6 +101,16 @@ namespace
     {
         try
         {		
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_utility_handling()
+			)
+			{
+				return
+					false;
+			}
+
 			boost::unique_lock<boost::mutex>
 				mutex_lock;
 			if (configurations.is_thread_safety_enabled_for_utility_handling())
@@ -127,6 +147,23 @@ namespace
 	{
 		try
         {		
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_feature_handling() ||				
+				(
+					configurations
+						.is_edge_case_enabled_for_feature_handling() &&
+					(
+						input.size() % 2 != 0
+					)
+				)
+			)
+			{
+				return
+					"";
+			}
+
 			boost::unique_lock<boost::mutex>
 				mutex_lock;
 			if (configurations.is_thread_safety_enabled_for_feature_handling())
@@ -138,24 +175,26 @@ namespace
 					);
 			}			
 
-			if (input.size() % 2 != 0)
-			{
-				return {};
-			}
-
 			std::string output;
 			output.resize(input.size() / 2);
 
-			if (sodium_hex2bin(
-				reinterpret_cast<unsigned char*>(&output[0]),
-				output.size(),
-				input.data(),
-				input.size(),
-				nullptr,
-				nullptr,
-				nullptr) != 0)
+			try
 			{
-				return {};
+				if (sodium_hex2bin(
+					reinterpret_cast<unsigned char*>(&output[0]),
+					output.size(),
+					input.data(),
+					input.size(),
+					nullptr,
+					nullptr,
+					nullptr) != 0)
+				{
+					return "";
+				}
+			}
+			catch (...)
+			{
+				return "";
 			}
 
 			return output;
@@ -184,6 +223,23 @@ namespace
 	{
 		try
         {		
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_feature_handling() ||				
+				(
+					configurations
+						.is_edge_case_enabled_for_feature_handling() &&
+					(
+						input.empty()
+					)
+				)
+			)
+			{
+				return
+					"";
+			}
+
 			boost::unique_lock<boost::mutex>
 				mutex_lock;
 			if (configurations.is_thread_safety_enabled_for_feature_handling())
@@ -197,12 +253,20 @@ namespace
 
 			std::string output;
 			output.resize(input.size() * 2 + 1);
-			sodium_bin2hex(&output[0], output.size(),
-				reinterpret_cast<const unsigned char*>(input.data()),
-				input.size());
-			output.pop_back();
-			std::transform(output.begin(), output.end(), output.begin(),
-				[](unsigned char c) { return std::toupper(c); });
+
+			try
+			{
+				sodium_bin2hex(&output[0], output.size(),
+					reinterpret_cast<const unsigned char*>(input.data()),
+					input.size());
+				output.pop_back();
+				std::transform(output.begin(), output.end(), output.begin(),
+					[](unsigned char c) { return std::toupper(c); });
+			}
+			catch (...)
+			{
+				return "";
+			}			
 
 			return output;
         }
@@ -229,6 +293,23 @@ namespace
 	{
 		try
         {		
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_feature_handling() ||				
+				(
+					configurations
+						.is_edge_case_enabled_for_feature_handling() &&
+					(
+						input.empty()
+					)
+				)
+			)
+			{
+				return
+					"";
+			}
+
 			boost::unique_lock<boost::mutex>
 				mutex_lock;
 			if (configurations.is_thread_safety_enabled_for_feature_handling())
@@ -240,13 +321,22 @@ namespace
 					);
 			}			
 
-			using base32_codec = cppcodec::base32_rfc4648;
-			std::vector<uint8_t> decoded_bytes =
-				base32_codec::decode(input);
+			try
+			{
+				using base32_codec = cppcodec::base32_rfc4648;
+				std::vector<uint8_t> decoded_bytes =
+					base32_codec::decode(input);
 
-			return std::string(
-				decoded_bytes.begin(),
-				decoded_bytes.end());
+				return
+					std::string(
+						decoded_bytes.begin(),
+						decoded_bytes.end()
+					);
+			}
+			catch (...)
+			{
+				return "";
+			}					
         }
         catch
         (
@@ -272,6 +362,23 @@ namespace
 	{
 		try
         {		
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_feature_handling() ||				
+				(
+					configurations
+						.is_edge_case_enabled_for_feature_handling() &&
+					(
+						input.empty()
+					)
+				)
+			)
+			{
+				return
+					"";
+			}
+
 			boost::unique_lock<boost::mutex>
 				mutex_lock;
 			if (configurations.is_thread_safety_enabled_for_feature_handling())
@@ -283,11 +390,19 @@ namespace
 					);
 			}			
 			
-			using base32_codec = cppcodec::base32_rfc4648;
-			std::vector<uint8_t> binary_data(
-				input.begin(), input.end());
+			try
+			{
+				using base32_codec = cppcodec::base32_rfc4648;
+				std::vector<uint8_t> binary_data(
+					input.begin(), input.end());
 
-			return base32_codec::encode(binary_data);
+				return
+					base32_codec::encode(binary_data);
+			}
+			catch (...)
+			{
+				return "";
+			}			
         }
         catch
         (
@@ -312,6 +427,23 @@ namespace
 	{
 		try
         {		
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_feature_handling() ||				
+				(
+					configurations
+						.is_edge_case_enabled_for_feature_handling() &&
+					(
+						input.empty()
+					)
+				)
+			)
+			{
+				return
+					"";
+			}
+
 			boost::unique_lock<boost::mutex>
 				mutex_lock;
 			if (configurations.is_thread_safety_enabled_for_feature_handling())
@@ -326,20 +458,27 @@ namespace
 			std::string output = input;
 			size_t padding_needed = (4 - (output.size() % 4)) % 4;
 			output.append(padding_needed, '=');
-
 			size_t written = 0;
-			if (sodium_base642bin(
-				reinterpret_cast<unsigned char*>(&output[0]),
-				output.size(),
-				output.data(),
-				output.size(),
-				nullptr,
-				&written,
-				nullptr,
-				sodium_base64_VARIANT_ORIGINAL) != 0)
+
+			try
 			{
-				return {};
+				if (sodium_base642bin(
+					reinterpret_cast<unsigned char*>(&output[0]),
+					output.size(),
+					output.data(),
+					output.size(),
+					nullptr,
+					&written,
+					nullptr,
+					sodium_base64_VARIANT_ORIGINAL) != 0)
+				{
+					return "";
+				}
 			}
+			catch (...)
+			{
+				return "";
+			}			
 
 			output.resize(written);
 			return output;
@@ -367,6 +506,23 @@ namespace
 	{
 		try
         {		
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_feature_handling() ||				
+				(
+					configurations
+						.is_edge_case_enabled_for_feature_handling() &&
+					(
+						input.empty()
+					)
+				)
+			)
+			{
+				return
+					"";
+			}
+
 			boost::unique_lock<boost::mutex>
 				mutex_lock;
 			if (configurations.is_thread_safety_enabled_for_feature_handling())
@@ -382,12 +538,19 @@ namespace
 			std::string output;
 			output.resize(encoded_size);
 
-			sodium_bin2base64(
-				&output[0],
-				output.size(),
-				reinterpret_cast<const unsigned char*>(input.data()),
-				input.size(),
-				sodium_base64_VARIANT_ORIGINAL);
+			try
+			{
+				sodium_bin2base64(
+					&output[0],
+					output.size(),
+					reinterpret_cast<const unsigned char*>(input.data()),
+					input.size(),
+					sodium_base64_VARIANT_ORIGINAL);
+			}
+			catch (...)
+			{
+				return "";
+			}			
 
 			output.pop_back(); 
 			return output;
@@ -420,6 +583,26 @@ namespace
 	{
 		try
         {		
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_feature_handling() ||				
+				(
+					configurations
+						.is_edge_case_enabled_for_feature_handling() &&
+					(
+						text.empty() ||
+						original_type == TextEncoding::NONE ||
+						target_type == TextEncoding::NONE ||
+						original_type == target_type
+					)
+				)
+			)
+			{
+				return
+					text;
+			}
+
 			boost::unique_lock<boost::mutex>
 				mutex_lock;
 			if (configurations.is_thread_safety_enabled_for_feature_handling())
@@ -429,21 +612,7 @@ namespace
 					(
 						feature_handling_mutex_1
 					);
-			}			
-
-			if (original_type == target_type)
-			{
-				return text;
-			}
-
-			if (
-				text.empty() ||
-				original_type == TextEncoding::NONE ||
-				target_type == TextEncoding::NONE
-			)
-			{
-				return {};
-			}
+			}		
 
 			std::string
 				bytes;

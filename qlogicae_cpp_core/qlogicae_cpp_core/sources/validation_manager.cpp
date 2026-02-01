@@ -58,6 +58,16 @@ namespace
     {
         try
         {			
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_utility_handling()
+			)
+			{
+				return
+					false;
+			}
+
 			boost::unique_lock<boost::mutex>
 				mutex_lock;
 			if (configurations.is_thread_safety_enabled_for_utility_handling())
@@ -90,7 +100,17 @@ namespace
 			::destruct()
     {
         try
-        {		
+        {	
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_utility_handling()
+			)
+			{
+				return
+					false;
+			}
+	
 			boost::unique_lock<boost::mutex>
 				mutex_lock;
 			if (configurations.is_thread_safety_enabled_for_utility_handling())
@@ -127,6 +147,23 @@ namespace
     {
         try
         {		
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_feature_handling() ||				
+				(
+					configurations
+						.is_edge_case_enabled_for_feature_handling() &&
+					(
+						conditional_callback == nullptr
+					)
+				)
+			)
+			{
+				return
+					false;
+			}
+
 			boost::unique_lock<boost::mutex>
 				mutex_lock;
 			if (configurations.is_thread_safety_enabled_for_feature_handling())
@@ -139,9 +176,7 @@ namespace
 			}			
 
 			return
-				(conditional_callback != nullptr) ?
-					conditional_callback() :
-					false;
+				conditional_callback();
         }
         catch
         (
@@ -162,6 +197,24 @@ namespace
     {
         try
         {	
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_feature_handling() ||				
+				(
+					configurations
+						.is_edge_case_enabled_for_feature_handling() &&
+					(
+						configurations
+							.conditional_callback == nullptr
+					)
+				)
+			)
+			{
+				return
+					false;
+			}
+
 			boost::unique_lock<boost::mutex>
 				mutex_lock;
 			if (configurations.is_thread_safety_enabled_for_feature_handling())
@@ -174,9 +227,8 @@ namespace
 			}
 				
 			return
-				(configurations.conditional_callback != nullptr) ?
-					configurations.conditional_callback() :
-					false;
+				configurations
+					.conditional_callback();
         }
         catch
         (

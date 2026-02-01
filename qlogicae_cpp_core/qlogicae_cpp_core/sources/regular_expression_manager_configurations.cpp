@@ -6,20 +6,16 @@ namespace
 	QLogicaeCppCore
 {
 	RegularExpressionManagerConfigurations
+		::RegularExpressionManagerConfigurations() :
+			AbstractConfigurations<RegularExpressionManagerConfigurations>()
+	{
+		pattern =
+			"";
+	}
+
+	RegularExpressionManagerConfigurations
 		RegularExpressionManagerConfigurations
-			::initial_configurations =
-				[]()
-				{
-					RegularExpressionManagerConfigurations
-						configurations;
-
-					configurations
-						.pattern =
-							"";
-
-					return
-						configurations;
-				}();
+			::initial_configurations;
 
 	RegularExpressionManagerConfigurations
 		RegularExpressionManagerConfigurations

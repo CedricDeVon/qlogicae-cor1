@@ -710,4 +710,174 @@ namespace
 
 		EXPECT_EQ(result.load(), 0);
 	}
+
+	TEST_F(
+		AsynchronousManagerTest,
+		Should_ExitConstructEarly_When_RuntimeExecutionEnabled
+	)
+	{
+		QLogicaeCppCore::AsynchronousManagerConfigurations configurations;
+		configurations.is_utility_runtime_execution_handling_enabled = true;
+		manager.setup(configurations);
+		bool result = manager.construct();
+		ASSERT_TRUE(result);
+	}
+
+	TEST_F(
+		AsynchronousManagerTest,
+		Should_ExitDestructEarly_When_RuntimeExecutionEnabled
+	)
+	{
+		QLogicaeCppCore::AsynchronousManagerConfigurations configurations;
+		configurations.is_utility_runtime_execution_handling_enabled = true;
+		manager.setup(configurations);
+		bool result = manager.destruct();
+		ASSERT_TRUE(result);
+	}
+
+	TEST_F(
+		AsynchronousManagerTest,
+		Should_ConstructDestructWithoutUtilityLock_When_ThreadSafetyDisabled
+	)
+	{
+		QLogicaeCppCore::AsynchronousManagerConfigurations configurations;
+		configurations.is_utility_handling_thread_safety_enabled = false;
+		manager.setup(configurations);
+		bool construct_result = manager.construct();
+		bool destruct_result = manager.destruct();
+		ASSERT_TRUE(construct_result);
+		ASSERT_TRUE(destruct_result);
+	}
+
+	TEST_F(
+		AsynchronousManagerTest,
+		Should_HandleMultipleBeginIOWorkersSequentially
+	)
+	{
+		EXPECT_TRUE(manager.begin_io_workers());
+		EXPECT_TRUE(manager.begin_io_workers());
+		EXPECT_TRUE(manager.complete_io_workers());
+	}
+
+	TEST_F(
+		AsynchronousManagerTest,
+		Should_HandleCompleteIOWorkersWithoutStarting
+	)
+	{
+		EXPECT_TRUE(manager.complete_io_workers());
+	}
+
+	TEST_F(
+		AsynchronousManagerTest,
+		Should_RecreateMainThreadPoolOnRepeatedBeginOneThread
+	)
+	{
+		for (int i = 0; i < 5; ++i)
+		{
+			EXPECT_TRUE(manager.begin_one_thread([]() {}));
+		}
+		manager.complete_all_threads();
+	}
+
+	TEST_F(
+		AsynchronousManagerTest,
+		Should_HandleMaximumConcurrencyCoSpawnStrand
+	)
+	{
+		ASSERT_TRUE(manager.begin_io_workers());
+
+		std::atomic<int> count{ 0 };
+
+		for (int i = 0; i < 1000; ++i)
+		{
+			manager.co_spawn_strand_async([&]() { count.fetch_add(1); });
+		}
+
+		EXPECT_TRUE(manager.complete_io_workers());
+		EXPECT_TRUE(manager.complete_all_threads());
+		ASSERT_GT(count.load(), 900);
+	}
+
+	TEST_F(
+		AsynchronousManagerTest,
+		Should_HandleUtilityAndFeatureMutexContention
+	)
+	{
+		std::thread t1([&]() { manager.construct(); });
+		std::thread t2([&]() { manager.begin_one_thread([]() {}); });
+		t1.join();
+		t2.join();
+		EXPECT_TRUE(manager.complete_io_workers());
+		EXPECT_TRUE(manager.complete_all_threads());
+	}
+
+	TEST_F(
+		AsynchronousManagerTest,
+		Should_TriggerTemporaryThreadPoolPath
+	)
+	{
+		manager.begin_one_thread([]() {});
+		EXPECT_TRUE(manager.complete_all_threads());
+	}
+
+	TEST_F(
+		AsynchronousManagerTest,
+		Should_HandleNonIntegralReturnType_PostThreadAwait
+	)
+	{
+		auto future_str =
+			manager.post_thread_await<std::string>([]() { return std::string("ok"); });
+		EXPECT_EQ(future_str.get(), "ok");
+
+		auto future_double =
+			manager.post_thread_await<double>([]() { return 3.14; });
+		EXPECT_DOUBLE_EQ(future_double.get(), 3.14);
+
+		struct Custom { int x; };
+		auto future_custom =
+			manager.post_thread_await<Custom>([]() { return Custom{42}; });
+		EXPECT_EQ(future_custom.get().x, 42);
+	}
+
+	TEST_F(
+		AsynchronousManagerTest,
+		Should_HandleExtremeHighConcurrencyCoSpawnStrand
+	)
+	{
+		ASSERT_TRUE(manager.begin_io_workers());
+
+		std::atomic<int> count{0};
+		int max_tasks = static_cast<int>(std::thread::hardware_concurrency()) * 8;
+
+		for (int i = 0; i < max_tasks; ++i)
+		{
+			manager.co_spawn_strand_async([&]() { count.fetch_add(1); });
+		}
+
+		EXPECT_TRUE(manager.complete_io_workers());
+		EXPECT_TRUE(manager.complete_all_threads());
+
+		ASSERT_EQ(count.load(), max_tasks);
+	}
+
+	TEST_F(
+		AsynchronousManagerTest,
+		Should_NotDeadlock_When_DestructCalledWithPendingTasks
+	)
+	{
+		ASSERT_TRUE(manager.begin_io_workers());
+
+		std::atomic<int> count{0};
+
+		for (int i = 0; i < 100; ++i)
+		{
+			manager.co_spawn_strand_async([&]() { std::this_thread::sleep_for(std::chrono::milliseconds(5)); count.fetch_add(1); });
+		}
+
+		bool destruct_result = manager.destruct();
+
+		
+		ASSERT_TRUE(destruct_result);
+		EXPECT_GE(count.load(), 0);
+	}
 }

@@ -2,7 +2,8 @@
 
 #include "../includes/error_manager.hpp"
 
-namespace QLogicaeCppCoreTest
+namespace
+	QLogicaeCppCoreTest
 {
     class ErrorManagerTest :
         public ::testing::Test
@@ -987,4 +988,272 @@ namespace QLogicaeCppCoreTest
 		EXPECT_FALSE(result);
 	}
 
+	TEST_F(
+		ErrorManagerTest,
+		Should_ReturnFalse_When_UtilityRuntimeExecutionDisabled_OnConstruct
+	)
+	{
+		QLogicaeCppCore::ErrorManagerConfigurations configurations;
+
+		configurations
+			.is_utility_runtime_execution_handling_enabled =
+				false;
+
+		manager.setup(
+			configurations
+		);
+
+		bool result =
+			manager.construct();
+
+		EXPECT_FALSE(
+			result
+		);
+	}
+
+	TEST_F(
+		ErrorManagerTest,
+		Should_ReturnFalse_When_UtilityRuntimeExecutionDisabled_OnDestruct
+	)
+	{
+		QLogicaeCppCore::ErrorManagerConfigurations configurations;
+
+		configurations
+			.is_utility_runtime_execution_handling_enabled =
+				false;
+
+		manager.setup(
+			configurations
+		);
+
+		bool result =
+			manager.destruct();
+
+		EXPECT_FALSE(
+			result
+		);
+	}
+
+	TEST_F(
+		ErrorManagerTest,
+		Should_ReturnFalse_When_UtilityRuntimeExecutionDisabled_OnReset
+	)
+	{
+		QLogicaeCppCore::ErrorManagerConfigurations configurations;
+
+		configurations
+			.is_utility_runtime_execution_handling_enabled =
+				false;
+
+		manager.setup(
+			configurations
+		);
+
+		bool result =
+			manager.reset();
+
+		EXPECT_FALSE(
+			result
+		);
+	}
+
+	TEST_F(
+		ErrorManagerTest,
+		Should_ReturnFalse_When_UtilityRuntimeExecutionDisabled_OnSetup
+	)
+	{
+		QLogicaeCppCore::ErrorManagerConfigurations configurations;
+
+		configurations
+			.is_utility_runtime_execution_handling_enabled =
+				false;
+
+		bool result =
+			manager.setup(
+				configurations
+			);
+
+		EXPECT_TRUE(
+			result
+		);
+	}
+
+	TEST_F(
+		ErrorManagerTest,
+		Should_ReturnEmptyString_When_FeatureRuntimeExecutionDisabled_WithTitleAndMessage
+	)
+	{
+		QLogicaeCppCore::ErrorManagerConfigurations configurations;
+
+		configurations
+			.is_feature_runtime_execution_handling_enabled =
+			false;
+
+		manager.setup(
+			configurations
+		);
+
+		std::string result =
+			manager.transform_to_error_log(
+				"title",
+				"message"
+			);
+
+		EXPECT_TRUE(
+			result.empty()
+		);
+	}
+
+	TEST_F(
+		ErrorManagerTest,
+		Should_ReturnEmptyString_When_FeatureRuntimeExecutionDisabled_WithMessageOnly
+	)
+	{
+		QLogicaeCppCore::ErrorManagerConfigurations configurations;
+
+		configurations
+			.is_feature_runtime_execution_handling_enabled =
+			false;
+
+		manager.setup(
+			configurations
+		);
+
+		std::string result =
+			manager.transform_to_error_log(
+				"message"
+			);
+
+		EXPECT_TRUE(
+			result.empty()
+		);
+	}
+
+	TEST_F(
+		ErrorManagerTest,
+		Should_ReturnEmptyString_When_FeatureRuntimeExecutionDisabled_WithException
+	)
+	{
+		QLogicaeCppCore::ErrorManagerConfigurations configurations;
+
+		configurations
+			.is_feature_runtime_execution_handling_enabled =
+			false;
+
+		manager.setup(
+			configurations
+		);
+
+		try
+		{
+			throw std::runtime_error(
+				"error"
+			);
+		}
+		catch (
+			const std::exception&
+				exception
+		)
+		{
+			std::string result =
+				manager.transform_to_error_log(
+					exception
+				);
+
+			EXPECT_TRUE(
+				result.empty()
+			);
+		}
+	}
+
+	TEST_F(
+		ErrorManagerTest,
+		Should_HandleConcurrency_When_ThreadSafetyDisabled
+	)
+	{
+		QLogicaeCppCore::ErrorManagerConfigurations configurations;
+
+		configurations
+			.is_feature_handling_thread_safety_enabled =
+			false;
+
+		configurations
+			.is_asynchronous_output_enabled =
+			true;
+
+		manager.setup(
+			configurations
+		);
+
+		std::atomic<bool>
+			completed =
+			false;
+
+		std::thread worker(
+			[&]()
+			{
+				for (
+					std::size_t iteration_index = 0;
+					iteration_index < 1000;
+					iteration_index++
+				)
+				{
+					manager.handle_error_outputs(
+						"message"
+					);
+				}
+
+				completed.store(
+					true
+				);
+			}
+		);
+
+		worker.join();
+
+		EXPECT_TRUE(
+			completed.load()
+		);
+	}
+
+	TEST_F(
+		ErrorManagerTest,
+		Should_HandleAsyncWithoutFutures_When_NoAsyncOutputsEnabled
+	)
+	{
+		QLogicaeCppCore::ErrorManagerConfigurations configurations;
+
+		configurations
+			.is_asynchronous_output_enabled =
+			true;
+
+		configurations
+			.is_asynchronous_console_output_enabled =
+			false;
+
+		configurations
+			.is_asynchronous_file_output_enabled =
+			false;
+
+		configurations
+			.is_asynchronous_runtime_throw_output_enabled =
+			false;
+
+		configurations
+			.is_enable_output_override_enabled =
+			false;
+
+		manager.setup(
+			configurations
+		);
+
+		bool result =
+			manager.handle_error_outputs(
+				"no_futures"
+			);
+
+		EXPECT_FALSE(
+			result
+		);
+	}
 }

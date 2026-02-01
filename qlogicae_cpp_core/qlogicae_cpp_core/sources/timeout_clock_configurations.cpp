@@ -3,34 +3,27 @@
 #include "../includes/timeout_clock_configurations.hpp"
 
 namespace QLogicaeCppCore
-{
+{	
+	TimeoutClockConfigurations
+		::TimeoutClockConfigurations() :
+			AbstractConfigurations<TimeoutClockConfigurations>()
+	{
+		is_feature_handling_thread_safety_enabled =
+			true;
+
+		callback =
+			[]() {};
+
+		delay_in_milliseconds =
+			std::chrono::milliseconds{ 1000 };
+
+		is_executed_immediately =
+			true;
+	}
+
 	TimeoutClockConfigurations
 		TimeoutClockConfigurations
-			::initial_configurations =
-				[]()
-				{
-					TimeoutClockConfigurations
-						configurations;
-
-					configurations
-						.is_feature_handling_thread_safety_enabled =
-							true;
-
-					configurations
-						.callback =
-							[]() {};
-
-					configurations
-						.delay_in_milliseconds =
-							std::chrono::milliseconds{ 1000 };
-
-					configurations
-						.is_executed_immediately =
-							true;
-
-					return
-						configurations;
-				}();
+			::initial_configurations;
 
 	TimeoutClockConfigurations
 		TimeoutClockConfigurations

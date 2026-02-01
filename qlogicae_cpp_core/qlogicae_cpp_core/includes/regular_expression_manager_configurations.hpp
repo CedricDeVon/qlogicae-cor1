@@ -15,12 +15,12 @@ namespace
 				default_configurations
 					.pattern;
 
-
-
 		static RegularExpressionManagerConfigurations
 			initial_configurations;
 
 		static RegularExpressionManagerConfigurations
 			default_configurations;
+
+		RegularExpressionManagerConfigurations();
 	};
 }

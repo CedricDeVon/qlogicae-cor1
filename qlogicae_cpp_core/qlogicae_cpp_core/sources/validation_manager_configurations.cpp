@@ -6,20 +6,16 @@ namespace
 	QLogicaeCppCore
 {
 	ValidationManagerConfigurations
+		::ValidationManagerConfigurations() :
+			AbstractConfigurations<ValidationManagerConfigurations>()
+	{
+		conditional_callback =
+			[]() { return true; };
+	}
+
+	ValidationManagerConfigurations
 		ValidationManagerConfigurations
-			::initial_configurations =
-				[]()
-				{
-					ValidationManagerConfigurations
-						configurations;
-
-					configurations
-						.conditional_callback =
-							[]() { return true; };
-
-					return
-						configurations;
-				}();
+			::initial_configurations;
 
 	ValidationManagerConfigurations
 		ValidationManagerConfigurations

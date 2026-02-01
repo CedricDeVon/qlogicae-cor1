@@ -676,4 +676,187 @@ namespace QLogicaeCppCoreTest
         EXPECT_TRUE(result1);
         EXPECT_TRUE(result2);
     }
+
+	TEST_F(MutexManagerTest, Should_HonorRuntimeExecutionDisabledForUtilityHandling)
+	{
+		mutex_manager_instance.configurations.is_utility_runtime_execution_handling_enabled = false;
+		ASSERT_FALSE(mutex_manager_instance.configurations.is_runtime_execution_enabled_for_utility_handling());
+	}
+
+	TEST_F(MutexManagerTest, Should_HonorRuntimeExecutionDisabledForFeatureHandling)
+	{
+		mutex_manager_instance.configurations.is_feature_runtime_execution_handling_enabled = false;
+		ASSERT_FALSE(mutex_manager_instance.configurations.is_runtime_execution_enabled_for_feature_handling());
+	}
+
+	TEST_F(MutexManagerTest, Should_HonorRuntimeExecutionDisabledForErrorHandling)
+	{
+		mutex_manager_instance.configurations.is_error_runtime_execution_handling_enabled = false;
+		ASSERT_FALSE(mutex_manager_instance.configurations.is_runtime_execution_enabled_for_error_handling());
+	}
+
+	TEST_F(MutexManagerTest, Should_HonorEdgeCaseDisabledForUtilityHandling)
+	{
+		mutex_manager_instance.configurations.is_utility_edge_case_handling_enabled = false;
+		ASSERT_FALSE(mutex_manager_instance.configurations.is_edge_case_enabled_for_utility_handling());
+	}
+
+	TEST_F(MutexManagerTest, Should_HonorEdgeCaseDisabledForFeatureHandling)
+	{
+		mutex_manager_instance.configurations.is_feature_edge_case_handling_enabled = false;
+		ASSERT_FALSE(mutex_manager_instance.configurations.is_edge_case_enabled_for_feature_handling());
+	}
+
+	TEST_F(MutexManagerTest, Should_HonorEdgeCaseDisabledForErrorHandling)
+	{
+		mutex_manager_instance.configurations.is_error_edge_case_handling_enabled = false;
+		ASSERT_FALSE(mutex_manager_instance.configurations.is_edge_case_enabled_for_error_handling());
+	}
+
+	TEST_F(MutexManagerTest, Should_HonorThreadSafetyDisabledForUtilityHandling)
+	{
+		mutex_manager_instance.configurations.is_utility_handling_thread_safety_enabled = false;
+		ASSERT_FALSE(mutex_manager_instance.configurations.is_thread_safety_enabled_for_utility_handling());
+	}
+
+	TEST_F(MutexManagerTest, Should_HonorThreadSafetyDisabledForFeatureHandling)
+	{
+		mutex_manager_instance.configurations.is_feature_handling_thread_safety_enabled = false;
+		ASSERT_FALSE(mutex_manager_instance.configurations.is_thread_safety_enabled_for_feature_handling());
+	}
+
+	TEST_F(MutexManagerTest, Should_HonorThreadSafetyDisabledForErrorHandling)
+	{
+		mutex_manager_instance.configurations.is_error_handling_thread_safety_enabled = false;
+		ASSERT_FALSE(mutex_manager_instance.configurations.is_thread_safety_enabled_for_error_handling());
+	}
+
+	TEST_F(MutexManagerTest, Should_HandleMultipleConcurrentFutures)
+	{
+		std::atomic<int> counter = 0;
+		auto future_task = [&](int id)
+		{
+			if (mutex_manager_instance.lock_mutex<std::unique_lock<std::mutex>, std::mutex>(&id))
+				counter.fetch_add(1);
+		};
+		std::vector<std::future<void>> futures;
+		for (int i = 0; i < 50; ++i)
+		{
+			futures.emplace_back(std::async(std::launch::async, future_task, i));
+		}
+		for (auto& f : futures) f.get();
+		ASSERT_EQ(counter.load(), 50);
+	}
+
+	TEST_P(MutexManagerLockMutexTest, Should_HandleTimedMutexLockTimeout)
+	{
+		auto test_data = GetParam();
+
+		if (test_data.mutex_type_name == "std::timed_mutex")
+		{
+			std::timed_mutex timed_mutex_instance;
+			std::unique_lock<std::timed_mutex> lock(timed_mutex_instance, std::defer_lock);
+			bool lock_result = mutex_manager_instance.lock_mutex<
+				std::unique_lock<std::timed_mutex>, std::timed_mutex>(&timed_mutex_instance);
+			ASSERT_TRUE(lock_result);
+		}
+		else if (test_data.mutex_type_name == "std::recursive_timed_mutex")
+		{
+			std::recursive_timed_mutex recursive_timed_mutex_instance;
+			std::unique_lock<std::recursive_timed_mutex> lock(recursive_timed_mutex_instance, std::defer_lock);
+			bool lock_result = mutex_manager_instance.lock_mutex<
+				std::unique_lock<std::recursive_timed_mutex>, std::recursive_timed_mutex>(&recursive_timed_mutex_instance);
+			ASSERT_TRUE(lock_result);
+		}
+	}
+
+	TEST_F(MutexManagerTest, Should_HandleDestructDuringActiveLocks)
+	{
+		std::mutex active_mutex;
+		std::unique_lock<std::mutex> lock(active_mutex);
+
+		bool destruct_result = mutex_manager_instance.destruct();
+		ASSERT_TRUE(destruct_result);
+	}
+
+	TEST_F(MutexManagerLockMutexTest, Should_HandleLockMutexRuntimeException)
+	{
+		struct ThrowingMutex
+		{
+			void lock() { throw std::runtime_error("Lock failure"); }
+			void unlock() {}
+		};
+
+		ThrowingMutex throwing_mutex;
+		try
+		{
+			std::unique_lock<ThrowingMutex> lock(throwing_mutex);
+			FAIL();
+		}
+		catch (...)
+		{
+		}
+	}
+
+	TEST_F(MutexManagerTest, Should_HandleDestructDuringMultipleActiveLocks)
+	{
+		std::mutex mutex1, mutex2, mutex3;
+		std::unique_lock<std::mutex> lock1(mutex1);
+		std::unique_lock<std::mutex> lock2(mutex2);
+		std::unique_lock<std::mutex> lock3(mutex3);
+
+		bool destruct_result = mutex_manager_instance.destruct();
+		ASSERT_TRUE(destruct_result);
+	}
+
+	TEST_F(MutexManagerTest, Should_HandleExtremeConcurrencyWithFutures)
+	{
+		std::atomic<int> counter = 0;
+		auto future_task = [&](int id)
+		{
+			if (mutex_manager_instance.lock_mutex<std::unique_lock<std::mutex>, std::mutex>(&id))
+				counter.fetch_add(1);
+		};
+
+		std::vector<std::future<void>> futures;
+		for (int i = 0; i < 200; ++i)
+			futures.emplace_back(std::async(std::launch::async, future_task, i));
+		for (auto& f : futures) f.get();
+
+		ASSERT_EQ(counter.load(), 200);
+	}
+
+	TEST_F(MutexManagerTest, Should_HandleDestructConcurrentlyWithActiveLocks)
+	{
+		std::atomic<int> counter = 0;
+		auto thread_task = [&](int id)
+		{
+			if (mutex_manager_instance.lock_mutex<std::unique_lock<std::mutex>, std::mutex>(&id))
+				counter.fetch_add(1);
+		};
+
+		std::vector<std::thread> threads;
+		for (int i = 0; i < 50; ++i)
+			threads.emplace_back(thread_task, i);
+
+		bool destruct_result = mutex_manager_instance.destruct();
+		for (auto& t : threads) t.join();
+
+		ASSERT_TRUE(destruct_result);
+		ASSERT_EQ(counter.load(), 50);
+	}
+
+	TEST_F(MutexManagerTest, Should_HandleCustomMutexTypes)
+	{
+		struct CustomMutex
+		{
+			void lock() {}
+			void unlock() {}
+		};
+
+		CustomMutex custom_mutex;
+		bool lock_result = mutex_manager_instance.lock_mutex<std::unique_lock<CustomMutex>, CustomMutex>(&custom_mutex);
+		ASSERT_FALSE(lock_result);
+	}
+
 }

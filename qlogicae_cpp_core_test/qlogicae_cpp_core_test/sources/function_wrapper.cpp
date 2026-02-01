@@ -358,4 +358,155 @@ namespace
 		ASSERT_TRUE(called);
 	}
 
+	TEST_F(FunctionWrapperTest, Should_HandleNonDefaultReturnPointerMember_When_ExceptionThrown)
+	{
+		NonDefaultReturnTest test_object;
+		NonDefaultReturnTest* ptr = &test_object;
+
+		ASSERT_THROW(
+			manager.call_function<NonDefaultConstructible>(
+				ptr,
+				&NonDefaultReturnTest::run
+			),
+			std::runtime_error
+		);
+	}
+
+	TEST_F(FunctionWrapperTest, Should_HandleMultipleThreads_CallFunction_ThreadSafety)
+	{
+		manager.configurations.is_feature_handling_thread_safety_enabled = true;
+
+		FunctionWrapperCallSafelyTest test_object;
+
+		std::vector<std::thread> threads;
+		std::atomic<int> total{ 0 };
+
+		for (int i = 0; i < 10; ++i)
+		{
+			threads.emplace_back([&]()
+			{
+				for (int j = 0; j < 100; ++j)
+				{
+					total += manager.call_function<int>(
+						test_object,
+						&FunctionWrapperCallSafelyTest::add_value,
+						j
+					);
+				}
+			});
+		}
+
+		for (auto& t : threads)
+		{
+			t.join();
+		}
+
+		ASSERT_GT(total.load(), 0);
+	}
+
+	TEST_F(FunctionWrapperTest, Should_HandleConstructDestructConcurrently)
+	{
+		manager.configurations.is_utility_handling_thread_safety_enabled = true;
+
+		std::vector<std::thread> threads;
+
+		for (int i = 0; i < 5; ++i)
+		{
+			threads.emplace_back([&]()
+				{
+					for (int j = 0; j < 50; ++j)
+					{
+						manager.construct();
+						manager.destruct();
+					}
+				});
+		}
+
+		for (auto& t : threads)
+		{
+			t.join();
+		}
+
+		ASSERT_TRUE(true);
+	}
+
+	TEST_F(FunctionWrapperTest, Should_HandleExtremeFlagCombinations)
+	{
+		QLogicaeCppCore::FunctionWrapperConfigurations configurations;
+		configurations.is_feature_runtime_execution_handling_enabled = false;
+		configurations.is_feature_handling_thread_safety_enabled = true;
+		configurations.is_utility_handling_thread_safety_enabled = true;
+		configurations.is_utility_runtime_execution_handling_enabled = false;
+
+		ASSERT_TRUE(manager.setup(configurations));
+
+		FunctionWrapperCallSafelyTest test_object;
+		int result = manager.call_function<int>(
+			test_object,
+			&FunctionWrapperCallSafelyTest::add_value,
+			10
+		);
+
+		ASSERT_EQ(result, 11);
+	}
+
+	TEST_F(FunctionWrapperTest, Should_HandleFuzzedConfiguration)
+	{
+		QLogicaeCppCore::FunctionWrapperConfigurations configurations;
+		*reinterpret_cast<uint64_t*>(&configurations) = 0xDEADBEEFCAFEBABE;
+
+		ASSERT_NO_THROW(manager.setup(configurations));
+		ASSERT_NO_THROW(manager.reset());
+	}
+
+	TEST_F(FunctionWrapperTest, Should_HandleAllFlagCombinations)
+    {
+        struct FlagsTestObject
+        {
+            int run(int value) { return value + 2; }
+        };
+
+        std::array<bool, 2> bools = { false, true };
+
+        for (bool runtime : bools)
+        for (bool utility : bools)
+        for (bool feature : bools)
+        for (bool runtime_ts : bools)
+        for (bool utility_ts : bools)
+        for (bool feature_ts : bools)
+        {
+            QLogicaeCppCore::FunctionWrapperConfigurations config;
+            config.is_feature_runtime_execution_handling_enabled = feature;
+            config.is_utility_runtime_execution_handling_enabled = utility;
+            config.is_feature_handling_thread_safety_enabled = feature_ts;
+            config.is_utility_handling_thread_safety_enabled = utility_ts;
+            config.is_feature_runtime_execution_handling_enabled = feature;
+            config.is_utility_runtime_execution_handling_enabled = runtime;
+
+            ASSERT_NO_THROW(manager.setup(config));
+            ASSERT_NO_THROW(manager.reset());
+
+            FlagsTestObject obj;
+            int result = manager.call_function<int>(obj, &FlagsTestObject::run, 5);
+            ASSERT_EQ(result, 7);
+        }
+    }
+
+    TEST_F(FunctionWrapperTest, Should_HandleExceptionNonDefaultConstructible_NonPointer)
+    {
+        struct TestObject
+        {
+            NonDefaultConstructible run()
+            {
+                throw std::runtime_error("fail");
+            }
+        };
+
+        TestObject obj;
+
+        ASSERT_THROW(
+            manager.call_function<NonDefaultConstructible>(obj, &TestObject::run),
+            std::runtime_error
+        );
+    }
 }

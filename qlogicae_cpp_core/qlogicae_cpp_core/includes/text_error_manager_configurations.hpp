@@ -35,13 +35,13 @@ namespace
 				default_configurations
 					.separator;
 
-
-
 		static TextErrorManagerConfigurations
 			initial_configurations;
 
 		static TextErrorManagerConfigurations
 			default_configurations;
+
+		TextErrorManagerConfigurations();
 	};
 }
 

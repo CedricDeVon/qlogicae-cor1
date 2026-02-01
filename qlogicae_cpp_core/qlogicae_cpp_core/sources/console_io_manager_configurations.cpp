@@ -6,16 +6,15 @@ namespace
 	QLogicaeCppCore
 {
 	ConsoleIoManagerConfigurations
-		ConsoleIoManagerConfigurations
-			::initial_configurations =
-				[]()
-				{
-					ConsoleIoManagerConfigurations
-						configurations;
+		::ConsoleIoManagerConfigurations() :
+			AbstractConfigurations<ConsoleIoManagerConfigurations>()
+	{
+		
+	}
 
-					return
-						configurations;
-				}();
+	ConsoleIoManagerConfigurations
+		ConsoleIoManagerConfigurations
+			::initial_configurations;
 
 	ConsoleIoManagerConfigurations
 		ConsoleIoManagerConfigurations

@@ -4,26 +4,21 @@
 
 namespace
 	QLogicaeCppCore
-{    
-    FileSystemManagerConfigurations
+{       
+	FileSystemManagerConfigurations
+		::FileSystemManagerConfigurations() :
+			AbstractConfigurations<FileSystemManagerConfigurations>()
+	{
+		is_feature_handling_thread_safety_enabled =
+			true;
+
+		is_recursive =
+			true;
+	}
+
+	FileSystemManagerConfigurations
 		FileSystemManagerConfigurations
-			::initial_configurations =
-				[]()
-				{
-					FileSystemManagerConfigurations
-						configurations;
-
-					configurations
-						.is_feature_handling_thread_safety_enabled =
-							true;
-
-					configurations
-						.is_recursive =
-							true;
-
-					return
-						configurations;
-				}();
+			::initial_configurations;
 
 	FileSystemManagerConfigurations
 		FileSystemManagerConfigurations

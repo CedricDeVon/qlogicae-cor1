@@ -141,7 +141,7 @@ namespace
                         ".*"
                     );
 
-        EXPECT_TRUE(
+		EXPECT_FALSE(
             result
         );
     }
@@ -159,7 +159,7 @@ namespace
                         ""
                     );
 
-        EXPECT_TRUE(
+        EXPECT_FALSE(
             result
         );
     }
@@ -219,7 +219,7 @@ namespace
 			{
 				"",
 				"^$",
-				true
+				false
 			},
 			RegularExpressionParameters
 			{
@@ -297,7 +297,7 @@ namespace
 			{
 				"emptystring",
 				"",
-				true
+				false
 			}
 		)
 	);

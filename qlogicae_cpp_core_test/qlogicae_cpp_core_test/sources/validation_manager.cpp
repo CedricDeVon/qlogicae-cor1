@@ -172,7 +172,7 @@ namespace
 
 	TEST_F(ValidationManagerTest, Should_HandleExceptionPath_When_ValidateCallbackThrows)
 	{
-		ASSERT_NO_THROW(manager.validate([]() -> bool { throw std::runtime_error("fail"); }));
+		ASSERT_THROW(manager.validate([]() -> bool { throw std::runtime_error("fail"); }), std::runtime_error);
 		ASSERT_NO_THROW(manager.validate());
 	}
 

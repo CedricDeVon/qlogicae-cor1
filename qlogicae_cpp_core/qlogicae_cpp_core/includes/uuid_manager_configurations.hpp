@@ -15,12 +15,12 @@ namespace
 			type =
 				default_configurations.type;
 
-
-
 		static UuidManagerConfigurations
 			initial_configurations;
 
 		static UuidManagerConfigurations
 			default_configurations;
+
+		UuidManagerConfigurations();
     };
 }

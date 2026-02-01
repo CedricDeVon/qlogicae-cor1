@@ -22,13 +22,13 @@ namespace
 			placeholder =
 				default_configurations.placeholder;
 
-
-
 		static TextPlaceholderManagerConfigurations
 			initial_configurations;
 
 		static TextPlaceholderManagerConfigurations
 			default_configurations;
+
+		TextPlaceholderManagerConfigurations();
 	};
 }
 

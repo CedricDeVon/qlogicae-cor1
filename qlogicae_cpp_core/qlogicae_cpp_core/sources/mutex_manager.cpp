@@ -177,19 +177,15 @@ namespace
 					);
 			}
 
-			void*
-				raw_pointer =
-					const_cast<void*>(
-						pointer
-					);
-
             folly::MicroSpinLock*
                 micro_spin_lock =
                 &folly_micro_spin_lock_collection
                 [
 					std::pair
 					{
-						raw_pointer,
+						const_cast<void*>(
+							pointer
+						),
 						name
 					}
                 ];

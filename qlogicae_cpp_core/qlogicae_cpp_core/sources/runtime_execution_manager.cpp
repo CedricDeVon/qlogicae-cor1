@@ -58,6 +58,16 @@ namespace
     {
         try
         {			
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_utility_handling()
+			)
+			{
+				return
+					false;
+			}
+
 			boost::unique_lock<boost::mutex>
 				mutex_lock;
 			if (configurations.is_thread_safety_enabled_for_utility_handling())
@@ -94,6 +104,16 @@ namespace
     {
         try
         {		
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_utility_handling()
+			)
+			{
+				return
+					false;
+			}
+
 			boost::unique_lock<boost::mutex>
 				mutex_lock;
 			if (configurations.is_thread_safety_enabled_for_utility_handling())
@@ -134,7 +154,24 @@ namespace
 		)
 	{
 		try
-        {									
+        {							
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_feature_handling() ||				
+				(
+					configurations
+						.is_edge_case_enabled_for_feature_handling() &&
+					(
+						time_scale_unit == TimeScaleUnit::NONE
+					)
+				)
+			)
+			{
+				return
+					false;
+			}
+		
 			switch (time_scale_unit)
 			{	
 				case (TimeScaleUnit::YEARS):
@@ -199,9 +236,7 @@ namespace
 
 				default:
 					return
-						delay_execution_in_milliseconds(
-							value
-						);
+						false;
 			}
 
 			return
@@ -445,6 +480,24 @@ namespace
 	{
 		try
         {	
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_feature_handling() ||				
+				(
+					configurations
+						.is_edge_case_enabled_for_feature_handling() &&
+					(
+						value <= 0.0 ||
+						value > 1e12
+					)
+				)
+			)
+			{
+				return
+					false;
+			}
+
 			boost::unique_lock<boost::mutex>
 				mutex_lock;
 			if (configurations.is_thread_safety_enabled_for_feature_handling())
@@ -456,12 +509,6 @@ namespace
 					);
 			}
 		
-			if (value <= 0.0 || value > 1e12)
-			{
-				return
-					false;
-			}
-
 			LARGE_INTEGER frequency;
 			LARGE_INTEGER start;
 			LARGE_INTEGER current;
@@ -527,6 +574,16 @@ namespace
 	{
 		try
         {			
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_feature_handling()
+			)
+			{
+				return
+					false;
+			}
+
 			boost::unique_lock<boost::mutex>
 				mutex_lock;
 			if (configurations.is_thread_safety_enabled_for_feature_handling())
@@ -606,7 +663,25 @@ namespace
 			)
 	{
 		try
-        {			
+        {		
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_feature_handling() ||				
+				(
+					configurations
+						.is_edge_case_enabled_for_feature_handling() &&
+					(
+						microseconds <= 0.0 ||
+						microseconds > 1e12
+					)
+				)
+			)
+			{
+				return
+					false;
+			}
+	
 			boost::unique_lock<boost::mutex>
 				mutex_lock;
 			if (configurations.is_thread_safety_enabled_for_feature_handling())
@@ -618,21 +693,17 @@ namespace
 					);
 			}			
 
-			if (microseconds <= 0.0 || microseconds > 1e12)
-			{
-				return
-					false;
-			}
-
 			if (cycles_per_microsecond == 0.0)
 			{
 				calibrate();
 			}
 
-			unsigned __int64 start = __rdtsc();
+			unsigned __int64 start =
+				__rdtsc();
 			unsigned __int64 target =
 				static_cast<unsigned __int64>(
-					microseconds * cycles_per_microsecond);
+					microseconds * cycles_per_microsecond
+				);
 
 			while ((__rdtsc() - start) < target)
 			{
@@ -663,7 +734,25 @@ namespace
 			)
 	{
 		try
-        {			
+        {		
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_feature_handling() ||				
+				(
+					configurations
+						.is_edge_case_enabled_for_feature_handling() &&
+					(
+						microseconds <= 0.0 ||
+						microseconds > 1e12
+					)
+				)
+			)
+			{
+				return
+					false;
+			}
+	
 			boost::unique_lock<boost::mutex>
 				mutex_lock;
 			if (configurations.is_thread_safety_enabled_for_feature_handling())
@@ -674,12 +763,6 @@ namespace
 						feature_handling_mutex_1
 					);
 			}			
-
-			if (microseconds <= 0.0 || microseconds > 1e12)
-			{
-				return
-					false;
-			}
 
 			LARGE_INTEGER frequency;
 			LARGE_INTEGER start;
@@ -695,7 +778,11 @@ namespace
 				QueryPerformanceCounter(&current);
 				elapsed = (current.QuadPart - start.QuadPart) *
 					1'000'000.0 / frequency.QuadPart;
-			} while (elapsed < microseconds);
+			}
+			while
+			(
+				elapsed < microseconds
+			);
 
 			return
 				true;

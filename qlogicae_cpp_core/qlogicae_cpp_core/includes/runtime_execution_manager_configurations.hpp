@@ -15,6 +15,8 @@ namespace
 
 		static RuntimeExecutionManagerConfigurations
 			default_configurations;
+
+		RuntimeExecutionManagerConfigurations();
     };    
 }
 

@@ -15,12 +15,12 @@ namespace
 				default_configurations
 					.conditional_callback;
 
-
-
 		static ValidationManagerConfigurations
 			initial_configurations;
 
 		static ValidationManagerConfigurations
 			default_configurations;
+		
+		ValidationManagerConfigurations();
 	};
 }
