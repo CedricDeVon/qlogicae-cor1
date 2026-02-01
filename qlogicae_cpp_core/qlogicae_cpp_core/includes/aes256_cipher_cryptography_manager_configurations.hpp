@@ -15,5 +15,7 @@ namespace
 
 		static Aes256CipherCryptographyManagerConfigurations
 			default_configurations;
+
+		Aes256CipherCryptographyManagerConfigurations();
     };    
 }

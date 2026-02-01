@@ -58,6 +58,16 @@ namespace
     {
         try
         {			
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_utility_handling()
+			)
+			{
+				return
+					false;
+			}
+
 			boost::unique_lock<boost::mutex>
 				mutex_lock;
 			if (configurations.is_thread_safety_enabled_for_utility_handling())
@@ -90,7 +100,17 @@ namespace
 			::destruct()
     {
         try
-        {		
+        {	
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_utility_handling()
+			)
+			{
+				return
+					false;
+			}
+	
 			boost::unique_lock<boost::mutex>
 				mutex_lock;
 			if (configurations.is_thread_safety_enabled_for_utility_handling())
@@ -131,6 +151,25 @@ namespace
 	{
 		try
         {		
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_feature_handling() ||				
+				(
+					configurations
+						.is_edge_case_enabled_for_feature_handling() &&
+					(
+						text.empty() ||
+						private_key.empty() ||
+						nonce.empty()
+					)
+				)
+			)
+			{
+				return
+					text;
+			}
+
 			boost::unique_lock<boost::mutex>
 				mutex_lock;
 			if (configurations.is_thread_safety_enabled_for_feature_handling())
@@ -142,12 +181,6 @@ namespace
 					);
 			}			
 
-			if (text.empty() || private_key.empty() || nonce.empty())
-			{
-				return
-					"";
-			}
-			
 			std::vector<unsigned char>
 				ciphertext(
 					text.size() +
@@ -172,7 +205,7 @@ namespace
 				) != 0
 			)
 			{
-				return {};
+				return text;
 			}
 
 			std::string
@@ -207,7 +240,7 @@ namespace
 			);
 
 			return
-				"";
+				text;
         }
 	}
 
@@ -224,6 +257,25 @@ namespace
 	{
 		try
         {		
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_feature_handling() ||				
+				(
+					configurations
+						.is_edge_case_enabled_for_feature_handling() &&
+					(
+						text.empty() ||
+						private_key.empty() ||
+						nonce.empty()
+					)
+				)
+			)
+			{
+				return
+					text;
+			}
+
 			boost::unique_lock<boost::mutex>
 				mutex_lock;
 			if (configurations.is_thread_safety_enabled_for_feature_handling())
@@ -234,12 +286,6 @@ namespace
 						feature_handling_mutex_1
 					);
 			}			
-
-			if (text.empty() || private_key.empty() || nonce.empty())
-			{
-				return
-					"";
-			}
 
 			std::vector<unsigned char>
 				decoded(text.size());
@@ -261,12 +307,14 @@ namespace
 				) != 0
 			)
 			{
-				return {};
+				return
+					text;
 			}
 
 			if (decoded_length < crypto_aead_aes256gcm_ABYTES)
 			{
-				return {};
+				return
+					text;
 			}
 
 			std::vector<unsigned char>
@@ -293,7 +341,8 @@ namespace
 				) != 0
 			)
 			{
-				return {};
+				return
+					text;
 			}
 
 			return std::string(
@@ -312,7 +361,7 @@ namespace
 			);
 
 			return
-				"";
+				text;
         }
 	}
 }

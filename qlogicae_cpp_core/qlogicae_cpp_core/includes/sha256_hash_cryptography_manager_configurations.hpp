@@ -15,5 +15,7 @@ namespace
 
 		static Sha256HashCryptographyManagerConfigurations
 			default_configurations;
+
+		Sha256HashCryptographyManagerConfigurations();
     };    
 }

@@ -15,5 +15,7 @@ namespace
 
 		static Argon2idHashCryptographyManagerConfigurations
 			default_configurations;
+
+		Argon2idHashCryptographyManagerConfigurations();
     };    
 }

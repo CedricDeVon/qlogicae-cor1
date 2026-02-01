@@ -15,5 +15,7 @@ namespace
 
 		static WindowsEnvironmentVariableManagerConfigurations
 			default_configurations;
+
+		WindowsEnvironmentVariableManagerConfigurations();
 	};
 }

@@ -15,5 +15,7 @@ namespace
 
 		static BcryptHashCryptographyManagerConfigurations
 			default_configurations;
+
+		BcryptHashCryptographyManagerConfigurations();
     };    
 }

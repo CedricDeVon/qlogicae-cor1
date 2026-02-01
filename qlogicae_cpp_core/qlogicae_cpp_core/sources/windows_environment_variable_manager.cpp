@@ -58,6 +58,16 @@ namespace
     {
         try
         {			
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_utility_handling()
+			)
+			{
+				return
+					false;
+			}
+
 			boost::unique_lock<boost::mutex>
 				mutex_lock;
 			if (configurations.is_thread_safety_enabled_for_utility_handling())
@@ -91,6 +101,16 @@ namespace
     {
         try
         {		
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_utility_handling()
+			)
+			{
+				return
+					false;
+			}
+		
 			boost::unique_lock<boost::mutex>
 				mutex_lock;
 			if (configurations.is_thread_safety_enabled_for_utility_handling())
@@ -127,6 +147,23 @@ namespace
 	{
 		try
         {	
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_feature_handling() ||				
+				(
+					configurations
+						.is_edge_case_enabled_for_feature_handling() &&
+					(
+						key.empty()
+					)
+				)
+			)
+			{
+				return
+					L"";
+			}
+
 			boost::unique_lock<boost::mutex>
 				mutex_lock;
 			if (configurations.is_thread_safety_enabled_for_feature_handling())
@@ -137,11 +174,6 @@ namespace
 						feature_handling_mutex_1
 					);
 			}		
-
-			if (key.empty())
-			{
-				return L"";
-			}
 
 			DWORD size = GetEnvironmentVariableW(key.c_str(), nullptr, 0);
 			if (size == 0)
@@ -183,6 +215,24 @@ namespace
 	{
 		try
         {		
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_feature_handling() ||				
+				(
+					configurations
+						.is_edge_case_enabled_for_feature_handling() &&
+					(
+						key.empty() ||
+						value.empty()
+					)
+				)
+			)
+			{
+				return
+					false;
+			}
+
 			boost::unique_lock<boost::mutex>
 				mutex_lock;
 			if (configurations.is_thread_safety_enabled_for_feature_handling())
@@ -195,12 +245,10 @@ namespace
 			}			
 
 			return
-				(key.empty() || value.empty()) ?
-					false :
-					SetEnvironmentVariableW(
-						key.c_str(),
-						value.c_str()
-					) != 0;
+				SetEnvironmentVariableW(
+					key.c_str(),
+					value.c_str()
+				) != 0;
         }
         catch
         (
@@ -224,6 +272,23 @@ namespace
 	{
 		try
         {		
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_feature_handling() ||				
+				(
+					configurations
+						.is_edge_case_enabled_for_feature_handling() &&
+					(
+						key.empty()
+					)
+				)
+			)
+			{
+				return
+					false;
+			}
+
 			boost::unique_lock<boost::mutex>
 				mutex_lock;
 			if (configurations.is_thread_safety_enabled_for_feature_handling())
@@ -236,12 +301,10 @@ namespace
 			}			
 
 			return
-				(key.empty()) ?
-					false :
-					SetEnvironmentVariableW(
-						key.c_str(),
-						nullptr
-					) != 0;
+				SetEnvironmentVariableW(
+					key.c_str(),
+					nullptr
+				) != 0;
         }
         catch
         (

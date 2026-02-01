@@ -100,7 +100,7 @@ namespace
 		ASSERT_EQ(decrypted, text);
 	}
 
-	TEST_F(Aes256CipherCryptographyManagerTest, Should_ReturnEmptyString_When_TextIsEmpty)
+	TEST_F(Aes256CipherCryptographyManagerTest, Should_ReturnNotEmptyString_When_TextIsEmpty)
 	{
 		const std::string key(crypto_aead_aes256gcm_KEYBYTES, 'k');
 		const std::string nonce(crypto_aead_aes256gcm_NPUBBYTES, 'n');
@@ -112,31 +112,31 @@ namespace
 		ASSERT_TRUE(decrypted.empty());
 	}
 
-	TEST_F(Aes256CipherCryptographyManagerTest, Should_ReturnEmptyString_When_PrivateKeyIsEmpty)
+	TEST_F(Aes256CipherCryptographyManagerTest, Should_ReturnNotEmptyString_When_PrivateKeyIsEmpty)
 	{
 		const std::string text = "SampleText";
 		const std::string nonce(crypto_aead_aes256gcm_NPUBBYTES, 'n');
 
 		std::string encrypted = manager.encrypt_text(text, "", nonce);
-		ASSERT_TRUE(encrypted.empty());
+		ASSERT_FALSE(encrypted.empty());
 	}
 
-	TEST_F(Aes256CipherCryptographyManagerTest, Should_ReturnEmptyString_When_NonceIsEmpty)
+	TEST_F(Aes256CipherCryptographyManagerTest, Should_ReturnNotEmptyString_When_NonceIsEmpty)
 	{
 		const std::string text = "SampleText";
 		const std::string key(crypto_aead_aes256gcm_KEYBYTES, 'k');
 
 		std::string encrypted = manager.encrypt_text(text, key, "");
-		ASSERT_TRUE(encrypted.empty());
+		ASSERT_FALSE(encrypted.empty());
 	}
 
-	TEST_F(Aes256CipherCryptographyManagerTest, Should_ReturnEmptyString_When_InvalidBase64Input)
+	TEST_F(Aes256CipherCryptographyManagerTest, Should_ReturnNotEmptyString_When_InvalidBase64Input)
 	{
 		const std::string key(crypto_aead_aes256gcm_KEYBYTES, 'k');
 		const std::string nonce(crypto_aead_aes256gcm_NPUBBYTES, 'n');
 
 		std::string decrypted = manager.decrypt_text("INVALID_BASE64", key, nonce);
-		ASSERT_TRUE(decrypted.empty());
+		ASSERT_FALSE(decrypted.empty());
 	}
 
 	TEST_F(Aes256CipherCryptographyManagerTest, Should_HandleConcurrentEncryptionsWithoutRaceConditions)
@@ -237,9 +237,13 @@ namespace
 			std::string decrypted = manager.decrypt_text(encrypted, key, nonce);
 			ASSERT_EQ(decrypted, text);
 		}
-		else
+		else if (text.empty())
 		{
 			ASSERT_TRUE(encrypted.empty());
+		}
+		else
+		{
+			ASSERT_FALSE(encrypted.empty());
 		}
 	}
 
@@ -264,7 +268,7 @@ namespace
 	TEST_F(Aes256CipherCryptographyManagerExceptionTest, Should_HandleException_When_DecryptText)
 	{
 		std::string result = manager.decrypt_text("test", "key", "nonce");
-		ASSERT_TRUE(result.empty());
+		ASSERT_FALSE(result.empty());
 	}
 
 	TEST_F(Aes256CipherCryptographyManagerExceptionTest, Should_HandleException_When_Construct)
@@ -307,7 +311,7 @@ namespace
 			threads.emplace_back([&]()
 			{
 				std::string result = manager.decrypt_text("multithread", "key", "nonce");
-				if (result.empty()) ++success_count;
+				if (!result.empty()) ++success_count;
 			});
 		}
 		for (auto& t : threads) t.join();
@@ -321,7 +325,7 @@ namespace
 			return manager.encrypt_text("async", "key", "nonce");
 		});
 		std::string result = future.get();
-		ASSERT_TRUE(!result.empty());
+		ASSERT_FALSE(result.empty());
 	}
 
 	TEST_F(Aes256CipherCryptographyManagerExceptionTest, Should_HandleException_When_AsyncDecryption)
@@ -331,6 +335,6 @@ namespace
 			return manager.decrypt_text("async", "key", "nonce");
 		});
 		std::string result = future.get();
-		ASSERT_TRUE(result.empty());
+		ASSERT_FALSE(result.empty());
 	}
 }

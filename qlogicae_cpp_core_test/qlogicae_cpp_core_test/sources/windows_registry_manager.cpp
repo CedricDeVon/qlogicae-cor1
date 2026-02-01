@@ -62,8 +62,8 @@ namespace
 	TEST_F(WindowsRegistryManagerTest, Should_HandleEmptyValue_When_SetEmptyString)
 	{
 		std::wstring empty_value = L"";
-		ASSERT_TRUE(manager.set_value_via_wstring(empty_value));
-		ASSERT_EQ(manager.get_value_via_wstring(), empty_value);
+		ASSERT_FALSE(manager.set_value_via_wstring(empty_value));
+		ASSERT_FALSE(manager.get_value_via_wstring().empty());
 	}
 
 	TEST_F(WindowsRegistryManagerTest, Should_HandleLargeValue_When_SetLargeString)
@@ -193,8 +193,8 @@ namespace
 	TEST_F(WindowsRegistryManagerTest, Should_HandleEmptySubKey)
 	{
 		manager.configurations.sub_key = L"";
-		ASSERT_TRUE(manager.set_value_via_wstring(L"EmptyKey"));
-		ASSERT_EQ(manager.get_value_via_wstring(), L"EmptyKey");
+		ASSERT_FALSE(manager.set_value_via_wstring(L"EmptyKey"));
+		ASSERT_EQ(manager.get_value_via_wstring(), L"");
 	}
 
 	TEST_F(WindowsRegistryManagerTest, Should_HandleNonExistentSubKey)

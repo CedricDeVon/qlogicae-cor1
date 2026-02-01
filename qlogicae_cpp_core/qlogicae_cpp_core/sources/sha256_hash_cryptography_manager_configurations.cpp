@@ -6,16 +6,15 @@ namespace
 	QLogicaeCppCore
 {
 	Sha256HashCryptographyManagerConfigurations
-		Sha256HashCryptographyManagerConfigurations
-			::initial_configurations =
-				[]()
-				{
-					Sha256HashCryptographyManagerConfigurations
-						configurations;
+		::Sha256HashCryptographyManagerConfigurations() :
+			AbstractConfigurations<Sha256HashCryptographyManagerConfigurations>()
+	{
+		
+	}
 
-					return
-						configurations;
-				}();
+	Sha256HashCryptographyManagerConfigurations
+		Sha256HashCryptographyManagerConfigurations
+			::initial_configurations;
 
 	Sha256HashCryptographyManagerConfigurations
 		Sha256HashCryptographyManagerConfigurations

@@ -152,10 +152,13 @@
     <ClInclude Include="main.hpp" />
     <ClInclude Include="pch.hpp" />
     <ClInclude Include="qlogicae_cpp_core_test\includes\abstract_class.hpp" />
+    <ClInclude Include="qlogicae_cpp_core_test\includes\aes256_cipher_cryptography_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core_test\includes\all.hpp" />
     <ClInclude Include="qlogicae_cpp_core_test\includes\application.hpp" />
+    <ClInclude Include="qlogicae_cpp_core_test\includes\argon2id_hash_cryptography_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core_test\includes\assembly.hpp" />
     <ClInclude Include="qlogicae_cpp_core_test\includes\asynchronous_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core_test\includes\bcrypt_hash_cryptography_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core_test\includes\configuration_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core_test\includes\console_io_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core_test\includes\error_manager.hpp" />
@@ -166,6 +169,7 @@
     <ClInclude Include="qlogicae_cpp_core_test\includes\regular_expression_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core_test\includes\results.hpp" />
     <ClInclude Include="qlogicae_cpp_core_test\includes\runtime_execution_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core_test\includes\sha256_hash_cryptography_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core_test\includes\singleton_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core_test\includes\temperature_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core_test\includes\text_case_manager.hpp" />
@@ -178,6 +182,10 @@
     <ClInclude Include="qlogicae_cpp_core_test\includes\uuid_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core_test\includes\validation_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core_test\includes\value_extractor_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core_test\includes\windows_environment_variable_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core_test\includes\windows_registry_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core_test\includes\windows_system_access_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core_test\includes\xchacha20_poly1305_cipher_cryptography_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core_test\resources\application.h" />
   </ItemGroup>
   <ItemGroup>
@@ -187,10 +195,13 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="qlogicae_cpp_core_test\sources\abstract_class.cpp" />
+    <ClCompile Include="qlogicae_cpp_core_test\sources\aes256_cipher_cryptography_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core_test\sources\all.cpp" />
     <ClCompile Include="qlogicae_cpp_core_test\sources\application.cpp" />
+    <ClCompile Include="qlogicae_cpp_core_test\sources\argon2id_hash_cryptography_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core_test\sources\assembly.cpp" />
     <ClCompile Include="qlogicae_cpp_core_test\sources\asynchronous_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core_test\sources\bcrypt_hash_cryptography_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core_test\sources\configuration_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core_test\sources\console_io_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core_test\sources\error_manager.cpp" />
@@ -201,6 +212,7 @@
     <ClCompile Include="qlogicae_cpp_core_test\sources\regular_expression_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core_test\sources\results.cpp" />
     <ClCompile Include="qlogicae_cpp_core_test\sources\runtime_execution_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core_test\sources\sha256_hash_cryptography_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core_test\sources\singleton_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core_test\sources\temperature_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core_test\sources\text_case_manager.cpp" />
@@ -213,6 +225,10 @@
     <ClCompile Include="qlogicae_cpp_core_test\sources\uuid_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core_test\sources\validation_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core_test\sources\value_extractor_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core_test\sources\windows_environment_variable_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core_test\sources\windows_registry_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core_test\sources\windows_system_access_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core_test\sources\xchacha20_poly1305_cipher_cryptography_manager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

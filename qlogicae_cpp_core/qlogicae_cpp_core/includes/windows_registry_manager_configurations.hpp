@@ -25,12 +25,12 @@ namespace
 				default_configurations
 					.name_key;
 
-
-
 		static WindowsRegistryManagerConfigurations
 			initial_configurations;
 
 		static WindowsRegistryManagerConfigurations
 			default_configurations;
+
+		WindowsRegistryManagerConfigurations();
 	};
 }

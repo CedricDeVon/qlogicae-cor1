@@ -82,7 +82,7 @@ namespace
 	{
 		std::string command = GetParam();
 		bool result = manager.run_process(command);
-		ASSERT_TRUE(result || !command.empty());
+		ASSERT_TRUE(result || command.empty());
 	}
 
 	TEST_F(WindowsSystemAccessManagerTest, Should_HandleAsync_When_RunProcess)

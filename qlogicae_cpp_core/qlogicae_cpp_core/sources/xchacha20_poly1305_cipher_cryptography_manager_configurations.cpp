@@ -6,16 +6,15 @@ namespace
 	QLogicaeCppCore
 {
 	XChaCha20Poly1305CipherCryptographyManagerConfigurations
-		XChaCha20Poly1305CipherCryptographyManagerConfigurations
-			::initial_configurations =
-				[]()
-				{
-					XChaCha20Poly1305CipherCryptographyManagerConfigurations
-						configurations;
+		::XChaCha20Poly1305CipherCryptographyManagerConfigurations() :
+			AbstractConfigurations<XChaCha20Poly1305CipherCryptographyManagerConfigurations>()
+	{
+		
+	}
 
-					return
-						configurations;
-				}();
+	XChaCha20Poly1305CipherCryptographyManagerConfigurations
+		XChaCha20Poly1305CipherCryptographyManagerConfigurations
+			::initial_configurations;
 
 	XChaCha20Poly1305CipherCryptographyManagerConfigurations
 		XChaCha20Poly1305CipherCryptographyManagerConfigurations

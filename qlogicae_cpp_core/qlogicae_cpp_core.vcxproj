@@ -192,12 +192,18 @@
     <ClInclude Include="pch.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\abstract_class.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\abstract_configurations.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\aes256_cipher_cryptography_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\aes256_cipher_cryptography_manager_configurations.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\all.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\application_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\application_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\argon2id_hash_cryptography_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\argon2id_hash_cryptography_manager_configurations.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\assembly.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\asynchronous_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\asynchronous_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\bcrypt_hash_cryptography_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\bcrypt_hash_cryptography_manager_configurations.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\configuration_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\configuration_manager_configurations.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\console_io_manager.hpp" />
@@ -228,6 +234,8 @@
     <ClInclude Include="qlogicae_cpp_core\includes\runtime_benchmarker_test_suite.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\runtime_execution_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\runtime_execution_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\sha256_hash_cryptography_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\sha256_hash_cryptography_manager_configurations.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\singleton_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\singleton_manager_configurations.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\temperature_manager.hpp" />
@@ -261,6 +269,16 @@
     <ClInclude Include="qlogicae_cpp_core\includes\value_enum_key_delete_handler.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\value_extractor_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\value_extractor_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\windows_environment_variable.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\windows_environment_variable_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\windows_environment_variable_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\windows_registry_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\windows_registry_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\windows_registry_root_path.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\windows_system_access_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\windows_system_access_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\xchacha20_poly1305_cipher_cryptography_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\xchacha20_poly1305_cipher_cryptography_manager_configurations.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -269,12 +287,18 @@
     </ClCompile>
     <ClCompile Include="qlogicae_cpp_core\sources\abstract_class.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\abstract_configurations.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\aes256_cipher_cryptography_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\aes256_cipher_cryptography_manager_configurations.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\all.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\application_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\application_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\argon2id_hash_cryptography_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\argon2id_hash_cryptography_manager_configurations.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\assembly.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\asynchronous_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\asynchronous_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\bcrypt_hash_cryptography_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\bcrypt_hash_cryptography_manager_configurations.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\configuration_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\configuration_manager_configurations.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\console_io_manager.cpp" />
@@ -305,6 +329,8 @@
     <ClCompile Include="qlogicae_cpp_core\sources\runtime_benchmarker_test_suite.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\runtime_execution_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\runtime_execution_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\sha256_hash_cryptography_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\sha256_hash_cryptography_manager_configurations.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\singleton_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\singleton_manager_configurations.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\temperature_manager.cpp" />
@@ -338,6 +364,16 @@
     <ClCompile Include="qlogicae_cpp_core\sources\value_enum_key_delete_handler.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\value_extractor_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\value_extractor_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\windows_environment_variable.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\windows_environment_variable_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\windows_environment_variable_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\windows_registry_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\windows_registry_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\windows_registry_root_path.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\windows_system_access_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\windows_system_access_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\xchacha20_poly1305_cipher_cryptography_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\xchacha20_poly1305_cipher_cryptography_manager_configurations.cpp" />
   </ItemGroup>
   <ItemGroup>
     <MASM Include="qlogicae_cpp_core\assembly\x64_masm__main.asm" />

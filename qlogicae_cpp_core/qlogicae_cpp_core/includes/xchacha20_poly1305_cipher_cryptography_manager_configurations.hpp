@@ -15,5 +15,7 @@ namespace
 
 		static XChaCha20Poly1305CipherCryptographyManagerConfigurations
 			default_configurations;
+
+		XChaCha20Poly1305CipherCryptographyManagerConfigurations();
     };    
 }

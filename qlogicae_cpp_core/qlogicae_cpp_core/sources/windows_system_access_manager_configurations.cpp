@@ -6,16 +6,15 @@ namespace
 	QLogicaeCppCore
 {
 	WindowsSystemAccessManagerConfigurations
-		WindowsSystemAccessManagerConfigurations
-			::initial_configurations =
-				[]()
-				{
-					WindowsSystemAccessManagerConfigurations
-						configurations;
+		::WindowsSystemAccessManagerConfigurations() :
+			AbstractConfigurations<WindowsSystemAccessManagerConfigurations>()
+	{
+		
+	}
 
-					return
-						configurations;
-				}();
+	WindowsSystemAccessManagerConfigurations
+		WindowsSystemAccessManagerConfigurations
+			::initial_configurations;
 
 	WindowsSystemAccessManagerConfigurations
 		WindowsSystemAccessManagerConfigurations

@@ -6,16 +6,15 @@ namespace
 	QLogicaeCppCore
 {
 	WindowsEnvironmentVariableManagerConfigurations
-		WindowsEnvironmentVariableManagerConfigurations
-			::initial_configurations =
-				[]()
-				{
-					WindowsEnvironmentVariableManagerConfigurations
-						configurations;
+		::WindowsEnvironmentVariableManagerConfigurations() :
+			AbstractConfigurations<WindowsEnvironmentVariableManagerConfigurations>()
+	{
+		
+	}
 
-					return
-						configurations;
-				}();
+	WindowsEnvironmentVariableManagerConfigurations
+		WindowsEnvironmentVariableManagerConfigurations
+			::initial_configurations;
 
 	WindowsEnvironmentVariableManagerConfigurations
 		WindowsEnvironmentVariableManagerConfigurations

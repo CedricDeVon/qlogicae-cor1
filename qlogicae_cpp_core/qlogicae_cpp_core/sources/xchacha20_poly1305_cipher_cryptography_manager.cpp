@@ -57,7 +57,17 @@ namespace
 			::construct()
     {
         try
-        {			
+        {	
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_utility_handling()
+			)
+			{
+				return
+					false;
+			}
+		
 			boost::unique_lock<boost::mutex>
 				mutex_lock;
 			if (configurations.is_thread_safety_enabled_for_utility_handling())
@@ -91,6 +101,16 @@ namespace
     {
         try
         {		
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_utility_handling()
+			)
+			{
+				return
+					false;
+			}
+
 			boost::unique_lock<boost::mutex>
 				mutex_lock;
 			if (configurations.is_thread_safety_enabled_for_utility_handling())
@@ -131,6 +151,25 @@ namespace
 	{
 		try
         {		
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_feature_handling() ||				
+				(
+					configurations
+						.is_edge_case_enabled_for_feature_handling() &&
+					(
+						text.empty() ||
+						private_key.size() != crypto_aead_xchacha20poly1305_ietf_KEYBYTES ||
+						nonce.size() != crypto_aead_xchacha20poly1305_ietf_NPUBBYTES
+					)
+				)
+			)
+			{
+				return
+					text;
+			}
+
 			boost::unique_lock<boost::mutex>
 				mutex_lock;
 			if (configurations.is_thread_safety_enabled_for_feature_handling())
@@ -141,16 +180,6 @@ namespace
 						feature_handling_mutex_1
 					);
 			}			
-
-			if (private_key.size() != crypto_aead_xchacha20poly1305_ietf_KEYBYTES)
-			{
-				return {};
-			}
-
-			if (nonce.size() != crypto_aead_xchacha20poly1305_ietf_NPUBBYTES)
-			{
-				return {};
-			}
 
 			std::vector<unsigned char>
 				ciphertext(
@@ -176,7 +205,8 @@ namespace
 				) != 0
 				)
 			{
-				return {};
+				return
+					text;
 			}
 
 			std::string
@@ -198,7 +228,8 @@ namespace
 
 			encoded.resize(std::strlen(encoded.c_str()));
 
-			return encoded;
+			return
+				encoded;
         }
         catch
         (
@@ -211,7 +242,7 @@ namespace
 			);
 
 			return
-				"";
+				text;
         }
 	}
 
@@ -228,6 +259,25 @@ namespace
 	{
 		try
         {		
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_feature_handling() ||				
+				(
+					configurations
+						.is_edge_case_enabled_for_feature_handling() &&
+					(
+						text.empty() ||
+						private_key.size() != crypto_aead_xchacha20poly1305_ietf_KEYBYTES ||
+						nonce.size() != crypto_aead_xchacha20poly1305_ietf_NPUBBYTES
+					)
+				)
+			)
+			{
+				return
+					text;
+			}
+
 			boost::unique_lock<boost::mutex>
 				mutex_lock;
 			if (configurations.is_thread_safety_enabled_for_feature_handling())
@@ -259,12 +309,14 @@ namespace
 				) != 0
 			)
 			{
-				return {};
+				return
+					text;
 			}
 
 			if (decoded_length < crypto_aead_xchacha20poly1305_ietf_ABYTES)
 			{
-				return {};
+				return
+					text;
 			}
 
 			std::vector<unsigned char>
@@ -291,7 +343,8 @@ namespace
 				) != 0
 			)
 			{
-				return {};
+				return
+					text;
 			}
 
 			return std::string(
@@ -310,7 +363,7 @@ namespace
 			);
 
 			return
-				"";
+				text;
         }
 	}
 }

@@ -6,16 +6,15 @@ namespace
 	QLogicaeCppCore
 {
 	BcryptHashCryptographyManagerConfigurations
-		BcryptHashCryptographyManagerConfigurations
-			::initial_configurations =
-				[]()
-				{
-					BcryptHashCryptographyManagerConfigurations
-						configurations;
+		::BcryptHashCryptographyManagerConfigurations() :
+			AbstractConfigurations<BcryptHashCryptographyManagerConfigurations>()
+	{
+		
+	}
 
-					return
-						configurations;
-				}();
+	BcryptHashCryptographyManagerConfigurations
+		BcryptHashCryptographyManagerConfigurations
+			::initial_configurations;
 
 	BcryptHashCryptographyManagerConfigurations
 		BcryptHashCryptographyManagerConfigurations

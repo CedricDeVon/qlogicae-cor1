@@ -4,30 +4,24 @@
 
 namespace
 	QLogicaeCppCore
-{
+{	
+	WindowsRegistryManagerConfigurations
+		::WindowsRegistryManagerConfigurations() :
+			AbstractConfigurations<WindowsRegistryManagerConfigurations>()
+	{
+		root_key = 
+			HKEY_CURRENT_USER;
+
+		sub_key =
+			L"Software\\App";
+
+		name_key =
+			L"Data";
+	}
+
 	WindowsRegistryManagerConfigurations
 		WindowsRegistryManagerConfigurations
-			::initial_configurations =
-				[]()
-				{
-					WindowsRegistryManagerConfigurations
-						configurations;
-
-					configurations
-						.root_key = 
-							HKEY_CURRENT_USER;
-
-					configurations
-						.sub_key =
-							L"Software\\App";
-
-					configurations
-						.name_key =
-							L"Data";
-
-					return
-						configurations;
-				}();
+			::initial_configurations;
 
 	WindowsRegistryManagerConfigurations
 		WindowsRegistryManagerConfigurations

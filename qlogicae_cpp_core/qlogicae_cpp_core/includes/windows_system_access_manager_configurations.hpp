@@ -15,5 +15,7 @@ namespace
 
 		static WindowsSystemAccessManagerConfigurations
 			default_configurations;
+
+		WindowsSystemAccessManagerConfigurations();
 	};
 }

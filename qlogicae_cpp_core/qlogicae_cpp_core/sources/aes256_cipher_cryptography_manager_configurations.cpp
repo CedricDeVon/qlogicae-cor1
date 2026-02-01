@@ -6,16 +6,15 @@ namespace
 	QLogicaeCppCore
 {
 	Aes256CipherCryptographyManagerConfigurations
-		Aes256CipherCryptographyManagerConfigurations
-			::initial_configurations =
-				[]()
-				{
-					Aes256CipherCryptographyManagerConfigurations
-						configurations;
+		::Aes256CipherCryptographyManagerConfigurations() :
+			AbstractConfigurations<Aes256CipherCryptographyManagerConfigurations>()
+	{
+		
+	}
 
-					return
-						configurations;
-				}();
+	Aes256CipherCryptographyManagerConfigurations
+		Aes256CipherCryptographyManagerConfigurations
+			::initial_configurations;
 
 	Aes256CipherCryptographyManagerConfigurations
 		Aes256CipherCryptographyManagerConfigurations

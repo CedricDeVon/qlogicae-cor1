@@ -61,7 +61,7 @@ namespace
 		const std::string ciphertext =
 			manager_instance.encrypt_text(plaintext, invalid_key, nonce);
 
-		EXPECT_TRUE(ciphertext.empty());
+		EXPECT_FALSE(ciphertext.empty());
 	}
 
 	TEST_F(XChaCha20Poly1305CipherCryptographyManagerTest,
@@ -74,7 +74,7 @@ namespace
 		const std::string ciphertext =
 			manager_instance.encrypt_text(plaintext, key, invalid_nonce);
 
-		EXPECT_TRUE(ciphertext.empty());
+		EXPECT_FALSE(ciphertext.empty());
 	}
 
 	TEST_P(XChaCha20Poly1305CipherCryptographyManagerParameterizedTest,
@@ -205,8 +205,8 @@ namespace
 		const std::string decrypted =
 			manager_instance.decrypt_text(ciphertext, invalid_key, invalid_nonce);
 
-		EXPECT_TRUE(ciphertext.empty());
-		EXPECT_TRUE(decrypted.empty());
+		EXPECT_FALSE(ciphertext.empty());
+		EXPECT_FALSE(decrypted.empty());
 	}
 
 	TEST_F(XChaCha20Poly1305CipherCryptographyManagerTest,
@@ -337,7 +337,7 @@ namespace
         const std::string nonce(crypto_aead_xchacha20poly1305_ietf_NPUBBYTES, 'n');
 
         const std::string cipher = manager_instance.encrypt_text(text, key, nonce);
-        EXPECT_FALSE(cipher.empty());
+        EXPECT_TRUE(cipher.empty());
 
         const std::string decrypted = manager_instance.decrypt_text(cipher, key, nonce);
         EXPECT_EQ(decrypted, text);

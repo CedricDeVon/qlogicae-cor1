@@ -30,6 +30,14 @@
     <ClCompile Include="qlogicae_cpp_core_test\sources\text_error_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core_test\sources\text_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core_test\sources\text_placeholder_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core_test\sources\argon2id_hash_cryptography_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core_test\sources\aes256_cipher_cryptography_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core_test\sources\bcrypt_hash_cryptography_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core_test\sources\xchacha20_poly1305_cipher_cryptography_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core_test\sources\sha256_hash_cryptography_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core_test\sources\windows_environment_variable_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core_test\sources\windows_registry_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core_test\sources\windows_system_access_manager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.hpp" />
@@ -62,6 +70,14 @@
     <ClInclude Include="qlogicae_cpp_core_test\includes\text_error_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core_test\includes\text_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core_test\includes\text_placeholder_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core_test\includes\aes256_cipher_cryptography_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core_test\includes\bcrypt_hash_cryptography_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core_test\includes\xchacha20_poly1305_cipher_cryptography_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core_test\includes\sha256_hash_cryptography_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core_test\includes\argon2id_hash_cryptography_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core_test\includes\windows_environment_variable_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core_test\includes\windows_registry_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core_test\includes\windows_system_access_manager.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

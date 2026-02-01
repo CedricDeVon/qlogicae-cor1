@@ -6,16 +6,15 @@ namespace
 	QLogicaeCppCore
 {
 	Argon2idHashCryptographyManagerConfigurations
-		Argon2idHashCryptographyManagerConfigurations
-			::initial_configurations =
-				[]()
-				{
-					Argon2idHashCryptographyManagerConfigurations
-						configurations;
+		::Argon2idHashCryptographyManagerConfigurations() :
+			AbstractConfigurations<Argon2idHashCryptographyManagerConfigurations>()
+	{
+		
+	}
 
-					return
-						configurations;
-				}();
+	Argon2idHashCryptographyManagerConfigurations
+		Argon2idHashCryptographyManagerConfigurations
+			::initial_configurations;
 
 	Argon2idHashCryptographyManagerConfigurations
 		Argon2idHashCryptographyManagerConfigurations
