@@ -144,7 +144,7 @@ namespace
 		Should_HandleConcurrentAccess_When_ThreadSafetyEnabled
 	)
 	{
-		manager.configurations.is_feature_handling_thread_safety_enabled =
+		manager.configurations.is_feature_thread_safety_handling_enabled =
 			true;
 
 		std::atomic<bool>

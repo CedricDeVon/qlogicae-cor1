@@ -205,8 +205,8 @@ namespace
 
 	TEST_F(WindowsRegistryManagerTest, Should_HandleThreadSafetyFlagsDisabled)
 	{
-		manager.configurations.is_feature_handling_thread_safety_enabled = false;
-		manager.configurations.is_feature_handling_thread_safety_enabled = false;
+		manager.configurations.is_feature_thread_safety_handling_enabled = false;
+		manager.configurations.is_feature_thread_safety_handling_enabled = false;
 		std::wstring value = L"ThreadSafetyOff";
 		ASSERT_TRUE(manager.set_value_via_wstring(value));
 		ASSERT_EQ(manager.get_value_via_wstring(), value);

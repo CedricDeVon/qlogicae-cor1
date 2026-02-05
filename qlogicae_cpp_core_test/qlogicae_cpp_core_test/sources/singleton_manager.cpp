@@ -862,7 +862,7 @@ namespace QLogicaeCppCoreTest
 			
 
 		SingletonManagerConfigurations configurations;
-		configurations.is_thread_safety_override_enabled = true;
+		configurations.is_thread_safety_handling_override_enabled = true;
 
 		manager.setup(configurations);
 
@@ -895,7 +895,7 @@ namespace QLogicaeCppCoreTest
 	)
 	{
 		SingletonManager manager;
-			
+
 
 		ASSERT_TRUE(
 			manager.destruct()
@@ -908,7 +908,7 @@ namespace QLogicaeCppCoreTest
 	)
 	{
 		SingletonManager manager;
-			
+
 
 		ASSERT_TRUE(manager.construct());
 		ASSERT_TRUE(manager.destruct());
@@ -1000,7 +1000,7 @@ namespace QLogicaeCppCoreTest
 	)
 	{
 		SingletonManager manager;
-			
+
 
 		manager.construct();
 		manager.destruct();
@@ -1018,7 +1018,7 @@ namespace QLogicaeCppCoreTest
 	)
 	{
 		SingletonManager manager;
-			
+
 
 		std::thread t1(
 			[&]
@@ -1049,7 +1049,7 @@ namespace QLogicaeCppCoreTest
 		configurations.is_utility_runtime_execution_handling_enabled = false;
 		configurations.is_runtime_execution_handling_override_enabled = false;
 
-		SingletonManager manager; 
+		SingletonManager manager;
 		manager.setup(configurations);
 
 		ASSERT_FALSE(manager.construct());
@@ -1062,8 +1062,8 @@ namespace QLogicaeCppCoreTest
 	)
 	{
 		SingletonManagerConfigurations configurations;
-		configurations.is_utility_handling_thread_safety_enabled = false;
-		configurations.is_thread_safety_override_enabled = false;
+		configurations.is_utility_thread_safety_handling_enabled = false;
+		configurations.is_thread_safety_handling_override_enabled = false;
 
 		SingletonManager manager;
 

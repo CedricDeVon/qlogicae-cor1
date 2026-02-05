@@ -292,7 +292,7 @@ namespace QLogicaeCore
             }
         );
     }
-
+	
     std::string RocksDBDatabase::get_file_path()
     {
         return _file_path;

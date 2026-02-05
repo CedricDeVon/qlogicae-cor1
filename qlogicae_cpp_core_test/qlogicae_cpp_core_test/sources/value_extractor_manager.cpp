@@ -196,7 +196,7 @@ namespace
 
 	TYPED_TEST(ValueExtractorManagerTest, Should_HandleThreadSafetyUtilityMutex_When_Enabled)
 	{
-		this->manager.configurations.is_utility_handling_thread_safety_enabled = true;
+		this->manager.configurations.is_utility_thread_safety_handling_enabled = true;
 		std::atomic<int> completed_count = 0;
 		auto thread_lambda = [this, &completed_count]()
 		{
@@ -231,7 +231,7 @@ namespace
 
 	TYPED_TEST(ValueExtractorManagerTest, Should_HandleFeatureThreadSafetyMutex_When_Enabled)
 	{
-		this->manager.configurations.is_feature_handling_thread_safety_enabled = true;
+		this->manager.configurations.is_feature_thread_safety_handling_enabled = true;
 		std::atomic<int> completed_count = 0;
 		auto thread_lambda = [this, &completed_count]()
 		{
@@ -328,7 +328,7 @@ namespace
 	TYPED_TEST(ValueExtractorManagerTest, Should_HandleInvalidConfiguration)
 	{
 		this->manager.configurations.is_feature_edge_case_handling_enabled = false;
-		this->manager.configurations.is_feature_handling_thread_safety_enabled = false;
+		this->manager.configurations.is_feature_thread_safety_handling_enabled = false;
 		ASSERT_TRUE(this->manager.construct());
 		ASSERT_TRUE(this->manager.destruct());
 	}

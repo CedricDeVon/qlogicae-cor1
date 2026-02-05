@@ -388,97 +388,97 @@ namespace
             new_configurations;
 
         new_configurations
-            .is_thread_safety_override_enabled =
-                true;
+            .is_thread_safety_handling_override_enabled =
+			true;
 
-        text_error_manager.setup(
-            new_configurations);
+		text_error_manager.setup(
+			new_configurations);
 
-        std::vector<std::thread>
-            worker_threads;
+		std::vector<std::thread>
+			worker_threads;
 
-        for
-        (
-            std::size_t thread_index = 0;
-            thread_index < static_cast<std::size_t>(16);
-            ++thread_index
-        )
-        {
-            worker_threads.emplace_back(
-                [&]()
-                {
-                    text_error_manager.convert_text(
-                        std::string("origin"),
-                        std::string("message"));
-                });
-        }
+		for
+			(
+				std::size_t thread_index = 0;
+				thread_index < static_cast<std::size_t>(16);
+				++thread_index
+				)
+		{
+			worker_threads.emplace_back(
+				[&]()
+				{
+					text_error_manager.convert_text(
+						std::string("origin"),
+						std::string("message"));
+				});
+		}
 
-        for
-        (
-            std::thread& worker_thread :
-            worker_threads
-        )
-        {
-            worker_thread.join();
-        }
+		for
+			(
+				std::thread& worker_thread :
+				worker_threads
+				)
+		{
+			worker_thread.join();
+		}
 
-        SUCCEED();
-    }
+		SUCCEED();
+	}
 
-    TEST_F(
-        TextErrorManagerTest,
-        Should_ExerciseFeatureHandlingMutexes_When_Configured)
-    {
-        QLogicaeCppCore::TextErrorManagerConfigurations
-            new_configurations;
+	TEST_F(
+		TextErrorManagerTest,
+		Should_ExerciseFeatureHandlingMutexes_When_Configured)
+	{
+		QLogicaeCppCore::TextErrorManagerConfigurations
+			new_configurations;
 
-        new_configurations
-            .is_feature_handling_thread_safety_enabled =
-                true;
+		new_configurations
+			.is_feature_thread_safety_handling_enabled =
+			true;
 
-        text_error_manager.setup(
-            new_configurations);
+		text_error_manager.setup(
+			new_configurations);
 
-        std::thread
-            first_thread(
-                [&]()
-                {
-                    text_error_manager.convert_text(
-                        std::string("origin"),
-                        std::string("message"));
-                });
+		std::thread
+			first_thread(
+				[&]()
+				{
+					text_error_manager.convert_text(
+						std::string("origin"),
+						std::string("message"));
+				});
 
-        std::thread
-            second_thread(
-                [&]()
-                {
-                    text_error_manager.convert_text(
-                        std::string("origin"),
-                        std::string("message"));
-                });
+		std::thread
+			second_thread(
+				[&]()
+				{
+					text_error_manager.convert_text(
+						std::string("origin"),
+						std::string("message"));
+				});
 
-        first_thread.join();
-        second_thread.join();
+		first_thread.join();
+		second_thread.join();
 
-        SUCCEED();
-    }
+		SUCCEED();
+	}
 
-    TEST_F(
-        TextErrorManagerTest,
-        Should_FailDueToRecursion_When_MessageOnlyOverloadCalled)
-    {
-        ASSERT_DEATH(
-            {
-                text_error_manager.convert_text(
-                    std::string("message"));
-            },
-            "");
-    }
+	TEST_F(
+		TextErrorManagerTest,
+		Should_FailDueToRecursion_When_MessageOnlyOverloadCalled)
+	{
+		ASSERT_DEATH(
+			{
+				text_error_manager.convert_text(
+					std::string("message"));
+			},
+			"");
+	}
 
-    TEST_F(
-        TextErrorManagerTest,
-        Should_HandleSpecifiedLength_When_Enabled)
-    {
+	TEST_F(
+		TextErrorManagerTest,
+		Should_HandleSpecifiedLength_When_Enabled)
+	{
 		QLogicaeCppCore::TextErrorManagerConfigurations
 			new_configurations;
 
@@ -505,21 +505,21 @@ namespace
 			result.find(
 				std::string("123456789")),
 			std::string::npos);
-    }
+	}
 
-    TEST_F(
-        TextErrorManagerTest,
-        Should_RunWithoutMutex_When_ThreadSafetyDisabled)
-    {
-        QLogicaeCppCore::TextErrorManagerConfigurations
-            new_configurations;
+	TEST_F(
+		TextErrorManagerTest,
+		Should_RunWithoutMutex_When_ThreadSafetyDisabled)
+	{
+		QLogicaeCppCore::TextErrorManagerConfigurations
+			new_configurations;
 
-        new_configurations
-            .is_thread_safety_override_enabled =
+		new_configurations
+			.is_thread_safety_handling_override_enabled =
                 false;
 
         new_configurations
-            .is_utility_handling_thread_safety_enabled =
+            .is_utility_thread_safety_handling_enabled =
                 false;
 
         text_error_manager.setup(

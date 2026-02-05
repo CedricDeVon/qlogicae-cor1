@@ -741,7 +741,7 @@ namespace
 	)
 	{
 		QLogicaeCppCore::AsynchronousManagerConfigurations configurations;
-		configurations.is_utility_handling_thread_safety_enabled = false;
+		configurations.is_utility_thread_safety_handling_enabled = false;
 		manager.setup(configurations);
 		bool construct_result = manager.construct();
 		bool destruct_result = manager.destruct();

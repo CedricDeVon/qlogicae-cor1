@@ -59,12 +59,12 @@ namespace
 			custom_headers =
 				{};
 
-
-
 		static GmailApiManagerConfigurations
 			initial_configurations;
 
 		static GmailApiManagerConfigurations
 			default_configurations;
+
+		GmailApiManagerConfigurations();
     };
 }

@@ -330,7 +330,7 @@ namespace
 		configurations.is_enable_output_override_enabled =
 			true;
 
-		configurations.is_thread_safety_override_enabled =
+		configurations.is_thread_safety_handling_override_enabled =
 			true;
 
 		configurations.is_asynchronous_output_enabled =
@@ -1174,7 +1174,7 @@ namespace
 		QLogicaeCppCore::ErrorManagerConfigurations configurations;
 
 		configurations
-			.is_feature_handling_thread_safety_enabled =
+			.is_feature_thread_safety_handling_enabled =
 			false;
 
 		configurations

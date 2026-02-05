@@ -268,7 +268,7 @@ namespace
 			new_configurations;
 
 		new_configurations
-			.is_thread_safety_override_enabled =
+			.is_thread_safety_handling_override_enabled =
 			true;
 
 		EXPECT_TRUE(
@@ -375,7 +375,7 @@ namespace
 			configurations;
 
 		configurations
-			.is_utility_handling_thread_safety_enabled =
+			.is_utility_thread_safety_handling_enabled =
 			false;
 
 		EXPECT_TRUE(
@@ -398,11 +398,11 @@ namespace
 			configurations;
 
 		configurations
-			.is_utility_handling_thread_safety_enabled =
+			.is_utility_thread_safety_handling_enabled =
 			false;
 
 		configurations
-			.is_thread_safety_override_enabled =
+			.is_thread_safety_handling_override_enabled =
 			true;
 
 		EXPECT_TRUE(
@@ -425,7 +425,7 @@ namespace
 			configurations;
 
 		configurations
-			.is_feature_handling_thread_safety_enabled =
+			.is_feature_thread_safety_handling_enabled =
 			false;
 
 		EXPECT_TRUE(
@@ -450,7 +450,7 @@ namespace
 			configurations;
 
 		configurations
-			.is_feature_handling_thread_safety_enabled =
+			.is_feature_thread_safety_handling_enabled =
 			true;
 
 		EXPECT_TRUE(
@@ -498,7 +498,7 @@ namespace
 			configurations;
 
 		configurations
-			.is_error_handling_thread_safety_enabled =
+			.is_error_thread_safety_handling_enabled =
 			true;
 
 		EXPECT_TRUE(
@@ -526,7 +526,7 @@ namespace
 			configurations;
 
 		configurations
-			.is_feature_handling_thread_safety_enabled =
+			.is_feature_thread_safety_handling_enabled =
 			true;
 
 		EXPECT_TRUE(
@@ -591,7 +591,7 @@ namespace
 
 	TEST_F(ConsoleIoManagerTest, Should_Handle_ErrorOutputs_When_ThreadSafetyDisabled)
 	{
-		manager.configurations.is_error_handling_thread_safety_enabled =
+		manager.configurations.is_error_thread_safety_handling_enabled =
 			false;
 
 		ASSERT_THROW(
@@ -649,7 +649,7 @@ namespace
 
 	TEST_F(ConsoleIoManagerTest, Should_Handle_Scan_When_FeatureThreadSafetyDisabled)
 	{
-		manager.configurations.is_feature_handling_thread_safety_enabled =
+		manager.configurations.is_feature_thread_safety_handling_enabled =
 			false;
 
 		std::istringstream input("value");
@@ -724,10 +724,10 @@ namespace
 
 	TEST_F(ConsoleIoManagerTest, Should_Handle_Override_Disabling_ThreadSafety)
 	{
-		manager.configurations.is_thread_safety_override_enabled =
+		manager.configurations.is_thread_safety_handling_override_enabled =
 			false;
 
-		manager.configurations.is_utility_handling_thread_safety_enabled =
+		manager.configurations.is_utility_thread_safety_handling_enabled =
 			false;
 
 		manager.print(
@@ -814,7 +814,7 @@ namespace
 	{
 		for (size_t i = 0; i < 10000; ++i)
 		{
-			manager.configurations.is_feature_handling_thread_safety_enabled =
+			manager.configurations.is_feature_thread_safety_handling_enabled =
 				(i % 2) == 0;
 
 			manager.print(
@@ -916,8 +916,8 @@ namespace
 	TEST_F(ConsoleIoManagerTest, Should_Persist_Configuration_AcrossRepeatedResets)
 	{
 		ConsoleIoManagerConfigurations conf;
-		conf.is_feature_handling_thread_safety_enabled = true;
-		conf.is_utility_handling_thread_safety_enabled = true;
+		conf.is_feature_thread_safety_handling_enabled = true;
+		conf.is_utility_thread_safety_handling_enabled = true;
 
 		for (size_t i = 0; i < 10; ++i)
 		{
@@ -965,7 +965,7 @@ namespace
 
 	TEST_F(ConsoleIoManagerTest, Should_Handle_Threaded_Print_With_BadStream)
 	{
-		manager.configurations.is_feature_handling_thread_safety_enabled =
+		manager.configurations.is_feature_thread_safety_handling_enabled =
 			true;
 
 		std::ostringstream output;
@@ -1023,7 +1023,7 @@ namespace
 
 	TEST_F(ConsoleIoManagerTest, Should_Handle_Mixed_Print_And_Scan_In_Threads)
 	{
-		manager.configurations.is_feature_handling_thread_safety_enabled = true;
+		manager.configurations.is_feature_thread_safety_handling_enabled = true;
 
 		std::atomic<bool> success(true);
 		std::vector<std::thread> threads;

@@ -634,7 +634,7 @@ namespace
 	)
 	{
 		manager_instance.configurations
-			.is_utility_handling_thread_safety_enabled =
+			.is_utility_thread_safety_handling_enabled =
 			false;
 
 		std::string
@@ -801,7 +801,7 @@ namespace
 		Should_HandleAllConfigurationTogglesCorrectly
 	)
 	{
-		manager_instance.configurations.is_utility_handling_thread_safety_enabled = false;
+		manager_instance.configurations.is_utility_thread_safety_handling_enabled = false;
 
 		EXPECT_FALSE(manager_instance.get_now(TimeFormat::ISO8601).empty());
 		EXPECT_FALSE(manager_instance.convert_seconds(1, TimeScaleUnit::SECONDS) < 0);

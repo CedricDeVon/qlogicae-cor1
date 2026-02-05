@@ -715,19 +715,19 @@ namespace QLogicaeCppCoreTest
 
 	TEST_F(MutexManagerTest, Should_HonorThreadSafetyDisabledForUtilityHandling)
 	{
-		mutex_manager_instance.configurations.is_utility_handling_thread_safety_enabled = false;
+		mutex_manager_instance.configurations.is_utility_thread_safety_handling_enabled = false;
 		ASSERT_FALSE(mutex_manager_instance.configurations.is_thread_safety_enabled_for_utility_handling());
 	}
 
 	TEST_F(MutexManagerTest, Should_HonorThreadSafetyDisabledForFeatureHandling)
 	{
-		mutex_manager_instance.configurations.is_feature_handling_thread_safety_enabled = false;
+		mutex_manager_instance.configurations.is_feature_thread_safety_handling_enabled = false;
 		ASSERT_FALSE(mutex_manager_instance.configurations.is_thread_safety_enabled_for_feature_handling());
 	}
 
 	TEST_F(MutexManagerTest, Should_HonorThreadSafetyDisabledForErrorHandling)
 	{
-		mutex_manager_instance.configurations.is_error_handling_thread_safety_enabled = false;
+		mutex_manager_instance.configurations.is_error_thread_safety_handling_enabled = false;
 		ASSERT_FALSE(mutex_manager_instance.configurations.is_thread_safety_enabled_for_error_handling());
 	}
 

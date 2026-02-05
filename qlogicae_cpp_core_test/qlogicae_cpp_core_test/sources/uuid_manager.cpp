@@ -239,7 +239,7 @@ namespace
 	TEST_F(UuidManagerTest, Should_HandleException_When_ConstructThrows)
 	{
 		UuidManagerConfigurations original_config = manager.configurations;
-		manager.configurations.is_thread_safety_override_enabled = true;
+		manager.configurations.is_thread_safety_handling_override_enabled = true;
 		ASSERT_NO_THROW(manager.construct());
 		manager.configurations = original_config;
 	}
@@ -247,7 +247,7 @@ namespace
 	TEST_F(UuidManagerTest, Should_HandleException_When_DestructThrows)
 	{
 		UuidManagerConfigurations original_config = manager.configurations;
-		manager.configurations.is_thread_safety_override_enabled = true;
+		manager.configurations.is_thread_safety_handling_override_enabled = true;
 		ASSERT_NO_THROW(manager.destruct());
 		manager.configurations = original_config;
 	}

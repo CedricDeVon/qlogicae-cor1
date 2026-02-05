@@ -46,48 +46,48 @@ namespace QLogicaeCppCoreTest
     {
         ConfigurationManagerConfigurations configurations;
         configurations.is_feature_runtime_execution_handling_enabled = true;
-		configurations.is_thread_safety_override_enabled = false;
+		configurations.is_thread_safety_handling_override_enabled = false;
 
 		ASSERT_TRUE(manager.setup(configurations));
 		ASSERT_TRUE(manager.configurations.is_feature_runtime_execution_handling_enabled);
-		ASSERT_FALSE(manager.configurations.is_thread_safety_override_enabled);
+		ASSERT_FALSE(manager.configurations.is_thread_safety_handling_override_enabled);
 	}
 
 	TEST_F(ConfigurationManagerTest, Should_ResetConfigurationsToDefault_When_Called)
 	{
 		ConfigurationManagerConfigurations configurations;
 		configurations.is_feature_runtime_execution_handling_enabled = false;
-		configurations.is_thread_safety_override_enabled = true;
+		configurations.is_thread_safety_handling_override_enabled = true;
 
 		manager.setup(configurations);
 		ASSERT_TRUE(manager.reset());
 		ASSERT_TRUE(manager.configurations.is_feature_runtime_execution_handling_enabled);
-		ASSERT_FALSE(manager.configurations.is_thread_safety_override_enabled);
+		ASSERT_FALSE(manager.configurations.is_thread_safety_handling_override_enabled);
 	}
 
 	TEST_F(ConfigurationManagerTest, Should_UpdateDefaultConfigurations_When_SetupDefaultsCalled)
 	{
 		ConfigurationManagerConfigurations defaults;
 		defaults.is_feature_runtime_execution_handling_enabled = false;
-		defaults.is_thread_safety_override_enabled = true;
+		defaults.is_thread_safety_handling_override_enabled = true;
 
 		manager.setup_defaults<ConfigurationManagerConfigurations>(defaults);
 
 		ASSERT_FALSE(ConfigurationManagerConfigurations::default_configurations.is_feature_runtime_execution_handling_enabled);
-		ASSERT_TRUE(ConfigurationManagerConfigurations::default_configurations.is_thread_safety_override_enabled);
+		ASSERT_TRUE(ConfigurationManagerConfigurations::default_configurations.is_thread_safety_handling_override_enabled);
 	}
 
 	TEST_F(ConfigurationManagerTest, Should_ResetDefaultConfigurations_When_ResetDefaultsCalled)
 	{
 		ConfigurationManagerConfigurations temp;
 		temp.is_feature_runtime_execution_handling_enabled = false;
-		temp.is_thread_safety_override_enabled = true;
+		temp.is_thread_safety_handling_override_enabled = true;
 
 		manager.setup_defaults(temp);
 		manager.reset_defaults<ConfigurationManagerConfigurations>();
 
 		ASSERT_TRUE(ConfigurationManagerConfigurations::default_configurations.is_feature_runtime_execution_handling_enabled);
-		ASSERT_FALSE(ConfigurationManagerConfigurations::default_configurations.is_thread_safety_override_enabled);
+		ASSERT_FALSE(ConfigurationManagerConfigurations::default_configurations.is_thread_safety_handling_override_enabled);
 	}
 
 	TEST_P(ConfigurationManagerParameterizedTest, Should_WorkCorrectly_ForAllBooleanCombinations)
@@ -96,12 +96,12 @@ namespace QLogicaeCppCoreTest
 
 		ConfigurationManagerConfigurations configurations;
 		configurations.is_feature_runtime_execution_handling_enabled = enabled;
-		configurations.is_thread_safety_override_enabled = thread_safety;
+		configurations.is_thread_safety_handling_override_enabled = thread_safety;
 
 		manager.setup(configurations);
 
 		ASSERT_EQ(manager.configurations.is_feature_runtime_execution_handling_enabled, enabled);
-		ASSERT_EQ(manager.configurations.is_thread_safety_override_enabled, thread_safety);
+		ASSERT_EQ(manager.configurations.is_thread_safety_handling_override_enabled, thread_safety);
 	}
 
 	INSTANTIATE_TEST_CASE_P(
@@ -119,7 +119,7 @@ namespace QLogicaeCppCoreTest
 	{
 		ConfigurationManagerConfigurations configurations;
 		configurations.is_feature_runtime_execution_handling_enabled = true;
-		configurations.is_thread_safety_override_enabled = true;
+		configurations.is_thread_safety_handling_override_enabled = true;
 		manager.setup(configurations);
 
 		std::atomic<int> counter{ 0 };
@@ -127,7 +127,7 @@ namespace QLogicaeCppCoreTest
 			{
 				ConfigurationManagerConfigurations conf;
 				conf.is_feature_runtime_execution_handling_enabled = true;
-				conf.is_thread_safety_override_enabled = true;
+				conf.is_thread_safety_handling_override_enabled = true;
 				manager.setup(conf);
 			};
 
@@ -143,7 +143,7 @@ namespace QLogicaeCppCoreTest
 		}
 
 		ASSERT_TRUE(manager.configurations.is_feature_runtime_execution_handling_enabled);
-		ASSERT_TRUE(manager.configurations.is_thread_safety_override_enabled);
+		ASSERT_TRUE(manager.configurations.is_thread_safety_handling_override_enabled);
 	}
 
 	TEST_F(ConfigurationManagerTest, Should_HandleMultipleConcurrentSetupResetCalls_WithoutRaceConditions)
@@ -152,7 +152,7 @@ namespace QLogicaeCppCoreTest
 			{
 				ConfigurationManagerConfigurations conf;
 				conf.is_feature_runtime_execution_handling_enabled = true;
-				conf.is_thread_safety_override_enabled = false;
+				conf.is_thread_safety_handling_override_enabled = false;
 
 				for (int i = 0; i < 100; ++i)
 				{
@@ -173,14 +173,14 @@ namespace QLogicaeCppCoreTest
 		}
 
 		ASSERT_TRUE(manager.configurations.is_feature_runtime_execution_handling_enabled);
-		ASSERT_FALSE(manager.configurations.is_thread_safety_override_enabled);
+		ASSERT_FALSE(manager.configurations.is_thread_safety_handling_override_enabled);
 	}
 
 	TEST_F(ConfigurationManagerTest, Should_CompleteUnderStress_When_CalledManyTimes)
 	{
 		ConfigurationManagerConfigurations conf;
 		conf.is_feature_runtime_execution_handling_enabled = true;
-		conf.is_thread_safety_override_enabled = true;
+		conf.is_thread_safety_handling_override_enabled = true;
 
 		for (int i = 0; i < 1000; ++i)
 		{
@@ -189,14 +189,14 @@ namespace QLogicaeCppCoreTest
 		}
 
 		ASSERT_TRUE(manager.configurations.is_feature_runtime_execution_handling_enabled);
-		ASSERT_TRUE(manager.configurations.is_thread_safety_override_enabled);
+		ASSERT_TRUE(manager.configurations.is_thread_safety_handling_override_enabled);
 	}
 
 	TEST_F(ConfigurationManagerTest, Should_HandleAsyncSetupReset_When_CalledViaStdAsync)
 	{
 		ConfigurationManagerConfigurations conf;
 		conf.is_feature_runtime_execution_handling_enabled = true;
-		conf.is_thread_safety_override_enabled = true;
+		conf.is_thread_safety_handling_override_enabled = true;
 
 		auto future2 = std::async(std::launch::async, [&]()
 			{
@@ -219,7 +219,7 @@ namespace QLogicaeCppCoreTest
 		future1.get();
 
 		ASSERT_TRUE(manager.configurations.is_feature_runtime_execution_handling_enabled);
-		ASSERT_TRUE(manager.configurations.is_thread_safety_override_enabled);
+		ASSERT_TRUE(manager.configurations.is_thread_safety_handling_override_enabled);
 	}
 
 	TEST_F(ConfigurationManagerTest, Should_HandleEmptyConfigurations_When_SetupCalledWithDefault)
@@ -228,8 +228,8 @@ namespace QLogicaeCppCoreTest
 		ASSERT_TRUE(manager.setup(default_conf));
 
 		ASSERT_TRUE(manager.configurations.is_feature_runtime_execution_handling_enabled);
-		ASSERT_FALSE(manager.configurations.is_thread_safety_override_enabled);
-    }
+		ASSERT_FALSE(manager.configurations.is_thread_safety_handling_override_enabled);
+	}
 
 	TEST_F(ConfigurationManagerTest, Should_ReturnFalse_When_ConstructCalledWithRuntimeExecutionDisabled)
 	{
@@ -284,17 +284,17 @@ namespace QLogicaeCppCoreTest
 	TEST_F(ConfigurationManagerTest, Should_HandleThreadSafetyFlagsCorrectly)
 	{
 		ConfigurationManagerConfigurations configurations;
-		configurations.is_thread_safety_override_enabled = true;
-		configurations.is_utility_handling_thread_safety_enabled = false;
-		configurations.is_feature_handling_thread_safety_enabled = false;
-		configurations.is_error_handling_thread_safety_enabled = false;
+		configurations.is_thread_safety_handling_override_enabled = true;
+		configurations.is_utility_thread_safety_handling_enabled = false;
+		configurations.is_feature_thread_safety_handling_enabled = false;
+		configurations.is_error_thread_safety_handling_enabled = false;
 		manager.configurations = configurations;
 
 		ASSERT_TRUE(manager.configurations.is_thread_safety_enabled_for_utility_handling());
 		ASSERT_TRUE(manager.configurations.is_thread_safety_enabled_for_feature_handling());
 		ASSERT_TRUE(manager.configurations.is_thread_safety_enabled_for_error_handling());
 
-		configurations.is_thread_safety_override_enabled = false;
+		configurations.is_thread_safety_handling_override_enabled = false;
 		manager.configurations = configurations;
 
 		ASSERT_FALSE(manager.configurations.is_thread_safety_disabled_for_utility_handling() == false);
@@ -338,7 +338,7 @@ namespace QLogicaeCppCoreTest
 	};
 
 	TEST_F(ConfigurationManagerTest, Should_HandleExceptionsInSetupResetDefaults)
-	{		
+	{
 		ThrowingConfigurationManager throwing_manager;
 
 		ASSERT_THROW(throwing_manager.setup_defaults<ConfigurationManagerConfigurations>({}), std::runtime_error);
@@ -370,8 +370,8 @@ namespace QLogicaeCppCoreTest
 	TEST_F(ConfigurationManagerTest, Should_HonorThreadSafetyOverrideFlag)
 	{
 		ConfigurationManagerConfigurations conf;
-		conf.is_thread_safety_override_enabled = true;
-		conf.is_feature_handling_thread_safety_enabled = false;
+		conf.is_thread_safety_handling_override_enabled = true;
+		conf.is_feature_thread_safety_handling_enabled = false;
 
 		manager.setup(conf);
 		ASSERT_TRUE(manager.configurations.is_thread_safety_enabled_for_feature_handling());
@@ -404,11 +404,11 @@ namespace QLogicaeCppCoreTest
 			conf.is_edge_case_handling_override_enabled || conf.is_error_edge_case_handling_enabled);
 
 		ASSERT_EQ(manager.configurations.is_thread_safety_enabled_for_utility_handling(),
-			conf.is_thread_safety_override_enabled || conf.is_utility_handling_thread_safety_enabled);
+			conf.is_thread_safety_handling_override_enabled || conf.is_utility_thread_safety_handling_enabled);
 		ASSERT_EQ(manager.configurations.is_thread_safety_enabled_for_feature_handling(),
-			conf.is_thread_safety_override_enabled || conf.is_feature_handling_thread_safety_enabled);
+			conf.is_thread_safety_handling_override_enabled || conf.is_feature_thread_safety_handling_enabled);
 		ASSERT_EQ(manager.configurations.is_thread_safety_enabled_for_error_handling(),
-			conf.is_thread_safety_override_enabled || conf.is_error_handling_thread_safety_enabled);
+			conf.is_thread_safety_handling_override_enabled || conf.is_error_thread_safety_handling_enabled);
 	}
 
 	INSTANTIATE_TEST_CASE_P(
@@ -416,13 +416,13 @@ namespace QLogicaeCppCoreTest
 		ConfigurationManagerAllFlagsParameterizedTest,
 		::testing::Values(
 			ConfigurationManagerConfigurations{},
-			[](){ ConfigurationManagerConfigurations c; c.is_runtime_execution_handling_override_enabled = true; return c; }(),
-			[](){ ConfigurationManagerConfigurations c; c.is_edge_case_handling_override_enabled = true; return c; }(),
-			[](){ ConfigurationManagerConfigurations c; c.is_thread_safety_override_enabled = true; return c; }(),
-			[](){ ConfigurationManagerConfigurations c; c.is_runtime_execution_handling_override_enabled = true; c.is_edge_case_handling_override_enabled = true; return c; }(),
-			[](){ ConfigurationManagerConfigurations c; c.is_runtime_execution_handling_override_enabled = true; c.is_thread_safety_override_enabled = true; return c; }(),
-			[](){ ConfigurationManagerConfigurations c; c.is_edge_case_handling_override_enabled = true; c.is_thread_safety_override_enabled = true; return c; }(),
-			[](){ ConfigurationManagerConfigurations c; c.is_runtime_execution_handling_override_enabled = true; c.is_edge_case_handling_override_enabled = true; c.is_thread_safety_override_enabled = true; return c; }()
+			[]() { ConfigurationManagerConfigurations c; c.is_runtime_execution_handling_override_enabled = true; return c; }(),
+			[]() { ConfigurationManagerConfigurations c; c.is_edge_case_handling_override_enabled = true; return c; }(),
+			[]() { ConfigurationManagerConfigurations c; c.is_thread_safety_handling_override_enabled = true; return c; }(),
+			[]() { ConfigurationManagerConfigurations c; c.is_runtime_execution_handling_override_enabled = true; c.is_edge_case_handling_override_enabled = true; return c; }(),
+			[]() { ConfigurationManagerConfigurations c; c.is_runtime_execution_handling_override_enabled = true; c.is_thread_safety_handling_override_enabled = true; return c; }(),
+			[]() { ConfigurationManagerConfigurations c; c.is_edge_case_handling_override_enabled = true; c.is_thread_safety_handling_override_enabled = true; return c; }(),
+			[]() { ConfigurationManagerConfigurations c; c.is_runtime_execution_handling_override_enabled = true; c.is_edge_case_handling_override_enabled = true; c.is_thread_safety_handling_override_enabled = true; return c; }()
 		)
 	);
 
@@ -458,8 +458,8 @@ namespace QLogicaeCppCoreTest
 	TEST_F(ConfigurationManagerTest, Should_HandleSetupWithThreadSafetyDisabled)
 	{
 		ConfigurationManagerConfigurations conf;
-		conf.is_utility_handling_thread_safety_enabled = false;
-		conf.is_thread_safety_override_enabled = false;
+		conf.is_utility_thread_safety_handling_enabled = false;
+		conf.is_thread_safety_handling_override_enabled = false;
 
 		manager.setup(conf);
 		ASSERT_FALSE(manager.configurations.is_thread_safety_enabled_for_utility_handling());
@@ -526,7 +526,7 @@ namespace QLogicaeCppCoreTest
 			std::runtime_error
 		);
 	}
-	
+
 	struct ThrowingDefaults : ConfigurationManager
 	{
 		template <typename T>
@@ -537,7 +537,7 @@ namespace QLogicaeCppCoreTest
 	};
 
 	TEST_F(ConfigurationManagerExceptionTest, Should_ReturnFalse_When_ResetDefaultsThrows)
-	{		
+	{
 		ThrowingDefaults throwing_manager;
 
 		ASSERT_THROW(
@@ -554,18 +554,18 @@ namespace QLogicaeCppCoreTest
 	{
 		ConfigurationManagerConfigurations conf;
 		conf.is_feature_runtime_execution_handling_enabled = true;
-		conf.is_thread_safety_override_enabled = true;
+		conf.is_thread_safety_handling_override_enabled = true;
 
 		auto task = [&]()
-		{
-			for (int i = 0; i < 500; ++i)
 			{
-				manager.destruct();
-				manager.reset();
-				manager.construct();
-				manager.setup(conf);
-			}
-		};
+				for (int i = 0; i < 500; ++i)
+				{
+					manager.destruct();
+					manager.reset();
+					manager.construct();
+					manager.setup(conf);
+				}
+			};
 
 		std::vector<std::thread> threads;
 		for (int i = 0; i < 64; ++i)
@@ -579,7 +579,7 @@ namespace QLogicaeCppCoreTest
 		}
 
 		ASSERT_TRUE(manager.configurations.is_feature_runtime_execution_handling_enabled);
-		ASSERT_TRUE(manager.configurations.is_thread_safety_override_enabled);
+		ASSERT_TRUE(manager.configurations.is_thread_safety_handling_override_enabled);
 	}
 
 	TEST_F(ConfigurationManagerExceptionTest, Should_HandleFeatureAndErrorFlagsIndependently)
@@ -587,13 +587,13 @@ namespace QLogicaeCppCoreTest
 		ConfigurationManagerConfigurations conf;
 		conf.is_feature_runtime_execution_handling_enabled = false;
 		conf.is_error_runtime_execution_handling_enabled = true;
-		conf.is_thread_safety_override_enabled = true;
+		conf.is_thread_safety_handling_override_enabled = true;
 
 		manager.setup(conf);
 
 		ASSERT_FALSE(manager.configurations.is_feature_runtime_execution_handling_enabled);
 		ASSERT_TRUE(manager.configurations.is_error_runtime_execution_handling_enabled);
-		ASSERT_TRUE(manager.configurations.is_thread_safety_override_enabled);
+		ASSERT_TRUE(manager.configurations.is_thread_safety_handling_override_enabled);
 	}
 
 	TEST_F(ConfigurationManagerExceptionTest, Should_HandleEdgeCaseFlagsCorrectly)
@@ -614,16 +614,16 @@ namespace QLogicaeCppCoreTest
 	{
 		ConfigurationManagerConfigurations defaults;
 		defaults.is_feature_runtime_execution_handling_enabled = true;
-		defaults.is_thread_safety_override_enabled = true;
+		defaults.is_thread_safety_handling_override_enabled = true;
 
 		auto task = [&]()
-		{
-			for (int i = 0; i < 100; ++i)
 			{
-				manager.setup_defaults(defaults);
-				manager.reset_defaults<ConfigurationManagerConfigurations>();
-			}
-		};
+				for (int i = 0; i < 100; ++i)
+				{
+					manager.setup_defaults(defaults);
+					manager.reset_defaults<ConfigurationManagerConfigurations>();
+				}
+			};
 
 		std::vector<std::thread> threads;
 		for (int i = 0; i < 16; ++i)
@@ -637,36 +637,36 @@ namespace QLogicaeCppCoreTest
 		}
 
 		ASSERT_TRUE(ConfigurationManagerConfigurations::default_configurations.is_feature_runtime_execution_handling_enabled);
-		ASSERT_FALSE(ConfigurationManagerConfigurations::default_configurations.is_thread_safety_override_enabled);
+		ASSERT_FALSE(ConfigurationManagerConfigurations::default_configurations.is_thread_safety_handling_override_enabled);
 	}
 
 	TEST_F(ConfigurationManagerTest, Should_HandleAsyncSetupDefaultsResetDefaults_When_CalledViaStdAsync)
 	{
 		ConfigurationManagerConfigurations defaults;
 		defaults.is_feature_runtime_execution_handling_enabled = true;
-		defaults.is_thread_safety_override_enabled = true;
+		defaults.is_thread_safety_handling_override_enabled = true;
 
 		auto future_reset = std::async(std::launch::async, [&]()
-		{
-			for (int i = 0; i < 100; ++i)
 			{
-				manager.reset_defaults<ConfigurationManagerConfigurations>();
-			}
-		});
+				for (int i = 0; i < 100; ++i)
+				{
+					manager.reset_defaults<ConfigurationManagerConfigurations>();
+				}
+			});
 
 		auto future_setup = std::async(std::launch::async, [&]()
-		{
-			for (int i = 0; i < 100; ++i)
 			{
-				manager.setup_defaults(defaults);
-			}
-		});
+				for (int i = 0; i < 100; ++i)
+				{
+					manager.setup_defaults(defaults);
+				}
+			});
 
 		future_reset.get();
 		future_setup.get();
 
 		ASSERT_TRUE(ConfigurationManagerConfigurations::default_configurations.is_feature_runtime_execution_handling_enabled);
-		ASSERT_TRUE(ConfigurationManagerConfigurations::default_configurations.is_thread_safety_override_enabled);
+		ASSERT_TRUE(ConfigurationManagerConfigurations::default_configurations.is_thread_safety_handling_override_enabled);
 	}
 
 	struct ThrowingDefaultsManager : ConfigurationManager
@@ -685,14 +685,14 @@ namespace QLogicaeCppCoreTest
 	};
 
 	TEST_F(ConfigurationManagerTest, Should_ReturnFalse_When_SetupDefaultsThrowsException)
-	{		
+	{
 		ThrowingDefaultsManager throwing_manager;
 		ConfigurationManagerConfigurations defaults;
 
 		ASSERT_THROW({
 			bool result = throwing_manager.setup_defaults(defaults);
 			ASSERT_FALSE(result);
-		}, std::runtime_error);
+			}, std::runtime_error);
 	}
 
 	TEST_F(ConfigurationManagerTest, Should_ReturnFalse_When_ResetDefaultsThrowsException)
@@ -702,7 +702,7 @@ namespace QLogicaeCppCoreTest
 		ASSERT_THROW({
 			bool result = throwing_manager.reset_defaults<ConfigurationManagerConfigurations>();
 			ASSERT_FALSE(result);
-		}, std::runtime_error
+			}, std::runtime_error
 		);
 	}
 
@@ -732,25 +732,25 @@ namespace QLogicaeCppCoreTest
 			conf.is_edge_case_handling_override_enabled || conf.is_error_edge_case_handling_enabled);
 
 		ASSERT_EQ(manager.configurations.is_thread_safety_enabled_for_utility_handling(),
-			conf.is_thread_safety_override_enabled || conf.is_utility_handling_thread_safety_enabled);
+			conf.is_thread_safety_handling_override_enabled || conf.is_utility_thread_safety_handling_enabled);
 		ASSERT_EQ(manager.configurations.is_thread_safety_enabled_for_feature_handling(),
-			conf.is_thread_safety_override_enabled || conf.is_feature_handling_thread_safety_enabled);
+			conf.is_thread_safety_handling_override_enabled || conf.is_feature_thread_safety_handling_enabled);
 		ASSERT_EQ(manager.configurations.is_thread_safety_enabled_for_error_handling(),
-			conf.is_thread_safety_override_enabled || conf.is_error_handling_thread_safety_enabled);
+			conf.is_thread_safety_handling_override_enabled || conf.is_error_thread_safety_handling_enabled);
 	}
 
 	INSTANTIATE_TEST_CASE_P(
 		ExhaustiveFlagCombinations,
 		ConfigurationManagerExhaustiveFlagsTest,
 		::testing::Values(
-			[](){ ConfigurationManagerConfigurations c{}; return c; }(),
-			[](){ ConfigurationManagerConfigurations c{}; c.is_runtime_execution_handling_override_enabled = true; return c; }(),
-			[](){ ConfigurationManagerConfigurations c{}; c.is_edge_case_handling_override_enabled = true; return c; }(),
-			[](){ ConfigurationManagerConfigurations c{}; c.is_thread_safety_override_enabled = true; return c; }(),
-			[](){ ConfigurationManagerConfigurations c{}; c.is_runtime_execution_handling_override_enabled = true; c.is_edge_case_handling_override_enabled = true; return c; }(),
-			[](){ ConfigurationManagerConfigurations c{}; c.is_runtime_execution_handling_override_enabled = true; c.is_thread_safety_override_enabled = true; return c; }(),
-			[](){ ConfigurationManagerConfigurations c{}; c.is_edge_case_handling_override_enabled = true; c.is_thread_safety_override_enabled = true; return c; }(),
-			[](){ ConfigurationManagerConfigurations c{}; c.is_runtime_execution_handling_override_enabled = true; c.is_edge_case_handling_override_enabled = true; c.is_thread_safety_override_enabled = true; return c; }()
+			[]() { ConfigurationManagerConfigurations c{}; return c; }(),
+			[]() { ConfigurationManagerConfigurations c{}; c.is_runtime_execution_handling_override_enabled = true; return c; }(),
+			[]() { ConfigurationManagerConfigurations c{}; c.is_edge_case_handling_override_enabled = true; return c; }(),
+			[]() { ConfigurationManagerConfigurations c{}; c.is_thread_safety_handling_override_enabled = true; return c; }(),
+			[]() { ConfigurationManagerConfigurations c{}; c.is_runtime_execution_handling_override_enabled = true; c.is_edge_case_handling_override_enabled = true; return c; }(),
+			[]() { ConfigurationManagerConfigurations c{}; c.is_runtime_execution_handling_override_enabled = true; c.is_thread_safety_handling_override_enabled = true; return c; }(),
+			[]() { ConfigurationManagerConfigurations c{}; c.is_edge_case_handling_override_enabled = true; c.is_thread_safety_handling_override_enabled = true; return c; }(),
+			[]() { ConfigurationManagerConfigurations c{}; c.is_runtime_execution_handling_override_enabled = true; c.is_edge_case_handling_override_enabled = true; c.is_thread_safety_handling_override_enabled = true; return c; }()
 		)
 	);
 
@@ -761,32 +761,32 @@ namespace QLogicaeCppCoreTest
 		ConfigurationManagerConfigurations saved_defaults = ConfigurationManagerConfigurations::default_configurations;
 
 		ASSERT_THROW(
-		{
-			ConfigurationManagerConfigurations conf{};
-			throwing_manager.setup_defaults(conf);
-		}, std::runtime_error);
+			{
+				ConfigurationManagerConfigurations conf{};
+				throwing_manager.setup_defaults(conf);
+			}, std::runtime_error);
 
 		ASSERT_EQ(saved_defaults.is_feature_runtime_execution_handling_enabled,
 			ConfigurationManagerConfigurations::default_configurations.is_feature_runtime_execution_handling_enabled);
-		ASSERT_EQ(saved_defaults.is_thread_safety_override_enabled,
-			ConfigurationManagerConfigurations::default_configurations.is_thread_safety_override_enabled);
+		ASSERT_EQ(saved_defaults.is_thread_safety_handling_override_enabled,
+			ConfigurationManagerConfigurations::default_configurations.is_thread_safety_handling_override_enabled);
 	}
 
 	TEST_F(ConfigurationManagerTest, Should_HandleConcurrentSingletonAccessAndDefaultsModification)
 	{
 		ConfigurationManagerConfigurations defaults;
 		defaults.is_feature_runtime_execution_handling_enabled = true;
-		defaults.is_thread_safety_override_enabled = true;
+		defaults.is_thread_safety_handling_override_enabled = true;
 
 		auto task = [&]()
-		{
-			for (int i = 0; i < 200; ++i)
 			{
-				auto& singleton = ConfigurationManager::singleton;
-				singleton.setup_defaults(defaults);
-				singleton.reset_defaults<ConfigurationManagerConfigurations>();
-			}
-		};
+				for (int i = 0; i < 200; ++i)
+				{
+					auto& singleton = ConfigurationManager::singleton;
+					singleton.setup_defaults(defaults);
+					singleton.reset_defaults<ConfigurationManagerConfigurations>();
+				}
+			};
 
 		std::vector<std::thread> threads;
 		for (int i = 0; i < 32; ++i)
@@ -796,7 +796,7 @@ namespace QLogicaeCppCoreTest
 			t.join();
 
 		ASSERT_TRUE(ConfigurationManagerConfigurations::default_configurations.is_feature_runtime_execution_handling_enabled);
-		ASSERT_FALSE(ConfigurationManagerConfigurations::default_configurations.is_thread_safety_override_enabled);
+		ASSERT_FALSE(ConfigurationManagerConfigurations::default_configurations.is_thread_safety_handling_override_enabled);
 	}
 
 	TEST_F(ConfigurationManagerTest, Should_DisableAllRuntimeExecution_When_AllFlagsFalseAndOverrideFalse)
@@ -828,21 +828,21 @@ namespace QLogicaeCppCoreTest
 		ThrowingResetDefaultsManager throwing_manager;
 
 		ASSERT_THROW(
-		{
-			throwing_manager.reset_defaults<ConfigurationManagerConfigurations>();
-		}, std::runtime_error);
+			{
+				throwing_manager.reset_defaults<ConfigurationManagerConfigurations>();
+			}, std::runtime_error);
 	}
 
 	TEST_F(ConfigurationManagerTest, Should_ValidateAtomicCounter_When_SingletonAccess)
 	{
 		std::atomic<int> counter{ 0 };
 		auto task = [&counter]()
-		{
-			for (int i = 0; i < 100; ++i)
 			{
-				counter.fetch_add(1, std::memory_order_relaxed);
-			}
-		};
+				for (int i = 0; i < 100; ++i)
+				{
+					counter.fetch_add(1, std::memory_order_relaxed);
+				}
+			};
 
 		std::vector<std::thread> threads;
 		for (int i = 0; i < 8; ++i)
@@ -883,7 +883,7 @@ namespace QLogicaeCppCoreTest
 		ConfigurationManagerConfigurations conf;
 		conf.is_runtime_execution_handling_override_enabled = true;
 		conf.is_edge_case_handling_override_enabled = true;
-		conf.is_thread_safety_override_enabled = true;
+		conf.is_thread_safety_handling_override_enabled = true;
 
 		auto task = [&]()
 			{
@@ -925,7 +925,7 @@ namespace QLogicaeCppCoreTest
 
 		ConfigurationManagerConfigurations conf;
 		conf.is_feature_runtime_execution_handling_enabled = true;
-		conf.is_thread_safety_override_enabled = true;
+		conf.is_thread_safety_handling_override_enabled = true;
 
 		ASSERT_TRUE(throwing_manager.construct());
 		ASSERT_TRUE(throwing_manager.setup(conf));
@@ -943,7 +943,7 @@ namespace QLogicaeCppCoreTest
 
 					ConfigurationManagerConfigurations conf;
 					conf.is_feature_runtime_execution_handling_enabled = true;
-					conf.is_thread_safety_override_enabled = true;
+					conf.is_thread_safety_handling_override_enabled = true;
 
 					manager.setup(conf);
 					manager.reset();
@@ -973,7 +973,7 @@ namespace QLogicaeCppCoreTest
 		ConfigurationManagerConfigurations conf = GetParam();
 		conf.is_runtime_execution_handling_override_enabled = false;
 		conf.is_edge_case_handling_override_enabled = false;
-		conf.is_thread_safety_override_enabled = false;
+		conf.is_thread_safety_handling_override_enabled = false;
 
 		manager.setup(conf);
 
@@ -992,11 +992,11 @@ namespace QLogicaeCppCoreTest
 			conf.is_error_edge_case_handling_enabled);
 
 		ASSERT_EQ(manager.configurations.is_thread_safety_enabled_for_utility_handling(),
-			conf.is_utility_handling_thread_safety_enabled);
+			conf.is_utility_thread_safety_handling_enabled);
 		ASSERT_EQ(manager.configurations.is_thread_safety_enabled_for_feature_handling(),
-			conf.is_feature_handling_thread_safety_enabled);
+			conf.is_feature_thread_safety_handling_enabled);
 		ASSERT_EQ(manager.configurations.is_thread_safety_enabled_for_error_handling(),
-			conf.is_error_handling_thread_safety_enabled);
+			conf.is_error_thread_safety_handling_enabled);
 	}
 
 	INSTANTIATE_TEST_CASE_P(
@@ -1005,7 +1005,7 @@ namespace QLogicaeCppCoreTest
 		::testing::Values(
 			[]() { ConfigurationManagerConfigurations c{}; c.is_utility_runtime_execution_handling_enabled = true; c.is_feature_runtime_execution_handling_enabled = true; c.is_error_runtime_execution_handling_enabled = true; return c; }(),
 			[]() { ConfigurationManagerConfigurations c{}; c.is_utility_edge_case_handling_enabled = true; c.is_feature_edge_case_handling_enabled = true; c.is_error_edge_case_handling_enabled = true; return c; }(),
-			[]() { ConfigurationManagerConfigurations c{}; c.is_utility_handling_thread_safety_enabled = true; c.is_feature_handling_thread_safety_enabled = true; c.is_error_handling_thread_safety_enabled = true; return c; }()
+			[]() { ConfigurationManagerConfigurations c{}; c.is_utility_thread_safety_handling_enabled = true; c.is_feature_thread_safety_handling_enabled = true; c.is_error_thread_safety_handling_enabled = true; return c; }()
 		)
 	);
 }

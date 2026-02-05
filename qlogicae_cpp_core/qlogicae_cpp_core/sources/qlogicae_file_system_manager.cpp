@@ -1,21 +1,21 @@
-﻿#include "pch.hpp"
+#include "pch.hpp"
 
-#include "../includes/application_manager.hpp"
+#include "../includes/qlogicae_file_system_manager.hpp"
 
 namespace
 	QLogicaeCppCore
 {
-    ApplicationManager&
-        ApplicationManager
+    QLogicaeFileSystemManager&
+        QLogicaeFileSystemManager
 			::singleton =
 				SingletonManager
-					::get_singleton<ApplicationManager>();
+					::get_singleton<QLogicaeFileSystemManager>();
 
 
 
-	ApplicationManager
-		::ApplicationManager() :
-			AbstractClass<ApplicationManagerConfigurations>()
+	QLogicaeFileSystemManager
+		::QLogicaeFileSystemManager() :
+			AbstractClass<QLogicaeFileSystemManagerConfigurations>()
     {
         try
         {
@@ -33,8 +33,8 @@ namespace
         }
     }
 
-    ApplicationManager
-		::~ApplicationManager()
+    QLogicaeFileSystemManager
+		::~QLogicaeFileSystemManager()
     {
         try
         {
@@ -53,7 +53,7 @@ namespace
     }
 
     bool
-        ApplicationManager
+        QLogicaeFileSystemManager
 			::construct()
     {
         try
@@ -96,7 +96,7 @@ namespace
     }
 
     bool
-        ApplicationManager
+        QLogicaeFileSystemManager
 			::destruct()
     {
         try

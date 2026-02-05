@@ -100,7 +100,7 @@ namespace QLogicaeCore
             );
         }
     }
-
+	
     void GmailMailer::prepare_recipients()
     {
         try

@@ -112,16 +112,22 @@ namespace
 		Should_OverrideAllThreadSafety_When_OverrideEnabled
 	)
 	{
+		bool param = GetParam();
+
 		configurations
-			.is_thread_safety_override_enabled =
-				GetParam();
+			.is_thread_safety_handling_override_enabled =
+				param;
+
+		configurations
+			.is_thread_safety_handling_enabled =
+				param;
 
 		ASSERT_EQ(
 			configurations
 				.is_thread_safety_enabled_for_utility_handling(),
 			GetParam() ||
 			configurations
-				.is_utility_handling_thread_safety_enabled
+				.is_utility_thread_safety_handling_enabled
 		);
 
 		ASSERT_EQ(
@@ -129,7 +135,7 @@ namespace
 				.is_thread_safety_enabled_for_feature_handling(),
 			GetParam() ||
 			configurations
-				.is_feature_handling_thread_safety_enabled
+				.is_feature_thread_safety_handling_enabled
 		);
 
 		ASSERT_EQ(
@@ -137,7 +143,7 @@ namespace
 				.is_thread_safety_enabled_for_error_handling(),
 			GetParam() ||
 			configurations
-				.is_error_handling_thread_safety_enabled
+				.is_error_thread_safety_handling_enabled
 		);
 	}
 
@@ -189,7 +195,7 @@ namespace
 			new_configurations;
 
 		new_configurations
-			.is_thread_safety_override_enabled =
+			.is_thread_safety_handling_override_enabled =
 				true;
 
 		ASSERT_TRUE(
@@ -427,19 +433,19 @@ namespace
 			configurations;
 
 		configurations
-			.is_thread_safety_override_enabled =
+			.is_thread_safety_handling_override_enabled =
 				false;
 
 		configurations
-			.is_utility_handling_thread_safety_enabled =
+			.is_utility_thread_safety_handling_enabled =
 				false;
 
 		configurations
-			.is_feature_handling_thread_safety_enabled =
+			.is_feature_thread_safety_handling_enabled =
 				false;
 
 		configurations
-			.is_error_handling_thread_safety_enabled =
+			.is_error_thread_safety_handling_enabled =
 				false;
 
 		ASSERT_FALSE(
@@ -555,6 +561,10 @@ namespace
 			.is_edge_case_handling_override_enabled =
 				true;
 
+		configurations
+			.is_edge_case_handling_enabled =
+				true;
+
 		ASSERT_TRUE(
 			configurations
 				.is_edge_case_enabled_for_utility_handling()
@@ -643,8 +653,13 @@ namespace
 	{
 		instance
 			.configurations
-			.is_edge_case_handling_override_enabled =
-				true;
+				.is_edge_case_handling_override_enabled =
+					true;
+
+		instance
+			.configurations
+				.is_edge_case_handling_enabled =
+					true;
 
 		ASSERT_NO_THROW(
 			instance.handle_callback_wrapper<void>(

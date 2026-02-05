@@ -99,7 +99,7 @@ namespace QLogicaeCppCoreTest
 
     TEST_F(TimeoutClockTest, Should_BeThreadSafe_When_MultipleThreadsStartAndCancel)
     {
-		timeout_clock_instance->configurations.is_feature_handling_thread_safety_enabled = true;
+		timeout_clock_instance->configurations.is_feature_thread_safety_handling_enabled = true;
         timeout_clock_instance->configurations.delay_in_milliseconds =
             std::chrono::milliseconds(1);
         std::vector<std::thread> thread_pool;
@@ -307,7 +307,7 @@ namespace QLogicaeCppCoreTest
 				++callback_count;
 			};
 		timeout_clock_instance->configurations.delay_in_milliseconds = std::chrono::milliseconds(1);
-		timeout_clock_instance->configurations.is_feature_handling_thread_safety_enabled = true;
+		timeout_clock_instance->configurations.is_feature_thread_safety_handling_enabled = true;
 		std::vector<std::thread> thread_pool;
 		for (int i = 0; i < 5; ++i)
 		{
@@ -441,12 +441,12 @@ namespace QLogicaeCppCoreTest
 
 	TEST_F(TimeoutClockTest, Should_HandleThreadSafetyToggle_When_MutexEnabledAndDisabled)
 	{
-		timeout_clock_instance->configurations.is_feature_handling_thread_safety_enabled = true;
+		timeout_clock_instance->configurations.is_feature_thread_safety_handling_enabled = true;
 		timeout_clock_instance->configurations.delay_in_milliseconds = std::chrono::milliseconds(1);
 		timeout_clock_instance->start();
 		timeout_clock_instance->cancel();
 
-		timeout_clock_instance->configurations.is_thread_safety_override_enabled = false;
+		timeout_clock_instance->configurations.is_thread_safety_handling_override_enabled = false;
 		timeout_clock_instance->start();
 		timeout_clock_instance->cancel();
 	}
@@ -500,7 +500,7 @@ namespace QLogicaeCppCoreTest
 
 	TEST_F(TimeoutClockTest, Should_HandleImmediateFlagRaceCondition_When_MultipleThreadsModify)
 	{
-		timeout_clock_instance->configurations.is_feature_handling_thread_safety_enabled = true;
+		timeout_clock_instance->configurations.is_feature_thread_safety_handling_enabled = true;
 		timeout_clock_instance->configurations.is_executed_immediately = true;
 		timeout_clock_instance->configurations.callback = []() {};
 		timeout_clock_instance->configurations.delay_in_milliseconds = std::chrono::milliseconds(1);
@@ -527,7 +527,7 @@ namespace QLogicaeCppCoreTest
 
 	TEST_F(TimeoutClockTest, Should_HandleConcurrentRestarts_When_MultipleThreads)
 	{
-		timeout_clock_instance->configurations.is_feature_handling_thread_safety_enabled = true;
+		timeout_clock_instance->configurations.is_feature_thread_safety_handling_enabled = true;
 		timeout_clock_instance->configurations.delay_in_milliseconds = std::chrono::milliseconds(1);
 		timeout_clock_instance->configurations.callback = []() {};
 		std::vector<std::thread> threads;

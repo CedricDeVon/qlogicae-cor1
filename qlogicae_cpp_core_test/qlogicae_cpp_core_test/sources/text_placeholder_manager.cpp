@@ -103,16 +103,16 @@ namespace
 
 	TEST_F(TextPlaceholderManagerTest, Should_HandleConstructAndDestructThreadSafetyEnabled)
 	{
-		manager.configurations.is_thread_safety_override_enabled = true;
-		manager.configurations.is_utility_handling_thread_safety_enabled = true;
+		manager.configurations.is_thread_safety_handling_override_enabled = true;
+		manager.configurations.is_utility_thread_safety_handling_enabled = true;
 		ASSERT_TRUE(manager.construct());
 		ASSERT_TRUE(manager.destruct());
 	}
 
 	TEST_F(TextPlaceholderManagerTest, Should_HandleConstructAndDestructThreadSafetyDisabled)
 	{
-		manager.configurations.is_thread_safety_override_enabled = false;
-		manager.configurations.is_utility_handling_thread_safety_enabled = false;
+		manager.configurations.is_thread_safety_handling_override_enabled = false;
+		manager.configurations.is_utility_thread_safety_handling_enabled = false;
 		ASSERT_TRUE(manager.construct());
 		ASSERT_TRUE(manager.destruct());
 	}
@@ -121,7 +121,7 @@ namespace
 	{
 		manager.configurations.placeholder = "None";
 		manager.configurations.conditional_callback = [](const std::string& text) { return text.empty(); };
-		manager.configurations.is_feature_handling_thread_safety_enabled = true;
+		manager.configurations.is_feature_thread_safety_handling_enabled = true;
 
 		std::atomic<int> success_count{ 0 };
 		std::vector<std::thread> threads;

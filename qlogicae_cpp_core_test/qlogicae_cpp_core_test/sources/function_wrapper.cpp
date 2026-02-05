@@ -374,7 +374,7 @@ namespace
 
 	TEST_F(FunctionWrapperTest, Should_HandleMultipleThreads_CallFunction_ThreadSafety)
 	{
-		manager.configurations.is_feature_handling_thread_safety_enabled = true;
+		manager.configurations.is_feature_thread_safety_handling_enabled = true;
 
 		FunctionWrapperCallSafelyTest test_object;
 
@@ -406,7 +406,7 @@ namespace
 
 	TEST_F(FunctionWrapperTest, Should_HandleConstructDestructConcurrently)
 	{
-		manager.configurations.is_utility_handling_thread_safety_enabled = true;
+		manager.configurations.is_utility_thread_safety_handling_enabled = true;
 
 		std::vector<std::thread> threads;
 
@@ -434,8 +434,8 @@ namespace
 	{
 		QLogicaeCppCore::FunctionWrapperConfigurations configurations;
 		configurations.is_feature_runtime_execution_handling_enabled = false;
-		configurations.is_feature_handling_thread_safety_enabled = true;
-		configurations.is_utility_handling_thread_safety_enabled = true;
+		configurations.is_feature_thread_safety_handling_enabled = true;
+		configurations.is_utility_thread_safety_handling_enabled = true;
 		configurations.is_utility_runtime_execution_handling_enabled = false;
 
 		ASSERT_TRUE(manager.setup(configurations));
@@ -478,8 +478,8 @@ namespace
             QLogicaeCppCore::FunctionWrapperConfigurations config;
             config.is_feature_runtime_execution_handling_enabled = feature;
             config.is_utility_runtime_execution_handling_enabled = utility;
-            config.is_feature_handling_thread_safety_enabled = feature_ts;
-            config.is_utility_handling_thread_safety_enabled = utility_ts;
+            config.is_feature_thread_safety_handling_enabled = feature_ts;
+            config.is_utility_thread_safety_handling_enabled = utility_ts;
             config.is_feature_runtime_execution_handling_enabled = feature;
             config.is_utility_runtime_execution_handling_enabled = runtime;
 

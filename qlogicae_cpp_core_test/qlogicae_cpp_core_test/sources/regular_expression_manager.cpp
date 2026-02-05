@@ -555,7 +555,7 @@ namespace
 		QLogicaeCppCore::RegularExpressionManagerConfigurations
 			configurations;
 
-		configurations.is_thread_safety_override_enabled =
+		configurations.is_thread_safety_handling_override_enabled =
 			true;
 
 		regular_expression_manager

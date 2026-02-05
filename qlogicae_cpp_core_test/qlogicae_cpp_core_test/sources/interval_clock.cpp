@@ -91,7 +91,7 @@ namespace
 
 	TEST_F(IntervalClockTest, Should_BeAsynchronous_When_StartUsingAsync)
 	{
-		manager_instance->configurations.is_feature_handling_thread_safety_enabled = true;
+		manager_instance->configurations.is_feature_thread_safety_handling_enabled = true;
 
 		auto future_result = std::async(std::launch::async, [this]()
 			{
@@ -206,7 +206,7 @@ namespace
 	{
 		manager_instance->configurations.maximum_interval_count = 5;
 		manager_instance->configurations.delay_in_milliseconds = std::chrono::milliseconds(1);
-		manager_instance->configurations.is_feature_handling_thread_safety_enabled = false;
+		manager_instance->configurations.is_feature_thread_safety_handling_enabled = false;
 		std::vector<std::thread> thread_pool;
 		for (int i = 0; i < 16; ++i)
 		{
@@ -286,7 +286,7 @@ namespace
 	{
 		manager_instance->configurations.delay_in_milliseconds = std::chrono::milliseconds(1);
 		manager_instance->configurations.maximum_interval_count = 1;
-		manager_instance->configurations.is_feature_handling_thread_safety_enabled = true;
+		manager_instance->configurations.is_feature_thread_safety_handling_enabled = true;
 
 		std::vector<std::thread> thread_pool;
 		for (int i = 0; i < 8; ++i)

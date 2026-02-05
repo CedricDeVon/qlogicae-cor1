@@ -2,6 +2,7 @@
 
 #include "abstract_class.hpp"
 #include "singleton_manager.hpp"
+#include "gmail_api_manager_response.hpp"
 #include "gmail_api_manager_configurations.hpp"
 
 namespace
@@ -33,6 +34,9 @@ namespace
         curl_slist*
 			recipients;
 
+		boost::mutex
+			feature_handling_mutex_2;
+
 		static GmailApiManager&
 			singleton;
 
@@ -46,49 +50,34 @@ namespace
 		bool
 			destruct();
 
-        void set_subject(
-			const std::string&
-				subject
-			);
+		bool
+			setup(
+				const GmailApiManagerConfigurations&
+					new_configurations
+			) override;
 
-        void set_html_body(
-			const std::string&
-				html
-			);
-
-        void set_plain_body(
-			const std::string&
-				plain
-			);
-
-        void set_header(
-            const std::string&
-				key,
-            const std::string&
-				value
+        bool
+			attach_inline_image(
+				const std::string&
+					file_path,
+				const std::string&
+					content_id,
+				const std::string&
+					mime_type
         );
 
-        void attach_inline_image(
-            const std::string&
-				file_path,
-            const std::string&
-				content_id,
-            const std::string&
-				mime_type
+        bool
+			attach_file(
+				const std::string&
+					file_path,
+				const std::string&
+					mime_type,
+				const std::string&
+					filename
         );
 
-        void attach_file(
-            const std::string&
-				file_path,
-            const std::string&
-				mime_type,
-            const std::string&
-				filename
-        );
-
-        bool send_email(
-            std::string& error_message
-        );
+        GmailApiManagerResponse
+			send_email();
 
 		bool
 			cleanup();

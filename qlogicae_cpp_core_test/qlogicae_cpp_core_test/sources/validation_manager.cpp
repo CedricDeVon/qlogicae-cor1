@@ -63,14 +63,14 @@ namespace
 	TEST_F(ValidationManagerTest, Should_HandleException_When_ConstructThrows)
 	{
 		auto& configurations = manager.configurations;
-		configurations.is_utility_handling_thread_safety_enabled = false;
+		configurations.is_utility_thread_safety_handling_enabled = false;
 		ASSERT_NO_THROW(manager.construct());
 	}
 
 	TEST_F(ValidationManagerTest, Should_HandleException_When_DestructThrows)
 	{
 		auto& configurations = manager.configurations;
-		configurations.is_utility_handling_thread_safety_enabled = false;
+		configurations.is_utility_thread_safety_handling_enabled = false;
 		ASSERT_NO_THROW(manager.destruct());
 	}
 

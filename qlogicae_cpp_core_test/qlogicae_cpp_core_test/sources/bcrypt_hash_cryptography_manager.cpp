@@ -276,7 +276,7 @@ namespace
 			new_configurations;
 
 		new_configurations
-			.is_utility_handling_thread_safety_enabled =
+			.is_utility_thread_safety_handling_enabled =
 				false;
 
 		manager.setup(
@@ -298,7 +298,7 @@ namespace
 			new_configurations;
 
 		new_configurations
-			.is_thread_safety_override_enabled =
+			.is_thread_safety_handling_override_enabled =
 				true;
 
 		manager.setup(

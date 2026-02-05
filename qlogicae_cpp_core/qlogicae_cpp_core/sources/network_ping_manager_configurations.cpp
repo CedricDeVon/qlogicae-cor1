@@ -6,16 +6,22 @@ namespace
 	QLogicaeCppCore
 {
 	NetworkPingManagerConfigurations
-		NetworkPingManagerConfigurations
-			::initial_configurations =
-				[]()
-				{
-					NetworkPingManagerConfigurations
-						configurations;
+		::NetworkPingManagerConfigurations() :
+			AbstractConfigurations<NetworkPingManagerConfigurations>()
+	{				
+		host_address =
+			"1.1.1.1";
+        
+		name =
+			"default";        
+        
+		callback =
+			[](const NetworkPingManagerResponse& response) {};
+	}
 
-					return
-						configurations;
-				}();
+	NetworkPingManagerConfigurations
+		NetworkPingManagerConfigurations
+			::initial_configurations;
 
 	NetworkPingManagerConfigurations
 		NetworkPingManagerConfigurations

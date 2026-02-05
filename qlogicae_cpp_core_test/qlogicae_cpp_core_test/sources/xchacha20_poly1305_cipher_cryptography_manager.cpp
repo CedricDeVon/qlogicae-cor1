@@ -274,10 +274,10 @@ namespace
 		XChaCha20Poly1305CipherCryptographyManagerConfigurations
 			new_configurations = original_configurations;
 
-		new_configurations.is_thread_safety_override_enabled = true;
-		new_configurations.is_utility_handling_thread_safety_enabled = false;
-		new_configurations.is_feature_handling_thread_safety_enabled = false;
-		new_configurations.is_error_handling_thread_safety_enabled = false;
+		new_configurations.is_thread_safety_handling_override_enabled = true;
+		new_configurations.is_utility_thread_safety_handling_enabled = false;
+		new_configurations.is_feature_thread_safety_handling_enabled = false;
+		new_configurations.is_error_thread_safety_handling_enabled = false;
 
 		EXPECT_TRUE(manager_instance.setup(new_configurations));
 
@@ -298,10 +298,10 @@ namespace
 		XChaCha20Poly1305CipherCryptographyManagerConfigurations
 			new_configurations = original_configurations;
 
-		new_configurations.is_thread_safety_override_enabled = false;
-		new_configurations.is_utility_handling_thread_safety_enabled = true;
-		new_configurations.is_feature_handling_thread_safety_enabled = true;
-		new_configurations.is_error_handling_thread_safety_enabled = true;
+		new_configurations.is_thread_safety_handling_override_enabled = false;
+		new_configurations.is_utility_thread_safety_handling_enabled = true;
+		new_configurations.is_feature_thread_safety_handling_enabled = true;
+		new_configurations.is_error_thread_safety_handling_enabled = true;
 
 		EXPECT_TRUE(manager_instance.setup(new_configurations));
 

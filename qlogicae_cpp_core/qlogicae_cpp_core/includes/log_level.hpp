@@ -19,7 +19,7 @@ namespace
 
         CRITICAL,
 
-        EXCEPTION,
+        ERROR,
 
         HIGHLIGHTED_INFO,
 

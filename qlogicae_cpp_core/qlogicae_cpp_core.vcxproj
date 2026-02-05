@@ -195,8 +195,14 @@
     <ClInclude Include="qlogicae_cpp_core\includes\aes256_cipher_cryptography_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\aes256_cipher_cryptography_manager_configurations.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\all.hpp" />
-    <ClInclude Include="qlogicae_cpp_core\includes\application_manager.hpp" />
-    <ClInclude Include="qlogicae_cpp_core\includes\application_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\gmail_api_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\gmail_api_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\gmail_api_manager_response.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\network_ping_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\network_ping_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\network_ping_manager_response.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\qlogicae_application_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\qlogicae_application_manager_configurations.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\argon2id_hash_cryptography_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\argon2id_hash_cryptography_manager_configurations.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\assembly.hpp" />
@@ -220,6 +226,8 @@
     <ClInclude Include="qlogicae_cpp_core\includes\mutex_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\mutex_manager_configurations.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\pair_hash_operator.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\qlogicae_file_system_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\qlogicae_file_system_manager_configurations.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\random_value_generation_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\random_value_generation_manager_configurations.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\regular_expression_manager.hpp" />
@@ -227,6 +235,8 @@
     <ClInclude Include="qlogicae_cpp_core\includes\regular_key_delete_handler.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\results.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\results_status.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\rocksdb_database_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\rocksdb_database_manager_configurations.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\runtime_benchmarker.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\runtime_benchmarker_configurations.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\runtime_benchmarker_epoch_iteration_pair.hpp" />
@@ -279,6 +289,13 @@
     <ClInclude Include="qlogicae_cpp_core\includes\windows_system_access_manager_configurations.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\xchacha20_poly1305_cipher_cryptography_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\xchacha20_poly1305_cipher_cryptography_manager_configurations.hpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\gmail_api_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\gmail_api_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\gmail_api_manager_response.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\network_ping_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\network_ping_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\network_ping_manager_response.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\qlogicae_file_system_manager_configurations.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -290,8 +307,8 @@
     <ClCompile Include="qlogicae_cpp_core\sources\aes256_cipher_cryptography_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\aes256_cipher_cryptography_manager_configurations.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\all.cpp" />
-    <ClCompile Include="qlogicae_cpp_core\sources\application_manager.cpp" />
-    <ClCompile Include="qlogicae_cpp_core\sources\application_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\qlogicae_application_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\qlogicae_application_manager_configurations.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\argon2id_hash_cryptography_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\argon2id_hash_cryptography_manager_configurations.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\assembly.cpp" />
@@ -315,6 +332,7 @@
     <ClCompile Include="qlogicae_cpp_core\sources\mutex_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\mutex_manager_configurations.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\pair_hash_operator.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\qlogicae_file_system_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\random_value_generation_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\random_value_generation_manager_configurations.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\regular_expression_manager.cpp" />
@@ -322,6 +340,8 @@
     <ClCompile Include="qlogicae_cpp_core\sources\regular_key_delete_handler.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\results.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\results_status.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\rocksdb_database_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\rocksdb_database_manager_configurations.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\runtime_benchmarker.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\runtime_benchmarker_configurations.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\runtime_benchmarker_epoch_iteration_pair.cpp" />

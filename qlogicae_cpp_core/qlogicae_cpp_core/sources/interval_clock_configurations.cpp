@@ -9,7 +9,7 @@ namespace
 		::IntervalClockConfigurations() :
 			AbstractConfigurations<IntervalClockConfigurations>()
 	{
-		is_feature_handling_thread_safety_enabled =
+		is_feature_thread_safety_handling_enabled =
 			true;
 
 		callback =

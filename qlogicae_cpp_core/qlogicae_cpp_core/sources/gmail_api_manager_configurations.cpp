@@ -6,16 +6,43 @@ namespace
 	QLogicaeCppCore
 {
 	GmailApiManagerConfigurations
-		GmailApiManagerConfigurations
-			::initial_configurations =
-				[]()
-				{
-					GmailApiManagerConfigurations
-						configurations;
+		::GmailApiManagerConfigurations() :
+			AbstractConfigurations<GmailApiManagerConfigurations>()
+	{		
+		subject =
+			"";
 
-					return
-						configurations;
-				}();
+		html_body =
+			"";
+
+		plain_body =
+			"";
+
+		smtp_server =
+			"";
+
+		sender_address =
+			"";
+
+		to_recipients =
+			{};
+
+		cc_recipients =
+			{};
+
+		bcc_recipients =
+			{};
+
+		password_provider =
+			[]() { return ""; };
+
+		custom_headers =
+			{};
+	}
+
+	GmailApiManagerConfigurations
+		GmailApiManagerConfigurations
+			::initial_configurations;
 
 	GmailApiManagerConfigurations
 		GmailApiManagerConfigurations
