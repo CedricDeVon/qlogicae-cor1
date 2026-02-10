@@ -17,14 +17,6 @@ namespace
 
 		TextErrorManager();
 
-		~TextErrorManager();
-
-		bool
-			construct();
-
-		bool
-			destruct();
-
 		std::string
 			convert_text(
 				const std::string&

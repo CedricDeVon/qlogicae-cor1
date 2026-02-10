@@ -21,14 +21,6 @@ namespace
 
 		WindowsRegistryManager();
 
-		~WindowsRegistryManager();
-
-		bool
-			construct();
-
-		bool
-			destruct();
-
 		std::wstring
 			get_value(
 				const HKEY&

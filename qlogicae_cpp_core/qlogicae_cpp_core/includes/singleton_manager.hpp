@@ -19,14 +19,6 @@ namespace
 
 		SingletonManager();
 
-		~SingletonManager();
-
-		bool
-			construct();
-
-		bool
-			destruct();
-
 		template <typename Type> static Type&
 			get_singleton();
 

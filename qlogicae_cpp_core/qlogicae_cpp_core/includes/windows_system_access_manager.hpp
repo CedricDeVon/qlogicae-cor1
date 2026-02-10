@@ -17,14 +17,6 @@ namespace
 
 		WindowsSystemAccessManager();
 
-		~WindowsSystemAccessManager();
-
-		bool
-			construct();
-
-		bool
-			destruct();
-
 		bool
 			run_process(
 				const std::string&

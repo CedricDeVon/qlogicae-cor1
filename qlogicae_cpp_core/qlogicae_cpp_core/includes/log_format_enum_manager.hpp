@@ -18,14 +18,6 @@ namespace
 
 		LogFormatEnumManager();
 
-		~LogFormatEnumManager();
-
-		bool
-			construct();
-
-		bool
-			destruct();
-
 		std::string
 			convert_enum_to_string(
 				const LogFormat&

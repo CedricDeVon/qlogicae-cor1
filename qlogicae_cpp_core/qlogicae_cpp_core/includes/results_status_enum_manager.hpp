@@ -18,14 +18,6 @@ namespace
 
 		ResultsStatusEnumManager();
 
-		~ResultsStatusEnumManager();
-
-		bool
-			construct();
-
-		bool
-			destruct();
-
 		std::string
 			convert_enum_to_string(
 				const ResultsStatus&

@@ -25,15 +25,6 @@ namespace
             singleton;
 
 		TextLogManager();
-
-		~TextLogManager();
-
-		bool
-			construct();
-
-		bool
-			destruct();
-
     };    
 }
 

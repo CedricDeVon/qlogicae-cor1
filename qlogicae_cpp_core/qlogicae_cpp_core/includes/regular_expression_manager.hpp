@@ -17,14 +17,6 @@ namespace
 
 		RegularExpressionManager();
 
-		~RegularExpressionManager();
-
-		bool
-			construct();
-
-		bool
-			destruct();
-
 		bool
 			is_direct_pattern_matched(
 				const std::string&

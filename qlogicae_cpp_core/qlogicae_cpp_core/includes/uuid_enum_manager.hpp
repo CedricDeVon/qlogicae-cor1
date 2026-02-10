@@ -19,14 +19,6 @@ namespace
 
 		UuidEnumManager();
 
-		~UuidEnumManager();
-
-		bool
-			construct();
-
-		bool
-			destruct();
-
 		std::string
 			convert_enum_to_string(
 				const Uuid&

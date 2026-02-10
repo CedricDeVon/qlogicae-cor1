@@ -16,14 +16,6 @@ namespace
             singleton;
 
 		FileLogManager();
-
-		~FileLogManager();
-
-		bool
-			construct();
-
-		bool
-			destruct();
     };
 }
 

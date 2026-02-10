@@ -55,14 +55,6 @@ namespace
 
 		MutexManager();
 
-		~MutexManager();
-
-		bool
-			construct();
-
-		bool
-			destruct();
-
         bool
             lock_micro_mutex(
                 const void*

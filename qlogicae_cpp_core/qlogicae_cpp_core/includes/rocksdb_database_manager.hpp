@@ -68,14 +68,6 @@ namespace
 
 		RocksDbDatabaseManager();
 
-		~RocksDbDatabaseManager();
-
-		bool
-			construct();
-
-		bool
-			destruct();
-
 		bool
 			setup(
 				const RocksDbDatabaseManagerConfigurations&

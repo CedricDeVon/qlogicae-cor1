@@ -21,14 +21,6 @@ namespace
 
 		UuidManager();
 
-		~UuidManager();
-
-		bool
-			construct();
-
-		bool
-			destruct();		
-
 		bool
 			is_valid(
 				const Uuid&

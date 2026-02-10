@@ -17,14 +17,6 @@ namespace
 
 		ConsoleIoManager();
 
-		~ConsoleIoManager();
-
-		bool
-			construct();
-
-		bool
-			destruct();
-
 		std::string
 			scan();
 

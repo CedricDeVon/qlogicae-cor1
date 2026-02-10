@@ -16,14 +16,6 @@ namespace
             singleton;
 
 		QLogicaeFileSystemManager();
-
-		~QLogicaeFileSystemManager();
-
-		bool
-			construct();
-
-		bool
-			destruct();
     };
 }
 

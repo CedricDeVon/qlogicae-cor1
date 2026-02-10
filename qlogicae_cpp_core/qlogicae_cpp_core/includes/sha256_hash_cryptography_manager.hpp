@@ -21,14 +21,6 @@ namespace
 
 		Sha256HashCryptographyManager();
 
-		~Sha256HashCryptographyManager();
-
-		bool
-			construct();
-
-		bool
-			destruct();
-		
 		std::string
 			hash_text(
 				const std::string&

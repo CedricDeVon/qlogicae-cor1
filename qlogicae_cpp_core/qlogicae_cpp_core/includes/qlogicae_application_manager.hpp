@@ -16,14 +16,6 @@ namespace
             singleton;
 
 		QLogicaeApplicationManager();
-
-		~QLogicaeApplicationManager();
-
-		bool
-			construct();
-
-		bool
-			destruct();
     };
 }
 

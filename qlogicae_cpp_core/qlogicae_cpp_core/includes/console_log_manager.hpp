@@ -16,14 +16,6 @@ namespace
             singleton;
 
 		ConsoleLogManager();
-
-		~ConsoleLogManager();
-
-		bool
-			construct();
-
-		bool
-			destruct();
     };
 }
 

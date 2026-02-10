@@ -19,14 +19,6 @@ namespace
 
 		TextCaseManager();
 
-		~TextCaseManager();
-
-		bool
-			construct();
-
-		bool
-			destruct();
-
 		std::string
 			convert_text(
 				const std::string&

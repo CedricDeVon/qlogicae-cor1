@@ -19,14 +19,6 @@ namespace
 
 		EnumManager();
 
-		~EnumManager();
-
-		bool
-			construct();
-
-		bool
-			destruct();
-
 		std::string
 			convert_enum_string(
 				const std::string&

@@ -17,14 +17,6 @@ namespace
 
 		FunctionWrapper();
 
-		~FunctionWrapper();
-
-		bool
-			construct();
-
-		bool
-			destruct();
-
 		template <typename ResultType, typename InputObjectType, typename InputCallback, typename... InputCallbackArguments> ResultType
 		call_function(
 			InputObjectType&

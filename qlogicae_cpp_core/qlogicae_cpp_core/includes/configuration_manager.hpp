@@ -17,14 +17,6 @@ namespace
 
 		ConfigurationManager();
 
-		~ConfigurationManager();
-
-		bool
-			construct();
-
-		bool
-			destruct();
-
 		template <typename TypeConfigurations> bool
 			setup_defaults(
 				const TypeConfigurations&

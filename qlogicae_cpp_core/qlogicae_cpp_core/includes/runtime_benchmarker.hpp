@@ -20,14 +20,6 @@ namespace
 
 		RuntimeBenchmarker();
 
-		~RuntimeBenchmarker();
-
-		bool
-			construct();
-
-		bool
-			destruct();
-
         bool
             execute(
                 const RuntimeBenchmarkerTestSuite&

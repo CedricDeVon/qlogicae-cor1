@@ -18,14 +18,6 @@ namespace
 
 		TemperatureManager();
 
-		~TemperatureManager();
-
-		bool
-			construct();
-
-		bool
-			destruct();
-
 		double
 			convert_unit(
 				const double&

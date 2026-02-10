@@ -20,14 +20,6 @@ namespace
 
 		WindowsEnvironmentVariableManager();
 
-		~WindowsEnvironmentVariableManager();
-
-		bool
-			construct();
-
-		bool
-			destruct();
-
 		std::wstring
 			get_value(
 				const std::wstring&

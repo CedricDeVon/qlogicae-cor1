@@ -18,14 +18,6 @@ namespace
 
 		LogOutputEnumManager();
 
-		~LogOutputEnumManager();
-
-		bool
-			construct();
-
-		bool
-			destruct();
-
 		std::string
 			convert_enum_to_string(
 				const LogOutput&

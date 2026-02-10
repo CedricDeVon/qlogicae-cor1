@@ -17,14 +17,6 @@ namespace
 
 		ValidationManager();
 
-		~ValidationManager();
-
-		bool
-			construct();
-
-		bool
-			destruct();
-
 		bool
 			validate(
 				const std::function<bool()>&

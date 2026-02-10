@@ -26,14 +26,6 @@ namespace
 
 		TimeManager();
 
-		~TimeManager();
-
-		bool
-			construct();
-
-		bool
-			destruct();
-
 		template <typename Type> Type
 			get_now();
 

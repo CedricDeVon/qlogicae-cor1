@@ -18,14 +18,6 @@ namespace
 
 		XChaCha20Poly1305CipherCryptographyManager();
 
-		~XChaCha20Poly1305CipherCryptographyManager();
-
-		bool
-			construct();
-
-		bool
-			destruct();
-		
 		std::string
 			encrypt_text(
 				const std::string&

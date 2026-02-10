@@ -18,14 +18,6 @@ namespace
 
 		Argon2idHashCryptographyManager();
 
-		~Argon2idHashCryptographyManager();
-
-		bool
-			construct();
-
-		bool
-			destruct();
-
 		std::string
 			hash_text(
 				const std::string&

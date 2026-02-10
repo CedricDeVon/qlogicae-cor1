@@ -17,14 +17,6 @@ namespace
 
 		Aes256CipherCryptographyManager();
 
-		~Aes256CipherCryptographyManager();
-
-		bool
-			construct();
-
-		bool
-			destruct();
-
 		std::string
 			encrypt_text(
 				const std::string&
