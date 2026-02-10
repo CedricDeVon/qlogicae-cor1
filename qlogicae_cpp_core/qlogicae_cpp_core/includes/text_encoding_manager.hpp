@@ -1,8 +1,11 @@
 #pragma once
 
+#include "text_case.hpp"
+#include "enum_manager.hpp"
 #include "text_encoding.hpp"
 #include "abstract_class.hpp"
 #include "singleton_manager.hpp"
+#include "text_case_manager.hpp"
 #include "text_encoding_manager_configurations.hpp"
 
 namespace
@@ -80,6 +83,32 @@ namespace
 				const std::string&
 					input
 			);
+
+		std::string
+			convert_enum_to_string(
+				const TextEncoding&
+					value,
+				const TextCase&
+					text_case
+			);
+
+		std::string
+			convert_enum_to_string(
+				const TextEncoding&
+					value
+			);
+
+		std::string
+			convert_enum_to_string();
+
+		TextEncoding
+			convert_string_to_enum(
+				const std::string&
+					value
+			);
+
+		TextEncoding
+			convert_string_to_enum();
     };    
 }
 

@@ -9,6 +9,9 @@ namespace
     {
         USER,
 
-        SYSTEM
+        SYSTEM,
+
+		NONE
     };
 }
+

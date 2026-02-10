@@ -1,6 +1,7 @@
 #pragma once
 
 #include "uuid.hpp"
+#include "text_case.hpp"
 #include "abstract_configurations.hpp"
 
 namespace
@@ -24,3 +25,4 @@ namespace
 		UuidManagerConfigurations();
     };
 }
+

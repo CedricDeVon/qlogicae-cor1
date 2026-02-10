@@ -16,9 +16,6 @@ namespace
 		boost::mutex
 			feature_handling_mutex_1;
 
-		boost::mutex
-			error_handling_mutex_1;
-
 		AbstractConfigurationsType
 			configurations;
 
@@ -316,7 +313,7 @@ namespace
 			mutex_lock =
 				boost::unique_lock<boost::mutex>
 				(
-					error_handling_mutex_1
+					utility_handling_mutex_1
 				);
 		}
 
@@ -353,7 +350,7 @@ namespace
 			mutex_lock =
 				boost::unique_lock<boost::mutex>
 				(
-					error_handling_mutex_1
+					utility_handling_mutex_1
 				);
 		}
 		
@@ -389,7 +386,7 @@ namespace
 			mutex_lock =
 				boost::unique_lock<boost::mutex>
 				(
-					error_handling_mutex_1
+					utility_handling_mutex_1
 				);
 		}
 

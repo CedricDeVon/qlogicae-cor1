@@ -9,7 +9,9 @@ namespace
 		::WindowsEnvironmentVariableManagerConfigurations() :
 			AbstractConfigurations<WindowsEnvironmentVariableManagerConfigurations>()
 	{
-		
+		type =
+			WindowsEnvironmentVariable
+				::USER;
 	}
 
 	WindowsEnvironmentVariableManagerConfigurations

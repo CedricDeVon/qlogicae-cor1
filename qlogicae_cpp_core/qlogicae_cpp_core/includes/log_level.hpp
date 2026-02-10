@@ -7,21 +7,21 @@ namespace
 		LogLevel :
 			uint8_t
     {
-        ALL,
+		ALL,
 
-        INFO,
+		INFO,
 
-        DEBUG,
+		DEBUG,
 
-        WARNING,
+		WARNING,
 
-        SUCCESS,
+		SUCCESS,
 
-        CRITICAL,
+		CRITICAL,
 
-        ERROR,
+		ERROR_TYPE,
 
-        HIGHLIGHTED_INFO,
+		HIGHLIGHTED_INFO,
 
 		NONE
     };

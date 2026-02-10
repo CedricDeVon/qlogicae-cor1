@@ -1,5 +1,6 @@
 #pragma once
 
+#include "text_case.hpp"
 #include "text_encoding.hpp"
 #include "abstract_configurations.hpp"
 

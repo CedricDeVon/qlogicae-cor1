@@ -7,6 +7,9 @@ namespace QLogicaeCppCore
     {
         HKCU,
 
-        HKLM
+        HKLM,
+
+		NONE
     };
 }
+

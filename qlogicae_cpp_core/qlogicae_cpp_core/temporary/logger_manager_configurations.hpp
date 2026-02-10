@@ -49,6 +49,8 @@ namespace
 			time_format =
 				TimeFormat::FULL_TIMESTAMP;
 
+
+
 		bool
 			is_console_output_enabled =
 				true;
@@ -64,6 +66,9 @@ namespace
 		size
 			fixed_console_output_length_override =
 				128;
+
+
+
 
 		bool
 			is_file_output_enabled =

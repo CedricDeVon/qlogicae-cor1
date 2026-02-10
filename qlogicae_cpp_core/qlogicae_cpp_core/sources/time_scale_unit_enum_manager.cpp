@@ -1,0 +1,426 @@
+#include "pch.hpp"
+
+#include "../includes/time_scale_unit_enum_manager.hpp"
+
+namespace
+	QLogicaeCppCore
+{        
+	TimeScaleUnitEnumManager&
+		TimeScaleUnitEnumManager
+			::singleton = 
+				SingletonManager
+					::get_singleton<TimeScaleUnitEnumManager>();	
+
+
+	
+	TimeScaleUnitEnumManager
+		::TimeScaleUnitEnumManager() :
+			AbstractClass<TimeScaleUnitEnumManagerConfigurations>()
+    {
+        try
+        {
+            construct();
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+			handle_error_outputs(
+				exception
+			);
+        }
+    }
+
+    TimeScaleUnitEnumManager
+		::~TimeScaleUnitEnumManager()
+    {
+        try
+        {
+            destruct();
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+			handle_error_outputs(
+				exception
+			);
+        }
+    }
+
+    bool
+        TimeScaleUnitEnumManager
+			::construct()
+    {
+        try
+        {			
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_utility_handling()
+			)
+			{
+				return
+					false;
+			}
+
+			boost::unique_lock<boost::mutex>
+				mutex_lock;
+			if (configurations.is_thread_safety_enabled_for_utility_handling())
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						utility_handling_mutex_1
+					);
+			}			
+
+			return
+				true;
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+			return
+				handle_error_outputs(
+					exception
+				);
+        }
+    }
+
+    bool
+        TimeScaleUnitEnumManager
+			::destruct()
+    {
+        try
+        {		
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_utility_handling()
+			)
+			{
+				return
+					false;
+			}
+
+			boost::unique_lock<boost::mutex>
+				mutex_lock;
+			if (configurations.is_thread_safety_enabled_for_utility_handling())
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						utility_handling_mutex_1
+					);
+			}			
+
+			return
+				true;
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+			return
+				handle_error_outputs(
+					exception
+				);
+        }
+    }
+
+	std::string
+		TimeScaleUnitEnumManager
+			::convert_enum_to_string(
+				const TimeScaleUnit&
+					value
+			)
+	{
+		try
+        {		
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_feature_handling()
+			)
+			{
+				return
+					"NONE";
+			}
+
+			boost::unique_lock<boost::mutex>
+				mutex_lock;
+			if (configurations.is_thread_safety_enabled_for_feature_handling())
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						feature_handling_mutex_1
+					);
+			}			
+
+			switch (value)
+			{
+				case (TimeScaleUnit::YEARS):
+				{
+					return
+						"YEARS";
+				}
+				case (TimeScaleUnit::MONTHS):
+				{
+					return
+						"MONTHS";
+				}
+				case (TimeScaleUnit::WEEKS):
+				{
+					return
+						"WEEKS";
+				}
+				case (TimeScaleUnit::DAYS):
+				{
+					return
+						"DAYS";
+				}
+				case (TimeScaleUnit::HOURS):
+				{
+					return
+						"HOURS";
+				}
+				case (TimeScaleUnit::MINUTES):
+				{
+					return
+						"MINUTES";
+				}
+				case (TimeScaleUnit::SECONDS):
+				{
+					return
+						"SECONDS";
+				}
+				case (TimeScaleUnit::MILLISECONDS):
+				{
+					return
+						"MILLISECONDS";
+				}
+				case (TimeScaleUnit::MICROSECONDS):
+				{
+					return
+						"MICROSECONDS";
+				}
+				case (TimeScaleUnit::NANOSECONDS):
+				{
+					return
+						"NANOSECONDS";
+				}
+				case (TimeScaleUnit::NONE):
+				{
+					return
+						"NONE";
+				}				
+				default:
+				{
+					return
+						"NONE";
+				}
+			}
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {	
+			handle_error_outputs(
+				exception
+			);
+
+			return
+				"NONE";
+        }
+	}
+
+	std::string
+		TimeScaleUnitEnumManager
+			::convert_enum_to_string()
+	{
+		return
+			convert_enum_to_string(
+				configurations
+					.type
+			);
+	}
+
+	TimeScaleUnit
+		TimeScaleUnitEnumManager
+			::convert_string_to_enum(
+				const std::string&
+					value
+			)
+	{
+		try
+        {		
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_feature_handling()
+			)
+			{
+				return
+					TimeScaleUnit
+						::NONE;
+			}
+
+			boost::unique_lock<boost::mutex>
+				mutex_lock;
+			if (configurations.is_thread_safety_enabled_for_feature_handling())
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						feature_handling_mutex_1
+					);
+			}			
+
+			if
+			(
+				value == "YEARS"
+			)
+			{
+				return
+					TimeScaleUnit
+						::YEARS;
+			}
+			else if
+			(
+				value == "MONTHS"
+			)
+			{
+				return
+					TimeScaleUnit
+						::MONTHS;
+			}
+			else if
+			(
+				value == "WEEKS"
+			)
+			{
+				return
+					TimeScaleUnit
+						::WEEKS;
+			}			
+			else if
+			(
+				value == "DAYS"
+			)
+			{
+				return
+					TimeScaleUnit
+						::DAYS;
+			}
+			else if
+			(
+				value == "HOURS"
+			)
+			{
+				return
+					TimeScaleUnit
+						::HOURS;
+			}
+			else if
+			(
+				value == "MINUTES"
+			)
+			{
+				return
+					TimeScaleUnit
+						::MINUTES;
+			}			
+			else if
+			(
+				value == "SECONDS"
+			)
+			{
+				return
+					TimeScaleUnit
+						::SECONDS;
+			}
+			else if
+			(
+				value == "MILLISECONDS"
+			)
+			{
+				return
+					TimeScaleUnit
+						::MILLISECONDS;
+			}
+			else if
+			(
+				value == "MICROSECONDS"
+			)
+			{
+				return
+					TimeScaleUnit
+						::MICROSECONDS;
+			}			
+			else if
+			(
+				value == "NANOSECONDS"
+			)
+			{
+				return
+					TimeScaleUnit
+						::NANOSECONDS;
+			}
+			else if
+			(
+				value == "NONE"
+			)
+			{
+				return
+					TimeScaleUnit
+						::NONE;
+			}
+			else
+			{
+				return
+					TimeScaleUnit
+						::NONE;
+			}
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {		
+			handle_error_outputs(
+				exception
+			);
+			
+			return	
+				TimeScaleUnit
+					::NONE;
+        }
+	}
+
+	TimeScaleUnit
+		TimeScaleUnitEnumManager
+			::convert_string_to_enum()
+	{
+		return
+			convert_string_to_enum(
+				convert_enum_to_string(
+					configurations
+						.type
+				)
+			);
+	}
+}

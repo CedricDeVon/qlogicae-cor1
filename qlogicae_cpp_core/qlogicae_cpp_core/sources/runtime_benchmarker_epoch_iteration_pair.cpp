@@ -5,23 +5,5 @@
 namespace
 	QLogicaeCppCore
 {
-	RuntimeBenchmarkerEpochIterationPair
-		::RuntimeBenchmarkerEpochIterationPair()
-	{
-		epochs =
-			1;
-
-		iterations =
-			1;
-	}
-
-	RuntimeBenchmarkerEpochIterationPair
-		RuntimeBenchmarkerEpochIterationPair
-			::initial_configurations;
-
-	RuntimeBenchmarkerEpochIterationPair
-		RuntimeBenchmarkerEpochIterationPair
-			::default_configurations =
-				RuntimeBenchmarkerEpochIterationPair
-					::initial_configurations;
+	
 }

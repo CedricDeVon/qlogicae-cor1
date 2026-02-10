@@ -9,21 +9,11 @@ namespace
 	public:
         std::size_t
             epochs =
-                default_configurations
-					.epochs;
+                1;
 
         std::size_t
             iterations =
-                default_configurations
-					.iterations;
-
-		static RuntimeBenchmarkerEpochIterationPair
-			initial_configurations;
-
-		static RuntimeBenchmarkerEpochIterationPair
-			default_configurations;
-
-		RuntimeBenchmarkerEpochIterationPair();
+                1;
     };
 }
 

@@ -1,8 +1,10 @@
 #pragma once
 
+#include "text_case.hpp"
+#include "text_manager.hpp"
 #include "abstract_class.hpp"
 #include "singleton_manager.hpp"
-#include "text_manager.hpp"
+#include "text_case_manager.hpp"
 #include "windows_environment_variable_manager_configurations.hpp"
 
 namespace
@@ -67,3 +69,4 @@ namespace
 			);
 	};
 }
+

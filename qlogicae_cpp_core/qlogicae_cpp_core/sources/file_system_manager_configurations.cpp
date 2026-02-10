@@ -26,4 +26,3 @@ namespace
 				FileSystemManagerConfigurations
 					::initial_configurations;
 }
-

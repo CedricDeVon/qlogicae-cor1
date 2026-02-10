@@ -1,5 +1,7 @@
 #pragma once
 
+#include "abstract_enum.hpp"
+
 namespace
 	QLogicaeCppCore
 {
