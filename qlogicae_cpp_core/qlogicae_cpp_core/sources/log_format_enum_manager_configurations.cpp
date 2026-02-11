@@ -11,7 +11,7 @@ namespace
 	{
 		type =
 			LogFormat
-				::V1;
+				::STANDARD;
 	}
 
 	LogFormatEnumManagerConfigurations

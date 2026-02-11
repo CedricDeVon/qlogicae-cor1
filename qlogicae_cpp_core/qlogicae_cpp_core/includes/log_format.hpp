@@ -7,7 +7,7 @@ namespace
 		LogFormat :
 			uint8_t
     {
-		V1,
+		STANDARD,
 
 		CUSTOM,
 

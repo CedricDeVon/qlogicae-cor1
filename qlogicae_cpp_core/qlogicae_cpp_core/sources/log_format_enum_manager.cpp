@@ -52,10 +52,10 @@ namespace
 
 			switch (value)
 			{
-				case (LogFormat::V1):
+				case (LogFormat::STANDARD):
 				{
 					return
-						"V1";
+						"STANDARD";
 				}
 				case (LogFormat::CUSTOM):
 				{
@@ -133,13 +133,13 @@ namespace
 
 			if
 			(
-				value == "V1"
+				value == "STANDARD"
 			)
 			{
 				return
 					LogFormat
-						::V1;
-			}
+						::STANDARD;
+			}	
 			else if
 			(
 				value == "CUSTOM"
@@ -148,7 +148,8 @@ namespace
 				return
 					LogFormat
 						::CUSTOM;
-			}			
+			}
+						
 			else if
 			(
 				value == "NONE"
