@@ -11,6 +11,8 @@
 
 #include <sodium.h>
 
+#include <sqlite3.h>
+
 #include <argon2.h>
 
 #include <fast_io.h>
