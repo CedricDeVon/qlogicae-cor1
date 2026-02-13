@@ -16,9 +16,6 @@ namespace
 			public AbstractClass<FileSystemManagerConfigurations>
     {
     public:       
-		boost::mutex
-			feature_handling_mutex_2;
-
 		static std::string
 			relative_private_qlogicae_folder_path;
 

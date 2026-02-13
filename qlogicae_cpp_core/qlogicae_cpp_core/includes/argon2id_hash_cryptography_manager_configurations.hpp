@@ -19,3 +19,4 @@ namespace
 		Argon2idHashCryptographyManagerConfigurations();
     };    
 }
+

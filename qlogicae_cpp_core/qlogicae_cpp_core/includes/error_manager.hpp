@@ -9,11 +9,11 @@ namespace
 		ErrorManager
     {
     public:   
-		boost::mutex
-			feature_handling_mutex_1;
-
 		ErrorManagerConfigurations
 			configurations;
+
+		static boost::mutex
+			feature_handling_mutex_1;
 
 		static ErrorManager&
 			singleton;

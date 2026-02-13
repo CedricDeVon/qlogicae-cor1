@@ -64,3 +64,4 @@ namespace
 				ErrorManagerConfigurations
 					::initial_configurations;
 }
+

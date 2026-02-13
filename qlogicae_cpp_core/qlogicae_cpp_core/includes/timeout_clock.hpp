@@ -30,9 +30,6 @@ namespace
 			is_executed_immediately_async
 				{ false };
 
-		boost::mutex
-			feature_handling_mutex_2;
-
 		static TimeoutClock&
 			singleton;
 

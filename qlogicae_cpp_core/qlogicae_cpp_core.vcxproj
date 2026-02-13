@@ -249,6 +249,14 @@
     <ClInclude Include="qlogicae_cpp_core\includes\pair_hash_operator.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\qlogicae_file_system_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\qlogicae_file_system_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\random_character_generation_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\random_character_generation_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\random_container_generation_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\random_container_generation_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\random_number_generation_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\random_number_generation_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\random_string_generation_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\random_string_generation_manager_configurations.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\random_value_generation_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\random_value_generation_manager_configurations.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\regular_expression_manager.hpp" />
@@ -369,6 +377,14 @@
     <ClCompile Include="qlogicae_cpp_core\sources\qlogicae_file_system_manager_configurations.cpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\console_log_manager.hpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\enum_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\random_character_generation_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\random_character_generation_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\random_container_generation_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\random_container_generation_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\random_number_generation_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\random_number_generation_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\random_string_generation_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\random_string_generation_manager_configurations.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">

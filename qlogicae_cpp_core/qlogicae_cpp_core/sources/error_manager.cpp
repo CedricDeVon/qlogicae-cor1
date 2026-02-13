@@ -11,7 +11,10 @@ namespace
 				ErrorManager
 					::get_this_singleton();
 
-
+	boost::mutex
+		ErrorManager
+			::ErrorManager
+				::feature_handling_mutex_1;
 
 	ErrorManager
 		::ErrorManager()
@@ -331,3 +334,4 @@ namespace
 			singleton;
 	}
 }
+

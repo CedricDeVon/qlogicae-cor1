@@ -59,3 +59,4 @@ namespace
 			get_none_string();
     };
 }
+

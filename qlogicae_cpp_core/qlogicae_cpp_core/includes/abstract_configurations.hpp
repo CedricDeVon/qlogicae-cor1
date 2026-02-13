@@ -370,3 +370,4 @@ namespace
 			!is_thread_safety_enabled_for_error_handling();
 	}
 }
+

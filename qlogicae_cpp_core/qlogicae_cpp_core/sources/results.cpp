@@ -350,4 +350,3 @@ namespace
         set_message(message);
     }
 }
-

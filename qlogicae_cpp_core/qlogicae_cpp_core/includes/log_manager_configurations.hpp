@@ -51,6 +51,10 @@ namespace
 		is_output_enabled =
 			false;
 
+		log_level =
+			LogLevel
+				::INFO;
+
 		text =
 			"";
 	}

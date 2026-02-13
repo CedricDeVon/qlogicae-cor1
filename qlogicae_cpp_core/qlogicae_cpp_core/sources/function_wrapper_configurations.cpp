@@ -22,3 +22,4 @@ namespace
 				FunctionWrapperConfigurations
 					::initial_configurations;
 }
+

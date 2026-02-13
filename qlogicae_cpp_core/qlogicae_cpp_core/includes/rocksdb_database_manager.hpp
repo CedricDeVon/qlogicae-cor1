@@ -57,12 +57,6 @@ namespace
 		std::unordered_map<std::string, rocksdb::ColumnFamilyHandle*>
 			column_families;
 
-		boost::mutex
-			feature_handling_mutex_2;
-
-		boost::mutex
-			feature_handling_mutex_3;
-
         static RocksDbDatabaseManager&
             singleton;
 
