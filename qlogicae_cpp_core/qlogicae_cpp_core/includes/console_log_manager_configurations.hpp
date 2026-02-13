@@ -7,7 +7,7 @@ namespace
 {
     struct
 		ConsoleLogManagerConfigurations :
-			LogManagerConfigurations
+			LogManagerConfigurations<ConsoleLogManagerConfigurations>
     {
 	public:
 		static ConsoleLogManagerConfigurations

@@ -7,9 +7,10 @@ namespace
 {       
 	FileLogManagerConfigurations
 		::FileLogManagerConfigurations() :
-			LogManagerConfigurations()
+			LogManagerConfigurations<FileLogManagerConfigurations>()
 	{
-		
+		file_output_paths =
+			{};
 	}
 
 	FileLogManagerConfigurations

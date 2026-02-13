@@ -7,9 +7,13 @@ namespace
 {
     struct
 		FileLogManagerConfigurations :
-			LogManagerConfigurations
+			LogManagerConfigurations<FileLogManagerConfigurations>
     {
 	public:
+		std::unordered_map<std::string, std::function<std::string()>>
+			file_output_paths =
+				{};
+
 		static FileLogManagerConfigurations
 			initial_configurations;
 

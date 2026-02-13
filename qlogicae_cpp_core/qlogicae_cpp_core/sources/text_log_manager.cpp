@@ -198,6 +198,27 @@ namespace
 				const std::string&
 					message,
 				const LogLevel&
+					log_level,
+				const LogFormat&
+					log_format
+			)
+	{
+		return
+			convert_text(
+				message,
+				log_level,
+				configurations
+					.time_format,
+				log_format
+			);
+	}
+
+	std::string
+		TextLogManager
+			::convert_text(
+				const std::string&
+					message,
+				const LogLevel&
 					log_level
 			)
 	{

@@ -1,6 +1,8 @@
 #pragma once
 
+#include "log_level.hpp"
 #include "abstract_class.hpp"
+#include "text_log_manager.hpp"
 #include "singleton_manager.hpp"
 #include "console_log_manager_configurations.hpp"
 
@@ -16,6 +18,32 @@ namespace
             singleton;
 
 		ConsoleLogManager();
+
+		bool
+			log_formatted_text(
+				const std::string&
+					text,
+				const LogLevel&
+					log_level
+			);
+
+		bool
+			log_formatted_text(
+				const std::string&
+					text
+			);
+
+		bool
+			log_formatted_text();
+
+
+		bool
+			log_raw_text(
+				const std::string&
+					text
+			);
+
+		bool
+			log_raw_text();
     };
 }
-

@@ -142,6 +142,8 @@ namespace
 			custom_file_output_paths =
 				{};
 
+
+
 		static LoggerManagerConfigurations
 			initial_configurations;
 

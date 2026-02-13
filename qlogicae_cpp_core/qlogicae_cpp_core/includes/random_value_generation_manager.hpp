@@ -31,13 +31,15 @@ namespace
 		std::array<unsigned char, 16>
 			generate_random_salt();
 
-		void
+		bool
 			generate_random_bytes(
 				unsigned char*
 					buffer,
 				const size_t&
 					size
 			);
+
+		
 	};
 }
 

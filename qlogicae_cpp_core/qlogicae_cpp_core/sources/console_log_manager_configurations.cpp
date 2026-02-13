@@ -7,7 +7,7 @@ namespace
 {       
 	ConsoleLogManagerConfigurations
 		::ConsoleLogManagerConfigurations() :
-			LogManagerConfigurations()
+			LogManagerConfigurations<ConsoleLogManagerConfigurations>()
 	{
 		
 	}

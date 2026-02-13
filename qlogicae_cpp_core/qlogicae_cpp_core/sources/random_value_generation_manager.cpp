@@ -203,7 +203,7 @@ namespace
 		}
 	}
 
-	void
+	bool
 		RandomValueGenerationManager
 			::generate_random_bytes(
 				unsigned char*
@@ -223,12 +223,13 @@ namespace
 						.is_edge_case_enabled_for_feature_handling() &&
 					(
 						buffer == nullptr ||
-						size > 0
+						size < 1
 					)
 				)
 			)
 			{
-				return;
+				return
+					false;
 			}
 
 			boost::unique_lock<boost::mutex>
@@ -246,6 +247,9 @@ namespace
 				buffer,
 				size
 			);
+
+			return
+				true;
 		}
 		catch
 		(

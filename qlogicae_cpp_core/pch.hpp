@@ -181,3 +181,34 @@ namespace QLogicaeCppCore
 {
 
 }
+
+/*
+
+#include <iostream>
+#include <random>
+
+enum class Color
+{
+	Red,
+	Green,
+	Blue,
+	Yellow,
+	Max  // always keep a "Max" or "Count" entry for range
+};
+
+Color get_random_color()
+{
+	static std::random_device rd;
+	static std::mt19937 gen(rd());
+	std::uniform_int_distribution<int> dist(0, static_cast<int>(Color::Max) - 1);
+	return static_cast<Color>(dist(gen));
+}
+
+int main()
+{
+	Color c = get_random_color();
+	std::cout << "Random color value: " << static_cast<int>(c) << "\n";
+}
+
+*/
+ 

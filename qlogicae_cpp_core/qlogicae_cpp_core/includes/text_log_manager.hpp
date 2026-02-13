@@ -72,6 +72,16 @@ namespace
 				const std::string&
 					message,
 				const LogLevel&
+					log_level,
+				const LogFormat&
+					log_format
+			);
+
+		std::string
+			convert_text(
+				const std::string&
+					message,
+				const LogLevel&
 					log_level
 			);
 
