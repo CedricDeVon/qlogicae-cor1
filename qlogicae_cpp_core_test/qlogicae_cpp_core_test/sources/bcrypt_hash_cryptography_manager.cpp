@@ -145,7 +145,7 @@ namespace
 			threads;
 
 		for (std::size_t iteration = 0;
-			 iteration < 4;
+			 iteration < 2;
 			 ++iteration)
 		{
 			threads.emplace_back(

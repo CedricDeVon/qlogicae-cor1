@@ -38,6 +38,22 @@
     <ClCompile Include="qlogicae_cpp_core_test\sources\windows_environment_variable_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core_test\sources\windows_registry_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core_test\sources\windows_system_access_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core_test\sources\enum_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core_test\sources\file_system_entity_enum_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core_test\sources\log_format_enum_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core_test\sources\log_level_enum_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core_test\sources\log_medium_enum_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core_test\sources\log_output_enum_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core_test\sources\windows_registry_root_path_enum_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core_test\sources\windows_environment_variable_enum_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core_test\sources\uuid_enum_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core_test\sources\results_status_enum_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core_test\sources\temperature_unit_enum_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core_test\sources\text_case_enum_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core_test\sources\text_encoding_enum_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core_test\sources\time_format_enum_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core_test\sources\time_scale_unit_enum_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core_test\sources\time_zone_enum_manager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.hpp" />
@@ -78,6 +94,32 @@
     <ClInclude Include="qlogicae_cpp_core_test\includes\windows_environment_variable_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core_test\includes\windows_registry_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core_test\includes\windows_system_access_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core_test\includes\file_system_entity_enum_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core_test\includes\log_format_enum_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core_test\includes\log_level_enum_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core_test\includes\log_medium_enum_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core_test\includes\log_output_enum_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core_test\includes\enum_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core_test\includes\results_status_enum_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core_test\includes\temperature_unit_enum_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core_test\includes\text_case_enum_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core_test\includes\text_encoding_enum_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core_test\includes\time_format_enum_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core_test\includes\time_zone_enum_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core_test\includes\time_scale_unit_enum_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core_test\includes\uuid_enum_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core_test\includes\windows_environment_variable_enum_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core_test\includes\windows_registry_root_path_enum_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core_test\includes\text_log_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core_test\includes\console_log_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core_test\includes\file_log_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core_test\includes\rocksdb_database_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core_test\includes\random_character_generation_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core_test\includes\random_container_generation_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core_test\includes\random_number_generation_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core_test\includes\random_string_generation_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core_test\includes\random_value_generation_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core_test\includes\sqlite_database_manager.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

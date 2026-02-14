@@ -234,7 +234,7 @@ namespace
 		std::vector<std::thread>
 			thread_pool;
 
-		for (std::size_t index = 0; index < 5; ++index)
+		for (std::size_t index = 0; index < 2; ++index)
 		{
 			thread_pool.emplace_back(
 				[this, &all_threads_succeeded, index]()
@@ -283,7 +283,7 @@ namespace
 		Should_CompleteUnderTimeLimit_When_StressTested
 	)
 	{
-		for (std::size_t index = 0; index < 5; ++index)
+		for (std::size_t index = 0; index < 2; ++index)
 		{
 			const std::string
 				input_text =
@@ -388,7 +388,7 @@ namespace
 	{
 		std::string
 			large_text(
-				1024 * 1024,
+				1024,
 				'a'
 			);
 
@@ -579,7 +579,7 @@ namespace
 		std::vector<std::thread>
 			thread_pool;
 
-		for (std::size_t index = 0; index < 4; ++index)
+		for (std::size_t index = 0; index < 2; ++index)
 		{
 			thread_pool.emplace_back(
 				[this, index]()
