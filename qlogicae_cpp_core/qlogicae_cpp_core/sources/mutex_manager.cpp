@@ -182,28 +182,12 @@ namespace
             const void*
 	            pointer
         )
-    {
-		if
-		(
-			configurations
-				.is_runtime_execution_disabled_for_feature_handling() ||				
-			(
-				configurations
-					.is_edge_case_enabled_for_feature_handling() &&
-				(
-					pointer == nullptr
-				)
-			)
-		)
-		{
-			return
-				false;
-		}
-
+    {		
         return
 			unlock_micro_mutex(
 				pointer,
-				configurations.name
+				configurations
+					.name
 			);
     }
 

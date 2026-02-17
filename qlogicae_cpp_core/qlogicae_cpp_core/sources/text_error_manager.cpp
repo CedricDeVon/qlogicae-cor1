@@ -102,25 +102,11 @@ namespace
 					message
 			)
 	{
-		try
-        {		
-			return
-				convert_text(
-					message
-				);
-        }
-        catch
-        (
-            const std::exception&
-                exception
-        )
-        {
-			handle_error_outputs(
-				exception
+		return
+			convert_text(
+				configurations
+					.origin,
+				message
 			);
-
-			return
-				"";
-        }
 	}
 }

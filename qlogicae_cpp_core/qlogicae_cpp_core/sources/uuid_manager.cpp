@@ -107,26 +107,12 @@ namespace
 					value
 			)
 	{
-		try
-		{
-			return
-				is_valid(
-					configurations
-						.type,
-					value
-				);
-        }
-        catch
-        (
-            const std::exception&
-                exception
-        )
-        {
-			return
-				handle_error_outputs(
-					exception
-				);
-        }
+		return
+			is_valid(
+				configurations
+					.type,
+				value
+			);
 	}
 
 	std::string
@@ -199,24 +185,10 @@ namespace
 		UuidManager
 			::generate_uuid()
 	{		
-		try
-		{
-			return
-				generate_uuid(
-					configurations
-						.type					
-				);
-        }
-        catch
-        (
-            const std::exception&
-                exception
-        )
-        {
-			return
-				handle_error_outputs<std::string>(
-					exception
-				);
-        }
+		return
+			generate_uuid(
+				configurations
+					.type					
+			);
 	}
 }

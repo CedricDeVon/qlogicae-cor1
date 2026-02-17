@@ -2,6 +2,9 @@
 
 #include "framework.hpp"
 
+#define ORT_DISABLE_SCHEMA_VALIDATION 1
+#include <onnxruntime/onnxruntime_cxx_api.h>
+
 #define PCRE2_CODE_UNIT_WIDTH 8
 #include <pcre2.h>
 

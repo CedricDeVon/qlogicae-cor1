@@ -100,4 +100,8 @@
       <Filter>Resource Files</Filter>
     </ResourceCompile>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="model.onnx" />
+    <None Include="model.py" />
+  </ItemGroup>
 </Project>

@@ -328,26 +328,12 @@ namespace
 					name_key
 			)
 	{
-		try
-        {		
-			return
-				!get_value(
-					root_key,
-					sub_key,
-					name_key
-				).empty();
-        }
-        catch
-        (
-            const std::exception&
-                exception
-        )
-        {
-			return
-				handle_error_outputs(
-					exception
-				);
-        }
+		return
+			!get_value(
+				root_key,
+				sub_key,
+				name_key
+			).empty();
 	}
 
 	std::string
@@ -361,40 +347,24 @@ namespace
 					name_key
 			)
 	{
-		try
-        {		
-			return
-				TextManager
-					::singleton
-						.convert_text<std::wstring, std::string>(
-							get_value(
-								root_key,
-								TextManager
-									::singleton
-										.convert_text<std::string, std::wstring>(
-											sub_key
-										),
-								TextManager
-									::singleton
-										.convert_text<std::string, std::wstring>(
-											name_key
-										)					
-							)
-						);
-        }
-        catch
-        (
-            const std::exception&
-                exception
-        )
-        {
-			handle_error_outputs(
-				exception
-			);
-
-			return
-				"";
-        }
+		return
+			TextManager
+				::singleton
+					.convert_text<std::wstring, std::string>(
+						get_value(
+							root_key,
+							TextManager
+								::singleton
+									.convert_text<std::string, std::wstring>(
+										sub_key
+									),
+							TextManager
+								::singleton
+									.convert_text<std::string, std::wstring>(
+										name_key
+									)					
+						)
+					);
 	}
 
 	bool
@@ -410,39 +380,25 @@ namespace
 					value
 		)
 	{
-		try
-        {		
-			return
-				set_value(
-					root_key,
-					TextManager
-						::singleton
-							.convert_text<std::string, std::wstring>(
-								sub_key
-							),
-					TextManager
-						::singleton
-							.convert_text<std::string, std::wstring>(
-								name_key
-							),
-					TextManager
-						::singleton
-							.convert_text<std::string, std::wstring>(
-								value
-							)					
-				);
-        }
-        catch
-        (
-            const std::exception&
-                exception
-        )
-        {
-			return
-				handle_error_outputs(
-					exception
-				);
-        }
+		return
+			set_value(
+				root_key,
+				TextManager
+					::singleton
+						.convert_text<std::string, std::wstring>(
+							sub_key
+						),
+				TextManager
+					::singleton
+						.convert_text<std::string, std::wstring>(
+							name_key
+						),
+				TextManager
+					::singleton
+						.convert_text<std::string, std::wstring>(
+							value
+						)					
+			);
 	}
 
 	std::unordered_map<std::string, std::string>
@@ -575,34 +531,20 @@ namespace
 					name_key
 			)
 	{
-		try
-        {		
-			return
-				remove_value(
-					root_key,
-					TextManager
-						::singleton
-							.convert_text<std::string, std::wstring>(
-								sub_key
-							),
-					TextManager
-						::singleton
-							.convert_text<std::string, std::wstring>(
-								name_key
-							)			
-				);
-        }
-        catch
-        (
-            const std::exception&
-                exception
-        )
-        {
-			return
-				handle_error_outputs(
-					exception
-				);
-        }
+		return
+			remove_value(
+				root_key,
+				TextManager
+					::singleton
+						.convert_text<std::string, std::wstring>(
+							sub_key
+						),
+				TextManager
+					::singleton
+						.convert_text<std::string, std::wstring>(
+							name_key
+						)			
+			);
 	}
 
 	bool
@@ -616,62 +558,35 @@ namespace
 					name_key
 			)
 	{
-		try
-        {		
-			return
-				is_path_found(
-					root_key,
-					TextManager
-						::singleton
-							.convert_text<std::string, std::wstring>(
-								sub_key
-							),
-					TextManager
-						::singleton
-							.convert_text<std::string, std::wstring>(
-								name_key
-							)					
-				);
-        }
-        catch
-        (
-            const std::exception&
-                exception
-        )
-        {
-			return
-				handle_error_outputs(
-					exception
-				);
-        }
+		return
+			is_path_found(
+				root_key,
+				TextManager
+					::singleton
+						.convert_text<std::string, std::wstring>(
+							sub_key
+						),
+				TextManager
+					::singleton
+						.convert_text<std::string, std::wstring>(
+							name_key
+						)					
+			);
 	}
 
 	std::wstring
 		WindowsRegistryManager
 			::get_value_via_wstring()
 	{
-		try
-        {		
-			return
-				get_value(
-					configurations.root_key,
-					configurations.sub_key,
-					configurations.name_key
-				);
-        }
-        catch
-        (
-            const std::exception&
-                exception
-        )
-        {
-			handle_error_outputs(
-				exception
+		return
+			get_value(
+				configurations
+					.root_key,
+				configurations
+					.sub_key,
+				configurations
+					.name_key
 			);
-
-			return
-				L"";
-        }
 	}
 
 	bool
@@ -681,106 +596,59 @@ namespace
 					value
 		)
 	{
-		try
-        {		
-			return
-				set_value(
-					configurations.root_key,
-					configurations.sub_key,
-					configurations.name_key,
-					value
-				);
-        }
-        catch
-        (
-            const std::exception&
-                exception
-        )
-        {
-			return
-				handle_error_outputs(
-					exception
-				);
-        }
+		return
+			set_value(
+				configurations
+					.root_key,
+				configurations
+					.sub_key,
+				configurations
+					.name_key,
+				value
+			);
 	}
 
 	std::unordered_map<std::wstring, std::wstring>
 		WindowsRegistryManager
 			::get_values_via_wstring()
 	{
-		try
-        {		
-			return
-				get_values(
-					configurations.root_key,
-					configurations.sub_key
-				);
-        }
-        catch
-        (
-            const std::exception&
-                exception
-        )
-        {
-			handle_error_outputs(
-				exception
+		return
+			get_values(
+				configurations
+					.root_key,
+				configurations
+					.sub_key
 			);
-
-			return
-				{};
-        }
 	}
 
 	bool
 		WindowsRegistryManager
 			::remove_value_via_wstring()
 	{
-		try
-        {		
-			return
-				remove_value(
-					configurations.root_key,
-					configurations.sub_key,
-					configurations.name_key
-				);
-        }
-        catch
-        (
-            const std::exception&
-                exception
-        )
-        {
-			return
-				handle_error_outputs(
-					exception
-				);
-        }
+		return
+			remove_value(
+				configurations
+					.root_key,
+				configurations
+					.sub_key,
+				configurations
+					.name_key
+			);
 	}
 
 	bool
 		WindowsRegistryManager
 			::is_path_found_via_wstring()
 	{
-		try
-        {		
-			return
-				is_path_found(
-					configurations.root_key,
-					configurations.sub_key,
-					configurations.name_key
-				);
-        }
-        catch
-        (
-            const std::exception&
-                exception
-        )
-        {
-			return
-				handle_error_outputs(
-					exception
-				);
-        }
+		return
+			is_path_found(
+				configurations
+					.root_key,
+				configurations
+					.sub_key,
+				configurations
+					.name_key
+			);
 	}
 
 
@@ -789,32 +657,19 @@ namespace
 		WindowsRegistryManager
 			::get_value_via_string()
 	{
-		try
-        {		
-			return
-				TextManager
-					::singleton
-						.convert_text<std::wstring, std::string>(
-							get_value(
-								configurations.root_key,
-								configurations.sub_key,
-								configurations.name_key
-							)
-						);
-        }
-        catch
-        (
-            const std::exception&
-                exception
-        )
-        {
-			handle_error_outputs(
-				exception
-			);
-
-			return
-				"";
-        }
+		return
+			TextManager
+				::singleton
+					.convert_text<std::wstring, std::string>(
+						get_value(
+							configurations
+					.root_key,
+							configurations
+					.sub_key,
+							configurations
+					.name_key
+						)
+					);
 	}
 
 	bool
@@ -824,113 +679,64 @@ namespace
 					value
 		)
 	{
-		try
-        {		
-			return
-				set_value(
-					configurations.root_key,
-					configurations.sub_key,
-					configurations.name_key,
-					TextManager
-						::singleton
-							.convert_text<std::string, std::wstring>(
-								value
-							)					
-				);
-        }
-        catch
-        (
-            const std::exception&
-                exception
-        )
-        {
-			return
-				handle_error_outputs(
-					exception
-				);
-        }
+		return
+			set_value(
+				configurations
+					.root_key,
+				configurations
+					.sub_key,
+				configurations
+					.name_key,
+				TextManager
+					::singleton
+						.convert_text<std::string, std::wstring>(
+							value
+						)					
+			);
 	}
 
 	std::unordered_map<std::string, std::string>
 		WindowsRegistryManager
 			::get_values_via_string()
 	{
-		try
-        {		
-			return
-				get_values(
-					configurations.root_key,
-					TextManager
-						::singleton
-							.convert_text<std::wstring, std::string>(
-								configurations.sub_key
-							)					
-				);				
-        }
-        catch
-        (
-            const std::exception&
-                exception
-        )
-        {
-			handle_error_outputs(
-				exception
-			);
-
-			return
-				{};
-        }
+		return
+			get_values(
+				configurations.root_key,
+				TextManager
+					::singleton
+						.convert_text<std::wstring, std::string>(
+							configurations.sub_key
+						)					
+			);		
 	}
 
 	bool
 		WindowsRegistryManager
 			::remove_value_via_string()
 	{
-		try
-        {		
-			return
-				remove_value(
-					configurations.root_key,
-					configurations.sub_key,
-					configurations.name_key
-				);
-        }
-        catch
-        (
-            const std::exception&
-                exception
-        )
-        {
-			return
-				handle_error_outputs(
-					exception
-				);
-        }
+		return
+			remove_value(
+				configurations
+					.root_key,
+				configurations
+					.sub_key,
+				configurations
+					.name_key
+			);
 	}
 
 	bool
 		WindowsRegistryManager
 			::is_path_found_via_string()
 	{
-		try
-        {		
-			return
-				is_path_found(
-					configurations.root_key,
-					configurations.sub_key,
-					configurations.name_key
-				);		
-        }
-        catch
-        (
-            const std::exception&
-                exception
-        )
-        {
-			return
-				handle_error_outputs(
-					exception
-				);
-        }
+		return
+			is_path_found(
+				configurations
+					.root_key,
+				configurations
+					.sub_key,
+				configurations
+					.name_key
+			);
 	}
 }

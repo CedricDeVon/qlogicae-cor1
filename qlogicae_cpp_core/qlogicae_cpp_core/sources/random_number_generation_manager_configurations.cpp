@@ -22,3 +22,4 @@ namespace
 				RandomNumberGenerationManagerConfigurations
 					::initial_configurations;
 }
+

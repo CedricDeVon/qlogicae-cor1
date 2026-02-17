@@ -22,3 +22,4 @@ namespace
 				RandomCharacterGenerationManagerConfigurations
 					::initial_configurations;
 }
+

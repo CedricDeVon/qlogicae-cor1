@@ -1,6 +1,22 @@
 ﻿#include "pch.hpp"
 
-#include "main.hpp"
+// #include "main.hpp"
+
+int main(int argc, char** argv)
+{
+	bool exit_code;
+	std::cin >> exit_code;
+
+	return 0;
+}
+
+namespace QLogicaeCppCoreSandbox
+{
+
+}
+
+
+/*
 
 
 class WebApi
@@ -58,7 +74,7 @@ public:
 	};
 
 public:
-	explicit WebApi(Config config)
+	WebApi(Config config)
 		: config_(std::move(config))
 	{
 		initialize_global();
@@ -79,21 +95,19 @@ public:
 		return request("GET", path, "", cancel_token);
 	}
 
-	Response post(const std::string& path, const std::string& body,
-		std::atomic<bool>* cancel_token = nullptr)
+	Response post(const std::string& path, const std::string& body, std::atomic<bool>* cancel_token = nullptr)
 	{
-		return request("POST", path, body, cancel_token, false); 
+		return request("POST", path, body, cancel_token, false);
 	}
 
-	Response put(const std::string& path, const std::string& body,
-		std::atomic<bool>* cancel_token = nullptr)
+	Response put(const std::string& path, const std::string& body, std::atomic<bool>* cancel_token = nullptr)
 	{
-		return request("PUT", path, body, cancel_token); 
+		return request("PUT", path, body, cancel_token);
 	}
 
 	Response del(const std::string& path, std::atomic<bool>* cancel_token = nullptr)
 	{
-		return request("DELETE", path, "", cancel_token); 
+		return request("DELETE", path, "", cancel_token);
 	}
 
 	Response head(const std::string& path, std::atomic<bool>* cancel_token = nullptr)
@@ -117,11 +131,17 @@ public:
 
 private:
 	Config config_;
+
 	std::vector<CURL*> curl_pool_;
+
 	std::mutex pool_mutex_;
+
 	size_t pool_next_{ 0 };
+
 	std::mutex cb_mutex_;
+
 	int failure_count_{ 0 };
+
 	std::chrono::steady_clock::time_point last_failure_{};
 
 	static void initialize_global()
@@ -287,30 +307,30 @@ private:
 
 void display_response(const WebApi::Response& response)
 {
-    std::cout << "Status Code: " << response.status_code << "\n\n";
+	std::cout << "Status Code: " << response.status_code << "\n\n";
 
-    std::cout << "Headers:\n";
-    for (const auto& [key, value] : response.headers)
-    {
-        std::cout << key << ": " << value << "\n";
-    }
-    std::cout << "\n";
+	std::cout << "Headers:\n";
+	for (const auto& [key, value] : response.headers)
+	{
+		std::cout << key << ": " << value << "\n";
+	}
+	std::cout << "\n";
 
-    std::cout << "Body:\n";
-    std::cout << response.body << "\n\n";
+	std::cout << "Body:\n";
+	std::cout << response.body << "\n\n";
 
-    const auto& t = response.telemetry;
-    std::cout << std::fixed << std::setprecision(6);
-    std::cout << "Telemetry (seconds):\n";
-    std::cout << "  Total Time: " << t.total_time << "\n";
-    std::cout << "  DNS Lookup: " << t.dns_time << "\n";
-    std::cout << "  Connect: " << t.connect_time << "\n";
-    std::cout << "  TLS Handshake: " << t.tls_time << "\n";
-    std::cout << "  Start Transfer: " << t.start_transfer_time << "\n";
+	const auto& t = response.telemetry;
+	std::cout << std::fixed << std::setprecision(6);
+	std::cout << "Telemetry (seconds):\n";
+	std::cout << "  Total Time: " << t.total_time << "\n";
+	std::cout << "  DNS Lookup: " << t.dns_time << "\n";
+	std::cout << "  Connect: " << t.connect_time << "\n";
+	std::cout << "  TLS Handshake: " << t.tls_time << "\n";
+	std::cout << "  Start Transfer: " << t.start_transfer_time << "\n";
 }
 
 int main(int argc, char** argv)
-{		    
+{
 	try
 	{
 		WebApi client(WebApi::Config{ .base_url = "https://dummy.restapiexample.com" });
@@ -323,19 +343,394 @@ int main(int argc, char** argv)
 		return EXIT_FAILURE;
 	}
 
-    bool exit_code;
+	bool exit_code;
 	std::cin >> exit_code;
 
-    return 0;
+	return 0;
 }
 
-namespace QLogicaeCppCoreSandbox
+
+class OnnxSessionStream {
+public:
+	struct ModelConfig {
+		std::string model_path;
+		bool enable_cuda = false;
+		std::optional<int> device_id;
+	};
+
+	OnnxSessionStream(const ModelConfig& config) :
+		env_ { ORT_LOGGING_LEVEL_WARNING, "MyApp" },
+		session_{ nullptr },
+		session_options_ {}
+	{
+		init(config);
+	}
+
+	template<typename T>
+	std::unordered_map<std::string, std::span<const T>>
+		infer_numeric(const std::unordered_map<std::string,
+			std::vector<std::vector<T>>>& inputs)
+	{
+		static_assert(std::is_arithmetic_v<T>,
+			"Numeric inference supports arithmetic types only.");
+
+		prepare_numeric_inputs(inputs);
+		run_session();
+
+		return collect_numeric_outputs<T>();
+	}
+
+	std::unordered_map<std::string, std::vector<std::string>>
+		infer_string(const std::unordered_map<std::string,
+			std::vector<std::vector<std::string>>>& inputs)
+	{
+		prepare_string_inputs(inputs);
+		run_session();
+		return collect_string_outputs();
+	}
+
+	const std::vector<std::string>& input_names() const noexcept {
+		return input_names_str_;
+	}
+
+	const std::vector<std::string>& output_names() const noexcept {
+		return output_names_str_;
+	}
+
+private:
+	template<typename T>
+	void prepare_numeric_inputs(
+		const std::unordered_map<std::string, std::vector<std::vector<T>>>& inputs)
+	{
+		input_tensors_.clear();
+		input_name_ptrs_runtime_.clear();
+		numeric_buffers_.clear();
+
+		for (size_t i = 0; i < input_names_str_.size(); ++i) {
+			const auto& name = input_names_str_[i];
+			auto it = inputs.find(name);
+			if (it == inputs.end())
+				throw std::runtime_error("Missing input: " + name);
+
+			const auto& batch = it->second;
+			if (batch.empty())
+				throw std::runtime_error("Empty batch for input: " + name);
+
+			size_t batch_size = batch.size();
+			size_t feature_size = batch[0].size();
+
+			for (const auto& sample : batch)
+				if (sample.size() != feature_size)
+					throw std::runtime_error("Inconsistent feature sizes.");
+
+			size_t total = batch_size * feature_size;
+			numeric_buffers_.emplace_back(total);
+			auto& buffer = numeric_buffers_.back();
+
+			for (size_t b = 0; b < batch_size; ++b)
+				std::copy(batch[b].begin(), batch[b].end(),
+					buffer.begin() + b * feature_size);
+
+			std::vector<int64_t> shape = resolve_shape(i, batch_size, feature_size);
+
+			const Ort::MemoryInfo mem_info = Ort::MemoryInfo::CreateCpu(
+				OrtArenaAllocator, OrtMemTypeDefault);
+
+			input_tensors_.emplace_back(
+				Ort::Value::CreateTensor<T>(
+					mem_info,
+					buffer.data(),
+					total,
+					shape.data(),
+					shape.size()
+				)
+			);
+
+			input_name_ptrs_runtime_.push_back(input_names_ptrs_[i]);
+		}
+	}
+
+
+	void prepare_string_inputs(
+		const std::unordered_map<std::string, std::vector<std::vector<std::string>>>& inputs)
+	{
+		input_tensors_.clear();
+		input_name_ptrs_runtime_.clear();
+
+		Ort::AllocatorWithDefaultOptions allocator;
+
+		for (size_t i = 0; i < input_names_str_.size(); ++i) {
+			const auto& name = input_names_str_[i];
+			auto it = inputs.find(name);
+			if (it == inputs.end())
+				throw std::runtime_error("Missing input: " + name);
+
+			const auto& batch = it->second;
+			size_t batch_size = batch.size();
+			size_t feature_size = batch[0].size();
+
+			std::vector<int64_t> shape = resolve_shape(i, batch_size, feature_size);
+
+
+			Ort::Value input_tensor = Ort::Value::CreateTensor(
+				allocator,
+				shape.data(),
+				shape.size(),
+				ONNX_TENSOR_ELEMENT_DATA_TYPE_STRING
+			);
+
+			std::vector<const char*> raw_ptrs;
+			for (const auto& row : batch)
+				for (const auto& str : row)
+					raw_ptrs.push_back(str.c_str());
+
+			input_tensor.FillStringTensor(raw_ptrs.data(), raw_ptrs.size());
+
+			input_tensors_.push_back(std::move(input_tensor));
+			input_name_ptrs_runtime_.push_back(input_names_ptrs_[i]);
+		}
+	}
+
+	void run_session()
+	{
+		output_tensors_ = session_.Run(
+			Ort::RunOptions{},
+			input_name_ptrs_runtime_.data(),
+			input_tensors_.data(),
+			input_tensors_.size(),
+			output_names_ptrs_.data(),
+			output_names_ptrs_.size()
+		);
+	}
+
+	template<typename T>
+	std::unordered_map<std::string, std::span<const T>>
+		collect_numeric_outputs()
+	{
+		std::unordered_map<std::string, std::span<const T>> results;
+
+		for (size_t i = 0; i < output_tensors_.size(); ++i) {
+
+			auto type_info =
+				output_tensors_[i].GetTensorTypeAndShapeInfo();
+
+			if (type_info.GetElementType() !=
+				Ort::TypeToTensorType<T>::type)
+				throw std::runtime_error("Output type mismatch.");
+
+			T* data = output_tensors_[i].GetTensorMutableData<T>();
+			size_t count = type_info.GetElementCount();
+
+			results[output_names_str_[i]] =
+				std::span<const T>(data, count);
+		}
+
+		return results;
+	}
+
+	std::unordered_map<std::string, std::vector<std::string>>
+		collect_string_outputs()
+	{
+		std::unordered_map<std::string,
+			std::vector<std::string>> results;
+
+		for (size_t i = 0; i < output_tensors_.size(); ++i) {
+
+			size_t count =
+				output_tensors_[i]
+				.GetTensorTypeAndShapeInfo()
+				.GetElementCount();
+
+			size_t total_length =
+				output_tensors_[i].GetStringTensorDataLength();
+
+			std::vector<char> buffer(total_length);
+			std::vector<size_t> offsets(count);
+
+			output_tensors_[i].GetStringTensorContent(
+				buffer.data(),
+				total_length,
+				offsets.data(),
+				count
+			);
+
+			std::vector<std::string> strings(count);
+			for (size_t j = 0; j < count; ++j) {
+				size_t start = offsets[j];
+				size_t end = (j + 1 < count)
+					? offsets[j + 1]
+					: total_length;
+				strings[j] =
+					std::string(buffer.data() + start,
+						end - start);
+			}
+
+			results[output_names_str_[i]] = std::move(strings);
+		}
+
+		return results;
+	}
+
+	std::vector<int64_t>
+		resolve_shape(size_t input_index,
+			size_t batch_size,
+			size_t feature_size)
+	{
+		std::vector<int64_t> shape =
+			input_shapes_[input_index];
+
+		shape[0] = static_cast<int64_t>(batch_size);
+
+		int64_t known_product = 1;
+		for (size_t i = 1; i < shape.size(); ++i)
+			known_product *= shape[i];
+
+		if (known_product == 0)
+			throw std::runtime_error("Invalid model shape.");
+
+		if (known_product != static_cast<int64_t>(feature_size))
+			shape.back() =
+			static_cast<int64_t>(feature_size /
+				(known_product /
+					shape.back()));
+
+		return shape;
+	}
+
+	void init(const ModelConfig& config)
+	{
+		session_options_.SetIntraOpNumThreads(1);
+		session_options_.SetGraphOptimizationLevel(
+			ORT_DISABLE_ALL
+		);
+
+		#ifdef USE_CUDA
+		if (config.enable_cuda) {
+			OrtCUDAProviderOptions cuda_opts{};
+			if (config.device_id)
+				cuda_opts.device_id = *config.device_id;
+			session_options_
+				.AppendExecutionProvider_CUDA(cuda_opts);
+		}
+		#endif
+
+		std::wstring wpath(
+			config.model_path.begin(),
+			config.model_path.end());
+
+		session_ = Ort::Session(env_, wpath.c_str(),
+			session_options_);
+
+		Ort::AllocatorWithDefaultOptions allocator;
+
+		size_t num_inputs = session_.GetInputCount();
+		input_names_str_.resize(num_inputs);
+		input_names_ptrs_.resize(num_inputs);
+		input_shapes_.resize(num_inputs);
+
+		for (size_t i = 0; i < num_inputs; ++i) {
+
+			auto name =
+				session_.GetInputNameAllocated(i, allocator);
+
+			input_names_str_[i] = name.get();
+			input_names_ptrs_[i] =
+				input_names_str_[i].c_str();
+
+			auto info =
+				session_.GetInputTypeInfo(i)
+				.GetTensorTypeAndShapeInfo();
+
+			input_shapes_[i] = info.GetShape();
+
+			for (auto& d : input_shapes_[i])
+				if (d < 0) d = 1;
+		}
+
+		size_t num_outputs = session_.GetOutputCount();
+		output_names_str_.resize(num_outputs);
+		output_names_ptrs_.resize(num_outputs);
+
+		for (size_t i = 0; i < num_outputs; ++i) {
+
+			auto name =
+				session_.GetOutputNameAllocated(i,
+					allocator);
+
+			output_names_str_[i] = name.get();
+			output_names_ptrs_[i] =
+				output_names_str_[i].c_str();
+		}
+	}
+
+	Ort::Env env_;
+
+	Ort::Session session_;
+
+	Ort::SessionOptions session_options_;
+
+	std::vector<std::string> input_names_str_;
+	std::vector<const char*> input_names_ptrs_;
+	std::vector<std::vector<int64_t>> input_shapes_;
+
+	std::vector<std::string> output_names_str_;
+	std::vector<const char*> output_names_ptrs_;
+
+	std::vector<const char*> input_name_ptrs_runtime_;
+	std::vector<Ort::Value> input_tensors_;
+	std::vector<Ort::Value> output_tensors_;
+
+	std::vector<std::vector<float>> numeric_buffers_;
+	std::vector<std::vector<std::string>> string_buffers_;
+};
+
+int main(int argc, char** argv)
 {
+	try {
+		OnnxSessionStream::ModelConfig config;
+		config.model_path = "model.onnx";
+		config.enable_cuda = false;
 
+		OnnxSessionStream session(config);
+
+
+		std::cout << "Inputs: ";
+		for (auto& name : session.input_names())
+			std::cout << name << " ";
+		std::cout << "\nOutputs: ";
+		for (auto& name : session.output_names())
+			std::cout << name << " ";
+		std::cout << "\n";
+
+
+
+		std::vector<std::vector<float>> batch;
+		batch.push_back(std::vector<float>(128, 0.5f));
+		batch.push_back(std::vector<float>(128, 0.7f));
+
+		std::unordered_map<std::string, std::vector<std::vector<float>>> inputs;
+		inputs[session.input_names()[0]] = batch;
+
+		auto results = session.infer_numeric<float>(inputs);
+
+
+		for (auto& [name, output_span] : results) {
+			std::cout << "Output " << name << ": ";
+			for (float v : output_span)
+				std::cout << v << " ";
+			std::cout << "\n";
+		}
+	}
+	catch (const std::exception& ex) {
+		std::cerr << "Error: " << ex.what() << "\n";
+		return EXIT_FAILURE;
+	}
+
+	return EXIT_SUCCESS;
 }
 
 
-/*
+
 
 
 
@@ -422,7 +817,7 @@ public:
 	};
 
 public:
-	explicit WebApi(Config config)
+	WebApi(Config config)
 		: config_(std::move(config))
 	{
 		initialize_global();

@@ -465,18 +465,6 @@ namespace
 
 	TEST_F(
 		TextErrorManagerTest,
-		Should_FailDueToRecursion_When_MessageOnlyOverloadCalled)
-	{
-		ASSERT_DEATH(
-			{
-				text_error_manager.convert_text(
-					std::string("message"));
-			},
-			"");
-	}
-
-	TEST_F(
-		TextErrorManagerTest,
 		Should_HandleSpecifiedLength_When_Enabled)
 	{
 		QLogicaeCppCore::TextErrorManagerConfigurations

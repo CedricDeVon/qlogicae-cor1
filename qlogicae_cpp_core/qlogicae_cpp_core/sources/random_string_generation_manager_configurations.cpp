@@ -9,7 +9,12 @@ namespace
 		::RandomStringGenerationManagerConfigurations() :
 			AbstractConfigurations<RandomStringGenerationManagerConfigurations>()
 	{
-		
+		character_domain =
+			CharacterDomain
+				::ASCII;
+
+		length =
+			32;
 	}
 
 	RandomStringGenerationManagerConfigurations
@@ -22,3 +27,4 @@ namespace
 				RandomStringGenerationManagerConfigurations
 					::initial_configurations;
 }
+

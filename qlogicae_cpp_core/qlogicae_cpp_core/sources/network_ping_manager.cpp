@@ -263,44 +263,9 @@ namespace
 		NetworkPingManager
 			::get_name()
 	{
-		try
-        {		
-			if
-			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling()
-			)
-			{
-				return
-					"";
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_feature_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}			
-
-			return
-				configurations
-					.name;
-        }
-        catch
-        (
-            const std::exception&
-                exception
-        )
-        {
-			return
-				handle_error_outputs<std::string>(
-					exception
-				);
-        }
+		return
+			configurations
+				.name;
 	}
 
 	bool
@@ -364,44 +329,9 @@ namespace
 		NetworkPingManager
 			::get_host_address()
 	{
-		try
-        {		
-			if
-			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling()
-			)
-			{
-				return
-					"";
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_feature_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}			
-
-			return
-				configurations
-					.host_address;	
-        }
-        catch
-        (
-            const std::exception&
-                exception
-        )
-        {
-			return
-				handle_error_outputs<std::string>(
-					exception
-				);
-        }
+		return
+			configurations
+				.host_address;
 	}
 
 	bool
@@ -465,46 +395,10 @@ namespace
 		NetworkPingManager
 			::get_delay_in_milliseconds()
 	{
-		try
-        {		
-			if
-			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling()
-			)
-			{
-				return
-					std::chrono::milliseconds
-						{ 0 };
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_feature_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}			
-
-			return
-				interval_clock
-					.configurations
-						.delay_in_milliseconds;
-        }
-        catch
-        (
-            const std::exception&
-                exception
-        )
-        {
-			return
-				handle_error_outputs<std::chrono::milliseconds>(
-					exception
-				);
-        }
+		return
+			interval_clock
+				.configurations
+					.delay_in_milliseconds;
 	}
 
 	bool

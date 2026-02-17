@@ -54,9 +54,12 @@ namespace
 		
 			return
 				(
-					configurations.is_conditional_callback_enabled &&
-					configurations.conditional_callback != nullptr &&
-					configurations.conditional_callback(text)
+					configurations
+						.is_conditional_callback_enabled &&
+					configurations
+						.conditional_callback != nullptr &&
+					configurations
+						.conditional_callback(text)
 				) ? placeholder : text;			
         }
         catch
@@ -81,26 +84,11 @@ namespace
 					text
 			)
 	{
-		try
-        {		
-			return
-				convert_text(
-					text,
-					configurations.placeholder
-				);
-        }
-        catch
-        (
-            const std::exception&
-                exception
-        )
-        {
-			handle_error_outputs(
-				exception
+		return
+			convert_text(
+				text,
+				configurations
+					.placeholder
 			);
-
-			return
-				"";
-        }
 	}		
 }

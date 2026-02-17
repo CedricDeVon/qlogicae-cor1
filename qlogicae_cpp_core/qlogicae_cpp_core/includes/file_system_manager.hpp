@@ -16,110 +16,98 @@ namespace
 			public AbstractClass<FileSystemManagerConfigurations>
     {
     public:       
-		static std::string
+		std::string
 			relative_private_qlogicae_folder_path;
 
-		static std::string
+		std::string
 			relative_public_qlogicae_folder_path;
 
-		static std::string
+		std::string
 			relative_application_name_folder_path;
 
-		static std::string
+		std::string
 			relative_application_version_name_folder_path;
 
-		static std::string
+		std::string
 			relative_application_environment_name_folder_path;
 
-		static std::string
+		std::string
 			relative_log_folder_path;
 
-		static std::string
+		std::string
 			relative_log_date_folder_path;
 
-		static std::string
+		std::string
 			relative_log_level_folder_path;
 
-		static std::string
+		std::string
 			relative_all_log_file_path;
 
-		static std::string
+		std::string
 			relative_info_log_file_path;
 
-		static std::string
+		std::string
 			relative_debug_log_file_path;
 
-		static std::string
+		std::string
 			relative_warning_log_file_path;
 
-		static std::string
+		std::string
 			relative_success_log_file_path;
 
-		static std::string
+		std::string
 			relative_critical_log_file_path;
 
-		static std::string
+		std::string
 			relative_error_log_file_path;
 
-		static std::string
+		std::string
 			relative_cache_folder_path;
 
-		static std::string
+		std::string
 			relative_main_folder_path;
 
-		static std::string
+		std::string
 			relative_assets_folder_path;
 
-		static std::string
+		std::string
 			relative_documentation_folder_path;
 
-		static std::string
+		std::string
 			relative_environment_json_file_path;
 
-		static std::string
+		std::string
 			relative_license_txt_file_path;
 
-		static std::string
+		std::string
 			relative_application_folder_path;
 
-		static std::string
+		std::string
 			relative_application_icon_file_path;
 
-		static std::string
+		std::string
 			relative_qlogicae_json_file_path;
 
-		static std::string
+		std::string
 			relative_configurations_folder_path;
 
-		static std::string
+		std::string
 			relative_development_folder_path;
 
-		static std::string
+		std::string
 			relative_debug_folder_path;
 
-		static std::string
+		std::string
 			relative_test_folder_path;
 
-		static std::string
+		std::string
 			relative_release_folder_path;
 
-		static std::string
+		std::string
 			relative_windows_registry_software_qlogicae_folder_path;
 
-		static std::string
-			full_executable_folder_path;
-
-		static std::string
-			full_executed_folder_path;
-
-		static std::string
-			full_roaming_app_data_folder_path;
-
-		static std::string
-			full_local_app_data_folder_path;
-
-		static std::string
-			full_program_data_folder_path;
+		boost::mutex
+			feature_handling_mutex_2;
 
         static FileSystemManager&
             singleton;
@@ -527,63 +515,101 @@ namespace
                 const std::string&
                     origin_path
 			);   
+
+		std::vector<std::filesystem::path>
+			enumerate(
+				const std::filesystem::path&
+					origin_path,
+				const std::function<bool()>&
+					pattern,
+				const bool&
+					include_files,
+				const bool&
+					include_folders
+        );
+
+		std::vector<std::wstring>	
+			get_entity_paths(
+				const std::wstring&
+					origin_path,
+				const std::function<bool()>&
+					pattern
+			);
+
+		std::vector<std::wstring>
+			get_file_paths(
+				const std::wstring&
+					origin_path,
+				const std::function<bool()>&
+					pattern
+			);
+
+		std::vector<std::wstring>
+			get_folder_paths(
+				const std::wstring&
+					origin_path,
+				const std::function<bool()>&
+					pattern
+			);
+
+		std::vector<std::wstring>	
+			get_entity_paths(
+				const std::wstring&
+					origin_path
+			);
+
+		std::vector<std::wstring>
+			get_file_paths(
+				const std::wstring&
+					origin_path
+			);
+
+		std::vector<std::wstring>
+			get_folder_paths(
+				const std::wstring&
+					origin_path
+			);
+
+		std::vector<std::string>	
+			get_entity_paths(
+				const std::string&
+					origin_path,
+				const std::function<bool()>&
+					pattern
+			);
+
+		std::vector<std::string>
+			get_file_paths(
+				const std::string&
+					origin_path,
+				const std::function<bool()>&
+					pattern
+			);
+
+		std::vector<std::string>
+			get_folder_paths(
+				const std::string&
+					origin_path,
+				const std::function<bool()>&
+					pattern
+			);
+
+		std::vector<std::string>	
+			get_entity_paths(
+				const std::string&
+					origin_path
+			);
+
+		std::vector<std::string>
+			get_file_paths(
+				const std::string&
+					origin_path
+			);
+
+		std::vector<std::string>
+			get_folder_paths(
+				const std::string&
+					origin_path
+			);
     };
 }
-
-
-
-/*
-		std::vector<std::wstring>
-			get_entity_paths(
-				const std::wstring&
-					origin_path
-			);
-
-		std::vector<std::wstring>
-			get_file_paths(
-				const std::wstring&
-					origin_path
-			);
-
-		std::vector<std::wstring>
-			get_folder_paths(
-				const std::wstring&
-					origin_path
-			);
-
-
-		std::vector<std::string>
-			find_files_by_pattern(
-				const std::wstring&
-					origin_path,
-				const std::wstring&
-					pattern
-			);
-
-		std::vector<std::string>
-			find_files_by_pattern(
-				const std::string&
-					origin_path,
-				const std::string&
-					pattern
-			);
-
-		std::vector<std::string>
-			get_entity_paths(
-				const std::string&
-				origin_path
-			);
-
-		std::vector<std::string>
-			get_file_paths(
-				const std::string&
-				origin_path
-			);
-
-		std::vector<std::string>
-			get_folder_paths(
-				const std::string&
-				origin_path
-			);
-
-*/ 

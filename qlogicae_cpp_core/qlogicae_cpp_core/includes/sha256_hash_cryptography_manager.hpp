@@ -13,6 +13,9 @@ namespace
 			public AbstractClass<Sha256HashCryptographyManagerConfigurations>
     {
     public:
+		boost::mutex
+			feature_handling_mutex_2;
+
         static Sha256HashCryptographyManager&
             singleton;
 

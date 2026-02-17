@@ -262,24 +262,10 @@ namespace
 					value
 		)
 	{
-		try
-        {					
-			return
-				delay_execution_in_days(
-					value * 365.25
-				);
-        }
-        catch
-        (
-            const std::exception&
-                exception
-        )
-        {
-			return
-				handle_error_outputs(
-					exception
-				);
-        }
+		return
+			delay_execution_in_days(
+				value * 365.25
+			);
 	}
 
 	bool
@@ -289,24 +275,10 @@ namespace
 					value
 		)
 	{
-		try
-        {			
-			return
-				delay_execution_in_days(
-					value * 30.44
-				);
-        }
-        catch
-        (
-            const std::exception&
-                exception
-        )
-        {
-			return
-				handle_error_outputs(
-					exception
-				);
-        }
+		return
+			delay_execution_in_days(
+				value * 30.44
+			);
 	}
 	
 	bool
@@ -316,24 +288,10 @@ namespace
 					value
 		)
 	{
-		try
-        {			
-			return
-				delay_execution_in_days(
-					value * 7
-				);
-        }
-        catch
-        (
-            const std::exception&
-                exception
-        )
-        {
-			return
-				handle_error_outputs(
-					exception
-				);
-        }
+		return
+			delay_execution_in_days(
+				value * 7
+			);
 	}
 
 	bool
@@ -343,24 +301,10 @@ namespace
 					value
 		)
 	{
-		try
-        {			
-			return
-				delay_execution_in_hours(
-					value * 24.0
-				);
-        }
-        catch
-        (
-            const std::exception&
-                exception
-        )
-        {
-			return
-				handle_error_outputs(
-					exception
-				);
-        }
+		return
+			delay_execution_in_hours(
+				value * 24.0
+			);
 	}
 
 	bool
@@ -370,24 +314,10 @@ namespace
 					value
 		)
 	{
-		try
-        {			
-			return
-				delay_execution_in_minutes(
-					value * 60.0
-				);
-        }
-        catch
-        (
-            const std::exception&
-                exception
-        )
-        {
-			return
-				handle_error_outputs(
-					exception
-				);
-        }
+		return
+			delay_execution_in_minutes(
+				value * 60.0
+			);
 	}
 
 	bool
@@ -397,24 +327,10 @@ namespace
 					value
 		)
 	{
-		try
-        {			
-			return
-				delay_execution_in_seconds(
-					value * 60.0
-				);
-        }
-        catch
-        (
-            const std::exception&
-                exception
-        )
-        {
-			return
-				handle_error_outputs(
-					exception
-				);
-        }
+		return
+			delay_execution_in_seconds(
+				value * 60.0
+			);
 	}
 
 	bool
@@ -424,24 +340,10 @@ namespace
 					value
 		)
 	{
-		try
-        {			
-			return
-				delay_execution_in_microseconds(
-					value * 1'000'000.0
-				);
-        }
-        catch
-        (
-            const std::exception&
-                exception
-        )
-        {
-			return
-				handle_error_outputs(
-					exception
-				);
-        }
+		return
+			delay_execution_in_microseconds(
+				value * 1'000'000.0
+			);
 	}
 
 	bool
@@ -451,24 +353,10 @@ namespace
 					value
 		)
 	{
-		try
-        {			
-			return
-				delay_execution_in_microseconds(
-					value * 1'000.0
-				);
-        }
-        catch
-        (
-            const std::exception&
-                exception
-        )
-        {
-			return
-				handle_error_outputs(
-					exception
-				);
-        }
+		return
+			delay_execution_in_microseconds(
+				value * 1'000.0
+			);
 	}
 
 	bool
@@ -548,24 +436,10 @@ namespace
 					value
 		)
 	{
-		try
-        {			
-			return
-				delay_execution_in_microseconds(
-					value / 1'000.0
-				);
-        }
-        catch
-        (
-            const std::exception&
-                exception
-        )
-        {
-			return
-				handle_error_outputs(
-					exception
-				);
-        }
+		return
+			delay_execution_in_microseconds(
+				value / 1'000.0
+			);
 	}
 
 	bool

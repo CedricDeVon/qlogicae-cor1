@@ -116,25 +116,12 @@ namespace
 					value
 			)
 	{
-		try
-        {					
-			return
-				is_direct_pattern_matched(
-					value,
-					configurations.pattern
-				);
-        }
-        catch
-        (
-            const std::exception&
-                exception
-        )
-        {
-			return
-				handle_error_outputs(
-					exception
-				);
-        }
+		return
+			is_direct_pattern_matched(
+				value,
+				configurations
+					.pattern
+			);
 	}
 
 	bool

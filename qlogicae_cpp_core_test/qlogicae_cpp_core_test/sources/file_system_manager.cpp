@@ -668,5 +668,8 @@ namespace QLogicaeCppCoreTest
 		SUCCEED();
 #endif
 	}
+/*
+
+*/ 
 
 }

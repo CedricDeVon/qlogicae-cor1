@@ -10,17 +10,11 @@ namespace
 		AbstractClass
     {
     public:
-		inline static boost::mutex
+		boost::mutex
 			utility_handling_mutex_1;
 
-		inline static boost::mutex
+		boost::mutex
 			feature_handling_mutex_1;
-
-		inline static boost::mutex
-			feature_handling_mutex_2;
-
-		inline static boost::mutex
-			feature_handling_mutex_3;
 
 		AbstractConfigurationsType
 			configurations;

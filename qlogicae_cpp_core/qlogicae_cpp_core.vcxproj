@@ -190,6 +190,13 @@
   <ItemGroup>
     <ClInclude Include="framework.hpp" />
     <ClInclude Include="pch.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\character_domain.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\character_domain_enum_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\character_domain_enum_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\character_domain_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\character_domain_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\random_enum_generation_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\random_enum_generation_manager_configurations.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\abstract_class.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\abstract_configurations.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\abstract_enum.hpp" />
@@ -251,10 +258,10 @@
     <ClInclude Include="qlogicae_cpp_core\includes\qlogicae_file_system_manager_configurations.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\random_character_generation_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\random_character_generation_manager_configurations.hpp" />
-    <ClInclude Include="qlogicae_cpp_core\includes\random_container_generation_manager.hpp" />
-    <ClInclude Include="qlogicae_cpp_core\includes\random_container_generation_manager_configurations.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\random_number_generation_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\random_number_generation_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\random_seed_generation_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\random_seed_generation_manager_configurations.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\random_string_generation_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\random_string_generation_manager_configurations.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\random_value_generation_manager.hpp" />
@@ -262,6 +269,9 @@
     <ClInclude Include="qlogicae_cpp_core\includes\regular_expression_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\regular_expression_manager_configurations.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\regular_key_delete_handler.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\rest_api_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\rest_api_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\rest_api_manager_response.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\results.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\results_status.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\results_status_enum_manager.hpp" />
@@ -348,6 +358,8 @@
     <ClInclude Include="qlogicae_cpp_core\includes\xchacha20_poly1305_cipher_cryptography_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\xchacha20_poly1305_cipher_cryptography_manager_configurations.hpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\abstract_enum.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\character_domain_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\character_domain_manager_configurations.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\console_log_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\console_log_manager_configurations.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\enum_manager_configurations.cpp" />
@@ -379,12 +391,17 @@
     <ClCompile Include="qlogicae_cpp_core\sources\enum_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\random_character_generation_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\random_character_generation_manager_configurations.cpp" />
-    <ClCompile Include="qlogicae_cpp_core\sources\random_container_generation_manager.cpp" />
-    <ClCompile Include="qlogicae_cpp_core\sources\random_container_generation_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\random_enum_generation_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\random_enum_generation_manager_configurations.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\random_number_generation_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\random_number_generation_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\random_seed_generation_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\random_seed_generation_manager_configurations.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\random_string_generation_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\random_string_generation_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\character_domain.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\character_domain_enum_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\character_domain_enum_manager_configurations.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -427,6 +444,9 @@
     <ClCompile Include="qlogicae_cpp_core\sources\regular_expression_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\regular_expression_manager_configurations.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\regular_key_delete_handler.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\rest_api_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\rest_api_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\rest_api_manager_response.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\results.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\results_status.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\results_status_enum_manager.cpp" />
@@ -512,9 +532,6 @@
     <ClCompile Include="qlogicae_cpp_core\sources\windows_system_access_manager_configurations.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\xchacha20_poly1305_cipher_cryptography_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\xchacha20_poly1305_cipher_cryptography_manager_configurations.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <MASM Include="qlogicae_cpp_core\assembly\x64_masm__main.asm" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

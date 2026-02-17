@@ -34,6 +34,9 @@ namespace
         curl_slist*
 			recipients;
 
+		boost::mutex
+			feature_handling_mutex_2;
+
 		static GmailApiManager&
 			singleton;
 

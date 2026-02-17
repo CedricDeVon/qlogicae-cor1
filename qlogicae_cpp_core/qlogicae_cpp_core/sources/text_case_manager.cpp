@@ -216,26 +216,11 @@ namespace
 					text
 			)
 	{
-		try
-        {		
-			return
-				convert_text(
-					text,
-					configurations.target_type
-				);
-        }
-        catch
-        (
-            const std::exception&
-                exception
-        )
-        {
-			handle_error_outputs(
-				exception
+		return
+			convert_text(
+				text,
+				configurations
+					.target_type
 			);
-
-			return
-				"";
-        }
 	}
 }

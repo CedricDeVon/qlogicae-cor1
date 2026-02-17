@@ -1131,7 +1131,7 @@ namespace
 
 	bool
 		RocksDbDatabaseManager
-			::terminate()
+			::close()
 	{
 		try
         {		
@@ -1156,12 +1156,36 @@ namespace
 				mutex_lock =
 					boost::unique_lock<boost::mutex>
 					(
-						feature_handling_mutex_1
+						feature_handling_mutex_3
 					);
 			}			
 
+			if (object != nullptr)
+            {
+                for (auto& [name, handle] : column_families)
+                {
+                    if (handle != nullptr)
+                    {
+                        object->DestroyColumnFamilyHandle(handle);
+                    }
+                }
+            }
+            column_families.clear();
+
+            if (transaction != nullptr)
+            {
+                delete transaction;
+                transaction = nullptr;
+            }
+            if (transaction_db != nullptr)
+            {
+                delete transaction_db;
+                transaction_db = nullptr;
+            }
+            object = nullptr;
+
 			return
-				close();
+				true;
         }
         catch
         (
@@ -1280,77 +1304,6 @@ namespace
             }
 
             object = transaction_db;
-
-			return
-				true;
-        }
-        catch
-        (
-            const std::exception&
-                exception
-        )
-        {
-			return
-				handle_error_outputs(
-					exception
-				);
-        }
-	}
-
-	bool
-		RocksDbDatabaseManager
-			::close()
-	{
-		try
-        {		
-			if
-			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling()
-			)
-			{
-				return
-					false;
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if
-			(
-				configurations
-					.is_thread_safety_enabled_for_feature_handling()
-			)
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_3
-					);
-			}			
-
-			if (object != nullptr)
-            {
-                for (auto& [name, handle] : column_families)
-                {
-                    if (handle != nullptr)
-                    {
-                        object->DestroyColumnFamilyHandle(handle);
-                    }
-                }
-            }
-            column_families.clear();
-
-            if (transaction != nullptr)
-            {
-                delete transaction;
-                transaction = nullptr;
-            }
-            if (transaction_db != nullptr)
-            {
-                delete transaction_db;
-                transaction_db = nullptr;
-            }
-            object = nullptr;
 
 			return
 				true;

@@ -213,7 +213,6 @@
     <ClInclude Include="qlogicae_cpp_core_test\includes\windows_system_access_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core_test\includes\xchacha20_poly1305_cipher_cryptography_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core_test\resources\application.h" />
-    <ClCompile Include="qlogicae_cpp_core_test\sources\enum_manager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -231,6 +230,7 @@
     <ClCompile Include="qlogicae_cpp_core_test\sources\bcrypt_hash_cryptography_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core_test\sources\configuration_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core_test\sources\console_io_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core_test\sources\enum_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core_test\sources\error_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core_test\sources\file_system_entity_enum_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core_test\sources\file_system_manager.cpp" />

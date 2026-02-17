@@ -15,6 +15,9 @@ namespace
 			public AbstractClass<TimeManagerConfigurations>
     {
     public:
+		boost::mutex
+			feature_handling_mutex_2;
+
 		static TimeManager&
 			singleton;
 
@@ -120,11 +123,22 @@ namespace
 			);
 	};
 
-	template <typename Type>
-	Type TimeManager::get_now()
+	template <typename Type> Type
+		TimeManager
+			::get_now()
 	{
 		try
 		{
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_feature_handling()
+			)
+			{
+				return
+					Type {};
+			}
+
 			boost::unique_lock<boost::mutex>
 				mutex_lock;
 			if (configurations.is_thread_safety_enabled_for_feature_handling())
@@ -176,11 +190,22 @@ namespace
 		}
 	}
 	
-	template <typename Type>
-	Type TimeManager::get_nanosecond()
+	template <typename Type> Type
+		TimeManager
+			::get_nanosecond()
 	{
 		try
 		{
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_feature_handling()
+			)
+			{
+				return
+					Type {};
+			}
+
 			boost::unique_lock<boost::mutex>
 				mutex_lock;
 			if (configurations.is_thread_safety_enabled_for_feature_handling())
@@ -233,11 +258,22 @@ namespace
 		}
 	}
 
-	template <typename Type>
-	Type TimeManager::get_microsecond()
+	template <typename Type> Type
+		TimeManager
+			::get_microsecond()
 	{
 		try
 		{
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_feature_handling()
+			)
+			{
+				return
+					Type {};
+			}
+
 			boost::unique_lock<boost::mutex>
 				mutex_lock;
 			if (configurations.is_thread_safety_enabled_for_feature_handling())
@@ -289,11 +325,22 @@ namespace
 		}
 	}
 
-	template <typename Type>
-	Type TimeManager::get_millisecond()
+	template <typename Type> Type
+		TimeManager
+			::get_millisecond()
 	{
 		try
 		{
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_feature_handling()
+			)
+			{
+				return
+					Type {};
+			}
+
 			boost::unique_lock<boost::mutex>
 				mutex_lock;
 			if (configurations.is_thread_safety_enabled_for_feature_handling())
@@ -345,11 +392,22 @@ namespace
 		}
 	}
 
-	template <typename Type>
-	Type TimeManager::get_second()
+	template <typename Type> Type
+		TimeManager
+			::get_second()
 	{
 		try
 		{
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_feature_handling()
+			)
+			{
+				return
+					Type {};
+			}
+
 			boost::unique_lock<boost::mutex>
 				mutex_lock;
 			if (configurations.is_thread_safety_enabled_for_feature_handling())
@@ -403,11 +461,22 @@ namespace
 		}
 	}
 
-	template <typename Type>
-	Type TimeManager::get_minute()
+	template <typename Type> Type
+		TimeManager
+			::get_minute()
 	{
 		try
 		{
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_feature_handling()
+			)
+			{
+				return
+					Type {};
+			}
+
 			boost::unique_lock<boost::mutex>
 				mutex_lock;
 			if (configurations.is_thread_safety_enabled_for_feature_handling())
@@ -457,11 +526,22 @@ namespace
 		}
 	}
 
-	template <typename Type>
-	Type TimeManager::get_hour()
+	template <typename Type> Type
+		TimeManager
+			::get_hour()
 	{
 		try
 		{
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_feature_handling()
+			)
+			{
+				return
+					Type {};
+			}
+
 			boost::unique_lock<boost::mutex>
 				mutex_lock;
 			if (configurations.is_thread_safety_enabled_for_feature_handling())
@@ -511,11 +591,22 @@ namespace
 		}
 	}
 
-	template <typename Type>
-	Type TimeManager::get_day()
+	template <typename Type> Type
+		TimeManager
+			::get_day()
 	{
 		try
 		{
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_feature_handling()
+			)
+			{
+				return
+					Type {};
+			}
+
 			boost::unique_lock<boost::mutex>
 				mutex_lock;
 			if (configurations.is_thread_safety_enabled_for_feature_handling())
@@ -565,11 +656,22 @@ namespace
 		}
 	}
 
-	template <typename Type>
-	Type TimeManager::get_month()
+	template <typename Type> Type
+		TimeManager
+			::get_month()
 	{
 		try
 		{
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_feature_handling()
+			)
+			{
+				return
+					Type {};
+			}
+
 			boost::unique_lock<boost::mutex>
 				mutex_lock;
 			if (configurations.is_thread_safety_enabled_for_feature_handling())
@@ -619,11 +721,22 @@ namespace
 		}
 	}
 
-	template <typename Type>
-	Type TimeManager::get_year()
+	template <typename Type> Type
+		TimeManager
+			::get_year()
 	{
 		try
 		{
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_feature_handling()
+			)
+			{
+				return
+					Type {};
+			}
+
 			boost::unique_lock<boost::mutex>
 				mutex_lock;
 			if (configurations.is_thread_safety_enabled_for_feature_handling())
@@ -673,3 +786,4 @@ namespace
 		}
 	}
 }
+

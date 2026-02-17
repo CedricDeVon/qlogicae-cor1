@@ -208,30 +208,14 @@ namespace
 					key
 			)
 	{
-		try
-        {					
-			return
-				TextManager::singleton.convert_text<std::wstring, std::string>(
-					get_value(
-						TextManager::singleton.convert_text<std::string, std::wstring>(
-							key
-						)
+		return
+			TextManager::singleton.convert_text<std::wstring, std::string>(
+				get_value(
+					TextManager::singleton.convert_text<std::string, std::wstring>(
+						key
 					)
-				);
-        }
-        catch
-        (
-            const std::exception&
-                exception
-        )
-        {
-			handle_error_outputs(
-				exception
+				)
 			);
-
-			return
-				"";
-        }
 	}
 
 	bool
@@ -243,29 +227,15 @@ namespace
 					value
 			)
 	{
-		try
-        {		
-			return
-				set_value(
-					TextManager::singleton.convert_text<std::string, std::wstring>(
-						key
-					),
-					TextManager::singleton.convert_text<std::string, std::wstring>(
-						value
-					)
-				);
-        }
-        catch
-        (
-            const std::exception&
-                exception
-        )
-        {
-			return
-				handle_error_outputs(
-					exception
-				);
-        }
+		return
+			set_value(
+				TextManager::singleton.convert_text<std::string, std::wstring>(
+					key
+				),
+				TextManager::singleton.convert_text<std::string, std::wstring>(
+					value
+				)
+			);
 	}
 
 	bool
@@ -275,25 +245,11 @@ namespace
 					key
 			)
 	{
-		try
-        {		
-			return
-				remove_value(
-					TextManager::singleton.convert_text<std::string, std::wstring>(
-						key
-					)
-				);
-        }
-        catch
-        (
-            const std::exception&
-                exception
-        )
-        {
-			return
-				handle_error_outputs(
-					exception
-				);
-        }
+		return
+			remove_value(
+				TextManager::singleton.convert_text<std::string, std::wstring>(
+					key
+				)
+			);
 	}
 }

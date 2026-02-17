@@ -25,9 +25,6 @@ namespace
 		bool
 			destruct();
 
-		std::mt19937&
-			generate_random_seed();
-
 		std::array<unsigned char, 16>
 			generate_random_salt();
 

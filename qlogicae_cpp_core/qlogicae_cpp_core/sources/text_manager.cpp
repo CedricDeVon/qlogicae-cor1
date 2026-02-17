@@ -206,28 +206,12 @@ namespace
 					text
 			)
 	{
-		try
-        {	
-			return
-				replace_text_tokens(
-					text,
-					configurations
-						.replace_text_tokens_dictionary
-				);
-        }
-        catch
-        (
-            const std::exception&
-                exception
-        )
-        {
-			handle_error_outputs(
-				exception
+		return
+			replace_text_tokens(
+				text,
+				configurations
+					.replace_text_tokens_dictionary
 			);
-
-			return
-				"";				
-        }
 	}
 
 	std::vector<std::string>
@@ -297,28 +281,12 @@ namespace
 					text
 			)
 	{
-		try
-        {		
-			return
-				split_text(
-					text,
-					configurations
-						.split_text_delimeter
-				);
-        }
-        catch
-        (
-            const std::exception&
-                exception
-        )
-        {
-			handle_error_outputs(
-				exception
+		return
+			split_text(
+				text,
+				configurations
+					.split_text_delimeter
 			);
-
-			return
-				{};				
-        }
 	}
 }
 

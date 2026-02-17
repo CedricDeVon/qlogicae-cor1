@@ -138,20 +138,6 @@ namespace
 		}
 	}
 
-	std::mt19937&
-		RandomValueGenerationManager
-			::generate_random_seed()
-	{
-		static thread_local std::mt19937
-			random_seed_generator
-		{
-			std::random_device{}()
-		};
-
-		return
-			random_seed_generator;
-	}
-
 	std::array<unsigned char, 16>
 		RandomValueGenerationManager
 			::generate_random_salt()
