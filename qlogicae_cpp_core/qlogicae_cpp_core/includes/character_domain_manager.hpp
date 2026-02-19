@@ -31,5 +31,8 @@ namespace
 				const CharacterDomain&
 					character_domain
 			);
+
+		std::string
+			get_value();
     };
 }

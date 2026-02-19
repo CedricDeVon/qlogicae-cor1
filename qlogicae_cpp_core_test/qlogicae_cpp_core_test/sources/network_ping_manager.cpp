@@ -1,178 +1,230 @@
 #include "pch.hpp"
+#include "../includes/network_ping_manager.hpp"
 
-#include "qlogicae_cpp_core/includes/network_ping_manager.hpp"
+using namespace QLogicaeCppCore;
 
 namespace QLogicaeCppCoreTest
 {
+    struct NetworkPingManagerTestParam
+    {
+        std::string host_address;
+    };
+
     class NetworkPingManagerTest : public ::testing::Test
     {
-    protected:
+    public:
+        NetworkPingManager manager;
+
         void SetUp() override
         {
-            configurations.host_address = "www.google.com";
-            configurations.is_listening = true;
-            configurations.name = "ping-manager-instance";
-            configurations.callback = [this](const QLogicaeCppCore::NetworkPingManagerResponse& response)
-                {
-                    std::lock_guard<std::mutex> lock(callbackMutex);
-                    latestResponse = response.delay_in_milliseconds;
-                    callbackCondition.notify_all();
-                };
+            manager.construct();
         }
 
-        void WaitForCallback()
+        void TearDown() override
         {
-            std::unique_lock<std::mutex> lock(callbackMutex);
-            callbackCondition.wait(lock, [&]() { return latestResponse >= 0; });
+            manager.destruct();
         }
-
-        QLogicaeCppCore::NetworkPingManagerConfigurations configurations;
-        std::condition_variable callbackCondition;
-        std::mutex callbackMutex;
-        std::atomic<int64_t> latestResponse{ -1 };
     };
 
-    TEST_F(NetworkPingManagerTest, Should_Expect_Callback_When_PingSucceeds)
+    TEST_F(NetworkPingManagerTest, Should_ReturnZero_When_RuntimeDisabled)
     {
-        QLogicaeCppCore::Result<bool> result;
-        QLogicaeCppCore::NetworkPingManager manager(configurations);
-        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-        EXPECT_GE(latestResponse.load(), 0);
+        manager.configurations.is_feature_runtime_execution_handling_enabled = false;
+
+        auto icmp_result = manager.get_icmp_ping("1.1.1.1");
+        auto tcp_result = manager.get_tcp_ping("1.1.1.1");
+
+        EXPECT_EQ(icmp_result.roundtrip_duration, 0);
+        EXPECT_EQ(tcp_result.roundtrip_duration, 0);
+
+        manager.configurations.is_feature_runtime_execution_handling_enabled = false;
     }
 
-    TEST_F(NetworkPingManagerTest, Should_Expect_NoCallback_When_InvalidHost)
+    TEST_F(NetworkPingManagerTest, Should_ReturnZero_When_HostEmptyAndEdgeCaseEnabled)
     {
-        configurations.host_address = "invalid.host.invalid";
-        QLogicaeCppCore::Result<bool> result;
-        QLogicaeCppCore::NetworkPingManager manager(configurations);
-        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-        EXPECT_EQ(latestResponse.load(), -1);
+        manager.configurations.is_feature_edge_case_handling_enabled = true;
+
+        auto icmp_result = manager.get_icmp_ping("");
+        auto tcp_result = manager.get_tcp_ping("");
+
+        EXPECT_EQ(icmp_result.roundtrip_duration, 0);
+        EXPECT_EQ(tcp_result.roundtrip_duration, 0);
+
+        manager.configurations.is_feature_edge_case_handling_enabled = false;
     }
 
-    TEST_F(NetworkPingManagerTest, Should_Expect_PauseAndContinueListening)
+    TEST_F(NetworkPingManagerTest, Should_RespectTimeout_ForTcpPing)
     {
-        QLogicaeCppCore::Result<bool> result;
-        QLogicaeCppCore::NetworkPingManager manager(configurations);
-        std::this_thread::sleep_for(std::chrono::milliseconds(100));
-        manager.pause_listening(result);
-        int64_t pausedValue = latestResponse.load();
-        std::this_thread::sleep_for(std::chrono::milliseconds(100));
-        manager.continue_listening(result);
-        std::this_thread::sleep_for(std::chrono::milliseconds(100));
-        EXPECT_TRUE(result.get_status() == QLogicaeCppCore::ResultStatus::GOOD);
+        manager.configurations.timeout = std::chrono::milliseconds { 1000 };
+        auto start = std::chrono::steady_clock::now();
+        auto tcp_result = manager.get_tcp_ping("1.1.1.1");
+        auto end = std::chrono::steady_clock::now();
+        auto duration_ms = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
+        EXPECT_LE(duration_ms, 1000);
+        EXPECT_GE(tcp_result.roundtrip_duration, 0);
+        manager.configurations.timeout = std::chrono::milliseconds { 2000 };
     }
 
-    TEST_F(NetworkPingManagerTest, Should_Expect_SetIsListening)
+    TEST_F(NetworkPingManagerTest, Should_ScaleDurations_Correctly)
     {
-        QLogicaeCppCore::Result<bool> result;
-        QLogicaeCppCore::NetworkPingManager manager(configurations);
-        manager.set_is_listening(result, true);
-        EXPECT_TRUE(configurations.is_listening);
+        auto nanos = std::chrono::nanoseconds { 1000000 };
+        double ms = manager.scale_duration(nanos, TimeScaleUnit::MILLISECONDS);
+        double us = manager.scale_duration(nanos, TimeScaleUnit::MICROSECONDS);
+        double ns = manager.scale_duration(nanos, TimeScaleUnit::NANOSECONDS);
+
+        EXPECT_DOUBLE_EQ(ms, 1.0);
+        EXPECT_DOUBLE_EQ(us, 1000.0);
+        EXPECT_DOUBLE_EQ(ns, 1000000.0);
     }
 
-    TEST_F(NetworkPingManagerTest, Should_Expect_ConstructAndDestruct)
+    TEST_F(NetworkPingManagerTest, Should_HandleTcpPing_WithDefaultHost)
     {
-        QLogicaeCppCore::Result<bool> result;
-        QLogicaeCppCore::NetworkPingManager manager;
-        configurations.is_listening = false;
-        manager.construct(result, configurations);
-        EXPECT_TRUE(result.get_status() == QLogicaeCppCore::ResultStatus::GOOD);
-        manager.destruct(result);
-        EXPECT_TRUE(result.get_status() == QLogicaeCppCore::ResultStatus::GOOD);
+        auto result = manager.get_tcp_ping();
+        EXPECT_GE(result.roundtrip_duration, 0);
     }
 
-    TEST_F(NetworkPingManagerTest, Should_Expect_GetIsListening)
+    TEST_F(NetworkPingManagerTest, Should_HandleIcmpPing_WithDefaultHost)
     {
-        QLogicaeCppCore::Result<bool> result;
-        QLogicaeCppCore::NetworkPingManager manager(configurations);
-        manager.get_is_listening(result);
-        bool isListening = false;
-        result.get_value(isListening);
-        EXPECT_TRUE(isListening);
+        auto result = manager.get_icmp_ping();
+        EXPECT_GE(result.roundtrip_duration, 0);
     }
 
-    class NetworkPingManagerEdgeTest : public ::testing::Test
+    class NetworkPingManagerParameterizedTest : public NetworkPingManagerTest,
+        public ::testing::WithParamInterface<NetworkPingManagerTestParam> {};
+
+    INSTANTIATE_TEST_CASE_P(
+        HostVariations,
+        NetworkPingManagerParameterizedTest,
+        ::testing::Values(
+            NetworkPingManagerTestParam{ "8.8.8.8" },
+            NetworkPingManagerTestParam{ "1.1.1.1" },
+            NetworkPingManagerTestParam{ "127.0.0.1" }
+        )
+    );
+
+    TEST_P(NetworkPingManagerParameterizedTest, Should_HandleMultipleHostsCorrectly)
     {
-    protected:
-        void SetUp() override
+        auto param = GetParam();
+        auto icmp_result = manager.get_icmp_ping(param.host_address);
+        auto tcp_result = manager.get_tcp_ping(param.host_address);
+
+        EXPECT_GE(icmp_result.roundtrip_duration, 0);
+        EXPECT_GE(tcp_result.roundtrip_duration, 0);
+    }
+
+    TEST_F(NetworkPingManagerTest, Should_BeThreadSafe)
+    {
+		manager.configurations.is_feature_thread_safety_handling_enabled = true;
+
+        std::vector<std::thread> threads;
+        std::atomic<int> completed { 0 };
+
+        for (int i = 0; i < 4; i++)
         {
-            configurations.host_address = "test.host";
-            configurations.is_listening = true;
-            configurations.name = "edge-instance";
-            configurations.callback = [&](const QLogicaeCppCore::NetworkPingManagerResponse& response)
-                {
-                    latestResponse = response.delay_in_milliseconds;
-                    callbackCondition.notify_all();
-                };
+            threads.emplace_back([&]()
+            {
+                auto res = manager.get_tcp_ping("1.1.1.1");
+                if (res.roundtrip_duration >= 0) completed++;
+            });
         }
 
-        void WaitForCallback()
-        {
-            std::unique_lock<std::mutex> lock(callbackMutex);
-            callbackCondition.wait(lock, [&]() { return latestResponse >= 0; });
-        }
-
-        QLogicaeCppCore::NetworkPingManagerConfigurations configurations;
-        std::condition_variable callbackCondition;
-        std::mutex callbackMutex;
-        std::atomic<int64_t> latestResponse{ -1 };
-    };
-
-    TEST_F(NetworkPingManagerEdgeTest, Should_Expect_SetIsListeningFalse)
-    {
-        QLogicaeCppCore::Result<bool> result;
-        QLogicaeCppCore::NetworkPingManager manager(configurations);
-        manager.set_is_listening(result, false);
-        EXPECT_FALSE(manager._configurations.is_listening);
-        EXPECT_EQ(result.get_status(), QLogicaeCppCore::ResultStatus::GOOD);
+        for (auto& t : threads) t.join();
+        EXPECT_EQ(completed.load(), 4);
     }
 
-    TEST_F(NetworkPingManagerEdgeTest, Should_Expect_RapidPauseAndResume)
+    TEST_F(NetworkPingManagerTest, Should_HandleStressTest)
     {
-        QLogicaeCppCore::Result<bool> result;
-        QLogicaeCppCore::NetworkPingManager manager(configurations);
-        for (int i = 0; i < 5; ++i)
+        for (int i = 0; i < 4; i++)
         {
-            manager.pause_listening(result);
-            EXPECT_EQ(result.get_status(), QLogicaeCppCore::ResultStatus::GOOD);
-            manager.continue_listening(result);
-            EXPECT_EQ(result.get_status(), QLogicaeCppCore::ResultStatus::GOOD);
+            auto tcp_result = manager.get_tcp_ping("1.1.1.1");
+            auto icmp_result = manager.get_icmp_ping("1.1.1.1");
+            EXPECT_GE(tcp_result.roundtrip_duration, 0);
+            EXPECT_GE(icmp_result.roundtrip_duration, 0);
         }
     }
 
-    TEST_F(NetworkPingManagerEdgeTest, Should_Expect_DelayEdgeCases)
-    {
-        QLogicaeCppCore::Result<bool> result;
+	struct NetworkPingManagerAsyncTest : public NetworkPingManagerTest {};
 
-        configurations.delay_in_milliseconds = std::chrono::milliseconds(0);
-        QLogicaeCppCore::NetworkPingManager managerZero(configurations);
-        EXPECT_EQ(managerZero._configurations.delay_in_milliseconds.count(), 0);
+	TEST_F(NetworkPingManagerAsyncTest, Should_HandleTcpPingAsync)
+	{
+		manager.configurations.is_feature_thread_safety_handling_enabled = true;
 
-        configurations.delay_in_milliseconds = std::chrono::milliseconds(10000);
-        QLogicaeCppCore::NetworkPingManager managerLarge(configurations);
-        EXPECT_EQ(managerLarge._configurations.delay_in_milliseconds.count(), 10000);
-    }
+		auto future_ping = std::async(std::launch::async, [&]()
+			{
+				return manager.get_tcp_ping("1.1.1.1");
+		});
 
-    TEST_F(NetworkPingManagerEdgeTest, Should_Expect_MultiInstanceStress)
-    {
-        auto totalCallbacks = std::make_shared<std::atomic<int>>(0);
-        std::vector<std::unique_ptr<QLogicaeCppCore::NetworkPingManager>> managers;
+		auto result = future_ping.get();
+		EXPECT_GT(result.roundtrip_duration, 0);
+	}
 
-        for (int i = 0; i < 5; ++i)
-        {
-            QLogicaeCppCore::NetworkPingManagerConfigurations cfg;
-            cfg.name = "stress-instance-" + std::to_string(i);
-            cfg.callback = [totalCallbacks](const QLogicaeCppCore::NetworkPingManagerResponse&)
-                {
-                    totalCallbacks->fetch_add(1);
-                };
-            cfg.is_listening = true;
+	struct NetworkPingManagerInvalidHostTest : public NetworkPingManagerTest, 
+		public ::testing::WithParamInterface<NetworkPingManagerTestParam> {};
 
-            auto manager = std::make_unique<QLogicaeCppCore::NetworkPingManager>(cfg);
-            managers.push_back(std::move(manager));
-        }
+	INSTANTIATE_TEST_CASE_P(
+		InvalidHosts,
+		NetworkPingManagerInvalidHostTest,
+		::testing::Values(
+			NetworkPingManagerTestParam{ "nonexistent.example.com" },
+			NetworkPingManagerTestParam{ "256.256.256.256" },
+			NetworkPingManagerTestParam{ "" }
+		)
+	);
 
-        std::this_thread::sleep_for(std::chrono::milliseconds(500));
-        EXPECT_GT(totalCallbacks->load(), 0);
-    }
+	TEST_P(NetworkPingManagerInvalidHostTest, Should_ReturnZeroOnInvalidHost_Icmp)
+	{
+		auto result = manager.get_icmp_ping(GetParam().host_address);
+		EXPECT_EQ(result.roundtrip_duration, 0);
+		EXPECT_EQ(result.sent_duration, 0);
+		EXPECT_EQ(result.receive_duration, 0);
+	}
+
+	TEST_P(NetworkPingManagerInvalidHostTest, Should_ReturnZeroOnInvalidHost_Tcp)
+	{
+		auto result = manager.get_tcp_ping(GetParam().host_address);
+		EXPECT_EQ(result.roundtrip_duration, 0);
+		EXPECT_EQ(result.sent_duration, 0);
+		EXPECT_EQ(result.receive_duration, 0);
+	}
+
+	struct NetworkPingManagerTimeoutTest : public NetworkPingManagerTest {};
+
+	TEST_F(NetworkPingManagerTimeoutTest, Should_HandleTcpPingTimeout)
+	{
+		manager.configurations.timeout = std::chrono::milliseconds {1};
+		auto result = manager.get_tcp_ping("8.8.8.8");
+		EXPECT_EQ(result.roundtrip_duration, 0);
+		EXPECT_EQ(result.sent_duration, 0);
+		EXPECT_EQ(result.receive_duration, 0);
+	}
+
+	struct NetworkPingManagerTimeScaleUnitTest : public NetworkPingManagerTest {};
+
+	TEST_F(NetworkPingManagerTimeScaleUnitTest, Should_ScaleDurations_AllUnits)
+	{
+		boost::asio::io_context io;
+		auto start = std::chrono::steady_clock::now();
+		auto end = start + std::chrono::milliseconds {1234};
+		std::chrono::nanoseconds ns_duration = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start);
+
+		manager.configurations.time_scale_unit = TimeScaleUnit::NANOSECONDS;
+		EXPECT_DOUBLE_EQ(manager.scale_duration(ns_duration, manager.configurations.time_scale_unit), 1234000000);
+
+		manager.configurations.time_scale_unit = TimeScaleUnit::MICROSECONDS;
+		EXPECT_DOUBLE_EQ(manager.scale_duration(ns_duration, manager.configurations.time_scale_unit), 1234000);
+
+		manager.configurations.time_scale_unit = TimeScaleUnit::MILLISECONDS;
+		EXPECT_DOUBLE_EQ(manager.scale_duration(ns_duration, manager.configurations.time_scale_unit), 1234);
+
+		manager.configurations.time_scale_unit = TimeScaleUnit::SECONDS;
+		EXPECT_DOUBLE_EQ(manager.scale_duration(ns_duration, manager.configurations.time_scale_unit), 1.234);
+
+		manager.configurations.time_scale_unit = TimeScaleUnit::MINUTES;
+		EXPECT_DOUBLE_EQ(manager.scale_duration(ns_duration, manager.configurations.time_scale_unit), 0.020566666666666667);
+
+		manager.configurations.time_scale_unit = TimeScaleUnit::HOURS;
+		EXPECT_DOUBLE_EQ(manager.scale_duration(ns_duration, manager.configurations.time_scale_unit), 0.0003427777777777778);
+
+		manager.configurations.time_scale_unit = TimeScaleUnit::DAYS;
+		EXPECT_DOUBLE_EQ(manager.scale_duration(ns_duration, manager.configurations.time_scale_unit), 1.428240740740741e-05);
+	}
 }

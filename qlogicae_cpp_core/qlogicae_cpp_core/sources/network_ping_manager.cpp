@@ -79,33 +79,6 @@ namespace
 					);
 			}			
 
-			interval_clock.configurations.callback =
-				[this](const size_t& current_iteration) -> bool
-				{
-					auto result = ping();
-					if (result && interval_clock.configurations.callback)
-					{
-						NetworkPingManagerResponse
-							response;
-
-						response
-							.round_trip_time_in_milliseconds =
-								result;
-
-						configurations
-							.callback(
-								response									
-							);
-					}
-
-					return
-						interval_clock
-							.is_running();
-				};
-
-			interval_clock.configurations.maximum_interval_count =
-				0;
-
 			return
 				true;
         }
@@ -165,133 +138,30 @@ namespace
         }
     }
 
-	bool
+	NetworkPingManagerResponse
 		NetworkPingManager
-			::get_is_listening()
-	{
-		try
-        {		
-			if
-			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling()
-			)
-			{
-				return
-					false;
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_feature_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}			
-
-			return
-				interval_clock
-					.is_running();
-        }
-        catch
-        (
-            const std::exception&
-                exception
-        )
-        {
-			return
-				handle_error_outputs(
-					exception
-				);
-        }
-	}
-
-	bool
-		NetworkPingManager
-			::set_is_listening(
-				const bool&
-					value
-			)
-	{
-		try
-        {		
-			if
-			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling()
-			)
-			{
-				return
-					false;
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_feature_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}			
-
-			(value) ?
-				interval_clock.resume() :
-				interval_clock.pause();
-
-			return
-				true;
-        }
-        catch
-        (
-            const std::exception&
-                exception
-        )
-        {
-			return
-				handle_error_outputs(
-					exception
-				);
-        }
-	}
-
-	std::string
-		NetworkPingManager
-			::get_name()
-	{
-		return
-			configurations
-				.name;
-	}
-
-	bool
-		NetworkPingManager
-			::set_name(
+			::get_icmp_ping(
 				const std::string&
-					value
+					host_address
 			)
-	{
-		try
-        {		
+    {        
+        try
+        {
 			if
 			(
 				configurations
-					.is_runtime_execution_disabled_for_feature_handling() ||				
+					.is_runtime_execution_disabled_for_feature_handling() ||
 				(
 					configurations
 						.is_edge_case_enabled_for_feature_handling() &&
 					(
-						value.empty()
+						host_address.empty()
 					)
 				)
 			)
 			{
 				return
-					false;
+					NetworkPingManagerResponse {};
 			}
 
 			boost::unique_lock<boost::mutex>
@@ -303,61 +173,74 @@ namespace
 					(
 						feature_handling_mutex_1
 					);
-			}			
+			}
 
-			configurations
-				.name =
-					value;
+			NetworkPingManagerResponse output{};
 
-			return
-				true;
+			boost::asio::io_context io;
+			boost::asio::ip::icmp::resolver resolver(io);
+			boost::system::error_code ec;
+
+			auto endpoints = resolver.resolve(host_address, "", ec);
+			if (ec) return output;
+
+			boost::asio::ip::icmp::socket socket(io, boost::asio::ip::icmp::v4());
+
+			bool completed = false;
+			auto start = std::chrono::steady_clock::now();
+
+			boost::asio::steady_timer timer(io, configurations.timeout);
+			timer.async_wait([&](const boost::system::error_code&) {
+				if (!completed) socket.close();
+				});
+
+			socket.async_send_to(boost::asio::buffer("ping"), *endpoints.begin(),
+				[&](const boost::system::error_code& send_ec, std::size_t) {
+					completed = !send_ec;
+					timer.cancel();
+				});
+
+			io.run_for(configurations.timeout);
+
+			auto end = std::chrono::steady_clock::now();
+			if (!completed) return output;
+
+			auto duration_ns = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start);
+			output.sent_duration = scale_duration(duration_ns, configurations.time_scale_unit);
+			output.receive_duration = output.sent_duration;
+			output.roundtrip_duration = output.sent_duration + output.receive_duration;
+			return output;
         }
-        catch
-        (
-            const std::exception&
-                exception
-        )
-        {
-			return
-				handle_error_outputs(
-					exception
-				);
+        catch (const std::exception& exception)
+        {            
+            return handle_error_outputs<NetworkPingManagerResponse>(exception);
         }
-	}
+    }
 
-	std::string
+	NetworkPingManagerResponse
 		NetworkPingManager
-			::get_host_address()
-	{
-		return
-			configurations
-				.host_address;
-	}
-
-	bool
-		NetworkPingManager
-			::set_host_address(
+			::get_tcp_ping(
 				const std::string&
-					value
+					host_address
 			)
-	{
-		try
-        {		
+    {
+        try
+        {
 			if
 			(
 				configurations
-					.is_runtime_execution_disabled_for_feature_handling() ||				
+					.is_runtime_execution_disabled_for_feature_handling() ||
 				(
 					configurations
 						.is_edge_case_enabled_for_feature_handling() &&
 					(
-						value.empty()
+						host_address.empty()
 					)
 				)
 			)
 			{
 				return
-					false;
+					NetworkPingManagerResponse {};
 			}
 
 			boost::unique_lock<boost::mutex>
@@ -369,252 +252,100 @@ namespace
 					(
 						feature_handling_mutex_1
 					);
-			}			
+			}
 
-			configurations
-				.host_address =
-					value;
+			NetworkPingManagerResponse output{};
 
-			return
-				true;
+			boost::asio::io_context io;
+			boost::asio::ip::tcp::resolver resolver(io);
+			boost::system::error_code ec;
+
+			auto endpoints = resolver.resolve(host_address, "80", ec);
+			if (ec) return output;
+
+			boost::asio::ip::tcp::socket socket(io);
+
+			auto start = std::chrono::steady_clock::now();
+			bool connected = false;
+
+			std::thread t([&]()
+				{
+					for (auto it = endpoints.begin(); it != endpoints.end() && !connected; ++it)
+					{
+						socket.close();
+						socket.open(it->endpoint().protocol(), ec);
+						if (ec) continue;
+						socket.connect(it->endpoint(), ec);
+						connected = !ec;
+					}
+				});
+
+			if (t.joinable())
+			{
+				if (t.joinable()) t.join(); 
+			}
+
+			auto end = std::chrono::steady_clock::now();
+			auto duration_ns = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start);
+
+			if (!connected) return output;
+
+			output.sent_duration = scale_duration(duration_ns, configurations.time_scale_unit);
+			output.receive_duration = 0;
+			output.roundtrip_duration = output.sent_duration;
+
+			return output;
         }
-        catch
-        (
-            const std::exception&
-                exception
-        )
-        {
-			return
-				handle_error_outputs(
-					exception
-				);
+        catch (const std::exception& exception)
+        {            
+            return handle_error_outputs<NetworkPingManagerResponse>(exception);
         }
-	}
+    }
 
-	std::chrono::milliseconds
+	NetworkPingManagerResponse
 		NetworkPingManager
-			::get_delay_in_milliseconds()
+			::get_icmp_ping()
 	{
 		return
-			interval_clock
-				.configurations
-					.delay_in_milliseconds;
+			get_icmp_ping(
+				configurations
+					.host_address
+			);
 	}
 
-	bool
+	NetworkPingManagerResponse
 		NetworkPingManager
-			::set_delay_in_milliseconds(
-				const std::chrono::milliseconds&
-					value
-			)
+			::get_tcp_ping()
 	{
+		return
+			get_tcp_ping(
+				configurations
+					.host_address
+			);
+	}
+
+	double
+		NetworkPingManager
+			::scale_duration(
+				const std::chrono::nanoseconds&
+					duration,
+				const TimeScaleUnit&
+					unit
+			)
+    {
 		try
-        {		
+		{
 			if
 			(
 				configurations
-					.is_runtime_execution_disabled_for_feature_handling()
-			)
-			{
-				return
-					false;
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_feature_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
+					.is_runtime_execution_disabled_for_feature_handling() ||
+				(
+					configurations
+						.is_edge_case_enabled_for_feature_handling() &&
 					(
-						feature_handling_mutex_1
-					);
-			}			
-
-			interval_clock
-				.configurations
-					.delay_in_milliseconds =
-						value;
-
-			return
-				true;
-        }
-        catch
-        (
-            const std::exception&
-                exception
-        )
-        {
-			return
-				handle_error_outputs(
-					exception
-				);
-        }
-	}
-
-	bool
-		NetworkPingManager
-			::start_listening()
-	{
-		try
-        {		
-			if
-			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling()
-			)
-			{
-				return
-					false;
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_feature_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}			
-	
-			if (!interval_clock.is_running())
-			{
-				interval_clock.start();
-
-				return
-					true;
-			}
-
-			return
-				false;
-        }
-        catch
-        (
-            const std::exception&
-                exception
-        )
-        {
-			return
-				handle_error_outputs(
-					exception
-				);
-        }
-	}
-
-	bool
-		NetworkPingManager
-			::pause_listening()
-	{
-		try
-        {	
-			if
-			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling()
-			)
-			{
-				return
-					false;
-			}
-	
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_feature_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}			
-
-			if (interval_clock.is_running())
-			{
-				interval_clock.pause();
-
-				return
-					true;
-			}
-
-			return
-				false;
-        }
-        catch
-        (
-            const std::exception&
-                exception
-        )
-        {
-			return
-				handle_error_outputs(
-					exception
-				);
-        }
-	}
-
-	bool
-		NetworkPingManager
-			::continue_listening()
-	{
-		try
-        {		
-			if
-			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling()
-			)
-			{
-				return
-					false;
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_feature_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}			
-
-			if (!interval_clock.is_running())
-			{
-				interval_clock.resume();
-
-				return
-					true;
-			}
-
-			return
-				false;
-        }
-        catch
-        (
-            const std::exception&
-                exception
-        )
-        {
-			return
-				handle_error_outputs(
-					exception
-				);
-        }
-	}
-
-	int64_t
-		NetworkPingManager
-			::ping()
-	{
-		try
-        {		
-			if
-			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling()
+						unit == TimeScaleUnit::NONE
+					)
+				)
 			)
 			{
 				return
@@ -628,34 +359,45 @@ namespace
 				mutex_lock =
 					boost::unique_lock<boost::mutex>
 					(
-						feature_handling_mutex_1
+						feature_handling_mutex_2
 					);
-			}			
+			}
 
-			boost::asio::io_context io;
-            boost::asio::ip::tcp::resolver resolver(io);
-
-            auto endpoints = resolver.resolve(configurations.host_address, "80");
-            boost::asio::ip::tcp::socket socket(io);
-            auto start = std::chrono::steady_clock::now();
-            boost::asio::connect(socket, endpoints);
-            auto end = std::chrono::steady_clock::now();
-
-            return
-				std::chrono::duration_cast<std::chrono::milliseconds>(
-					end - start
-				).count();
-        }
-        catch
-        (
-            const std::exception&
-                exception
-        )
-        {
+			switch (unit)
+			{
+				case TimeScaleUnit::NANOSECONDS:
+					return static_cast<double>(duration.count());
+				case TimeScaleUnit::MICROSECONDS:
+					return static_cast<double>(
+						std::chrono::duration_cast<std::chrono::microseconds>(duration).count()
+					);
+				case TimeScaleUnit::MILLISECONDS:
+					return static_cast<double>(
+						std::chrono::duration_cast<std::chrono::milliseconds>(duration).count()
+					);
+				case TimeScaleUnit::SECONDS:
+					return std::chrono::duration<double>(duration).count();
+				case TimeScaleUnit::MINUTES:
+					return std::chrono::duration<double, std::ratio<60>>(duration).count();
+				case TimeScaleUnit::HOURS:
+					return std::chrono::duration<double, std::ratio<3600>>(duration).count();
+				case TimeScaleUnit::DAYS:
+					return std::chrono::duration<double, std::ratio<86400>>(duration).count();
+				default:
+					return static_cast<double>(duration.count());
+			}
+		}
+		catch
+		(
+			const std::exception&
+				exception
+		)
+		{
 			return
-				handle_error_outputs<int64_t>(
+				handle_error_outputs<double>(
 					exception
 				);
-        }
+		}
 	}
 }
+ 

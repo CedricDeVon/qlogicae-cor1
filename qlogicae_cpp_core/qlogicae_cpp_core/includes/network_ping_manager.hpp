@@ -1,21 +1,21 @@
 #pragma once
 
 #include "abstract_class.hpp"
-#include "interval_clock.hpp"
+#include "time_scale_unit.hpp"
 #include "singleton_manager.hpp"
 #include "network_ping_manager_response.hpp"
 #include "network_ping_manager_configurations.hpp"
 
 namespace
 	QLogicaeCppCore
-{
+{	
     class
 		NetworkPingManager :
 			public AbstractClass<NetworkPingManagerConfigurations>
     {
     public:
-		IntervalClock
-			interval_clock;
+		boost::mutex
+			feature_handling_mutex_2;
 
 		static NetworkPingManager&
 			singleton;
@@ -30,52 +30,31 @@ namespace
 		bool
 			destruct();
 
-		bool
-			get_is_listening();
-
-		bool
-			set_is_listening(
-				const bool&
-					value
-			);
-
-		std::string
-			get_name();
-
-		bool
-			set_name(
+		NetworkPingManagerResponse
+			get_icmp_ping(
 				const std::string&
-					value
+					host_address
 			);
 
-		std::string
-			get_host_address();
+		NetworkPingManagerResponse
+			get_icmp_ping();
 
-		bool
-			set_host_address(
+		NetworkPingManagerResponse
+			get_tcp_ping(
 				const std::string&
-					value
+					host_address
 			);
 
-		std::chrono::milliseconds
-			get_delay_in_milliseconds();
+		NetworkPingManagerResponse
+			get_tcp_ping();
 
-		bool
-			set_delay_in_milliseconds(
-				const std::chrono::milliseconds&
-					value
-			);
-
-		bool
-			start_listening();
-
-		bool
-			pause_listening();
-
-		bool
-			continue_listening();
-
-		int64_t
-			ping();
+		double
+			scale_duration(
+				const std::chrono::nanoseconds&
+					duration,
+				const TimeScaleUnit&
+					unit
+		);
 	};
 }
+

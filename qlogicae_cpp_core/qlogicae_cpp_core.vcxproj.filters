@@ -450,27 +450,6 @@
     <ClInclude Include="qlogicae_cpp_core\includes\abstract_enum.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="qlogicae_cpp_core\includes\sqlite_backend.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae_cpp_core\includes\sqlite_database.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae_cpp_core\includes\sqlite_row.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae_cpp_core\includes\sqlite_statement.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae_cpp_core\includes\sqlite_statement_data.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae_cpp_core\includes\sqlite_transaction.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae_cpp_core\includes\sqlite_exception.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="qlogicae_cpp_core\includes\random_number_generation_manager.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -957,27 +936,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="qlogicae_cpp_core\sources\abstract_enum.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="qlogicae_cpp_core\sources\sqlite_backend.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="qlogicae_cpp_core\sources\sqlite_database.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="qlogicae_cpp_core\sources\sqlite_row.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="qlogicae_cpp_core\sources\sqlite_statement.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="qlogicae_cpp_core\sources\sqlite_statement_data.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="qlogicae_cpp_core\sources\sqlite_transaction.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="qlogicae_cpp_core\sources\sqlite_exception.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="qlogicae_cpp_core\sources\random_character_generation_manager.cpp">

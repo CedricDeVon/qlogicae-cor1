@@ -289,13 +289,6 @@
     <ClInclude Include="qlogicae_cpp_core\includes\sha256_hash_cryptography_manager_configurations.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\singleton_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\singleton_manager_configurations.hpp" />
-    <ClInclude Include="qlogicae_cpp_core\includes\sqlite_backend.hpp" />
-    <ClInclude Include="qlogicae_cpp_core\includes\sqlite_database.hpp" />
-    <ClInclude Include="qlogicae_cpp_core\includes\sqlite_exception.hpp" />
-    <ClInclude Include="qlogicae_cpp_core\includes\sqlite_row.hpp" />
-    <ClInclude Include="qlogicae_cpp_core\includes\sqlite_statement.hpp" />
-    <ClInclude Include="qlogicae_cpp_core\includes\sqlite_statement_data.hpp" />
-    <ClInclude Include="qlogicae_cpp_core\includes\sqlite_transaction.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\temperature_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\temperature_manager_configurations.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\temperature_unit.hpp" />
@@ -464,13 +457,6 @@
     <ClCompile Include="qlogicae_cpp_core\sources\sha256_hash_cryptography_manager_configurations.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\singleton_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\singleton_manager_configurations.cpp" />
-    <ClCompile Include="qlogicae_cpp_core\sources\sqlite_backend.cpp" />
-    <ClCompile Include="qlogicae_cpp_core\sources\sqlite_database.cpp" />
-    <ClCompile Include="qlogicae_cpp_core\sources\sqlite_exception.cpp" />
-    <ClCompile Include="qlogicae_cpp_core\sources\sqlite_row.cpp" />
-    <ClCompile Include="qlogicae_cpp_core\sources\sqlite_statement.cpp" />
-    <ClCompile Include="qlogicae_cpp_core\sources\sqlite_statement_data.cpp" />
-    <ClCompile Include="qlogicae_cpp_core\sources\sqlite_transaction.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\temperature_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\temperature_manager_configurations.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\temperature_unit.cpp" />

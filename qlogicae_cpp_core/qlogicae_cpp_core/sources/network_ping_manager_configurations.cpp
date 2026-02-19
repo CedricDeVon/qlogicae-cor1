@@ -11,12 +11,13 @@ namespace
 	{				
 		host_address =
 			"1.1.1.1";
-        
-		name =
-			"default";        
-        
-		callback =
-			[](const NetworkPingManagerResponse& response) {};
+
+		time_scale_unit =
+			TimeScaleUnit
+				::MILLISECONDS;
+
+		timeout =
+			std::chrono::milliseconds { 1000 };
 	}
 
 	NetworkPingManagerConfigurations

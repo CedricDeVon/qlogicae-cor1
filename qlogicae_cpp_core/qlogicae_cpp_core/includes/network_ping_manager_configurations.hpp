@@ -1,5 +1,6 @@
 #pragma once
 
+#include "time_scale_unit.hpp"
 #include "abstract_configurations.hpp"
 #include "network_ping_manager_response.hpp"
 
@@ -16,15 +17,15 @@ namespace
 				default_configurations
 					.host_address;
 
-        std::string
-			name =
+		TimeScaleUnit
+			time_scale_unit =
 				default_configurations
-					.name;
-        
-        std::function<void(const NetworkPingManagerResponse& response)>
-			callback =
+					.time_scale_unit;
+
+		std::chrono::milliseconds
+			timeout =
 				default_configurations
-					.callback;
+					.timeout;
 
 		static NetworkPingManagerConfigurations
 			initial_configurations;
