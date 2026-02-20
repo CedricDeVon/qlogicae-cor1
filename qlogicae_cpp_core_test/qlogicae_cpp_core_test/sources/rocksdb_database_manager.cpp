@@ -958,3 +958,4 @@ namespace QLogicaeCppCoreTest
 		::testing::Values(true, false)
 	);
 }
+
