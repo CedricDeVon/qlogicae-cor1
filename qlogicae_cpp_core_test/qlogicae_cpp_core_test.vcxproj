@@ -159,14 +159,12 @@
     <ClInclude Include="qlogicae_cpp_core_test\includes\assembly.hpp" />
     <ClInclude Include="qlogicae_cpp_core_test\includes\asynchronous_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core_test\includes\bcrypt_hash_cryptography_manager.hpp" />
-    <ClInclude Include="qlogicae_cpp_core_test\includes\character_domain_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core_test\includes\character_domain_enum_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core_test\includes\character_domain_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core_test\includes\configuration_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core_test\includes\console_io_manager.hpp" />
-    <ClInclude Include="qlogicae_cpp_core_test\includes\console_log_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core_test\includes\enum_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core_test\includes\error_manager.hpp" />
-    <ClInclude Include="qlogicae_cpp_core_test\includes\file_log_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core_test\includes\file_system_entity_enum_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core_test\includes\file_system_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core_test\includes\function_wrapper.hpp" />
@@ -178,10 +176,6 @@
     <ClInclude Include="qlogicae_cpp_core_test\includes\mutex_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core_test\includes\network_ping_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core_test\includes\random_character_generation_manager.hpp" />
-    <ClInclude Include="qlogicae_cpp_core_test\includes\random_container_generation_manager.hpp" />
-    <ClInclude Include="qlogicae_cpp_core_test\includes\random_number_generation_manager.hpp" />
-    <ClInclude Include="qlogicae_cpp_core_test\includes\random_string_generation_manager.hpp" />
-    <ClInclude Include="qlogicae_cpp_core_test\includes\random_value_generation_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core_test\includes\regular_expression_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core_test\includes\results.hpp" />
     <ClInclude Include="qlogicae_cpp_core_test\includes\results_status_enum_manager.hpp" />
@@ -189,7 +183,6 @@
     <ClInclude Include="qlogicae_cpp_core_test\includes\runtime_execution_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core_test\includes\sha256_hash_cryptography_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core_test\includes\singleton_manager.hpp" />
-    <ClInclude Include="qlogicae_cpp_core_test\includes\sqlite_database_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core_test\includes\temperature_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core_test\includes\temperature_unit_enum_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core_test\includes\text_case_enum_manager.hpp" />
@@ -250,6 +243,7 @@
     <ClCompile Include="qlogicae_cpp_core_test\sources\regular_expression_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core_test\sources\results.cpp" />
     <ClCompile Include="qlogicae_cpp_core_test\sources\results_status_enum_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core_test\sources\rocksdb_database_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core_test\sources\runtime_execution_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core_test\sources\sha256_hash_cryptography_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core_test\sources\singleton_manager.cpp" />

@@ -9,6 +9,12 @@ namespace
 		::RocksDbDatabaseManagerConfigurations() :
 			AbstractConfigurations<RocksDbDatabaseManagerConfigurations>()
 	{
+		file_path =
+			"data.db";
+
+		is_feature_thread_safety_handling_enabled =
+			true;
+
 		create_if_missing =
 			true;
 

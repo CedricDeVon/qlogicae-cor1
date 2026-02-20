@@ -17,8 +17,177 @@ namespace
 		::RocksDbDatabaseManager() :
 			AbstractClass<RocksDbDatabaseManagerConfigurations>()
 	{
-		
+		try
+        {
+            construct();
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+			handle_error_outputs(
+				exception
+			);
+        }
 	}
+
+	RocksDbDatabaseManager
+		::~RocksDbDatabaseManager()
+	{
+		try
+        {
+            destruct();
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+			handle_error_outputs(
+				exception
+			);
+        }
+	}
+
+
+    bool
+		RocksDbDatabaseManager
+			::construct()
+    {
+        try
+        {			
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_utility_handling()
+			)
+			{
+				return
+					false;
+			}
+
+			boost::unique_lock<boost::mutex>
+				mutex_lock;
+			if (configurations.is_thread_safety_enabled_for_utility_handling())
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						utility_handling_mutex_1
+					);
+			}	
+
+			RocksDbDatabaseManagerConfigurations
+				new_configurations;
+
+			configurations =
+				new_configurations;
+
+			options.create_if_missing = configurations.create_if_missing;
+            options.max_open_files = configurations.max_open_files;
+            options.use_fsync = configurations.use_fsync;
+            options.use_direct_reads = configurations.use_direct_reads;
+            options.use_direct_io_for_flush_and_compaction =
+                configurations.use_direct_io_for_flush_and_compaction;
+            options.max_background_flushes = configurations.max_background_flushes;
+            options.compression = configurations.compression;
+
+            options.compaction_style = configurations.compaction_style;
+            options.level0_file_num_compaction_trigger =
+                configurations.level0_file_num_compaction_trigger;
+            options.level0_slowdown_writes_trigger =
+                configurations.level0_slowdown_writes_trigger;
+            options.level0_stop_writes_trigger =
+                configurations.level0_stop_writes_trigger;
+
+            options.write_buffer_size = configurations.write_buffer_size;
+            options.max_write_buffer_number = configurations.max_write_buffer_number;
+            options.min_write_buffer_number_to_merge =
+                configurations.min_write_buffer_number_to_merge;
+            options.target_file_size_base = configurations.target_file_size_base;
+            options.max_bytes_for_level_base = configurations.max_bytes_for_level_base;
+            options.bytes_per_sync = configurations.bytes_per_sync;
+
+            write_options.sync = configurations.write_sync;
+            write_options.disableWAL = configurations.write_disable_wal;
+
+            table_options.no_block_cache = configurations.no_block_cache;
+            table_options.block_restart_interval = configurations.block_restart_interval;
+            table_options.block_size = configurations.block_size;
+
+            options.IncreaseParallelism(static_cast<int>(
+                std::thread::hardware_concurrency()));
+            options.OptimizeLevelStyleCompaction();
+            options.env->SetBackgroundThreads(static_cast<int>(
+                configurations.background_threads));
+
+            table_options.filter_policy.reset(
+                rocksdb::NewBloomFilterPolicy(configurations.new_bloom_filter_policy));
+
+            options.table_factory.reset(
+                rocksdb::NewBlockBasedTableFactory(table_options));
+
+			return
+				true;
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+			return
+				handle_error_outputs(
+					exception
+				);
+        }
+    }
+
+    bool
+		RocksDbDatabaseManager
+			::destruct()
+    {
+        try
+        {		
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_utility_handling()
+			)
+			{
+				return
+					false;
+			}
+
+			boost::unique_lock<boost::mutex>
+				mutex_lock;
+			if (configurations.is_thread_safety_enabled_for_utility_handling())
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						utility_handling_mutex_1
+					);
+			}			
+
+			return
+				true;
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+			return
+				handle_error_outputs(
+					exception
+				);
+        }
+    }
 
 	bool
 		RocksDbDatabaseManager
@@ -625,7 +794,7 @@ namespace
 				return false;
 			}
 
-			result = backup->RestoreDBFromLatestBackup(file_path, file_path);
+			result = backup->RestoreDBFromLatestBackup(configurations.file_path, configurations.file_path);
 			delete backup;
 			if (!result.ok())
 			{
@@ -1234,7 +1403,7 @@ namespace
 			close();
 
 			rocksdb::Options options;
-			rocksdb::Status status = rocksdb::DestroyDB(file_path, options);
+			rocksdb::Status status = rocksdb::DestroyDB(configurations.file_path, options);
 
 			if (!status.ok())
 			{
@@ -1289,13 +1458,13 @@ namespace
 					);
 			}			
 
-			if (!std::filesystem::exists(file_path))
+			if (!std::filesystem::exists(configurations.file_path))
             {
-                std::filesystem::create_directories(file_path);
+                std::filesystem::create_directories(configurations.file_path);
             }
 
             status = rocksdb::TransactionDB::Open(
-                options, txn_db_options, file_path, &transaction_db);
+                options, txn_db_options, configurations.file_path, &transaction_db);
 
             if (!status.ok())
             {                                
@@ -1381,3 +1550,4 @@ namespace
         }
 	}
 }
+

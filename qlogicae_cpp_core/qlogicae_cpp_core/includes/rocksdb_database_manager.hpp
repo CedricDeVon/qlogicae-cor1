@@ -15,9 +15,6 @@ namespace
 		rocksdb::DB*
 			object{};
 
-		std::string
-			file_path;
-
 		rocksdb::Options
 			options;
 
@@ -67,6 +64,14 @@ namespace
             singleton;
 
 		RocksDbDatabaseManager();
+
+		~RocksDbDatabaseManager();
+
+		bool
+			construct();
+
+		bool
+			destruct();
 
 		bool
 			setup(
@@ -141,7 +146,7 @@ namespace
 		rocksdb::ColumnFamilyHandle*
 			get_cf_handle(
 				const std::string&
-				name
+					name
 			);
 
 		bool
@@ -251,7 +256,7 @@ namespace
 					);
 			}
 
-			std::string value = "";
+			std::string value;
 
 			object->Get(read_options, key, &value);
 
@@ -537,97 +542,5 @@ namespace
 				);
 		}
 	}
-
-	template <> std::string
-		RocksDbDatabaseManager
-			::serialize<std::string>(
-				const std::string&
-					value
-			)
-	{
-		try
-		{
-			if
-			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling()
-			)
-			{
-				return
-					value;
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_feature_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_2
-					);
-			}
-
-			return
-				value;
-		}
-		catch
-		(
-			const std::exception&
-				exception
-		)
-		{
-			return
-				handle_error_outputs<std::string>(
-					exception
-				);
-		}
-	}
-
-	template <> std::string
-		RocksDbDatabaseManager
-			::deserialize<std::string>(
-				const std::string&
-					value
-			)
-	{
-		try
-		{
-			if
-			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling()
-			)
-			{
-				return
-					value;
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_feature_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_2
-					);
-			}
-
-			return
-				value;
-		}
-		catch
-		(
-			const std::exception&
-				exception
-		)
-		{
-			return
-				handle_error_outputs<std::string>(
-					exception
-				);
-		}
-    }
 }
 
