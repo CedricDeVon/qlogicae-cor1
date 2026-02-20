@@ -63,19 +63,6 @@ namespace
 
 			std::string 
 				output;
-
-			if
-			(
-				configurations
-					.is_specified_length_enabled
-			)
-			{
-				output
-					.reserve(
-						configurations
-							.specified_length
-					);
-			}
 	
 			std::string
 				log_level_text =
@@ -93,17 +80,42 @@ namespace
 						(time_format.empty() ? "" : time_format + " - ") +
 						(log_level_text.empty() ? "" : log_level_text + " - ") +
 						message;
+
+					break;
+				}
+				case (LogFormat::CUSTOM):
+				{
+					output =
+						message;
+
+					break;
 				}
 				case (LogFormat::NONE):
 				{
 					output =
 						message;
+
+					break;
 				}
 				default:
 				{
 					output =
 						message;
+			
+					break;
 				}
+			}
+
+			if
+			(
+				configurations
+					.is_specified_length_enabled
+			)
+			{
+				if (output.size() > configurations.specified_length)
+					output.resize(configurations.specified_length);
+				else if (output.size() < configurations.specified_length)
+					output.append(configurations.specified_length - output.size(), ' ');
 			}
 
 			return
@@ -268,5 +280,4 @@ namespace
 					.log_format
 			);
 	}
-
 }

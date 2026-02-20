@@ -41,3 +41,4 @@ namespace
 				TextLogManagerConfigurations
 					::initial_configurations;
 }
+
