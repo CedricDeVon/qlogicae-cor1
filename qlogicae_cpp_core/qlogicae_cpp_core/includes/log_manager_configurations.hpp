@@ -56,6 +56,6 @@ namespace
 				::INFO;
 
 		text =
-			"";
+			"Message";
 	}
 }

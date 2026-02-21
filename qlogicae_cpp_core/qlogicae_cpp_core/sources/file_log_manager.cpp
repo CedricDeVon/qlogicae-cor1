@@ -62,7 +62,7 @@ namespace
 				mutex_lock =
 					boost::unique_lock<boost::mutex>
 					(
-						utility_handling_mutex_1
+						feature_handling_mutex_1
 					);
 			}
 
@@ -109,7 +109,7 @@ namespace
 				mutex_lock =
 					boost::unique_lock<boost::mutex>
 					(
-						utility_handling_mutex_1
+						feature_handling_mutex_1
 					);
 			}
 
@@ -433,15 +433,7 @@ namespace
 			if
 			(
 				configurations
-					.is_runtime_execution_disabled_for_feature_handling() ||
-				(
-					configurations
-						.is_edge_case_enabled_for_feature_handling() &&
-					(
-						text
-							.empty()
-					)
-				)
+					.is_runtime_execution_disabled_for_feature_handling()
 			)
 			{
 				return
@@ -467,9 +459,17 @@ namespace
 					.file_output_paths
 			)
 			{				
+				std::string file_path =
+					callback();
+
+				if (file_path.empty())
+				{
+					continue;
+				}
+
 				fast_io::io::print(
 					fast_io::obuf_file(
-						callback()
+						file_path
 					),
 					text
 				);

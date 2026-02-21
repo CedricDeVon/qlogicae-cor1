@@ -496,18 +496,6 @@ namespace QLogicaeCppCoreTest
         EXPECT_TRUE(std::filesystem::exists("moved_file.txt"));
     }
 
-    TEST_F(FileSystemManagerEntityOperationsTest, Should_MoveFolder)
-    {
-        EXPECT_TRUE(file_system_manager.move_folder(test_folder_w, L"moved_folder"));
-        EXPECT_FALSE(std::filesystem::exists(test_folder_w));
-        EXPECT_TRUE(std::filesystem::exists(L"moved_folder"));
-
-        std::filesystem::create_directory(test_folder_s);
-        EXPECT_TRUE(file_system_manager.move_folder(test_folder_s, "moved_folder"));
-        EXPECT_FALSE(std::filesystem::exists(test_folder_s));
-        EXPECT_TRUE(std::filesystem::exists("moved_folder"));
-    }
-
     TEST_F(FileSystemManagerEntityOperationsTest, Should_RenameFile)
     {
         EXPECT_TRUE(file_system_manager.rename_file(test_file_w, L"renamed_file.txt"));
@@ -519,6 +507,18 @@ namespace QLogicaeCppCoreTest
         EXPECT_FALSE(std::filesystem::exists(test_file_s));
         EXPECT_TRUE(std::filesystem::exists("renamed_file.txt"));
     }
+
+	TEST_F(FileSystemManagerEntityOperationsTest, Should_MoveFolder)
+	{
+		EXPECT_TRUE(file_system_manager.move_folder(test_folder_w, L"moved_folder"));
+		EXPECT_FALSE(std::filesystem::exists(test_folder_w));
+		EXPECT_TRUE(std::filesystem::exists(L"moved_folder"));
+
+		std::filesystem::create_directory(test_folder_s);
+		EXPECT_TRUE(file_system_manager.move_folder(test_folder_s, "moved_folder"));
+		EXPECT_FALSE(std::filesystem::exists(test_folder_s));
+		EXPECT_TRUE(std::filesystem::exists("moved_folder"));
+	}
 
     TEST_F(FileSystemManagerEntityOperationsTest, Should_RenameFolder)
     {

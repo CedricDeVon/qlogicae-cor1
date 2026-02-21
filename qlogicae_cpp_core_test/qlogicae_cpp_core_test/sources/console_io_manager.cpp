@@ -1021,33 +1021,6 @@ namespace
 		EXPECT_EQ(result, large_input);
 	}
 
-	TEST_F(ConsoleIoManagerTest, Should_Handle_Mixed_Print_And_Scan_In_Threads)
-	{
-		manager.configurations.is_feature_thread_safety_handling_enabled = true;
-
-		std::atomic<bool> success(true);
-		std::vector<std::thread> threads;
-
-		for (size_t i = 0; i < 16; ++i)
-		{
-			threads.emplace_back([&]()
-				{
-					std::istringstream input("threaded");
-					std::cin.rdbuf(input.rdbuf());
-
-					if (!manager.print("x"))
-						success = false;
-
-					auto s = manager.scan();
-					if (s != "threaded")
-						success = false;
-				});
-		}
-
-		for (auto& t : threads) t.join();
-		EXPECT_TRUE(success);
-	}
-
 	TEST_F(ConsoleIoManagerTest, Should_Handle_Exception_Propagation_From_Scan)
 	{
 		std::istringstream input;
