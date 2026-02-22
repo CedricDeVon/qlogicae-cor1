@@ -37,16 +37,28 @@ namespace
 		bool
 			destruct();
 
-		std::mt19937&
+		bool
+			setup_indeterministic_seed();
+
+		bool
+			setup_deterministic_seed(
+				const std::uint64_t&
+					value
+			);
+
+		bool
+			setup_cryptography_seed();
+
+		uint64_t
 			generate_indeterministic_seed();
 
-		std::mt19937&
+		uint64_t
 			generate_deterministic_seed(
 				const std::uint64_t&
 					value
 			);
 
-		std::mt19937&
+		uint64_t
 			generate_cryptography_seed();
 
 		std::uint64_t

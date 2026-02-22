@@ -14,16 +14,10 @@ namespace
     {
     public:      
 		std::vector<CURL*>
-			curl_pool_;
+			curl_pool;
 
 		size_t
-			pool_next_ { 0 };
-
-		int
-			failure_count_ { 0 };
-
-		std::chrono::steady_clock::time_point
-			last_failure_{};
+			pool_next;
 
 		boost::mutex
 			feature_handling_mutex_2;
@@ -109,30 +103,6 @@ namespace
 		CURL*
 			acquire_handle();
 
-		static size_t
-			write_cb(
-				void*
-					pointer,
-				size_t
-					size,
-				size_t
-					nmemb,
-				void*
-					userdata
-			);
-
-		static size_t
-			header_cb(
-				void*
-					pointer,
-				size_t
-					size,
-				size_t
-					nmemb,
-				void*
-					userdata
-			);
-
 		bool
 			setup_telemetry(
 				CURL*
@@ -147,6 +117,30 @@ namespace
 					base,
 				const std::string&
 					path
+			);
+
+		size_t
+			write_cb(
+				void*
+					pointer,
+				size_t
+					size,
+				size_t
+					nmemb,
+				void*
+					userdata
+			);
+
+		size_t
+			header_cb(
+				void*
+					pointer,
+				size_t
+					size,
+				size_t
+					nmemb,
+				void*
+					userdata
 			);
     };    
 }

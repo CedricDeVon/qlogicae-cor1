@@ -150,7 +150,7 @@ namespace
 		}
 	}
 
-	std::mt19937&
+	uint64_t
 		RandomSeedGenerationManager
 			::generate_indeterministic_seed()
 	{
@@ -163,7 +163,7 @@ namespace
 			)
 			{
 				return
-					random_indeterministic_seed_engine;
+					random_indeterministic_seed_engine();
 			}
 
 			boost::unique_lock<boost::mutex>
@@ -187,7 +187,7 @@ namespace
 				);
 
 			return
-				random_indeterministic_seed_engine;
+				random_indeterministic_seed_engine();
 		}
 		catch
 		(
@@ -200,11 +200,11 @@ namespace
 			);
 
 			return
-				random_indeterministic_seed_engine;
+				random_indeterministic_seed_engine();
 		}
 	}
 
-    std::mt19937&
+    uint64_t
 		RandomSeedGenerationManager
 			::generate_cryptography_seed()
     {
@@ -217,7 +217,7 @@ namespace
 			)
 			{				
 				return
-					random_cryptography_seed_engine;
+					random_cryptography_seed_engine();
 			}
 
 			boost::unique_lock<boost::mutex>
@@ -236,7 +236,7 @@ namespace
 			if (rd.entropy() == 0.0)
 			{
 				return
-					random_cryptography_seed_engine;
+					random_cryptography_seed_engine();
 			}
 
 			std::array<std::uint32_t, 2>
@@ -264,7 +264,7 @@ namespace
 			);
 
 			return
-				random_cryptography_seed_engine;
+				random_cryptography_seed_engine();
 		}
 		catch
 		(
@@ -277,11 +277,11 @@ namespace
 			);
 
 			return
-				random_cryptography_seed_engine;
+				random_cryptography_seed_engine();
 		}
 	}
 
-	std::mt19937&
+	uint64_t
 		RandomSeedGenerationManager
 			::generate_deterministic_seed(
 				const std::uint64_t&
@@ -297,7 +297,7 @@ namespace
 			)
 			{
 				return
-					random_deterministic_seed_engine;
+					random_deterministic_seed_engine();
 			}
 
 			boost::unique_lock<boost::mutex>
@@ -321,7 +321,7 @@ namespace
 				);
 
 			return
-				random_deterministic_seed_engine;
+				random_deterministic_seed_engine();
 		}
 		catch
 		(
@@ -334,7 +334,195 @@ namespace
 			);
 
 			return
-				random_deterministic_seed_engine;
+				random_deterministic_seed_engine();
+		}		
+	}
+
+	bool
+		RandomSeedGenerationManager
+			::setup_indeterministic_seed()
+	{
+		try
+		{
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_feature_handling()
+			)
+			{
+				return
+					false;
+			}
+
+			boost::unique_lock<boost::mutex>
+				mutex_lock;
+			if (configurations.is_thread_safety_enabled_for_feature_handling())
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						feature_handling_mutex_1
+					);
+			}		
+
+			random_indeterministic_seed_engine
+				.seed(
+					static_cast<std::uint32_t>(
+						mix_split_64(
+							mix_entropy()
+						)
+					)
+				);
+
+			return
+				true;
+		}
+		catch
+		(
+			const std::exception&
+				exception
+		)
+		{		
+			handle_error_outputs(
+				exception
+			);
+
+			return
+				false;
+		}
+	}
+
+    bool
+		RandomSeedGenerationManager
+			::setup_cryptography_seed()
+    {
+		try
+		{
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_feature_handling()
+			)
+			{				
+				return
+					false;
+			}
+
+			boost::unique_lock<boost::mutex>
+				mutex_lock;
+			if (configurations.is_thread_safety_enabled_for_feature_handling())
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						feature_handling_mutex_1
+					);
+			}
+
+			std::random_device rd;
+
+			if (rd.entropy() == 0.0)
+			{
+				return
+					false;
+			}
+
+			std::array<std::uint32_t, 2>
+				buffer
+			{
+				rd(),
+				rd()
+			};
+
+			std::uint64_t seed = 0;
+
+			std::memcpy(
+				&seed,
+				buffer.data(),
+				sizeof(seed)
+			);
+
+			random_cryptography_seed_engine
+				.seed(
+					static_cast<std::uint32_t>(
+						mix_split_64(
+							seed
+						)
+					)
+			);
+
+			return
+				true;
+		}
+		catch
+		(
+			const std::exception&
+				exception
+		)
+		{		
+			handle_error_outputs(
+				exception
+			);
+
+			return
+				false;
+		}
+	}
+
+	bool
+		RandomSeedGenerationManager
+			::setup_deterministic_seed(
+				const std::uint64_t&
+					value
+			)
+	{
+		try
+		{
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_feature_handling()
+			)
+			{
+				return
+					false;
+			}
+
+			boost::unique_lock<boost::mutex>
+				mutex_lock;
+			if (configurations.is_thread_safety_enabled_for_feature_handling())
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						feature_handling_mutex_1
+					);
+			}
+
+			random_deterministic_seed_engine
+				.seed(
+					static_cast<std::uint32_t>(
+						mix_split_64(
+							value
+						)
+					)
+				);
+
+			return
+				true;
+		}
+		catch
+		(
+			const std::exception&
+				exception
+		)
+		{		
+			handle_error_outputs(
+				exception
+			);
+
+			return
+				false;
 		}		
 	}
 

@@ -10,8 +10,6 @@ namespace
 			::singleton = 
 				SingletonManager
 					::get_singleton<RestApiManager>();	
-
-
 	
 	RestApiManager
 		::RestApiManager() :
@@ -79,11 +77,15 @@ namespace
 					);
 			}			
 
-			static std::once_flag flag;
-			std::call_once(flag, []() { curl_global_init(CURL_GLOBAL_DEFAULT); });
+			curl_global_init(
+				CURL_GLOBAL_DEFAULT
+			);
 
-			size_t size = 8;
-			curl_pool_
+			size_t
+				size =
+					8; 
+
+			curl_pool
 				.reserve(
 					size
 				);
@@ -101,7 +103,7 @@ namespace
 
 				if (curl_handler)
 				{
-					curl_pool_
+					curl_pool
 						.push_back(
 							curl_handler
 						);
@@ -391,7 +393,23 @@ namespace
 
 			if (configurations.capture_body)
 			{
-				curl_easy_setopt(curl_handler, CURLOPT_WRITEFUNCTION, &write_cb);
+				curl_easy_setopt(
+					curl_handler,
+					CURLOPT_WRITEFUNCTION,
+					[this](
+						void*
+							pointer,
+						size_t
+							size,
+						size_t
+							nmemb,
+						void*
+							userdata
+					)
+					{
+						return write_cb(pointer, size, nmemb, userdata);
+					}
+				);
 				curl_easy_setopt(curl_handler, CURLOPT_WRITEDATA, response_body);
 			}
 			else
@@ -401,7 +419,23 @@ namespace
 
 			if (configurations.capture_headers)
 			{
-				curl_easy_setopt(curl_handler, CURLOPT_HEADERFUNCTION, &header_cb);
+				curl_easy_setopt(
+					curl_handler,
+					CURLOPT_HEADERFUNCTION,
+					[this](
+						void*
+							pointer,
+						size_t
+							size,
+						size_t
+							nmemb,
+						void*
+							userdata
+						)
+					{
+						return header_cb(pointer, size, nmemb, userdata);
+					}
+				);
 				curl_easy_setopt(curl_handler, CURLOPT_HEADERDATA, response_headers);
 			}
 
@@ -492,8 +526,8 @@ namespace
 					);
 			}
 
-			CURL* curl_handler = curl_pool_[pool_next_];
-			pool_next_ = (pool_next_ + 1) % curl_pool_.size();
+			CURL* curl_handler = curl_pool[pool_next];
+			pool_next = (pool_next + 1) % curl_pool.size();
 			curl_easy_reset(curl_handler);
 
 			if (!configurations.trusted_ca_bundle_file.empty())
@@ -547,10 +581,56 @@ namespace
 					userdata
 			)
 	{
-		auto* str = static_cast<std::string*>(userdata);
-		str->append(static_cast<char*>(pointer), size * nmemb);
+		try
+		{
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_feature_handling() ||				
+				(
+					configurations
+						.is_edge_case_enabled_for_feature_handling() &&
+					(
+						pointer == nullptr ||
+						size == 0 ||
+						nmemb == 0 ||
+						userdata == nullptr
+					)
+				)
+			)
+			{
+				return
+					0;
+			}
+		
+			boost::unique_lock<boost::mutex>
+				mutex_lock;
+			if (configurations.is_thread_safety_enabled_for_feature_handling())
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						feature_handling_mutex_3
+					);
+			}			
 
-		return size * nmemb;
+			auto* str = static_cast<std::string*>(userdata);
+			str->append(static_cast<char*>(pointer), size * nmemb);
+
+			return
+				size * nmemb;
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+			return
+				handle_error_outputs<size_t>(
+					exception
+				);
+        }	
 	}
 
 	size_t
@@ -566,17 +646,65 @@ namespace
 					userdata
 			)
 	{
-		auto* headers = static_cast<std::multimap<std::string, std::string>*>(userdata);
-		std::string line(static_cast<char*>(pointer), size * nmemb);
-		auto colon = line.find(':');
-		if (colon != std::string::npos)
+		try
 		{
-			std::string key = line.substr(0, colon);
-			std::string value = line.substr(colon + 1);
-			value.erase(0, value.find_first_not_of(" \t\r\n"));
-			value.erase(value.find_last_not_of(" \t\r\n") + 1);
-			headers->emplace(std::move(key), std::move(value));
-		}
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_feature_handling() ||				
+				(
+					configurations
+						.is_edge_case_enabled_for_feature_handling() &&
+					(
+						pointer == nullptr ||
+						size == 0 ||
+						nmemb == 0 ||
+						userdata == nullptr
+					)
+				)
+			)
+			{
+				return
+					0;
+			}
+		
+			boost::unique_lock<boost::mutex>
+				mutex_lock;
+			if (configurations.is_thread_safety_enabled_for_feature_handling())
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						feature_handling_mutex_3
+					);
+			}			
+
+			auto* headers = static_cast<std::multimap<std::string, std::string>*>(userdata);
+			std::string line(static_cast<char*>(pointer), size * nmemb);
+			auto colon = line.find(':');
+			if (colon != std::string::npos)
+			{
+				std::string key = line.substr(0, colon);
+				std::string value = line.substr(colon + 1);
+				value.erase(0, value.find_first_not_of(" \t\r\n"));
+				value.erase(value.find_last_not_of(" \t\r\n") + 1);
+				headers->emplace(std::move(key), std::move(value));
+			}
+
+			return
+				size * nmemb;
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+			return
+				handle_error_outputs<size_t>(
+					exception
+				);
+        }	
 	}
 
 	bool

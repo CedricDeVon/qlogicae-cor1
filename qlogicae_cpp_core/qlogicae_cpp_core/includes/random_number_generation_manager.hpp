@@ -78,7 +78,8 @@ namespace
 					configurations
 						.is_edge_case_enabled_for_feature_handling() &&
 					(
-						minimum > maximum
+						minimum > maximum ||
+						(minimum == 0 && maximum == 0)
 					)
 				)
 			)
@@ -98,64 +99,88 @@ namespace
                     );
             }
 
+			const int maximum_attempt_limit = 1000;
+
             if constexpr (std::is_integral_v<Type>)
             {
-                std::uniform_int_distribution<Type>
-                    distribution(minimum, maximum);
+                std::uniform_int_distribution<Type> distribution(minimum, maximum);
+				for
+				(
+					size_t
+						attempt_number = 0;
+						attempt_number < maximum_attempt_limit;
+						++attempt_number
+				)
+				{
+					const Type candidate =
+						distribution(RandomSeedGenerationManager::singleton
+										 .random_indeterministic_seed_engine);
 
-                while (true)
-                {
-                    const Type candidate =
-                        distribution(
-                            RandomSeedGenerationManager
-                                ::singleton
-									.random_indeterministic_seed_engine
-                        );
-
-                    if (excluded.find(candidate)
-                        == excluded.end())
-                    {
-                        return
+					if (excluded.find(candidate) == excluded.end())
+					{
+						return
 							candidate;
-                    }
-                }
+					}						
+				}
+				
+				for
+				(
+					Type
+						val = minimum;
+						val <= maximum;
+						++val
+				)
+				{
+					if (excluded.find(val) == excluded.end())
+					{
+						return
+							val;
+					}						
+				}
+
+				return minimum;
             }
             else if constexpr (std::is_floating_point_v<Type>)
             {
-                std::uniform_real_distribution<Type>
-                    distribution(minimum, maximum);
+				std::uniform_real_distribution<Type> distribution(minimum, maximum);
+				constexpr Type epsilon = std::numeric_limits<Type>::epsilon();
 
-                constexpr Type epsilon =
-                    std::numeric_limits<Type>::epsilon();
+				for
+				(
+					size_t
+						attempt_number = 0;
+						attempt_number < maximum_attempt_limit;
+						++attempt_number
+				)
+				{
+					const Type candidate =
+						distribution(RandomSeedGenerationManager::singleton
+							.random_indeterministic_seed_engine);
 
-                while (true)
-                {
-                    const Type candidate =
-                        distribution(
-                            RandomSeedGenerationManager
-                                ::singleton
-									.random_indeterministic_seed_engine
-                        );
+					bool is_excluded = false;
+					for
+					(
+						const auto&
+							value :
+							excluded
+					)
+					{
+						if (std::fabs(candidate - value) <= epsilon)
+						{
+							is_excluded = true;
+							break;
+						}
+					}
 
-                    bool is_excluded = false;
-
-                    for (const auto& value : excluded)
-                    {
-                        if (std::fabs(candidate - value)
-                            <= epsilon)
-                        {
-                            is_excluded = true;
-
-                            break;
-                        }
-                    }
-
-                    if (!is_excluded)
-                    {
-                        return
+					if (!is_excluded)
+					{
+						return
 							candidate;
-                    }
-                }
+					}
+				}
+
+				return
+					minimum;
             }
         }
         catch
@@ -257,20 +282,12 @@ namespace
                     );
             }
 
-            std::uniform_int_distribution<std::size_t>
-                distribution(
-                    0,
-                    included.size() - 1
-                );
+			std::uniform_int_distribution<std::size_t> distribution(0, included.size() - 1);
+			std::size_t index = distribution(RandomSeedGenerationManager::singleton.random_indeterministic_seed_engine);
 
-            return
-                included[
-                    distribution(
-                        RandomSeedGenerationManager
-                            ::singleton
-									.random_indeterministic_seed_engine
-                    )
-                ];
+			auto it = included.begin();
+			std::advance(it, index);
+			return *it;
         }
         catch
 		(
@@ -285,3 +302,4 @@ namespace
 		}
     }
 }
+

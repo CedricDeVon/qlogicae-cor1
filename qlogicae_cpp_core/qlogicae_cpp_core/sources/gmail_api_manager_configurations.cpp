@@ -9,6 +9,9 @@ namespace
 		::GmailApiManagerConfigurations() :
 			AbstractConfigurations<GmailApiManagerConfigurations>()
 	{		
+		is_feature_thread_safety_handling_enabled = 
+			true;
+
 		subject =
 			"";
 

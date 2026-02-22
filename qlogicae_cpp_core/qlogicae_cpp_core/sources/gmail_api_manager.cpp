@@ -75,14 +75,20 @@ namespace
 				mutex_lock =
 					boost::unique_lock<boost::mutex>
 					(
-						utility_handling_mutex_1
+						feature_handling_mutex_1
 					);
 			}			
 
-			curl_global_init(
-				CURL_GLOBAL_DEFAULT
+			static std::once_flag curl_init_flag;
+
+			std::call_once(
+				curl_init_flag,
+				[]()
+				{
+					curl_global_init(CURL_GLOBAL_DEFAULT);
+				}
 			);
-	
+
 			return
 				true;
         }
@@ -122,7 +128,7 @@ namespace
 				mutex_lock =
 					boost::unique_lock<boost::mutex>
 					(
-						utility_handling_mutex_1
+						feature_handling_mutex_1
 					);
 			}			
 
@@ -180,7 +186,7 @@ namespace
 				mutex_lock =
 					boost::unique_lock<boost::mutex>
 					(
-						utility_handling_mutex_1
+						feature_handling_mutex_1
 					);
 			}			
 
@@ -512,7 +518,7 @@ namespace
 				mutex_lock =
 					boost::unique_lock<boost::mutex>
 					(
-						feature_handling_mutex_1
+						feature_handling_mutex_2
 					);
 			}			
 
@@ -567,7 +573,7 @@ namespace
 				mutex_lock =
 					boost::unique_lock<boost::mutex>
 					(
-						feature_handling_mutex_1
+						feature_handling_mutex_2
 					);
 			}			
 
@@ -685,7 +691,7 @@ namespace
 				mutex_lock =
 					boost::unique_lock<boost::mutex>
 					(
-						feature_handling_mutex_1
+						feature_handling_mutex_2
 					);
 			}			
 

@@ -10,47 +10,73 @@ namespace
 			AbstractConfigurations<RestApiManagerConfigurations>
 	{
 	public:	
-		std::string base_url;
+		std::string
+			base_url;
 
-		long connect_timeout_seconds = 10;
+		long 
+			connect_timeout_seconds =
+				default_configurations
+					.connect_timeout_seconds;
 
-		long request_timeout_seconds = 30;
+		long 
+			request_timeout_seconds =
+				default_configurations
+					.request_timeout_seconds;
 
-		int max_retries = 3;
+		bool 
+			follow_redirects =
+				default_configurations
+					.follow_redirects;
 
-		long retry_initial_delay_ms = 1000;
+		bool 
+			enable_http2 =
+				default_configurations
+					.enable_http2;
 
-		bool follow_redirects = true;
+		std::vector<std::string>
+			default_headers =
+				default_configurations
+					.default_headers;
 
-		bool enable_http2 = true;
+		std::string
+			bearer_token =
+				default_configurations
+					.bearer_token;
 
-		std::vector<std::string> default_headers;
+		std::string
+			pinned_cert_file =
+				default_configurations
+					.pinned_cert_file;
 
-		std::string bearer_token;
+		std::string
+			trusted_ca_bundle_file =
+				default_configurations
+					.trusted_ca_bundle_file;
 
-		int circuit_breaker_threshold = 5;
+		bool 
+			wait_forever =
+				default_configurations
+					.wait_forever;
 
-		long circuit_breaker_cooldown_ms = 10000;
+		bool 
+			suppress_exceptions =
+				default_configurations
+					.suppress_exceptions;
 
-		std::string pinned_cert_file;
+		bool 
+			capture_body =
+				default_configurations
+					.capture_body;
 
-		std::string trusted_ca_bundle_file;
+		bool 
+			capture_headers =
+				default_configurations
+					.capture_headers;
 
-		std::function<void(const std::string&)> log_info;
-
-		std::function<void(const std::string&)> log_error;
-
-		bool wait_forever = false;
-
-		bool suppress_exceptions = false;
-
-		bool capture_body = true;
-
-		bool capture_headers = true;
-
-		bool capture_telemetry = true;
-
-		bool default_idempotent = true;
+		bool 
+			capture_telemetry =
+				default_configurations
+					.capture_telemetry;
 
 		static RestApiManagerConfigurations
 			initial_configurations;
@@ -61,50 +87,3 @@ namespace
 		RestApiManagerConfigurations();
 	};
 }
-
-/*
-
-std::string base_url;
-
-long connect_timeout_seconds = 10;
-
-long request_timeout_seconds = 30;
-
-int max_retries = 3;
-
-long retry_initial_delay_ms = 1000;
-
-bool follow_redirects = true;
-
-bool enable_http2 = true;
-
-std::vector<std::string> default_headers;
-
-std::string bearer_token;
-
-int circuit_breaker_threshold = 5;
-
-long circuit_breaker_cooldown_ms = 10000;
-
-std::string pinned_cert_file;
-
-std::string trusted_ca_bundle_file;
-
-std::function<void(const std::string&)> log_info;
-
-std::function<void(const std::string&)> log_error;
-
-bool wait_forever = false;
-
-bool suppress_exceptions = false;
-
-bool capture_body = true;
-
-bool capture_headers = true;
-
-bool capture_telemetry = true;
-
-bool default_idempotent = true;
-
-
-*/ 
