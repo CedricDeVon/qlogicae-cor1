@@ -5,137 +5,84 @@
 namespace
 	QLogicaeCppCore
 {
-	SQLiteDatabaseManager&
-        SQLiteDatabaseManager
-			::singleton =
-				SingletonManager
-					::get_singleton<SQLiteDatabaseManager>();
-
-	SQLiteDatabaseManager
-		::SQLiteDatabaseManager() :
-			AbstractClass<SQLiteDatabaseManagerConfigurations>()
-	{
-		try
-		{
-			construct();
-		}
-		catch
-		(
-			const std::exception&
-				exception
-		)
-		{
-			handle_error_outputs(
-				exception
-			);
-		}
-	}
-
-	SQLiteDatabaseManager
-		::~SQLiteDatabaseManager()
-	{
-		try
-		{
-			destruct();
-		}
-		catch
-		(
-			const std::exception&
-				exception
-		)
-		{
-			handle_error_outputs(
-				exception
-			);
-		}
-	}
-
-	bool
-		SQLiteDatabaseManager
-			::construct()
-	{
-		try
-		{
-			if
-			(
-				configurations
-					.is_runtime_execution_disabled_for_utility_handling()
+    SQLiteDatabaseManager
+		::SQLiteDatabaseManager(
+			const std::string&
+				file_path
 			)
-			{
-				return
-					false;
-			}
+    {
+        sqlite3*
+			raw_handle =
+				nullptr;
 
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_utility_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						utility_handling_mutex_1
-					);
-			}
-
-			return
-				true;
-		}
-		catch
-		(
-			const std::exception&
-				exception
-		)
-		{
-			return
-				handle_error_outputs(
-					exception
+        int
+			result =
+				sqlite3_open(
+					file_path.c_str(),
+					&raw_handle
 				);
-		}
-	}
 
-	bool
+        if (result != SQLITE_OK)
+        {
+            throw
+				SQLiteException(
+					"Failed To Open Database",
+					result,
+					result
+				);
+        }
+
+        backend =
+			std::make_shared<SQLiteBackend>(
+				raw_handle
+			);
+    }
+
+    SQLiteDatabaseManager
+		::SQLiteDatabaseManager()
+    {
+        
+    }
+
+    SQLiteStatement
 		SQLiteDatabaseManager
-			::destruct()
-	{
-		try
-		{
-			if
-			(
-				configurations
-					.is_runtime_execution_disabled_for_utility_handling()
+			::prepare(
+				const std::string&
+					sql_text
 			)
-			{
-				return
-					false;
-			}
+    {
+        return
+			SQLiteStatement(
+				backend,
+				sql_text
+			);
+    }
 
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_utility_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						utility_handling_mutex_1
-					);
-			}
+    int64_t
+		SQLiteDatabaseManager
+			::last_insert_rowid()
+    {
+        return
+			sqlite3_last_insert_rowid(
+				backend
+					->database_handle
+			);
+    }
 
-			return
-				true;
-		}
-		catch
-		(
-			const std::exception&
-				exception
-		)
-		{
-			return
-				handle_error_outputs(
-					exception
+    bool
+		SQLiteDatabaseManager
+			::enable_foreign_keys()
+    {
+        SQLiteStatement
+			pragma_statement =
+				prepare(
+					"PRAGMA foreign_keys = ON;"
 				);
-		}
-	}
-	
 
+        pragma_statement
+			.step();
+
+		return
+			true;
+    }
 }
-

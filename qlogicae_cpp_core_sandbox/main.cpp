@@ -1,23 +1,28 @@
 ﻿#include "pch.hpp"
 
-// #include "main.hpp"
+#include "main.hpp"
+
+#include "qlogicae_cpp_core/includes/enum_manager.hpp"
+#include "qlogicae_cpp_core/includes/argon2id_hash_cryptography_manager.hpp"
 
 int main(int argc, char** argv)
 {
+	// TestSubject3::get_this().execute(TestSubjects::TestSubject2);
+	QLogicaeCppCore::EnumManager manager;
+
 	bool exit_code;
 	std::cin >> exit_code;
 
 	return 0;
 }
 
-namespace QLogicaeCppCoreSandbox
+namespace QLogicaeCppCore
 {
 
 }
 
 
 /*
-
 
 class WebApi
 {

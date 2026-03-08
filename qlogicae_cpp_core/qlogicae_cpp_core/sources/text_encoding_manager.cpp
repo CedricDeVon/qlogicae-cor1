@@ -453,15 +453,15 @@ namespace
 	}
 
 	std::string
-	TextEncodingManager
-		::convert_text(
-			const std::string&
-				text,
-			const TextEncoding&
-				original_type,
-			const TextEncoding&
-				target_type
-		)
+		TextEncodingManager
+			::convert_text(
+				const std::string&
+					text,
+				const TextEncoding&
+					original_type,
+				const TextEncoding&
+					target_type
+			)
 	{
 		try
         {		
@@ -549,6 +549,123 @@ namespace
 
 			return
 				"";				
+        }		
+	}
+
+	std::string
+		TextEncodingManager
+			::convert_bytes_to_string(
+				const std::vector<std::byte>&
+					value
+			)
+	{
+		try
+        {		
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_feature_handling() ||				
+				(
+					configurations
+						.is_edge_case_enabled_for_feature_handling() &&
+					(
+						!value.size()
+					)
+				)
+			)
+			{
+				return
+					"";
+			}
+
+			boost::unique_lock<boost::mutex>
+				mutex_lock;
+			if (configurations.is_thread_safety_enabled_for_feature_handling())
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						feature_handling_mutex_1
+					);
+			}		
+
+			return
+				{
+					reinterpret_cast<const char*>(
+						value.data()),
+						value.size()
+				};
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+			handle_error_outputs(
+				exception
+			);
+
+			return
+				"";				
+        }		
+	}
+
+	std::vector<std::byte>
+		TextEncodingManager
+			::convert_string_to_bytes(
+				const std::string&
+					value
+			)
+	{
+		try
+        {		
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_feature_handling() ||				
+				(
+					configurations
+						.is_edge_case_enabled_for_feature_handling() &&
+					(
+						value.empty()
+					)
+				)
+			)
+			{
+				return
+					{};
+			}
+
+			boost::unique_lock<boost::mutex>
+				mutex_lock;
+			if (configurations.is_thread_safety_enabled_for_feature_handling())
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						feature_handling_mutex_1
+					);
+			}		
+
+			return
+				{
+					reinterpret_cast<const std::byte*>(value.data()),
+					reinterpret_cast<const std::byte*>(value.data()) + value.size()
+				};
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+			handle_error_outputs(
+				exception
+			);
+
+			return
+				{};				
         }		
 	}
 }

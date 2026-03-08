@@ -6,8 +6,8 @@ namespace
 	QLogicaeCppCore
 {
 	struct
-		SqliteDatabaseManagerConfigurations :
-			AbstractConfigurations<SqliteDatabaseManagerConfigurations>
+		SQLiteDatabaseManagerConfigurations :
+			AbstractConfigurations<SQLiteDatabaseManagerConfigurations>
 	{
 	public:		
 		std::string
@@ -15,13 +15,13 @@ namespace
 				default_configurations
 					.file_path;
 
-		static SqliteDatabaseManagerConfigurations
+		static SQLiteDatabaseManagerConfigurations
 			initial_configurations;
 
-		static SqliteDatabaseManagerConfigurations
+		static SQLiteDatabaseManagerConfigurations
 			default_configurations;
 
-		SqliteDatabaseManagerConfigurations();
+		SQLiteDatabaseManagerConfigurations();
 	};
 }
 

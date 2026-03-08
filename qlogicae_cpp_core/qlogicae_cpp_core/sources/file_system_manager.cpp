@@ -80,96 +80,6 @@ namespace
 					);
 			}
 		
-			relative_private_qlogicae_folder_path =
-				".qlogicae";
-		
-			relative_public_qlogicae_folder_path =
-				"qlogicae";
-		
-			relative_application_name_folder_path =
-				"qlogicae";
-		
-			relative_application_version_name_folder_path =
-				"v1.0.0";
-		
-			relative_application_environment_name_folder_path =
-				"development";
-		
-			relative_log_folder_path =
-				"log";
-		
-			relative_log_date_folder_path =
-				"date";
-		
-			relative_log_level_folder_path =
-				"level";
-		
-			relative_all_log_file_path =
-				"all.log";
-		
-			relative_info_log_file_path =
-				"info.log";
-		
-			relative_debug_log_file_path =
-				"debug.log";
-		
-			relative_warning_log_file_path =
-				"warning.log";
-		
-			relative_success_log_file_path =
-				"success.log";
-		
-			relative_critical_log_file_path =
-				"critical.log";
-		
-			relative_error_log_file_path =
-				"error.log";
-		
-			relative_cache_folder_path =
-				"cache";
-		
-			relative_main_folder_path =
-				"main";
-		
-			relative_assets_folder_path =
-				"assets";
-		
-			relative_documentation_folder_path =
-				"documentation";
-		
-			relative_environment_json_file_path =
-				"environment.json";
-		
-			relative_license_txt_file_path =
-				"LICENSE.txt";
-		
-			relative_application_folder_path =
-				"application";
-		
-			relative_application_icon_file_path =
-				"application.ico";
-		
-			relative_qlogicae_json_file_path =
-				"qlogicae.json";
-		
-			relative_configurations_folder_path =
-				"configurations";
-		
-			relative_development_folder_path =
-				"development";
-		
-			relative_debug_folder_path =
-				"debug";
-		
-			relative_test_folder_path =
-				"test";
-		
-			relative_release_folder_path =
-				"release";
-		
-			relative_windows_registry_software_qlogicae_folder_path =
-				"Software\\QLogicae";
-		
 			return
 				true;
         }
@@ -229,7 +139,92 @@ namespace
         }
     }
 
+	bool
+		FileSystemManager
+			::clear_file_text(
+				const std::wstring&
+					file_path
+			)
+	{
+		return
+			clear_file_text(
+				TextManager
+					::singleton
+						.convert_text<std::wstring, std::string>(
+							file_path
+						)
+			);		
+	}
 
+	bool
+		FileSystemManager
+			::clear_file_text(
+				const std::string&
+					file_path
+			)
+	{
+		try
+        {
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_feature_handling() ||				
+				(
+					configurations
+						.is_edge_case_enabled_for_feature_handling() &&
+					(
+						file_path.empty() ||
+						!std::filesystem::exists(file_path) ||
+						std::filesystem::is_directory(file_path)
+					)
+				)
+			)
+			{
+				return
+					false;
+			}
+
+			boost::unique_lock<boost::mutex>
+				mutex_lock;
+			if (configurations.is_thread_safety_enabled_for_feature_handling())
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						feature_handling_mutex_1
+					);
+			}
+
+			std::string
+				text =
+					"";
+
+			fast_io::obuf_file
+				write_file(
+					file_path
+				);
+
+			fast_io::write(
+				write_file,
+				text.begin(),
+				text.end()
+			);
+
+            return
+				true;
+        }
+        catch
+        (
+			const std::exception&
+                exception
+        )
+        {
+            return
+				handle_error_outputs(
+					exception
+				);
+        }
+	}
 
 	std::wstring
         FileSystemManager
@@ -539,6 +534,376 @@ namespace
 				
         }
     }
+
+	size_t
+		FileSystemManager
+			::get_line_count(
+				const std::wstring&
+					origin_path
+			)
+	{	
+		try
+        {		
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_feature_handling()
+			)
+			{
+				return
+					0;
+			}
+
+			boost::unique_lock<boost::mutex>
+				mutex_lock;
+			if (configurations.is_thread_safety_enabled_for_feature_handling())
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						feature_handling_mutex_1
+					);
+			}			
+
+			HANDLE file =
+			CreateFileW(
+				origin_path.c_str(),
+				GENERIC_READ,
+				FILE_SHARE_READ,
+				nullptr,
+				OPEN_EXISTING,
+				FILE_ATTRIBUTE_NORMAL,
+				nullptr
+			);
+
+			if (file == INVALID_HANDLE_VALUE)
+			{
+				return 0;
+			}
+
+			LARGE_INTEGER size{};
+			if (!GetFileSizeEx(file, &size) ||
+				size.QuadPart == 0)
+			{
+				CloseHandle(file);
+				return 0;
+			}
+
+			HANDLE mapping =
+				CreateFileMappingW(
+					file,
+					nullptr,
+					PAGE_READONLY,
+					0,
+					0,
+					nullptr
+				);
+
+			if (!mapping)
+			{
+				CloseHandle(file);
+				return 0;
+			}
+
+			const char* data =
+				static_cast<const char*>(
+					MapViewOfFile(
+						mapping,
+						FILE_MAP_READ,
+						0,
+						0,
+						0
+					)
+				);
+
+			if (!data)
+			{
+				CloseHandle(mapping);
+				CloseHandle(file);
+				return 0;
+			}
+
+			size_t count{0};
+			const char* ptr = data;
+			const char* end = data + size.QuadPart;
+
+			__m256i newline = _mm256_set1_epi8('\n');
+
+			while (ptr + 32 <= end)
+			{
+				__m256i chunk =
+					_mm256_loadu_si256(
+						reinterpret_cast<const __m256i*>(ptr)
+					);
+
+				__m256i cmp =
+					_mm256_cmpeq_epi8(chunk, newline);
+
+				unsigned mask =
+					_mm256_movemask_epi8(cmp);
+
+				count += __popcnt(mask);
+
+				ptr += 32;
+			}
+
+			while (ptr < end)
+			{
+				if (*ptr == '\n')
+				{
+					++count;
+				}
+				++ptr;
+			}
+
+			if (*(end - 1) != '\n')
+			{
+				++count;
+			}
+
+			UnmapViewOfFile(data);
+			CloseHandle(mapping);
+			CloseHandle(file);
+
+			return count;
+
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+			handle_error_outputs(
+				exception
+			);
+
+			return
+				0;
+        }
+	}
+
+	size_t
+		FileSystemManager
+			::get_column_count(
+				const std::wstring&
+					origin_path,
+				const size_t&
+					line_number
+			)
+	{
+		try
+        {		
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_feature_handling()
+			)
+			{
+				return
+					0;
+			}
+
+			boost::unique_lock<boost::mutex>
+				mutex_lock;
+			if (configurations.is_thread_safety_enabled_for_feature_handling())
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						feature_handling_mutex_1
+					);
+			}			
+	
+			if (line_number == 0)
+			{
+				return 0;
+			}
+
+			HANDLE file =
+				CreateFileW(
+					origin_path.c_str(),
+					GENERIC_READ,
+					FILE_SHARE_READ,
+					nullptr,
+					OPEN_EXISTING,
+					FILE_ATTRIBUTE_NORMAL,
+					nullptr
+				);
+
+			if (file == INVALID_HANDLE_VALUE)
+			{
+				return 0;
+			}
+
+			LARGE_INTEGER size{};
+			if (!GetFileSizeEx(file, &size) ||
+				size.QuadPart == 0)
+			{
+				CloseHandle(file);
+				return 0;
+			}
+
+			HANDLE mapping =
+				CreateFileMappingW(
+					file,
+					nullptr,
+					PAGE_READONLY,
+					0,
+					0,
+					nullptr
+				);
+
+			if (!mapping)
+			{
+				CloseHandle(file);
+				return 0;
+			}
+
+			const char* data =
+				static_cast<const char*>(
+					MapViewOfFile(
+						mapping,
+						FILE_MAP_READ,
+						0,
+						0,
+						0
+					)
+				);
+
+			if (!data)
+			{
+				CloseHandle(mapping);
+				CloseHandle(file);
+				return 0;
+			}
+
+			const char* ptr = data;
+			const char* end = data + size.QuadPart;
+
+			size_t current_line{1};
+
+			while (ptr < end && current_line < line_number)
+			{
+				if (*ptr == '\n')
+				{
+					++current_line;
+				}
+				++ptr;
+			}
+
+			if (current_line != line_number)
+			{
+				UnmapViewOfFile(data);
+				CloseHandle(mapping);
+				CloseHandle(file);
+				return 0;
+			}
+
+			size_t column_count{0};
+
+			while (ptr < end && *ptr != '\n')
+			{
+				if (*ptr != '\r')
+				{
+					++column_count;
+				}
+				++ptr;
+			}
+
+			UnmapViewOfFile(data);
+			CloseHandle(mapping);
+			CloseHandle(file);
+
+			return column_count;
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+			handle_error_outputs(
+				exception
+			);
+
+			return
+				0;
+        }
+	}
+
+	size_t
+		FileSystemManager
+			::get_character_count(
+				const std::wstring&
+					origin_path
+			)
+	{
+		try
+        {		
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_feature_handling()
+			)
+			{
+				return
+					0;
+			}
+
+			boost::unique_lock<boost::mutex>
+				mutex_lock;
+			if (configurations.is_thread_safety_enabled_for_feature_handling())
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						feature_handling_mutex_1
+					);
+			}			
+
+			HANDLE file =
+				CreateFileW(
+					origin_path.c_str(),
+					GENERIC_READ,
+					FILE_SHARE_READ,
+					nullptr,
+					OPEN_EXISTING,
+					FILE_ATTRIBUTE_NORMAL,
+					nullptr
+				);
+
+			if (file == INVALID_HANDLE_VALUE)
+			{
+				return 0;
+			}
+
+			LARGE_INTEGER size{};
+			if (!GetFileSizeEx(file, &size))
+			{
+				CloseHandle(file);
+				return 0;
+			}
+
+			CloseHandle(file);
+
+			return
+				static_cast<size_t>(size.QuadPart);
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+			handle_error_outputs(
+				exception
+			);
+
+			return
+				0;
+        }
+	}
 	
     size_t
 		FileSystemManager
@@ -2180,6 +2545,60 @@ namespace
 					);
     }
 	
+	size_t
+		FileSystemManager
+			::get_line_count(
+				const std::string&
+					origin_path
+			)
+	{
+		return
+			get_line_count(
+				TextManager
+					::singleton
+						.convert_text<std::string, std::wstring>(
+							origin_path
+						)
+			);
+	}
+
+	size_t
+		FileSystemManager
+			::get_column_count(
+				const std::string&
+					origin_path,
+				const size_t&
+					line_number
+			)
+	{
+		return
+			get_column_count(
+				TextManager
+					::singleton
+						.convert_text<std::string, std::wstring>(
+							origin_path
+						),
+				line_number
+			);
+	}
+
+	size_t
+		FileSystemManager
+			::get_character_count(
+				const std::string&
+					origin_path
+			)
+	{
+		return
+			get_character_count(
+				TextManager
+					::singleton
+						.convert_text<std::string, std::wstring>(
+							origin_path
+						)
+			);
+	}
+
 	size_t
         FileSystemManager
 			::get_file_byte_size(            

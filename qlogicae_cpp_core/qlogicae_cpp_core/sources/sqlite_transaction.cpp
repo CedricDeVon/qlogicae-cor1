@@ -7,7 +7,7 @@ namespace
 {
     SQLiteTransaction
 		::SQLiteTransaction(
-			SQLiteDatabase&
+			SQLiteDatabaseManager&
 				database_instance
 		) :
 			database(

@@ -2,6 +2,9 @@
 
 #include "framework.hpp"
 
+#define ORT_DISABLE_SCHEMA_VALIDATION 1
+#include <onnxruntime/onnxruntime_cxx_api.h>
+
 #define PCRE2_CODE_UNIT_WIDTH 8
 #include <pcre2.h>
 
@@ -50,6 +53,7 @@
 #include <absl/time/clock.h>
 #include <absl/strings/ascii.h>
 #include <absl/strings/str_cat.h>
+#include <absl/strings/str_join.h>
 #include <absl/strings/str_split.h>
 #include <absl/strings/str_replace.h>
 
@@ -57,6 +61,20 @@
 #include <folly/synchronization/MicroSpinLock.h>
 
 #include <cppcodec/base32_rfc4648.hpp>
+
+#include <toml++/toml.h>
+
+#include <pugixml.hpp>
+
+#include <rapidcsv.h>
+
+#include <rapidjson/writer.h>
+#include <rapidjson/pointer.h>
+#include <rapidjson/document.h>
+#include <rapidjson/allocators.h>
+#include <rapidjson/prettywriter.h>
+#include <rapidjson/stringbuffer.h>
+#include <rapidjson/ostreamwrapper.h>
 
 #ifdef _MSC_VER
 #pragma warning(push)
@@ -176,6 +194,7 @@
 #include <ws2tcpip.h>
 #include <shellapi.h>
 
+#include <immintrin.h>
 
 namespace QLogicaeCppCore
 {
@@ -209,6 +228,196 @@ int main()
 	Color c = get_random_color();
 	std::cout << "Random color value: " << static_cast<int>(c) << "\n";
 }
+
+
+
+
+
+
+
+relative_private_qlogicae_folder_path =
+	".qlogicae";
+		
+relative_public_qlogicae_folder_path =
+	"qlogicae";
+		
+relative_application_name_folder_path =
+	"qlogicae";
+		
+relative_application_version_name_folder_path =
+	"v1.0.0";
+		
+relative_application_environment_name_folder_path =
+	"development";
+		
+relative_log_folder_path =
+	"log";
+		
+relative_log_date_folder_path =
+	"date";
+		
+relative_log_level_folder_path =
+	"level";
+		
+relative_all_log_file_path =
+	"all.log";
+		
+relative_info_log_file_path =
+	"info.log";
+		
+relative_debug_log_file_path =
+	"debug.log";
+		
+relative_warning_log_file_path =
+	"warning.log";
+		
+relative_success_log_file_path =
+	"success.log";
+		
+relative_critical_log_file_path =
+	"critical.log";
+		
+relative_error_log_file_path =
+	"error.log";
+		
+relative_cache_folder_path =
+	"cache";
+		
+relative_main_folder_path =
+	"main";
+		
+relative_assets_folder_path =
+	"assets";
+		
+relative_documentation_folder_path =
+	"documentation";
+		
+relative_environment_json_file_path =
+	"environment.json";
+		
+relative_license_txt_file_path =
+	"LICENSE.txt";
+		
+relative_application_folder_path =
+	"application";
+		
+relative_application_icon_file_path =
+	"application.ico";
+		
+relative_qlogicae_json_file_path =
+	"qlogicae.json";
+		
+relative_configurations_folder_path =
+	"configurations";
+		
+relative_development_folder_path =
+	"development";
+		
+relative_debug_folder_path =
+	"debug";
+		
+relative_test_folder_path =
+	"test";
+		
+relative_release_folder_path =
+	"release";
+		
+
+
+std::string
+	relative_windows_registry_software_qlogicae_folder_path;
+
+relative_windows_registry_software_qlogicae_folder_path =
+	"Software\\QLogicae";
+
+std::string
+	relative_private_qlogicae_folder_path;
+
+std::string
+	relative_public_qlogicae_folder_path;
+
+std::string
+	relative_application_name_folder_path;
+
+std::string
+	relative_application_version_name_folder_path;
+
+std::string
+	relative_application_environment_name_folder_path;
+
+std::string
+	relative_log_folder_path;
+
+std::string
+	relative_log_date_folder_path;
+
+std::string
+	relative_log_level_folder_path;
+
+std::string
+	relative_all_log_file_path;
+
+std::string
+	relative_info_log_file_path;
+
+std::string
+	relative_debug_log_file_path;
+
+std::string
+	relative_warning_log_file_path;
+
+std::string
+	relative_success_log_file_path;
+
+std::string
+	relative_critical_log_file_path;
+
+std::string
+	relative_error_log_file_path;
+
+std::string
+	relative_cache_folder_path;
+
+std::string
+	relative_main_folder_path;
+
+std::string
+	relative_assets_folder_path;
+
+std::string
+	relative_documentation_folder_path;
+
+std::string
+	relative_environment_json_file_path;
+
+std::string
+	relative_license_txt_file_path;
+
+std::string
+	relative_application_folder_path;
+
+std::string
+	relative_application_icon_file_path;
+
+std::string
+	relative_qlogicae_json_file_path;
+
+std::string
+	relative_configurations_folder_path;
+
+std::string
+	relative_development_folder_path;
+
+std::string
+	relative_debug_folder_path;
+
+std::string
+	relative_test_folder_path;
+
+std::string
+	relative_release_folder_path;
+
+
 
 */
  

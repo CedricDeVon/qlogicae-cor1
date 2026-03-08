@@ -1,34 +1,24 @@
 #pragma once
 
-#include "abstract_class.hpp"
 #include "sqlite_exception.hpp"
 #include "sqlite_statement.hpp"
-#include "singleton_manager.hpp"
-#include "sqlite_database_manager_configurations.hpp"
 
 namespace
 	QLogicaeCppCore
 {
     class
-		SqliteDatabaseManager :
-			public AbstractClass<SqliteDatabaseManagerConfigurations>
+		SQLiteDatabaseManager
     {
     public:
-		std::shared_ptr<SQLiteBackend>
+        std::shared_ptr<SQLiteBackend>
 			backend;
+        
+		SQLiteDatabaseManager(
+            const std::string&
+				file_path
+        );
 
-        static SqliteDatabaseManager&
-            singleton;
-
-		SqliteDatabaseManager();
-
-		~SqliteDatabaseManager();
-
-		bool
-			construct();
-
-		bool
-			destruct();
+		SQLiteDatabaseManager();
 
         bool
 			enable_foreign_keys();
@@ -37,10 +27,9 @@ namespace
 			last_insert_rowid();
 
         SQLiteStatement
-			setup(
+			prepare(
 				const std::string&
 					sql_text
 			);
     };
 }
-

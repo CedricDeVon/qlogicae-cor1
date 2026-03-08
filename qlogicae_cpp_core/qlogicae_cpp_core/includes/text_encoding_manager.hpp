@@ -101,6 +101,18 @@ namespace
 
 		TextEncoding
 			convert_string_to_enum();
-    };    
-}
 
+		// Unit Testing Required
+		std::string
+			convert_bytes_to_string(
+				const std::vector<std::byte>&
+					value
+			);
+
+		std::vector<std::byte>
+			convert_string_to_bytes(
+				const std::string&
+					value
+			);
+    };
+}

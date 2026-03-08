@@ -21,17 +21,27 @@ namespace
 
 		RandomStringGenerationManager();
 
-		template <typename Type> Type
+		template <typename OutputType = std::string, typename ExcludedType = char> OutputType
 			generate_string(
 				const CharacterDomain&
 					character_domain,
 				const size_t&
 					length,
-				const std::unordered_set<Type>&
+				const std::unordered_set<ExcludedType>&
 					excluded
 			);
 
-		template <typename Type> Type
+		template <typename OutputType = std::string, typename ExcludedType = char> OutputType
+			generate_string(
+				const OutputType&
+					character_domain,
+				const size_t&
+					length,
+				const std::unordered_set<ExcludedType>&
+					excluded
+			);
+
+		template <typename OutputType = std::string, typename ExcludedType = char> OutputType
 			generate_string(
 				const CharacterDomain&
 					character_domain,
@@ -39,38 +49,38 @@ namespace
 					length
 			);
 
-		template <typename Type> Type
+		template <typename OutputType = std::string, typename ExcludedType = char> OutputType
 			generate_string(
 				const CharacterDomain&
 					character_domain
 			);		
 
-		template <typename Type> Type
+		template <typename OutputType = std::string, typename ExcludedType = char> OutputType
 			generate_string(
-				const Type&
+				const OutputType&
 					character_domain,
 				const size_t&
 					length
 			);		
 
-		template <typename Type> Type
+		template <typename OutputType = std::string, typename ExcludedType = char> OutputType
 			generate_string(
-				const Type&
+				const OutputType&
 					character_domain
 			);
 
-		template <typename Type> Type
+		template <typename OutputType = std::string, typename ExcludedType = char> OutputType
 			generate_string();		
 	};
 
-	template <typename Type> Type
+	template <typename OutputType, typename ExcludedType> OutputType
 		RandomStringGenerationManager
 			::generate_string(
 				const CharacterDomain&
 					character_domain,
 				const size_t&
 					length,
-				const std::unordered_set<Type>&
+				const std::unordered_set<ExcludedType>&
 					excluded
 			)
 	{
@@ -91,7 +101,7 @@ namespace
 			)
             {
                 return
-					Type {};
+					OutputType {};
             }
 
             boost::unique_lock<boost::mutex> mutex_lock;
@@ -105,104 +115,37 @@ namespace
                     );
             }
 
-			Type
-				result;
+			OutputType result;
+			result.reserve(length);
 
-			result.reserve
-			(
-				length
-			);
+			const std::string domain =
+				CharacterDomainManager::singleton.get_value(character_domain);
 
-			const std::string
-				domain =
-					CharacterDomainManager
-						::singleton
-							.get_value
-							(
-								character_domain
-							);
+			std::vector<typename OutputType::value_type> filtered;
+			filtered.reserve(domain.size());
 
-			std::vector<Type>
-				filtered;
-
-			filtered.reserve
-			(
-				domain.size()
-			);
-
-			for
-			(
-				const char
-					character :
-						domain
-			)
+			for (const char c : domain)
 			{
-				const Type
-					converted =
-						static_cast<Type>
-						(
-							character
-						);
-
-				if
-				(
-					excluded
-						.find
-						(
-							converted
-						)
-					==
-					excluded
-						.end()
-				)
+				auto converted = static_cast<typename OutputType::value_type>(c);
+				if (excluded.find(converted) == excluded.end())
 				{
-					filtered.push_back
-					(
-						converted
-					);
+					filtered.push_back(converted);
 				}
 			}
 
-			if
-			(
-				filtered
-					.empty()
-			)
+			if (filtered.empty())
 			{
-				return
-					static_cast<Type>(0);
+				return OutputType{};
 			}
 
-			std::uniform_int_distribution<std::size_t>
-				distribution
-				(
-					0,
-					filtered.size() - 1
-				);
-
-			for
-			(
-				size_t index = 0;
-				index < length;
-				++index
-			)
-			{				
-				result.push_back
-				(
-					filtered
-					[
-						distribution
-						(
-							RandomSeedGenerationManager
-								::singleton
-									.random_indeterministic_seed_engine
-						)
-					]
-				);
+			std::uniform_int_distribution<std::size_t> distribution(0, filtered.size() - 1);
+			for (size_t i = 0; i < length; ++i)
+			{
+				result.push_back(filtered[distribution(RandomSeedGenerationManager
+					::singleton.random_indeterministic_seed_engine)]);
 			}
 
-			return
-				result;
+			return result;
         }
         catch
         (
@@ -211,54 +154,21 @@ namespace
         )
         {			
 			return
-				handle_error_outputs<Type>(
+				handle_error_outputs<OutputType>(
 					exception
 				);
         }
 	}
 
-	template <typename Type> Type
+	template <typename OutputType, typename ExcludedType> OutputType
 		RandomStringGenerationManager
 			::generate_string(
-				const CharacterDomain&
+				const OutputType&
 					character_domain,
 				const size_t&
-					length
-			)
-	{
-		return
-			generate_string<Type>
-			(
-				character_domain,
-				length,
-				{}
-			);
-	}
-
-
-	template <typename Type> Type
-		RandomStringGenerationManager
-			::generate_string(
-				const CharacterDomain&
-					character_domain
-			)
-	{
-		return
-			generate_string<Type>
-			(
-				character_domain,
-				configurations
-					.length
-			);
-	}
-
-	template <typename Type> Type
-		RandomStringGenerationManager
-			::generate_string(
-				const Type&
-					character_domain,
-				const size_t&
-					length
+					length,
+				const std::unordered_set<ExcludedType>&
+					excluded
 			)
 	{
 		try
@@ -277,7 +187,7 @@ namespace
 			)
             {
                 return
-					Type {};
+					OutputType {};
             }
 
             boost::unique_lock<boost::mutex> mutex_lock;
@@ -291,45 +201,34 @@ namespace
                     );
             }
 
-			Type
-				result;
+			OutputType result;
+			result.reserve(length);
 
-			result.reserve
-			(
-				length
-			);
+			std::vector<typename OutputType::value_type> filtered;
+			filtered.reserve(character_domain.size());
 
-
-			std::uniform_int_distribution<std::size_t>
-				distribution
-				(
-					0,
-					length - 1
-				);
-
-			for
-			(
-				size_t index = 0;
-				index < length;
-				++index
-			)
+			for (const char c : character_domain)
 			{
-				result.push_back
-				(
-					character_domain
-					[
-						distribution
-						(
-							RandomSeedGenerationManager
-								::singleton
-									.random_indeterministic_seed_engine
-						)
-					]
-				);
+				auto converted = static_cast<typename OutputType::value_type>(c);
+				if (excluded.find(converted) == excluded.end())
+				{
+					filtered.push_back(converted);
+				}
 			}
 
-			return
-				result;
+			if (filtered.empty())
+			{
+				return OutputType{};
+			}
+
+			std::uniform_int_distribution<std::size_t> distribution(0, filtered.size() - 1);
+			for (size_t i = 0; i < length; ++i)
+			{
+				result.push_back(filtered[distribution(RandomSeedGenerationManager
+					::singleton.random_indeterministic_seed_engine)]);
+			}
+
+			return result;
         }
         catch
         (
@@ -338,39 +237,95 @@ namespace
         )
         {			
 			return
-				handle_error_outputs<Type>(
+				handle_error_outputs<OutputType>(
 					exception
 				);
         }
 	}
 
-	template <typename Type> Type
+	template <typename OutputType, typename ExcludedType> OutputType
 		RandomStringGenerationManager
 			::generate_string(
-				const Type&
+				const CharacterDomain&
+					character_domain,
+				const size_t&
+					length
+			)
+	{
+		return
+			generate_string<OutputType, ExcludedType>
+			(
+				character_domain,
+				length,
+				std::unordered_set<ExcludedType> {}
+			);
+	}
+
+
+	template <typename OutputType, typename ExcludedType> OutputType
+		RandomStringGenerationManager
+			::generate_string(
+				const CharacterDomain&
 					character_domain
 			)
 	{
 		return
-			generate_string<Type>
+			generate_string<OutputType, ExcludedType>
 			(
 				character_domain,
 				configurations
-					.length
+					.length,
+				std::unordered_set<ExcludedType> {}
 			);
 	}
 
-	template <typename Type> Type
+	template <typename OutputType, typename ExcludedType> OutputType
+		RandomStringGenerationManager
+			::generate_string(
+				const OutputType&
+					character_domain,
+				const size_t&
+					length
+			)
+	{
+		return
+			generate_string<OutputType, ExcludedType>
+			(
+				character_domain,
+				length,
+				std::unordered_set<ExcludedType> {}
+			);
+	}
+
+	template <typename OutputType, typename ExcludedType> OutputType
+		RandomStringGenerationManager
+			::generate_string(
+				const OutputType&
+					character_domain
+			)
+	{
+		return
+			generate_string<OutputType, ExcludedType>
+			(
+				character_domain,
+				configurations
+					.length,
+				std::unordered_set<ExcludedType> {}
+			);
+	}
+
+	template <typename OutputType, typename ExcludedType> OutputType
 		RandomStringGenerationManager
 			::generate_string()
 	{
 		return
-			generate_string<Type>
+			generate_string<OutputType, ExcludedType>
 			(
 				configurations
 					.character_domain,
 				configurations
-					.length
+					.length,
+				std::unordered_set<ExcludedType> {}
 			);
 	}
 }

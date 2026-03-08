@@ -15,13 +15,13 @@ namespace
 		boost::mutex
 			feature_handling_mutex_2;
 
-		static thread_local std::mt19937
+		std::mt19937
 			random_indeterministic_seed_engine;
 
-		static thread_local std::mt19937
+		std::mt19937
 			random_deterministic_seed_engine;
 
-		static thread_local std::mt19937
+		std::mt19937
 			random_cryptography_seed_engine;
 
 		static RandomSeedGenerationManager&

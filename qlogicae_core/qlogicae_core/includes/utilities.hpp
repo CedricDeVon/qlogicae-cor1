@@ -1325,7 +1325,7 @@ namespace QLogicaeCore
         const std::string RELATIVE_QLOGICAE_WINDOWS_REGISTRY_SUB_PATH =
             "Software\\QLogicae";
 
-
+		
         std::string FULL_EXECUTABLE_FOLDER_PATH;
 
         std::string FULL_EXECUTED_FOLDER_PATH;

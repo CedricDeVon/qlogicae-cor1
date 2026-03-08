@@ -5,22 +5,22 @@
 namespace
 	QLogicaeCppCore
 {
-	SqliteDatabaseManagerConfigurations
-		::SqliteDatabaseManagerConfigurations() :
-			AbstractConfigurations<SqliteDatabaseManagerConfigurations>()
+	SQLiteDatabaseManagerConfigurations
+		::SQLiteDatabaseManagerConfigurations() :
+			AbstractConfigurations<SQLiteDatabaseManagerConfigurations>()
 	{
 		file_path =
 			"";
 	}
 
-	SqliteDatabaseManagerConfigurations
-		SqliteDatabaseManagerConfigurations
+	SQLiteDatabaseManagerConfigurations
+		SQLiteDatabaseManagerConfigurations
 			::initial_configurations;
 
-	SqliteDatabaseManagerConfigurations
-		SqliteDatabaseManagerConfigurations
+	SQLiteDatabaseManagerConfigurations
+		SQLiteDatabaseManagerConfigurations
 			::default_configurations =
-				SqliteDatabaseManagerConfigurations
+				SQLiteDatabaseManagerConfigurations
 					::initial_configurations;
 }
 

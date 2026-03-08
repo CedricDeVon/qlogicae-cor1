@@ -1,6 +1,6 @@
 #pragma once
 
-#include "sqlite_database.hpp"
+#include "sqlite_database_manager.hpp"
 
 namespace
 	QLogicaeCppCore
@@ -12,11 +12,11 @@ namespace
         bool
 			committed;
         
-        SQLiteDatabase&
+        SQLiteDatabaseManager&
 			database;
 
         SQLiteTransaction(
-            SQLiteDatabase&
+            SQLiteDatabaseManager&
 				database_instance
         );
         

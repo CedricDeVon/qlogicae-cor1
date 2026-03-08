@@ -11,7 +11,7 @@ namespace
 	{
 		character_domain =
 			CharacterDomain
-				::ASCII;
+				::ASCII_PRINTABLE;
 
 		length =
 			32;

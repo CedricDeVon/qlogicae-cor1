@@ -4,19 +4,7 @@
 
 namespace
 	QLogicaeCppCore
-{	
-	thread_local std::mt19937
-		RandomSeedGenerationManager
-			::random_indeterministic_seed_engine;
-
-	thread_local std::mt19937
-		RandomSeedGenerationManager
-			::random_deterministic_seed_engine;
-
-	thread_local std::mt19937
-		RandomSeedGenerationManager
-			::random_cryptography_seed_engine;
-
+{			
 	RandomSeedGenerationManager&
 		RandomSeedGenerationManager
 			::singleton =
@@ -90,6 +78,12 @@ namespace
 						utility_handling_mutex_1
 					);
 			}
+
+			setup_indeterministic_seed();
+			setup_deterministic_seed(
+				mix_entropy()
+			);
+			setup_cryptography_seed();
 
 			return
 				!(sodium_init() < 0);

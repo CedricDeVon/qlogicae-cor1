@@ -104,4 +104,7 @@
     <None Include="model.onnx" />
     <None Include="model.py" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="notes.txt" />
+  </ItemGroup>
 </Project>
