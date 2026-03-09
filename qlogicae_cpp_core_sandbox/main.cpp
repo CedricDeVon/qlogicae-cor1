@@ -371,7 +371,7 @@ public:
 		init(config);
 	}
 
-	template<typename T>
+	template<typename T> //
 	std::unordered_map<std::string, std::span<const T>>
 		infer_numeric(const std::unordered_map<std::string,
 			std::vector<std::vector<T>>>& inputs)
@@ -403,7 +403,7 @@ public:
 	}
 
 private:
-	template<typename T>
+	template<typename T> //
 	void prepare_numeric_inputs(
 		const std::unordered_map<std::string, std::vector<std::vector<T>>>& inputs)
 	{
@@ -456,7 +456,7 @@ private:
 	}
 
 
-	void prepare_string_inputs(
+	void prepare_string_inputs( //
 		const std::unordered_map<std::string, std::vector<std::vector<std::string>>>& inputs)
 	{
 		input_tensors_.clear();
@@ -496,7 +496,7 @@ private:
 		}
 	}
 
-	void run_session()
+	void run_session() //
 	{
 		output_tensors_ = session_.Run(
 			Ort::RunOptions{},
@@ -508,7 +508,7 @@ private:
 		);
 	}
 
-	template<typename T>
+	template<typename T> //
 	std::unordered_map<std::string, std::span<const T>>
 		collect_numeric_outputs()
 	{

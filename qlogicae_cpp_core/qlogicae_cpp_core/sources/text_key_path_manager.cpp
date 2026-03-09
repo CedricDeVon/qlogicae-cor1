@@ -39,8 +39,7 @@ namespace
 					configurations
 						.is_edge_case_enabled_for_feature_handling() &&
 					(
-						key_path.empty() ||
-						delimeter.empty()
+						key_path.empty()
 					)
 				)
 			)
@@ -61,10 +60,12 @@ namespace
 			}		
 
 			return
-				absl::StrSplit(
-					key_path,
-					delimeter
-				);
+				(delimeter != "") ?
+					absl::StrSplit(
+						key_path,
+						delimeter
+					) :
+					std::vector<std::string> { key_path };
         }
         catch
         (

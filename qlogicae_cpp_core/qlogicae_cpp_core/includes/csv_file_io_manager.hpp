@@ -480,10 +480,6 @@ namespace
 			remove_row(				
 				const size_t&
 					row_index
-			);		
+			);
     };
 }
-
-/*
-
-*/

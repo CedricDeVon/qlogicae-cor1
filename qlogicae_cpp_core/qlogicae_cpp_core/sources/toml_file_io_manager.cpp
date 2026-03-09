@@ -42,6 +42,7 @@ namespace
 					(
 						file_path.empty() ||
 						!std::filesystem::exists(file_path) ||
+						std::filesystem::is_empty(file_path) ||
 						std::filesystem::is_directory(file_path) ||
 						!key_path.size()
 					)
@@ -116,6 +117,7 @@ namespace
 					(
 						file_path.empty() ||
 						!std::filesystem::exists(file_path) ||
+						std::filesystem::is_empty(file_path) ||
 						std::filesystem::is_directory(file_path) ||
 						!key_path.size()
 					)
@@ -156,6 +158,9 @@ namespace
 
 			if (auto tbl = node->as_table())
 			{
+				if (!tbl->contains(key_path.back()))
+					return false;
+
 				tbl->erase(key_path.back());
 				return save_toml_table(file_path, doc);
 			}
@@ -174,6 +179,22 @@ namespace
 					exception
 				);
         }
+	}
+
+	bool
+		TomlFileIoManager
+			::save_toml_table(
+				const std::string&
+					file_path,
+				const toml::table&
+					doc
+			)
+	{
+		std::ofstream ofs(file_path, std::ios::trunc);
+		if (!ofs) return false;
+		ofs << doc;
+
+		return true;
 	}
 
 	bool
@@ -204,21 +225,5 @@ namespace
 					.file_path,
 				key_path
 			);
-	}
-
-	bool
-		TomlFileIoManager
-			::save_toml_table(
-				const std::string&
-					file_path,
-				const toml::table&
-					doc
-			)
-	{
-		std::ofstream ofs(file_path, std::ios::trunc);
-		if (!ofs) return false;
-		ofs << doc;
-
-		return true;
 	}
 }

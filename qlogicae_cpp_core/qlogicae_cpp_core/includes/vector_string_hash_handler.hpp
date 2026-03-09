@@ -29,6 +29,16 @@ namespace
 
 			return
 				seed;
+		}			
+	};
+
+	struct
+		VectorStringEqualHandler
+	{
+		bool operator()(const std::vector<std::string>& a,
+			const std::vector<std::string>& b) const
+		{
+			return a == b;
 		}
 	};
 }

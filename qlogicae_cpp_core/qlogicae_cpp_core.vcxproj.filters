@@ -636,6 +636,15 @@
     <ClInclude Include="qlogicae_cpp_core\includes\json.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="qlogicae_cpp_core\includes\json_key_hash_handler.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae_cpp_core\includes\key_index_hash_handler.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae_cpp_core\includes\json_key_index_hash_handler.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -1254,6 +1263,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="qlogicae_cpp_core\sources\json.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae_cpp_core\sources\key_index_hash_handler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae_cpp_core\sources\json_key_index_hash_handler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

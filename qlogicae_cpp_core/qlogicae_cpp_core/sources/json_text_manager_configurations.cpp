@@ -9,7 +9,7 @@ namespace
 		::JsonTextManagerConfigurations() :
 			AbstractConfigurations<JsonTextManagerConfigurations>()
 	{
-		file_path =
+		json_text =
 			"";
 	}
 

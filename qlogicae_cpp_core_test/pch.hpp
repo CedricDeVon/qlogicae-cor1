@@ -2,6 +2,9 @@
 
 #include <gtest/gtest.h>
 
+#define ORT_DISABLE_SCHEMA_VALIDATION 1
+#include <onnxruntime/onnxruntime_cxx_api.h>
+
 #define PCRE2_CODE_UNIT_WIDTH 8
 #include <pcre2.h>
 
@@ -50,6 +53,7 @@
 #include <absl/time/clock.h>
 #include <absl/strings/ascii.h>
 #include <absl/strings/str_cat.h>
+#include <absl/strings/str_join.h>
 #include <absl/strings/str_split.h>
 #include <absl/strings/str_replace.h>
 
@@ -57,6 +61,20 @@
 #include <folly/synchronization/MicroSpinLock.h>
 
 #include <cppcodec/base32_rfc4648.hpp>
+
+#include <toml++/toml.h>
+
+#include <pugixml.hpp>
+
+#include <rapidcsv.h>
+
+#include <rapidjson/writer.h>
+#include <rapidjson/pointer.h>
+#include <rapidjson/document.h>
+#include <rapidjson/allocators.h>
+#include <rapidjson/prettywriter.h>
+#include <rapidjson/stringbuffer.h>
+#include <rapidjson/ostreamwrapper.h>
 
 #ifdef _MSC_VER
 #pragma warning(push)
@@ -175,6 +193,8 @@
 #include <winsock2.h>
 #include <ws2tcpip.h>
 #include <shellapi.h>
+
+#include <immintrin.h>
 
 #include "qlogicae_cpp_core/includes/abstract_class.hpp"
 #include "qlogicae_cpp_core/includes/aes256_cipher_cryptography_manager.hpp"

@@ -195,8 +195,10 @@
     <ClCompile Include="qlogicae_cpp_core\sources\excel_file_io_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\excel_file_io_manager_configurations.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\json.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\json_key_index_hash_handler.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\json_text_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\json_text_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\key_index_hash_handler.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\sqlite_backend.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\sqlite_database_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\sqlite_database_manager_configurations.cpp" />
@@ -246,6 +248,8 @@
     <ClInclude Include="qlogicae_cpp_core\includes\excel_file_io_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\excel_file_io_manager_configurations.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\json.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\json_key_hash_handler.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\json_key_index_hash_handler.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\json_text_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\json_text_manager_configurations.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\sqlite_backend.hpp" />
@@ -419,6 +423,7 @@
     <ClInclude Include="qlogicae_cpp_core\includes\value_enum_key_delete_handler.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\value_extractor_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\value_extractor_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\key_index_hash_handler.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\vector_string_hash_handler.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\windows_environment_variable.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\windows_environment_variable_enum_manager.hpp" />

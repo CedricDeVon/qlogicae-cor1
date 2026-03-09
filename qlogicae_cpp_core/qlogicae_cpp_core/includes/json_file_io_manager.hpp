@@ -2,38 +2,13 @@
 
 #include "abstract_class.hpp"
 #include "singleton_manager.hpp"
+#include "key_index_hash_handler.hpp"
+#include "json_key_index_hash_handler.hpp"
 #include "json_file_io_manager_configurations.hpp"
 
 namespace
 	QLogicaeCppCore
 {
-	struct VariantHash
-	{
-		size_t operator()(const std::variant<std::string, size_t>& v) const {
-			return std::visit([](auto&& value) {
-				using T = std::decay_t<decltype(value)>;
-				if constexpr (std::is_same_v<T, std::string>)
-					return std::hash<std::string>{}(value);
-				else
-					return std::hash<size_t>{}(value);
-			}, v);
-		}
-	};
-
-	struct JsonKeyHash
-	{
-		size_t operator()(const std::vector<std::variant<std::string, size_t>>& vec) const
-		{
-			size_t seed = 0;
-			for (const auto& elem : vec) {
-				seed ^= std::visit([](auto&& val) {
-					return std::hash<std::decay_t<decltype(val)>>{}(val);
-					}, elem) + 0x9e3779b9 + (seed << 6) + (seed >> 2);
-			}
-			return seed;
-		}
-	};
-
     class
 		JsonFileIoManager :
 			public AbstractClass<JsonFileIoManagerConfigurations>
@@ -383,17 +358,17 @@ namespace
 					key_path
 			);
 
-		template<typename Type> std::unordered_map<std::vector<std::variant<std::string, size_t>>, bool, JsonKeyHash>
+		template<typename Type> std::unordered_map<std::vector<std::variant<std::string, size_t>>, bool, JsonKeyIndexHashHandler>
 			set_values_batch(
 				const std::string&
 					file_path,
-				const std::unordered_map<std::vector<std::variant<std::string, size_t>>, Type, JsonKeyHash>&
+				const std::unordered_map<std::vector<std::variant<std::string, size_t>>, Type, JsonKeyIndexHashHandler>&
 					key_value_paths,
 				const bool&
 					append_mode
 			);
 
-		std::unordered_map<std::vector<std::variant<std::string, size_t>>, bool, JsonKeyHash>
+		std::unordered_map<std::vector<std::variant<std::string, size_t>>, bool, JsonKeyIndexHashHandler>
 			is_key_path_valid(
 				const std::string&
 					file_path,
@@ -401,7 +376,7 @@ namespace
 					key_paths
 			);
 
-		std::unordered_map<std::vector<std::variant<std::string, size_t>>, std::string, JsonKeyHash>
+		std::unordered_map<std::vector<std::variant<std::string, size_t>>, std::string, JsonKeyIndexHashHandler>
 			get_raw_json(
 				const std::string&
 					file_path,
@@ -409,7 +384,7 @@ namespace
 					key_paths
 			);
 
-		std::unordered_map<std::vector<std::variant<std::string, size_t>>, std::string, JsonKeyHash>
+		std::unordered_map<std::vector<std::variant<std::string, size_t>>, std::string, JsonKeyIndexHashHandler>
 			get_string(
 				const std::string&
 					file_path,
@@ -417,7 +392,7 @@ namespace
 					key_paths
 			);
 
-		std::unordered_map<std::vector<std::variant<std::string, size_t>>, double, JsonKeyHash>
+		std::unordered_map<std::vector<std::variant<std::string, size_t>>, double, JsonKeyIndexHashHandler>
 			get_double(
 				const std::string&
 					file_path,
@@ -425,7 +400,7 @@ namespace
 					key_paths
 			);
 
-		std::unordered_map<std::vector<std::variant<std::string, size_t>>, bool, JsonKeyHash>
+		std::unordered_map<std::vector<std::variant<std::string, size_t>>, bool, JsonKeyIndexHashHandler>
 			get_boolean(
 				const std::string&
 					file_path,
@@ -433,7 +408,7 @@ namespace
 					key_paths
 			);
 
-		std::unordered_map<std::vector<std::variant<std::string, size_t>>, nullptr_t, JsonKeyHash>
+		std::unordered_map<std::vector<std::variant<std::string, size_t>>, nullptr_t, JsonKeyIndexHashHandler>
 			get_null(
 				const std::string&
 					file_path,
@@ -441,87 +416,87 @@ namespace
 					key_paths
 			);
 
-		std::unordered_map<std::vector<std::variant<std::string, size_t>>, bool, JsonKeyHash>
+		std::unordered_map<std::vector<std::variant<std::string, size_t>>, bool, JsonKeyIndexHashHandler>
 			set_raw_json(
 				const std::string&
 					file_path,
-				const std::unordered_map<std::vector<std::variant<std::string, size_t>>, std::string, JsonKeyHash>&
+				const std::unordered_map<std::vector<std::variant<std::string, size_t>>, std::string, JsonKeyIndexHashHandler>&
 					key_value_paths
 			);
 
-		std::unordered_map<std::vector<std::variant<std::string, size_t>>, bool, JsonKeyHash>
+		std::unordered_map<std::vector<std::variant<std::string, size_t>>, bool, JsonKeyIndexHashHandler>
 			set_string(
 				const std::string&
 					file_path,
-				const std::unordered_map<std::vector<std::variant<std::string, size_t>>, std::string, JsonKeyHash>&
+				const std::unordered_map<std::vector<std::variant<std::string, size_t>>, std::string, JsonKeyIndexHashHandler>&
 					key_value_paths
 			);
 
-		std::unordered_map<std::vector<std::variant<std::string, size_t>>, bool, JsonKeyHash>
+		std::unordered_map<std::vector<std::variant<std::string, size_t>>, bool, JsonKeyIndexHashHandler>
 			set_double(
 				const std::string&
 					file_path,
-				const std::unordered_map<std::vector<std::variant<std::string, size_t>>, double, JsonKeyHash>&
+				const std::unordered_map<std::vector<std::variant<std::string, size_t>>, double, JsonKeyIndexHashHandler>&
 					key_value_paths
 			);
 
-		std::unordered_map<std::vector<std::variant<std::string, size_t>>, bool, JsonKeyHash>
+		std::unordered_map<std::vector<std::variant<std::string, size_t>>, bool, JsonKeyIndexHashHandler>
 			set_boolean(
 				const std::string&
 					file_path,
-				const std::unordered_map<std::vector<std::variant<std::string, size_t>>, bool, JsonKeyHash>&
+				const std::unordered_map<std::vector<std::variant<std::string, size_t>>, bool, JsonKeyIndexHashHandler>&
 					key_value_paths
 			);
 
-		std::unordered_map<std::vector<std::variant<std::string, size_t>>, bool, JsonKeyHash>
+		std::unordered_map<std::vector<std::variant<std::string, size_t>>, bool, JsonKeyIndexHashHandler>
 			set_null(
 				const std::string&
 					file_path,
-				const std::unordered_map<std::vector<std::variant<std::string, size_t>>, nullptr_t, JsonKeyHash>&
+				const std::unordered_map<std::vector<std::variant<std::string, size_t>>, nullptr_t, JsonKeyIndexHashHandler>&
 					key_value_paths
 			);
 
-		std::unordered_map<std::vector<std::variant<std::string, size_t>>, bool, JsonKeyHash>
+		std::unordered_map<std::vector<std::variant<std::string, size_t>>, bool, JsonKeyIndexHashHandler>
 			append_raw_json(
 				const std::string&
 					file_path,
-				const std::unordered_map<std::vector<std::variant<std::string, size_t>>, std::string, JsonKeyHash>&
+				const std::unordered_map<std::vector<std::variant<std::string, size_t>>, std::string, JsonKeyIndexHashHandler>&
 					key_value_paths
 			);
 
-		std::unordered_map<std::vector<std::variant<std::string, size_t>>, bool, JsonKeyHash>
+		std::unordered_map<std::vector<std::variant<std::string, size_t>>, bool, JsonKeyIndexHashHandler>
 			append_string(
 				const std::string&
 					file_path,
-				const std::unordered_map<std::vector<std::variant<std::string, size_t>>, std::string, JsonKeyHash>&
+				const std::unordered_map<std::vector<std::variant<std::string, size_t>>, std::string, JsonKeyIndexHashHandler>&
 					key_value_paths
 			);
 
-		std::unordered_map<std::vector<std::variant<std::string, size_t>>, bool, JsonKeyHash>
+		std::unordered_map<std::vector<std::variant<std::string, size_t>>, bool, JsonKeyIndexHashHandler>
 			append_double(
 				const std::string&
 					file_path,
-				const std::unordered_map<std::vector<std::variant<std::string, size_t>>, double, JsonKeyHash>&
+				const std::unordered_map<std::vector<std::variant<std::string, size_t>>, double, JsonKeyIndexHashHandler>&
 					key_value_paths
 			);
 
-		std::unordered_map<std::vector<std::variant<std::string, size_t>>, bool, JsonKeyHash>
+		std::unordered_map<std::vector<std::variant<std::string, size_t>>, bool, JsonKeyIndexHashHandler>
 			append_boolean(
 				const std::string&
 					file_path,
-				const std::unordered_map<std::vector<std::variant<std::string, size_t>>, bool, JsonKeyHash>&
+				const std::unordered_map<std::vector<std::variant<std::string, size_t>>, bool, JsonKeyIndexHashHandler>&
 					key_value_paths
 			);
 
-		std::unordered_map<std::vector<std::variant<std::string, size_t>>, bool, JsonKeyHash>
+		std::unordered_map<std::vector<std::variant<std::string, size_t>>, bool, JsonKeyIndexHashHandler>
 			append_null(
 				const std::string&
 					file_path,
-				const std::unordered_map<std::vector<std::variant<std::string, size_t>>, nullptr_t, JsonKeyHash>&
+				const std::unordered_map<std::vector<std::variant<std::string, size_t>>, nullptr_t, JsonKeyIndexHashHandler>&
 					key_value_paths
 			);
 
-		std::unordered_map<std::vector<std::variant<std::string, size_t>>, bool, JsonKeyHash>
+		std::unordered_map<std::vector<std::variant<std::string, size_t>>, bool, JsonKeyIndexHashHandler>
 			remove_value(
 				const std::string&
 					file_path,
@@ -529,103 +504,103 @@ namespace
 					key_paths
 			);
 		
-		std::unordered_map<std::vector<std::variant<std::string, size_t>>, bool, JsonKeyHash>
+		std::unordered_map<std::vector<std::variant<std::string, size_t>>, bool, JsonKeyIndexHashHandler>
 			is_key_path_valid(				
 				const std::vector<std::vector<std::variant<std::string, size_t>>>&
 					key_paths
 			);
 
-		std::unordered_map<std::vector<std::variant<std::string, size_t>>, std::string, JsonKeyHash>
+		std::unordered_map<std::vector<std::variant<std::string, size_t>>, std::string, JsonKeyIndexHashHandler>
 			get_raw_json(				
 				const std::vector<std::vector<std::variant<std::string, size_t>>>&
 					key_paths
 			);
 
-		std::unordered_map<std::vector<std::variant<std::string, size_t>>, std::string, JsonKeyHash>
+		std::unordered_map<std::vector<std::variant<std::string, size_t>>, std::string, JsonKeyIndexHashHandler>
 			get_string(				
 				const std::vector<std::vector<std::variant<std::string, size_t>>>&
 					key_paths
 			);
 
-		std::unordered_map<std::vector<std::variant<std::string, size_t>>, double, JsonKeyHash>
+		std::unordered_map<std::vector<std::variant<std::string, size_t>>, double, JsonKeyIndexHashHandler>
 			get_double(				
 				const std::vector<std::vector<std::variant<std::string, size_t>>>&
 					key_paths
 			);
 
-		std::unordered_map<std::vector<std::variant<std::string, size_t>>, bool, JsonKeyHash>
+		std::unordered_map<std::vector<std::variant<std::string, size_t>>, bool, JsonKeyIndexHashHandler>
 			get_boolean(				
 				const std::vector<std::vector<std::variant<std::string, size_t>>>&
 					key_paths
 			);
 
-		std::unordered_map<std::vector<std::variant<std::string, size_t>>, nullptr_t, JsonKeyHash>
+		std::unordered_map<std::vector<std::variant<std::string, size_t>>, nullptr_t, JsonKeyIndexHashHandler>
 			get_null(				
 				const std::vector<std::vector<std::variant<std::string, size_t>>>&
 					key_paths
 			);
 
-		std::unordered_map<std::vector<std::variant<std::string, size_t>>, bool, JsonKeyHash>
+		std::unordered_map<std::vector<std::variant<std::string, size_t>>, bool, JsonKeyIndexHashHandler>
 			set_raw_json(				
-				const std::unordered_map<std::vector<std::variant<std::string, size_t>>, std::string, JsonKeyHash>&
+				const std::unordered_map<std::vector<std::variant<std::string, size_t>>, std::string, JsonKeyIndexHashHandler>&
 					key_value_paths
 			);
 
-		std::unordered_map<std::vector<std::variant<std::string, size_t>>, bool, JsonKeyHash>
+		std::unordered_map<std::vector<std::variant<std::string, size_t>>, bool, JsonKeyIndexHashHandler>
 			set_string(				
-				const std::unordered_map<std::vector<std::variant<std::string, size_t>>, std::string, JsonKeyHash>&
+				const std::unordered_map<std::vector<std::variant<std::string, size_t>>, std::string, JsonKeyIndexHashHandler>&
 					key_value_paths
 			);
 
-		std::unordered_map<std::vector<std::variant<std::string, size_t>>, bool, JsonKeyHash>
+		std::unordered_map<std::vector<std::variant<std::string, size_t>>, bool, JsonKeyIndexHashHandler>
 			set_double(				
-				const std::unordered_map<std::vector<std::variant<std::string, size_t>>, double, JsonKeyHash>&
+				const std::unordered_map<std::vector<std::variant<std::string, size_t>>, double, JsonKeyIndexHashHandler>&
 					key_value_paths
 			);
 
-		std::unordered_map<std::vector<std::variant<std::string, size_t>>, bool, JsonKeyHash>
+		std::unordered_map<std::vector<std::variant<std::string, size_t>>, bool, JsonKeyIndexHashHandler>
 			set_boolean(				
-				const std::unordered_map<std::vector<std::variant<std::string, size_t>>, bool, JsonKeyHash>&
+				const std::unordered_map<std::vector<std::variant<std::string, size_t>>, bool, JsonKeyIndexHashHandler>&
 					key_value_paths
 			);
 
-		std::unordered_map<std::vector<std::variant<std::string, size_t>>, bool, JsonKeyHash>
+		std::unordered_map<std::vector<std::variant<std::string, size_t>>, bool, JsonKeyIndexHashHandler>
 			set_null(				
-				const std::unordered_map<std::vector<std::variant<std::string, size_t>>, nullptr_t, JsonKeyHash>&
+				const std::unordered_map<std::vector<std::variant<std::string, size_t>>, nullptr_t, JsonKeyIndexHashHandler>&
 					key_value_paths
 			);
 
-		std::unordered_map<std::vector<std::variant<std::string, size_t>>, bool, JsonKeyHash>
+		std::unordered_map<std::vector<std::variant<std::string, size_t>>, bool, JsonKeyIndexHashHandler>
 			append_raw_json(				
-				const std::unordered_map<std::vector<std::variant<std::string, size_t>>, std::string, JsonKeyHash>&
+				const std::unordered_map<std::vector<std::variant<std::string, size_t>>, std::string, JsonKeyIndexHashHandler>&
 					key_value_paths
 			);
 
-		std::unordered_map<std::vector<std::variant<std::string, size_t>>, bool, JsonKeyHash>
+		std::unordered_map<std::vector<std::variant<std::string, size_t>>, bool, JsonKeyIndexHashHandler>
 			append_string(				
-				const std::unordered_map<std::vector<std::variant<std::string, size_t>>, std::string, JsonKeyHash>&
+				const std::unordered_map<std::vector<std::variant<std::string, size_t>>, std::string, JsonKeyIndexHashHandler>&
 					key_value_paths
 			);
 
-		std::unordered_map<std::vector<std::variant<std::string, size_t>>, bool, JsonKeyHash>
+		std::unordered_map<std::vector<std::variant<std::string, size_t>>, bool, JsonKeyIndexHashHandler>
 			append_double(				
-				const std::unordered_map<std::vector<std::variant<std::string, size_t>>, double, JsonKeyHash>&
+				const std::unordered_map<std::vector<std::variant<std::string, size_t>>, double, JsonKeyIndexHashHandler>&
 					key_value_paths
 			);
 
-		std::unordered_map<std::vector<std::variant<std::string, size_t>>, bool, JsonKeyHash>
+		std::unordered_map<std::vector<std::variant<std::string, size_t>>, bool, JsonKeyIndexHashHandler>
 			append_boolean(				
-				const std::unordered_map<std::vector<std::variant<std::string, size_t>>, bool, JsonKeyHash>&
+				const std::unordered_map<std::vector<std::variant<std::string, size_t>>, bool, JsonKeyIndexHashHandler>&
 					key_value_paths
 			);
 
-		std::unordered_map<std::vector<std::variant<std::string, size_t>>, bool, JsonKeyHash>
+		std::unordered_map<std::vector<std::variant<std::string, size_t>>, bool, JsonKeyIndexHashHandler>
 			append_null(				
-				const std::unordered_map<std::vector<std::variant<std::string, size_t>>, nullptr_t, JsonKeyHash>&
+				const std::unordered_map<std::vector<std::variant<std::string, size_t>>, nullptr_t, JsonKeyIndexHashHandler>&
 					key_value_paths
 			);
 
-		std::unordered_map<std::vector<std::variant<std::string, size_t>>, bool, JsonKeyHash>
+		std::unordered_map<std::vector<std::variant<std::string, size_t>>, bool, JsonKeyIndexHashHandler>
 			remove_value(				
 				const std::vector<std::vector<std::variant<std::string, size_t>>>&
 					key_paths
@@ -633,18 +608,18 @@ namespace
     };
 
 	template<typename Type>
-		std::unordered_map<std::vector<std::variant<std::string, size_t>>, bool, JsonKeyHash>
+		std::unordered_map<std::vector<std::variant<std::string, size_t>>, bool, JsonKeyIndexHashHandler>
 			JsonFileIoManager
 				::set_values_batch(
 					const std::string&
 						file_path,
-					const std::unordered_map<std::vector<std::variant<std::string, size_t>>, Type, JsonKeyHash>&
+					const std::unordered_map<std::vector<std::variant<std::string, size_t>>, Type, JsonKeyIndexHashHandler>&
 						key_value_paths,
 					const bool&
 						append_mode
 				)
 	{
-		std::unordered_map<std::vector<std::variant<std::string, size_t>>, bool, JsonKeyHash> results;
+		std::unordered_map<std::vector<std::variant<std::string, size_t>>, bool, JsonKeyIndexHashHandler> results;
 		
 		try
 		{

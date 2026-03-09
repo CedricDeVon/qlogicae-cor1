@@ -11,9 +11,9 @@ namespace
     {
 	public:
 		std::string
-			file_path =
+			json_text =
 				default_configurations
-					.file_path;
+					.json_text;
 
 		static JsonTextManagerConfigurations
 			initial_configurations;

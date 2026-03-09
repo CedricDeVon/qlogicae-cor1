@@ -451,7 +451,9 @@ namespace
 					(
 						file_path.empty() ||
 						!std::filesystem::exists(file_path) ||
-						std::filesystem::is_directory(file_path)
+						std::filesystem::is_directory(file_path) ||
+						column_name.empty() ||
+						row_index < 0
 					)
 				)
 			)
@@ -830,7 +832,9 @@ namespace
 					(
 						file_path.empty() ||
 						!std::filesystem::exists(file_path) ||
-						std::filesystem::is_directory(file_path)
+						std::filesystem::is_directory(file_path) ||
+						column_name.empty() ||
+						row_index < 0
 					)
 				)
 			)
@@ -887,7 +891,8 @@ namespace
 					(
 						file_path.empty() ||
 						!std::filesystem::exists(file_path) ||
-						std::filesystem::is_directory(file_path)
+						std::filesystem::is_directory(file_path) ||
+						column_name.empty()
 					)
 				)
 			)
@@ -907,15 +912,27 @@ namespace
 					);
 			}
 
-			rapidcsv::Document document(file_path, rapidcsv::LabelParams(0, -1));
-			std::unordered_map<std::string, std::string> result;
-			auto rows = document.GetRowCount();
-			for (size_t r = 0; r < rows; ++r)
+			try
 			{
-				result[std::to_string(r)] =
-					document.GetCell<std::string>(column_name, r);
+				rapidcsv::Document document(file_path, rapidcsv::LabelParams(0, -1));
+				std::unordered_map<std::string, std::string> result;
+				auto rows = document.GetRowCount();
+				for (size_t r = 0; r < rows; ++r)
+				{
+					result[std::to_string(r)] =
+						document.GetCell<std::string>(column_name, r);
+				}
+
+				return result;
 			}
-			return result;
+			catch
+			(
+				const std::exception&
+					exception
+			)
+			{
+				return {};
+			}			
         }
         catch
         (
@@ -951,7 +968,8 @@ namespace
 					(
 						file_path.empty() ||
 						!std::filesystem::exists(file_path) ||
-						std::filesystem::is_directory(file_path)
+						std::filesystem::is_directory(file_path) ||
+						row_index < 0
 					)
 				)
 			)
@@ -971,15 +989,27 @@ namespace
 					);
 			}
 
-			rapidcsv::Document document(file_path, rapidcsv::LabelParams(0, -1));
-			std::unordered_map<std::string, std::string> result;
-			auto names = document.GetColumnNames();
-			for (const auto& name : names)
+			try
 			{
-				result[name] =
-					document.GetCell<std::string>(name, row_index);
+				rapidcsv::Document document(file_path, rapidcsv::LabelParams(0, -1));
+				std::unordered_map<std::string, std::string> result;
+				auto names = document.GetColumnNames();
+				for (const auto& name : names)
+				{
+					result[name] =
+						document.GetCell<std::string>(name, row_index);
+				}
+
+				return result;
 			}
-			return result;
+			catch
+				(
+					const std::exception&
+					exception
+					)
+			{
+				return {};
+			}
         }
         catch
         (
@@ -1088,7 +1118,9 @@ namespace
 					(
 						file_path.empty() ||
 						!std::filesystem::exists(file_path) ||
-						std::filesystem::is_directory(file_path)
+						std::filesystem::is_directory(file_path) ||
+						column_name.empty() ||
+						row_index < 0
 					)
 				)
 			)
@@ -1151,7 +1183,9 @@ namespace
 					(
 						file_path.empty() ||
 						!std::filesystem::exists(file_path) ||
-						std::filesystem::is_directory(file_path)
+						std::filesystem::is_directory(file_path) ||
+						column_name.empty() ||
+						!values.size()
 					)
 				)
 			)
@@ -1220,7 +1254,9 @@ namespace
 					(
 						file_path.empty() ||
 						!std::filesystem::exists(file_path) ||
-						std::filesystem::is_directory(file_path)
+						std::filesystem::is_directory(file_path) ||
+						column_name.empty() ||
+						!values.size()
 					)
 				)
 			)
@@ -1287,7 +1323,9 @@ namespace
 					(
 						file_path.empty() ||
 						!std::filesystem::exists(file_path) ||
-						std::filesystem::is_directory(file_path)
+						std::filesystem::is_directory(file_path) ||
+						row_index < 0 ||
+						!values.size()
 					)
 				)
 			)
@@ -1353,7 +1391,9 @@ namespace
 					(
 						file_path.empty() ||
 						!std::filesystem::exists(file_path) ||
-						std::filesystem::is_directory(file_path)
+						std::filesystem::is_directory(file_path) ||
+						row_index < 0 ||
+						!values.size()
 					)
 				)
 			)
@@ -1418,7 +1458,8 @@ namespace
 					(
 						file_path.empty() ||
 						!std::filesystem::exists(file_path) ||
-						std::filesystem::is_directory(file_path)
+						std::filesystem::is_directory(file_path) ||
+						!values.size()
 					)
 				)
 			)
@@ -1490,7 +1531,9 @@ namespace
 					(
 						file_path.empty() ||
 						!std::filesystem::exists(file_path) ||
-						std::filesystem::is_directory(file_path)
+						std::filesystem::is_directory(file_path) ||
+						column_name.empty() ||
+						!values.size()
 					)
 				)
 			)
@@ -1510,26 +1553,38 @@ namespace
 					);
 			}
 	
-			rapidcsv::Document document(file_path, rapidcsv::LabelParams(0, -1));
-			std::vector<std::string> column(
-				document.GetRowCount(), ""
-			);
-			for (const auto& [index, value] : values)
+			try
 			{
-				if (index < column.size())
+				rapidcsv::Document document(file_path, rapidcsv::LabelParams(0, -1));
+				std::vector<std::string> column(
+					document.GetRowCount(), ""
+				);
+				for (const auto& [index, value] : values)
 				{
-					column[index] = value;
+					if (index < column.size())
+					{
+						column[index] = value;
+					}
 				}
-			}
-			document.InsertColumn(
-				document.GetColumnCount(),
-				column,
-				column_name
-			);
-			document.Save();
+				document.InsertColumn(
+					document.GetColumnCount(),
+					column,
+					column_name
+				);
+				document.Save();
 
-            return
-				true;
+				return
+					true;
+			}
+			catch
+				(
+					const std::exception&
+					exception
+					)
+			{
+				return
+					false;
+			}			
         }
         catch
         (
@@ -1567,7 +1622,9 @@ namespace
 					(
 						file_path.empty() ||
 						!std::filesystem::exists(file_path) ||
-						std::filesystem::is_directory(file_path)
+						std::filesystem::is_directory(file_path) ||
+						column_name.empty() ||
+						!values.size()
 					)
 				)
 			)
@@ -1587,16 +1644,29 @@ namespace
 					);
 			}
 
-			rapidcsv::Document document(file_path, rapidcsv::LabelParams(0, -1));
-			document.InsertColumn(
-				document.GetColumnCount(),
-				values,
-				column_name
-			);
-			document.Save();
+			
+			try
+			{
+				rapidcsv::Document document(file_path, rapidcsv::LabelParams(0, -1));
+				document.InsertColumn(
+					document.GetColumnCount(),
+					values,
+					column_name
+				);
+				document.Save();
 
-            return
-				true;
+				return
+					true;
+			}
+			catch
+				(
+					const std::exception&
+					exception
+					)
+			{
+				return
+					false;
+			}					
         }
         catch
         (
@@ -1632,7 +1702,8 @@ namespace
 					(
 						file_path.empty() ||
 						!std::filesystem::exists(file_path) ||
-						std::filesystem::is_directory(file_path)
+						std::filesystem::is_directory(file_path) ||
+						!values.size()
 					)
 				)
 			)
@@ -1707,7 +1778,8 @@ namespace
 					(
 						file_path.empty() ||
 						!std::filesystem::exists(file_path) ||
-						std::filesystem::is_directory(file_path)
+						std::filesystem::is_directory(file_path) ||
+						!values.size()
 					)
 				)
 			)
@@ -1773,7 +1845,9 @@ namespace
 					(
 						file_path.empty() ||
 						!std::filesystem::exists(file_path) ||
-						std::filesystem::is_directory(file_path)
+						std::filesystem::is_directory(file_path) ||
+						column_name.empty() ||
+						!values.size()
 					)
 				)
 			)
@@ -1846,7 +1920,9 @@ namespace
 					(
 						file_path.empty() ||
 						!std::filesystem::exists(file_path) ||
-						std::filesystem::is_directory(file_path)
+						std::filesystem::is_directory(file_path) ||
+						column_name.empty() ||
+						!values.size()
 					)
 				)
 			)
@@ -1909,7 +1985,9 @@ namespace
 					(
 						file_path.empty() ||
 						!std::filesystem::exists(file_path) ||
-						std::filesystem::is_directory(file_path)
+						std::filesystem::is_directory(file_path) ||
+						row_index < 0 ||
+						!values.size()
 					)
 				)
 			)
@@ -1983,7 +2061,9 @@ namespace
 					(
 						file_path.empty() ||
 						!std::filesystem::exists(file_path) ||
-						std::filesystem::is_directory(file_path)
+						std::filesystem::is_directory(file_path) ||
+						row_index < 0 ||
+						!values.size()
 					)
 				)
 			)
@@ -2044,7 +2124,8 @@ namespace
 					(
 						file_path.empty() ||
 						!std::filesystem::exists(file_path) ||
-						std::filesystem::is_directory(file_path)
+						std::filesystem::is_directory(file_path) ||
+						column_name.empty()
 					)
 				)
 			)
@@ -2113,7 +2194,8 @@ namespace
 					(
 						file_path.empty() ||
 						!std::filesystem::exists(file_path) ||
-						std::filesystem::is_directory(file_path)
+						std::filesystem::is_directory(file_path) ||
+						row_index < 0
 					)
 				)
 			)

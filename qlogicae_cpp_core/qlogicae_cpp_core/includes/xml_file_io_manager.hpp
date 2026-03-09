@@ -47,6 +47,43 @@ namespace
 					tag_name
 			);
 
+		bool
+			remove_attribute(
+				const std::string&
+					file_path,
+				const std::vector<std::string>&
+					key_path,
+				const std::string&
+					attribute_name
+			);
+
+		bool
+			remove_value(
+				const std::string&
+					file_path,
+				const std::vector<std::string>&
+					key_path
+			);
+
+		std::string
+			get_node_text(
+				const std::string&
+					file_path,
+				const std::string&
+					xpath
+			);
+
+		std::string
+			get_attribute(
+				const std::string&
+					file_path,
+				const std::string&
+					xpath,
+				const std::string&
+					attribute_name
+			);
+
+		
 		template<typename ValueType> ValueType
 			get_attribute(
 				const std::string&
@@ -67,16 +104,6 @@ namespace
 					attribute_name,
 				const ValueType&
 					value
-			);
-
-		bool
-			remove_attribute(
-				const std::string&
-					file_path,
-				const std::vector<std::string>&
-					key_path,
-				const std::string&
-					attribute_name
 			);
 
 		template<typename ValueType> ValueType
@@ -105,32 +132,6 @@ namespace
 					key_path,
 				const ValueType&
 					value
-			);
-
-		bool
-			remove_value(
-				const std::string&
-					file_path,
-				const std::vector<std::string>&
-					key_path
-			);
-
-		std::string
-			get_node_text(
-				const std::string&
-					file_path,
-				const std::string&
-					xpath
-			);
-
-		std::string
-			get_attribute(
-				const std::string&
-					file_path,
-				const std::string&
-					xpath,
-				const std::string&
-					attribute_name
 			);
 
 		bool
@@ -154,6 +155,34 @@ namespace
 					tag_name
 			);
 
+		bool
+			remove_attribute(
+				const std::vector<std::string>&
+					key_path,
+				const std::string&
+					attribute_name
+			);
+
+		bool
+			remove_value(
+				const std::vector<std::string>&
+					key_path
+			);
+
+		std::string
+			get_node_text(
+				const std::string&
+					xpath
+			);
+
+		std::string
+			get_attribute(
+				const std::string&
+					xpath,
+				const std::string&
+					attribute_name
+			);
+
 		template<typename ValueType> ValueType
 			get_attribute(
 				const std::vector<std::string>&
@@ -170,14 +199,6 @@ namespace
 					attribute_name,
 				const ValueType&
 					value
-			);
-
-		bool
-			remove_attribute(
-				const std::vector<std::string>&
-					key_path,
-				const std::string&
-					attribute_name
 			);
 
 		template<typename ValueType> ValueType
@@ -201,27 +222,97 @@ namespace
 				const ValueType&
 					value
 			);
+    };
 
-		bool
-			remove_value(
+	template<typename ValueType> ValueType
+		XmlFileIoManager
+			::get_value(
+				const std::string&
+					file_path,
 				const std::vector<std::string>&
 					key_path
-			);
+			)
+	{
+		try
+        {
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_feature_handling() ||				
+				(
+					configurations
+						.is_edge_case_enabled_for_feature_handling() &&
+					(
+						file_path.empty() ||
+						!std::filesystem::exists(file_path) ||
+						std::filesystem::is_directory(file_path) ||
+						!key_path.size()
+					)
+				)
+			)
+			{
+				return
+					ValueType{};
+			}
 
-		std::string
-			get_node_text(
-				const std::string&
-					xpath
-			);
+			boost::unique_lock<boost::mutex>
+				mutex_lock;
+			if (configurations.is_thread_safety_enabled_for_feature_handling())
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						feature_handling_mutex_1
+					);
+			}
+		
+			pugi::xml_document doc;
+			if (!doc.load_file(file_path.c_str()))
+				return ValueType{};
 
-		std::string
-			get_attribute(
-				const std::string&
-					xpath,
-				const std::string&
-					attribute_name
-			);
-    };
+			pugi::xml_node node = doc;
+			for (const auto& key : key_path)
+			{
+				node = node.child(key.c_str());
+				if (!node)
+					return ValueType{};
+			}
+
+			const char* text = node.child_value();
+			if constexpr (std::is_integral_v<ValueType>)
+			{
+				try { return static_cast<ValueType>(std::stoll(text)); }
+				catch (...) { return ValueType{}; }
+			}
+			else if constexpr (std::is_floating_point_v<ValueType>)
+			{
+				try { return static_cast<ValueType>(std::stold(text)); }
+				catch (...) { return ValueType{}; }
+			}
+			else if constexpr (std::is_same_v<ValueType, bool>)
+			{
+				std::string val = text ? text : "";
+				if (val == "1" || val == "true") return true;
+				if (val == "0" || val == "false") return false;
+				return false;
+			}
+			else if constexpr (std::is_same_v<ValueType, std::string>)
+				return std::string(text ? text : "");
+			else
+				return ValueType{};
+        }
+        catch
+        (
+			const std::exception&
+                exception
+        )
+        {
+            return
+				handle_error_outputs<ValueType>(
+					exception
+				);
+        }
+	}
 
 	template<typename ValueType> ValueType
 		XmlFileIoManager
@@ -286,11 +377,24 @@ namespace
 
 			const char* text = attr.value();
 			if constexpr (std::is_integral_v<ValueType>)
-				return static_cast<ValueType>(std::stoll(text));
+			{
+				try { return static_cast<ValueType>(std::stoll(text)); }
+				catch (...) { return ValueType{}; }
+			}
 			else if constexpr (std::is_floating_point_v<ValueType>)
-				return static_cast<ValueType>(std::stold(text));
+			{
+				try { return static_cast<ValueType>(std::stold(text)); }
+				catch (...) { return ValueType{}; }
+			}
+			else if constexpr (std::is_same_v<ValueType, bool>)
+			{
+				std::string val = text ? text : "";
+				if (val == "1" || val == "true") return true;
+				if (val == "0" || val == "false") return false;
+				return false;
+			}
 			else if constexpr (std::is_same_v<ValueType, std::string>)
-				return std::string(text);
+				return std::string(text ? text : "");
 			else
 				return ValueType{};
         }
@@ -386,83 +490,6 @@ namespace
         {
             return
 				handle_error_outputs(
-					exception
-				);
-        }
-	}
-
-	template<typename ValueType> ValueType
-		XmlFileIoManager
-			::get_value(
-				const std::string&
-					file_path,
-				const std::vector<std::string>&
-					key_path
-			)
-	{
-		try
-        {
-			if
-			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling() ||				
-				(
-					configurations
-						.is_edge_case_enabled_for_feature_handling() &&
-					(
-						file_path.empty() ||
-						!std::filesystem::exists(file_path) ||
-						std::filesystem::is_directory(file_path) ||
-						!key_path.size()
-					)
-				)
-			)
-			{
-				return
-					ValueType{};
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_feature_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}
-		
-			pugi::xml_document doc;
-			if (!doc.load_file(file_path.c_str()))
-				return ValueType{};
-
-			pugi::xml_node node = doc;
-			for (const auto& key : key_path)
-			{
-				node = node.child(key.c_str());
-				if (!node)
-					return ValueType{};
-			}
-
-			const char* text = node.child_value();
-			if constexpr (std::is_integral_v<ValueType>)
-				return static_cast<ValueType>(std::stoll(text));
-			else if constexpr (std::is_floating_point_v<ValueType>)
-				return static_cast<ValueType>(std::stold(text));
-			else if constexpr (std::is_same_v<ValueType, std::string>)
-				return std::string(text);
-			else
-				return ValueType{};
-        }
-        catch
-        (
-			const std::exception&
-                exception
-        )
-        {
-            return
-				handle_error_outputs<ValueType>(
 					exception
 				);
         }
@@ -713,3 +740,4 @@ namespace
 			);	
 	}
 }
+

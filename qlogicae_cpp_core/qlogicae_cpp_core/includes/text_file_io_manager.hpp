@@ -51,20 +51,20 @@ namespace
 			set_text(
 				const std::string
 					file_path,
-				const std::string&
-					text,
 				const size_t&
-					line_number
+					line_number,
+				const std::string&
+					text
 			);
 
 		bool
 			insert_text(
 				const std::string
 					file_path,
-				const std::string&
-					text,
 				const size_t&
-					line_number
+					line_number,
+				const std::string&
+					text
 			);
 
 		bool
@@ -100,24 +100,112 @@ namespace
 
 		bool
 			set_text(
-				const std::string&
-					text,
 				const size_t&
-					line_number
+					line_number,
+				const std::string&
+					text
 			);
 
 		bool
 			insert_text(
-				const std::string&
-					text,
 				const size_t&
-					line_number
+					line_number,
+				const std::string&
+					text
 			);
 
 		bool
 			remove_text(
 				const size_t&
 					line_number
+			);
+		
+		bool
+			append_text(
+				const std::string
+					file_path,
+				const std::vector<std::string>&
+					texts
+			);
+
+		std::unordered_map<size_t, std::string>
+			get_text(
+				const std::string
+					file_path,
+				const std::vector<size_t>&
+					line_numbers
+			);
+
+		std::unordered_map<size_t, std::string>
+			get_text(
+				const std::string
+					file_path,
+				const size_t&
+					starting_line_number,
+				const size_t&
+					ending_line_number
+			);
+
+		bool
+			set_text(
+				const std::string
+					file_path,
+				const std::unordered_map<size_t, std::string>&
+					line_number_and_text
+			);
+
+		bool
+			insert_text(
+				const std::string
+					file_path,
+				const std::unordered_map<size_t, std::string>&
+					line_number_and_text
+			);
+
+		bool
+			remove_text(
+				const std::string
+					file_path,
+				const std::vector<size_t>&
+					line_numbers
+			);
+
+		bool
+			append_text(
+				const std::vector<std::string>&
+					texts
+			);
+
+		std::unordered_map<size_t, std::string>
+			get_text(
+				const std::vector<size_t>&
+					line_numbers
+			);
+
+		std::unordered_map<size_t, std::string>
+			get_text(
+				const size_t&
+					starting_line_number,
+				const size_t&
+					ending_line_number
+			);
+
+		bool
+			set_text(
+				const std::unordered_map<size_t, std::string>&
+					line_number_and_text
+			);
+
+		bool
+			insert_text(
+				const std::unordered_map<size_t, std::string>&
+					line_number_and_text
+			);
+
+		bool
+			remove_text(
+				const std::vector<size_t>&
+					line_numbers
 			);
     };
 }

@@ -9,7 +9,8 @@ namespace
 		::TomlFileIoManagerConfigurations() :
 			AbstractConfigurations<TomlFileIoManagerConfigurations>()
 	{
-		
+		file_path =
+			"";
 	}
 
 	TomlFileIoManagerConfigurations

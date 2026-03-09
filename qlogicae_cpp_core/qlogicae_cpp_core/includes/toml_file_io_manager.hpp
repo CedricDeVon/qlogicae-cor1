@@ -6,7 +6,7 @@
 
 namespace
 	QLogicaeCppCore
-{
+{	
     class
 		TomlFileIoManager :
 			public AbstractClass<TomlFileIoManagerConfigurations>
@@ -125,6 +125,7 @@ namespace
 					(
 						file_path.empty() ||
 						!std::filesystem::exists(file_path) ||
+						std::filesystem::is_empty(file_path) ||
 						std::filesystem::is_directory(file_path) ||
 						!key_path.size()
 					)
@@ -153,33 +154,63 @@ namespace
 			toml::node* node = &doc;
 			for (const auto& key : key_path)
 			{
-				if (auto tbl = node->as_table())
-				{
-					node = tbl->get(key);
-					if (!node)
-						return ValueType{};
-				}
-				else
-					return ValueType{};
+				auto tbl = node->as_table();
+				if (!tbl) return ValueType{};
+				node = tbl->get(key);
+				if (!node) return ValueType{};
 			}
 
 			if constexpr (std::is_same_v<ValueType, std::string>)
 			{
-				if (auto val = node->value<std::string>())
-					return *val;
+				if (auto val = node->value<std::string>()) return *val;
+			}
+			else if constexpr (std::is_same_v<ValueType, std::vector<double>>)
+			{
+				if (auto arr = node->as_array())
+				{
+					std::vector<double> vec;
+					for (const auto& item : *arr)
+					{
+						if (auto v = item.value<double>()) vec.push_back(*v);
+					}
+					return vec;
+				}
+			}
+			else if constexpr (std::is_same_v<ValueType, std::vector<std::string>>)
+			{
+				if (auto arr = node->as_array())
+				{
+					std::vector<std::string> vec;
+					for (const auto& item : *arr)
+					{
+						if (auto v = item.value<std::string>()) vec.push_back(*v);
+					}
+					return vec;
+				}
 			}
 			else if constexpr (std::is_integral_v<ValueType>)
 			{
-				if (auto val = node->value<int64_t>())
-					return static_cast<ValueType>(*val);
+				if (auto val = node->value<int64_t>()) return static_cast<ValueType>(*val);
 			}
 			else if constexpr (std::is_floating_point_v<ValueType>)
 			{
-				if (auto val = node->value<double>())
-					return static_cast<ValueType>(*val);
+				if (auto val = node->value<double>()) return static_cast<ValueType>(*val);
+			}
+			
+			else if constexpr (std::is_same_v<ValueType, std::vector<int>>)
+			{
+				if (auto arr = node->as_array())
+				{
+					std::vector<int> vec;
+					for (const auto& item : *arr)
+					{
+						if (auto v = item.value<int64_t>()) vec.push_back(static_cast<int>(*v));
+					}
+					return vec;
+				}
 			}
 
-            return ValueType{};
+			return ValueType{};
         }
         catch
         (
@@ -217,6 +248,7 @@ namespace
 					(
 						file_path.empty() ||
 						!std::filesystem::exists(file_path) ||
+						std::filesystem::is_empty(file_path) ||
 						std::filesystem::is_directory(file_path) ||
 						!key_path.size()
 					)
@@ -245,33 +277,40 @@ namespace
 			toml::node* node = &doc;
 			for (size_t i = 0; i < key_path.size(); ++i)
 			{
-				const std::string& key = key_path[i];
+				const auto& key = key_path[i];
+				auto tbl = node->as_table();
+				if (!tbl) return false;
+
 				if (i + 1 == key_path.size())
 				{
-					if (auto tbl = node->as_table())
+					if constexpr (std::is_same_v<ValueType, std::string>) tbl->insert_or_assign(key, value);
+					else if constexpr (std::is_integral_v<ValueType>) tbl->insert_or_assign(key, static_cast<int64_t>(value));
+					else if constexpr (std::is_floating_point_v<ValueType>) tbl->insert_or_assign(key, static_cast<double>(value));
+					else if constexpr (std::is_same_v<ValueType, std::vector<int>>)
 					{
-						if constexpr (std::is_same_v<ValueType, std::string>)
-							(*tbl)[key] = value;
-						else if constexpr (std::is_integral_v<ValueType>)
-							(*tbl)[key] = static_cast<int64_t>(value);
-						else if constexpr (std::is_floating_point_v<ValueType>)
-							(*tbl)[key] = static_cast<double>(value);
-						else
-							return false;
+						toml::array arr;
+						for (auto v : value) arr.push_back(static_cast<int64_t>(v));
+						tbl->insert_or_assign(key, arr);
 					}
-					else
-						return false;
+					else if constexpr (std::is_same_v<ValueType, std::vector<double>>)
+					{
+						toml::array arr;
+						for (auto v : value) arr.push_back(static_cast<double>(v));
+						tbl->insert_or_assign(key, arr);
+					}
+					else if constexpr (std::is_same_v<ValueType, std::vector<std::string>>)
+					{
+						toml::array arr;
+						for (const auto& v : value) arr.push_back(v);
+						tbl->insert_or_assign(key, arr);
+					}
+					else return false;
 				}
 				else
 				{
-					if (auto tbl = node->as_table())
-					{
-						if (!tbl->contains(key))
-							(*tbl)[key] = toml::table{};
-						node = tbl->get(key);
-					}
-					else
-						return false;
+					if (!tbl->contains(key)) tbl->insert_or_assign(key, toml::table{});
+					node = tbl->get(key);
+					if (!node) return false;
 				}
 			}
 
@@ -313,6 +352,7 @@ namespace
 					(
 						file_path.empty() ||
 						!std::filesystem::exists(file_path) ||
+						std::filesystem::is_empty(file_path) ||
 						std::filesystem::is_directory(file_path) ||
 						!key_path.size()
 					)
@@ -335,51 +375,53 @@ namespace
 			}
 
 			toml::table doc;
-			try { doc = toml::parse_file(file_path); }
-			catch (...) { return false; }
+
+			try
+			{
+				doc = toml::parse_file(file_path);
+			}
+			catch (...)
+			{
+				return false;
+			}
 
 			toml::node* node = &doc;
+
 			for (size_t i = 0; i < key_path.size(); ++i)
 			{
-				const std::string& key = key_path[i];
+				const auto& key = key_path[i];
+				auto tbl = node->as_table();
+				if (!tbl) return false;
+
 				if (i + 1 == key_path.size())
 				{
-					if (auto tbl = node->as_table())
-					{
-						if (!tbl->contains(key))
-							tbl->insert(key, toml::array{});
-						if (auto arr = tbl->get(key)->as_array())
-						{
-							if constexpr (std::is_same_v<ValueType, std::string>)
-								arr->push_back(value);
-							else if constexpr (std::is_integral_v<ValueType>)
-								arr->push_back(static_cast<int64_t>(value));
-							else if constexpr (std::is_floating_point_v<ValueType>)
-								arr->push_back(static_cast<double>(value));
-							else
-								return false;
-						}
-						else
-							return false;
-					}
+					if (!tbl->contains(key))
+						tbl->insert_or_assign(key, toml::array{});
+
+					auto arr = tbl->get(key)->as_array();
+					if (!arr) return false;
+
+					if constexpr (std::is_same_v<ValueType, int>)
+						arr->push_back(static_cast<int64_t>(value));
+					else if constexpr (std::is_same_v<ValueType, double>)
+						arr->push_back(static_cast<double>(value));
+					else if constexpr (std::is_same_v<ValueType, std::string>)
+						arr->push_back(value);
 					else
 						return false;
 				}
 				else
 				{
-					if (auto tbl = node->as_table())
-					{
-						if (!tbl->contains(key))
-							(*tbl)[key] = toml::table{};
-						node = tbl->get(key);
-					}
-					else
+					if (!tbl->contains(key))
+						return false;
+
+					node = tbl->get(key);
+					if (!node || !node->is_table())
 						return false;
 				}
 			}
 
-			return
-				save_toml_table(file_path, doc);
+			return save_toml_table(file_path, doc);
         }
         catch
         (
@@ -402,7 +444,7 @@ namespace
 			)
 	{
 		return
-			get_value(
+			get_value<ValueType>(
 				configurations
 					.file_path,
 				key_path
@@ -419,7 +461,7 @@ namespace
 			)
 	{
 		return
-			set_value(
+			set_value<ValueType>(
 				configurations
 					.file_path,
 				key_path,
@@ -437,7 +479,7 @@ namespace
 			)
 	{
 		return
-			append_value(
+			append_value<ValueType>(
 				configurations
 					.file_path,
 				key_path,
