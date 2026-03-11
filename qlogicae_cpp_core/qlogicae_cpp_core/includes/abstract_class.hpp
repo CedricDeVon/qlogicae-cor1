@@ -63,6 +63,9 @@ namespace
 				const std::function<void()>&
 					callback
 			);
+
+		template <typename Type> static Type
+			get_singleton();
     };
 
 	template <typename AbstractConfigurationsType>
@@ -286,6 +289,17 @@ namespace
 		}
 	} 
 	
+	template <typename AbstractConfigurationsType>
+	template <typename Type> Type
+		AbstractClass<AbstractConfigurationsType>
+			::get_singleton()
+    {
+		static Type singleton;
+
+		return
+			singleton;
+    }
+
 	template <typename AbstractConfigurationsType>
 	template <typename OutputType> OutputType
 		AbstractClass<AbstractConfigurationsType>

@@ -258,6 +258,13 @@
 #include "qlogicae_cpp_core/includes/windows_registry_root_path_enum_manager.hpp"
 #include "qlogicae_cpp_core/includes/windows_system_access_manager.hpp"
 #include "qlogicae_cpp_core/includes/xchacha20_poly1305_cipher_cryptography_manager.hpp"
+#include "qlogicae_cpp_core/includes/text_key_path_manager.hpp"
+#include "qlogicae_cpp_core/includes/text_file_io_manager.hpp"
+#include "qlogicae_cpp_core/includes/binary_file_io_manager.hpp"
+#include "qlogicae_cpp_core/includes/csv_file_io_manager.hpp"
+#include "qlogicae_cpp_core/includes/json_file_io_manager.hpp"
+#include "qlogicae_cpp_core/includes/toml_file_io_manager.hpp"
+#include "qlogicae_cpp_core/includes/xml_file_io_manager.hpp"
 
 namespace
 	QLogicaeCppCoreTest

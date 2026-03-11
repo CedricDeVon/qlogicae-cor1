@@ -3,7 +3,12 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="pch.cpp" />
-    <ClCompile Include="qlogicae_cpp_core_test\sources\csv_file_io_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core_test\sources\text_case_enum_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core_test\sources\text_case_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core_test\sources\windows_registry_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core_test\sources\windows_registry_root_path_enum_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core_test\sources\singleton_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core_test\sources\error_manager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.hpp" />
