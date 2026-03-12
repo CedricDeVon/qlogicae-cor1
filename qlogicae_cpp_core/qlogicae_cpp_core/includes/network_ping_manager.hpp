@@ -2,12 +2,11 @@
 
 #include "abstract_class.hpp"
 #include "time_scale_unit.hpp"
-#include "singleton_manager.hpp"
 #include "network_ping_manager_response.hpp"
 #include "network_ping_manager_configurations.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {	
     class
 		NetworkPingManager :
@@ -16,9 +15,6 @@ namespace
     public:
 		boost::mutex
 			feature_handling_mutex_2;
-
-		static NetworkPingManager&
-			singleton;
 
 		NetworkPingManager();
 

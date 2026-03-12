@@ -2,14 +2,13 @@
 
 #include "text_manager.hpp"
 #include "abstract_class.hpp"
-#include "singleton_manager.hpp"
 #include "file_system_entity.hpp"
 #include "file_system_manager_configurations.hpp"
 
 #include <Shlwapi.h>
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {
     class
 		FileSystemManager :
@@ -18,9 +17,6 @@ namespace
     public:       
 		boost::mutex
 			feature_handling_mutex_2;
-
-        static FileSystemManager&
-            singleton;
 
         FileSystemManager();
 

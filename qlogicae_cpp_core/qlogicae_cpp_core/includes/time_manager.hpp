@@ -4,11 +4,10 @@
 #include "time_format.hpp"
 #include "abstract_class.hpp"
 #include "time_scale_unit.hpp"
-#include "singleton_manager.hpp"
 #include "time_manager_configurations.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {
     class
 		TimeManager :
@@ -17,9 +16,6 @@ namespace
     public:
 		boost::mutex
 			feature_handling_mutex_2;
-
-		static TimeManager&
-			singleton;
 
 		TimeManager();
 

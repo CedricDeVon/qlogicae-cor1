@@ -3,13 +3,13 @@
 #include "../includes/error_manager.hpp"
 
 namespace
-	QLogicaeCppCoreTest
+	QLogicae::Cor::V1::Tests
 {
     class ErrorManagerTest :
         public ::testing::Test
     {
     public: 
-		QLogicaeCppCore::ErrorManager manager;
+		ErrorManager manager;
       
 		void
 			SetUp() override
@@ -30,7 +30,7 @@ namespace
 		public ::testing::TestWithParam<bool>
 	{
 	public:
-		QLogicaeCppCore::ErrorManager manager;
+		ErrorManager manager;
 
 		void
 			SetUp() override
@@ -53,7 +53,7 @@ namespace
 		>
 	{
 	public:
-		QLogicaeCppCore::ErrorManager manager;
+		ErrorManager manager;
 
 		void
 			SetUp() override
@@ -81,7 +81,7 @@ namespace
 		>>
 	{
 	public:
-		QLogicaeCppCore::ErrorManager manager;
+		ErrorManager manager;
 
 		void
 			SetUp() override
@@ -110,7 +110,7 @@ namespace
 	TEST_F(ErrorManagerTest,
 		Should_HandleSynchronously_When_AsynchronousDisabled)
 	{
-		QLogicaeCppCore::ErrorManagerConfigurations configurations;
+		ErrorManagerConfigurations configurations;
 
 		configurations.is_enable_output_override_enabled =
 			false;
@@ -137,7 +137,7 @@ namespace
 	TEST_F(ErrorManagerTest,
 		Should_HandleAsynchronously_When_AsynchronousEnabled)
 	{
-		QLogicaeCppCore::ErrorManagerConfigurations configurations;
+		ErrorManagerConfigurations configurations;
 
 		configurations.is_enable_output_override_enabled =
 			true;
@@ -160,7 +160,7 @@ namespace
 	TEST_F(ErrorManagerTest,
 		Should_NotHandle_When_Disabled)
 	{
-		QLogicaeCppCore::ErrorManagerConfigurations configurations;
+		ErrorManagerConfigurations configurations;
 
 		configurations.is_enable_output_override_enabled =
 			false;
@@ -183,7 +183,7 @@ namespace
 	TEST_F(ErrorManagerTest,
 		Should_ThrowRuntimeError_When_RuntimeThrowEnabled)
 	{
-		QLogicaeCppCore::ErrorManagerConfigurations configurations;
+		ErrorManagerConfigurations configurations;
 
 		configurations.is_enable_output_override_enabled =
 			true;
@@ -209,7 +209,7 @@ namespace
 	TEST_F(ErrorManagerTest,
 		Should_HandleExceptionInput_When_ExceptionPassed)
 	{
-		QLogicaeCppCore::ErrorManagerConfigurations configurations;
+		ErrorManagerConfigurations configurations;
 
 		configurations.is_enable_output_override_enabled =
 			false;
@@ -244,7 +244,7 @@ namespace
 	TEST_F(ErrorManagerTest,
 		Should_BeThreadSafe_When_MultipleThreadsInvokeHandle)
 	{
-		QLogicaeCppCore::ErrorManagerConfigurations configurations;
+		ErrorManagerConfigurations configurations;
 
 		configurations.is_enable_output_override_enabled =
 			true;
@@ -290,7 +290,7 @@ namespace
 	TEST_P(ErrorManagerParameterizedTest,
 		Should_HandleCorrectly_When_AsynchronousFlagVaries)
 	{
-		QLogicaeCppCore::ErrorManagerConfigurations configurations;
+		ErrorManagerConfigurations configurations;
 
 		configurations.is_enable_output_override_enabled =
 			false;
@@ -325,7 +325,7 @@ namespace
 	TEST_F(ErrorManagerTest,
 		Should_HandleConcurrentContention_When_FourThreadsInvoke)
 	{
-		QLogicaeCppCore::ErrorManagerConfigurations configurations;
+		ErrorManagerConfigurations configurations;
 
 		configurations.is_enable_output_override_enabled =
 			true;
@@ -382,7 +382,7 @@ namespace
 	TEST_F(ErrorManagerTest,
 		Should_CaptureAsyncException_When_RuntimeThrowEnabledAsync)
 	{
-		QLogicaeCppCore::ErrorManagerConfigurations configurations;
+		ErrorManagerConfigurations configurations;
 
 		configurations.is_enable_output_override_enabled =
 			true;
@@ -411,7 +411,7 @@ namespace
 	TEST_F(ErrorManagerTest,
 		Should_HandleInvalidFilePath_When_FileOutputEnabled)
 	{
-		QLogicaeCppCore::ErrorManagerConfigurations configurations;
+		ErrorManagerConfigurations configurations;
 
 		configurations.is_enable_output_override_enabled =
 			false;
@@ -442,7 +442,7 @@ namespace
 	TEST_F(ErrorManagerTest,
 		Should_HandleEmptyMessage_When_MessageIsEmpty)
 	{
-		QLogicaeCppCore::ErrorManagerConfigurations configurations;
+		ErrorManagerConfigurations configurations;
 
 		configurations.is_enable_output_override_enabled =
 			false;
@@ -465,7 +465,7 @@ namespace
 	TEST_F(ErrorManagerTest,
 		Should_HandleVeryLargeMessage_When_MessageIsLarge)
 	{
-		QLogicaeCppCore::ErrorManagerConfigurations configurations;
+		ErrorManagerConfigurations configurations;
 
 		configurations.is_enable_output_override_enabled =
 			false;
@@ -494,7 +494,7 @@ namespace
 	TEST_P(ErrorManagerConfigurationMatrixTest,
 		Should_HandleConfigurationMatrix_When_ParametersVary)
 	{
-		QLogicaeCppCore::ErrorManagerConfigurations configurations;
+		ErrorManagerConfigurations configurations;
 
 		configurations.is_enable_output_override_enabled =
 			std::get<0>(GetParam());
@@ -541,11 +541,11 @@ namespace
 	TEST_F(ErrorManagerTest,
 		Should_ReturnSameInstance_When_GettingSingletonMultipleTimes)
 	{
-		QLogicaeCppCore::ErrorManager&
+		ErrorManager&
 			first_reference =
 			manager;
 
-		QLogicaeCppCore::ErrorManager&
+		ErrorManager&
 			second_reference =
 			manager;
 
@@ -558,7 +558,7 @@ namespace
 	TEST_F(ErrorManagerTest,
 		Should_NotCrash_When_ResetAndSetupRaceOccurs)
 	{
-		QLogicaeCppCore::ErrorManagerConfigurations configurations;
+		ErrorManagerConfigurations configurations;
 
 		configurations.is_enable_output_override_enabled =
 			true;
@@ -612,7 +612,7 @@ namespace
 	TEST_F(ErrorManagerTest,
 		Should_HandleReentrantCalls_When_HandleIsCalledRecursively)
 	{
-		QLogicaeCppCore::ErrorManagerConfigurations configurations;
+		ErrorManagerConfigurations configurations;
 
 		configurations.is_enable_output_override_enabled =
 			true;
@@ -662,7 +662,7 @@ namespace
 	TEST_F(ErrorManagerTest,
 		Should_ThrowAsyncRuntimeError_When_AsyncAndRuntimeThrowEnabled)
 	{
-		QLogicaeCppCore::ErrorManagerConfigurations configurations;
+		ErrorManagerConfigurations configurations;
 
 		configurations.is_enable_output_override_enabled =
 			true;
@@ -691,7 +691,7 @@ namespace
 	TEST_F(ErrorManagerTest,
 		Should_HandleGuiOutput_When_GuiEnabled)
 	{
-		QLogicaeCppCore::ErrorManagerConfigurations configurations;
+		ErrorManagerConfigurations configurations;
 
 		configurations.is_enable_output_override_enabled = false;
 		configurations.is_gui_output_enabled = true;
@@ -708,7 +708,7 @@ namespace
 	TEST_F(ErrorManagerTest,
 		Should_HandleAsyncGuiOutput_When_AsynchronousGuiEnabled)
 	{
-		QLogicaeCppCore::ErrorManagerConfigurations configurations;
+		ErrorManagerConfigurations configurations;
 
 		configurations.is_enable_output_override_enabled = false;
 		configurations.is_gui_output_enabled = true;
@@ -734,7 +734,7 @@ namespace
 			temp_paths.push_back(file_path);
 		}
 
-		QLogicaeCppCore::ErrorManagerConfigurations configurations;
+		ErrorManagerConfigurations configurations;
 
 		configurations.is_enable_output_override_enabled = false;
 		configurations.is_file_output_enabled = true;
@@ -756,7 +756,7 @@ namespace
 	TEST_F(ErrorManagerTest,
 		Should_HandleInternalExceptionsDuringConstruct)
 	{
-		struct FaultyConfigurations : QLogicaeCppCore::ErrorManagerConfigurations
+		struct FaultyConfigurations : ErrorManagerConfigurations
 		{
 			FaultyConfigurations()
 			{
@@ -772,7 +772,7 @@ namespace
 	TEST_F(ErrorManagerTest,
 		Should_HandleInternalExceptionsDuringSetup)
 	{
-		struct FaultyConfigurations : QLogicaeCppCore::ErrorManagerConfigurations
+		struct FaultyConfigurations : ErrorManagerConfigurations
 		{
 			FaultyConfigurations()
 			{
@@ -780,7 +780,7 @@ namespace
 			}
 		};
 
-		QLogicaeCppCore::ErrorManagerConfigurations configurations = FaultyConfigurations();
+		ErrorManagerConfigurations configurations = FaultyConfigurations();
 
 		bool result = manager.setup(configurations);
 
@@ -790,7 +790,7 @@ namespace
 	TEST_F(ErrorManagerTest,
 		Should_HandleInternalExceptionsDuringDestruct)
 	{
-		struct FaultyConfigurations : QLogicaeCppCore::ErrorManagerConfigurations
+		struct FaultyConfigurations : ErrorManagerConfigurations
 		{
 			FaultyConfigurations()
 			{
@@ -798,7 +798,7 @@ namespace
 			}
 		};
 
-		QLogicaeCppCore::ErrorManagerConfigurations configurations = FaultyConfigurations();
+		ErrorManagerConfigurations configurations = FaultyConfigurations();
 
 		bool result = manager.destruct();
 
@@ -808,7 +808,7 @@ namespace
 	TEST_F(ErrorManagerTest,
 		Should_HandleInternalExceptionsDuringReset)
 	{
-		struct FaultyConfigurations : QLogicaeCppCore::ErrorManagerConfigurations
+		struct FaultyConfigurations : ErrorManagerConfigurations
 		{
 			FaultyConfigurations()
 			{
@@ -816,7 +816,7 @@ namespace
 			}
 		};
 
-		QLogicaeCppCore::ErrorManagerConfigurations configurations = FaultyConfigurations();
+		ErrorManagerConfigurations configurations = FaultyConfigurations();
 
 		bool result = manager.reset();
 
@@ -826,7 +826,7 @@ namespace
 	TEST_F(ErrorManagerTest,
 		Should_UpdateCacheVariablesCorrectly_AfterHandle)
 	{
-		QLogicaeCppCore::ErrorManagerConfigurations configurations;
+		ErrorManagerConfigurations configurations;
 
 		configurations.is_enable_output_override_enabled = false;
 		configurations.is_runtime_throw_output_enabled = false;
@@ -840,7 +840,7 @@ namespace
 	TEST_F(ErrorManagerTest,
 		Should_HandleTitleAndMessageCorrectly)
 	{
-		QLogicaeCppCore::ErrorManagerConfigurations configurations;
+		ErrorManagerConfigurations configurations;
 		configurations.is_enable_output_override_enabled = false;
 		configurations.is_runtime_throw_output_enabled = false;
 		configurations.is_asynchronous_output_enabled = false;
@@ -858,7 +858,7 @@ namespace
 	TEST_F(ErrorManagerTest,
 		Should_HandleGUIOutputWhenEnabled)
 	{
-		QLogicaeCppCore::ErrorManagerConfigurations configurations;
+		ErrorManagerConfigurations configurations;
 		configurations.is_enable_output_override_enabled = false;
 		configurations.is_gui_output_enabled = true;
 		configurations.is_asynchronous_gui_output_enabled = false;
@@ -876,7 +876,7 @@ namespace
 	TEST_F(ErrorManagerTest,
 		Should_HandleGUIOutputAsyncWhenEnabled)
 	{
-		QLogicaeCppCore::ErrorManagerConfigurations configurations;
+		ErrorManagerConfigurations configurations;
 		configurations.is_enable_output_override_enabled = true;
 		configurations.is_gui_output_enabled = true;
 		configurations.is_asynchronous_gui_output_enabled = true;
@@ -898,7 +898,7 @@ namespace
 		std::string file_path = "temp_missing_file.log";
 		std::filesystem::remove(file_path);
 
-		QLogicaeCppCore::ErrorManagerConfigurations configurations;
+		ErrorManagerConfigurations configurations;
 		configurations.is_enable_output_override_enabled = false;
 		configurations.is_file_output_enabled = true;
 		configurations.full_file_output_paths = { file_path };
@@ -915,7 +915,7 @@ namespace
 	TEST_F(ErrorManagerTest,
 		Should_HandleMessageWithSpecialCharacters)
 	{
-		QLogicaeCppCore::ErrorManagerConfigurations configurations;
+		ErrorManagerConfigurations configurations;
 		configurations.is_enable_output_override_enabled = false;
 		configurations.is_runtime_throw_output_enabled = false;
 		configurations.is_asynchronous_output_enabled = false;
@@ -931,7 +931,7 @@ namespace
 	TEST_F(ErrorManagerTest,
 		Should_HandleExtremelyLargeMessage)
 	{
-		QLogicaeCppCore::ErrorManagerConfigurations configurations;
+		ErrorManagerConfigurations configurations;
 		configurations.is_enable_output_override_enabled = false;
 		configurations.is_runtime_throw_output_enabled = false;
 		configurations.is_asynchronous_output_enabled = false;
@@ -947,7 +947,7 @@ namespace
 	TEST_F(ErrorManagerTest,
 		Should_HandleRecursiveAsyncCallsUnderConcurrency)
 	{
-		QLogicaeCppCore::ErrorManagerConfigurations configurations;
+		ErrorManagerConfigurations configurations;
 		configurations.is_enable_output_override_enabled = true;
 		configurations.is_asynchronous_output_enabled = true;
 		configurations.is_asynchronous_runtime_throw_output_enabled = false;
@@ -975,7 +975,7 @@ namespace
 		Should_HandleAsyncFileExceptionPropagation)
 	{
 		std::string invalid_file_path = "\0_invalid_path.log";
-		QLogicaeCppCore::ErrorManagerConfigurations configurations;
+		ErrorManagerConfigurations configurations;
 		configurations.is_enable_output_override_enabled = true;
 		configurations.is_file_output_enabled = true;
 		configurations.is_asynchronous_output_enabled = true;
@@ -993,7 +993,7 @@ namespace
 		Should_ReturnFalse_When_UtilityRuntimeExecutionDisabled_OnConstruct
 	)
 	{
-		QLogicaeCppCore::ErrorManagerConfigurations configurations;
+		ErrorManagerConfigurations configurations;
 
 		configurations
 			.is_utility_runtime_execution_handling_enabled =
@@ -1016,7 +1016,7 @@ namespace
 		Should_ReturnFalse_When_UtilityRuntimeExecutionDisabled_OnDestruct
 	)
 	{
-		QLogicaeCppCore::ErrorManagerConfigurations configurations;
+		ErrorManagerConfigurations configurations;
 
 		configurations
 			.is_utility_runtime_execution_handling_enabled =
@@ -1039,7 +1039,7 @@ namespace
 		Should_ReturnFalse_When_UtilityRuntimeExecutionDisabled_OnReset
 	)
 	{
-		QLogicaeCppCore::ErrorManagerConfigurations configurations;
+		ErrorManagerConfigurations configurations;
 
 		configurations
 			.is_utility_runtime_execution_handling_enabled =
@@ -1062,7 +1062,7 @@ namespace
 		Should_ReturnFalse_When_UtilityRuntimeExecutionDisabled_OnSetup
 	)
 	{
-		QLogicaeCppCore::ErrorManagerConfigurations configurations;
+		ErrorManagerConfigurations configurations;
 
 		configurations
 			.is_utility_runtime_execution_handling_enabled =
@@ -1083,7 +1083,7 @@ namespace
 		Should_ReturnEmptyString_When_FeatureRuntimeExecutionDisabled_WithTitleAndMessage
 	)
 	{
-		QLogicaeCppCore::ErrorManagerConfigurations configurations;
+		ErrorManagerConfigurations configurations;
 
 		configurations
 			.is_feature_runtime_execution_handling_enabled =
@@ -1109,7 +1109,7 @@ namespace
 		Should_ReturnEmptyString_When_FeatureRuntimeExecutionDisabled_WithMessageOnly
 	)
 	{
-		QLogicaeCppCore::ErrorManagerConfigurations configurations;
+		ErrorManagerConfigurations configurations;
 
 		configurations
 			.is_feature_runtime_execution_handling_enabled =
@@ -1134,7 +1134,7 @@ namespace
 		Should_ReturnEmptyString_When_FeatureRuntimeExecutionDisabled_WithException
 	)
 	{
-		QLogicaeCppCore::ErrorManagerConfigurations configurations;
+		ErrorManagerConfigurations configurations;
 
 		configurations
 			.is_feature_runtime_execution_handling_enabled =
@@ -1171,7 +1171,7 @@ namespace
 		Should_HandleConcurrency_When_ThreadSafetyDisabled
 	)
 	{
-		QLogicaeCppCore::ErrorManagerConfigurations configurations;
+		ErrorManagerConfigurations configurations;
 
 		configurations
 			.is_feature_thread_safety_handling_enabled =
@@ -1221,7 +1221,7 @@ namespace
 		Should_HandleAsyncWithoutFutures_When_NoAsyncOutputsEnabled
 	)
 	{
-		QLogicaeCppCore::ErrorManagerConfigurations configurations;
+		ErrorManagerConfigurations configurations;
 
 		configurations
 			.is_asynchronous_output_enabled =

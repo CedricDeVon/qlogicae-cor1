@@ -3,7 +3,7 @@
 #include "../includes/file_system_entity.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {
 
 }

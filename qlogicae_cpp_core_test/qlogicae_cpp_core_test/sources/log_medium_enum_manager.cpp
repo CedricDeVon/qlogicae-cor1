@@ -2,10 +2,8 @@
 
 #include "../includes/log_medium_enum_manager.hpp"
 
-using namespace QLogicaeCppCore;
-
 namespace
-	QLogicaeCppCoreTest
+	QLogicae::Cor::V1::Tests
 {
 	class LogMediumEnumManagerTest :
 		public ::testing::Test
@@ -129,8 +127,8 @@ namespace
 
 	TEST_F(LogMediumEnumManagerTest, Should_ReturnSingletonInstanceConsistently)
 	{
-		LogMediumEnumManager& first_instance = LogMediumEnumManager::singleton;
-		LogMediumEnumManager& second_instance = LogMediumEnumManager::singleton;
+		LogMediumEnumManager& first_instance = SingletonManager::get_singleton<LogMediumEnumManager>();
+		LogMediumEnumManager& second_instance = SingletonManager::get_singleton<LogMediumEnumManager>();
 		EXPECT_EQ(&first_instance, &second_instance);
 	}
 

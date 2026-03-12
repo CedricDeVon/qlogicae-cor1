@@ -1,9 +1,10 @@
 #pragma once
 
+#include "singleton_manager.hpp"
 #include "error_manager_configurations.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {    
     class
 		ErrorManager
@@ -12,11 +13,8 @@ namespace
 		ErrorManagerConfigurations
 			configurations;
 
-		static boost::mutex
+		boost::mutex
 			feature_handling_mutex_1;
-
-		static ErrorManager&
-			singleton;
 
 		ErrorManager();
 
@@ -94,9 +92,6 @@ namespace
 				const std::string&
 					error_log
 			);
-
-		static ErrorManager&
-			get_this_singleton();
     };        
 
 	template <typename OutputType> OutputType

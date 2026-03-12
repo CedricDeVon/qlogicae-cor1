@@ -3,16 +3,8 @@
 #include "../includes/mutex_manager.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {           
-	MutexManager&
-        MutexManager
-			::singleton =
-				SingletonManager
-					::get_singleton<MutexManager>();
-
-
-
 	MutexManager
 		::MutexManager() :
 			AbstractClass<MutexManagerConfigurations>()

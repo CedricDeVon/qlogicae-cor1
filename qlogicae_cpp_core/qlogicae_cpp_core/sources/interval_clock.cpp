@@ -3,16 +3,8 @@
 #include "../includes/interval_clock.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {
-	IntervalClock&
-		IntervalClock
-			::singleton =
-				SingletonManager
-					::get_singleton<IntervalClock>();
-
-
-
     IntervalClock
 		::IntervalClock() :
 			AbstractClass<IntervalClockConfigurations>()
@@ -75,7 +67,7 @@ namespace
 				mutex_lock =
 					boost::unique_lock<boost::mutex>
 					(
-						utility_handling_mutex_1
+						feature_handling_mutex_1
 					);
 			}			
 
@@ -123,7 +115,7 @@ namespace
 				mutex_lock =
 					boost::unique_lock<boost::mutex>
 					(
-						utility_handling_mutex_1
+						feature_handling_mutex_1
 					);
 			}			
 

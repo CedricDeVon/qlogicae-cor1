@@ -2,9 +2,8 @@
 
 #include "../includes/file_log_manager.hpp"
 
-using namespace QLogicaeCppCore;
-
-namespace QLogicaeCppCoreTest
+namespace
+	QLogicae::Cor::V1::Tests
 {
     class FileLogManagerTest : public ::testing::Test
     {

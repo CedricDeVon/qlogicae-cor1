@@ -3,16 +3,8 @@
 #include "../includes/function_wrapper.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {    
-    FunctionWrapper&
-        FunctionWrapper
-			::singleton =
-				SingletonManager
-					::get_singleton<FunctionWrapper>();
-
-
-
 	FunctionWrapper
 		::FunctionWrapper() :
 			AbstractClass<FunctionWrapperConfigurations>()

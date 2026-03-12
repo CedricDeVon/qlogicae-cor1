@@ -2,10 +2,8 @@
 
 #include "../includes/text_manager.hpp"
 
-using namespace QLogicaeCppCore;
-
 namespace
-	QLogicaeCppCoreTest
+	QLogicae::Cor::V1::Tests
 {
 	class TextManagerTest : public ::testing::Test
 	{
@@ -53,8 +51,8 @@ namespace
 
 	TEST_F(TextManagerTest, Should_ReturnSameSingletonInstance_When_CalledMultipleTimes)
 	{
-		auto& instance1 = TextManager::singleton;
-		auto& instance2 = TextManager::singleton;
+		auto& instance1 = SingletonManager::get_singleton<TextManager>();
+		auto& instance2 = SingletonManager::get_singleton<TextManager>();
 		ASSERT_EQ(&instance1, &instance2);
 	}
 

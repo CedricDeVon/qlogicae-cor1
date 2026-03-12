@@ -3,16 +3,8 @@
 #include "../includes/console_log_manager.hpp"
 
 namespace
-	QLogicaeCppCore
-{        
-	ConsoleLogManager&
-		ConsoleLogManager
-			::singleton = 
-				SingletonManager
-					::get_singleton<ConsoleLogManager>();	
-
-
-	
+	QLogicae::Cor::V1
+{        	
 	ConsoleLogManager
 		::ConsoleLogManager() :
 			AbstractClass<ConsoleLogManagerConfigurations>()
@@ -31,8 +23,8 @@ namespace
 	{
 		return
 			log_raw_text(
-				TextLogManager
-					::singleton
+				SingletonManager
+					::get_singleton<TextLogManager>()					
 						.convert_text(
 							text,
 							log_level

@@ -3,7 +3,7 @@
 #include "../includes/windows_environment_variable_manager_configurations.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {
 	WindowsEnvironmentVariableManagerConfigurations
 		::WindowsEnvironmentVariableManagerConfigurations() :

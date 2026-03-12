@@ -1,9 +1,9 @@
 #include "pch.hpp"
+
 #include "../includes/network_ping_manager.hpp"
 
-using namespace QLogicaeCppCore;
-
-namespace QLogicaeCppCoreTest
+namespace
+	QLogicae::Cor::V1::Tests
 {
     struct NetworkPingManagerTestParam
     {

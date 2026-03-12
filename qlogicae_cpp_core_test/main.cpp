@@ -2,7 +2,8 @@
 
 #include "main.hpp"
 
-namespace QLogicaeCppCoreTest
+namespace
+	QLogicae::Cor::V1::Tests
 {
 	
 }

@@ -2,10 +2,8 @@
 
 #include "qlogicae_cpp_core/includes/interval_clock.hpp"
 
-using namespace QLogicaeCppCore;
-
 namespace
-	QLogicaeCppCoreTest
+	QLogicae::Cor::V1::Tests
 {
 	class IntervalClockTest : public ::testing::Test
 	{

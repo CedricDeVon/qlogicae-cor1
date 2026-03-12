@@ -2,13 +2,22 @@
 
 #include "main.hpp"
 
+#include "qlogicae_cpp_core/includes/singleton_manager.hpp"
 #include "qlogicae_cpp_core/includes/enum_manager.hpp"
-#include "qlogicae_cpp_core/includes/argon2id_hash_cryptography_manager.hpp"
+#include "qlogicae_cpp_core/includes/text_manager.hpp"
+
+using namespace QLogicae::Cor::V1;
 
 int main(int argc, char** argv)
 {
 	// TestSubject3::get_this().execute(TestSubjects::TestSubject2);
-	QLogicaeCppCore::EnumManager manager;
+	EnumManager& a1 = SingletonManager::get_singleton<EnumManager>();
+	EnumManager& a2 = SingletonManager::get_singleton<EnumManager>();
+	EnumManager& a3 = SingletonManager::get_singleton<EnumManager>();
+
+	std::cout << &a1 << "\n";
+	std::cout << &a2 << "\n";
+	std::cout << &a3 << "\n";
 
 	bool exit_code;
 	std::cin >> exit_code;
@@ -16,7 +25,8 @@ int main(int argc, char** argv)
 	return 0;
 }
 
-namespace QLogicaeCppCore
+namespace
+	QLogicae::Cor::V1::Sandbox
 {
 
 }

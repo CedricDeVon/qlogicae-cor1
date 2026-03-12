@@ -1,20 +1,16 @@
 #pragma once
 
 #include "abstract_class.hpp"
-#include "singleton_manager.hpp"
 #include "text_manager_configurations.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {
     class
 		TextManager :
 			public AbstractClass<TextManagerConfigurations>
     {
     public:
-		static TextManager&
-			singleton;
-
 		TextManager();
 
 		~TextManager();

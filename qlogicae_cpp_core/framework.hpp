@@ -1,6 +1,7 @@
 #pragma once
 
-namespace QLogicaeCppCore
+namespace
+	QLogicae::Cor::V1
 {
 
 }

@@ -8,7 +8,8 @@ extern "C" void x64_masm__main();
 
 #endif
 
-namespace QLogicaeCppCoreTest
+namespace
+	QLogicae::Cor::V1::Tests
 {
 
 }

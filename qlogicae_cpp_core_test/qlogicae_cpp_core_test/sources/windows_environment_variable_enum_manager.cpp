@@ -2,10 +2,8 @@
 
 #include "../includes/windows_environment_variable_enum_manager.hpp"
 
-using namespace QLogicaeCppCore;
-
 namespace
-	QLogicaeCppCoreTest
+	QLogicae::Cor::V1::Tests
 {
 	class WindowsEnvironmentVariableEnumManagerTest :
 		public ::testing::Test
@@ -129,8 +127,8 @@ namespace
 
 	TEST_F(WindowsEnvironmentVariableEnumManagerTest, Should_ReturnSingletonInstanceConsistently)
 	{
-		WindowsEnvironmentVariableEnumManager& first_instance = WindowsEnvironmentVariableEnumManager::singleton;
-		WindowsEnvironmentVariableEnumManager& second_instance = WindowsEnvironmentVariableEnumManager::singleton;
+		WindowsEnvironmentVariableEnumManager& first_instance = SingletonManager::get_singleton<WindowsEnvironmentVariableEnumManager>();
+		WindowsEnvironmentVariableEnumManager& second_instance = SingletonManager::get_singleton<WindowsEnvironmentVariableEnumManager>();
 		EXPECT_EQ(&first_instance, &second_instance);
 	}
 

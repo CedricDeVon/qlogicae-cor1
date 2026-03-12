@@ -3,7 +3,7 @@
 #include "assembly.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {
 
 }

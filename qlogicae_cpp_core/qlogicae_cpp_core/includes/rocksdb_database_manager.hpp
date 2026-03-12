@@ -5,7 +5,7 @@
 #include "rocksdb_database_manager_configurations.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {    
     class
 		RocksDbDatabaseManager :

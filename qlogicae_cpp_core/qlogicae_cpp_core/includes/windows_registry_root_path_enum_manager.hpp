@@ -2,21 +2,17 @@
 
 #include "enum_manager.hpp"
 #include "abstract_class.hpp"
-#include "singleton_manager.hpp"
 #include "windows_registry_root_path.hpp"
 #include "windows_registry_root_path_enum_manager_configurations.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {
     class
 		WindowsRegistryRootPathEnumManager :
 			public AbstractClass<WindowsRegistryRootPathEnumManagerConfigurations>
     {
     public:
-        static WindowsRegistryRootPathEnumManager&
-            singleton;
-
 		WindowsRegistryRootPathEnumManager();
 
 		std::string

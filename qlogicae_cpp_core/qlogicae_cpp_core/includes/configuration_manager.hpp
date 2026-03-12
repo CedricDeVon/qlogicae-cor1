@@ -1,20 +1,16 @@
 #pragma once
 
 #include "abstract_class.hpp"
-#include "singleton_manager.hpp"
 #include "configuration_manager_configurations.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {
 	class
 		ConfigurationManager :
 			public AbstractClass<ConfigurationManagerConfigurations>
 	{
 	public:
-		static ConfigurationManager&
-			singleton;
-
 		ConfigurationManager();
 
 		template <typename TypeConfigurations> bool

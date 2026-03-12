@@ -3,7 +3,7 @@
 #include "../includes/xml_file_io_manager_configurations.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {
 	XmlFileIoManagerConfigurations
 		::XmlFileIoManagerConfigurations() :

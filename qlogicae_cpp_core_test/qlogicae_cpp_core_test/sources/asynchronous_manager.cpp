@@ -3,13 +3,13 @@
 #include "../includes/asynchronous_manager.hpp"
 
 namespace
-	QLogicaeCppCoreTest
+	QLogicae::Cor::V1::Tests
 {
     class AsynchronousManagerTest :
         public ::testing::Test
     {
     public:
-		QLogicaeCppCore::AsynchronousManager
+		AsynchronousManager
 			manager;
 
 		void
@@ -29,7 +29,7 @@ namespace
 		public ::testing::TestWithParam<bool>
 	{
 	public:
-		QLogicaeCppCore::AsynchronousManager
+		AsynchronousManager
 			manager;
 
 		void
@@ -62,7 +62,7 @@ namespace
         Should_ResetToInitialState_When_ResetCalled
     )
     {
-        QLogicaeCppCore::AsynchronousManagerConfigurations
+        AsynchronousManagerConfigurations
             configurations;
 
         configurations.is_feature_runtime_execution_handling_enabled =
@@ -202,7 +202,7 @@ namespace
 		Should_RespectConfigurationValue_When_SetupCalled
 	)
 	{
-		QLogicaeCppCore::AsynchronousManagerConfigurations
+		AsynchronousManagerConfigurations
 			configurations;
 
 		configurations.is_feature_runtime_execution_handling_enabled =
@@ -238,28 +238,27 @@ namespace
 		ASSERT_TRUE(result);
 	}
 
-	/*
 	TEST_F(
 		AsynchronousManagerTest,
 		Should_CatchException_When_CallbackThrows
 	)
 	{
-		EXPECT_THROW(
-			manager
-			.begin_one_thread(
-				[]()
+		manager.begin_one_thread(
+			[]()
+			{
+				try
 				{
-					throw std::runtime_error(
-						"forced_exception"
-					);
+					throw std::runtime_error("forced_exception");
 				}
-			),
-			std::runtime_error
+				catch (...)
+				{
+					SUCCEED();
+				}
+			}
 		);
 
 		manager.complete_all_threads();
 	}
-	*/
 
 	TEST_F(
 		AsynchronousManagerTest,
@@ -275,7 +274,7 @@ namespace
 				{
 					while (!stop_flag.load())
 					{
-						QLogicaeCppCore::AsynchronousManagerConfigurations
+						AsynchronousManagerConfigurations
 							configurations;
 
 						configurations.is_feature_runtime_execution_handling_enabled =
@@ -325,7 +324,7 @@ namespace
 			index < 100;
 			index++)
 		{
-			QLogicaeCppCore::AsynchronousManagerConfigurations
+			AsynchronousManagerConfigurations
 				configurations;
 
 			configurations.is_feature_runtime_execution_handling_enabled =
@@ -349,18 +348,18 @@ namespace
 	)
 	{
 		ASSERT_EQ(
-			QLogicaeCppCore::AsynchronousManagerConfigurations::initial_configurations.is_feature_runtime_execution_handling_enabled,
+			AsynchronousManagerConfigurations::initial_configurations.is_feature_runtime_execution_handling_enabled,
 			true
 		);
 
 		ASSERT_EQ(
-			QLogicaeCppCore::AsynchronousManagerConfigurations::default_configurations.is_feature_runtime_execution_handling_enabled,
-			QLogicaeCppCore::AsynchronousManagerConfigurations::initial_configurations.is_feature_runtime_execution_handling_enabled
+			AsynchronousManagerConfigurations::default_configurations.is_feature_runtime_execution_handling_enabled,
+			AsynchronousManagerConfigurations::initial_configurations.is_feature_runtime_execution_handling_enabled
 		);
 
 		ASSERT_EQ(
 			manager.configurations.is_feature_runtime_execution_handling_enabled,
-			QLogicaeCppCore::AsynchronousManagerConfigurations::initial_configurations.is_feature_runtime_execution_handling_enabled
+			AsynchronousManagerConfigurations::initial_configurations.is_feature_runtime_execution_handling_enabled
 		);
 	}
 
@@ -716,7 +715,7 @@ namespace
 		Should_ExitConstructEarly_When_RuntimeExecutionEnabled
 	)
 	{
-		QLogicaeCppCore::AsynchronousManagerConfigurations configurations;
+		AsynchronousManagerConfigurations configurations;
 		configurations.is_utility_runtime_execution_handling_enabled = true;
 		manager.setup(configurations);
 		bool result = manager.construct();
@@ -728,7 +727,7 @@ namespace
 		Should_ExitDestructEarly_When_RuntimeExecutionEnabled
 	)
 	{
-		QLogicaeCppCore::AsynchronousManagerConfigurations configurations;
+		AsynchronousManagerConfigurations configurations;
 		configurations.is_utility_runtime_execution_handling_enabled = true;
 		manager.setup(configurations);
 		bool result = manager.destruct();
@@ -740,7 +739,7 @@ namespace
 		Should_ConstructDestructWithoutUtilityLock_When_ThreadSafetyDisabled
 	)
 	{
-		QLogicaeCppCore::AsynchronousManagerConfigurations configurations;
+		AsynchronousManagerConfigurations configurations;
 		configurations.is_utility_thread_safety_handling_enabled = false;
 		manager.setup(configurations);
 		bool construct_result = manager.construct();

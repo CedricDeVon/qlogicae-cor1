@@ -1,10 +1,9 @@
 #include "pch.hpp"
+
 #include "../includes/enum_manager.hpp"
 
-using namespace QLogicaeCppCore;
-
 namespace
-	QLogicaeCppCoreTest
+	QLogicae::Cor::V1::Tests
 {
 	class EnumManagerTest :
 		public ::testing::Test

@@ -2,20 +2,16 @@
 
 #include "log_format.hpp"
 #include "abstract_class.hpp"
-#include "singleton_manager.hpp"
 #include "log_format_enum_manager_configurations.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {
     class
 		LogFormatEnumManager :
 			public AbstractClass<LogFormatEnumManagerConfigurations>
     {
     public:
-        static LogFormatEnumManager&
-            singleton;
-
 		LogFormatEnumManager();
 
 		std::string

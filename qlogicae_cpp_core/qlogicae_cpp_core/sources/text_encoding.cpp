@@ -3,7 +3,7 @@
 #include "../includes/text_encoding.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {
 
 }

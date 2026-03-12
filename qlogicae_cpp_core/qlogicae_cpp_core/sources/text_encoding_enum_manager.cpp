@@ -3,16 +3,8 @@
 #include "../includes/text_encoding_enum_manager.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {
-    TextEncodingEnumManager&
-        TextEncodingEnumManager
-			::singleton =
-				SingletonManager
-					::get_singleton<TextEncodingEnumManager>();
-
-
-
     TextEncodingEnumManager
 		::TextEncodingEnumManager() :
 			AbstractClass<TextEncodingEnumManagerConfigurations>()

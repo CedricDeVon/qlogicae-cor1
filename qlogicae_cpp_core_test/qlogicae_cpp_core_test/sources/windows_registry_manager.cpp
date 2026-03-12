@@ -2,10 +2,8 @@
 
 #include "../includes/windows_registry_manager.hpp"
 
-using namespace QLogicaeCppCore;
-
 namespace
-	QLogicaeCppCoreTest
+	QLogicae::Cor::V1::Tests
 {
 	class WindowsRegistryManagerTest : public ::testing::Test
 	{

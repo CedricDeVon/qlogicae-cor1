@@ -3,16 +3,8 @@
 #include "../includes/configuration_manager.hpp"
 
 namespace
-	QLogicaeCppCore
-{        
-	ConfigurationManager&
-		ConfigurationManager
-			::singleton = 
-				SingletonManager
-					::get_singleton<ConfigurationManager>();	
-
-
-	
+	QLogicae::Cor::V1
+{        	
 	ConfigurationManager
 		::ConfigurationManager() :
 			AbstractClass<ConfigurationManagerConfigurations>()

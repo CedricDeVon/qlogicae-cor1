@@ -1,7 +1,7 @@
 #pragma once
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {
 	template <typename DerivedConfigurations> struct
 		AbstractConfigurations
@@ -202,7 +202,7 @@ namespace
 				true;
 			
 			is_feature_thread_safety_handling_enabled =
-				false;
+				true;
 			
 			is_error_thread_safety_handling_enabled =
 				true;

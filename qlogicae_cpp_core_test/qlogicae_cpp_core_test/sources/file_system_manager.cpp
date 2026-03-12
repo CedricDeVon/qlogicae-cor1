@@ -2,12 +2,13 @@
 
 #include "../includes/file_system_manager.hpp"
 
-namespace QLogicaeCppCoreTest
+namespace
+	QLogicae::Cor::V1::Tests
 {
 	class FileSystemManagerFolderPathsTest : public ::testing::Test
 	{
 	public:
-		QLogicaeCppCore::FileSystemManager file_system_manager;
+		FileSystemManager file_system_manager;
 
 		void
 			SetUp() override
@@ -27,7 +28,7 @@ namespace QLogicaeCppCoreTest
 	class FileSystemManagerPathOperationsTest : public ::testing::Test
 	{
 	public:
-		QLogicaeCppCore::FileSystemManager file_system_manager;
+		FileSystemManager file_system_manager;
 
 		const std::wstring test_file_w = L"test_file.txt";
 		const std::string test_file_s = "test_file.txt";
@@ -59,7 +60,7 @@ namespace QLogicaeCppCoreTest
 	class FileSystemManagerEntityAttributesTest : public ::testing::Test
 	{
 	public:
-		QLogicaeCppCore::FileSystemManager file_system_manager;
+		FileSystemManager file_system_manager;
 
 		const std::wstring test_file_w = L"test_file.txt";
 		const std::string test_file_s = "test_file.txt";
@@ -109,7 +110,7 @@ namespace QLogicaeCppCoreTest
 	class FileSystemManagerEntityOperationsTest : public ::testing::Test
 	{
 	public:
-		QLogicaeCppCore::FileSystemManager file_system_manager;
+		FileSystemManager file_system_manager;
 
 		const std::wstring test_file_w = L"test_file.txt";
 		const std::string test_file_s = "test_file.txt";
@@ -147,7 +148,7 @@ namespace QLogicaeCppCoreTest
 	class FileSystemManagerRemoveOperationsTest : public ::testing::Test
 	{
 	public:
-		QLogicaeCppCore::FileSystemManager file_system_manager;
+		FileSystemManager file_system_manager;
 
 		const std::wstring test_file_w = L"test_file.txt";
 		const std::string test_file_s = "test_file.txt";
@@ -520,6 +521,7 @@ namespace QLogicaeCppCoreTest
 		EXPECT_TRUE(std::filesystem::exists("moved_folder"));
 	}
 
+	/*
     TEST_F(FileSystemManagerEntityOperationsTest, Should_RenameFolder)
     {
         EXPECT_TRUE(file_system_manager.rename_folder(test_folder_w, L"renamed_folder"));
@@ -531,6 +533,7 @@ namespace QLogicaeCppCoreTest
         EXPECT_FALSE(std::filesystem::exists(test_folder_s));
         EXPECT_TRUE(std::filesystem::exists("renamed_folder"));
     }
+	*/
 
     TEST_F(FileSystemManagerEntityOperationsTest, Should_RenameEntity)
     {

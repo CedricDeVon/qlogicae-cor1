@@ -3,17 +3,8 @@
 #include "../includes/file_system_manager.hpp"
 
 namespace
-	QLogicaeCppCore
-{
-    FileSystemManager&
-        FileSystemManager
-			::singleton =
-				SingletonManager
-					::singleton
-						.get_singleton<FileSystemManager>();
-
-
-	
+	QLogicae::Cor::V1
+{    
 	FileSystemManager
 		::FileSystemManager() :
 			AbstractClass<FileSystemManagerConfigurations>()
@@ -76,7 +67,7 @@ namespace
 				mutex_lock =
 					boost::unique_lock<boost::mutex>
 					(
-						utility_handling_mutex_1
+						feature_handling_mutex_1
 					);
 			}
 		
@@ -119,7 +110,7 @@ namespace
 				mutex_lock =
 					boost::unique_lock<boost::mutex>
 					(
-						utility_handling_mutex_1
+						feature_handling_mutex_1
 					);
 			}			
 
@@ -148,8 +139,8 @@ namespace
 	{
 		return
 			clear_file_text(
-				TextManager
-					::singleton
+				SingletonManager
+				::get_singleton<TextManager>()
 						.convert_text<std::wstring, std::string>(
 							file_path
 						)
@@ -2490,8 +2481,8 @@ namespace
 			::get_executable_folder_path()
     {
         return
-			TextManager
-				::singleton
+			SingletonManager
+				::get_singleton<TextManager>()
 					.convert_text<std::wstring, std::string>(
 						get_executable_folder_wstring_path()
 					);
@@ -2502,8 +2493,8 @@ namespace
 			::get_executed_folder_path()
     {
         return
-			TextManager
-				::singleton
+			SingletonManager
+				::get_singleton<TextManager>()
 					.convert_text<std::wstring, std::string>(
 						get_executed_folder_wstring_path()
 					);
@@ -2514,8 +2505,8 @@ namespace
 			::get_program_data_folder_path()
     {
         return
-			TextManager
-				::singleton
+			SingletonManager
+				::get_singleton<TextManager>()
 					.convert_text<std::wstring, std::string>(
 						get_program_data_folder_wstring_path()
 					);
@@ -2526,8 +2517,8 @@ namespace
 			::get_local_app_data_folder_path()
     {
         return
-			TextManager
-				::singleton
+			SingletonManager
+				::get_singleton<TextManager>()
 					.convert_text<std::wstring, std::string>(
 						get_local_app_data_folder_wstring_path()
 					);
@@ -2538,8 +2529,8 @@ namespace
 			::get_roaming_app_data_folder_path()
     {
         return
-			TextManager
-				::singleton
+			SingletonManager
+				::get_singleton<TextManager>()
 					.convert_text<std::wstring, std::string>(
 						get_roaming_app_data_folder_wstring_path()
 					);
@@ -2554,8 +2545,8 @@ namespace
 	{
 		return
 			get_line_count(
-				TextManager
-					::singleton
+				SingletonManager
+				::get_singleton<TextManager>()
 						.convert_text<std::string, std::wstring>(
 							origin_path
 						)
@@ -2573,8 +2564,8 @@ namespace
 	{
 		return
 			get_column_count(
-				TextManager
-					::singleton
+				SingletonManager
+				::get_singleton<TextManager>()
 						.convert_text<std::string, std::wstring>(
 							origin_path
 						),
@@ -2591,8 +2582,8 @@ namespace
 	{
 		return
 			get_character_count(
-				TextManager
-					::singleton
+				SingletonManager
+				::get_singleton<TextManager>()
 						.convert_text<std::string, std::wstring>(
 							origin_path
 						)
@@ -2608,8 +2599,8 @@ namespace
 	{
 		return
 			get_file_byte_size(
-				TextManager
-					::singleton
+				SingletonManager
+				::get_singleton<TextManager>()
 						.convert_text<std::string, std::wstring>(
 							origin_path
 						)
@@ -2625,8 +2616,8 @@ namespace
 	{
 		return
 			get_folder_byte_size(
-				TextManager
-					::singleton
+				SingletonManager
+				::get_singleton<TextManager>()
 						.convert_text<std::string, std::wstring>(
 							origin_path
 						)
@@ -2641,12 +2632,12 @@ namespace
 			)
 	{
 		return
-			TextManager
-				::singleton
+			SingletonManager
+				::get_singleton<TextManager>()
 					.convert_text<std::wstring, std::string>(
 						get_absolute_path(
-							TextManager
-								::singleton
+							SingletonManager
+				::get_singleton<TextManager>()
 									.convert_text<std::string, std::wstring>(
 										origin_path
 									)
@@ -2664,17 +2655,17 @@ namespace
 			)
 	{
 		return
-			TextManager
-				::singleton
+			SingletonManager
+				::get_singleton<TextManager>()
 					.convert_text<std::wstring, std::string>(
 						get_relative_path(
-							TextManager
-								::singleton
+							SingletonManager
+				::get_singleton<TextManager>()
 									.convert_text<std::string, std::wstring>(
 										origin_path
 									),
-							TextManager
-								::singleton
+							SingletonManager
+				::get_singleton<TextManager>()
 									.convert_text<std::string, std::wstring>(
 										target_path
 									)
@@ -2690,12 +2681,12 @@ namespace
 			)
 	{
 		return
-			TextManager
-				::singleton
+			SingletonManager
+				::get_singleton<TextManager>()
 					.convert_text<std::wstring, std::string>(
 						get_file_extension(
-							TextManager
-								::singleton
+							SingletonManager
+				::get_singleton<TextManager>()
 									.convert_text<std::string, std::wstring>(
 										origin_path
 									)
@@ -2711,12 +2702,12 @@ namespace
 			)
 	{
 		return
-			TextManager
-				::singleton
+			SingletonManager
+				::get_singleton<TextManager>()
 					.convert_text<std::wstring, std::string>(
 						get_file_stem(
-							TextManager
-								::singleton
+							SingletonManager
+				::get_singleton<TextManager>()
 									.convert_text<std::string, std::wstring>(
 										origin_path
 									)
@@ -2733,8 +2724,8 @@ namespace
 	{
 		return
 			is_path_found(
-				TextManager
-					::singleton
+				SingletonManager
+				::get_singleton<TextManager>()
 						.convert_text<std::string, std::wstring>(
 							origin_path
 						)
@@ -2750,8 +2741,8 @@ namespace
 	{
 		return
 			is_entity(
-				TextManager
-					::singleton
+				SingletonManager
+				::get_singleton<TextManager>()
 						.convert_text<std::string, std::wstring>(
 							origin_path
 						)
@@ -2767,8 +2758,8 @@ namespace
 	{
 		return
 			is_file(
-				TextManager
-					::singleton
+				SingletonManager
+				::get_singleton<TextManager>()
 						.convert_text<std::string, std::wstring>(
 							origin_path
 						)
@@ -2784,8 +2775,8 @@ namespace
 	{
 		return
 			is_folder(
-				TextManager
-					::singleton
+				SingletonManager
+				::get_singleton<TextManager>()
 						.convert_text<std::string, std::wstring>(
 							origin_path
 						)
@@ -2803,8 +2794,8 @@ namespace
 	{
 		return
 			is_entity_user_permission_level_valid(
-				TextManager
-					::singleton
+				SingletonManager
+				::get_singleton<TextManager>()
 						.convert_text<std::string, std::wstring>(
 							origin_path
 						),
@@ -2823,8 +2814,8 @@ namespace
 	{
 		return
 			set_entity_read_status(
-				TextManager
-					::singleton
+				SingletonManager
+				::get_singleton<TextManager>()
 						.convert_text<std::string, std::wstring>(
 							origin_path
 						),
@@ -2843,8 +2834,8 @@ namespace
 	{
 		return
 			set_entity_write_status(
-				TextManager
-					::singleton
+				SingletonManager
+				::get_singleton<TextManager>()
 						.convert_text<std::string, std::wstring>(
 							origin_path
 						),
@@ -2863,8 +2854,8 @@ namespace
 	{
 		return
 			set_entity_visibility(
-				TextManager
-					::singleton
+				SingletonManager
+				::get_singleton<TextManager>()
 						.convert_text<std::string, std::wstring>(
 							origin_path
 						),
@@ -2881,8 +2872,8 @@ namespace
 	{
 		return
 			create_folder(
-				TextManager
-					::singleton
+				SingletonManager
+				::get_singleton<TextManager>()
 						.convert_text<std::string, std::wstring>(
 							origin_path
 						)
@@ -2900,13 +2891,13 @@ namespace
 	{
 		return
 			copy_file(
-				TextManager
-					::singleton
+				SingletonManager
+				::get_singleton<TextManager>()
 						.convert_text<std::string, std::wstring>(
 							origin_path
 						),
-				TextManager
-					::singleton
+				SingletonManager
+				::get_singleton<TextManager>()
 						.convert_text<std::string, std::wstring>(
 							target_path
 						)
@@ -2924,13 +2915,13 @@ namespace
 	{
 		return
 			copy_folder(
-				TextManager
-					::singleton
+				SingletonManager
+				::get_singleton<TextManager>()
 						.convert_text<std::string, std::wstring>(
 							origin_path
 						),
-				TextManager
-					::singleton
+				SingletonManager
+				::get_singleton<TextManager>()
 						.convert_text<std::string, std::wstring>(
 							target_path
 						)
@@ -2948,13 +2939,13 @@ namespace
 	{
 		return
 			move_entity(
-				TextManager
-					::singleton
+				SingletonManager
+				::get_singleton<TextManager>()
 						.convert_text<std::string, std::wstring>(
 							origin_path
 						),
-				TextManager
-					::singleton
+				SingletonManager
+				::get_singleton<TextManager>()
 						.convert_text<std::string, std::wstring>(
 							target_path
 						)
@@ -2972,13 +2963,13 @@ namespace
 	{
 		return
 			move_file(
-				TextManager
-					::singleton
+				SingletonManager
+				::get_singleton<TextManager>()
 						.convert_text<std::string, std::wstring>(
 							origin_path
 						),
-				TextManager
-					::singleton
+				SingletonManager
+				::get_singleton<TextManager>()
 						.convert_text<std::string, std::wstring>(
 							target_path
 						)
@@ -2996,13 +2987,13 @@ namespace
 	{
 		return
 			move_folder(
-				TextManager
-					::singleton
+				SingletonManager
+				::get_singleton<TextManager>()
 						.convert_text<std::string, std::wstring>(
 							origin_path
 						),
-				TextManager
-					::singleton
+				SingletonManager
+				::get_singleton<TextManager>()
 						.convert_text<std::string, std::wstring>(
 							target_path
 						)
@@ -3020,13 +3011,13 @@ namespace
 	{
 		return
 			rename_entity(
-				TextManager
-					::singleton
+				SingletonManager
+				::get_singleton<TextManager>()
 						.convert_text<std::string, std::wstring>(
 							origin_path
 						),
-				TextManager
-					::singleton
+				SingletonManager
+				::get_singleton<TextManager>()
 						.convert_text<std::string, std::wstring>(
 							name
 						)
@@ -3044,13 +3035,13 @@ namespace
 	{
 		return
 			rename_file(
-				TextManager
-					::singleton
+				SingletonManager
+				::get_singleton<TextManager>()
 						.convert_text<std::string, std::wstring>(
 							origin_path
 						),
-				TextManager
-					::singleton
+				SingletonManager
+				::get_singleton<TextManager>()
 						.convert_text<std::string, std::wstring>(
 							name
 						)
@@ -3068,13 +3059,13 @@ namespace
 	{
 		return
 			rename_folder(
-				TextManager
-					::singleton
+				SingletonManager
+				::get_singleton<TextManager>()
 						.convert_text<std::string, std::wstring>(
 							origin_path
 						),
-				TextManager
-					::singleton
+				SingletonManager
+				::get_singleton<TextManager>()
 						.convert_text<std::string, std::wstring>(
 							name
 						)
@@ -3090,8 +3081,8 @@ namespace
 	{
 		return
 			remove_file(
-				TextManager
-					::singleton
+				SingletonManager
+				::get_singleton<TextManager>()
 						.convert_text<std::string, std::wstring>(
 							origin_path
 						)
@@ -3107,8 +3098,8 @@ namespace
 	{
 		return
 			remove_folder(
-				TextManager
-					::singleton
+				SingletonManager
+				::get_singleton<TextManager>()
 						.convert_text<std::string, std::wstring>(
 							origin_path
 						)
@@ -3124,8 +3115,8 @@ namespace
 	{
 		return
 			remove_folder_sub_files(
-				TextManager
-					::singleton
+				SingletonManager
+				::get_singleton<TextManager>()
 						.convert_text<std::string, std::wstring>(
 							origin_path
 						)

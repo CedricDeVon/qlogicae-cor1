@@ -1,20 +1,16 @@
 #pragma once
 
 #include "abstract_class.hpp"
-#include "singleton_manager.hpp"
 #include "xml_file_io_manager_configurations.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {
     class
 		XmlFileIoManager :
 			public AbstractClass<XmlFileIoManagerConfigurations>
     {
     public:		
-        static XmlFileIoManager&
-            singleton;
-
 		XmlFileIoManager();
 
 		bool

@@ -3,16 +3,8 @@
 #include "../includes/windows_environment_variable_enum_manager.hpp"
 
 namespace
-	QLogicaeCppCore
-{        
-	WindowsEnvironmentVariableEnumManager&
-		WindowsEnvironmentVariableEnumManager
-			::singleton = 
-				SingletonManager
-					::get_singleton<WindowsEnvironmentVariableEnumManager>();	
-
-
-	
+	QLogicae::Cor::V1
+{        	
 	WindowsEnvironmentVariableEnumManager
 		::WindowsEnvironmentVariableEnumManager() :
 			AbstractClass<WindowsEnvironmentVariableEnumManagerConfigurations>()

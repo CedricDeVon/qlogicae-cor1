@@ -3,7 +3,7 @@
 #include "../includes/text_case.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {
 
 }

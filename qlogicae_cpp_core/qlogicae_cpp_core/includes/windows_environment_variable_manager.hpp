@@ -3,21 +3,17 @@
 #include "text_case.hpp"
 #include "text_manager.hpp"
 #include "abstract_class.hpp"
-#include "singleton_manager.hpp"
 #include "text_case_manager.hpp"
 #include "windows_environment_variable_manager_configurations.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {
 	class
 		WindowsEnvironmentVariableManager :
 			public AbstractClass<WindowsEnvironmentVariableManagerConfigurations>
 	{
 	public:
-		static WindowsEnvironmentVariableManager&
-			singleton;
-
 		WindowsEnvironmentVariableManager();
 
 		std::wstring

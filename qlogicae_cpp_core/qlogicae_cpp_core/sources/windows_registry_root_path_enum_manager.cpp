@@ -3,16 +3,8 @@
 #include "../includes/windows_registry_root_path_enum_manager.hpp"
 
 namespace
-	QLogicaeCppCore
-{        
-	WindowsRegistryRootPathEnumManager&
-		WindowsRegistryRootPathEnumManager
-			::singleton = 
-				SingletonManager
-					::get_singleton<WindowsRegistryRootPathEnumManager>();	
-
-
-	
+	QLogicae::Cor::V1
+{        	
 	WindowsRegistryRootPathEnumManager
 		::WindowsRegistryRootPathEnumManager() :
 			AbstractClass<WindowsRegistryRootPathEnumManagerConfigurations>()

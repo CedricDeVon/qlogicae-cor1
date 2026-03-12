@@ -3,7 +3,7 @@
 #include "sqlite_exception.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {
 	class SQLiteRow;
 

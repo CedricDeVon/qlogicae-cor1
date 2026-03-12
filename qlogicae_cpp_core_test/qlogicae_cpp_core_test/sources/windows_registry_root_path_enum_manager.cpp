@@ -2,10 +2,8 @@
 
 #include "../includes/windows_registry_root_path_enum_manager.hpp"
 
-using namespace QLogicaeCppCore;
-
 namespace
-	QLogicaeCppCoreTest
+	QLogicae::Cor::V1::Tests
 {
 	class WindowsRegistryRootPathEnumManagerTest :
 		public ::testing::Test
@@ -129,8 +127,8 @@ namespace
 
 	TEST_F(WindowsRegistryRootPathEnumManagerTest, Should_ReturnSingletonInstanceConsistently)
 	{
-		WindowsRegistryRootPathEnumManager& first_instance = WindowsRegistryRootPathEnumManager::singleton;
-		WindowsRegistryRootPathEnumManager& second_instance = WindowsRegistryRootPathEnumManager::singleton;
+		WindowsRegistryRootPathEnumManager& first_instance = SingletonManager::get_singleton<WindowsRegistryRootPathEnumManager>();
+		WindowsRegistryRootPathEnumManager& second_instance = SingletonManager::get_singleton<WindowsRegistryRootPathEnumManager>();
 		EXPECT_EQ(&first_instance, &second_instance);
 	}
 

@@ -3,7 +3,7 @@
 #include "../includes/log_level.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {
 
 }

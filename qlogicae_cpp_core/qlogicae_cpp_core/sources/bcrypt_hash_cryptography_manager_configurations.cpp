@@ -3,7 +3,7 @@
 #include "../includes/bcrypt_hash_cryptography_manager_configurations.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {
 	BcryptHashCryptographyManagerConfigurations
 		::BcryptHashCryptographyManagerConfigurations() :

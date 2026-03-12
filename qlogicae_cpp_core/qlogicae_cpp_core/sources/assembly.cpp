@@ -9,7 +9,7 @@ extern "C" void x64_masm__main();
 #endif
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {
 
 }

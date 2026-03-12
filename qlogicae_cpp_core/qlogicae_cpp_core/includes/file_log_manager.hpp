@@ -3,20 +3,16 @@
 #include "log_level.hpp"
 #include "abstract_class.hpp"
 #include "text_log_manager.hpp"
-#include "singleton_manager.hpp"
 #include "file_log_manager_configurations.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {
     class
 		FileLogManager :
 			public AbstractClass<FileLogManagerConfigurations>
     {
     public:
-        static FileLogManager&
-            singleton;
-
 		FileLogManager();
 
 		~FileLogManager();

@@ -2,9 +2,8 @@
 
 #include "../includes/mutex_manager.hpp"
 
-using namespace QLogicaeCppCore;
-
-namespace QLogicaeCppCoreTest
+namespace
+	QLogicae::Cor::V1::Tests
 {
 	struct MutexManagerParameterizedTestData
 	{
@@ -104,7 +103,7 @@ namespace QLogicaeCppCoreTest
 	class MutexManagerMicroSpinTest : public ::testing::Test
 	{
 	public:
-        QLogicaeCppCore::MutexManager manager;
+        MutexManager manager;
 
 		void
 			SetUp() override

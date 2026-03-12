@@ -9,7 +9,7 @@
 #include "random_character_generation_manager_configurations.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {
     class
 		RandomCharacterGenerationManager :

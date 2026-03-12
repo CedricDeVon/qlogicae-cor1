@@ -1,11 +1,10 @@
 #pragma once
 
 #include "abstract_class.hpp"
-#include "singleton_manager.hpp"
 #include "onnx_api_manager_configurations.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {
     class
 		OnnxApiManager :
@@ -50,9 +49,6 @@ namespace
 
 		std::vector<std::vector<std::string>>
 			string_buffers_;
-
-        static OnnxApiManager&
-            singleton;
 
 		OnnxApiManager();
 

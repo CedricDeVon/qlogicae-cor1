@@ -2,23 +2,19 @@
 
 #include "text_manager.hpp"
 #include "abstract_class.hpp"
-#include "singleton_manager.hpp"
 #include "regular_key_delete_handler.hpp"
 #include "windows_registry_root_path.hpp"
 #include "value_enum_key_delete_handler.hpp"
 #include "windows_registry_manager_configurations.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {
 	class
 		WindowsRegistryManager :
 			public AbstractClass<WindowsRegistryManagerConfigurations>
 	{
 	public:
-		static WindowsRegistryManager&
-			singleton;
-
 		WindowsRegistryManager();
 
 		std::wstring

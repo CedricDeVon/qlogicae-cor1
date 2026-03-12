@@ -3,7 +3,7 @@
 #include "../includes/log_medium.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {
 
 }

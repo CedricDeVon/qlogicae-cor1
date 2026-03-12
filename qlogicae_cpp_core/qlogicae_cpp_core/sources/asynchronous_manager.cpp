@@ -3,7 +3,7 @@
 #include "../includes/asynchronous_manager.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {        
 	boost::asio::io_context
 		AsynchronousManager::io_context;
@@ -30,12 +30,6 @@ namespace
 		AsynchronousManager
 			::temporary_thread_pool =
 				nullptr;
-
-    AsynchronousManager&
-        AsynchronousManager
-			::singleton =
-				SingletonManager
-					::get_singleton<AsynchronousManager>();
 
 
 
@@ -101,7 +95,7 @@ namespace
 				mutex_lock =
 					boost::unique_lock<boost::mutex>
 					(
-						utility_handling_mutex_1
+						feature_handling_mutex_2
 					);
 			}			
 
@@ -146,7 +140,7 @@ namespace
 				mutex_lock =
 					boost::unique_lock<boost::mutex>
 					(
-						utility_handling_mutex_1
+						feature_handling_mutex_2
 					);
 			}			
 

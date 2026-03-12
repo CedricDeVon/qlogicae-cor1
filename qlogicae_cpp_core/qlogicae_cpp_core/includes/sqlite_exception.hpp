@@ -1,7 +1,7 @@
 #pragma once
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {
     class SQLiteException :
         public std::runtime_error

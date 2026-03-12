@@ -3,7 +3,7 @@
 #include "../includes/log_format_enum_manager_configurations.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {   
 	LogFormatEnumManagerConfigurations
 		::LogFormatEnumManagerConfigurations() :

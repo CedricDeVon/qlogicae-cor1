@@ -3,16 +3,8 @@
 #include "../includes/xml_file_io_manager.hpp"
 
 namespace
-	QLogicaeCppCore
-{        
-	XmlFileIoManager&
-		XmlFileIoManager
-			::singleton = 
-				SingletonManager
-					::get_singleton<XmlFileIoManager>();	
-
-
-	
+	QLogicae::Cor::V1
+{        	
 	XmlFileIoManager
 		::XmlFileIoManager() :
 			AbstractClass<XmlFileIoManagerConfigurations>()

@@ -3,7 +3,7 @@
 #include "../includes/text_log_manager_configurations.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {       
 	TextLogManagerConfigurations
 		::TextLogManagerConfigurations() :
@@ -41,4 +41,3 @@ namespace
 				TextLogManagerConfigurations
 					::initial_configurations;
 }
-

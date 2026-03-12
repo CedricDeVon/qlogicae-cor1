@@ -3,7 +3,7 @@
 #include "../includes/windows_environment_variable.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {
 
 }

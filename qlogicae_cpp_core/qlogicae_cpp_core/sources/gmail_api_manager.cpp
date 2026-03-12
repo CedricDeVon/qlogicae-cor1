@@ -3,16 +3,8 @@
 #include "../includes/gmail_api_manager.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {
-	GmailApiManager&
-        GmailApiManager
-			::singleton =
-				SingletonManager
-					::get_singleton<GmailApiManager>();
-
-
-
     GmailApiManager
 		::GmailApiManager() :
 			AbstractClass<GmailApiManagerConfigurations>()

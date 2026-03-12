@@ -2,9 +2,8 @@
 
 #include "../includes/character_domain_enum_manager.hpp"
 
-using namespace QLogicaeCppCore;
-
-namespace QLogicaeCppCoreTest
+namespace
+	QLogicae::Cor::V1::Tests
 {
     struct CharacterDomainParam
     {

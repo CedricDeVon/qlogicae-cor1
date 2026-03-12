@@ -3,16 +3,8 @@
 #include "../includes/character_domain_enum_manager.hpp"
 
 namespace
-	QLogicaeCppCore
-{        
-	CharacterDomainEnumManager&
-		CharacterDomainEnumManager
-			::singleton = 
-				SingletonManager
-					::get_singleton<CharacterDomainEnumManager>();	
-
-
-	
+	QLogicae::Cor::V1
+{        	
 	CharacterDomainEnumManager
 		::CharacterDomainEnumManager() :
 			AbstractClass<CharacterDomainEnumManagerConfigurations>()

@@ -2,10 +2,8 @@
 
 #include "../includes/windows_system_access_manager.hpp"
 
-using namespace QLogicaeCppCore;
-
 namespace
-	QLogicaeCppCoreTest
+	QLogicae::Cor::V1::Tests
 {
 	class WindowsSystemAccessManagerTest : public ::testing::Test
 	{
@@ -50,8 +48,8 @@ namespace
 
 	TEST_F(WindowsSystemAccessManagerTest, Should_ReturnSameInstance_When_AccessedMultipleTimes)
 	{
-		auto& instance1 = WindowsSystemAccessManager::singleton;
-		auto& instance2 = WindowsSystemAccessManager::singleton;
+		auto& instance1 = SingletonManager::get_singleton<WindowsSystemAccessManager>();
+		auto& instance2 = SingletonManager::get_singleton<WindowsSystemAccessManager>();
 		ASSERT_EQ(&instance1, &instance2);
 	}
 

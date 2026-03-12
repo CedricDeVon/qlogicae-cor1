@@ -3,16 +3,8 @@
 #include "../includes/log_medium_enum_manager.hpp"
 
 namespace
-	QLogicaeCppCore
-{        
-	LogMediumEnumManager&
-		LogMediumEnumManager
-			::singleton = 
-				SingletonManager
-					::get_singleton<LogMediumEnumManager>();	
-
-
-	
+	QLogicae::Cor::V1
+{        	
 	LogMediumEnumManager
 		::LogMediumEnumManager() :
 			AbstractClass<LogMediumEnumManagerConfigurations>()

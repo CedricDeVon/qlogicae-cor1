@@ -1,20 +1,16 @@
 #pragma once
 
 #include "abstract_class.hpp"
-#include "singleton_manager.hpp"
 #include "function_wrapper_configurations.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {
 	class
 		FunctionWrapper :
 			public AbstractClass<FunctionWrapperConfigurations>
 	{
 	public:
-		static FunctionWrapper&
-			singleton;
-
 		FunctionWrapper();
 
 		template <typename ResultType, typename InputObjectType, typename InputCallback, typename... InputCallbackArguments> ResultType
@@ -66,7 +62,8 @@ namespace
 					}
 					else
 					{
-						ErrorManager::singleton.handle_error_outputs("");
+						SingletonManager
+							::get_singleton<ErrorManager>().handle_error_outputs("");
 					}
 				}
 				return (input_object->*input_callback)(input_callback_arguments...);

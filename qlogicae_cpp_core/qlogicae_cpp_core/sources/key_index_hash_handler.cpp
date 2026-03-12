@@ -3,7 +3,7 @@
 #include "../includes/key_index_hash_handler.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {
 
 }

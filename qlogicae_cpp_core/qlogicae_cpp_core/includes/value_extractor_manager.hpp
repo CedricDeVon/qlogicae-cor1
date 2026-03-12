@@ -5,7 +5,7 @@
 #include "value_extractor_manager_configurations.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {
 	template <typename OutputType> class
 		ValueExtractorManager :

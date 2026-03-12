@@ -3,16 +3,8 @@
 #include "../includes/random_value_generation_manager.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {	
-	RandomValueGenerationManager&
-		RandomValueGenerationManager
-			::singleton =
-				SingletonManager
-					::get_singleton<RandomValueGenerationManager>();
-
-
-
 	RandomValueGenerationManager
 		::RandomValueGenerationManager() :
 			AbstractClass<RandomValueGenerationManagerConfigurations>()
@@ -75,7 +67,7 @@ namespace
 				mutex_lock =
 					boost::unique_lock<boost::mutex>
 					(
-						utility_handling_mutex_1
+						feature_handling_mutex_1
 					);
 			}
 
@@ -118,7 +110,7 @@ namespace
 				mutex_lock =
 					boost::unique_lock<boost::mutex>
 					(
-						utility_handling_mutex_1
+						feature_handling_mutex_1
 					);
 			}
 
@@ -243,9 +235,10 @@ namespace
 				exception
 		)
 		{
-			handle_error_outputs(
-				exception
-			);		
+			return
+				handle_error_outputs(
+					exception
+				);		
 		}
 	}
 }

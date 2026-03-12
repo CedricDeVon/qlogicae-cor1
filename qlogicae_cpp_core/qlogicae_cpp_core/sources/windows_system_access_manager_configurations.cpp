@@ -3,7 +3,7 @@
 #include "../includes/windows_system_access_manager_configurations.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {
 	WindowsSystemAccessManagerConfigurations
 		::WindowsSystemAccessManagerConfigurations() :

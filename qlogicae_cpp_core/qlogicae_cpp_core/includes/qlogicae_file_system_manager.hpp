@@ -5,7 +5,7 @@
 #include "qlogicae_file_system_manager_configurations.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {
     class
 		QLogicaeFileSystemManager :

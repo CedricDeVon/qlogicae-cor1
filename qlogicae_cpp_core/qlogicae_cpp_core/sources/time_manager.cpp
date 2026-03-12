@@ -3,16 +3,8 @@
 #include "../includes/time_manager.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {
-	TimeManager&
-        TimeManager
-			::singleton =
-				SingletonManager
-					::get_singleton<TimeManager>();
-
-
-
     TimeManager
 		::TimeManager() :
 			AbstractClass<TimeManagerConfigurations>()

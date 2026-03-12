@@ -3,16 +3,8 @@
 #include "../includes/text_encoding_manager.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {	
-    TextEncodingManager&
-        TextEncodingManager
-			::singleton =
-				SingletonManager
-					::get_singleton<TextEncodingManager>();
-
-
-
     TextEncodingManager
 		::TextEncodingManager() :
 			AbstractClass<TextEncodingManagerConfigurations>()

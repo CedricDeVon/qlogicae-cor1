@@ -1,11 +1,10 @@
 #pragma once
 
 #include "abstract_class.hpp"
-#include "singleton_manager.hpp"
 #include "json_file_io_manager_configurations.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {
     class
 		JsonFileIoManager :
@@ -17,9 +16,6 @@ namespace
 
 		boost::mutex
 			feature_handling_mutex_3;
-
-        static JsonFileIoManager&
-            singleton;
 
 		JsonFileIoManager();
 

@@ -3,7 +3,7 @@
 #include "../includes/character_domain_manager_configurations.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {
 	CharacterDomainManagerConfigurations
 		::CharacterDomainManagerConfigurations() :

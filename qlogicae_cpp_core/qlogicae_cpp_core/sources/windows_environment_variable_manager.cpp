@@ -3,16 +3,8 @@
 #include "../includes/windows_environment_variable_manager.hpp"
 
 namespace
-	QLogicaeCppCore
-{
-	WindowsEnvironmentVariableManager&
-        WindowsEnvironmentVariableManager
-			::singleton =
-				SingletonManager
-					::get_singleton<WindowsEnvironmentVariableManager>();
-
-
-
+	QLogicae::Cor::V1
+{	
     WindowsEnvironmentVariableManager
 		::WindowsEnvironmentVariableManager() :
 			AbstractClass<WindowsEnvironmentVariableManagerConfigurations>()
@@ -209,9 +201,9 @@ namespace
 			)
 	{
 		return
-			TextManager::singleton.convert_text<std::wstring, std::string>(
+			SingletonManager::get_singleton<TextManager>().convert_text<std::wstring, std::string>(
 				get_value(
-					TextManager::singleton.convert_text<std::string, std::wstring>(
+					SingletonManager::get_singleton<TextManager>().convert_text<std::string, std::wstring>(
 						key
 					)
 				)
@@ -229,10 +221,10 @@ namespace
 	{
 		return
 			set_value(
-				TextManager::singleton.convert_text<std::string, std::wstring>(
+				SingletonManager::get_singleton<TextManager>().convert_text<std::string, std::wstring>(
 					key
 				),
-				TextManager::singleton.convert_text<std::string, std::wstring>(
+				SingletonManager::get_singleton<TextManager>().convert_text<std::string, std::wstring>(
 					value
 				)
 			);
@@ -247,7 +239,7 @@ namespace
 	{
 		return
 			remove_value(
-				TextManager::singleton.convert_text<std::string, std::wstring>(
+				SingletonManager::get_singleton<TextManager>().convert_text<std::string, std::wstring>(
 					key
 				)
 			);

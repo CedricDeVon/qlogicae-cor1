@@ -2,10 +2,8 @@
 
 #include "../includes/text_encoding_enum_manager.hpp"
 
-using namespace QLogicaeCppCore;
-
 namespace
-	QLogicaeCppCoreTest
+	QLogicae::Cor::V1::Tests
 {
 	class TextEncodingEnumManagerTest :
 		public ::testing::Test
@@ -129,8 +127,8 @@ namespace
 
 	TEST_F(TextEncodingEnumManagerTest, Should_ReturnSingletonInstanceConsistently)
 	{
-		TextEncodingEnumManager& first_instance = TextEncodingEnumManager::singleton;
-		TextEncodingEnumManager& second_instance = TextEncodingEnumManager::singleton;
+		TextEncodingEnumManager& first_instance = SingletonManager::get_singleton<TextEncodingEnumManager>();
+		TextEncodingEnumManager& second_instance = SingletonManager::get_singleton<TextEncodingEnumManager>();
 		EXPECT_EQ(&first_instance, &second_instance);
 	}
 

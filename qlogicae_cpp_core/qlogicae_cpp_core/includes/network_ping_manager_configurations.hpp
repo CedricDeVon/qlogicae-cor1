@@ -5,7 +5,7 @@
 #include "network_ping_manager_response.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {
     struct
 		NetworkPingManagerConfigurations :

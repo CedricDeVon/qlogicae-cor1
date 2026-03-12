@@ -3,7 +3,7 @@
 #include "abstract_configurations.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {
 	template <typename OutputType> struct
 		ValueExtractorManagerConfigurations :

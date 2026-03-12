@@ -4,7 +4,7 @@
 #include "sqlite_statement.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {
     class
 		SQLiteDatabaseManager

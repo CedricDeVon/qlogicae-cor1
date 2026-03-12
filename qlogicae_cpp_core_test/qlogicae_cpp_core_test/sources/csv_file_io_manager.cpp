@@ -2,10 +2,8 @@
 
 #include "../includes/csv_file_io_manager.hpp"
 
-using namespace QLogicaeCppCore;
-
 namespace
-	QLogicaeCppCoreTest
+	QLogicae::Cor::V1::Tests
 {
 	class CsvFileIoManagerTest
 		: public ::testing::Test
@@ -383,7 +381,6 @@ namespace
 	)
 	{
 		CsvFileIoManager manager;
-		manager.configurations.is_feature_edge_case_handling_enabled = true;
 
 		std::vector<std::string> values =
 		{
@@ -1247,7 +1244,6 @@ namespace
 	TEST_F(CsvFileIoManagerTest, InvalidColumnName)
 	{
 		CsvFileIoManager manager;
-		manager.configurations.is_feature_edge_case_handling_enabled = true;
 
 		auto result = manager.get_column(
 			file_path_.string(),
@@ -1260,7 +1256,6 @@ namespace
 	TEST_F(CsvFileIoManagerTest, InvalidRowIndex)
 	{
 		CsvFileIoManager manager;
-		manager.configurations.is_feature_edge_case_handling_enabled = true;
 
 		auto result = manager.get_row(
 			file_path_.string(),

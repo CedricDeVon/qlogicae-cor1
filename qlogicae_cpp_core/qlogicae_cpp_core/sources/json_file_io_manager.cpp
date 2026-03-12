@@ -3,16 +3,8 @@
 #include "../includes/json_file_io_manager.hpp"
 
 namespace
-	QLogicaeCppCore
-{        
-	JsonFileIoManager&
-		JsonFileIoManager
-			::singleton = 
-				SingletonManager
-					::get_singleton<JsonFileIoManager>();	
-
-
-	
+	QLogicae::Cor::V1
+{        	
 	JsonFileIoManager
 		::JsonFileIoManager() :
 			AbstractClass<JsonFileIoManagerConfigurations>()

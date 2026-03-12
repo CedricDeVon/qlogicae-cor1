@@ -3,16 +3,8 @@
 #include "../includes/argon2id_hash_cryptography_manager.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {
-	Argon2idHashCryptographyManager&
-        Argon2idHashCryptographyManager
-			::singleton =
-				SingletonManager
-					::get_singleton<Argon2idHashCryptographyManager>();
-
-
-
     Argon2idHashCryptographyManager
 		::Argon2idHashCryptographyManager() :
 			AbstractClass<Argon2idHashCryptographyManagerConfigurations>()
@@ -64,7 +56,10 @@ namespace
 				2,
 				text.data(),
 				text.size(),
-				RandomValueGenerationManager::singleton.generate_random_salt().data(),
+				SingletonManager
+					::get_singleton<RandomValueGenerationManager>()
+						.generate_random_salt()
+						.data(),
 				16,
 				32,
 				vb.data(),

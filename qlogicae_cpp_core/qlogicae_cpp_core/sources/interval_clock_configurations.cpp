@@ -3,7 +3,7 @@
 #include "../includes/interval_clock_configurations.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {   
 	IntervalClockConfigurations
 		::IntervalClockConfigurations() :

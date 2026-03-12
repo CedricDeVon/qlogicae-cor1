@@ -1,7 +1,7 @@
 #pragma once
 
 namespace
-	QLogicaeCppCoreTest
+	QLogicae::Cor::V1::Tests
 {
 	
 }

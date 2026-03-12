@@ -3,7 +3,7 @@
 #include "../includes/log_output.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {
 
 }

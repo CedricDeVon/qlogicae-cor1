@@ -3,16 +3,8 @@
 #include "../includes/file_log_manager.hpp"
 
 namespace
-	QLogicaeCppCore
-{        
-	FileLogManager&
-		FileLogManager
-			::singleton = 
-				SingletonManager
-					::get_singleton<FileLogManager>();	
-
-
-	
+	QLogicae::Cor::V1
+{        	
 	FileLogManager
 		::FileLogManager() :
 			AbstractClass<FileLogManagerConfigurations>()
@@ -384,8 +376,8 @@ namespace
 	{
 		return
 			log_raw_text(
-				TextLogManager
-					::singleton
+				SingletonManager
+					::get_singleton<TextLogManager>()					
 						.convert_text(
 							text,
 							log_level

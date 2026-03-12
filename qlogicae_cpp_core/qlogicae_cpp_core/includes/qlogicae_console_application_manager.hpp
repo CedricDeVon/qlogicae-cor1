@@ -5,7 +5,7 @@
 #include "qlogicae_console_application_manager_configurations.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {
     class
 		QLogicaeConsoleApplicationManager :

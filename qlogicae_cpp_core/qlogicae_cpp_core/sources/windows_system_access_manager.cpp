@@ -3,16 +3,8 @@
 #include "../includes/windows_system_access_manager.hpp"
 
 namespace
-	QLogicaeCppCore
-{
-	WindowsSystemAccessManager&
-        WindowsSystemAccessManager
-			::singleton =
-				SingletonManager
-					::get_singleton<WindowsSystemAccessManager>();
-
-
-
+	QLogicae::Cor::V1
+{	
     WindowsSystemAccessManager
 		::WindowsSystemAccessManager() :
 			AbstractClass<WindowsSystemAccessManagerConfigurations>()

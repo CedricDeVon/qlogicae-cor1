@@ -3,7 +3,7 @@
 #include "results_status.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {
     template <typename ValueType = std::string> struct
         Results

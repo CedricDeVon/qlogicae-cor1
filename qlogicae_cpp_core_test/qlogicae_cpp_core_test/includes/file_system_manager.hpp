@@ -4,7 +4,7 @@
 
 #include <Shlwapi.h>
 
-namespace QLogicaeCppCoreTest
+namespace QLogicae::Cor::V1::Tests
 {
 	
 }

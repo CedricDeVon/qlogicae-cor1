@@ -2,10 +2,8 @@
 
 #include "../includes/text_encoding_manager.hpp"
 
-using namespace QLogicaeCppCore;
-
 namespace
-	QLogicaeCppCoreTest
+	QLogicae::Cor::V1::Tests
 {
 	class TextEncodingManagerTest : public ::testing::Test
 	{

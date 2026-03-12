@@ -3,7 +3,7 @@
 #include "../includes/pdf_file_io_manager_configurations.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {
 	PdfFileIoManagerConfigurations
 		::PdfFileIoManagerConfigurations() :

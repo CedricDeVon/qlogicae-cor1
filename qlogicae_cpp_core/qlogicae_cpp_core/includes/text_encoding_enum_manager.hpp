@@ -6,16 +6,13 @@
 #include "text_encoding_enum_manager_configurations.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {    
     class
 		TextEncodingEnumManager :
 			public AbstractClass<TextEncodingEnumManagerConfigurations>
     {
     public:        
-        static TextEncodingEnumManager&
-            singleton;
-
 		TextEncodingEnumManager();
 
 		std::string

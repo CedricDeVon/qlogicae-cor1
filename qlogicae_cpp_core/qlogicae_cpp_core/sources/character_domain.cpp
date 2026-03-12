@@ -3,7 +3,7 @@
 #include "../includes/character_domain.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {
 
 }

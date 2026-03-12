@@ -2,10 +2,8 @@
 
 #include "../includes/file_system_entity_enum_manager.hpp"
 
-using namespace QLogicaeCppCore;
-
 namespace
-	QLogicaeCppCoreTest
+	QLogicae::Cor::V1::Tests
 {
 	class FileSystemEntityEnumManagerTest :
 		public ::testing::Test
@@ -129,8 +127,8 @@ namespace
 
 	TEST_F(FileSystemEntityEnumManagerTest, Should_ReturnSingletonInstanceConsistently)
 	{
-		FileSystemEntityEnumManager& first_instance = FileSystemEntityEnumManager::singleton;
-		FileSystemEntityEnumManager& second_instance = FileSystemEntityEnumManager::singleton;
+		FileSystemEntityEnumManager& first_instance = SingletonManager::get_singleton<FileSystemEntityEnumManager>();
+		FileSystemEntityEnumManager& second_instance = SingletonManager::get_singleton<FileSystemEntityEnumManager>();
 		EXPECT_EQ(&first_instance, &second_instance);
 	}
 

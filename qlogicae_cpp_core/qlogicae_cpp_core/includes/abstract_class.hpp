@@ -1,18 +1,16 @@
 #pragma once
 
 #include "error_manager.hpp"
+#include "singleton_manager.hpp"
 #include "abstract_configurations.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {
     template <typename AbstractConfigurationsType> class
 		AbstractClass
     {
     public:
-		boost::mutex
-			utility_handling_mutex_1;
-
 		boost::mutex
 			feature_handling_mutex_1;
 
@@ -63,9 +61,6 @@ namespace
 				const std::function<void()>&
 					callback
 			);
-
-		template <typename Type> static Type
-			get_singleton();
     };
 
 	template <typename AbstractConfigurationsType>
@@ -131,7 +126,7 @@ namespace
 				mutex_lock =
 					boost::unique_lock<boost::mutex>
 					(
-						utility_handling_mutex_1
+						feature_handling_mutex_1
 					);
 			}		
 
@@ -174,7 +169,7 @@ namespace
 				mutex_lock =
 					boost::unique_lock<boost::mutex>
 					(
-						utility_handling_mutex_1
+						feature_handling_mutex_1
 					);
 			}
 
@@ -220,7 +215,7 @@ namespace
 				mutex_lock =
 					boost::unique_lock<boost::mutex>
 					(
-						utility_handling_mutex_1
+						feature_handling_mutex_1
 					);
 			}			
 
@@ -266,7 +261,7 @@ namespace
 				mutex_lock =
 					boost::unique_lock<boost::mutex>
 					(
-						utility_handling_mutex_1
+						feature_handling_mutex_1
 					);
 			}
 
@@ -290,17 +285,6 @@ namespace
 	} 
 	
 	template <typename AbstractConfigurationsType>
-	template <typename Type> Type
-		AbstractClass<AbstractConfigurationsType>
-			::get_singleton()
-    {
-		static Type singleton;
-
-		return
-			singleton;
-    }
-
-	template <typename AbstractConfigurationsType>
 	template <typename OutputType> OutputType
 		AbstractClass<AbstractConfigurationsType>
 			::handle_error_outputs(
@@ -320,19 +304,8 @@ namespace
 				OutputType{};
 		}
 
-		boost::unique_lock<boost::mutex>
-			mutex_lock;
-		if (configurations.is_thread_safety_enabled_for_error_handling())
-		{
-			mutex_lock =
-				boost::unique_lock<boost::mutex>
-				(
-					utility_handling_mutex_1
-				);
-		}
-
 		return
-			ErrorManager::singleton
+			SingletonManager::get_singleton<ErrorManager>()
 				.handle_error_outputs<OutputType>(
 					title,
 					message
@@ -357,19 +330,8 @@ namespace
 				OutputType{};
 		}
 
-		boost::unique_lock<boost::mutex>
-			mutex_lock;
-		if (configurations.is_thread_safety_enabled_for_error_handling())
-		{
-			mutex_lock =
-				boost::unique_lock<boost::mutex>
-				(
-					utility_handling_mutex_1
-				);
-		}
-		
 		return
-			ErrorManager::singleton
+			SingletonManager::get_singleton<ErrorManager>()
 				.handle_error_outputs<OutputType>(
 					message
 			);
@@ -393,19 +355,8 @@ namespace
 				OutputType{};
 		}
 
-		boost::unique_lock<boost::mutex>
-			mutex_lock;
-		if (configurations.is_thread_safety_enabled_for_error_handling())
-		{
-			mutex_lock =
-				boost::unique_lock<boost::mutex>
-				(
-					utility_handling_mutex_1
-				);
-		}
-
 		return
-			ErrorManager::singleton
+			SingletonManager::get_singleton<ErrorManager>()
 				.handle_error_outputs<OutputType>(
 					exception
 			);

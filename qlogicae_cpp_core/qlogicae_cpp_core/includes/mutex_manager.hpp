@@ -2,12 +2,11 @@
 
 #include "abstract_class.hpp"
 #include "valid_mutex_lock.hpp"
-#include "singleton_manager.hpp"
 #include "pair_hash_operator.hpp"
 #include "mutex_manager_configurations.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {        
     class
 		MutexManager :
@@ -49,9 +48,6 @@ namespace
 
 		boost::mutex
 			feature_handling_mutex_3;
-
-        static MutexManager&
-            singleton;
 
 		MutexManager();
 

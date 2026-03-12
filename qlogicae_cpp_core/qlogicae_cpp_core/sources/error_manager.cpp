@@ -3,19 +3,8 @@
 #include "../includes/error_manager.hpp"
 
 namespace
-	QLogicaeCppCore
-{        
-    ErrorManager&
-        ErrorManager
-			::singleton =
-				ErrorManager
-					::get_this_singleton();
-
-	boost::mutex
-		ErrorManager
-			::ErrorManager
-				::feature_handling_mutex_1;
-
+	QLogicae::Cor::V1
+{            
 	ErrorManager
 		::ErrorManager()
 	{
@@ -321,17 +310,6 @@ namespace
 			configurations.default_title +
 			configurations.title_message_separator +
 			exception.what();
-	}
-
-	ErrorManager&
-		ErrorManager
-		::get_this_singleton()
-	{
-		static ErrorManager
-			singleton;
-
-		return
-			singleton;
 	}
 }
 

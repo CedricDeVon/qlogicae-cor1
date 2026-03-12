@@ -3,7 +3,7 @@
 #include "../includes/network_ping_manager_configurations.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {
 	NetworkPingManagerConfigurations
 		::NetworkPingManagerConfigurations() :

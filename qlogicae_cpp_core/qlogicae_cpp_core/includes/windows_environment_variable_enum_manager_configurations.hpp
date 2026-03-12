@@ -4,7 +4,7 @@
 #include "windows_environment_variable.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {
 	struct
 		WindowsEnvironmentVariableEnumManagerConfigurations :

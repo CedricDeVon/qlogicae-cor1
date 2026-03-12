@@ -3,16 +3,8 @@
 #include "../includes/file_system_entity_enum_manager.hpp"
 
 namespace
-	QLogicaeCppCore
-{        
-	FileSystemEntityEnumManager&
-		FileSystemEntityEnumManager
-			::singleton = 
-				SingletonManager
-					::get_singleton<FileSystemEntityEnumManager>();	
-
-
-	
+	QLogicae::Cor::V1
+{        	
 	FileSystemEntityEnumManager
 		::FileSystemEntityEnumManager() :
 			AbstractClass<FileSystemEntityEnumManagerConfigurations>()

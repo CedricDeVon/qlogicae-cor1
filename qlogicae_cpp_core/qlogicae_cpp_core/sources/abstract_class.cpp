@@ -3,7 +3,7 @@
 #include "../includes/abstract_class.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {
 	
 }

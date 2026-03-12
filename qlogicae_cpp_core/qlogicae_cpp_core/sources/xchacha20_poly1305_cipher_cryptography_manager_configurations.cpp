@@ -3,7 +3,7 @@
 #include "../includes/xchacha20_poly1305_cipher_cryptography_manager_configurations.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {
 	XChaCha20Poly1305CipherCryptographyManagerConfigurations
 		::XChaCha20Poly1305CipherCryptographyManagerConfigurations() :

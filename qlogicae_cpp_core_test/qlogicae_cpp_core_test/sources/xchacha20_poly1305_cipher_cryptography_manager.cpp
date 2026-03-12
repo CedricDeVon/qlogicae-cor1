@@ -2,10 +2,8 @@
 
 #include "../includes/xchacha20_poly1305_cipher_cryptography_manager.hpp"
 
-using namespace QLogicaeCppCore;
-
 namespace
-	QLogicaeCppCoreTest
+	QLogicae::Cor::V1::Tests
 {
 	class XChaCha20Poly1305CipherCryptographyManagerTest :
 		public ::testing::Test
@@ -235,7 +233,7 @@ namespace
 
 		XChaCha20Poly1305CipherCryptographyManager*
 			expected_instance =
-				&XChaCha20Poly1305CipherCryptographyManager::singleton;
+				&SingletonManager::get_singleton<XChaCha20Poly1305CipherCryptographyManager>();
 
 		for (auto* instance : singleton_instances)
 		{

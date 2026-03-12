@@ -3,16 +3,8 @@
 #include "../includes/bcrypt_hash_cryptography_manager.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {
-	BcryptHashCryptographyManager&
-        BcryptHashCryptographyManager
-			::singleton =
-				SingletonManager
-					::get_singleton<BcryptHashCryptographyManager>();
-
-
-
     BcryptHashCryptographyManager
 		::BcryptHashCryptographyManager() :
 			AbstractClass<BcryptHashCryptographyManagerConfigurations>()
@@ -75,7 +67,7 @@ namespace
 				mutex_lock =
 					boost::unique_lock<boost::mutex>
 					(
-						utility_handling_mutex_1
+						feature_handling_mutex_1
 					);
 			}			
 
@@ -118,7 +110,7 @@ namespace
 				mutex_lock =
 					boost::unique_lock<boost::mutex>
 					(
-						utility_handling_mutex_1
+						feature_handling_mutex_1
 					);
 			}			
 

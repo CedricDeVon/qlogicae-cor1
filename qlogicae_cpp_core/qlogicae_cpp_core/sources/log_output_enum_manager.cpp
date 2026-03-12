@@ -3,16 +3,8 @@
 #include "../includes/log_output_enum_manager.hpp"
 
 namespace
-	QLogicaeCppCore
-{        
-	LogOutputEnumManager&
-		LogOutputEnumManager
-			::singleton = 
-				SingletonManager
-					::get_singleton<LogOutputEnumManager>();	
-
-
-	
+	QLogicae::Cor::V1
+{        	
 	LogOutputEnumManager
 		::LogOutputEnumManager() :
 			AbstractClass<LogOutputEnumManagerConfigurations>()

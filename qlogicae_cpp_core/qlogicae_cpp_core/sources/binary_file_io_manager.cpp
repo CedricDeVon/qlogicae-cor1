@@ -3,16 +3,8 @@
 #include "../includes/binary_file_io_manager.hpp"
 
 namespace
-	QLogicaeCppCore
-{        
-	BinaryFileIoManager&
-		BinaryFileIoManager
-			::singleton = 
-				SingletonManager
-					::get_singleton<BinaryFileIoManager>();	
-
-
-	
+	QLogicae::Cor::V1
+{        	
 	BinaryFileIoManager
 		::BinaryFileIoManager() :
 			AbstractClass<BinaryFileIoManagerConfigurations>()
@@ -277,8 +269,8 @@ namespace
 			)
 	{
 		return
-			TextEncodingManager
-				::singleton
+			SingletonManager
+				::get_singleton<TextEncodingManager>()				
 					.convert_bytes_to_string(
 						read_raw_bytes(
 							file_path
@@ -291,8 +283,8 @@ namespace
 			::read_raw_text()
 	{
 		return
-			TextEncodingManager
-				::singleton
+			SingletonManager
+				::get_singleton<TextEncodingManager>()				
 					.convert_bytes_to_string(
 						read_raw_bytes(
 							configurations
@@ -313,8 +305,8 @@ namespace
 		return
 			write_raw_bytes(
 				file_path,
-				TextEncodingManager
-					::singleton
+				SingletonManager
+					::get_singleton<TextEncodingManager>()					
 						.convert_string_to_bytes(
 							text
 						)
@@ -332,8 +324,8 @@ namespace
 			write_raw_bytes(
 				configurations
 					.file_path,
-				TextEncodingManager
-					::singleton
+				SingletonManager
+					::get_singleton<TextEncodingManager>()					
 						.convert_string_to_bytes(
 							text
 						)
@@ -352,8 +344,8 @@ namespace
 		return
 			append_raw_bytes(
 				file_path,
-				TextEncodingManager
-					::singleton
+				SingletonManager
+					::get_singleton<TextEncodingManager>()					
 						.convert_string_to_bytes(
 							text
 						)
@@ -371,8 +363,8 @@ namespace
 			append_raw_bytes(
 				configurations
 					.file_path,
-				TextEncodingManager
-					::singleton
+				SingletonManager
+					::get_singleton<TextEncodingManager>()					
 						.convert_string_to_bytes(
 							text
 						)

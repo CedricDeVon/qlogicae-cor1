@@ -3,7 +3,7 @@
 #include "../includes/windows_registry_root_path_enum_manager_configurations.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {   
 	WindowsRegistryRootPathEnumManagerConfigurations
 		::WindowsRegistryRootPathEnumManagerConfigurations() :

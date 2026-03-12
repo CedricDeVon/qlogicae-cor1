@@ -3,7 +3,7 @@
 #include "../includes/mutex_manager_configurations.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {   
 	MutexManagerConfigurations
 		::MutexManagerConfigurations() :

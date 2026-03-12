@@ -3,7 +3,7 @@
 #include "../includes/regular_key_delete_handler.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {
 	
 }

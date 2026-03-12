@@ -2,10 +2,8 @@
 
 #include "../includes/log_format_enum_manager.hpp"
 
-using namespace QLogicaeCppCore;
-
 namespace
-	QLogicaeCppCoreTest
+	QLogicae::Cor::V1::Tests
 {
 	class LogFormatEnumManagerTest :
 		public ::testing::Test
@@ -129,8 +127,8 @@ namespace
 
 	TEST_F(LogFormatEnumManagerTest, Should_ReturnSingletonInstanceConsistently)
 	{
-		LogFormatEnumManager& first_instance = LogFormatEnumManager::singleton;
-		LogFormatEnumManager& second_instance = LogFormatEnumManager::singleton;
+		LogFormatEnumManager& first_instance = SingletonManager::get_singleton<LogFormatEnumManager>();
+		LogFormatEnumManager& second_instance = SingletonManager::get_singleton<LogFormatEnumManager>();
 		EXPECT_EQ(&first_instance, &second_instance);
 	}
 

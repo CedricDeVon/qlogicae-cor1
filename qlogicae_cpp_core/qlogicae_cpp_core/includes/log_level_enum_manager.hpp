@@ -2,20 +2,16 @@
 
 #include "log_level.hpp"
 #include "abstract_class.hpp"
-#include "singleton_manager.hpp"
 #include "log_level_enum_manager_configurations.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {
     class
 		LogLevelEnumManager :
 			public AbstractClass<LogLevelEnumManagerConfigurations>
     {
     public:
-        static LogLevelEnumManager&
-            singleton;
-
 		LogLevelEnumManager();
 
 		std::string

@@ -3,7 +3,7 @@
 #include "../includes/function_wrapper.hpp"
 
 namespace
-	QLogicaeCppCoreTest
+	QLogicae::Cor::V1::Tests
 {
 	struct NonDefaultConstructible
 	{
@@ -42,7 +42,7 @@ namespace
 		public ::testing::Test
 	{
 	public:
-		QLogicaeCppCore::FunctionWrapper
+		FunctionWrapper
 			manager;
 
 		void
@@ -62,19 +62,19 @@ namespace
 
 	TEST_F(FunctionWrapperTest, Should_ConstructSuccessfully_When_NoException)
 	{
-		QLogicaeCppCore::FunctionWrapper& wrapper = manager;
+		FunctionWrapper& wrapper = manager;
 		ASSERT_TRUE(wrapper.construct());
 	}
 
 	TEST_F(FunctionWrapperTest, Should_DestructSuccessfully_When_NoException)
 	{
-		QLogicaeCppCore::FunctionWrapper& wrapper = manager;
+		FunctionWrapper& wrapper = manager;
 		ASSERT_TRUE(wrapper.destruct());
 	}
 
 	TEST_F(FunctionWrapperTest, Should_SetupConfigurationsCorrectly_When_ValidInput)
 	{
-		QLogicaeCppCore::FunctionWrapperConfigurations configurations;
+		FunctionWrapperConfigurations configurations;
 		configurations.is_feature_runtime_execution_handling_enabled = true;
 		ASSERT_TRUE(manager.setup(configurations));
 		ASSERT_TRUE(manager.configurations.is_feature_runtime_execution_handling_enabled);
@@ -82,7 +82,7 @@ namespace
 
 	TEST_F(FunctionWrapperTest, Should_ResetConfigurationsToDefault_When_Called)
 	{
-		QLogicaeCppCore::FunctionWrapperConfigurations configurations;
+		FunctionWrapperConfigurations configurations;
 		configurations.is_feature_runtime_execution_handling_enabled = true;
 		manager.setup(configurations);
 		ASSERT_TRUE(manager.reset());
@@ -91,8 +91,8 @@ namespace
 
 	TEST_F(FunctionWrapperTest, Should_HandleException_When_SetupThrows)
 	{
-		struct ThrowingConfigurations : QLogicaeCppCore::FunctionWrapperConfigurations {};
-		QLogicaeCppCore::FunctionWrapperConfigurations configurations;
+		struct ThrowingConfigurations : FunctionWrapperConfigurations {};
+		FunctionWrapperConfigurations configurations;
 		ASSERT_TRUE(manager.setup(configurations));
 	}
 
@@ -236,7 +236,7 @@ namespace
 
 	TEST_F(FunctionWrapperTest, Should_ExecuteCallSafely_When_DisabledConfiguration)
 	{
-		QLogicaeCppCore::FunctionWrapperConfigurations configurations;
+		FunctionWrapperConfigurations configurations;
 		configurations.is_feature_runtime_execution_handling_enabled = false;
 		manager.setup(configurations);
 
@@ -432,7 +432,7 @@ namespace
 
 	TEST_F(FunctionWrapperTest, Should_HandleExtremeFlagCombinations)
 	{
-		QLogicaeCppCore::FunctionWrapperConfigurations configurations;
+		FunctionWrapperConfigurations configurations;
 		configurations.is_feature_runtime_execution_handling_enabled = false;
 		configurations.is_feature_thread_safety_handling_enabled = true;
 		configurations.is_utility_thread_safety_handling_enabled = true;
@@ -452,7 +452,7 @@ namespace
 
 	TEST_F(FunctionWrapperTest, Should_HandleFuzzedConfiguration)
 	{
-		QLogicaeCppCore::FunctionWrapperConfigurations configurations;
+		FunctionWrapperConfigurations configurations;
 		*reinterpret_cast<uint64_t*>(&configurations) = 0xDEADBEEFCAFEBABE;
 
 		ASSERT_NO_THROW(manager.setup(configurations));
@@ -475,7 +475,7 @@ namespace
         for (bool utility_ts : bools)
         for (bool feature_ts : bools)
         {
-            QLogicaeCppCore::FunctionWrapperConfigurations config;
+            FunctionWrapperConfigurations config;
             config.is_feature_runtime_execution_handling_enabled = feature;
             config.is_utility_runtime_execution_handling_enabled = utility;
             config.is_feature_thread_safety_handling_enabled = feature_ts;

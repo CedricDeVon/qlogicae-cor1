@@ -3,16 +3,8 @@
 #include "../includes/excel_file_io_manager.hpp"
 
 namespace
-	QLogicaeCppCore
-{        
-	ExcelFileIoManager&
-		ExcelFileIoManager
-			::singleton = 
-				SingletonManager
-					::get_singleton<ExcelFileIoManager>();	
-
-
-	
+	QLogicae::Cor::V1
+{        	
 	ExcelFileIoManager
 		::ExcelFileIoManager() :
 			AbstractClass<ExcelFileIoManagerConfigurations>()

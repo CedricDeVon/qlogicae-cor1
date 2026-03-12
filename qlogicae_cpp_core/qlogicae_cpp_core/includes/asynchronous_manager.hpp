@@ -1,11 +1,10 @@
 #pragma once
 
 #include "abstract_class.hpp"
-#include "singleton_manager.hpp"
 #include "asynchronous_manager_configurations.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {    
     class
 		AsynchronousManager :
@@ -30,8 +29,8 @@ namespace
 		static std::shared_ptr<boost::asio::thread_pool>
 			temporary_thread_pool;
 
-        static AsynchronousManager&
-            singleton;
+		boost::mutex
+			feature_handling_mutex_2;
 
 		AsynchronousManager();
 

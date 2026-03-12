@@ -3,7 +3,7 @@
 #include "../includes/argon2id_hash_cryptography_manager_configurations.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {
 	Argon2idHashCryptographyManagerConfigurations
 		::Argon2idHashCryptographyManagerConfigurations() :

@@ -3,7 +3,7 @@
 #include "../includes/text_case_manager_configurations.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {
 	TextCaseManagerConfigurations
 		::TextCaseManagerConfigurations() :

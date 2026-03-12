@@ -3,7 +3,7 @@
 #include "../includes/console_log_manager_configurations.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {       
 	ConsoleLogManagerConfigurations
 		::ConsoleLogManagerConfigurations() :

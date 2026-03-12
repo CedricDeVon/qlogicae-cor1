@@ -5,7 +5,7 @@
 #include "abstract_configurations.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {
     struct
 		UuidManagerConfigurations :

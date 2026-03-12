@@ -3,16 +3,8 @@
 #include "../includes/onnx_api_manager.hpp"
 
 namespace
-	QLogicaeCppCore
-{        
-	OnnxApiManager&
-		OnnxApiManager
-			::singleton = 
-				SingletonManager
-					::get_singleton<OnnxApiManager>();	
-
-
-	
+	QLogicae::Cor::V1
+{        	
 	OnnxApiManager
 		::OnnxApiManager() :
 			AbstractClass<OnnxApiManagerConfigurations>()

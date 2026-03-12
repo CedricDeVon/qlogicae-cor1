@@ -2,9 +2,8 @@
 
 #include "../includes/configuration_manager.hpp"
 
-using namespace QLogicaeCppCore;
-
-namespace QLogicaeCppCoreTest
+namespace
+	QLogicae::Cor::V1::Tests
 {
 	class ConfigurationManagerTest : public ::testing::Test
     {
@@ -428,8 +427,8 @@ namespace QLogicaeCppCoreTest
 
 	TEST_F(ConfigurationManagerTest, Should_ReturnSingletonInstanceCorrectly)
 	{
-		ConfigurationManager& instance1 = ConfigurationManager::singleton;
-		ConfigurationManager& instance2 = ConfigurationManager::singleton;
+		ConfigurationManager& instance1 = SingletonManager::get_singleton<ConfigurationManager>();
+		ConfigurationManager& instance2 = SingletonManager::get_singleton<ConfigurationManager>();
 
 		ASSERT_EQ(&instance1, &instance2);
 	}
@@ -782,7 +781,7 @@ namespace QLogicaeCppCoreTest
 			{
 				for (int i = 0; i < 200; ++i)
 				{
-					auto& singleton = ConfigurationManager::singleton;
+					auto& singleton = SingletonManager::get_singleton<ConfigurationManager>();
 					singleton.setup_defaults(defaults);
 					singleton.reset_defaults<ConfigurationManagerConfigurations>();
 				}

@@ -2,20 +2,16 @@
 
 #include "abstract_class.hpp"
 #include "character_domain.hpp"
-#include "singleton_manager.hpp"
 #include "character_domain_manager_configurations.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {
     class
 		CharacterDomainManager :
 			public AbstractClass<CharacterDomainManagerConfigurations>
     {
     public:		
-        static CharacterDomainManager&
-            singleton;
-
 		CharacterDomainManager();
 
 		~CharacterDomainManager();

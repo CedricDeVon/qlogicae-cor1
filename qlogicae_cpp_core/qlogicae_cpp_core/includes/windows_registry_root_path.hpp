@@ -1,9 +1,11 @@
 #pragma once
 
-namespace QLogicaeCppCore
+namespace 
+	QLogicae::Cor::V1
 {
-    enum class WindowsRegistryRootPath :
-        uint8_t
+    enum class
+		WindowsRegistryRootPath :
+			uint8_t
     {
         HKCU,
 

@@ -3,7 +3,7 @@
 #include "abstract_enum.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {
 	enum class
 		FileSystemEntity :

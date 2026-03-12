@@ -3,16 +3,8 @@
 #include "../includes/text_case_manager.hpp"
 
 namespace
-	QLogicaeCppCore
-{
-    TextCaseManager&
-        TextCaseManager
-			::singleton =
-				SingletonManager
-					::get_singleton<TextCaseManager>();
-
-
-
+	QLogicae::Cor::V1
+{   
     TextCaseManager
 		::TextCaseManager() :
 			AbstractClass<TextCaseManagerConfigurations>()

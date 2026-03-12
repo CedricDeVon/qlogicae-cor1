@@ -3,16 +3,8 @@
 #include "../includes/log_level_enum_manager.hpp"
 
 namespace
-	QLogicaeCppCore
-{        
-	LogLevelEnumManager&
-		LogLevelEnumManager
-			::singleton = 
-				SingletonManager
-					::get_singleton<LogLevelEnumManager>();	
-
-
-	
+	QLogicae::Cor::V1
+{        	
 	LogLevelEnumManager
 		::LogLevelEnumManager() :
 			AbstractClass<LogLevelEnumManagerConfigurations>()

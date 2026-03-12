@@ -2,10 +2,8 @@
 
 #include "../includes/argon2id_hash_cryptography_manager.hpp"
 
-using namespace QLogicaeCppCore;
-
 namespace
-	QLogicaeCppCoreTest
+	QLogicae::Cor::V1::Tests
 {
 	class
 		Argon2idHashCryptographyManagerTest :

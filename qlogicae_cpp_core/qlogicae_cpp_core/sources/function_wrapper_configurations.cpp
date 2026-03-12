@@ -3,7 +3,7 @@
 #include "../includes/function_wrapper_configurations.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {
 	FunctionWrapperConfigurations
 		::FunctionWrapperConfigurations() :

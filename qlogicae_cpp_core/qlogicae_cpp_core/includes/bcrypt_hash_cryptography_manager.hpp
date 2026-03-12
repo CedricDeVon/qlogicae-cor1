@@ -1,20 +1,16 @@
 #pragma once
 
 #include "abstract_class.hpp"
-#include "singleton_manager.hpp"
 #include "bcrypt_hash_cryptography_manager_configurations.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {
     class
 		BcryptHashCryptographyManager :
 			public AbstractClass<BcryptHashCryptographyManagerConfigurations>
     {
     public:
-        static BcryptHashCryptographyManager&
-            singleton;
-
 		BcryptHashCryptographyManager();
 
 		~BcryptHashCryptographyManager();

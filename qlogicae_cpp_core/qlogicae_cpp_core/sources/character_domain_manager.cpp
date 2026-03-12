@@ -3,16 +3,8 @@
 #include "../includes/character_domain_manager.hpp"
 
 namespace
-	QLogicaeCppCore
-{        
-	CharacterDomainManager&
-		CharacterDomainManager
-			::singleton = 
-				SingletonManager
-					::get_singleton<CharacterDomainManager>();	
-
-
-	
+	QLogicae::Cor::V1
+{        	
 	CharacterDomainManager
 		::CharacterDomainManager() :
 			AbstractClass<CharacterDomainManagerConfigurations>()
@@ -75,7 +67,7 @@ namespace
 				mutex_lock =
 					boost::unique_lock<boost::mutex>
 					(
-						utility_handling_mutex_1
+						feature_handling_mutex_1
 					);
 			}			
 
@@ -118,7 +110,7 @@ namespace
 				mutex_lock =
 					boost::unique_lock<boost::mutex>
 					(
-						utility_handling_mutex_1
+						feature_handling_mutex_1
 					);
 			}			
 

@@ -3,16 +3,8 @@
 #include "../includes/text_case_enum_manager.hpp"
 
 namespace
-	QLogicaeCppCore
-{
-    TextCaseEnumManager&
-        TextCaseEnumManager
-			::singleton =
-				SingletonManager
-					::get_singleton<TextCaseEnumManager>();
-
-
-
+	QLogicae::Cor::V1
+{    
     TextCaseEnumManager
 		::TextCaseEnumManager() :
 			AbstractClass<TextCaseEnumManagerConfigurations>()

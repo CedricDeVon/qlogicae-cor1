@@ -1,7 +1,7 @@
 #pragma once
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {
     enum class
 		LogMedium :

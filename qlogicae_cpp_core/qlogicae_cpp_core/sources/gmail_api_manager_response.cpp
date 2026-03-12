@@ -3,7 +3,7 @@
 #include "../includes/gmail_api_manager_response.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {
 	GmailApiManagerResponse
 		::GmailApiManagerResponse()

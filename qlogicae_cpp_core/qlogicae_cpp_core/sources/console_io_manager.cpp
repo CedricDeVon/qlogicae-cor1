@@ -3,17 +3,8 @@
 #include "../includes/console_io_manager.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {
-    ConsoleIoManager&
-        ConsoleIoManager
-			::singleton =
-				SingletonManager
-					::singleton
-						.get_singleton<ConsoleIoManager>();
-
-
-
 	ConsoleIoManager
 		::ConsoleIoManager() :
 			AbstractClass<ConsoleIoManagerConfigurations>()

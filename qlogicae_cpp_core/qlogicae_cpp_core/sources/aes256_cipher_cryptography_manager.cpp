@@ -3,16 +3,8 @@
 #include "../includes/aes256_cipher_cryptography_manager.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {
-	Aes256CipherCryptographyManager&
-        Aes256CipherCryptographyManager
-			::singleton =
-				SingletonManager
-					::get_singleton<Aes256CipherCryptographyManager>();
-
-
-
     Aes256CipherCryptographyManager
 		::Aes256CipherCryptographyManager() :
 			AbstractClass<Aes256CipherCryptographyManagerConfigurations>()

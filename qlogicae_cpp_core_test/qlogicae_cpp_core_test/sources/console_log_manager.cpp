@@ -2,10 +2,8 @@
 
 #include "../includes/console_log_manager.hpp"
 
-using namespace QLogicaeCppCore;
-
 namespace
-	QLogicaeCppCoreTest
+	QLogicae::Cor::V1::Tests
 {
 	class ConsoleLogManagerTest :
 		public ::testing::Test

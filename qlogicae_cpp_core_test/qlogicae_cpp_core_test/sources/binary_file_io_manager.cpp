@@ -2,10 +2,8 @@
 
 #include "../includes/binary_file_io_manager.hpp"
 
-using namespace QLogicaeCppCore;
-
 namespace
-	QLogicaeCppCoreTest
+	QLogicae::Cor::V1::Tests
 {
 	class BinaryFileIoManagerTest :
 		public ::testing::Test

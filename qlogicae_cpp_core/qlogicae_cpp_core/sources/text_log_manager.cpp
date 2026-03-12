@@ -3,14 +3,8 @@
 #include "../includes/text_log_manager.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {        
-	TextLogManager&
-		TextLogManager
-			::singleton = 
-				SingletonManager
-					::get_singleton<TextLogManager>();	
-
 	TextLogManager
 		::TextLogManager() :
 			AbstractClass<TextLogManagerConfigurations>()
@@ -66,8 +60,8 @@ namespace
 	
 			std::string
 				log_level_text =
-					LogLevelEnumManager
-						::singleton
+					SingletonManager
+						::get_singleton<LogLevelEnumManager>()						
 							.convert_enum_to_string(
 								log_level
 							);
@@ -153,8 +147,8 @@ namespace
 			convert_text(
 				message,
 				log_level,
-				TimeManager
-					::singleton
+				SingletonManager
+					::get_singleton<TimeManager>()					
 						.get_now(
 							time_format
 						),

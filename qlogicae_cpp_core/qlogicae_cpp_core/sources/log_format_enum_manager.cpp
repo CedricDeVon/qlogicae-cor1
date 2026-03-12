@@ -3,16 +3,8 @@
 #include "../includes/log_format_enum_manager.hpp"
 
 namespace
-	QLogicaeCppCore
-{        
-	LogFormatEnumManager&
-		LogFormatEnumManager
-			::singleton = 
-				SingletonManager
-					::get_singleton<LogFormatEnumManager>();	
-
-
-	
+	QLogicae::Cor::V1
+{        	
 	LogFormatEnumManager
 		::LogFormatEnumManager() :
 			AbstractClass<LogFormatEnumManagerConfigurations>()

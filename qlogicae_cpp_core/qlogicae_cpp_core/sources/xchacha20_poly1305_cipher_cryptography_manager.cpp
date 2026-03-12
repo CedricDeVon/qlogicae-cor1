@@ -3,16 +3,8 @@
 #include "../includes/xchacha20_poly1305_cipher_cryptography_manager.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {
-	XChaCha20Poly1305CipherCryptographyManager&
-        XChaCha20Poly1305CipherCryptographyManager
-			::singleton =
-				SingletonManager
-					::get_singleton<XChaCha20Poly1305CipherCryptographyManager>();
-
-
-
     XChaCha20Poly1305CipherCryptographyManager
 		::XChaCha20Poly1305CipherCryptographyManager() :
 			AbstractClass<XChaCha20Poly1305CipherCryptographyManagerConfigurations>()

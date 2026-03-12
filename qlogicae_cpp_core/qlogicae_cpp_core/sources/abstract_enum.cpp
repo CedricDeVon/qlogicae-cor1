@@ -3,7 +3,7 @@
 #include "../includes/abstract_enum.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {	
 	
 }

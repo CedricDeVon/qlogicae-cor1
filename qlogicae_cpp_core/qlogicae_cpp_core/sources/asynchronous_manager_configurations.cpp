@@ -3,14 +3,13 @@
 #include "../includes/asynchronous_manager_configurations.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {
 	AsynchronousManagerConfigurations
 		::AsynchronousManagerConfigurations() :
 			AbstractConfigurations<AsynchronousManagerConfigurations>()
 	{
-		is_feature_thread_safety_handling_enabled =
-			true;
+		
 	}
 
     AsynchronousManagerConfigurations

@@ -1,21 +1,17 @@
 #pragma once
 
 #include "abstract_class.hpp"
-#include "singleton_manager.hpp"
 #include "text_encoding_manager.hpp"
 #include "binary_file_io_manager_configurations.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {
     class
 		BinaryFileIoManager :
 			public AbstractClass<BinaryFileIoManagerConfigurations>
     {
     public:		
-        static BinaryFileIoManager&
-            singleton;
-
 		BinaryFileIoManager();
 
 		std::vector<std::byte>

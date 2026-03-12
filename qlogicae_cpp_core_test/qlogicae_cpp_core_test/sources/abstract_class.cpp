@@ -2,10 +2,8 @@
 
 #include "../includes/abstract_class.hpp"
 
-using namespace QLogicaeCppCore;
-
 namespace
-	QLogicaeCppCoreTest
+	QLogicae::Cor::V1::Tests
 {
 	struct TestConfigurations :
 		public AbstractConfigurations<TestConfigurations>
@@ -90,6 +88,9 @@ namespace
 		Should_EnableFeatureThreadSafety_When_OverrideDisabled
 	)
 	{
+		configurations
+			.is_feature_thread_safety_handling_enabled = false;
+
 		ASSERT_FALSE(
 			configurations
 				.is_thread_safety_enabled_for_feature_handling()

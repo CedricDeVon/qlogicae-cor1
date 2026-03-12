@@ -2,10 +2,8 @@
 
 #include "../includes/aes256_cipher_cryptography_manager.hpp"
 
-using namespace QLogicaeCppCore;
-
 namespace
-	QLogicaeCppCoreTest
+	QLogicae::Cor::V1::Tests
 {
 	class Aes256CipherCryptographyManagerTest : public ::testing::Test
 	{
@@ -283,7 +281,7 @@ namespace
 
 	TEST_F(Aes256CipherCryptographyManagerExceptionTest, Should_HandleException_When_SingletonAccess)
 	{
-		ASSERT_NO_THROW(Aes256CipherCryptographyManager::singleton);
+		ASSERT_NO_THROW(SingletonManager::get_singleton<Aes256CipherCryptographyManager>());
 	}
 
 	TEST_F(Aes256CipherCryptographyManagerExceptionTest, Should_HandleException_When_MultithreadedEncryption)

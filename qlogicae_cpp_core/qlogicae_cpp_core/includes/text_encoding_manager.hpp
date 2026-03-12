@@ -4,12 +4,11 @@
 #include "enum_manager.hpp"
 #include "text_encoding.hpp"
 #include "abstract_class.hpp"
-#include "singleton_manager.hpp"
 #include "text_case_manager.hpp"
 #include "text_encoding_manager_configurations.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {    
     class
 		TextEncodingManager :
@@ -18,9 +17,6 @@ namespace
     public:
 		boost::mutex
 			feature_handling_mutex_2;
-
-        static TextEncodingManager&
-            singleton;
 
 		TextEncodingManager();
 

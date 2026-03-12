@@ -3,7 +3,7 @@
 #include "../includes/character_domain_enum_manager_configurations.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {
 	CharacterDomainEnumManagerConfigurations
 		::CharacterDomainEnumManagerConfigurations() :

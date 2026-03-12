@@ -2,10 +2,8 @@
 
 #include "../includes/log_level_enum_manager.hpp"
 
-using namespace QLogicaeCppCore;
-
 namespace
-	QLogicaeCppCoreTest
+	QLogicae::Cor::V1::Tests
 {
 	class LogLevelEnumManagerTest :
 		public ::testing::Test
@@ -129,8 +127,8 @@ namespace
 
 	TEST_F(LogLevelEnumManagerTest, Should_ReturnSingletonInstanceConsistently)
 	{
-		LogLevelEnumManager& first_instance = LogLevelEnumManager::singleton;
-		LogLevelEnumManager& second_instance = LogLevelEnumManager::singleton;
+		LogLevelEnumManager& first_instance = SingletonManager::get_singleton<LogLevelEnumManager>();
+		LogLevelEnumManager& second_instance = SingletonManager::get_singleton<LogLevelEnumManager>();
 		EXPECT_EQ(&first_instance, &second_instance);
 	}
 

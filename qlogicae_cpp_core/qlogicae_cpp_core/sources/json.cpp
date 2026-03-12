@@ -3,7 +3,7 @@
 #include "../includes/json.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {
 
 }

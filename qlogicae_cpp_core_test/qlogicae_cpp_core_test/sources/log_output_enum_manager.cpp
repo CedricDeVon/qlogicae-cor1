@@ -2,10 +2,8 @@
 
 #include "../includes/log_output_enum_manager.hpp"
 
-using namespace QLogicaeCppCore;
-
 namespace
-	QLogicaeCppCoreTest
+	QLogicae::Cor::V1::Tests
 {
 	class LogOutputEnumManagerTest :
 		public ::testing::Test
@@ -129,8 +127,8 @@ namespace
 
 	TEST_F(LogOutputEnumManagerTest, Should_ReturnSingletonInstanceConsistently)
 	{
-		LogOutputEnumManager& first_instance = LogOutputEnumManager::singleton;
-		LogOutputEnumManager& second_instance = LogOutputEnumManager::singleton;
+		LogOutputEnumManager& first_instance = SingletonManager::get_singleton<LogOutputEnumManager>();
+		LogOutputEnumManager& second_instance = SingletonManager::get_singleton<LogOutputEnumManager>();
 		EXPECT_EQ(&first_instance, &second_instance);
 	}
 

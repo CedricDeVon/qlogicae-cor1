@@ -2,10 +2,8 @@
 
 #include "../includes/text_log_manager.hpp"
 
-using namespace QLogicaeCppCore;
-
 namespace
-	QLogicaeCppCoreTest
+	QLogicae::Cor::V1::Tests
 {
 	class TextLogManagerTest :
 		public ::testing::Test

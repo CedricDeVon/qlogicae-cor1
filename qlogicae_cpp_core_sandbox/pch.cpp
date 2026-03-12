@@ -1,6 +1,7 @@
 ﻿#include "pch.hpp"
 
-namespace QLogicaeCppCoreSandbox
+namespace
+	QLogicae::Cor::V1::Sandbox
 {
 
 }

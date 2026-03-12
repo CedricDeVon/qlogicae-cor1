@@ -1,11 +1,10 @@
 #pragma once
 
 #include "abstract_class.hpp"
-#include "singleton_manager.hpp"
 #include "interval_clock_configurations.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {
     class
 		IntervalClock :
@@ -38,9 +37,6 @@ namespace
 
 		std::condition_variable
 			condition_variable;
-
-		static IntervalClock&
-			singleton;
 
 		IntervalClock();
 

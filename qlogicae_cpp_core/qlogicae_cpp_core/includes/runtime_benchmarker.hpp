@@ -8,7 +8,7 @@
 #include "runtime_benchmarker_epoch_iteration_pair.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {    
     class
 		RuntimeBenchmarker :

@@ -3,16 +3,8 @@
 #include "../includes/csv_file_io_manager.hpp"
 
 namespace
-	QLogicaeCppCore
-{        
-	CsvFileIoManager&
-		CsvFileIoManager
-			::singleton = 
-				SingletonManager
-					::get_singleton<CsvFileIoManager>();	
-
-
-	
+	QLogicae::Cor::V1
+{        	
 	CsvFileIoManager
 		::CsvFileIoManager() :
 			AbstractClass<CsvFileIoManagerConfigurations>()
@@ -925,13 +917,10 @@ namespace
 
 				return result;
 			}
-			catch
-			(
-				const std::exception&
-					exception
-			)
+			catch (...)
 			{
-				return {};
+				return
+					{};
 			}			
         }
         catch
@@ -1002,13 +991,10 @@ namespace
 
 				return result;
 			}
-			catch
-				(
-					const std::exception&
-					exception
-					)
+			catch (...)
 			{
-				return {};
+				return
+					{};
 			}
         }
         catch
@@ -1574,17 +1560,13 @@ namespace
 				document.Save();
 
 				return
-					true;
+					true;	
 			}
-			catch
-				(
-					const std::exception&
-					exception
-					)
+			catch (...)
 			{
 				return
 					false;
-			}			
+			}				
         }
         catch
         (
@@ -1644,7 +1626,6 @@ namespace
 					);
 			}
 
-			
 			try
 			{
 				rapidcsv::Document document(file_path, rapidcsv::LabelParams(0, -1));
@@ -1656,17 +1637,13 @@ namespace
 				document.Save();
 
 				return
-					true;
+					true;	
 			}
-			catch
-				(
-					const std::exception&
-					exception
-					)
+			catch (...)
 			{
 				return
-					false;
-			}					
+					false;	
+			}										
         }
         catch
         (

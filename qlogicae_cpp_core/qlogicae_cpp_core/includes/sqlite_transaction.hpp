@@ -3,7 +3,7 @@
 #include "sqlite_database_manager.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {
     class
 		SQLiteTransaction
