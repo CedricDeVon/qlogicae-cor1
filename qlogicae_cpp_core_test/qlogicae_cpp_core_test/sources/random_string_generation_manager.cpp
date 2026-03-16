@@ -2,10 +2,8 @@
 
 #include "../includes/random_string_generation_manager.hpp"
 
-using namespace QLogicaeCppCore;
-
 namespace
-	QLogicaeCppCoreTest
+	QLogicae::Cor::V1::Tests
 {
 	class RandomStringGenerationManagerTest :
 		public ::testing::Test
@@ -80,7 +78,7 @@ namespace
 	{
 		const std::string result = manager_instance.generate_string<std::string>();
 		const std::string domain =
-			CharacterDomainManager::singleton.get_value(manager_instance.configurations.character_domain);
+			SingletonManager::get_singleton<CharacterDomainManager>().get_value(manager_instance.configurations.character_domain);
 		for (const char ch : result)
 			ASSERT_NE(domain.find(ch), std::string::npos);
 	}
@@ -110,7 +108,7 @@ namespace
 		ASSERT_LE(std::chrono::duration_cast<std::chrono::seconds>(end_time - start_time).count(), 2);
 
 		const std::string domain =
-			CharacterDomainManager::singleton.get_value(CharacterDomain::ALPHANUMERIC);
+			SingletonManager::get_singleton<CharacterDomainManager>().get_value(CharacterDomain::ALPHANUMERIC);
 		for (const char ch : result)
 			ASSERT_NE(domain.find(ch), std::string::npos);
 	}
@@ -125,7 +123,7 @@ namespace
 		ASSERT_EQ(result.length(), 1000);
 
 		const std::string domain =
-			CharacterDomainManager::singleton.get_value(CharacterDomain::ASCII_PRINTABLE);
+			SingletonManager::get_singleton<CharacterDomainManager>().get_value(CharacterDomain::ASCII_PRINTABLE);
 		for (const char ch : result)
 			ASSERT_NE(domain.find(ch), std::string::npos);
 	}
@@ -148,7 +146,7 @@ namespace
 			th.join();
 
 		const std::string domain =
-			CharacterDomainManager::singleton.get_value(CharacterDomain::ASCII_PRINTABLE);
+			SingletonManager::get_singleton<CharacterDomainManager>().get_value(CharacterDomain::ASCII_PRINTABLE);
 
 		for (const auto& str : results)
 		{
@@ -163,7 +161,7 @@ namespace
 		const CharacterDomain domain_value = GetParam();
 		const std::string result =
 			manager_instance.generate_string<std::string>(domain_value, 1000);
-		const std::string domain_string = CharacterDomainManager::singleton.get_value(domain_value);
+		const std::string domain_string = SingletonManager::get_singleton<CharacterDomainManager>().get_value(domain_value);
 		for (const char ch : result)
 			ASSERT_NE(domain_string.find(ch), std::string::npos);
 	}
@@ -205,7 +203,7 @@ namespace
 		const std::vector<char> result =
 			manager_instance.generate_string<std::vector<char>>(CharacterDomain::ASCII_PRINTABLE, 50);
 		ASSERT_EQ(result.size(), 50);
-		const std::string domain = CharacterDomainManager::singleton.get_value(CharacterDomain::ASCII_PRINTABLE);
+		const std::string domain = SingletonManager::get_singleton<CharacterDomainManager>().get_value(CharacterDomain::ASCII_PRINTABLE);
 		for (const char ch : result)
 			ASSERT_NE(domain.find(ch), std::string::npos);
 	}
@@ -226,7 +224,7 @@ namespace
 		const std::string result =
 			manager_instance.generate_string<std::string>(CharacterDomain::ASCII_PRINTABLE, 100, empty_excluded);
 		ASSERT_EQ(result.length(), 100);
-		const std::string domain = CharacterDomainManager::singleton.get_value(CharacterDomain::ASCII_PRINTABLE);
+		const std::string domain = SingletonManager::get_singleton<CharacterDomainManager>().get_value(CharacterDomain::ASCII_PRINTABLE);
 		for (const char ch : result)
 			ASSERT_NE(domain.find(ch), std::string::npos);
 	}
@@ -249,7 +247,7 @@ namespace
 		for (auto& th : threads)
 			th.join();
 
-		const std::string domain = CharacterDomainManager::singleton.get_value(CharacterDomain::ALPHANUMERIC);
+		const std::string domain = SingletonManager::get_singleton<CharacterDomainManager>().get_value(CharacterDomain::ALPHANUMERIC);
 
 		for (const auto& str : results)
 		{
@@ -375,7 +373,7 @@ namespace
 		ASSERT_EQ(result.length(), max_length);
 
 		const std::string domain =
-			CharacterDomainManager::singleton.get_value(CharacterDomain::ASCII_PRINTABLE);
+			SingletonManager::get_singleton<CharacterDomainManager>().get_value(CharacterDomain::ASCII_PRINTABLE);
 		for (const char ch : result)
 			ASSERT_NE(domain.find(ch), std::string::npos);
 	}
@@ -386,7 +384,7 @@ namespace
 		const std::string result =
 			manager_instance.generate_string<std::string>(CharacterDomain::HIGH_ENTROPY_PRINTABLE, 500, excluded);
 		const std::string domain =
-			CharacterDomainManager::singleton.get_value(CharacterDomain::HIGH_ENTROPY_PRINTABLE);
+			SingletonManager::get_singleton<CharacterDomainManager>().get_value(CharacterDomain::HIGH_ENTROPY_PRINTABLE);
 		for (const char ch : result)
 			ASSERT_TRUE(excluded.find(ch) == excluded.end() && domain.find(ch) != std::string::npos);
 	}
@@ -397,7 +395,7 @@ namespace
 		const std::string result =
 			manager_instance.generate_string<std::string>(CharacterDomain::FUZZ_PRINTABLE, 500, excluded);
 		const std::string domain =
-			CharacterDomainManager::singleton.get_value(CharacterDomain::FUZZ_PRINTABLE);
+			SingletonManager::get_singleton<CharacterDomainManager>().get_value(CharacterDomain::FUZZ_PRINTABLE);
 		for (const char ch : result)
 			ASSERT_TRUE(excluded.find(ch) == excluded.end() && domain.find(ch) != std::string::npos);
 	}
@@ -431,7 +429,7 @@ namespace
 		}
 		for (auto& th : threads)
 			th.join();
-		const std::string domain = CharacterDomainManager::singleton.get_value(CharacterDomain::ALPHANUMERIC);
+		const std::string domain = SingletonManager::get_singleton<CharacterDomainManager>().get_value(CharacterDomain::ALPHANUMERIC);
 		for (const auto& str : results)
 		{
 			ASSERT_EQ(str.length(), length);
@@ -445,7 +443,7 @@ namespace
 		const CharacterDomain domain_value = GetParam();
 		const std::string result =
 			manager_instance.generate_string<std::string>(domain_value, 500);
-		const std::string domain_string = CharacterDomainManager::singleton.get_value(domain_value);
+		const std::string domain_string = SingletonManager::get_singleton<CharacterDomainManager>().get_value(domain_value);
 		ASSERT_EQ(result.length(), 500);
 		for (const char ch : result)
 			ASSERT_NE(domain_string.find(ch), std::string::npos);
@@ -458,7 +456,7 @@ namespace
 			manager_instance.generate_string<std::string>(CharacterDomain::ALPHANUMERIC, length_value);
 		ASSERT_EQ(result.length(), length_value);
 		for (const char ch : result)
-			ASSERT_NE(CharacterDomainManager::singleton.get_value(CharacterDomain::ALPHANUMERIC).find(ch), std::string::npos);
+			ASSERT_NE(SingletonManager::get_singleton<CharacterDomainManager>().get_value(CharacterDomain::ALPHANUMERIC).find(ch), std::string::npos);
 	}
 
 	INSTANTIATE_TEST_CASE_P(EdgeDomains, ParameterizedDomainTest,

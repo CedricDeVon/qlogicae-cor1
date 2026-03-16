@@ -9,22 +9,25 @@ namespace
 		::GmailApiManagerConfigurations() :
 			AbstractConfigurations<GmailApiManagerConfigurations>()
 	{		
-		is_feature_thread_safety_handling_enabled = 
+		is_inner_logging_enabled =
 			true;
 
-		subject =
+		subject_name =
 			"";
 
-		html_body =
+		email_body_type =
+			EmailBody::PLAIN;
+
+		email_security_type =
+			EmailSecurity::SSL;
+
+		raw_body =
 			"";
 
-		plain_body =
+		full_smtp_server_address =
 			"";
 
-		smtp_server =
-			"";
-
-		sender_address =
+		sender_email_address =
 			"";
 
 		to_recipients =
@@ -34,6 +37,9 @@ namespace
 			{};
 
 		bcc_recipients =
+			{};
+
+		attached_files =
 			{};
 
 		password_provider =

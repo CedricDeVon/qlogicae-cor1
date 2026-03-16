@@ -1,7 +1,6 @@
 #pragma once
 
 #include "abstract_class.hpp"
-#include "singleton_manager.hpp"
 #include "json_text_manager_configurations.hpp"
 
 namespace
@@ -12,13 +11,10 @@ namespace
 			public AbstractClass<JsonTextManagerConfigurations>
     {
     public:		
-        static JsonTextManager&
-            singleton;
-
 		JsonTextManager();
 
 		bool
-			is_valid(
+			is_text_valid(
 				const std::string&
 					json_text
 			);
@@ -72,7 +68,7 @@ namespace
 			);
 
 		bool
-			is_valid();
+			is_text_valid();
 
 		bool
 			is_key_path_valid(

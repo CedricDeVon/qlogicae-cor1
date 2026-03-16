@@ -22,3 +22,4 @@ namespace
 				ExcelFileIoManagerConfigurations
 					::initial_configurations;
 }
+

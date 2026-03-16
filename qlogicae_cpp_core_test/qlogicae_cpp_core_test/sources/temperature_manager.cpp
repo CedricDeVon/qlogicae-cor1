@@ -3,7 +3,7 @@
 #include "qlogicae_cpp_core/includes/temperature_manager.hpp"
 
 namespace
-	QLogicaeCppCoreTest
+	QLogicae::Cor::V1::Tests
 {
 	struct
 		TemperatureConversionParameters
@@ -11,10 +11,10 @@ namespace
 		double
 			input_value;
 
-		QLogicaeCppCore::TemperatureUnit
+		TemperatureUnit
 			original_unit;
 
-		QLogicaeCppCore::TemperatureUnit
+		TemperatureUnit
 			target_unit;
 
 		double
@@ -26,7 +26,7 @@ namespace
 		public ::testing::Test
 	{
 	public:
-		QLogicaeCppCore::TemperatureManager
+		TemperatureManager
 			temperature_manager;
 
 		void
@@ -67,11 +67,9 @@ namespace
 			temperature_manager
 			.convert_unit(
 				input_value,
-				QLogicaeCppCore
-				::TemperatureUnit
+				TemperatureUnit
 				::CELSIUS,
-				QLogicaeCppCore
-				::TemperatureUnit
+				TemperatureUnit
 				::CELSIUS
 			);
 
@@ -86,20 +84,20 @@ namespace
 		Should_UseConfiguredUnits_When_NoUnitsProvided
 	)
 	{
-		QLogicaeCppCore
-			::TemperatureManagerConfigurations
+		
+			TemperatureManagerConfigurations
 			configurations;
 
 		configurations
 			.original_unit =
-			QLogicaeCppCore
-			::TemperatureUnit
+			
+			TemperatureUnit
 			::FAHRENHEIT;
 
 		configurations
 			.target_unit =
-			QLogicaeCppCore
-			::TemperatureUnit
+			
+			TemperatureUnit
 			::CELSIUS;
 
 		temperature_manager
@@ -152,176 +150,176 @@ namespace
 			TemperatureConversionParameters
 			{
 				0.0,
-				QLogicaeCppCore::TemperatureUnit::CELSIUS,
-				QLogicaeCppCore::TemperatureUnit::FAHRENHEIT,
+				TemperatureUnit::CELSIUS,
+				TemperatureUnit::FAHRENHEIT,
 				32.0
 			},
 			TemperatureConversionParameters
 			{
 				100.0,
-				QLogicaeCppCore::TemperatureUnit::CELSIUS,
-				QLogicaeCppCore::TemperatureUnit::FAHRENHEIT,
+				TemperatureUnit::CELSIUS,
+				TemperatureUnit::FAHRENHEIT,
 				212.0
 			},
 			TemperatureConversionParameters
 			{
 				-40.0,
-				QLogicaeCppCore::TemperatureUnit::CELSIUS,
-				QLogicaeCppCore::TemperatureUnit::FAHRENHEIT,
+				TemperatureUnit::CELSIUS,
+				TemperatureUnit::FAHRENHEIT,
 				-40.0
 			},
 			TemperatureConversionParameters
 			{
 				0.0,
-				QLogicaeCppCore::TemperatureUnit::CELSIUS,
-				QLogicaeCppCore::TemperatureUnit::KELVIN,
+				TemperatureUnit::CELSIUS,
+				TemperatureUnit::KELVIN,
 				273.15
 			},
 			TemperatureConversionParameters
 			{
 				100.0,
-				QLogicaeCppCore::TemperatureUnit::CELSIUS,
-				QLogicaeCppCore::TemperatureUnit::KELVIN,
+				TemperatureUnit::CELSIUS,
+				TemperatureUnit::KELVIN,
 				373.15
 			},
 			TemperatureConversionParameters
 			{
 				-273.15,
-				QLogicaeCppCore::TemperatureUnit::CELSIUS,
-				QLogicaeCppCore::TemperatureUnit::KELVIN,
+				TemperatureUnit::CELSIUS,
+				TemperatureUnit::KELVIN,
 				0.0
 			},
 			TemperatureConversionParameters
 			{
 				32.0,
-				QLogicaeCppCore::TemperatureUnit::FAHRENHEIT,
-				QLogicaeCppCore::TemperatureUnit::CELSIUS,
+				TemperatureUnit::FAHRENHEIT,
+				TemperatureUnit::CELSIUS,
 				0.0
 			},
 			TemperatureConversionParameters
 			{
 				212.0,
-				QLogicaeCppCore::TemperatureUnit::FAHRENHEIT,
-				QLogicaeCppCore::TemperatureUnit::CELSIUS,
+				TemperatureUnit::FAHRENHEIT,
+				TemperatureUnit::CELSIUS,
 				100.0
 			},
 			TemperatureConversionParameters
 			{
 				-40.0,
-				QLogicaeCppCore::TemperatureUnit::FAHRENHEIT,
-				QLogicaeCppCore::TemperatureUnit::CELSIUS,
+				TemperatureUnit::FAHRENHEIT,
+				TemperatureUnit::CELSIUS,
 				-40.0
 			},
 			TemperatureConversionParameters
 			{
 				32.0,
-				QLogicaeCppCore::TemperatureUnit::FAHRENHEIT,
-				QLogicaeCppCore::TemperatureUnit::KELVIN,
+				TemperatureUnit::FAHRENHEIT,
+				TemperatureUnit::KELVIN,
 				273.15
 			},
 			TemperatureConversionParameters
 			{
 				212.0,
-				QLogicaeCppCore::TemperatureUnit::FAHRENHEIT,
-				QLogicaeCppCore::TemperatureUnit::KELVIN,
+				TemperatureUnit::FAHRENHEIT,
+				TemperatureUnit::KELVIN,
 				373.15
 			},
 			TemperatureConversionParameters
 			{
 				-459.67,
-				QLogicaeCppCore::TemperatureUnit::FAHRENHEIT,
-				QLogicaeCppCore::TemperatureUnit::KELVIN,
+				TemperatureUnit::FAHRENHEIT,
+				TemperatureUnit::KELVIN,
 				0.0
 			},
 			TemperatureConversionParameters
 			{
 				273.15,
-				QLogicaeCppCore::TemperatureUnit::KELVIN,
-				QLogicaeCppCore::TemperatureUnit::CELSIUS,
+				TemperatureUnit::KELVIN,
+				TemperatureUnit::CELSIUS,
 				0.0
 			},
 			TemperatureConversionParameters
 			{
 				373.15,
-				QLogicaeCppCore::TemperatureUnit::KELVIN,
-				QLogicaeCppCore::TemperatureUnit::CELSIUS,
+				TemperatureUnit::KELVIN,
+				TemperatureUnit::CELSIUS,
 				100.0
 			},
 			TemperatureConversionParameters
 			{
 				0.0,
-				QLogicaeCppCore::TemperatureUnit::KELVIN,
-				QLogicaeCppCore::TemperatureUnit::CELSIUS,
+				TemperatureUnit::KELVIN,
+				TemperatureUnit::CELSIUS,
 				-273.15
 			},
 			TemperatureConversionParameters
 			{
 				273.15,
-				QLogicaeCppCore::TemperatureUnit::KELVIN,
-				QLogicaeCppCore::TemperatureUnit::FAHRENHEIT,
+				TemperatureUnit::KELVIN,
+				TemperatureUnit::FAHRENHEIT,
 				32.0
 			},
 			TemperatureConversionParameters
 			{
 				373.15,
-				QLogicaeCppCore::TemperatureUnit::KELVIN,
-				QLogicaeCppCore::TemperatureUnit::FAHRENHEIT,
+				TemperatureUnit::KELVIN,
+				TemperatureUnit::FAHRENHEIT,
 				212.0
 			},
 			TemperatureConversionParameters
 			{
 				0.0,
-				QLogicaeCppCore::TemperatureUnit::KELVIN,
-				QLogicaeCppCore::TemperatureUnit::FAHRENHEIT,
+				TemperatureUnit::KELVIN,
+				TemperatureUnit::FAHRENHEIT,
 				-459.67
 			},
 			TemperatureConversionParameters
 			{
 				25.5,
-				QLogicaeCppCore::TemperatureUnit::CELSIUS,
-				QLogicaeCppCore::TemperatureUnit::FAHRENHEIT,
+				TemperatureUnit::CELSIUS,
+				TemperatureUnit::FAHRENHEIT,
 				77.9
 			},
 			TemperatureConversionParameters
 			{
 				77.9,
-				QLogicaeCppCore::TemperatureUnit::FAHRENHEIT,
-				QLogicaeCppCore::TemperatureUnit::CELSIUS,
+				TemperatureUnit::FAHRENHEIT,
+				TemperatureUnit::CELSIUS,
 				25.5
 			},
 			TemperatureConversionParameters
 			{
 				25.5,
-				QLogicaeCppCore::TemperatureUnit::CELSIUS,
-				QLogicaeCppCore::TemperatureUnit::KELVIN,
+				TemperatureUnit::CELSIUS,
+				TemperatureUnit::KELVIN,
 				298.65
 			},
 			TemperatureConversionParameters
 			{
 				298.65,
-				QLogicaeCppCore::TemperatureUnit::KELVIN,
-				QLogicaeCppCore::TemperatureUnit::CELSIUS,
+				TemperatureUnit::KELVIN,
+				TemperatureUnit::CELSIUS,
 				25.5
 			},
 			TemperatureConversionParameters
 			{
 				1234.56,
-				QLogicaeCppCore::TemperatureUnit::CELSIUS,
-				QLogicaeCppCore::TemperatureUnit::CELSIUS,
+				TemperatureUnit::CELSIUS,
+				TemperatureUnit::CELSIUS,
 				1234.56
 			},
 			TemperatureConversionParameters
 			{
 				-999.99,
-				QLogicaeCppCore::TemperatureUnit::FAHRENHEIT,
-				QLogicaeCppCore::TemperatureUnit::FAHRENHEIT,
+				TemperatureUnit::FAHRENHEIT,
+				TemperatureUnit::FAHRENHEIT,
 				-999.99
 			},
 			TemperatureConversionParameters
 			{
 				555.55,
-				QLogicaeCppCore::TemperatureUnit::KELVIN,
-				QLogicaeCppCore::TemperatureUnit::KELVIN,
+				TemperatureUnit::KELVIN,
+				TemperatureUnit::KELVIN,
 				555.55
 			}
 		)
@@ -338,13 +336,11 @@ namespace
 			.convert_unit(
 				10.0,
 				static_cast<
-				QLogicaeCppCore
-				::TemperatureUnit
+				TemperatureUnit
 				>(
 					255
 					),
-				QLogicaeCppCore
-				::TemperatureUnit
+				TemperatureUnit
 				::CELSIUS
 			);
 
@@ -379,11 +375,11 @@ namespace
 						temperature_manager
 							.convert_unit(
 								100.0,
-								QLogicaeCppCore
-								::TemperatureUnit
+								
+								TemperatureUnit
 								::CELSIUS,
-								QLogicaeCppCore
-								::TemperatureUnit
+								
+								TemperatureUnit
 								::FAHRENHEIT
 							);
 					}
@@ -416,11 +412,9 @@ namespace
 						temperature_manager
 						.convert_unit(
 							0.0,
-							QLogicaeCppCore
-							::TemperatureUnit
+							TemperatureUnit
 							::CELSIUS,
-							QLogicaeCppCore
-							::TemperatureUnit
+							TemperatureUnit
 							::KELVIN
 						);
 				}
@@ -447,11 +441,9 @@ namespace
 			temperature_manager
 			.convert_unit(
 				max_value,
-				QLogicaeCppCore
-				::TemperatureUnit
+				TemperatureUnit
 				::CELSIUS,
-				QLogicaeCppCore
-				::TemperatureUnit
+				TemperatureUnit
 				::CELSIUS
 			);
 
@@ -476,11 +468,9 @@ namespace
 			temperature_manager
 			.convert_unit(
 				minimum_value,
-				QLogicaeCppCore
-				::TemperatureUnit
+				TemperatureUnit
 				::CELSIUS,
-				QLogicaeCppCore
-				::TemperatureUnit
+				TemperatureUnit
 				::CELSIUS
 			);
 
@@ -505,11 +495,9 @@ namespace
 			temperature_manager
 			.convert_unit(
 				nan_value,
-				QLogicaeCppCore
-				::TemperatureUnit
+				TemperatureUnit
 				::CELSIUS,
-				QLogicaeCppCore
-				::TemperatureUnit
+				TemperatureUnit
 				::CELSIUS
 			);
 
@@ -540,11 +528,9 @@ namespace
 			temperature_manager
 			.convert_unit(
 				positive_infinity,
-				QLogicaeCppCore
-				::TemperatureUnit
+				TemperatureUnit
 				::CELSIUS,
-				QLogicaeCppCore
-				::TemperatureUnit
+				TemperatureUnit
 				::CELSIUS
 			);
 
@@ -553,11 +539,9 @@ namespace
 			temperature_manager
 			.convert_unit(
 				negative_infinity,
-				QLogicaeCppCore
-				::TemperatureUnit
+				TemperatureUnit
 				::CELSIUS,
-				QLogicaeCppCore
-				::TemperatureUnit
+				TemperatureUnit
 				::CELSIUS
 			);
 
@@ -609,11 +593,9 @@ namespace
 							temperature_manager
 								.convert_unit(
 									10.0,
-									QLogicaeCppCore
-									::TemperatureUnit
+									TemperatureUnit
 									::FAHRENHEIT,
-									QLogicaeCppCore
-									::TemperatureUnit
+									TemperatureUnit
 									::CELSIUS
 								);
 						}
@@ -656,8 +638,7 @@ namespace
 			std::thread(
 				[&]()
 				{
-					QLogicaeCppCore
-						::TemperatureManagerConfigurations
+					TemperatureManagerConfigurations
 						configurations;
 
 					for
@@ -670,14 +651,12 @@ namespace
 					{
 						configurations
 							.original_unit =
-							QLogicaeCppCore
-							::TemperatureUnit
+							TemperatureUnit
 							::CELSIUS;
 
 						configurations
 							.target_unit =
-							QLogicaeCppCore
-							::TemperatureUnit
+							TemperatureUnit
 							::FAHRENHEIT;
 
 						temperature_manager
@@ -741,11 +720,9 @@ namespace
 								temperature_manager
 								.convert_unit(
 									100.0,
-									QLogicaeCppCore
-									::TemperatureUnit
+									TemperatureUnit
 									::CELSIUS,
-									QLogicaeCppCore
-									::TemperatureUnit
+									TemperatureUnit
 									::KELVIN
 								);
 						}
@@ -772,8 +749,8 @@ namespace
 		Should_RespectFeatureThreadSafetyDisabled_When_FeatureLockDisabled
 	)
 	{
-		QLogicaeCppCore
-			::TemperatureManagerConfigurations
+		
+			TemperatureManagerConfigurations
 			configurations;
 
 		configurations
@@ -790,11 +767,9 @@ namespace
 			temperature_manager
 			.convert_unit(
 				0.0,
-				QLogicaeCppCore
-				::TemperatureUnit
+				TemperatureUnit
 				::CELSIUS,
-				QLogicaeCppCore
-				::TemperatureUnit
+				TemperatureUnit
 				::FAHRENHEIT
 			);
 

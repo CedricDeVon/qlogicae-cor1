@@ -3,7 +3,7 @@
 #include "../includes/runtime_benchmarker_test_suite.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {
 	
 }

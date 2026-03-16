@@ -1,7 +1,6 @@
 #pragma once
 
 #include "abstract_class.hpp"
-#include "singleton_manager.hpp"
 #include "rocksdb_database_manager_configurations.hpp"
 
 namespace
@@ -59,9 +58,6 @@ namespace
 
 		boost::mutex
 			feature_handling_mutex_3;
-
-        static RocksDbDatabaseManager&
-            singleton;
 
 		RocksDbDatabaseManager();
 

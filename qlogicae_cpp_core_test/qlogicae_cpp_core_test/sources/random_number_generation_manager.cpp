@@ -2,10 +2,8 @@
 
 #include "../includes/random_number_generation_manager.hpp"
 
-using namespace QLogicaeCppCore;
-
 namespace
-	QLogicaeCppCoreTest
+	QLogicae::Cor::V1::Tests
 {
 	class RandomNumberGenerationManagerTest : public ::testing::Test
 	{

@@ -3,16 +3,8 @@
 #include "../includes/runtime_benchmarker.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {	    
-    RuntimeBenchmarker&
-        RuntimeBenchmarker
-			::singleton =
-				SingletonManager
-					::get_singleton<RuntimeBenchmarker>();
-
-
-
 	RuntimeBenchmarker
 		::RuntimeBenchmarker() :
 			AbstractClass<RuntimeBenchmarkerConfigurations>()

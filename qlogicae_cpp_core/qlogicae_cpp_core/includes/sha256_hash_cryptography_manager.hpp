@@ -2,7 +2,6 @@
 
 #include "text_manager.hpp"
 #include "abstract_class.hpp"
-#include "singleton_manager.hpp"
 #include "sha256_hash_cryptography_manager_configurations.hpp"
 
 namespace
@@ -15,9 +14,6 @@ namespace
     public:
 		boost::mutex
 			feature_handling_mutex_2;
-
-        static Sha256HashCryptographyManager&
-            singleton;
 
 		Sha256HashCryptographyManager();
 

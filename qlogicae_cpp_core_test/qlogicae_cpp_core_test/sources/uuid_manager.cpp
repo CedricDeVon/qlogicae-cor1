@@ -2,10 +2,8 @@
 
 #include "../includes/uuid_manager.hpp"
 
-using namespace QLogicaeCppCore;
-
 namespace
-	QLogicaeCppCoreTest
+	QLogicae::Cor::V1::Tests
 {
 	class UuidManagerTest : public ::testing::Test
 	{
@@ -71,8 +69,8 @@ namespace
 
 	TEST_F(UuidManagerTest, Should_ReturnSameInstance_When_AccessedMultipleTimes)
 	{
-		auto& instance1 = UuidManager::singleton;
-		auto& instance2 = UuidManager::singleton;
+		auto& instance1 = SingletonManager::get_singleton<UuidManager>();
+		auto& instance2 = SingletonManager::get_singleton<UuidManager>();
 		ASSERT_EQ(&instance1, &instance2);
 	}
 

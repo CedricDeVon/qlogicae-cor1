@@ -3,7 +3,7 @@
 #include "../includes/validation_manager_configurations.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {
 	ValidationManagerConfigurations
 		::ValidationManagerConfigurations() :

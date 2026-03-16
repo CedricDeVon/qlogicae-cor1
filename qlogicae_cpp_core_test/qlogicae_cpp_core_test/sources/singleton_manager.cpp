@@ -2,7 +2,8 @@
 
 #include "../includes/singleton_manager.hpp"
 
-namespace QLogicae::Cor::V1::Tests
+namespace
+	QLogicae::Cor::V1::Tests
 {
 	enum class TestPlainEnum
 	{

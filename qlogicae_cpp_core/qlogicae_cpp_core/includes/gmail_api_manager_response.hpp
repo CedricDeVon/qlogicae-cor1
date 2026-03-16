@@ -1,15 +1,22 @@
 #pragma once
 
+#include "results_status.hpp"
+
 namespace
 	QLogicae::Cor::V1
 {
     struct
 		GmailApiManagerResponse
     {
-		std::string
-			error_message =
+		ResultsStatus
+			status =
 				default_configurations
-					.error_message;
+					.status;
+
+		std::string
+			message =
+				default_configurations
+					.message;
 
 		static GmailApiManagerResponse
 			initial_configurations;

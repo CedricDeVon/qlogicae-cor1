@@ -3,16 +3,8 @@
 #include "../includes/temperature_unit_enum_manager.hpp"
 
 namespace
-	QLogicaeCppCore
-{        
-	TemperatureUnitEnumManager&
-		TemperatureUnitEnumManager
-			::singleton = 
-				SingletonManager
-					::get_singleton<TemperatureUnitEnumManager>();	
-
-
-	
+	QLogicae::Cor::V1
+{        	
 	TemperatureUnitEnumManager
 		::TemperatureUnitEnumManager() :
 			AbstractClass<TemperatureUnitEnumManagerConfigurations>()

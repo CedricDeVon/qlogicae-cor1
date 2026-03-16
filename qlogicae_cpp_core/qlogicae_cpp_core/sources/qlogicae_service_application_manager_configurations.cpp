@@ -3,7 +3,7 @@
 #include "../includes/qlogicae_service_application_manager_configurations.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {
 	QLogicaeServiceApplicationManagerConfigurations
 		::QLogicaeServiceApplicationManagerConfigurations() :

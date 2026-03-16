@@ -3,7 +3,7 @@
 #include "../includes/valid_mutex_lock.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {
 
 }

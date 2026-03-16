@@ -3,16 +3,8 @@
 #include "../includes/time_zone_enum_manager.hpp"
 
 namespace
-	QLogicaeCppCore
-{        
-	TimeZoneEnumManager&
-		TimeZoneEnumManager
-			::singleton = 
-				SingletonManager
-					::get_singleton<TimeZoneEnumManager>();	
-
-
-	
+	QLogicae::Cor::V1
+{        	
 	TimeZoneEnumManager
 		::TimeZoneEnumManager() :
 			AbstractClass<TimeZoneEnumManagerConfigurations>()

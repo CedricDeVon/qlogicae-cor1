@@ -3,16 +3,8 @@
 #include "../includes/qlogicae_desktop_application_manager.hpp"
 
 namespace
-	QLogicaeCppCore
-{        
-	QLogicaeDesktopApplicationManager&
-		QLogicaeDesktopApplicationManager
-			::singleton = 
-				SingletonManager
-					::get_singleton<QLogicaeDesktopApplicationManager>();	
-
-
-	
+	QLogicae::Cor::V1
+{        	
 	QLogicaeDesktopApplicationManager
 		::QLogicaeDesktopApplicationManager() :
 			AbstractClass<QLogicaeDesktopApplicationManagerConfigurations>()

@@ -3,7 +3,7 @@
 #include "../includes/sqlite_row.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {
 	SQLiteRow
 		::SQLiteRow(

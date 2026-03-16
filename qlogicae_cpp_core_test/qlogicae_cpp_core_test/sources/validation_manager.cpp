@@ -2,10 +2,8 @@
 
 #include "../includes/validation_manager.hpp"
 
-using namespace QLogicaeCppCore;
-
 namespace
-	QLogicaeCppCoreTest
+	QLogicae::Cor::V1::Tests
 {
 	class ValidationManagerTest : public ::testing::Test
 	{

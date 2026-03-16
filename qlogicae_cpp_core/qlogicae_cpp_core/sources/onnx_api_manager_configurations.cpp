@@ -9,7 +9,14 @@ namespace
 		::OnnxApiManagerConfigurations() :
 			AbstractConfigurations<OnnxApiManagerConfigurations>()
 	{
-		
+		model_path =
+			"";
+
+		enable_cuda =
+			false;
+
+		device_id =
+			1;
 	}
 
 	OnnxApiManagerConfigurations

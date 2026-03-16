@@ -2,7 +2,6 @@
 
 #include "text_encoding.hpp"
 #include "abstract_class.hpp"
-#include "singleton_manager.hpp"
 #include "text_encoding_enum_manager_configurations.hpp"
 
 namespace

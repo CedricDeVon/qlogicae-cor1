@@ -3,16 +3,8 @@
 #include "../includes/text_key_path_manager.hpp"
 
 namespace
-	QLogicaeCppCore
-{        
-	TextKeyPathManager&
-		TextKeyPathManager
-			::singleton = 
-				SingletonManager
-					::get_singleton<TextKeyPathManager>();	
-
-
-	
+	QLogicae::Cor::V1
+{        	
 	TextKeyPathManager
 		::TextKeyPathManager() :
 			AbstractClass<TextKeyPathManagerConfigurations>()

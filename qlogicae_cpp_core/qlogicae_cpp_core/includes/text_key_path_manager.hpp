@@ -1,7 +1,6 @@
 #pragma once
 
 #include "abstract_class.hpp"
-#include "singleton_manager.hpp"
 #include "text_key_path_manager_configurations.hpp"
 
 namespace
@@ -12,9 +11,6 @@ namespace
 			public AbstractClass<TextKeyPathManagerConfigurations>
     {
     public:		
-        static TextKeyPathManager&
-            singleton;
-
 		TextKeyPathManager();
 
 		std::vector<std::string>

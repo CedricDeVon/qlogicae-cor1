@@ -3,7 +3,7 @@
 #include "../includes/sqlite_statement.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {
     SQLiteStatement
 		::SQLiteStatement(
@@ -18,6 +18,55 @@ namespace
 
         sqlite3_stmt* raw_statement = nullptr;
         int result = sqlite3_prepare_v2(backend->database_handle,
+            sql_text.data(),
+            static_cast<int>(sql_text.size()),
+            &raw_statement, nullptr);
+
+        if (result != SQLITE_OK)
+        {
+            throw SQLiteException("Failed To Prepare Statement",
+                result, sqlite3_extended_errcode(backend->database_handle));
+        }
+
+        statement = std::make_unique<SQLiteStatementData>(raw_statement);
+    }
+
+	SQLiteStatement
+		::SQLiteStatement(
+			const std::string&
+				file_path,
+			const std::string&
+				sql_text
+		)
+    {
+		sqlite3*
+			raw_handle =
+				nullptr;
+
+		int
+			result =
+				sqlite3_open(
+					file_path.c_str(),
+					&raw_handle
+				);
+
+		if (result != SQLITE_OK)
+		{
+			throw
+				SQLiteException(
+					"Failed To Open Database",
+					result,
+					result
+				);
+		}
+
+		backend =
+			std::make_shared<SQLiteBackend>(
+				raw_handle
+			);
+
+        sqlite3_stmt* raw_statement = nullptr;
+        result = sqlite3_prepare_v2(backend->database_handle,
             sql_text.data(),
             static_cast<int>(sql_text.size()),
             &raw_statement, nullptr);

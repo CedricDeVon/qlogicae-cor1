@@ -2,7 +2,6 @@
 
 #include "abstract_class.hpp"
 #include "temperature_unit.hpp"
-#include "singleton_manager.hpp"
 #include "temperature_manager_configurations.hpp"
 
 namespace
@@ -13,9 +12,6 @@ namespace
 			public AbstractClass<TemperatureManagerConfigurations>
     {
     public:
-        static TemperatureManager&
-            singleton;
-
 		TemperatureManager();
 
 		double

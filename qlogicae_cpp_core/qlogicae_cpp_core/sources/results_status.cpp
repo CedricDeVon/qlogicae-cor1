@@ -3,7 +3,7 @@
 #include "../includes/results_status.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {
     
 }

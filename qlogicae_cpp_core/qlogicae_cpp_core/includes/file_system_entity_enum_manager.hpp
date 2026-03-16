@@ -33,4 +33,3 @@ namespace
 			convert_string_to_enum();
     };
 }
-

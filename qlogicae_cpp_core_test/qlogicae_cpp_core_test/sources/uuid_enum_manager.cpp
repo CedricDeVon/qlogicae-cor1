@@ -2,10 +2,8 @@
 
 #include "../includes/uuid_enum_manager.hpp"
 
-using namespace QLogicaeCppCore;
-
 namespace
-	QLogicaeCppCoreTest
+	QLogicae::Cor::V1::Tests
 {
 	class UuidEnumManagerTest :
 		public ::testing::Test
@@ -131,8 +129,8 @@ namespace
 
 	TEST_F(UuidEnumManagerTest, Should_ReturnSingletonInstanceConsistently)
 	{
-		UuidEnumManager& first_instance = UuidEnumManager::singleton;
-		UuidEnumManager& second_instance = UuidEnumManager::singleton;
+		UuidEnumManager& first_instance = SingletonManager::get_singleton<UuidEnumManager>();
+		UuidEnumManager& second_instance = SingletonManager::get_singleton<UuidEnumManager>();
 		EXPECT_EQ(&first_instance, &second_instance);
 	}
 

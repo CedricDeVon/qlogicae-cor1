@@ -733,11 +733,11 @@ namespace
         _status = value;
     }
 
-    template <typename ValueType>
-    void QLogicaeCppCore::Results<ValueType>::set_message(
-        const std::string_view&
-            value
-    )
+    template <typename ValueType> void
+		Results<ValueType>::set_message(
+			const std::string_view&
+				value
+		)
     {
         _message = value;
     }

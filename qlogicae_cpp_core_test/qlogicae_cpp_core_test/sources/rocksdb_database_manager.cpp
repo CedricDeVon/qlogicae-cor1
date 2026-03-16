@@ -2,9 +2,8 @@
 
 #include "../includes/rocksdb_database_manager.hpp"
 
-using namespace QLogicaeCppCore;
-
-namespace QLogicaeCppCoreTest
+namespace
+	QLogicae::Cor::V1::Tests
 {
 	class RocksDbDatabaseManagerTest :
 		public ::testing::Test

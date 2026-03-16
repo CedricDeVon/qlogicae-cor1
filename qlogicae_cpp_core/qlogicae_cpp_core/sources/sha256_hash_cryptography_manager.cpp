@@ -3,16 +3,8 @@
 #include "../includes/sha256_hash_cryptography_manager.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {
-	Sha256HashCryptographyManager&
-        Sha256HashCryptographyManager
-			::singleton =
-				SingletonManager
-					::get_singleton<Sha256HashCryptographyManager>();
-
-
-
     Sha256HashCryptographyManager
 		::Sha256HashCryptographyManager() :
 			AbstractClass<Sha256HashCryptographyManagerConfigurations>()

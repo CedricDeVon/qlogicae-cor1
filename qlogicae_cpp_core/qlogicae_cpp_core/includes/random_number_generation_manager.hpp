@@ -1,7 +1,6 @@
 #pragma once
 
 #include "abstract_class.hpp"
-#include "singleton_manager.hpp"
 #include "random_seed_generation_manager.hpp"
 #include "random_number_generation_manager_configurations.hpp"
 
@@ -13,9 +12,6 @@ namespace
 			public AbstractClass<RandomNumberGenerationManagerConfigurations>
     {
     public:
-		static RandomNumberGenerationManager&
-			singleton;
-
 		RandomNumberGenerationManager();
 
 		template <typename Type = int> Type
@@ -113,7 +109,7 @@ namespace
 				)
 				{
 					const Type candidate =
-						distribution(RandomSeedGenerationManager::singleton
+						distribution(SingletonManager::get_singleton<RandomSeedGenerationManager>()
 										 .random_indeterministic_seed_engine);
 
 					if (excluded.find(candidate) == excluded.end())
@@ -154,7 +150,7 @@ namespace
 				)
 				{
 					const Type candidate =
-						distribution(RandomSeedGenerationManager::singleton
+						distribution(SingletonManager::get_singleton<RandomSeedGenerationManager>()
 							.random_indeterministic_seed_engine);
 
 					bool is_excluded = false;
@@ -283,7 +279,7 @@ namespace
             }
 
 			std::uniform_int_distribution<std::size_t> distribution(0, included.size() - 1);
-			std::size_t index = distribution(RandomSeedGenerationManager::singleton.random_indeterministic_seed_engine);
+			std::size_t index = distribution(SingletonManager::get_singleton<RandomSeedGenerationManager>().random_indeterministic_seed_engine);
 
 			auto it = included.begin();
 			std::advance(it, index);

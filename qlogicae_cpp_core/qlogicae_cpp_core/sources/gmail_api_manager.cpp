@@ -5,7 +5,7 @@
 namespace
 	QLogicae::Cor::V1
 {
-    GmailApiManager
+   GmailApiManager
 		::GmailApiManager() :
 			AbstractClass<GmailApiManagerConfigurations>()
 	{
@@ -124,7 +124,6 @@ namespace
 					);
 			}			
 
-			cleanup();
 			curl_global_cleanup();
 
 			return
@@ -143,32 +142,48 @@ namespace
         }
     }
 
-	bool
+	GmailApiManagerResponse
 		GmailApiManager
-			::setup(
-				const GmailApiManagerConfigurations&
-					new_configurations
-			)
+			::send_email()
 	{
+		CURL* curl = nullptr;
+		curl_mime* mixed = nullptr;
+		curl_mime* related = nullptr;
+		curl_mimepart* related_part = nullptr;
+		curl_mimepart* body_part = nullptr;
+		struct curl_slist* headers = nullptr;
+		struct curl_slist* recipients = nullptr;
+		
+		GmailApiManagerResponse
+			response;
+
 		try
         {		
 			if
 			(
 				configurations
-					.is_runtime_execution_disabled_for_feature_handling() ||				
+					.is_runtime_execution_disabled_for_feature_handling()||				
 				(
 					configurations
 						.is_edge_case_enabled_for_feature_handling() &&
 					(
-						new_configurations.sender_address.empty() ||
-						new_configurations.password_provider == nullptr ||
-						new_configurations.to_recipients.empty()
+						!configurations.full_smtp_server_address.size() ||
+						!configurations.sender_email_address.size() ||
+						configurations.to_recipients.empty() ||
+						!configurations.password_provider ||
+						!configurations.password_provider().size()
 					)
 				)
 			)
-			{
+			{				
+				response.status =
+					ResultsStatus::BAD;
+
+				response.message = 
+					"One or more configurations are invalid";
+
 				return
-					false;
+					response;
 			}
 
 			boost::unique_lock<boost::mutex>
@@ -182,598 +197,336 @@ namespace
 					);
 			}			
 
-			configurations =
-				new_configurations;
-
-			return
-				true;
-        }
-        catch
-        (
-            const std::exception&
-                exception
-        )
-        {
-			return
-				handle_error_outputs(
-					exception
-				);
-        }
-	}
-
-	bool
-		GmailApiManager
-			::attach_inline_image(
-				const std::string&
-					file_path,
-				const std::string&
-					content_id,
-				const std::string&
-					mime_type
-		)
-	{
-		try
-        {       
-			if
-			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling() ||				
-				(
-					configurations
-						.is_edge_case_enabled_for_feature_handling() &&
-					(
-						file_path.empty() ||
-						content_id.empty() ||
-						mime_type.empty() ||
-						!std::filesystem::exists(file_path)
-					)
-				)
-			)
-			{
-				return
-					false;
-			}
-     
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_feature_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}
-
-			curl_mimepart* part = curl_mime_addpart(mime_related);
-			curl_mime_filedata(part, file_path.c_str());
-			curl_mime_type(part, mime_type.c_str());
-			curl_mime_encoder(part, "base64");
-			curl_mime_filename(part, file_path.c_str());
-
-			std::string header = "Content-ID: <" + content_id + ">";
-			struct curl_slist* header_list = curl_slist_append(nullptr, header.c_str());
-			curl_mime_headers(part, header_list, 1);
-
-			return
-				true;
-        }
-        catch
-        (
-            const std::exception&
-                exception
-        )
-        {
-            return
-				handle_error_outputs(
-					exception
-				);
-        }
-	}
-
-	bool
-		GmailApiManager
-			::attach_file(
-				const std::string&
-					file_path,
-				const std::string&
-					mime_type,
-				const std::string&
-					filename
-		)
-	{
-		try
-        {       
-			if
-			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling() ||				
-				(
-					configurations
-						.is_edge_case_enabled_for_feature_handling() &&
-					(
-						file_path.empty() ||
-						mime_type.empty() ||
-						filename.empty() ||
-						!std::filesystem::exists(file_path)
-					)
-				)
-			)
-			{
-				return
-					false;
-			}
-     
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_feature_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}
-
-			curl_mimepart* part = curl_mime_addpart(mime_mixed);
-			curl_mime_filedata(part, file_path.c_str());
-			curl_mime_type(part, mime_type.c_str());
-			curl_mime_encoder(part, "base64");
-			curl_mime_filename(part, filename.c_str());
-
-			std::string header =
-				"Content-Disposition: attachment; filename=\"" + filename + "\"";
-			struct curl_slist* header_list = curl_slist_append(nullptr, header.c_str());
-			curl_mime_headers(part, header_list, 1);
-
-			return
-				true;
-        }
-        catch
-        (
-            const std::exception&
-                exception
-        )
-        {
-            return
-				handle_error_outputs(
-					exception
-				);
-        }
-	}
-
-	GmailApiManagerResponse
-		GmailApiManager
-			::send_email()
-	{
-		try
-        {		
-			if
-			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling()
-			)
-			{
-				return
-					{};
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_feature_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}			
-
-			GmailApiManagerResponse
-				response;
-
-			if (!reset_mime())
-			{
-				response.error_message =
-					"reset_mime() failed";
-
-				return
-					response;	
-			}
-	
-            if (!prepare_headers())
-			{
-				response.error_message =
-					"prepare_headers() failed";
-
-				return
-					response;					
-			}
-
-            if (!finalize_body())
-			{
-				response.error_message =
-					"finalize_body() failed";
-
-				return
-					response;					
-			}
-
-            CURLcode result = curl_easy_perform(curl);
-
-            if (result != CURLE_OK)
-            {
-				response.error_message =
-					curl_easy_strerror(result);
-            }
-
-			return
-				response;
-        }
-        catch
-        (
-            const std::exception&
-                exception
-        )
-        {
-			return
-				handle_error_outputs<GmailApiManagerResponse>(
-					exception
-				);
-        }
-	}
-
-	bool
-		GmailApiManager
-			::cleanup()
-	{
-		try
-        {		
-			if
-			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling()
-			)
-			{
-				return
-					false;
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_feature_handling())
-			{
-				mutex_lock =	
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_2
-					);
-			}			
-
-			if (headers)
-			{
-				curl_slist_free_all(headers);
-				headers = nullptr;
-			}
-
-			if (recipients)
-			{
-				curl_slist_free_all(recipients);
-				recipients = nullptr;
-			}
-
+			curl = curl_easy_init();
 			if (curl)
 			{
-				curl_easy_cleanup(curl);
-				curl = nullptr;
-			}
-
-			mime_mixed = nullptr;
-			mime_related = nullptr;
-
-			return
-				true;
-        }
-        catch
-        (
-            const std::exception&
-                exception
-        )
-        {
-			return
-				handle_error_outputs(
-					exception
-				);
-        }
-	}
-
-	bool
-		GmailApiManager
-			::reset_mime()
-	{
-		try
-        {		
-			if
-			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling()
-			)
-			{
-				return
-					false;
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_feature_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_2
-					);
-			}			
-
-			if (mime_mixed)
-			{
-				curl_mime_free(mime_mixed);
-				mime_mixed = curl_mime_init(curl);
-			}
-
-			if (mime_related)
-			{
-				curl_mime_free(mime_related);
-				mime_related = curl_mime_init(curl);
-			}
-
-			return
-				true;
-        }
-        catch
-        (
-            const std::exception&
-                exception
-        )
-        {
-			return
-				handle_error_outputs(
-					exception
-				);
-        }
-	}
-
-	bool
-		GmailApiManager
-			::finalize_body()
-	{
-		try
-        {		
-			if
-			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling()
-			)
-			{
-				return
-					false;
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_feature_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_2
-					);
-			}			
-
-			if (configurations.plain_body.empty() ||
-				configurations.html_body.empty())
-			{
-				return
-					false;
-			}
-			
-			plain_part = curl_mime_addpart(mime_related);
-			curl_mime_data(plain_part, configurations.plain_body.c_str(), CURL_ZERO_TERMINATED);
-			curl_mime_type(plain_part, "text/plain");
-
-			html_part = curl_mime_addpart(mime_related);
-			curl_mime_data(html_part, configurations.html_body.c_str(), CURL_ZERO_TERMINATED);
-			curl_mime_type(html_part, "text/html");
-			
-			curl_mimepart* part = curl_mime_addpart(mime_mixed);
-			curl_mime_subparts(part, mime_related);
-			curl_mime_type(part, "multipart/alternative");
-			curl_easy_setopt(curl, CURLOPT_MIMEPOST, mime_mixed);
-
-			return
-				true;
-        }
-        catch
-        (
-            const std::exception&
-                exception
-        )
-        {
-			return
-				handle_error_outputs(
-					exception
-				);
-        }
-	}
-
-	bool
-		GmailApiManager
-			::configure_smtp()
-	{
-		try
-        {		
-			if
-			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling()
-			)
-			{
-				return
-					false;
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_feature_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}			
-
-			std::string full_url = "smtps://" + configurations.smtp_server;
-			curl_easy_setopt(curl, CURLOPT_URL, full_url.c_str());
-			curl_easy_setopt(curl, CURLOPT_USE_SSL, CURLUSESSL_ALL);
-			curl_easy_setopt(curl, CURLOPT_USERNAME, configurations.sender_address.c_str());
-			std::string password = configurations.password_provider();
-			curl_easy_setopt(curl, CURLOPT_PASSWORD, password.c_str());
-			curl_easy_setopt(curl, CURLOPT_MAIL_FROM,
-				("<" + configurations.sender_address + ">").c_str());
-			curl_easy_setopt(curl, CURLOPT_VERBOSE, 0L);
-			curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 1L);
-			curl_easy_setopt(curl, CURLOPT_SSL_VERIFYHOST, 2L);
-
-			return
-				true;
-        }
-        catch
-        (
-            const std::exception&
-                exception
-        )
-        {
-			return
-				handle_error_outputs(
-					exception
-				);
-        }
-	}
-
-	bool
-		GmailApiManager
-			::prepare_headers()
-	{
-		try
-        {		
-			if
-			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling()
-			)
-			{
-				return
-					false;
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_feature_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_2
-					);
-			}			
-
-			headers = curl_slist_append(
-                headers,
-                ("Subject: " + configurations.subject).c_str());
-            headers = curl_slist_append(
-                headers,
-                ("From: <" + configurations.sender_address + ">").c_str());
-
-            for (const std::string& recipient : configurations.to_recipients)
-            {
-                headers = curl_slist_append(
-                    headers,
-                    ("To: <" + recipient + ">").c_str());
-            }
-            for (const std::string& cc : configurations.cc_recipients)
-            {
-                headers = curl_slist_append(
-                    headers,
-                    ("Cc: <" + cc + ">").c_str());
-            }
-            for (const auto& pair : configurations.custom_headers)
-            {
-                headers = curl_slist_append(
-                    headers,
-                    (pair.first + ": " + pair.second).c_str());
-            }
-            curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
-
-			return
-				true;
-        }
-        catch
-        (
-            const std::exception&
-                exception
-        )
-        {
-			return
-				handle_error_outputs(
-					exception
-				);
-        }
-	}
-
-	bool
-		GmailApiManager
-			::prepare_recipients()
-	{
-		try
-        {		
-			if
-			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling()
-			)
-			{
-				return
-					false;
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_feature_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}			
-
-			auto append = [this](const std::vector<std::string>& list)
+				if (configurations.is_inner_logging_enabled)
 				{
-					for (const std::string& item : list)
-					{
-						recipients = curl_slist_append(
-							recipients,
-							("<" + item + ">").c_str());
-					}
-				};
+					curl_easy_setopt(curl, CURLOPT_VERBOSE, 1L);
+				}				
 
-			append(configurations.to_recipients);
-			append(configurations.cc_recipients);
-			append(configurations.bcc_recipients);
-			curl_easy_setopt(curl, CURLOPT_MAIL_RCPT, recipients);
+				size_t
+					index =
+						0;
+				std::string
+					temporary_text =
+						"";
+				size_t
+					subject_name_size =
+						configurations
+							.subject_name
+								.size();
+				size_t
+					sender_email_address_size =
+						configurations
+							.sender_email_address
+								.size();
+				size_t
+					to_recipients_size =
+						configurations
+							.to_recipients
+								.size();
+				size_t
+					cc_recipients_size =
+						configurations
+							.cc_recipients
+								.size();
+				size_t
+					bcc_recipients_size =
+						configurations
+							.bcc_recipients
+								.size();
+				size_t
+					custom_headers_size =
+						configurations
+							.custom_headers
+								.size();
+
+				if (subject_name_size)
+				{
+					temporary_text =
+						"Subject: " + configurations.subject_name;
+					headers =
+						curl_slist_append(
+							headers,
+							temporary_text
+								.c_str()
+						);
+				}
+
+				if (sender_email_address_size)
+				{
+					temporary_text =
+						"From: <" + configurations.sender_email_address + ">";
+					headers =
+						curl_slist_append(
+							headers,
+							temporary_text
+								.c_str()
+						);
+				}
+
+				if (to_recipients_size)
+				{
+					temporary_text =
+						"To: ";
+					for
+					(
+						index = 0;
+						index < to_recipients_size;
+						++index
+					)
+					{
+						temporary_text +=
+							"<" + configurations.to_recipients[index] + ">";
+						if (index < to_recipients_size - 1)
+						{
+							temporary_text += ", ";
+						}					
+					}
+					headers =
+						curl_slist_append(
+							headers,
+							temporary_text
+								.c_str()
+						);
+				}	
+				
+				if (cc_recipients_size)
+				{
+					temporary_text =
+						"Cc: ";
+					for
+					(
+						index = 0;
+						index < cc_recipients_size;
+						++index
+					)
+					{
+						temporary_text +=
+							"<" + configurations.cc_recipients[index] + ">";
+						if (index < cc_recipients_size - 1)
+						{
+							temporary_text += ", ";
+						}					
+					}
+					headers =
+						curl_slist_append(
+							headers,
+							temporary_text.c_str()
+						);
+				}
+
+				if (custom_headers_size)
+				{
+					for
+					(
+						const auto&
+							pair :
+							configurations
+								.custom_headers
+					)
+					{
+						headers =
+							curl_slist_append(
+								headers,
+								(pair.first + ": " + pair.second).c_str()
+							);
+					}
+				}
+								
+				curl_easy_setopt(
+					curl,
+					CURLOPT_HTTPHEADER,
+					headers
+				);
+				curl_easy_setopt(
+					curl,
+					CURLOPT_URL,
+					configurations
+						.full_smtp_server_address
+							.c_str()
+				);
+				curl_easy_setopt(
+					curl,
+					CURLOPT_USERNAME,
+					configurations
+						.sender_email_address
+							.c_str()
+				);
+				curl_easy_setopt(
+					curl,
+					CURLOPT_PASSWORD,
+					configurations
+						.password_provider()
+							.c_str()
+				);
+				curl_easy_setopt(
+					curl,
+					CURLOPT_MAIL_FROM,
+					("<" + configurations.sender_email_address + ">").c_str());
+
+				switch (configurations.email_security_type)
+				{
+					case (EmailSecurity::SSL):
+					{
+						curl_easy_setopt(
+							curl,
+							CURLOPT_USE_SSL,
+							CURLUSESSL_ALL
+						);
+						curl_easy_setopt(
+							curl,
+							CURLOPT_SSL_VERIFYPEER,
+							1L
+						);
+						curl_easy_setopt(
+							curl,
+							CURLOPT_SSL_VERIFYHOST,
+							2L
+						);
+						break;
+					}
+				}			
+					
+				for
+				(
+					const std::string&
+						item :
+						configurations
+							.to_recipients
+				)
+				{
+					recipients = curl_slist_append(
+						recipients,
+						("<" + item + ">").c_str());
+				}
+				for
+				(
+					const std::string&
+						item :
+						configurations
+							.cc_recipients
+				)
+				{
+					recipients = curl_slist_append(
+						recipients,
+						("<" + item + ">").c_str());
+				}
+				for
+				(
+					const std::string&
+						item :
+						configurations
+							.bcc_recipients
+				)
+				{
+					recipients = curl_slist_append(
+						recipients,
+						("<" + item + ">").c_str());
+				}
+				curl_easy_setopt(
+					curl,
+					CURLOPT_MAIL_RCPT,
+					recipients
+				);
+
+				mixed = curl_mime_init(curl);
+				related = curl_mime_init(curl);
+				body_part = curl_mime_addpart(related);
+				curl_mime_data(body_part, configurations.raw_body.c_str(), CURL_ZERO_TERMINATED);
+				switch (configurations.email_body_type)
+				{
+					case (EmailBody::HTML):
+					{
+						curl_mime_type(body_part, "text/html");
+						break;
+					}
+					case (EmailBody::PLAIN):
+					{
+						curl_mime_type(body_part, "text/plain");
+						break;
+					}
+					default:
+					{
+						curl_mime_type(body_part, "text/plain");
+						break;
+					}
+				}
+				
+				related_part =
+					curl_mime_addpart(
+						mixed
+					);
+				curl_mime_subparts(
+					related_part,
+					related
+				);
+				curl_mime_type(
+					related_part,
+					"multipart/related"
+				);
+
+				if (configurations.attached_files.size())
+				{
+					curl_mimepart* part = curl_mime_addpart(related);
+					part = curl_mime_addpart(mixed);
+					curl_mime_type(part, "multipart/related");
+
+					for (const auto& attached_file : configurations.attached_files)
+					{
+						curl_mimepart* part = curl_mime_addpart(mixed);
+						curl_mime_filedata(part, attached_file.file_path.c_str());
+						curl_mime_type(part, attached_file.mime_type.c_str());
+						curl_mime_encoder(part, "base64");
+						curl_mime_filename(part, attached_file.file_name.c_str());
+
+						struct curl_slist* headers = nullptr;
+						headers = curl_slist_append(headers, ("Content-Disposition: attachment; filename=\"" + attached_file.file_name + "\"").c_str());
+						curl_mime_headers(part, headers, 1);
+					}
+				}
+
+				curl_easy_setopt(curl, CURLOPT_MIMEPOST, mixed);
+				CURLcode res = curl_easy_perform(curl);
+				if (res != CURLE_OK)
+				{
+					response
+						.status =
+							ResultsStatus::BAD;
+
+					response
+						.message =
+							curl_easy_strerror(
+								res
+							);					
+				}
+				else
+				{
+					response
+						.status =
+							ResultsStatus::GOOD;
+
+					response
+						.message =
+							"";
+				}
+
+				curl_slist_free_all(
+					recipients
+				);
+				curl_mime_free(
+					mixed
+				);
+				curl_easy_cleanup(
+					curl
+				);
+			}
+
+			curl_global_cleanup();
 
 			return
-				true;
+				response;
         }
         catch
         (
@@ -781,10 +534,32 @@ namespace
                 exception
         )
         {
-			return
-				handle_error_outputs(
-					exception
+			if (recipients)
+			{
+				curl_slist_free_all(
+					recipients
 				);
+			}
+			if (mixed)
+			{
+				curl_mime_free(
+					mixed
+				);
+			}
+			if (curl)
+			{
+				curl_easy_cleanup(
+					curl
+				);
+			}			
+			curl_global_cleanup();
+
+			handle_error_outputs(
+				exception
+			);
+
+			return
+				response;
         }
 	}
 }

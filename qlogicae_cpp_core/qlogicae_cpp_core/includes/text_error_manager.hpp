@@ -1,7 +1,6 @@
 #pragma once
 
 #include "abstract_class.hpp"
-#include "singleton_manager.hpp"
 #include "text_error_manager_configurations.hpp"
 
 namespace
@@ -12,9 +11,6 @@ namespace
 			public AbstractClass<TextErrorManagerConfigurations>
     {
     public:        
-        static TextErrorManager&
-            singleton;
-
 		TextErrorManager();
 
 		std::string

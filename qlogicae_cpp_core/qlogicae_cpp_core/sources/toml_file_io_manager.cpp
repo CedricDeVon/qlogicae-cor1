@@ -3,16 +3,8 @@
 #include "../includes/toml_file_io_manager.hpp"
 
 namespace
-	QLogicaeCppCore
-{        
-	TomlFileIoManager&
-		TomlFileIoManager
-			::singleton = 
-				SingletonManager
-					::get_singleton<TomlFileIoManager>();	
-
-
-	
+	QLogicae::Cor::V1
+{        	
 	TomlFileIoManager
 		::TomlFileIoManager() :
 			AbstractClass<TomlFileIoManagerConfigurations>()
@@ -20,7 +12,6 @@ namespace
         
     }
 
-	
 	bool
 		TomlFileIoManager
 			::is_key_found(

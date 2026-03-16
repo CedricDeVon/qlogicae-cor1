@@ -3,16 +3,8 @@
 #include "../includes/rocksdb_database_manager.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {	    
-    RocksDbDatabaseManager&
-        RocksDbDatabaseManager
-			::singleton =
-				SingletonManager
-					::get_singleton<RocksDbDatabaseManager>();
-
-
-
 	RocksDbDatabaseManager
 		::RocksDbDatabaseManager() :
 			AbstractClass<RocksDbDatabaseManagerConfigurations>()
@@ -76,7 +68,7 @@ namespace
 				mutex_lock =
 					boost::unique_lock<boost::mutex>
 					(
-						utility_handling_mutex_1
+						feature_handling_mutex_1
 					);
 			}	
 
@@ -169,7 +161,7 @@ namespace
 				mutex_lock =
 					boost::unique_lock<boost::mutex>
 					(
-						utility_handling_mutex_1
+						feature_handling_mutex_1
 					);
 			}			
 

@@ -3,7 +3,7 @@
 #include "../includes/sqlite_database_manager_configurations.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {
 	SQLiteDatabaseManagerConfigurations
 		::SQLiteDatabaseManagerConfigurations() :

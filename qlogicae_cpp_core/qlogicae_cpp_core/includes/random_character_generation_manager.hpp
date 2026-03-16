@@ -2,7 +2,6 @@
 
 #include "abstract_class.hpp"
 #include "character_domain.hpp"
-#include "singleton_manager.hpp"
 #include "text_encoding_manager.hpp"
 #include "character_domain_manager.hpp"
 #include "random_seed_generation_manager.hpp"
@@ -16,9 +15,6 @@ namespace
 			public AbstractClass<RandomCharacterGenerationManagerConfigurations>
     {
     public:
-		static RandomCharacterGenerationManager&
-			singleton;
-
 		RandomCharacterGenerationManager();
 
 		template <typename Type> Type
@@ -89,8 +85,7 @@ namespace
 
 			const std::string
 				domain =
-					CharacterDomainManager
-						::singleton
+					SingletonManager::get_singleton<CharacterDomainManager>()
 							.get_value
 							(
 								character_domain
@@ -122,7 +117,7 @@ namespace
 				
 			std::uniform_int_distribution<std::size_t> distribution(0, eligible_count - 1);
 			std::size_t target_index =
-				distribution(RandomSeedGenerationManager::singleton.random_indeterministic_seed_engine);
+				distribution(SingletonManager::get_singleton<RandomSeedGenerationManager>().random_indeterministic_seed_engine);
 				
 			for (const char c : domain)
 			{
@@ -236,7 +231,7 @@ namespace
 				std::uniform_int_distribution<std::size_t>(
 					0,
 					candidates.size() - 1
-				)(RandomSeedGenerationManager::singleton.random_indeterministic_seed_engine);
+				)(SingletonManager::get_singleton<RandomSeedGenerationManager>().random_indeterministic_seed_engine);
 
 			return
 				candidates[index];

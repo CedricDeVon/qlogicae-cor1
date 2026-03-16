@@ -3,7 +3,7 @@
 #include "../includes/random_number_generation_manager_configurations.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {
 	RandomNumberGenerationManagerConfigurations
 		::RandomNumberGenerationManagerConfigurations() :

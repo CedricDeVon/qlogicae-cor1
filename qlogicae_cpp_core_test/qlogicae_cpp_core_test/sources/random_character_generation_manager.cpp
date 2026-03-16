@@ -2,9 +2,8 @@
 
 #include "../includes/random_character_generation_manager.hpp"
 
-using namespace QLogicaeCppCore;
-
-namespace QLogicaeCppCoreTest
+namespace
+	QLogicae::Cor::V1::Tests
 {
 	class RandomCharacterGenerationManagerTest :
 		public ::testing::Test
@@ -230,7 +229,7 @@ namespace QLogicaeCppCoreTest
 				);
 
 			const std::string domain_string =
-				CharacterDomainManager::singleton.get_value(domain_value);
+				SingletonManager::get_singleton<CharacterDomainManager>().get_value(domain_value);
 
 			ASSERT_NE(domain_string.find(result), std::string::npos);
 		}
@@ -267,7 +266,7 @@ namespace QLogicaeCppCoreTest
 			CharacterDomain::ALPHANUMERIC;
 
 		const std::string domain_string =
-			CharacterDomainManager::singleton.get_value(domain_value);
+			SingletonManager::get_singleton<CharacterDomainManager>().get_value(domain_value);
 
 		std::unordered_set<char> excluded_values(domain_string.begin(),
 												 domain_string.end());
@@ -330,7 +329,7 @@ namespace QLogicaeCppCoreTest
 						);
 
 					const std::string domain_string =
-						CharacterDomainManager::singleton.get_value(domain_value);
+						SingletonManager::get_singleton<CharacterDomainManager>().get_value(domain_value);
 
 					if (domain_string.find(result) == std::string::npos)
 					{
@@ -429,7 +428,7 @@ namespace QLogicaeCppCoreTest
 											  excluded_values);
 
 		const std::string domain_string =
-			CharacterDomainManager::singleton.get_value(domain_value);
+			SingletonManager::get_singleton<CharacterDomainManager>().get_value(domain_value);
 
 		ASSERT_NE(domain_string.find(result), std::string::npos);
 	}
@@ -448,7 +447,7 @@ namespace QLogicaeCppCoreTest
 													  excluded_values);
 
 		const std::string domain_string =
-			CharacterDomainManager::singleton.get_value(domain_value);
+			SingletonManager::get_singleton<CharacterDomainManager>().get_value(domain_value);
 
 		if (!domain_string.empty())
 			ASSERT_NE(domain_string.find(result), std::string::npos);
@@ -515,7 +514,7 @@ namespace QLogicaeCppCoreTest
 	const CharacterDomain domain_value = GetParam();
 
 		const std::string domain_string =
-			CharacterDomainManager::singleton.get_value(domain_value);
+			SingletonManager::get_singleton<CharacterDomainManager>().get_value(domain_value);
 
 		std::unordered_set<char> excluded_values(domain_string.begin(),
 												 domain_string.end());
@@ -535,7 +534,7 @@ namespace QLogicaeCppCoreTest
 		const CharacterDomain domain_value = GetParam();
 
 		const std::string domain_string =
-			CharacterDomainManager::singleton.get_value(domain_value);
+			SingletonManager::get_singleton<CharacterDomainManager>().get_value(domain_value);
 
 		std::unordered_set<char> excluded_values;
 		if (!domain_string.empty())
@@ -598,7 +597,7 @@ namespace QLogicaeCppCoreTest
 						manager_instance.generate_character<char>(domain_value,
 																  excluded_values);
 					const std::string domain_string =
-						CharacterDomainManager::singleton.get_value(domain_value);
+						SingletonManager::get_singleton<CharacterDomainManager>().get_value(domain_value);
 					if (!domain_string.empty())
 					{
 						if (domain_string.find(result) == std::string::npos)
@@ -703,7 +702,7 @@ namespace QLogicaeCppCoreTest
 				manager_instance.generate_character<char>(domain_value,
 					excluded_values);
 			const std::string domain_string =
-				CharacterDomainManager::singleton.get_value(domain_value);
+				SingletonManager::get_singleton<CharacterDomainManager>().get_value(domain_value);
 			ASSERT_NE(domain_string.find(result), std::string::npos);
 		}
 	}
@@ -716,7 +715,7 @@ namespace QLogicaeCppCoreTest
 		const CharacterDomain domain_value = GetParam();
 
 		const std::string domain_string =
-			CharacterDomainManager::singleton.get_value(domain_value);
+			SingletonManager::get_singleton<CharacterDomainManager>().get_value(domain_value);
 
 		if (domain_string.empty())
 		{
@@ -792,7 +791,7 @@ namespace QLogicaeCppCoreTest
 		const CharacterDomain domain_value = GetParam();
 
 		const std::string domain_string =
-			CharacterDomainManager::singleton.get_value(domain_value);
+			SingletonManager::get_singleton<CharacterDomainManager>().get_value(domain_value);
 
 		if (domain_string.empty())
 			return;
@@ -839,7 +838,7 @@ namespace QLogicaeCppCoreTest
 		const std::unordered_set<char> excluded_values{};
 
 		const std::string domain_string =
-			CharacterDomainManager::singleton.get_value(domain_value);
+			SingletonManager::get_singleton<CharacterDomainManager>().get_value(domain_value);
 
 		for (std::size_t i = 0; i < 50000; ++i)
 		{
@@ -858,7 +857,7 @@ namespace QLogicaeCppCoreTest
 		const CharacterDomain domain_value = GetParam();
 
 		const std::string domain_string =
-			CharacterDomainManager::singleton.get_value(domain_value);
+			SingletonManager::get_singleton<CharacterDomainManager>().get_value(domain_value);
 
 		if (domain_string.empty())
 		{
@@ -1038,7 +1037,7 @@ namespace QLogicaeCppCoreTest
 	{
 		const CharacterDomain domain_value = GetParam();
 		const std::string domain_string =
-			CharacterDomainManager::singleton.get_value(domain_value);
+			SingletonManager::get_singleton<CharacterDomainManager>().get_value(domain_value);
 
 		if (domain_string.empty())
 		{
@@ -1061,7 +1060,7 @@ namespace QLogicaeCppCoreTest
 	{
 		const CharacterDomain domain_value = GetParam();
 		const std::string domain_string =
-			CharacterDomainManager::singleton.get_value(domain_value);
+			SingletonManager::get_singleton<CharacterDomainManager>().get_value(domain_value);
 
 		if (domain_string.empty())
 		{
@@ -1085,7 +1084,7 @@ namespace QLogicaeCppCoreTest
 			return;
 
 		const std::string domain_string =
-			CharacterDomainManager::singleton.get_value(domain_value);
+			SingletonManager::get_singleton<CharacterDomainManager>().get_value(domain_value);
 		const std::unordered_set<char> excluded_values{};
 
 		for (std::size_t i = 0; i < 50000; ++i)
@@ -1100,7 +1099,7 @@ namespace QLogicaeCppCoreTest
 	{
 		const CharacterDomain domain_value = GetParam();
 		const std::string domain_string =
-			CharacterDomainManager::singleton.get_value(domain_value);
+			SingletonManager::get_singleton<CharacterDomainManager>().get_value(domain_value);
 
 		if (domain_value == CharacterDomain::NONE || domain_string.empty())
 		{
@@ -1114,7 +1113,7 @@ namespace QLogicaeCppCoreTest
 	{
 		const CharacterDomain domain_value = GetParam();
 		const std::string domain_string =
-			CharacterDomainManager::singleton.get_value(domain_value);
+			SingletonManager::get_singleton<CharacterDomainManager>().get_value(domain_value);
 
 		struct CustomManager : RandomCharacterGenerationManager
 		{

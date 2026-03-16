@@ -3,16 +3,8 @@
 #include "../includes/validation_manager.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {
-	ValidationManager&
-        ValidationManager
-			::singleton =
-				SingletonManager
-					::get_singleton<ValidationManager>();
-
-
-
     ValidationManager
 		::ValidationManager() :
 			AbstractClass<ValidationManagerConfigurations>()
@@ -125,4 +117,3 @@ namespace
         }
     }
 }
-

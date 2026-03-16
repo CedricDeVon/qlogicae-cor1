@@ -3,16 +3,8 @@
 #include "../includes/regular_expression_manager.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {    
-	RegularExpressionManager&
-        RegularExpressionManager
-			::singleton =
-				SingletonManager
-					::get_singleton<RegularExpressionManager>();
-
-
-
 	RegularExpressionManager
 		::RegularExpressionManager() :
 			AbstractClass<RegularExpressionManagerConfigurations>()

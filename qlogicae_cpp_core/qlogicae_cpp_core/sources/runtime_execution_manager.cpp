@@ -3,16 +3,8 @@
 #include "../includes/runtime_execution_manager.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {
-	RuntimeExecutionManager&
-        RuntimeExecutionManager
-			::singleton =
-				SingletonManager
-					::get_singleton<RuntimeExecutionManager>();
-
-
-
 	RuntimeExecutionManager
 		::RuntimeExecutionManager() :
 			AbstractClass<RuntimeExecutionManagerConfigurations>()
@@ -75,7 +67,7 @@ namespace
 				mutex_lock =
 					boost::unique_lock<boost::mutex>
 					(
-						utility_handling_mutex_1
+						feature_handling_mutex_1
 					);
 			}			
 
@@ -121,7 +113,7 @@ namespace
 				mutex_lock =
 					boost::unique_lock<boost::mutex>
 					(
-						utility_handling_mutex_1
+						feature_handling_mutex_1
 					);
 			}			
 

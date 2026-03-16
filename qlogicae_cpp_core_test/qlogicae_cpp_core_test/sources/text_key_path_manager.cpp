@@ -2,10 +2,8 @@
 
 #include "../includes/text_key_path_manager.hpp"
 
-using namespace QLogicaeCppCore;
-
 namespace
-	QLogicaeCppCoreTest
+	QLogicae::Cor::V1::Tests
 {
 	class
 		TextKeyPathManagerConfigurationOverrideTest :

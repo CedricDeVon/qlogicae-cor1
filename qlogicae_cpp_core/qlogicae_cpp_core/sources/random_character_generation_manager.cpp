@@ -3,16 +3,8 @@
 #include "../includes/random_character_generation_manager.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {	
-	RandomCharacterGenerationManager&
-		RandomCharacterGenerationManager
-			::singleton =
-				SingletonManager
-					::get_singleton<RandomCharacterGenerationManager>();
-
-
-
 	RandomCharacterGenerationManager
 		::RandomCharacterGenerationManager() :
 			AbstractClass<RandomCharacterGenerationManagerConfigurations>()

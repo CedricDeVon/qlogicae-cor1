@@ -2,7 +2,6 @@
 
 #include "abstract_class.hpp"
 #include "time_scale_unit.hpp"
-#include "singleton_manager.hpp"
 #include "runtime_execution_manager_configurations.hpp"
 
 namespace
@@ -21,9 +20,6 @@ namespace
 
 		std::atomic<double>
 			cached_frequency;
-
-		static RuntimeExecutionManager&
-			singleton;
 
 		RuntimeExecutionManager();
 

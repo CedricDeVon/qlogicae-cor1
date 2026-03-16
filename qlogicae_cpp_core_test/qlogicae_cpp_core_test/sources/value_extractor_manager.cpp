@@ -2,10 +2,9 @@
 
 #include "../includes/value_extractor_manager.hpp"
 
-using namespace QLogicaeCppCore;
-
 namespace
-	QLogicaeCppCoreTest
+	
+	QLogicae::Cor::V1::Tests
 {
 	template <typename T>
 	class ValueExtractorManagerTest : public ::testing::Test
@@ -215,7 +214,7 @@ namespace
 	TYPED_TEST(ValueExtractorManagerTest, Should_UpdateConfiguration_When_SetupCalled)
 	{
 		auto old_value = this->manager.configurations.is_feature_edge_case_handling_enabled;
-		QLogicaeCppCore::ValueExtractorManagerConfigurations<TypeParam> new_config{};
+		ValueExtractorManagerConfigurations<TypeParam> new_config{};
 		new_config.is_feature_edge_case_handling_enabled = false;
 
 		this->manager.setup(new_config);

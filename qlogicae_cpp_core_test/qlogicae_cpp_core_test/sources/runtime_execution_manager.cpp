@@ -2,10 +2,8 @@
 
 #include "../includes/runtime_execution_manager.hpp"
 
-using namespace QLogicaeCppCore;
-
 namespace
-	QLogicaeCppCoreTest
+	QLogicae::Cor::V1::Tests
 {
 	class RuntimeExecutionManagerTest : public ::testing::Test
     {

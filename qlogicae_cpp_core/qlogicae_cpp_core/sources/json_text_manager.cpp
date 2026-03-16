@@ -3,16 +3,8 @@
 #include "../includes/json_text_manager.hpp"
 
 namespace
-	QLogicaeCppCore
-{        
-	JsonTextManager&
-		JsonTextManager
-			::singleton = 
-				SingletonManager
-					::get_singleton<JsonTextManager>();	
-
-
-	
+	QLogicae::Cor::V1
+{        	
 	JsonTextManager
 		::JsonTextManager() :
 			AbstractClass<JsonTextManagerConfigurations>()
@@ -22,7 +14,7 @@ namespace
 
 	bool
 		JsonTextManager
-			::is_valid(
+			::is_text_valid(
 				const std::string&
 					json_text
 			)
@@ -94,7 +86,7 @@ namespace
 						.is_edge_case_enabled_for_feature_handling() &&
 					(
 						json_text.empty() ||
-						!key_path.empty()
+						key_path.empty()
 					)
 				)
 			)
@@ -194,7 +186,7 @@ namespace
 						.is_edge_case_enabled_for_feature_handling() &&
 					(
 						json_text.empty() ||
-						!key_path.empty()
+						key_path.empty()
 					)
 				)
 			)
@@ -298,7 +290,7 @@ namespace
 						.is_edge_case_enabled_for_feature_handling() &&
 					(
 						json_text.empty() ||
-						!key_path.empty()
+						key_path.empty()
 					)
 				)
 			)
@@ -403,7 +395,7 @@ namespace
 						.is_edge_case_enabled_for_feature_handling() &&
 					(
 						json_text.empty() ||
-						!key_path.empty()
+						key_path.empty()
 					)
 				)
 			)
@@ -508,7 +500,7 @@ namespace
 						.is_edge_case_enabled_for_feature_handling() &&
 					(
 						json_text.empty() ||
-						!key_path.empty()
+						key_path.empty()
 					)
 				)
 			)
@@ -613,7 +605,7 @@ namespace
 						.is_edge_case_enabled_for_feature_handling() &&
 					(
 						json_text.empty() ||
-						!key_path.empty()
+						key_path.empty()
 					)
 				)
 			)
@@ -700,10 +692,10 @@ namespace
 
 	bool
 		JsonTextManager
-			::is_valid()
+			::is_text_valid()
 	{
 		return
-			is_valid(
+			is_text_valid(
 				configurations
 					.json_text
 			);

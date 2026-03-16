@@ -3,7 +3,6 @@
 #include "time_format.hpp"
 #include "enum_manager.hpp"
 #include "abstract_class.hpp"
-#include "singleton_manager.hpp"
 #include "time_format_enum_manager_configurations.hpp"
 
 namespace
@@ -14,9 +13,6 @@ namespace
 			public AbstractClass<TimeFormatEnumManagerConfigurations>
     {
     public:
-        static TimeFormatEnumManager&
-            singleton;
-
 		TimeFormatEnumManager();
 
 		std::string

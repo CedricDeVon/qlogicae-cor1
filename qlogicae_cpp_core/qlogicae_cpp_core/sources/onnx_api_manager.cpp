@@ -16,68 +16,107 @@ namespace
 		OnnxApiManager
 			::setup()
 	{
-		session_options_.SetIntraOpNumThreads(1);
-		session_options_.SetGraphOptimizationLevel(
-			ORT_DISABLE_ALL
-		);
+		try
+        {
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_feature_handling()
+			)
+			{
+				return
+					{};
+			}
 
-		#ifdef USE_CUDA
-		if (configurations.enable_cuda) {
-			OrtCUDAProviderOptions cuda_opts{};
-			if (configurations.device_id)
-				cuda_opts.device_id = *configurations.device_id;
-			session_options_
-				.AppendExecutionProvider_CUDA(cuda_opts);
-		}
-		#endif
+			boost::unique_lock<boost::mutex>
+				mutex_lock;
+			if (configurations.is_thread_safety_enabled_for_feature_handling())
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						feature_handling_mutex_1
+					);
+			}
 
-		std::wstring wpath(
-			configurations.model_path.begin(),
-			configurations.model_path.end());
+			session_options_.SetIntraOpNumThreads(1);
+			session_options_.SetGraphOptimizationLevel(
+				ORT_DISABLE_ALL
+			);
 
-		session_ = Ort::Session(env_, wpath.c_str(),
-			session_options_);
+			#ifdef USE_CUDA
+			if (configurations.enable_cuda) {
+				OrtCUDAProviderOptions cuda_opts{};
+				if (configurations.device_id)
+					cuda_opts.device_id = *configurations.device_id;
+				session_options_
+					.AppendExecutionProvider_CUDA(cuda_opts);
+			}
+			#endif
 
-		Ort::AllocatorWithDefaultOptions allocator;
+			std::wstring wpath(
+				configurations.model_path.begin(),
+				configurations.model_path.end());
 
-		size_t num_inputs = session_.GetInputCount();
-		input_names_str_.resize(num_inputs);
-		input_names_ptrs_.resize(num_inputs);
-		input_shapes_.resize(num_inputs);
+			session_ = Ort::Session(env_, wpath.c_str(),
+				session_options_);
 
-		for (size_t i = 0; i < num_inputs; ++i) {
+			Ort::AllocatorWithDefaultOptions allocator;
 
-			auto name =
-				session_.GetInputNameAllocated(i, allocator);
+			size_t num_inputs = session_.GetInputCount();
+			input_names_str_.resize(num_inputs);
+			input_names_ptrs_.resize(num_inputs);
+			input_shapes_.resize(num_inputs);
 
-			input_names_str_[i] = name.get();
-			input_names_ptrs_[i] =
-				input_names_str_[i].c_str();
+			for (size_t i = 0; i < num_inputs; ++i) {
 
-			auto info =
-				session_.GetInputTypeInfo(i)
-				.GetTensorTypeAndShapeInfo();
+				auto name =
+					session_.GetInputNameAllocated(i, allocator);
 
-			input_shapes_[i] = info.GetShape();
+				input_names_str_[i] = name.get();
+				input_names_ptrs_[i] =
+					input_names_str_[i].c_str();
 
-			for (auto& d : input_shapes_[i])
-				if (d < 0) d = 1;
-		}
+				auto info =
+					session_.GetInputTypeInfo(i)
+					.GetTensorTypeAndShapeInfo();
 
-		size_t num_outputs = session_.GetOutputCount();
-		output_names_str_.resize(num_outputs);
-		output_names_ptrs_.resize(num_outputs);
+				input_shapes_[i] = info.GetShape();
 
-		for (size_t i = 0; i < num_outputs; ++i) {
+				for (auto& d : input_shapes_[i])
+					if (d < 0) d = 1;
+			}
 
-			auto name =
-				session_.GetOutputNameAllocated(i,
-					allocator);
+			size_t num_outputs = session_.GetOutputCount();
+			output_names_str_.resize(num_outputs);
+			output_names_ptrs_.resize(num_outputs);
 
-			output_names_str_[i] = name.get();
-			output_names_ptrs_[i] =
-				output_names_str_[i].c_str();
-		}
+			for (size_t i = 0; i < num_outputs; ++i) {
+
+				auto name =
+					session_.GetOutputNameAllocated(i,
+						allocator);
+
+				output_names_str_[i] = name.get();
+				output_names_ptrs_[i] =
+					output_names_str_[i].c_str();
+			}
+
+			return true;
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+			handle_error_outputs(
+				exception
+			);
+
+			return
+				{};
+        }
 	}
 
 	std::unordered_map<std::string, std::vector<std::string>>
@@ -87,9 +126,55 @@ namespace
 					inputs
 			)
 	{
-		prepare_string_inputs(inputs);
-		run_session();
-		return collect_string_outputs();
+		try
+        {
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_feature_handling() ||				
+				(
+					configurations
+						.is_edge_case_enabled_for_feature_handling() &&
+					(
+						!inputs.size()
+					)
+				)
+			)
+			{
+				return
+					{};
+			}
+
+			boost::unique_lock<boost::mutex>
+				mutex_lock;
+			if (configurations.is_thread_safety_enabled_for_feature_handling())
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						feature_handling_mutex_1
+					);
+			}
+
+			prepare_string_inputs(inputs);
+			run_session();
+
+			return
+				collect_string_outputs();
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+			handle_error_outputs(
+				exception
+			);
+
+			return
+				{};
+        }		
 	}
 
 	bool
@@ -99,85 +184,170 @@ namespace
 					inputs
 			)
 	{
-		input_tensors_.clear();
-		input_name_ptrs_runtime_.clear();
+		try
+        {
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_feature_handling() ||				
+				(
+					configurations
+						.is_edge_case_enabled_for_feature_handling() &&
+					(
+						!inputs.size()
+					)
+				)
+			)
+			{
+				return
+					{};
+			}
 
-		Ort::AllocatorWithDefaultOptions allocator;
+			boost::unique_lock<boost::mutex>
+				mutex_lock;
+			if (configurations.is_thread_safety_enabled_for_feature_handling())
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						feature_handling_mutex_2
+					);
+			}
 
-		for (size_t i = 0; i < input_names_str_.size(); ++i) {
-			const auto& name = input_names_str_[i];
-			auto it = inputs.find(name);
-			if (it == inputs.end())
-				return false;
+			input_tensors_.clear();
+			input_name_ptrs_runtime_.clear();
 
-			const auto& batch = it->second;
-			size_t batch_size = batch.size();
-			size_t feature_size = batch[0].size();
+			Ort::AllocatorWithDefaultOptions allocator;
 
-			std::vector<int64_t> shape = resolve_shape(i, batch_size, feature_size);
+			for (size_t i = 0; i < input_names_str_.size(); ++i) {
+				const auto& name = input_names_str_[i];
+				auto it = inputs.find(name);
+				if (it == inputs.end())
+					return false;
+
+				const auto& batch = it->second;
+				size_t batch_size = batch.size();
+				size_t feature_size = batch[0].size();
+
+				std::vector<int64_t> shape = resolve_shape(i, batch_size, feature_size);
 
 
-			Ort::Value input_tensor = Ort::Value::CreateTensor(
-				allocator,
-				shape.data(),
-				shape.size(),
-				ONNX_TENSOR_ELEMENT_DATA_TYPE_STRING
+				Ort::Value input_tensor = Ort::Value::CreateTensor(
+					allocator,
+					shape.data(),
+					shape.size(),
+					ONNX_TENSOR_ELEMENT_DATA_TYPE_STRING
+				);
+
+				std::vector<const char*> raw_ptrs;
+				for (const auto& row : batch)
+					for (const auto& str : row)
+						raw_ptrs.push_back(str.c_str());
+
+				input_tensor.FillStringTensor(raw_ptrs.data(), raw_ptrs.size());
+
+				input_tensors_.push_back(std::move(input_tensor));
+				input_name_ptrs_runtime_.push_back(input_names_ptrs_[i]);
+			}
+
+			return
+				true;
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+			handle_error_outputs(
+				exception
 			);
 
-			std::vector<const char*> raw_ptrs;
-			for (const auto& row : batch)
-				for (const auto& str : row)
-					raw_ptrs.push_back(str.c_str());
-
-			input_tensor.FillStringTensor(raw_ptrs.data(), raw_ptrs.size());
-
-			input_tensors_.push_back(std::move(input_tensor));
-			input_name_ptrs_runtime_.push_back(input_names_ptrs_[i]);
-		}
+			return
+				{};
+        }		
 	}
 
 	std::unordered_map<std::string, std::vector<std::string>>
 		OnnxApiManager
 			::collect_string_outputs()
 	{
-		std::unordered_map<std::string,
-			std::vector<std::string>> results;
-
-		for (size_t i = 0; i < output_tensors_.size(); ++i) {
-
-			size_t count =
-				output_tensors_[i]
-				.GetTensorTypeAndShapeInfo()
-				.GetElementCount();
-
-			size_t total_length =
-				output_tensors_[i].GetStringTensorDataLength();
-
-			std::vector<char> buffer(total_length);
-			std::vector<size_t> offsets(count);
-
-			output_tensors_[i].GetStringTensorContent(
-				buffer.data(),
-				total_length,
-				offsets.data(),
-				count
-			);
-
-			std::vector<std::string> strings(count);
-			for (size_t j = 0; j < count; ++j) {
-				size_t start = offsets[j];
-				size_t end = (j + 1 < count)
-					? offsets[j + 1]
-					: total_length;
-				strings[j] =
-					std::string(buffer.data() + start,
-						end - start);
+		try
+        {
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_feature_handling()
+			)
+			{
+				return
+					{};
 			}
 
-			results[output_names_str_[i]] = std::move(strings);
-		}
+			boost::unique_lock<boost::mutex>
+				mutex_lock;
+			if (configurations.is_thread_safety_enabled_for_feature_handling())
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						feature_handling_mutex_2
+					);
+			}
 
-		return results;
+			std::unordered_map<std::string,
+			std::vector<std::string>> results;
+
+			for (size_t i = 0; i < output_tensors_.size(); ++i) {
+
+				size_t count =
+					output_tensors_[i]
+					.GetTensorTypeAndShapeInfo()
+					.GetElementCount();
+
+				size_t total_length =
+					output_tensors_[i].GetStringTensorDataLength();
+
+				std::vector<char> buffer(total_length);
+				std::vector<size_t> offsets(count);
+
+				output_tensors_[i].GetStringTensorContent(
+					buffer.data(),
+					total_length,
+					offsets.data(),
+					count
+				);
+
+				std::vector<std::string> strings(count);
+				for (size_t j = 0; j < count; ++j) {
+					size_t start = offsets[j];
+					size_t end = (j + 1 < count)
+						? offsets[j + 1]
+						: total_length;
+					strings[j] =
+						std::string(buffer.data() + start,
+							end - start);
+				}
+
+				results[output_names_str_[i]] = std::move(strings);
+			}
+
+			return
+				results;
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+			handle_error_outputs(
+				exception
+			);
+
+			return
+				{};
+        }		
 	}
 
 	std::vector<int64_t>
@@ -191,41 +361,125 @@ namespace
 					feature_size
 			)
 	{
-		std::vector<int64_t> shape =
-			input_shapes_[input_index];
+		try
+        {
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_feature_handling() ||				
+				(
+					configurations
+						.is_edge_case_enabled_for_feature_handling() &&
+					(
+						input_index < 0 ||
+						batch_size < 1 ||
+						feature_size < 1
+					)
+				)
+			)
+			{
+				return
+					{};
+			}
 
-		shape[0] = static_cast<int64_t>(batch_size);
+			boost::unique_lock<boost::mutex>
+				mutex_lock;
+			if (configurations.is_thread_safety_enabled_for_feature_handling())
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						feature_handling_mutex_3
+					);
+			}
 
-		int64_t known_product = 1;
-		for (size_t i = 1; i < shape.size(); ++i)
-			known_product *= shape[i];
+			std::vector<int64_t> shape =
+				input_shapes_[input_index];
 
-		if (known_product == 0)
-			return {};
+			shape[0] = static_cast<int64_t>(batch_size);
 
-		if (known_product != static_cast<int64_t>(feature_size))
-			shape.back() =
-			static_cast<int64_t>(feature_size /
-				(known_product /
-					shape.back()));
+			int64_t known_product = 1;
+			for (size_t i = 1; i < shape.size(); ++i)
+				known_product *= shape[i];
 
-		return shape;
+			if (known_product == 0)
+				return {};
+
+			if (known_product != static_cast<int64_t>(feature_size))
+				shape.back() =
+				static_cast<int64_t>(feature_size /
+					(known_product /
+						shape.back()));
+
+			return
+				shape;
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+			handle_error_outputs(
+				exception
+			);
+
+			return
+				{};
+        }
 	}
 
 	bool
 		OnnxApiManager
 			::run_session()
 	{
-		output_tensors_ = session_.Run(
-			Ort::RunOptions{},
-			input_name_ptrs_runtime_.data(),
-			input_tensors_.data(),
-			input_tensors_.size(),
-			output_names_ptrs_.data(),
-			output_names_ptrs_.size()
-		);
+		try
+        {
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_feature_handling()
+			)
+			{
+				return
+					{};
+			}
 
-		return
-			false;
+			boost::unique_lock<boost::mutex>
+				mutex_lock;
+			if (configurations.is_thread_safety_enabled_for_feature_handling())
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						feature_handling_mutex_2
+					);
+			}
+
+			output_tensors_ = session_.Run(
+				Ort::RunOptions{},
+				input_name_ptrs_runtime_.data(),
+				input_tensors_.data(),
+				input_tensors_.size(),
+				output_names_ptrs_.data(),
+				output_names_ptrs_.size()
+			);
+
+			return
+				true;
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+			handle_error_outputs(
+				exception
+			);
+
+			return
+				{};
+        }		
 	}
 }

@@ -2,9 +2,8 @@
 
 #include "../includes/toml_file_io_manager.hpp"
 
-using namespace QLogicaeCppCore;
-
-namespace QLogicaeCppCoreTest
+namespace
+	QLogicae::Cor::V1::Tests
 {
 	class TomlFileIoManagerExtendedTest : public ::testing::Test
 	{
@@ -31,7 +30,7 @@ array_key = [1, 2, 3]
 				std::filesystem::remove(temp_file);
 		}
 
-		QLogicaeCppCore::TomlFileIoManager manager;
+		TomlFileIoManager manager;
 	};
 
 	TEST_F(TomlFileIoManagerExtendedTest, GetValue_ReturnsCorrectValues)

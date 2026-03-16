@@ -3,23 +3,14 @@
 #include "../includes/text_file_io_manager.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {        
-	TextFileIoManager&
-		TextFileIoManager
-			::singleton = 
-				SingletonManager
-					::get_singleton<TextFileIoManager>();	
-
-
-	
 	TextFileIoManager
 		::TextFileIoManager() :
 			AbstractClass<TextFileIoManagerConfigurations>()
     {
         
     }
-
 	
 	std::string
 		TextFileIoManager

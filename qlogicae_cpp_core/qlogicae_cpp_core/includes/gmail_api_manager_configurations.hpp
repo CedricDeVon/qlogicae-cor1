@@ -1,5 +1,8 @@
 #pragma once
 
+#include "file_entity.hpp"
+#include "email_body.hpp"
+#include "email_security.hpp"
 #include "abstract_configurations.hpp"
 
 namespace
@@ -9,31 +12,41 @@ namespace
 		GmailApiManagerConfigurations :
 			AbstractConfigurations<GmailApiManagerConfigurations>
     {
-	public:			
-		std::string
-			subject =
+	public:
+		bool
+			is_inner_logging_enabled =
 				default_configurations
-					.subject;
+					.is_inner_logging_enabled;
+		
+		std::string
+			subject_name =
+				default_configurations
+					.subject_name;
+
+		EmailBody
+			email_body_type =
+				default_configurations
+					.email_body_type;
+
+		EmailSecurity
+			email_security_type =
+				default_configurations
+					.email_security_type;
 
 		std::string
-			html_body =
+			raw_body =
 				default_configurations
-					.html_body;
+					.raw_body;
 
 		std::string
-			plain_body =
+			full_smtp_server_address =
 				default_configurations
-					.plain_body;
+					.full_smtp_server_address;
 
 		std::string
-			smtp_server =
+			sender_email_address =
 				default_configurations
-					.smtp_server;
-
-		std::string
-			sender_address =
-				default_configurations
-					.sender_address;
+					.sender_email_address;
 
 		std::vector<std::string>
 			to_recipients =
@@ -49,6 +62,11 @@ namespace
 			bcc_recipients =
 				default_configurations
 					.bcc_recipients;
+
+		std::vector<FileEntity>
+			attached_files =
+				default_configurations
+					.attached_files;
 
 		std::function<std::string()>
 			password_provider =

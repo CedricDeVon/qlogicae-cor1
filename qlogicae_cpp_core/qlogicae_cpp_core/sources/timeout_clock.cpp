@@ -3,16 +3,8 @@
 #include "../includes/timeout_clock.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {
-	TimeoutClock&
-		TimeoutClock
-			::singleton =
-				SingletonManager
-					::get_singleton<TimeoutClock>();
-
-
-
     TimeoutClock
 		::TimeoutClock() :
 			AbstractClass<TimeoutClockConfigurations>()
@@ -75,7 +67,7 @@ namespace
 				mutex_lock =
 					boost::unique_lock<boost::mutex>
 					(
-						utility_handling_mutex_1
+						feature_handling_mutex_1
 					);
 			}			
 
@@ -124,7 +116,7 @@ namespace
 				mutex_lock =
 					boost::unique_lock<boost::mutex>
 					(
-						utility_handling_mutex_1
+						feature_handling_mutex_1
 					);
 			}			
 			

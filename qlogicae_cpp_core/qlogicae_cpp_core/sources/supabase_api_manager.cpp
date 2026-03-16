@@ -3,16 +3,8 @@
 #include "../includes/supabase_api_manager.hpp"
 
 namespace
-	QLogicaeCppCore
-{        
-	SupabaseApiManager&
-		SupabaseApiManager
-			::singleton = 
-				SingletonManager
-					::get_singleton<SupabaseApiManager>();	
-
-
-	
+	QLogicae::Cor::V1
+{        	
 	SupabaseApiManager
 		::SupabaseApiManager() :
 			AbstractClass<SupabaseApiManagerConfigurations>()

@@ -2,10 +2,8 @@
 
 #include "../includes/time_format_enum_manager.hpp"
 
-using namespace QLogicaeCppCore;
-
 namespace
-	QLogicaeCppCoreTest
+	QLogicae::Cor::V1::Tests
 {
 	class TimeFormatEnumManagerTest :
 		public ::testing::Test
@@ -129,8 +127,8 @@ namespace
 
 	TEST_F(TimeFormatEnumManagerTest, Should_ReturnSingletonInstanceConsistently)
 	{
-		TimeFormatEnumManager& first_instance = TimeFormatEnumManager::singleton;
-		TimeFormatEnumManager& second_instance = TimeFormatEnumManager::singleton;
+		TimeFormatEnumManager& first_instance = SingletonManager::get_singleton<TimeFormatEnumManager>();
+		TimeFormatEnumManager& second_instance = SingletonManager::get_singleton<TimeFormatEnumManager>();
 		EXPECT_EQ(&first_instance, &second_instance);
 	}
 

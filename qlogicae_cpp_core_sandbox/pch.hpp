@@ -66,6 +66,7 @@
 
 #include <pugixml.hpp>
 
+#include <xlnt/xlnt.hpp>
 #include <rapidcsv.h>
 
 #include <rapidjson/writer.h>

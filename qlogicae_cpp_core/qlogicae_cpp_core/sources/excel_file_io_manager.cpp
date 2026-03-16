@@ -12,22 +12,21 @@ namespace
         
     }
 
-	
-	std::string
+	bool is_valid_coordinate(const std::string& coord)
+	{
+		static const std::regex coord_regex("^[A-Z]+[1-9][0-9]*$");
+		return std::regex_match(coord, coord_regex);
+	}
+
+	bool
 		ExcelFileIoManager
-			::get_cell_value(
+			::is_file_valid(
 				const std::string&
-					file_path,
-				const std::string&
-					worksheet_name,
-				const std::string&
-					column_name,
-				const size_t&
-					row_index
+					file_path
 			)
 	{
 		try
-        {
+        {		
 			if
 			(
 				configurations
@@ -36,18 +35,15 @@ namespace
 					configurations
 						.is_edge_case_enabled_for_feature_handling() &&
 					(
-						file_path.empty() ||
+						!file_path.size() ||
 						!std::filesystem::exists(file_path) ||
-						std::filesystem::is_directory(file_path) ||
-						worksheet_name.empty() ||
-						column_name.empty() ||
-						row_index < 0
+						std::filesystem::is_directory(file_path)
 					)
 				)
 			)
 			{
 				return
-					"";
+					{};
 			}
 
 			boost::unique_lock<boost::mutex>
@@ -59,21 +55,598 @@ namespace
 					(
 						feature_handling_mutex_1
 					);
-			}
+			}		
 
-            return
-				"";
-        }
+			xlnt::workbook wb;
+			wb.load(file_path);
+
+			return
+				true;					
+		}
         catch
         (
-			const std::exception&
+            const std::exception&
                 exception
         )
-        {
-            return
-				handle_error_outputs<std::string>(
-					exception
-				);
+        {	
+			handle_error_outputs(
+				exception
+			);
+
+			return
+				{};
+        }
+	}
+
+	bool
+		ExcelFileIoManager
+			::is_worksheet_found(
+				const std::string&
+					file_path,
+				const std::string&
+					worksheet_name
+			)
+	{
+		try
+        {		
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_feature_handling() ||				
+				(
+					configurations
+						.is_edge_case_enabled_for_feature_handling() &&
+					(
+						!file_path.size() ||
+						!worksheet_name.size() ||
+						!std::filesystem::exists(file_path) ||
+						std::filesystem::is_directory(file_path)
+					)
+				)
+			)
+			{
+				return
+					{};
+			}
+
+			boost::unique_lock<boost::mutex>
+				mutex_lock;
+			if (configurations.is_thread_safety_enabled_for_feature_handling())
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						feature_handling_mutex_1
+					);
+			}		
+
+			xlnt::workbook wb;
+			wb.load(file_path);
+
+			return
+				wb.contains(worksheet_name);			
+		}
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {	
+			handle_error_outputs(
+				exception
+			);
+
+			return
+				{};
+        }
+	}
+
+	bool
+		ExcelFileIoManager
+			::create_worksheet(
+				const std::string&
+					file_path,
+				const std::string&
+					worksheet_name
+			)
+	{
+		try
+        {		
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_feature_handling() ||				
+				(
+					configurations
+						.is_edge_case_enabled_for_feature_handling() &&
+					(
+						!file_path.size() ||
+						!worksheet_name.size() ||
+						!std::filesystem::exists(file_path) ||
+						std::filesystem::is_directory(file_path)
+					)
+				)
+			)
+			{
+				return
+					{};
+			}
+
+			boost::unique_lock<boost::mutex>
+				mutex_lock;
+			if (configurations.is_thread_safety_enabled_for_feature_handling())
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						feature_handling_mutex_1
+					);
+			}		
+
+			xlnt::workbook wb;
+			wb.load(file_path);
+			if (wb.contains(worksheet_name))
+			{
+				return
+					false;
+			}
+
+			if (wb.sheet_count() == 1 && wb.sheet_by_index(0).title() == "Sheet1") {
+				wb.sheet_by_index(0).title(worksheet_name);
+			} else if (!wb.contains(worksheet_name)) {
+				wb.create_sheet().title(worksheet_name);
+			}
+			wb.save(file_path);
+
+			return true;					
+		}
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {	
+			handle_error_outputs(
+				exception
+			);
+
+			return
+				{};
+        }
+	}
+
+	bool
+		ExcelFileIoManager
+			::copy_worksheet(
+				const std::string&
+					file_path,
+				const std::string&
+					from_worksheet_name,
+				const std::string&
+					to_worksheet_name
+			)
+	{
+		try
+        {		
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_feature_handling() ||				
+				(
+					configurations
+						.is_edge_case_enabled_for_feature_handling() &&
+					(
+						!file_path.size() ||
+						!from_worksheet_name.size() ||
+						!to_worksheet_name.size() ||
+						!std::filesystem::exists(file_path) ||
+						std::filesystem::is_directory(file_path)
+					)
+				)
+			)
+			{
+				return
+					{};
+			}
+
+			boost::unique_lock<boost::mutex>
+				mutex_lock;
+			if (configurations.is_thread_safety_enabled_for_feature_handling())
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						feature_handling_mutex_1
+					);
+			}		
+
+			xlnt::workbook wb;
+			wb.load(file_path);
+			if (!wb.contains(from_worksheet_name) || wb.contains(to_worksheet_name)) return false;
+        
+			auto ws = wb.sheet_by_title(from_worksheet_name); 
+			auto new_ws = wb.create_sheet();
+			new_ws.title(to_worksheet_name);
+
+			for (auto row : ws.rows()) {
+				for (auto cell : row) {
+					new_ws.cell(cell.reference()).value(cell.value<std::string>());
+				}
+			}
+			wb.save(file_path);
+			return true;					
+		}
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {	
+			handle_error_outputs(
+				exception
+			);
+
+			return
+				{};
+        }
+	}
+
+	bool
+		ExcelFileIoManager
+			::clear_worksheet(
+				const std::string&
+					file_path,
+				const std::string&
+					worksheet_name
+			)
+	{
+		try
+        {		
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_feature_handling() ||				
+				(
+					configurations
+						.is_edge_case_enabled_for_feature_handling() &&
+					(
+						!file_path.size() ||
+						!worksheet_name.size() ||
+						!std::filesystem::exists(file_path) ||
+						std::filesystem::is_directory(file_path)
+					)
+				)
+			)
+			{
+				return
+					{};
+			}
+
+			boost::unique_lock<boost::mutex>
+				mutex_lock;
+			if (configurations.is_thread_safety_enabled_for_feature_handling())
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						feature_handling_mutex_1
+					);
+			}		
+
+			xlnt::workbook wb;
+			wb.load(file_path);
+
+			if (!wb.contains(worksheet_name)) return false;
+
+			auto old_ws = wb.sheet_by_title(worksheet_name);
+			auto index = wb.index(old_ws);
+
+			wb.remove_sheet(old_ws);
+
+			auto new_ws = wb.create_sheet(index);
+			new_ws.title(worksheet_name);
+
+			wb.save(file_path);
+
+			return true;					
+		}
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {	
+			handle_error_outputs(
+				exception
+			);
+
+			return
+				{};
+        }
+	}
+
+	bool
+		ExcelFileIoManager
+			::remove_worksheet(
+				const std::string&
+					file_path,
+				const std::string&
+					worksheet_name
+			)
+	{
+		try
+        {		
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_feature_handling() ||				
+				(
+					configurations
+						.is_edge_case_enabled_for_feature_handling() &&
+					(
+						!file_path.size() ||
+						!worksheet_name.size() ||
+						!std::filesystem::exists(file_path) ||
+						std::filesystem::is_directory(file_path)
+					)
+				)
+			)
+			{
+				return
+					{};
+			}
+
+			boost::unique_lock<boost::mutex>
+				mutex_lock;
+			if (configurations.is_thread_safety_enabled_for_feature_handling())
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						feature_handling_mutex_1
+					);
+			}		
+
+			xlnt::workbook wb;
+			wb.load(file_path);
+			auto ws = wb.sheet_by_title(worksheet_name);
+			wb.remove_sheet(ws);
+			wb.save(file_path);
+
+			return true;					
+		}
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {	
+			handle_error_outputs(
+				exception
+			);
+
+			return
+				{};
+        }
+	}
+
+	std::string
+		ExcelFileIoManager
+			::get_cell_value(
+				const std::string&
+					file_path,
+				const std::string&
+					worksheet_name,
+				const std::string&
+					coordinate
+			)
+	{
+		try
+        {		
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_feature_handling() ||				
+				(
+					configurations
+						.is_edge_case_enabled_for_feature_handling() &&
+					(
+						!file_path.size() ||
+						!worksheet_name.size() ||
+						!coordinate.size() ||
+						!std::filesystem::exists(file_path) ||
+						std::filesystem::is_directory(file_path)
+					)
+				)
+			)
+			{
+				return
+					{};
+			}
+
+			boost::unique_lock<boost::mutex>
+				mutex_lock;
+			if (configurations.is_thread_safety_enabled_for_feature_handling())
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						feature_handling_mutex_1
+					);
+			}		
+
+			xlnt::workbook wb;
+			wb.load(file_path);
+
+			if (!is_valid_coordinate(coordinate)) return {};
+			
+			return wb.sheet_by_title(worksheet_name).cell(coordinate).to_string();			
+		}
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {	
+			handle_error_outputs(
+				exception
+			);
+
+			return
+				{};
+        }
+	}
+
+	std::unordered_map<std::string, std::string>
+		ExcelFileIoManager
+			::get_cell_values(
+				const std::string&
+					file_path,
+				const std::string&
+					worksheet_name,
+				const std::vector<std::string>&
+					coordinates
+			)
+	{
+		try
+        {		
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_feature_handling() ||				
+				(
+					configurations
+						.is_edge_case_enabled_for_feature_handling() &&
+					(
+						!file_path.size() ||
+						!worksheet_name.size() ||
+						coordinates.empty() ||
+						!std::filesystem::exists(file_path) ||
+						std::filesystem::is_directory(file_path)
+					)
+				)
+			)
+			{
+				return
+					{};
+			}
+
+			boost::unique_lock<boost::mutex>
+				mutex_lock;
+			if (configurations.is_thread_safety_enabled_for_feature_handling())
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						feature_handling_mutex_1
+					);
+			}		
+
+			std::unordered_map<std::string, std::string> results;
+
+			xlnt::workbook wb;
+			wb.load(file_path);
+			auto ws = wb.sheet_by_title(worksheet_name);
+			for (const auto& coord : coordinates) {
+				if (!is_valid_coordinate(coord)) return {};
+
+				results[coord] = ws.cell(coord).to_string();
+			}
+
+			return results;
+		}
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {	
+			handle_error_outputs(
+				exception
+			);
+
+			return
+				{};
+        }
+	}
+
+	std::unordered_map<std::string, std::string>
+		ExcelFileIoManager
+			::get_cell_values(
+				const std::string&
+					file_path,
+				const std::string&
+					worksheet_name,
+				const std::string&
+					from_coordinate,
+				const std::string&
+					to_coordinate
+			)
+	{
+		try
+        {		
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_feature_handling() ||				
+				(
+					configurations
+						.is_edge_case_enabled_for_feature_handling() &&
+					(
+						!file_path.size() ||
+						!worksheet_name.size() ||
+						!from_coordinate.size() ||
+						!to_coordinate.size() ||
+						!std::filesystem::exists(file_path) ||
+						std::filesystem::is_directory(file_path)
+					)
+				)
+			)
+			{
+				return
+					{};
+			}
+
+			boost::unique_lock<boost::mutex>
+				mutex_lock;
+			if (configurations.is_thread_safety_enabled_for_feature_handling())
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						feature_handling_mutex_1
+					);
+			}		
+
+			if (!is_valid_coordinate(from_coordinate)) return {};
+			if (!is_valid_coordinate(to_coordinate)) return {};
+
+			std::unordered_map<std::string, std::string> results;
+
+			xlnt::workbook wb;
+			wb.load(file_path);
+			auto ws = wb.sheet_by_title(worksheet_name);
+			auto range = ws.range(from_coordinate + ":" + to_coordinate);
+			for (auto row : range) {
+				for (auto cell : row) {
+					results[cell.reference().to_string()] = cell.to_string();
+				}
+			}
+
+			return results;			
+		}
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {	
+			handle_error_outputs(
+				exception
+			);
+
+			return
+				{};
         }
 	}
 
@@ -85,15 +658,13 @@ namespace
 				const std::string&
 					worksheet_name,
 				const std::string&
-					column_name,
-				const size_t&
-					row_index,
+					coordinate,
 				const std::string&
 					value
 			)
 	{
 		try
-        {
+        {		
 			if
 			(
 				configurations
@@ -102,18 +673,17 @@ namespace
 					configurations
 						.is_edge_case_enabled_for_feature_handling() &&
 					(
-						file_path.empty() ||
+						!file_path.size() ||
+						!worksheet_name.size() ||
+						!coordinate.size() ||
 						!std::filesystem::exists(file_path) ||
-						std::filesystem::is_directory(file_path) ||
-						worksheet_name.empty() ||
-						column_name.empty() ||
-						row_index < 0
+						std::filesystem::is_directory(file_path)
 					)
 				)
 			)
 			{
 				return
-					false;
+					{};
 			}
 
 			boost::unique_lock<boost::mutex>
@@ -125,31 +695,493 @@ namespace
 					(
 						feature_handling_mutex_1
 					);
-			}
+			}		
 
-            return
-				true;
-        }
+			if (!is_valid_coordinate(coordinate)) return {};
+
+			xlnt::workbook wb;
+			wb.load(file_path);
+			wb.sheet_by_title(worksheet_name).cell(coordinate).value(value);
+			wb.save(file_path);
+			return true;					
+		}
         catch
         (
-			const std::exception&
+            const std::exception&
                 exception
         )
-        {
-            return
-				handle_error_outputs(
-					exception
-				);
+        {	
+			handle_error_outputs(
+				exception
+			);
+
+			return
+				{};
         }
+	}
+
+	bool
+		ExcelFileIoManager
+			::set_cell_values(
+				const std::string&
+					file_path,
+				const std::string&
+					worksheet_name,
+				const std::unordered_map<std::string, std::string>&
+					values
+			)
+	{
+		try
+        {		
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_feature_handling() ||				
+				(
+					configurations
+						.is_edge_case_enabled_for_feature_handling() &&
+					(
+						!file_path.size() ||
+						!worksheet_name.size() ||
+						values.empty() ||
+						!std::filesystem::exists(file_path) ||
+						std::filesystem::is_directory(file_path)
+					)
+				)
+			)
+			{
+				return
+					{};
+			}
+
+			boost::unique_lock<boost::mutex>
+				mutex_lock;
+			if (configurations.is_thread_safety_enabled_for_feature_handling())
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						feature_handling_mutex_1
+					);
+			}		
+
+			xlnt::workbook wb;
+			wb.load(file_path);
+			auto ws = wb.sheet_by_title(worksheet_name);
+			for (const auto& [coord, val] : values) {
+				if (!is_valid_coordinate(coord)) return {};
+
+				ws.cell(coord).value(val);
+			}
+			wb.save(file_path);
+			return true;					
+		}
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {	
+			handle_error_outputs(
+				exception
+			);
+
+			return
+				{};
+        }
+	}
+
+	bool
+		ExcelFileIoManager
+			::set_cell_values(
+				const std::string&
+					file_path,
+				const std::string&
+					worksheet_name,
+				const std::string&
+					from_coordinate,
+				const std::string&
+					to_coordinate,
+				const std::string&
+					value
+			)
+	{
+		try
+        {		
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_feature_handling() ||				
+				(
+					configurations
+						.is_edge_case_enabled_for_feature_handling() &&
+					(
+						!file_path.size() ||
+						!worksheet_name.size() ||
+						!from_coordinate.size() ||
+						!to_coordinate.size() ||
+						!std::filesystem::exists(file_path) ||
+						std::filesystem::is_directory(file_path)
+					)
+				)
+			)
+			{
+				return
+					{};
+			}
+
+			boost::unique_lock<boost::mutex>
+				mutex_lock;
+			if (configurations.is_thread_safety_enabled_for_feature_handling())
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						feature_handling_mutex_1
+					);
+			}		
+
+			if (!is_valid_coordinate(from_coordinate)) return {};
+			if (!is_valid_coordinate(to_coordinate)) return {};
+
+			xlnt::workbook wb;
+			wb.load(file_path);
+			auto ws = wb.sheet_by_title(worksheet_name);
+			auto range = ws.range(from_coordinate + ":" + to_coordinate);
+			for (auto row : range) {
+				for (auto cell : row) {
+					cell.value(value);
+				}
+			}
+			wb.save(file_path);
+			return true;					
+		}
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {	
+			handle_error_outputs(
+				exception
+			);
+
+			return
+				{};
+        }
+	}
+
+	bool
+		ExcelFileIoManager
+			::clear_cell_value(
+				const std::string&
+					file_path,
+				const std::string&
+					worksheet_name,
+				const std::string&
+					coordinate
+			)
+	{
+		try
+        {		
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_feature_handling() ||				
+				(
+					configurations
+						.is_edge_case_enabled_for_feature_handling() &&
+					(
+						!file_path.size() ||
+						!worksheet_name.size() ||
+						!coordinate.size() ||
+						!std::filesystem::exists(file_path) ||
+						std::filesystem::is_directory(file_path)
+					)
+				)
+			)
+			{
+				return
+					{};
+			}
+
+			boost::unique_lock<boost::mutex>
+				mutex_lock;
+			if (configurations.is_thread_safety_enabled_for_feature_handling())
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						feature_handling_mutex_1
+					);
+			}		
+
+			if (!is_valid_coordinate(coordinate)) return {};
+
+			xlnt::workbook wb;
+			wb.load(file_path);
+			wb.sheet_by_title(worksheet_name).cell(coordinate).clear_value();
+			wb.save(file_path);
+			return true;					
+		}
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {	
+			handle_error_outputs(
+				exception
+			);
+
+			return
+				{};
+        }
+	}
+
+	bool
+		ExcelFileIoManager
+			::clear_cell_values(
+				const std::string&
+					file_path,
+				const std::string&
+					worksheet_name,
+				const std::vector<std::string>&
+					coordinates
+			)
+	{
+		try
+        {		
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_feature_handling() ||				
+				(
+					configurations
+						.is_edge_case_enabled_for_feature_handling() &&
+					(
+						!file_path.size() ||
+						!worksheet_name.size() ||
+						coordinates.empty() ||
+						!std::filesystem::exists(file_path) ||
+						std::filesystem::is_directory(file_path)
+					)
+				)
+			)
+			{
+				return
+					{};
+			}
+
+			boost::unique_lock<boost::mutex>
+				mutex_lock;
+			if (configurations.is_thread_safety_enabled_for_feature_handling())
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						feature_handling_mutex_1
+					);
+			}		
+
+			xlnt::workbook wb;
+			wb.load(file_path);
+			auto ws = wb.sheet_by_title(worksheet_name);
+			for (const auto& coord : coordinates) {
+				if (!is_valid_coordinate(coord)) return {};
+
+				ws.cell(coord).clear_value();
+			}
+			wb.save(file_path);
+			return true;					
+		}
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {	
+			handle_error_outputs(
+				exception
+			);
+
+			return
+				{};
+        }
+	}
+
+	bool
+		ExcelFileIoManager
+			::clear_cell_values(
+				const std::string&
+					file_path,
+				const std::string&
+					worksheet_name,
+				const std::string&
+					from_coordinate,
+				const std::string&
+					to_coordinate
+			)
+	{
+		try
+        {		
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_feature_handling() ||				
+				(
+					configurations
+						.is_edge_case_enabled_for_feature_handling() &&
+					(
+						!file_path.size() ||
+						!worksheet_name.size() ||
+						!from_coordinate.size() ||
+						!to_coordinate.size() ||
+						!std::filesystem::exists(file_path) ||
+						std::filesystem::is_directory(file_path)
+					)
+				)
+			)
+			{
+				return
+					{};
+			}
+
+			boost::unique_lock<boost::mutex>
+				mutex_lock;
+			if (configurations.is_thread_safety_enabled_for_feature_handling())
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						feature_handling_mutex_1
+					);
+			}		
+
+			if (!is_valid_coordinate(from_coordinate)) return {};
+			if (!is_valid_coordinate(to_coordinate)) return {};
+
+			xlnt::workbook wb;
+			wb.load(file_path);
+			auto ws = wb.sheet_by_title(worksheet_name);
+			auto range = ws.range(from_coordinate + ":" + to_coordinate);
+			for (auto row : range) {
+				for (auto cell : row) {
+					cell.clear_value();
+				}
+			}
+			wb.save(file_path);
+			return true;				
+		}
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {	
+			handle_error_outputs(
+				exception
+			);
+
+			return
+				{};
+        }
+	}
+
+	bool
+		ExcelFileIoManager
+			::is_file_valid()
+	{
+		return
+			is_file_valid(
+				configurations
+					.file_path
+			);	
+	}
+
+	bool
+		ExcelFileIoManager
+			::is_worksheet_found(
+				const std::string&
+					worksheet_name
+			)
+	{
+		return
+			is_worksheet_found(
+				configurations
+					.file_path,
+				worksheet_name
+			);	
+	}
+
+	bool
+		ExcelFileIoManager
+			::create_worksheet(
+				const std::string&
+					worksheet_name
+			)
+	{
+		return
+			create_worksheet(
+				configurations
+					.file_path,
+				worksheet_name
+			);	
+	}
+
+	bool
+		ExcelFileIoManager
+			::copy_worksheet(
+				const std::string&
+					from_worksheet_name,
+				const std::string&
+					to_worksheet_name
+			)
+	{
+		return
+			copy_worksheet(
+				configurations
+					.file_path,
+				from_worksheet_name,
+				to_worksheet_name
+			);	
+	}
+
+	bool
+		ExcelFileIoManager
+			::clear_worksheet(
+				const std::string&
+					worksheet_name
+			)
+	{
+		return
+			clear_worksheet(
+				configurations
+					.file_path,
+				worksheet_name
+			);	
+	}
+
+	bool
+		ExcelFileIoManager
+			::remove_worksheet(
+				const std::string&
+					worksheet_name
+			)
+	{
+		return
+			remove_worksheet(
+				configurations
+					.file_path,
+				worksheet_name
+			);	
 	}
 
 	std::string
 		ExcelFileIoManager
 			::get_cell_value(
 				const std::string&
-					column_name,
-				const size_t&
-					row_index
+					coordinate
 			)
 	{
 		return
@@ -158,18 +1190,52 @@ namespace
 					.file_path,
 				configurations
 					.worksheet_name,
-				column_name,
-				row_index
-			);
+				coordinate
+			);	
+	}
+
+	std::unordered_map<std::string, std::string>
+		ExcelFileIoManager
+			::get_cell_values(
+				const std::vector<std::string>&
+					coordinates
+			)
+	{
+		return
+			get_cell_values(
+				configurations
+					.file_path,
+				configurations
+					.worksheet_name,
+				coordinates
+			);	
+	}
+
+	std::unordered_map<std::string, std::string>
+		ExcelFileIoManager
+			::get_cell_values(
+				const std::string&
+					from_coordinate,
+				const std::string&
+					to_coordinate
+			)
+	{
+		return
+			get_cell_values(
+				configurations
+					.file_path,
+				configurations
+					.worksheet_name,
+				from_coordinate,
+				to_coordinate
+			);	
 	}
 
 	bool
 		ExcelFileIoManager
 			::set_cell_value(
 				const std::string&
-					column_name,
-				const size_t&
-					row_index,
+					coordinate,
 				const std::string&
 					value
 			)
@@ -180,384 +1246,102 @@ namespace
 					.file_path,
 				configurations
 					.worksheet_name,
-				column_name,
-				row_index,
+				coordinate,
 				value
-			);
+			);	
+	}
+
+	bool
+		ExcelFileIoManager
+			::set_cell_values(
+				const std::unordered_map<std::string, std::string>&
+					values
+			)
+	{
+		return
+			set_cell_values(
+				configurations
+					.file_path,
+				configurations
+					.worksheet_name,
+				values
+			);	
+	}
+
+	bool
+		ExcelFileIoManager
+			::set_cell_values(
+				const std::string&
+					from_coordinate,
+				const std::string&
+					to_coordinate,
+				const std::string&
+					value
+			)
+	{
+		return
+			set_cell_values(
+				configurations
+					.file_path,
+				configurations
+					.worksheet_name,
+				from_coordinate,
+				to_coordinate,
+				value
+			);	
+	}
+
+	bool
+		ExcelFileIoManager
+			::clear_cell_value(
+				const std::string&
+					coordinate
+			)
+	{
+		return
+			clear_cell_value(
+				configurations
+					.file_path,
+				configurations
+					.worksheet_name,
+				coordinate
+			);	
+	}
+
+	bool
+		ExcelFileIoManager
+			::clear_cell_values(
+				const std::vector<std::string>&
+					coordinates
+			)
+	{
+		return
+			clear_cell_values(
+				configurations
+					.file_path,
+				configurations
+					.worksheet_name,
+				coordinates
+			);	
+	}
+
+	bool
+		ExcelFileIoManager
+			::clear_cell_values(
+				const std::string&
+					from_coordinate,
+				const std::string&
+					to_coordinate
+			)
+	{
+		return
+			clear_cell_values(
+				configurations
+					.file_path,
+				configurations
+					.worksheet_name,
+				from_coordinate,
+				to_coordinate
+			);	
 	}
 }
-
-/*
-
-#pragma once
-
-#include <string>
-#include <vector>
-#include <optional>
-#include <future>
-#include <unordered_map>
-#include <cstdint>
-
-namespace xint
-{
-
-	enum class ExcelCellType
-	{
-		Empty,
-		String,
-		Integer,
-		Floating,
-		Boolean,
-		Error
-	};
-
-	enum class ExcelOpenMode
-	{
-		Create,
-		OpenExisting,
-		OpenOrCreate
-	};
-
-	struct ExcelCellPosition
-	{
-		std::size_t row;
-		std::size_t column;
-	};
-
-	struct ExcelColumnInfo
-	{
-		std::size_t index;
-		std::string name;
-	};
-
-	class ExcelDocument
-	{
-	public:
-
-		ExcelDocument();
-
-		explicit
-		ExcelDocument(
-			const std::string&
-				file_path,
-			const ExcelOpenMode&
-				mode = ExcelOpenMode::OpenExisting
-		);
-
-		~ExcelDocument();
-
-		ExcelDocument(
-			const ExcelDocument&
-		) = delete;
-
-		ExcelDocument&
-		operator=(
-			const ExcelDocument&
-		) = delete;
-
-		ExcelDocument(
-			ExcelDocument&&
-		) noexcept;
-
-		ExcelDocument&
-		operator=(
-			ExcelDocument&&
-		) noexcept;
-
-	public:
-
-		bool
-		open(
-			const std::string&
-				file_path,
-			const ExcelOpenMode&
-				mode = ExcelOpenMode::OpenExisting
-		);
-
-		bool
-		save() const;
-
-		bool
-		save_as(
-			const std::string&
-				file_path
-		) const;
-
-		void
-		close();
-
-		bool
-		is_open() const noexcept;
-
-		std::string
-		get_file_path() const;
-
-	public:
-
-		std::vector<std::string>
-		get_worksheet_names() const;
-
-		bool
-		worksheet_exists(
-			const std::string&
-				worksheet_name
-		) const;
-
-		bool
-		create_worksheet(
-			const std::string&
-				worksheet_name
-		);
-
-		bool
-		delete_worksheet(
-			const std::string&
-				worksheet_name
-		);
-
-		bool
-		rename_worksheet(
-			const std::string&
-				old_name,
-			const std::string&
-				new_name
-		);
-
-	public:
-
-		std::size_t
-		get_row_count(
-			const std::string&
-				worksheet_name
-		) const;
-
-		std::size_t
-		get_column_count(
-			const std::string&
-				worksheet_name
-		) const;
-
-		std::vector<ExcelColumnInfo>
-		get_columns(
-			const std::string&
-				worksheet_name
-		) const;
-
-		std::optional<std::size_t>
-		get_column_index(
-			const std::string&
-				worksheet_name,
-			const std::string&
-				column_name
-		) const;
-
-	public:
-
-		std::optional<std::string>
-		get_cell_string(
-			const std::string&
-				worksheet_name,
-			const ExcelCellPosition&
-				position
-		) const;
-
-		std::optional<std::string>
-		get_cell_string(
-			const std::string&
-				worksheet_name,
-			const std::string&
-				column_name,
-			const std::size_t&
-				row_index
-		) const;
-
-		std::optional<std::int64_t>
-		get_cell_integer(
-			const std::string&
-				worksheet_name,
-			const ExcelCellPosition&
-				position
-		) const;
-
-		std::optional<double>
-		get_cell_floating(
-			const std::string&
-				worksheet_name,
-			const ExcelCellPosition&
-				position
-		) const;
-
-		std::optional<bool>
-		get_cell_boolean(
-			const std::string&
-				worksheet_name,
-			const ExcelCellPosition&
-				position
-		) const;
-
-		ExcelCellType
-		get_cell_type(
-			const std::string&
-				worksheet_name,
-			const ExcelCellPosition&
-				position
-		) const;
-
-	public:
-
-		bool
-		set_cell(
-			const std::string&
-				worksheet_name,
-			const ExcelCellPosition&
-				position,
-			const std::string&
-				value
-		);
-
-		bool
-		set_cell(
-			const std::string&
-				worksheet_name,
-			const ExcelCellPosition&
-				position,
-			const std::int64_t&
-				value
-		);
-
-		bool
-		set_cell(
-			const std::string&
-				worksheet_name,
-			const ExcelCellPosition&
-				position,
-			const double&
-				value
-		);
-
-		bool
-		set_cell(
-			const std::string&
-				worksheet_name,
-			const ExcelCellPosition&
-				position,
-			const bool&
-				value
-		);
-
-		bool
-		set_cell(
-			const std::string&
-				worksheet_name,
-			const std::string&
-				column_name,
-			const std::size_t&
-				row_index,
-			const std::string&
-				value
-		);
-
-	public:
-
-		bool
-		clear_cell(
-			const std::string&
-				worksheet_name,
-			const ExcelCellPosition&
-				position
-		);
-
-		bool
-		clear_row(
-			const std::string&
-				worksheet_name,
-			const std::size_t&
-				row_index
-		);
-
-		bool
-		clear_column(
-			const std::string&
-				worksheet_name,
-			const std::size_t&
-				column_index
-		);
-
-	public:
-
-		std::vector<std::vector<std::string>>
-		read_range(
-			const std::string&
-				worksheet_name,
-			const ExcelCellPosition&
-				top_left,
-			const ExcelCellPosition&
-				bottom_right
-		) const;
-
-		bool
-		write_range(
-			const std::string&
-				worksheet_name,
-			const ExcelCellPosition&
-				top_left,
-			const std::vector<std::vector<std::string>>&
-				data
-		);
-
-	public:
-
-		std::unordered_map<std::string, std::string>
-		read_row_as_map(
-			const std::string&
-				worksheet_name,
-			const std::size_t&
-				row_index
-		) const;
-
-		bool
-		append_row(
-			const std::string&
-				worksheet_name,
-			const std::vector<std::string>&
-				values
-		);
-
-	public:
-
-		std::future<std::optional<std::string>>
-		get_cell_string_async(
-			const std::string&
-				worksheet_name,
-			const ExcelCellPosition&
-				position
-		) const;
-
-		std::future<bool>
-		set_cell_async(
-			const std::string&
-				worksheet_name,
-			const ExcelCellPosition&
-				position,
-			const std::string&
-				value
-		);
-
-		std::future<bool>
-		save_async() const;
-
-	private:
-
-		void*
-			internal_document;
-
-		std::string
-			current_file_path;
-
-		bool
-			document_open;
-	};
-
-}
-
-*/ 

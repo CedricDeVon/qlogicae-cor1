@@ -1,7 +1,6 @@
 #pragma once
 
 #include "abstract_class.hpp"
-#include "singleton_manager.hpp"
 #include "random_seed_generation_manager.hpp"
 #include "random_enum_generation_manager_configurations.hpp"
 
@@ -13,9 +12,6 @@ namespace
 			public AbstractClass<RandomEnumGenerationManagerConfigurations>
     {
     public:
-		static RandomEnumGenerationManager&
-			singleton;
-
 		RandomEnumGenerationManager();
 
 		template <typename Type> Type

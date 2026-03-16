@@ -3,14 +3,8 @@
 #include "../includes/rest_api_manager.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {        
-	RestApiManager&
-		RestApiManager
-			::singleton = 
-				SingletonManager
-					::get_singleton<RestApiManager>();	
-	
 	RestApiManager
 		::RestApiManager() :
 			AbstractClass<RestApiManagerConfigurations>()
@@ -73,7 +67,7 @@ namespace
 				mutex_lock =
 					boost::unique_lock<boost::mutex>
 					(
-						utility_handling_mutex_1
+						feature_handling_mutex_1
 					);
 			}			
 
@@ -149,7 +143,7 @@ namespace
 				mutex_lock =
 					boost::unique_lock<boost::mutex>
 					(
-						utility_handling_mutex_1
+						feature_handling_mutex_1
 					);
 			}			
 

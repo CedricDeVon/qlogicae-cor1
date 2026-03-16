@@ -3,7 +3,7 @@
 #include "../includes/sqlite_transaction.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {
     SQLiteTransaction
 		::SQLiteTransaction(
@@ -17,7 +17,7 @@ namespace
         SQLiteStatement
 			begin_statement =
 				database
-					.prepare("BEGIN;");
+					.setup_statement("BEGIN;");
         		
 		committed =
 			false;
@@ -36,7 +36,7 @@ namespace
                 SQLiteStatement
 					rollback_statement =
 						database
-							.prepare("ROLLBACK;");
+							.setup_statement("ROLLBACK;");
                 
                 rollback_statement
 					.step();
@@ -57,7 +57,7 @@ namespace
             SQLiteStatement
 				commit_statement =
 					database
-						.prepare("COMMIT;");
+						.setup_statement("COMMIT;");
             
             commit_statement.step();
             committed = true;

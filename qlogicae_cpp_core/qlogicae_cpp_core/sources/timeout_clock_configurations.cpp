@@ -2,7 +2,8 @@
 
 #include "../includes/timeout_clock_configurations.hpp"
 
-namespace QLogicaeCppCore
+namespace
+	QLogicae::Cor::V1
 {	
 	TimeoutClockConfigurations
 		::TimeoutClockConfigurations() :

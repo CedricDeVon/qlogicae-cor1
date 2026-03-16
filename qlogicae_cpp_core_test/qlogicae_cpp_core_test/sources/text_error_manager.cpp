@@ -3,7 +3,7 @@
 #include "../includes/text_error_manager.hpp"
 
 namespace
-	QLogicaeCppCoreTest
+	QLogicae::Cor::V1::Tests
 {
 	class TextErrorManagerTest :
         public ::testing::TestWithParam<std::tuple<
@@ -14,7 +14,7 @@ namespace
     public:
         TextErrorManagerTest() = default;
 
-        QLogicaeCppCore::TextErrorManager
+        TextErrorManager
             text_error_manager;
 
 		void
@@ -37,10 +37,10 @@ namespace
         Should_ReturnSameInstance_When_SingletonAccessed)
     {
         auto& first_instance =
-            QLogicaeCppCore::TextErrorManager::singleton;
+            SingletonManager::get_singleton<TextErrorManager>();
 
         auto& second_instance =
-            QLogicaeCppCore::TextErrorManager::singleton;
+            SingletonManager::get_singleton<TextErrorManager>();
 
         ASSERT_EQ(
             &first_instance,
@@ -249,7 +249,7 @@ namespace
         TextErrorManagerTest,
         Should_ApplyNewConfigurations_When_SetupCalled)
     {
-        QLogicaeCppCore::TextErrorManagerConfigurations
+        TextErrorManagerConfigurations
             new_configurations;
 
         new_configurations.title =
@@ -384,7 +384,7 @@ namespace
         TextErrorManagerTest,
         Should_RespectThreadSafetyOverride_When_Enabled)
     {
-        QLogicaeCppCore::TextErrorManagerConfigurations
+        TextErrorManagerConfigurations
             new_configurations;
 
         new_configurations
@@ -429,7 +429,7 @@ namespace
 		TextErrorManagerTest,
 		Should_ExerciseFeatureHandlingMutexes_When_Configured)
 	{
-		QLogicaeCppCore::TextErrorManagerConfigurations
+		TextErrorManagerConfigurations
 			new_configurations;
 
 		new_configurations
@@ -467,7 +467,7 @@ namespace
 		TextErrorManagerTest,
 		Should_HandleSpecifiedLength_When_Enabled)
 	{
-		QLogicaeCppCore::TextErrorManagerConfigurations
+		TextErrorManagerConfigurations
 			new_configurations;
 
 		new_configurations
@@ -499,7 +499,7 @@ namespace
 		TextErrorManagerTest,
 		Should_RunWithoutMutex_When_ThreadSafetyDisabled)
 	{
-		QLogicaeCppCore::TextErrorManagerConfigurations
+		TextErrorManagerConfigurations
 			new_configurations;
 
 		new_configurations

@@ -3,16 +3,8 @@
 #include "../includes/results_status_enum_manager.hpp"
 
 namespace
-	QLogicaeCppCore
-{        
-	ResultsStatusEnumManager&
-		ResultsStatusEnumManager
-			::singleton = 
-				SingletonManager
-					::get_singleton<ResultsStatusEnumManager>();	
-
-
-	
+	QLogicae::Cor::V1
+{        	
 	ResultsStatusEnumManager
 		::ResultsStatusEnumManager() :
 			AbstractClass<ResultsStatusEnumManagerConfigurations>()

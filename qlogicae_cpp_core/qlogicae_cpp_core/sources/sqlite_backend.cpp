@@ -3,7 +3,7 @@
 #include "../includes/sqlite_backend.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {
     SQLiteBackend
 		::SQLiteBackend(
@@ -30,6 +30,7 @@ namespace
 			sqlite3_close(
 				database_handle
 			);
+			database_handle = nullptr;
 		}
     }
 }

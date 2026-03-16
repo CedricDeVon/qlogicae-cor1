@@ -3,16 +3,8 @@
 #include "../includes/time_scale_unit_enum_manager.hpp"
 
 namespace
-	QLogicaeCppCore
-{        
-	TimeScaleUnitEnumManager&
-		TimeScaleUnitEnumManager
-			::singleton = 
-				SingletonManager
-					::get_singleton<TimeScaleUnitEnumManager>();	
-
-
-	
+	QLogicae::Cor::V1
+{        	
 	TimeScaleUnitEnumManager
 		::TimeScaleUnitEnumManager() :
 			AbstractClass<TimeScaleUnitEnumManagerConfigurations>()

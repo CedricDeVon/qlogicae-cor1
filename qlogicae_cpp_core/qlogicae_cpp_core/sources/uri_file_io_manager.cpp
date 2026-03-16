@@ -3,16 +3,8 @@
 #include "../includes/uri_file_io_manager.hpp"
 
 namespace
-	QLogicaeCppCore
-{        
-	UriFileIoManager&
-		UriFileIoManager
-			::singleton = 
-				SingletonManager
-					::get_singleton<UriFileIoManager>();	
-
-
-	
+	QLogicae::Cor::V1
+{        	
 	UriFileIoManager
 		::UriFileIoManager() :
 			AbstractClass<UriFileIoManagerConfigurations>()

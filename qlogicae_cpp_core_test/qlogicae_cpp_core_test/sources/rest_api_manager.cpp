@@ -2,10 +2,8 @@
 
 #include "../includes/rest_api_manager.hpp"
 
-using namespace QLogicaeCppCore;
-
 namespace
-	QLogicaeCppCoreTest
+	QLogicae::Cor::V1::Tests
 {
 	class RestApiManagerTest :
 		public ::testing::Test

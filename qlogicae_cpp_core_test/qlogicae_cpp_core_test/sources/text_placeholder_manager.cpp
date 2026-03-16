@@ -2,10 +2,8 @@
 
 #include "../includes/text_placeholder_manager.hpp"
 
-using namespace QLogicaeCppCore;
-
 namespace
-	QLogicaeCppCoreTest
+	QLogicae::Cor::V1::Tests
 {
 	class TextPlaceholderManagerTest : public ::testing::Test
 	{
@@ -35,8 +33,8 @@ namespace
 
 	TEST_F(TextPlaceholderManagerTest, Should_ReturnSameSingletonInstance_When_CalledMultipleTimes)
 	{
-		auto& instance1 = TextPlaceholderManager::singleton;
-		auto& instance2 = TextPlaceholderManager::singleton;
+		auto& instance1 = SingletonManager::get_singleton<TextPlaceholderManager>();
+		auto& instance2 = SingletonManager::get_singleton<TextPlaceholderManager>();
 		ASSERT_EQ(&instance1, &instance2);
 	}
 

@@ -3,16 +3,8 @@
 #include "../includes/text_placeholder_manager.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {
-    TextPlaceholderManager&
-        TextPlaceholderManager
-			::singleton =
-				SingletonManager
-					::get_singleton<TextPlaceholderManager>();
-
-
-
     TextPlaceholderManager
 		::TextPlaceholderManager() :
 			AbstractClass<TextPlaceholderManagerConfigurations>()

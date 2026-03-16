@@ -3,16 +3,8 @@
 #include "../includes/random_enum_generation_manager.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {	
-	RandomEnumGenerationManager&
-		RandomEnumGenerationManager
-			::singleton =
-				SingletonManager
-					::get_singleton<RandomEnumGenerationManager>();
-
-
-
 	RandomEnumGenerationManager
 		::RandomEnumGenerationManager() :
 			AbstractClass<RandomEnumGenerationManagerConfigurations>()

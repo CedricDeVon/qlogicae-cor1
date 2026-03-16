@@ -3,16 +3,8 @@
 #include "../includes/uuid_enum_manager.hpp"
 
 namespace
-	QLogicaeCppCore
-{        
-	UuidEnumManager&
-		UuidEnumManager
-			::singleton = 
-				SingletonManager
-					::get_singleton<UuidEnumManager>();	
-
-
-	
+	QLogicae::Cor::V1
+{        	
 	UuidEnumManager
 		::UuidEnumManager() :
 			AbstractClass<UuidEnumManagerConfigurations>()

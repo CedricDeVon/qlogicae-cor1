@@ -2,10 +2,8 @@
 
 #include "../includes/random_enum_generation_manager.hpp"
 
-using namespace QLogicaeCppCore;
-
 namespace
-	QLogicaeCppCoreTest
+	QLogicae::Cor::V1::Tests
 {
 	enum class TestEnum
 	{

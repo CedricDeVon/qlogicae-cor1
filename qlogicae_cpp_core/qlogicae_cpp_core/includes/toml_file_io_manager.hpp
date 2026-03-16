@@ -1,7 +1,6 @@
 #pragma once
 
 #include "abstract_class.hpp"
-#include "singleton_manager.hpp"
 #include "toml_file_io_manager_configurations.hpp"
 
 namespace
@@ -12,9 +11,6 @@ namespace
 			public AbstractClass<TomlFileIoManagerConfigurations>
     {
     public:		
-        static TomlFileIoManager&
-            singleton;
-
 		TomlFileIoManager();
 
 		bool

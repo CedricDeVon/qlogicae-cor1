@@ -3,7 +3,7 @@
 #include "../includes/random_enum_generation_manager_configurations.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {
 	RandomEnumGenerationManagerConfigurations
 		::RandomEnumGenerationManagerConfigurations() :

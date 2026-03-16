@@ -3,7 +3,7 @@
 #include "../includes/value_extractor_manager_configurations.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {
 	
 }

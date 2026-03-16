@@ -2,10 +2,8 @@
 
 #include "../includes/text_case_enum_manager.hpp"
 
-using namespace QLogicaeCppCore;
-
 namespace
-	QLogicaeCppCoreTest
+	QLogicae::Cor::V1::Tests
 {
 	class TextCaseEnumManagerTest :
 		public ::testing::Test
@@ -129,8 +127,8 @@ namespace
 
 	TEST_F(TextCaseEnumManagerTest, Should_ReturnSingletonInstanceConsistently)
 	{
-		TextCaseEnumManager& first_instance = TextCaseEnumManager::singleton;
-		TextCaseEnumManager& second_instance = TextCaseEnumManager::singleton;
+		TextCaseEnumManager& first_instance = SingletonManager::get_singleton<TextCaseEnumManager>();
+		TextCaseEnumManager& second_instance = SingletonManager::get_singleton<TextCaseEnumManager>();
 		EXPECT_EQ(&first_instance, &second_instance);
 	}
 

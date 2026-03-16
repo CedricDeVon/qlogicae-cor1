@@ -2,10 +2,8 @@
 
 #include "../includes/time_scale_unit_enum_manager.hpp"
 
-using namespace QLogicaeCppCore;
-
 namespace
-	QLogicaeCppCoreTest
+	QLogicae::Cor::V1::Tests
 {
 	class TimeScaleUnitEnumManagerTest :
 		public ::testing::Test
@@ -129,8 +127,8 @@ namespace
 
 	TEST_F(TimeScaleUnitEnumManagerTest, Should_ReturnSingletonInstanceConsistently)
 	{
-		TimeScaleUnitEnumManager& first_instance = TimeScaleUnitEnumManager::singleton;
-		TimeScaleUnitEnumManager& second_instance = TimeScaleUnitEnumManager::singleton;
+		TimeScaleUnitEnumManager& first_instance = SingletonManager::get_singleton<TimeScaleUnitEnumManager>();
+		TimeScaleUnitEnumManager& second_instance = SingletonManager::get_singleton<TimeScaleUnitEnumManager>();
 		EXPECT_EQ(&first_instance, &second_instance);
 	}
 

@@ -1,7 +1,6 @@
 #pragma once
 
 #include "abstract_class.hpp"
-#include "singleton_manager.hpp"
 #include "text_case_manager.hpp"
 #include "text_placeholder_manager_configurations.hpp"
 
@@ -13,9 +12,6 @@ namespace
 			public AbstractClass<TextPlaceholderManagerConfigurations>
     {
     public:        
-        static TextPlaceholderManager&
-            singleton;
-
 		TextPlaceholderManager();
 
 		std::string

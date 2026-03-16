@@ -3,7 +3,6 @@
 #include "uuid.hpp"
 #include "enum_manager.hpp"
 #include "abstract_class.hpp"
-#include "singleton_manager.hpp"
 #include "uuid_enum_manager_configurations.hpp"
 
 namespace
@@ -14,9 +13,6 @@ namespace
 			public AbstractClass<UuidEnumManagerConfigurations>
     {
     public:
-        static UuidEnumManager&
-            singleton;
-
 		UuidEnumManager();
 
 		std::string

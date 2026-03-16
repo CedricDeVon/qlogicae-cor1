@@ -3,16 +3,8 @@
 #include "../includes/qlogicae_file_system_manager.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {
-    QLogicaeFileSystemManager&
-        QLogicaeFileSystemManager
-			::singleton =
-				SingletonManager
-					::get_singleton<QLogicaeFileSystemManager>();
-
-
-
 	QLogicaeFileSystemManager
 		::QLogicaeFileSystemManager() :
 			AbstractClass<QLogicaeFileSystemManagerConfigurations>()
@@ -20,4 +12,3 @@ namespace
 
     }
 }
-

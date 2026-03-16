@@ -3,16 +3,8 @@
 #include "../includes/qlogicae_console_application_manager.hpp"
 
 namespace
-	QLogicaeCppCore
-{        
-	QLogicaeConsoleApplicationManager&
-		QLogicaeConsoleApplicationManager
-			::singleton = 
-				SingletonManager
-					::get_singleton<QLogicaeConsoleApplicationManager>();	
-
-
-	
+	QLogicae::Cor::V1
+{        	
 	QLogicaeConsoleApplicationManager
 		::QLogicaeConsoleApplicationManager() :
 			AbstractClass<QLogicaeConsoleApplicationManagerConfigurations>()

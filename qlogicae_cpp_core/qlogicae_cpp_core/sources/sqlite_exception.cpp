@@ -3,7 +3,7 @@
 #include "../includes/sqlite_exception.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {
     SQLiteException
 		::SQLiteException(

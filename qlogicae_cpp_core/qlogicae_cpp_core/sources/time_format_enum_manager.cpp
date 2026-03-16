@@ -3,16 +3,8 @@
 #include "../includes/time_format_enum_manager.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {        
-	TimeFormatEnumManager&
-		TimeFormatEnumManager
-			::singleton = 
-				SingletonManager
-					::get_singleton<TimeFormatEnumManager>();	
-
-
-	
 	TimeFormatEnumManager
 		::TimeFormatEnumManager() :
 			AbstractClass<TimeFormatEnumManagerConfigurations>()

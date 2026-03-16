@@ -3,7 +3,7 @@
 #include "../includes/time_scale_unit.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {
 
 }

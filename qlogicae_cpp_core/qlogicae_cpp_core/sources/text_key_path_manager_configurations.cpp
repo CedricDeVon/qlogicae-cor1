@@ -3,7 +3,7 @@
 #include "../includes/text_key_path_manager_configurations.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {
 	TextKeyPathManagerConfigurations
 		::TextKeyPathManagerConfigurations() :

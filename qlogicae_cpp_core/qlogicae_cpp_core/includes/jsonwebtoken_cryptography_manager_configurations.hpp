@@ -3,7 +3,7 @@
 #include "abstract_configurations.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {    
     struct
 		JsonWebTokenCryptographyManagerConfigurations :
@@ -24,12 +24,12 @@ namespace
 			claims =
 				{};
 
-
-
 		static JsonWebTokenCryptographyManagerConfigurations
 			initial_configurations;
 
 		static JsonWebTokenCryptographyManagerConfigurations
 			default_configurations;
+
+		JsonWebTokenCryptographyManagerConfigurations();
     };    
 }

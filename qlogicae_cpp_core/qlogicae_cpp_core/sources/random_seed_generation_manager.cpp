@@ -3,16 +3,8 @@
 #include "../includes/random_seed_generation_manager.hpp"
 
 namespace
-	QLogicaeCppCore
-{			
-	RandomSeedGenerationManager&
-		RandomSeedGenerationManager
-			::singleton =
-				SingletonManager
-					::get_singleton<RandomSeedGenerationManager>();
-
-
-
+	QLogicae::Cor::V1
+{				
 	RandomSeedGenerationManager
 		::RandomSeedGenerationManager() :
 			AbstractClass<RandomSeedGenerationManagerConfigurations>()
@@ -75,7 +67,7 @@ namespace
 				mutex_lock =
 					boost::unique_lock<boost::mutex>
 					(
-						utility_handling_mutex_1
+						feature_handling_mutex_1
 					);
 			}
 
@@ -124,7 +116,7 @@ namespace
 				mutex_lock =
 					boost::unique_lock<boost::mutex>
 					(
-						utility_handling_mutex_1
+						feature_handling_mutex_1
 					);
 			}
 
@@ -355,7 +347,7 @@ namespace
 				mutex_lock =
 					boost::unique_lock<boost::mutex>
 					(
-						feature_handling_mutex_1
+						feature_handling_mutex_2
 					);
 			}		
 
@@ -409,7 +401,7 @@ namespace
 				mutex_lock =
 					boost::unique_lock<boost::mutex>
 					(
-						feature_handling_mutex_1
+						feature_handling_mutex_2
 					);
 			}
 
@@ -489,7 +481,7 @@ namespace
 				mutex_lock =
 					boost::unique_lock<boost::mutex>
 					(
-						feature_handling_mutex_1
+						feature_handling_mutex_2
 					);
 			}
 
@@ -543,7 +535,7 @@ namespace
 				mutex_lock =
 					boost::unique_lock<boost::mutex>
 					(
-						feature_handling_mutex_2
+						feature_handling_mutex_3
 					);
 			}
 
@@ -602,7 +594,7 @@ namespace
 				mutex_lock =
 					boost::unique_lock<boost::mutex>
 					(
-						feature_handling_mutex_2
+						feature_handling_mutex_3
 					);
 			}
 

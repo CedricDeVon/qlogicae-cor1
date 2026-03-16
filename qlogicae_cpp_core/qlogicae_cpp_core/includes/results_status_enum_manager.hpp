@@ -2,7 +2,6 @@
 
 #include "results_status.hpp"
 #include "abstract_class.hpp"
-#include "singleton_manager.hpp"
 #include "results_status_enum_manager_configurations.hpp"
 
 namespace
@@ -13,9 +12,6 @@ namespace
 			public AbstractClass<ResultsStatusEnumManagerConfigurations>
     {
     public:
-        static ResultsStatusEnumManager&
-            singleton;
-
 		ResultsStatusEnumManager();
 
 		std::string

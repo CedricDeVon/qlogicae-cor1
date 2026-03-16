@@ -2,10 +2,8 @@
 
 #include "../includes/time_zone_enum_manager.hpp"
 
-using namespace QLogicaeCppCore;
-
 namespace
-	QLogicaeCppCoreTest
+	QLogicae::Cor::V1::Tests
 {
 	class TimeZoneEnumManagerTest :
 		public ::testing::Test
@@ -129,8 +127,8 @@ namespace
 
 	TEST_F(TimeZoneEnumManagerTest, Should_ReturnSingletonInstanceConsistently)
 	{
-		TimeZoneEnumManager& first_instance = TimeZoneEnumManager::singleton;
-		TimeZoneEnumManager& second_instance = TimeZoneEnumManager::singleton;
+		TimeZoneEnumManager& first_instance = SingletonManager::get_singleton<TimeZoneEnumManager>();
+		TimeZoneEnumManager& second_instance = SingletonManager::get_singleton<TimeZoneEnumManager>();
 		EXPECT_EQ(&first_instance, &second_instance);
 	}
 

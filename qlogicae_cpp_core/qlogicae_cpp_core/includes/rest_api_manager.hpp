@@ -1,7 +1,6 @@
 #pragma once
 
 #include "abstract_class.hpp"
-#include "singleton_manager.hpp"
 #include "rest_api_manager_response.hpp"
 #include "rest_api_manager_configurations.hpp"
 
@@ -24,9 +23,6 @@ namespace
 
 		boost::mutex
 			feature_handling_mutex_3;
-
-        static RestApiManager&
-            singleton;
 
 		RestApiManager();
 

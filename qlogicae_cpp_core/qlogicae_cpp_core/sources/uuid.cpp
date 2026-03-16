@@ -3,7 +3,7 @@
 #include "../includes/uuid.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {
     
 }

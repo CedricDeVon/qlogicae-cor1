@@ -27,6 +27,13 @@ namespace
 				sql_text
         );
 
+        SQLiteStatement(
+			const std::string&
+				file_path,
+            const std::string&
+				sql_text
+        );
+
 		int
 			resolve_named_index(
 				const std::string& name

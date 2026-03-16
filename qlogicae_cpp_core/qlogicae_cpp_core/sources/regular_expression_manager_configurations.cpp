@@ -3,7 +3,7 @@
 #include "../includes/regular_expression_manager_configurations.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {
 	RegularExpressionManagerConfigurations
 		::RegularExpressionManagerConfigurations() :

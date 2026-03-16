@@ -2,10 +2,8 @@
 
 #include "../includes/text_file_io_manager.hpp"
 
-using namespace QLogicaeCppCore;
-
 namespace
-	QLogicaeCppCoreTest
+	QLogicae::Cor::V1::Tests
 {	
 	class TextFileIoManagerTest : public ::testing::Test
 	{

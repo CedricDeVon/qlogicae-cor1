@@ -8,7 +8,11 @@ namespace
 	GmailApiManagerResponse
 		::GmailApiManagerResponse()
 	{		
-		error_message =
+		status =
+			ResultsStatus
+				::GOOD;
+
+		message =
 			"";
 	}
 

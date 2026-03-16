@@ -2,15 +2,16 @@
 
 #include "qlogicae_cpp_core/includes/timeout_clock.hpp"
 
-namespace QLogicaeCppCoreTest
+namespace
+	QLogicae::Cor::V1::Tests
 {
     class TimeoutClockTest : public ::testing::Test
     {
     public:
-        std::unique_ptr<QLogicaeCppCore::TimeoutClock> timeout_clock_instance;
+        std::unique_ptr<TimeoutClock> timeout_clock_instance;
 
         TimeoutClockTest() :
-            timeout_clock_instance(std::make_unique<QLogicaeCppCore::TimeoutClock>())
+            timeout_clock_instance(std::make_unique<TimeoutClock>())
         {
         }
 
@@ -327,7 +328,7 @@ namespace QLogicaeCppCoreTest
 
 	TEST_F(TimeoutClockTest, Should_HandleConstructDestructException_When_ErrorThrown)
 	{
-		class TimeoutClockThrow : public QLogicaeCppCore::TimeoutClock
+		class TimeoutClockThrow : public TimeoutClock
 		{
 		public:
 			bool construct()

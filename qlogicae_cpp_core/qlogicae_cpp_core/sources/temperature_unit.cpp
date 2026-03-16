@@ -3,7 +3,7 @@
 #include "../includes/temperature_unit.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {
 	
 }

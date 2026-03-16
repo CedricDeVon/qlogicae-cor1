@@ -1,7 +1,6 @@
 #pragma once
 
 #include "abstract_class.hpp"
-#include "singleton_manager.hpp"
 #include "random_seed_generation_manager_configurations.hpp"
 
 namespace
@@ -15,6 +14,9 @@ namespace
 		boost::mutex
 			feature_handling_mutex_2;
 
+		boost::mutex
+			feature_handling_mutex_3;
+
 		std::mt19937
 			random_indeterministic_seed_engine;
 
@@ -23,9 +25,6 @@ namespace
 
 		std::mt19937
 			random_cryptography_seed_engine;
-
-		static RandomSeedGenerationManager&
-			singleton;
 
 		RandomSeedGenerationManager();
 

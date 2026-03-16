@@ -3,12 +3,8 @@
 #include "../includes/text_case_manager.hpp"
 
 namespace
-	QLogicaeCppCoreTest
+	QLogicae::Cor::V1::Tests
 {
-	using QLogicaeCppCore::TextCase;
-	using QLogicaeCppCore::TextCaseManager;
-	using QLogicaeCppCore::TextCaseManagerConfigurations;
-
 	class
 		TextCaseManagerTest :
 			public ::testing::Test

@@ -16,9 +16,6 @@ namespace
 			public AbstractClass<RandomStringGenerationManagerConfigurations>
     {
     public:
-		static RandomStringGenerationManager&
-			singleton;
-
 		RandomStringGenerationManager();
 
 		template <typename OutputType = std::string, typename ExcludedType = char> OutputType
@@ -119,7 +116,7 @@ namespace
 			result.reserve(length);
 
 			const std::string domain =
-				CharacterDomainManager::singleton.get_value(character_domain);
+				SingletonManager::get_singleton<CharacterDomainManager>().get_value(character_domain);
 
 			std::vector<typename OutputType::value_type> filtered;
 			filtered.reserve(domain.size());
@@ -141,8 +138,8 @@ namespace
 			std::uniform_int_distribution<std::size_t> distribution(0, filtered.size() - 1);
 			for (size_t i = 0; i < length; ++i)
 			{
-				result.push_back(filtered[distribution(RandomSeedGenerationManager
-					::singleton.random_indeterministic_seed_engine)]);
+				result.push_back(filtered[distribution(SingletonManager::get_singleton<RandomSeedGenerationManager
+					>().random_indeterministic_seed_engine)]);
 			}
 
 			return result;
@@ -224,8 +221,8 @@ namespace
 			std::uniform_int_distribution<std::size_t> distribution(0, filtered.size() - 1);
 			for (size_t i = 0; i < length; ++i)
 			{
-				result.push_back(filtered[distribution(RandomSeedGenerationManager
-					::singleton.random_indeterministic_seed_engine)]);
+				result.push_back(filtered[distribution(SingletonManager::get_singleton<RandomSeedGenerationManager
+					>().random_indeterministic_seed_engine)]);
 			}
 
 			return result;

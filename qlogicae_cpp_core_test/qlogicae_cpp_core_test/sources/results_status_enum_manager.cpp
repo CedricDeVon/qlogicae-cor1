@@ -2,10 +2,8 @@
 
 #include "../includes/results_status_enum_manager.hpp"
 
-using namespace QLogicaeCppCore;
-
 namespace
-	QLogicaeCppCoreTest
+	QLogicae::Cor::V1::Tests
 {
 	class ResultsStatusEnumManagerTest :
 		public ::testing::Test
@@ -129,8 +127,8 @@ namespace
 
 	TEST_F(ResultsStatusEnumManagerTest, Should_ReturnSingletonInstanceConsistently)
 	{
-		ResultsStatusEnumManager& first_instance = ResultsStatusEnumManager::singleton;
-		ResultsStatusEnumManager& second_instance = ResultsStatusEnumManager::singleton;
+		ResultsStatusEnumManager& first_instance = SingletonManager::get_singleton<ResultsStatusEnumManager>();
+		ResultsStatusEnumManager& second_instance = SingletonManager::get_singleton<ResultsStatusEnumManager>();
 		EXPECT_EQ(&first_instance, &second_instance);
 	}
 

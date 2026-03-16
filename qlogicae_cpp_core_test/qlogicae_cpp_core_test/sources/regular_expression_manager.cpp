@@ -3,7 +3,7 @@
 #include "qlogicae_cpp_core/includes/regular_expression_manager.hpp"
 
 namespace
-    QLogicaeCppCoreTest
+    QLogicae::Cor::V1::Tests
 {
 	struct
 		RegularExpressionParameters
@@ -38,7 +38,7 @@ namespace
     public:
         RegularExpressionManagerTest() = default;
 
-        QLogicaeCppCore::RegularExpressionManager
+        RegularExpressionManager
             regular_expression_manager;
 
 		void
@@ -503,7 +503,7 @@ namespace
 		Should_MatchDefaultPattern_When_DefaultPatternSet
 	)
 	{
-		QLogicaeCppCore::RegularExpressionManagerConfigurations
+		RegularExpressionManagerConfigurations
 			configurations;
 
 		configurations.pattern =
@@ -552,7 +552,7 @@ namespace
 		Should_ExecuteCorrectly_When_ThreadSafetyOverrideEnabled
 	)
 	{
-		QLogicaeCppCore::RegularExpressionManagerConfigurations
+		RegularExpressionManagerConfigurations
 			configurations;
 
 		configurations.is_thread_safety_handling_override_enabled =
@@ -583,7 +583,7 @@ namespace
 				'a'
 			);
 
-		QLogicaeCppCore::RegularExpressionManagerConfigurations
+		RegularExpressionManagerConfigurations
 			configurations;
 
 		configurations.pattern =
@@ -611,7 +611,7 @@ namespace
 			parameters =
 			GetParam();
 
-		QLogicaeCppCore::RegularExpressionManagerConfigurations
+		RegularExpressionManagerConfigurations
 			configurations;
 
 		configurations.pattern =

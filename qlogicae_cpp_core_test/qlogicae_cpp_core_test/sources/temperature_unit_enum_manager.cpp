@@ -2,10 +2,8 @@
 
 #include "../includes/temperature_unit_enum_manager.hpp"
 
-using namespace QLogicaeCppCore;
-
 namespace
-	QLogicaeCppCoreTest
+	QLogicae::Cor::V1::Tests
 {
 	class TemperatureUnitEnumManagerTest :
 		public ::testing::Test
@@ -129,8 +127,8 @@ namespace
 
 	TEST_F(TemperatureUnitEnumManagerTest, Should_ReturnSingletonInstanceConsistently)
 	{
-		TemperatureUnitEnumManager& first_instance = TemperatureUnitEnumManager::singleton;
-		TemperatureUnitEnumManager& second_instance = TemperatureUnitEnumManager::singleton;
+		TemperatureUnitEnumManager& first_instance = SingletonManager::get_singleton<TemperatureUnitEnumManager>();
+		TemperatureUnitEnumManager& second_instance = SingletonManager::get_singleton<TemperatureUnitEnumManager>();
 		EXPECT_EQ(&first_instance, &second_instance);
 	}
 

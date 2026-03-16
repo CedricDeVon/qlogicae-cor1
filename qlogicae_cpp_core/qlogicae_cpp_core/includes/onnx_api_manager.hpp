@@ -11,6 +11,12 @@ namespace
 			public AbstractClass<OnnxApiManagerConfigurations>
     {
     public:		
+		boost::mutex
+			feature_handling_mutex_2;
+
+		boost::mutex
+			feature_handling_mutex_3;
+
 		Ort::Env
 			env_ { ORT_LOGGING_LEVEL_WARNING, "default" };
 
@@ -51,8 +57,6 @@ namespace
 			string_buffers_;
 
 		OnnxApiManager();
-
-		~OnnxApiManager();
 
 		bool
 			setup();
@@ -109,10 +113,57 @@ namespace
 					inputs
 			)
 	{
-			prepare_numeric_inputs(inputs);
+		try
+        {
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_feature_handling() ||				
+				(
+					configurations
+						.is_edge_case_enabled_for_feature_handling() &&
+					(
+						!inputs.size()
+					)
+				)
+			)
+			{
+				return
+					{};
+			}
+
+			boost::unique_lock<boost::mutex>
+				mutex_lock;
+			if (configurations.is_thread_safety_enabled_for_feature_handling())
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						feature_handling_mutex_1
+					);
+			}
+
+			prepare_numeric_inputs(
+				inputs
+			);
 			run_session();
 
-			return collect_numeric_outputs<Type>();
+			return
+				collect_numeric_outputs<Type>();
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+			handle_error_outputs(
+				exception
+			);
+
+			return
+				{};
+        }			
 	}
 
 	template<typename Type> bool
@@ -122,76 +173,170 @@ namespace
 					inputs
 			)
 	{
-		input_tensors_.clear();
-		input_name_ptrs_runtime_.clear();
-		numeric_buffers_.clear();
+		try
+        {
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_feature_handling() ||				
+				(
+					configurations
+						.is_edge_case_enabled_for_feature_handling() &&
+					(
+						!inputs.size()
+					)
+				)
+			)
+			{
+				return
+					{};
+			}
 
-		for (size_t i = 0; i < input_names_str_.size(); ++i) {
-			const auto& name = input_names_str_[i];
-			auto it = inputs.find(name);
-			if (it == inputs.end())
-				return false;
+			boost::unique_lock<boost::mutex>
+				mutex_lock;
+			if (configurations.is_thread_safety_enabled_for_feature_handling())
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						feature_handling_mutex_2
+					);
+			}
 
-			const auto& batch = it->second;
-			if (batch.empty())
-				return false;
+			input_tensors_.clear();
+			input_name_ptrs_runtime_.clear();
+			numeric_buffers_.clear();
 
-			size_t batch_size = batch.size();
-			size_t feature_size = batch[0].size();
-
-			for (const auto& sample : batch)
-				if (sample.size() != feature_size)
+			for (size_t i = 0; i < input_names_str_.size(); ++i) {
+				const auto& name = input_names_str_[i];
+				auto it = inputs.find(name);
+				if (it == inputs.end())
 					return false;
 
-			size_t total = batch_size * feature_size;
-			numeric_buffers_.emplace_back(total);
-			auto& buffer = numeric_buffers_.back();
+				const auto& batch = it->second;
+				if (batch.empty())
+					return false;
 
-			for (size_t b = 0; b < batch_size; ++b)
-				std::copy(batch[b].begin(), batch[b].end(),
-					buffer.begin() + b * feature_size);
+				size_t batch_size = batch.size();
+				if (!batch_size)
+				{
+					return false;
+				}
 
-			std::vector<int64_t> shape = resolve_shape(i, batch_size, feature_size);
+				size_t feature_size = batch[0].size();
+				if (!feature_size)
+				{
+					return false;
+				}
 
-			const Ort::MemoryInfo mem_info = Ort::MemoryInfo::CreateCpu(
-				OrtArenaAllocator, OrtMemTypeDefault);
+				for (const auto& sample : batch)
+					if (sample.size() != feature_size)
+						return false;
 
-			input_tensors_.emplace_back(
-				Ort::Value::CreateTensor<Type>(
-					mem_info,
-					buffer.data(),
-					total,
-					shape.data(),
-					shape.size()
-				)
+				size_t total = batch_size * feature_size;
+				numeric_buffers_.emplace_back(total);
+				auto& buffer = numeric_buffers_.back();
+
+				for (size_t b = 0; b < batch_size; ++b)
+					std::copy(batch[b].begin(), batch[b].end(),
+						buffer.begin() + b * feature_size);
+
+				std::vector<int64_t> shape = resolve_shape(i, batch_size, feature_size);
+
+				const Ort::MemoryInfo mem_info = Ort::MemoryInfo::CreateCpu(
+					OrtArenaAllocator, OrtMemTypeDefault);
+
+				input_tensors_.emplace_back(
+					Ort::Value::CreateTensor<Type>(
+						mem_info,
+						buffer.data(),
+						total,
+						shape.data(),
+						shape.size()
+					)
+				);
+
+				input_name_ptrs_runtime_.push_back(input_names_ptrs_[i]);
+			}
+
+			return
+				true;
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+			handle_error_outputs(
+				exception
 			);
 
-			input_name_ptrs_runtime_.push_back(input_names_ptrs_[i]);
-		}
+			return
+				{};
+        }		
 	}
 
 	template<typename Type> std::unordered_map<std::string, std::span<const Type>>
 		OnnxApiManager
 			::collect_numeric_outputs()
 	{
-		std::unordered_map<std::string, std::span<const Type>> results;
+		try
+        {
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_feature_handling()
+			)
+			{
+				return
+					{};
+			}
 
-		for (size_t i = 0; i < output_tensors_.size(); ++i)
-		{
-			auto type_info =
-				output_tensors_[i].GetTensorTypeAndShapeInfo();
+			boost::unique_lock<boost::mutex>
+				mutex_lock;
+			if (configurations.is_thread_safety_enabled_for_feature_handling())
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						feature_handling_mutex_2
+					);
+			}
 
-			if (type_info.GetElementType() !=
-				Ort::TypeToTensorType<Type>::type)
-				return {};
+			std::unordered_map<std::string, std::span<const Type>> results;
 
-			Type* data = output_tensors_[i].GetTensorMutableData<Type>();
-			size_t count = type_info.GetElementCount();
+			for (size_t i = 0; i < output_tensors_.size(); ++i)
+			{
+				auto type_info =
+					output_tensors_[i].GetTensorTypeAndShapeInfo();
 
-			results[output_names_str_[i]] =
-				std::span<const Type>(data, count);
-		}
+				if (type_info.GetElementType() !=
+					Ort::TypeToTensorType<Type>::type)
+					return {};
 
-		return results;
+				Type* data = output_tensors_[i].GetTensorMutableData<Type>();
+				size_t count = type_info.GetElementCount();
+
+				results[output_names_str_[i]] =
+					std::span<const Type>(data, count);
+			}
+
+			return
+				results;
+        }
+        catch
+        (
+            const std::exception&
+                exception
+        )
+        {
+			handle_error_outputs(
+				exception
+			);
+
+			return
+				{};
+        }		
 	}
 }

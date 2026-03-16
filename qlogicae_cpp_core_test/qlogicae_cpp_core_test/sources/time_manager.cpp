@@ -3,13 +3,8 @@
 #include "../includes/time_manager.hpp"
 
 namespace
-	QLogicaeCppCoreTest
+	QLogicae::Cor::V1::Tests
 {
-	using QLogicaeCppCore::TimeManager;
-	using QLogicaeCppCore::TimeFormat;
-	using QLogicaeCppCore::TimeScaleUnit;
-	using QLogicaeCppCore::TimeZone;
-
 	class
 		TimeManagerTest :
 			public ::testing::Test

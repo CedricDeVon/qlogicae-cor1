@@ -3,7 +3,7 @@
 #include "../includes/sqlite_statement_data.hpp"
 
 namespace
-	QLogicaeCppCore
+	QLogicae::Cor::V1
 {
     SQLiteStatementData
 		::SQLiteStatementData(

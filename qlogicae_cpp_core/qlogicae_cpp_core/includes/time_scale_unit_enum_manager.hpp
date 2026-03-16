@@ -14,9 +14,6 @@ namespace
 			public AbstractClass<TimeScaleUnitEnumManagerConfigurations>
     {
     public:
-        static TimeScaleUnitEnumManager&
-            singleton;
-
 		TimeScaleUnitEnumManager();
 
 		std::string

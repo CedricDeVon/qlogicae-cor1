@@ -3,16 +3,8 @@
 #include "../includes/qlogicae_service_application_manager.hpp"
 
 namespace
-	QLogicaeCppCore
-{        
-	QLogicaeServiceApplicationManager&
-		QLogicaeServiceApplicationManager
-			::singleton = 
-				SingletonManager
-					::get_singleton<QLogicaeServiceApplicationManager>();	
-
-
-	
+	QLogicae::Cor::V1
+{        	
 	QLogicaeServiceApplicationManager
 		::QLogicaeServiceApplicationManager() :
 			AbstractClass<QLogicaeServiceApplicationManagerConfigurations>()
