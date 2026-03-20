@@ -38,7 +38,42 @@ namespace
 			return
 				values;
 		}
+
+		void
+			SetUp() override
+		{
+			asynchronous_batch_manager.construct();
+		}
+
+		void
+			TearDown() override
+		{			
+			asynchronous_batch_manager.destruct();
+		}
 	};
+
+	class
+		AsynchronousBatchManagerParameterizedTest :
+			public
+				::testing::TestWithParam<int>
+	{
+	public:
+		AsynchronousBatchManager
+			asynchronous_batch_manager;
+
+		void
+			SetUp() override
+		{
+			asynchronous_batch_manager.construct();
+		}
+
+		void
+			TearDown() override
+		{			
+			asynchronous_batch_manager.destruct();
+		}
+	};
+
 
 	TEST_F
 	(
@@ -483,16 +518,6 @@ namespace
 			)
 		);
 	}
-
-	class
-		AsynchronousBatchManagerParameterizedTest :
-			public
-				::testing::TestWithParam<int>
-	{
-	public:
-		AsynchronousBatchManager
-			asynchronous_batch_manager;
-	};
 
 	TEST_P
 	(

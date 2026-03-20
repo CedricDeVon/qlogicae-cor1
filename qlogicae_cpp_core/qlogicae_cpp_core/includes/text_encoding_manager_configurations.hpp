@@ -14,19 +14,11 @@ namespace
 	public:
 		TextEncoding
 			original_type =
-				default_configurations
-					.original_type;
+				TextEncoding::NONE;
 
 		TextEncoding
 			target_type =
-				default_configurations
-					.target_type;
-
-		static TextEncodingManagerConfigurations
-			initial_configurations;
-
-		static TextEncodingManagerConfigurations
-			default_configurations;
+				TextEncoding::NONE;
 
 		TextEncodingManagerConfigurations();
 	};

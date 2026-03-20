@@ -11,15 +11,5 @@ namespace
 	{
 		
 	}
-
-	ConfigurationManagerConfigurations
-		ConfigurationManagerConfigurations
-			::initial_configurations;
-
-	ConfigurationManagerConfigurations
-		ConfigurationManagerConfigurations
-			::default_configurations =
-				ConfigurationManagerConfigurations
-					::initial_configurations;
 }
 

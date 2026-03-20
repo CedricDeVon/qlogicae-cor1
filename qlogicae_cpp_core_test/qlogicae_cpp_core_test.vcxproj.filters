@@ -9,8 +9,6 @@
     <ClCompile Include="qlogicae_cpp_core_test\sources\application.cpp" />
     <ClCompile Include="qlogicae_cpp_core_test\sources\argon2id_hash_cryptography_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core_test\sources\assembly.cpp" />
-    <ClCompile Include="qlogicae_cpp_core_test\sources\asynchronous_batch_manager.cpp" />
-    <ClCompile Include="qlogicae_cpp_core_test\sources\asynchronous_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core_test\sources\bcrypt_hash_cryptography_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core_test\sources\binary_file_io_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core_test\sources\character_domain_enum_manager.cpp" />
@@ -88,6 +86,7 @@
     <ClCompile Include="qlogicae_cpp_core_test\sources\windows_system_access_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core_test\sources\xchacha20_poly1305_cipher_cryptography_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core_test\sources\xml_file_io_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core_test\sources\asynchronous_manager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.hpp" />

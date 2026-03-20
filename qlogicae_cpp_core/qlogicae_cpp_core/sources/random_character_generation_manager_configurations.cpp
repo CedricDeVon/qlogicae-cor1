@@ -11,15 +11,5 @@ namespace
 	{
 		
 	}
-
-	RandomCharacterGenerationManagerConfigurations
-		RandomCharacterGenerationManagerConfigurations
-			::initial_configurations;
-
-	RandomCharacterGenerationManagerConfigurations
-		RandomCharacterGenerationManagerConfigurations
-			::default_configurations =
-				RandomCharacterGenerationManagerConfigurations
-					::initial_configurations;
 }
 

@@ -11,14 +11,4 @@ namespace
 	{
 		
 	}
-
-	Argon2idHashCryptographyManagerConfigurations
-		Argon2idHashCryptographyManagerConfigurations
-			::initial_configurations;
-
-	Argon2idHashCryptographyManagerConfigurations
-		Argon2idHashCryptographyManagerConfigurations
-			::default_configurations =
-				Argon2idHashCryptographyManagerConfigurations
-					::initial_configurations;
 }

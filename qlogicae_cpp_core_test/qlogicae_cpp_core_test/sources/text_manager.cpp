@@ -681,42 +681,6 @@ namespace
 
 	TEST_F(
 		TextManagerTest,
-		Should_HandleConcurrentConfigurationMutationSafely)
-	{
-		std::atomic<int> completion_count{ 0 };
-		std::vector<std::thread> threads;
-
-		for (int index = 0; index < 6; index++)
-		{
-			threads.emplace_back(
-				[&]()
-				{
-					manager.configurations =
-						TextManagerConfigurations
-						::default_configurations;
-
-					std::string result =
-						manager.replace_text_tokens(
-							"ABC",
-							{ {"A", "1"} });
-
-					if (result == "1BC")
-					{
-						completion_count.fetch_add(1);
-					}
-				});
-		}
-
-		for (auto& thread : threads)
-		{
-			thread.join();
-		}
-
-		ASSERT_EQ(completion_count.load(), 6);
-	}
-
-	TEST_F(
-		TextManagerTest,
 		Should_HandleReplaceTextTokens_WithEmptyInputAndNonEmptyDictionary)
 	{
 		std::unordered_map<std::string, std::string> dictionary{

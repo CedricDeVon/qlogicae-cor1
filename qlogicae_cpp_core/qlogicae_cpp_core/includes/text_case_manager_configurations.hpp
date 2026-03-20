@@ -13,24 +13,15 @@ namespace
 	public:
 		bool
 			is_specified_length_enabled =
-				default_configurations
-					.is_specified_length_enabled;			
+				false;			
 
 		size_t
 			specified_length =
-				default_configurations
-					.specified_length;
+				128;
 
 		TextCase
 			target_type =
-				default_configurations
-					.target_type;
-
-		static TextCaseManagerConfigurations
-			initial_configurations;
-
-		static TextCaseManagerConfigurations
-			default_configurations;
+				TextCase::NONE;
 
 		TextCaseManagerConfigurations();
 	};

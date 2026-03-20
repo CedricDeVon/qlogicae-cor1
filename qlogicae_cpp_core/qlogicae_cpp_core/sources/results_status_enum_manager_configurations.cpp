@@ -9,18 +9,6 @@ namespace
 		::ResultsStatusEnumManagerConfigurations() :
 			AbstractConfigurations<ResultsStatusEnumManagerConfigurations>()
 	{
-		type =
-			ResultsStatus
-				::GOOD;
+		
 	}
-
-	ResultsStatusEnumManagerConfigurations
-		ResultsStatusEnumManagerConfigurations
-			::initial_configurations;
-
-	ResultsStatusEnumManagerConfigurations
-		ResultsStatusEnumManagerConfigurations
-			::default_configurations =
-				ResultsStatusEnumManagerConfigurations
-					::initial_configurations;
 }

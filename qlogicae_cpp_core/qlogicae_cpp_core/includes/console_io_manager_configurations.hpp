@@ -10,12 +10,6 @@ namespace
 			AbstractConfigurations<ConsoleIoManagerConfigurations>
     {
 	public:			
-		static ConsoleIoManagerConfigurations
-			initial_configurations;
-
-		static ConsoleIoManagerConfigurations
-			default_configurations;
-
 		ConsoleIoManagerConfigurations();
     };
 }

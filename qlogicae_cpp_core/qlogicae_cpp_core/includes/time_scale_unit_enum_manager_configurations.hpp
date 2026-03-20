@@ -13,14 +13,8 @@ namespace
 	public:	
 		TimeScaleUnit
 			type =
-				default_configurations
-					.type;
-
-		static TimeScaleUnitEnumManagerConfigurations
-			initial_configurations;
-
-		static TimeScaleUnitEnumManagerConfigurations
-			default_configurations;
+				TimeScaleUnit
+					::SECONDS;
 
 		TimeScaleUnitEnumManagerConfigurations();
 	};

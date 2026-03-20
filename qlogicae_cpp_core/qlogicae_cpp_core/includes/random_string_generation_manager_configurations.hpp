@@ -13,19 +13,12 @@ namespace
 	public:
 		CharacterDomain
 			character_domain =
-				default_configurations
-					.character_domain;
+				CharacterDomain
+					::ASCII_PRINTABLE;
 
 		size_t
 			length =
-				default_configurations
-					.length;
-
-		static RandomStringGenerationManagerConfigurations
-			initial_configurations;
-
-		static RandomStringGenerationManagerConfigurations
-			default_configurations;
+				32;
 
 		RandomStringGenerationManagerConfigurations();
     };

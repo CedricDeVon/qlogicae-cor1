@@ -11,15 +11,5 @@ namespace
 	{
 		
 	}
-
-	ExcelFileIoManagerConfigurations
-		ExcelFileIoManagerConfigurations
-			::initial_configurations;
-
-	ExcelFileIoManagerConfigurations
-		ExcelFileIoManagerConfigurations
-			::default_configurations =
-				ExcelFileIoManagerConfigurations
-					::initial_configurations;
 }
 

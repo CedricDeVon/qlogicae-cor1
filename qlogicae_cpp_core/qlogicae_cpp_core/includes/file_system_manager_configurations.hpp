@@ -12,14 +12,7 @@ namespace
 	public:
 		bool
 			is_recursive =
-				default_configurations
-					.is_recursive;
-
-		static FileSystemManagerConfigurations
-			initial_configurations;
-
-		static FileSystemManagerConfigurations
-			default_configurations;
+				true;
 
 		FileSystemManagerConfigurations();
     };

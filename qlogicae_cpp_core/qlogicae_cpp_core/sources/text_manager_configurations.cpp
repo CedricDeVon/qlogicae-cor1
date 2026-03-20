@@ -9,26 +9,6 @@ namespace
 		::TextManagerConfigurations() :
 			AbstractConfigurations<TextManagerConfigurations>()
 	{
-		replace_text_tokens_dictionary =
-			{};
-
-		split_text_delimeter =
-			",";
-
-		is_specified_length_enabled =
-			false;
-
-		specified_length =
-			128;
+		
 	}
-
-	TextManagerConfigurations
-		TextManagerConfigurations
-			::initial_configurations;
-
-	TextManagerConfigurations
-		TextManagerConfigurations
-			::default_configurations =
-				TextManagerConfigurations
-					::initial_configurations;
 }

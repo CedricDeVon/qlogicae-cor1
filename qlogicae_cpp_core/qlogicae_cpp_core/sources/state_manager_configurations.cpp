@@ -11,14 +11,4 @@ namespace
 	{
 		
 	}
-
-	StateManagerConfigurations
-		StateManagerConfigurations
-			::initial_configurations;
-
-	StateManagerConfigurations
-		StateManagerConfigurations
-			::default_configurations =
-				StateManagerConfigurations
-					::initial_configurations;
 }

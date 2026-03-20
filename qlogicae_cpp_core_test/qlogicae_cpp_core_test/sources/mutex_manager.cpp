@@ -139,13 +139,6 @@ namespace
         }
     }
 
-    TEST_F(MutexManagerTest, Should_HandleEmptyConfiguration_When_DefaultValuesUsed)
-    {
-        MutexManagerConfigurations empty_configuration;
-        ASSERT_EQ(empty_configuration.name, MutexManagerConfigurations::default_configurations.name);
-        ASSERT_EQ(empty_configuration.name, MutexManagerConfigurations::default_configurations.name);
-    }
-
     TEST_F(MutexManagerTest, Should_BeExceptionSafe_When_ConstructThrows)
     {
         try

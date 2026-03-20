@@ -11,14 +11,4 @@ namespace
 	{
 		
 	}
-
-	ConsoleIoManagerConfigurations
-		ConsoleIoManagerConfigurations
-			::initial_configurations;
-
-	ConsoleIoManagerConfigurations
-		ConsoleIoManagerConfigurations
-			::default_configurations =
-				ConsoleIoManagerConfigurations
-					::initial_configurations;
 }

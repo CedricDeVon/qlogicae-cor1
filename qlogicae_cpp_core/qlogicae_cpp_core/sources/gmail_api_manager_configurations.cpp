@@ -48,14 +48,4 @@ namespace
 		custom_headers =
 			{};
 	}
-
-	GmailApiManagerConfigurations
-		GmailApiManagerConfigurations
-			::initial_configurations;
-
-	GmailApiManagerConfigurations
-		GmailApiManagerConfigurations
-			::default_configurations =
-				GmailApiManagerConfigurations
-					::initial_configurations;
 }

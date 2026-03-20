@@ -10,12 +10,6 @@ namespace
 			AbstractConfigurations<RandomCharacterGenerationManagerConfigurations>
     {
 	public:
-		static RandomCharacterGenerationManagerConfigurations
-			initial_configurations;
-
-		static RandomCharacterGenerationManagerConfigurations
-			default_configurations;
-
 		RandomCharacterGenerationManagerConfigurations();
     };
 }

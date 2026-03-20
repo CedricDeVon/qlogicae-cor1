@@ -11,14 +11,4 @@ namespace
 	{
 		
 	}
-
-	QLogicaeServiceApplicationManagerConfigurations
-		QLogicaeServiceApplicationManagerConfigurations
-			::initial_configurations;
-
-	QLogicaeServiceApplicationManagerConfigurations
-		QLogicaeServiceApplicationManagerConfigurations
-			::default_configurations =
-				QLogicaeServiceApplicationManagerConfigurations
-					::initial_configurations;
 }

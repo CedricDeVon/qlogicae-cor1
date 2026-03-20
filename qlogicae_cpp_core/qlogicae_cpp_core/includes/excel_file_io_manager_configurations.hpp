@@ -12,19 +12,11 @@ namespace
 	public:
 		std::string
 			file_path =
-				default_configurations
-					.file_path;
+				"";
 
 		std::string
 			worksheet_name =
-				default_configurations
-					.worksheet_name;
-
-		static ExcelFileIoManagerConfigurations
-			initial_configurations;
-
-		static ExcelFileIoManagerConfigurations
-			default_configurations;
+				"";
 
 		ExcelFileIoManagerConfigurations();
     };    

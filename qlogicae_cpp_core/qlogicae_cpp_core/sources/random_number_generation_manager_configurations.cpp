@@ -11,15 +11,5 @@ namespace
 	{
 		
 	}
-
-	RandomNumberGenerationManagerConfigurations
-		RandomNumberGenerationManagerConfigurations
-			::initial_configurations;
-
-	RandomNumberGenerationManagerConfigurations
-		RandomNumberGenerationManagerConfigurations
-			::default_configurations =
-				RandomNumberGenerationManagerConfigurations
-					::initial_configurations;
 }
 

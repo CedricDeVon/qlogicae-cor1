@@ -11,14 +11,4 @@ namespace
 	{
 		
 	}
-
-	PdfFileIoManagerConfigurations
-		PdfFileIoManagerConfigurations
-			::initial_configurations;
-
-	PdfFileIoManagerConfigurations
-		PdfFileIoManagerConfigurations
-			::default_configurations =
-				PdfFileIoManagerConfigurations
-					::initial_configurations;
 }

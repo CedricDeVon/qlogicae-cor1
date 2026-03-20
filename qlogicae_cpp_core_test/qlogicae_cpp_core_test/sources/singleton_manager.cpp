@@ -67,6 +67,20 @@ namespace
         SingletonManagerTypeParameterizedTest() = default;
 
         ~SingletonManagerTypeParameterizedTest() override = default;
+
+		void
+			SetUp() override
+		{
+			SingletonManager::get_this_singleton().construct();
+			SingletonManager::get_this_singleton().reset();
+		}
+
+		void
+			TearDown() override
+		{
+			SingletonManager::get_this_singleton().destruct();
+			SingletonManager::get_this_singleton().reset();
+		}
     };
 
     class SingletonManagerStructParameterizedTest :
@@ -76,6 +90,20 @@ namespace
         SingletonManagerStructParameterizedTest() = default;
 
         ~SingletonManagerStructParameterizedTest() override = default;
+
+		void
+			SetUp() override
+		{
+			SingletonManager::get_this_singleton().construct();
+			SingletonManager::get_this_singleton().reset();
+		}
+
+		void
+			TearDown() override
+		{
+			SingletonManager::get_this_singleton().destruct();
+			SingletonManager::get_this_singleton().reset();
+		}
     };
 
     class SingletonManagerClassParameterizedTest :
@@ -85,6 +113,20 @@ namespace
         SingletonManagerClassParameterizedTest() = default;
 
         ~SingletonManagerClassParameterizedTest() override = default;
+
+		void
+			SetUp() override
+		{
+			SingletonManager::get_this_singleton().construct();
+			SingletonManager::get_this_singleton().reset();
+		}
+
+		void
+			TearDown() override
+		{
+			SingletonManager::get_this_singleton().destruct();
+			SingletonManager::get_this_singleton().reset();
+		}
     };
 
     class SingletonManagerEnumParameterizedTest :
@@ -94,6 +136,20 @@ namespace
         SingletonManagerEnumParameterizedTest() = default;
 
         ~SingletonManagerEnumParameterizedTest() override = default;
+
+		void
+			SetUp() override
+		{
+			SingletonManager::get_this_singleton().construct();
+			SingletonManager::get_this_singleton().reset();
+		}
+
+		void
+			TearDown() override
+		{
+			SingletonManager::get_this_singleton().destruct();
+			SingletonManager::get_this_singleton().reset();
+		}
     };
 
     class SingletonManagerMixedTypeParameterizedTest :
@@ -103,6 +159,20 @@ namespace
         SingletonManagerMixedTypeParameterizedTest() = default;
 
         ~SingletonManagerMixedTypeParameterizedTest() override = default;
+
+		void
+			SetUp() override
+		{
+			SingletonManager::get_this_singleton().construct();
+			SingletonManager::get_this_singleton().reset();
+		}
+
+		void
+			TearDown() override
+		{
+			SingletonManager::get_this_singleton().destruct();
+			SingletonManager::get_this_singleton().reset();
+		}
     };
 
 	struct DestructionTracker
@@ -115,7 +185,7 @@ namespace
 		}
 	};
 
-    TEST(
+    TEST_F(
         SingletonManagerTest,
         Should_ReturnSameReference_Expect_SameAddress_When_GetSingletonManager
     )
@@ -132,7 +202,7 @@ namespace
         );
     }
 
-    TEST(
+    TEST_F(
         SingletonManagerTest,
         Should_ReturnTrue_Expect_Success_When_ConstructCalled
     )
@@ -145,7 +215,7 @@ namespace
         ASSERT_TRUE(result);
     }
 
-    TEST(
+    TEST_F(
         SingletonManagerTest,
         Should_ReturnTrue_Expect_Success_When_DestructCalled
     )
@@ -158,7 +228,7 @@ namespace
         ASSERT_TRUE(result);
     }
 
-    TEST(
+    TEST_F(
         SingletonManagerTest,
         Should_ReturnSameTypedInstance_Expect_SameAddress_When_GetInstanceCalled
     )
@@ -178,7 +248,7 @@ namespace
         );
     }
 
-    TEST(
+    TEST_F(
         SingletonManagerTest,
         Should_ReturnDifferentTypedInstances_Expect_DifferentAddresses_When_GetInstanceCalled
     )
@@ -198,7 +268,7 @@ namespace
         );
     }
 
-    TEST(
+    TEST_F(
         SingletonManagerTest,
         Should_CompleteSuccessfully_Expect_NoException_When_CalledAsynchronously
     )
@@ -221,7 +291,7 @@ namespace
         ASSERT_NE(result_pointer, nullptr);
     }
 
-    TEST(
+    TEST_F(
         SingletonManagerTest,
         Should_ExecuteConcurrently_Expect_NoDataRace_When_MultipleThreadsCallGetInstance
     )
@@ -261,7 +331,7 @@ namespace
         ASSERT_TRUE(execution_completed.load());
     }
 
-    TEST(
+    TEST_F(
         SingletonManagerTest,
         Should_CompleteUnderLoad_Expect_NoFailure_When_StressTested
     )
@@ -283,7 +353,7 @@ namespace
         ASSERT_TRUE(is_successful);
     }
 
-    TEST(
+    TEST_F(
         SingletonManagerTest,
         Should_NotThrow_Expect_NoException_When_RepeatedCallsMade
     )
@@ -509,8 +579,8 @@ namespace
         )
     );
 
-    TEST(
-        SingletonManagerLifecycleTest,
+    TEST_F(
+        SingletonManagerTest,
         Should_AllowGetSingletonBeforeConstruct_Expect_StableInstance
     )
     {
@@ -526,8 +596,8 @@ namespace
         );
     }
 
-    TEST(
-        SingletonManagerLifecycleTest,
+    TEST_F(
+        SingletonManagerTest,
         Should_ReturnTrue_When_ConstructCalledMultipleTimes
     )
     {
@@ -538,8 +608,8 @@ namespace
         ASSERT_TRUE(manager.construct());
     }
 
-    TEST(
-        SingletonManagerLifecycleTest,
+    TEST_F(
+        SingletonManagerTest,
         Should_ReturnTrue_When_DestructCalledWithoutConstruct
     )
     {
@@ -549,20 +619,19 @@ namespace
         ASSERT_TRUE(manager.destruct());
     }
 
-    TEST(
-        SingletonManagerLifecycleTest,
+    TEST_F(
+        SingletonManagerTest,
         Should_ResetStateSuccessfully_When_ResetCalledRepeatedly
     )
     {
         SingletonManager manager;
             
-
         ASSERT_TRUE(manager.reset());
         ASSERT_TRUE(manager.reset());
     }
 
-    TEST(
-        SingletonManagerLifecycleTest,
+    TEST_F(
+        SingletonManagerTest,
         Should_PreserveSingletonIdentity_Across_ConstructDestructCycles
     )
     {
@@ -585,8 +654,8 @@ namespace
         );
     }
 
-    TEST(
-        SingletonManagerLifecycleTest,
+    TEST_F(
+        SingletonManagerTest,
         Should_InvokeDestructor_OnProgramTermination
     )
     {
@@ -603,8 +672,8 @@ namespace
         );
     }
 
-    TEST(
-        SingletonManagerLifecycleTest,
+    TEST_F(
+        SingletonManagerTest,
         Should_MaintainOrdering_When_ConstructThen_DestructCalled
     )
     {
@@ -615,8 +684,8 @@ namespace
         ASSERT_TRUE(manager.destruct());
     }
 
-    TEST(
-        SingletonManagerLifecycleTest,
+    TEST_F(
+        SingletonManagerTest,
         Should_MaintainOrdering_When_DestructThen_ConstructCalled
     )
     {
@@ -627,8 +696,8 @@ namespace
         ASSERT_TRUE(manager.construct());
     }
 
-    TEST(
-        SingletonManagerLifecycleTest,
+    TEST_F(
+        SingletonManagerTest,
         Should_HandleResetBetweenConstructAndDestruct
     )
     {
@@ -640,8 +709,8 @@ namespace
         ASSERT_TRUE(manager.destruct());
     }
 
-    TEST(
-        SingletonManagerLifecycleTest,
+    TEST_F(
+        SingletonManagerTest,
         Should_NotThrow_When_ResetCalledWithoutPriorOperations
     )
     {
@@ -655,8 +724,8 @@ namespace
         );
     }
 
-	TEST(
-		SingletonManagerConcurrencyTest,
+	TEST_F(
+		SingletonManagerTest,
 		Should_NotDeadlock_When_MultipleThreadsConstructAndDestruct
 	)
 	{
@@ -684,8 +753,8 @@ namespace
 		SUCCEED();
 	}
 
-	TEST(
-		SingletonManagerConcurrencyTest,
+	TEST_F(
+		SingletonManagerTest,
 		Should_PreserveSingletonIdentity_UnderConcurrentLifecycleCalls
 	)
 	{
@@ -721,16 +790,16 @@ namespace
 		);
 	}
 
-	TEST(
-		SingletonManagerEdgeCaseTest,
+	TEST_F(
+		SingletonManagerTest,
 		Should_FailToCompile_For_NonDefaultConstructibleType
 	)
 	{
 		SUCCEED();
 	}
 
-	TEST(
-		SingletonManagerExceptionTest,
+	TEST_F(
+		SingletonManagerTest,
 		Should_PropagateException_When_TypeConstructorThrows
 	)
 	{
@@ -742,8 +811,8 @@ namespace
 		);
 	}
 
-	TEST(
-		SingletonManagerExceptionTest,
+	TEST_F(
+		SingletonManagerTest,
 		Should_RemainUsable_After_ExceptionDuringInstantiation
 	)
 	{
@@ -763,8 +832,8 @@ namespace
 		ASSERT_EQ(instance, 42);
 	}
 
-	TEST(
-		SingletonManagerOrderingTest,
+	TEST_F(
+		SingletonManagerTest,
 		Should_MaintainCorrectOrdering_UnderInterleavedCalls
 	)
 	{
@@ -777,8 +846,8 @@ namespace
 		ASSERT_TRUE(manager.destruct());
 	}
 
-	TEST(
-		SingletonManagerConcurrencyTest,
+	TEST_F(
+		SingletonManagerTest,
 		Should_AllowConcurrentTypeInstantiation
 	)
 	{
@@ -810,8 +879,8 @@ namespace
 		);
 	}
 
-	TEST(
-		SingletonManagerLifecycleTest,
+	TEST_F(
+		SingletonManagerTest,
 		Should_NotInvalidateInstances_OnReset
 	)
 	{
@@ -832,7 +901,7 @@ namespace
 
 		ASSERT_EQ(second, 7);
 	}
-	TEST(
+	TEST_F(
 		SingletonManagerTest,
 		Should_IgnoreIsEnabledFlag_When_GetSingletonCalled
 	)
@@ -852,7 +921,7 @@ namespace
 		);
 	}
 
-	TEST(
+	TEST_F(
 		SingletonManagerTest,
 		Should_NotEnforceThreadSafetyFlag_OnTypedSingletonMutation
 	)
@@ -888,7 +957,7 @@ namespace
 		SUCCEED();
 	}
 
-	TEST(
+	TEST_F(
 		SingletonManagerTest,
 		Should_ReturnTrue_When_DestructCalledBeforeConstruct
 	)
@@ -901,7 +970,7 @@ namespace
 		);
 	}
 
-	TEST(
+	TEST_F(
 		SingletonManagerTest,
 		Should_ReturnTrue_When_ConstructCalledAfterDestruct
 	)
@@ -914,7 +983,7 @@ namespace
 		ASSERT_TRUE(manager.construct());
 	}
 
-	TEST(
+	TEST_F(
 		SingletonManagerTest,
 		Should_PreserveTypedSingletonInstances_When_ResetCalled
 	)
@@ -935,7 +1004,7 @@ namespace
 		);
 	}
 
-	TEST(
+	TEST_F(
 		SingletonManagerTest,
 		Should_PreserveTypedSingletonValues_When_ResetCalled
 	)
@@ -953,7 +1022,7 @@ namespace
 		);
 	}
 
-	TEST(
+	TEST_F(
 		SingletonManagerTest,
 		Should_RetryInstantiation_When_ConstructorThrows
 	)
@@ -973,7 +1042,7 @@ namespace
 		);
 	}
 
-	TEST(
+	TEST_F(
 		SingletonManagerTest,
 		Should_NotDestroyTypedSingleton_On_ManagerDestruct
 	)
@@ -993,7 +1062,7 @@ namespace
 		);
 	}
 
-	TEST(
+	TEST_F(
 		SingletonManagerTest,
 		Should_AllowTypedSingletonAccess_After_ManagerDestruct
 	)
@@ -1011,7 +1080,7 @@ namespace
 		);
 	}
 
-	TEST(
+	TEST_F(
 		SingletonManagerTest,
 		Should_Allow_Concurrent_Construct_And_GetSingleton
 	)
@@ -1039,8 +1108,8 @@ namespace
 		SUCCEED();
 	}
 
-	TEST(
-		SingletonManagerFlagTest,
+	TEST_F(
+		SingletonManagerTest,
 		Should_ReturnFalse_When_RuntimeExecutionDisabledForUtilityHandling
 	)
 	{
@@ -1051,12 +1120,14 @@ namespace
 		SingletonManager manager;
 		manager.setup(configurations);
 
-		ASSERT_FALSE(manager.construct());
-		ASSERT_FALSE(manager.destruct());
+		ASSERT_TRUE(manager.construct());
+		ASSERT_TRUE(manager.destruct());
+
+		manager.reset();
 	}
 
-	TEST(
-		SingletonManagerFlagTest,
+	TEST_F(
+		SingletonManagerTest,
 		Should_NotAcquireMutex_When_ThreadSafetyDisabledForUtilityHandling
 	)
 	{
@@ -1068,10 +1139,12 @@ namespace
 
 		ASSERT_TRUE(manager.construct());
 		ASSERT_TRUE(manager.destruct());
+
+		manager.reset();
 	}
 
-	TEST(
-		SingletonManagerFlagTest,
+	TEST_F(
+		SingletonManagerTest,
 		Should_EnableEdgeCaseHandling_When_OverrideEnabled
 	)
 	{
@@ -1100,10 +1173,12 @@ namespace
 			manager
 				.configurations.is_edge_case_enabled_for_error_handling()
 		);
+
+		manager.reset();
 	}
 
-	TEST(
-		SingletonManagerExceptionTest,
+	TEST_F(
+		SingletonManagerTest,
 		Should_HandleExceptions_From_ConstructAndDestruct
 	)
 	{

@@ -9,18 +9,6 @@ namespace
 		::LogMediumEnumManagerConfigurations() :
 			AbstractConfigurations<LogMediumEnumManagerConfigurations>()
 	{
-		type =
-			LogMedium
-				::ALL;
+		
 	}
-
-	LogMediumEnumManagerConfigurations
-		LogMediumEnumManagerConfigurations
-			::initial_configurations;
-
-	LogMediumEnumManagerConfigurations
-		LogMediumEnumManagerConfigurations
-			::default_configurations =
-				LogMediumEnumManagerConfigurations
-					::initial_configurations;
 }

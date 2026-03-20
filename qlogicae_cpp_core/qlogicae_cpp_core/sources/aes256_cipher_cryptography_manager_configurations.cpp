@@ -11,14 +11,4 @@ namespace
 	{
 		
 	}
-
-	Aes256CipherCryptographyManagerConfigurations
-		Aes256CipherCryptographyManagerConfigurations
-			::initial_configurations;
-
-	Aes256CipherCryptographyManagerConfigurations
-		Aes256CipherCryptographyManagerConfigurations
-			::default_configurations =
-				Aes256CipherCryptographyManagerConfigurations
-					::initial_configurations;
 }

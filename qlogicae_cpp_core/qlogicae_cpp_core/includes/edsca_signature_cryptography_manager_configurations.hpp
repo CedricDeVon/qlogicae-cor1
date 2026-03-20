@@ -10,12 +10,6 @@ namespace
 			AbstractConfigurations<EdscaSignatureCryptographyManagerConfigurations>
     {
 	public:
-		static EdscaSignatureCryptographyManagerConfigurations
-			initial_configurations;
-
-		static EdscaSignatureCryptographyManagerConfigurations
-			default_configurations;
-
 		EdscaSignatureCryptographyManagerConfigurations();
     };    
 }

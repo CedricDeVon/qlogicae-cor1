@@ -11,14 +11,4 @@ namespace
 	{
 		
 	}
-
-	QLogicaeDesktopApplicationManagerConfigurations
-		QLogicaeDesktopApplicationManagerConfigurations
-			::initial_configurations;
-
-	QLogicaeDesktopApplicationManagerConfigurations
-		QLogicaeDesktopApplicationManagerConfigurations
-			::default_configurations =
-				QLogicaeDesktopApplicationManagerConfigurations
-					::initial_configurations;
 }

@@ -9,21 +9,7 @@ namespace
 		::FileSystemManagerConfigurations() :
 			AbstractConfigurations<FileSystemManagerConfigurations>()
 	{
-		is_feature_thread_safety_handling_enabled =
-			true;
-
-		is_recursive =
-			true;
+		
 	}
-
-	FileSystemManagerConfigurations
-		FileSystemManagerConfigurations
-			::initial_configurations;
-
-	FileSystemManagerConfigurations
-		FileSystemManagerConfigurations
-			::default_configurations =
-				FileSystemManagerConfigurations
-					::initial_configurations;
 }
 

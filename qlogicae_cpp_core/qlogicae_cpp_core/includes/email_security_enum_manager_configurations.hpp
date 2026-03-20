@@ -13,14 +13,8 @@ namespace
 	public:	
 		EmailSecurity
 			type =
-				default_configurations
-					.type;
-
-		static EmailSecurityEnumManagerConfigurations
-			initial_configurations;
-
-		static EmailSecurityEnumManagerConfigurations
-			default_configurations;
+				EmailSecurity
+					::SSL;
 
 		EmailSecurityEnumManagerConfigurations();
 	};

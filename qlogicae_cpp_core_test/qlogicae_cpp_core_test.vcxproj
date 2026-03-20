@@ -251,7 +251,6 @@
     <ClCompile Include="qlogicae_cpp_core_test\sources\application.cpp" />
     <ClCompile Include="qlogicae_cpp_core_test\sources\argon2id_hash_cryptography_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core_test\sources\assembly.cpp" />
-    <ClCompile Include="qlogicae_cpp_core_test\sources\asynchronous_batch_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core_test\sources\asynchronous_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core_test\sources\bcrypt_hash_cryptography_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core_test\sources\binary_file_io_manager.cpp" />

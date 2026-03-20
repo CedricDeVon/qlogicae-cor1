@@ -9,17 +9,6 @@ namespace
 		::UuidManagerConfigurations() :
 			AbstractConfigurations<UuidManagerConfigurations>()
 	{
-		type =
-			Uuid::V4;
+		
 	}
-
-	UuidManagerConfigurations
-		UuidManagerConfigurations
-			::initial_configurations;
-
-	UuidManagerConfigurations
-		UuidManagerConfigurations
-			::default_configurations =
-				UuidManagerConfigurations
-					::initial_configurations;
 }

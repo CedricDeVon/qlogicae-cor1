@@ -11,14 +11,4 @@ namespace
 	{
 		
 	}
-
-    AsynchronousBatchManagerConfigurations
-		AsynchronousBatchManagerConfigurations
-			::initial_configurations;
-
-	AsynchronousBatchManagerConfigurations
-		AsynchronousBatchManagerConfigurations
-			::default_configurations =
-				AsynchronousBatchManagerConfigurations
-					::initial_configurations;
 }

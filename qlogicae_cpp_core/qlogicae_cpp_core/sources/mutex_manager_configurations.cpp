@@ -9,20 +9,6 @@ namespace
 		::MutexManagerConfigurations() :
 			AbstractConfigurations<MutexManagerConfigurations>()
 	{
-		is_feature_thread_safety_handling_enabled =
-			true;
-
-		name =
-			"static";
+		
 	}
-
-	MutexManagerConfigurations
-		MutexManagerConfigurations
-			::initial_configurations;
-
-	MutexManagerConfigurations
-		MutexManagerConfigurations
-			::default_configurations =
-				MutexManagerConfigurations
-					::initial_configurations;
 }

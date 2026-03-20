@@ -10,12 +10,6 @@ namespace
 			AbstractConfigurations<EntityActivationManagerConfigurations>
     {
 	public:
-		static EntityActivationManagerConfigurations
-			initial_configurations;
-
-		static EntityActivationManagerConfigurations
-			default_configurations;
-
 		EntityActivationManagerConfigurations();
     };    
 }

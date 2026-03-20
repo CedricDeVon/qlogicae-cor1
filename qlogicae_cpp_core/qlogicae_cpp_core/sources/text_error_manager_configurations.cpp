@@ -9,30 +9,7 @@ namespace
 		::TextErrorManagerConfigurations() :
 			AbstractConfigurations<TextErrorManagerConfigurations>()
 	{
-		is_specified_length_enabled =
-			false;
-
-		specified_length =
-			128;
-
-		title =
-			"Exception";
-
-		origin =
-			"";
-
-		separator =
-			"-";
+		
 	}
-
-	TextErrorManagerConfigurations
-		TextErrorManagerConfigurations
-			::initial_configurations;
-
-	TextErrorManagerConfigurations
-		TextErrorManagerConfigurations
-			::default_configurations =
-				TextErrorManagerConfigurations
-					::initial_configurations;
 }
 

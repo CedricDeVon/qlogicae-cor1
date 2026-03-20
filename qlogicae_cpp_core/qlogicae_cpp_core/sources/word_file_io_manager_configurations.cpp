@@ -11,14 +11,4 @@ namespace
 	{
 		
 	}
-
-	WordFileIoManagerConfigurations
-		WordFileIoManagerConfigurations
-			::initial_configurations;
-
-	WordFileIoManagerConfigurations
-		WordFileIoManagerConfigurations
-			::default_configurations =
-				WordFileIoManagerConfigurations
-					::initial_configurations;
 }

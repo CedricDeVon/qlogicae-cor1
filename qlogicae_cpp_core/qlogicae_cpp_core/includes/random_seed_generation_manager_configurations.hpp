@@ -10,12 +10,6 @@ namespace
 			AbstractConfigurations<RandomSeedGenerationManagerConfigurations>
     {
 	public:
-		static RandomSeedGenerationManagerConfigurations
-			initial_configurations;
-
-		static RandomSeedGenerationManagerConfigurations
-			default_configurations;
-
 		RandomSeedGenerationManagerConfigurations();
     };
 }

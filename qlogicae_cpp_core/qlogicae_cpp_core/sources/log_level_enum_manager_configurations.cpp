@@ -9,18 +9,6 @@ namespace
 		::LogLevelEnumManagerConfigurations() :
 			AbstractConfigurations<LogLevelEnumManagerConfigurations>()
 	{
-		type =
-			LogLevel
-				::INFO;
+		
 	}
-
-	LogLevelEnumManagerConfigurations
-		LogLevelEnumManagerConfigurations
-			::initial_configurations;
-
-	LogLevelEnumManagerConfigurations
-		LogLevelEnumManagerConfigurations
-			::default_configurations =
-				LogLevelEnumManagerConfigurations
-					::initial_configurations;
 }

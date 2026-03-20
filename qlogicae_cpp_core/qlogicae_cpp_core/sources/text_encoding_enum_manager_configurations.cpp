@@ -9,18 +9,6 @@ namespace
 		::TextEncodingEnumManagerConfigurations() :
 			AbstractConfigurations<TextEncodingEnumManagerConfigurations>()
 	{
-		type =
-			TextEncoding
-				::NONE;
+		
 	}
-
-	TextEncodingEnumManagerConfigurations
-		TextEncodingEnumManagerConfigurations
-			::initial_configurations;
-
-	TextEncodingEnumManagerConfigurations
-		TextEncodingEnumManagerConfigurations
-			::default_configurations =
-				TextEncodingEnumManagerConfigurations
-					::initial_configurations;
 }

@@ -13,14 +13,8 @@ namespace
 	public:
 		TextEncoding
 			type =
-				default_configurations
-					.type;
-
-		static TextEncodingEnumManagerConfigurations
-			initial_configurations;
-
-		static TextEncodingEnumManagerConfigurations
-			default_configurations;
+				TextEncoding
+					::NONE;
 
 		TextEncodingEnumManagerConfigurations();
 	};

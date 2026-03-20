@@ -9,19 +9,7 @@ namespace
 		::CharacterDomainEnumManagerConfigurations() :
 			AbstractConfigurations<CharacterDomainEnumManagerConfigurations>()
 	{
-		type =
-			CharacterDomain
-				::ALPHABETIC;
+		
 	}
-
-	CharacterDomainEnumManagerConfigurations
-		CharacterDomainEnumManagerConfigurations
-			::initial_configurations;
-
-	CharacterDomainEnumManagerConfigurations
-		CharacterDomainEnumManagerConfigurations
-			::default_configurations =
-				CharacterDomainEnumManagerConfigurations
-					::initial_configurations;
 }
 

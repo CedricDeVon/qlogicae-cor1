@@ -13,14 +13,8 @@ namespace
 	public:	
 		ResultsStatus
 			type =
-				default_configurations
-					.type;
-
-		static ResultsStatusEnumManagerConfigurations
-			initial_configurations;
-
-		static ResultsStatusEnumManagerConfigurations
-			default_configurations;
+				ResultsStatus
+					::GOOD;
 
 		ResultsStatusEnumManagerConfigurations();
 	};

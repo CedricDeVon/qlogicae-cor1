@@ -9,13 +9,7 @@ namespace
 		WordFileIoManagerConfigurations :
 			AbstractConfigurations<WordFileIoManagerConfigurations>
     {
-	public:
-		static WordFileIoManagerConfigurations
-			initial_configurations;
-
-		static WordFileIoManagerConfigurations
-			default_configurations;
-
+	public:		
 		WordFileIoManagerConfigurations();
     };    
 }

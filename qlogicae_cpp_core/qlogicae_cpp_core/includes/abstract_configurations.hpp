@@ -8,98 +8,64 @@ namespace
 	{
 	public:
 		bool
-			is_runtime_execution_handling_override_enabled =
-				DerivedConfigurations
-					::default_configurations
-						.is_runtime_execution_handling_override_enabled;
-
-		bool
-			is_runtime_execution_handling_enabled =
-				DerivedConfigurations
-					::default_configurations
-						.is_runtime_execution_handling_enabled;
-
-		bool
-			is_utility_runtime_execution_handling_enabled =
-				DerivedConfigurations
-					::default_configurations
-						.is_utility_runtime_execution_handling_enabled;
-
-		bool
-			is_feature_runtime_execution_handling_enabled =
-				DerivedConfigurations
-					::default_configurations
-						.is_feature_runtime_execution_handling_enabled;
-
-		bool
-			is_error_runtime_execution_handling_enabled =
-				DerivedConfigurations
-					::default_configurations
-						.is_error_runtime_execution_handling_enabled;
-
-
-
-		bool
 			is_edge_case_handling_override_enabled =
-				DerivedConfigurations
-					::default_configurations
-						.is_edge_case_handling_override_enabled;
+				false;
 
 		bool
 			is_edge_case_handling_enabled =
-				DerivedConfigurations
-					::default_configurations
-						.is_edge_case_handling_enabled;
+				true;
 
 		bool
 			is_utility_edge_case_handling_enabled =
-				DerivedConfigurations
-					::default_configurations
-						.is_utility_edge_case_handling_enabled;
+				true;
 
 		bool
 			is_feature_edge_case_handling_enabled =
-				DerivedConfigurations
-					::default_configurations
-						.is_feature_edge_case_handling_enabled;
+				true;
 
 		bool
 			is_error_edge_case_handling_enabled =
-				DerivedConfigurations
-					::default_configurations
-						.is_error_edge_case_handling_enabled;
+				true;
 
+		bool
+			is_runtime_execution_handling_override_enabled =
+				false;
 
+		bool
+			is_runtime_execution_handling_enabled =
+				true;
+
+		bool
+			is_utility_runtime_execution_handling_enabled =
+				true;
+
+		bool
+			is_feature_runtime_execution_handling_enabled =
+				true;
+
+		bool
+			is_error_runtime_execution_handling_enabled =
+				true;
 
 		bool
 			is_thread_safety_handling_override_enabled =
-				DerivedConfigurations
-					::default_configurations
-						.is_thread_safety_handling_override_enabled;
-	
+				false;
+
 		bool
 			is_thread_safety_handling_enabled =
-				DerivedConfigurations
-					::default_configurations
-						.is_thread_safety_handling_enabled;
-
+				true;
+			
 		bool
 			is_utility_thread_safety_handling_enabled =
-				DerivedConfigurations
-					::default_configurations
-						.is_utility_thread_safety_handling_enabled;
-
+				true;
+			
 		bool
 			is_feature_thread_safety_handling_enabled =
-				DerivedConfigurations
-					::default_configurations
-						.is_feature_thread_safety_handling_enabled;
-
+				true;
+			
 		bool
 			is_error_thread_safety_handling_enabled =
-				DerivedConfigurations
-					::default_configurations
-						.is_error_thread_safety_handling_enabled;
+				true;
 
 		AbstractConfigurations();
 
@@ -162,50 +128,50 @@ namespace
 		AbstractConfigurations<DerivedConfigurations>
 			::AbstractConfigurations()
 	{		
-			is_edge_case_handling_override_enabled =
-				false;
+		is_edge_case_handling_override_enabled =
+			false;
 
-			is_edge_case_handling_enabled =
-				true;
+		is_edge_case_handling_enabled =
+			true;
 
-			is_utility_edge_case_handling_enabled =
-				true;
+		is_utility_edge_case_handling_enabled =
+			true;
 
-			is_feature_edge_case_handling_enabled =
-				true;
+		is_feature_edge_case_handling_enabled =
+			true;
 
-			is_error_edge_case_handling_enabled =
-				true;
+		is_error_edge_case_handling_enabled =
+			true;
 
-			is_runtime_execution_handling_override_enabled =
-				false;
+		is_runtime_execution_handling_override_enabled =
+			false;
 
-			is_runtime_execution_handling_enabled =
-				true;
+		is_runtime_execution_handling_enabled =
+			true;
 
-			is_utility_runtime_execution_handling_enabled =
-				true;
+		is_utility_runtime_execution_handling_enabled =
+			true;
 
-			is_feature_runtime_execution_handling_enabled =
-				true;
+		is_feature_runtime_execution_handling_enabled =
+			true;
 
-			is_error_runtime_execution_handling_enabled =
-				true;
+		is_error_runtime_execution_handling_enabled =
+			true;
 
-			is_thread_safety_handling_override_enabled =
-				false;
+		is_thread_safety_handling_override_enabled =
+			false;
 
-			is_thread_safety_handling_enabled =
-				true;
+		is_thread_safety_handling_enabled =
+			true;
 			
-			is_utility_thread_safety_handling_enabled =
-				true;
+		is_utility_thread_safety_handling_enabled =
+			true;
 			
-			is_feature_thread_safety_handling_enabled =
-				true;
+		is_feature_thread_safety_handling_enabled =
+			true;
 			
-			is_error_thread_safety_handling_enabled =
-				true;
+		is_error_thread_safety_handling_enabled =
+			true;
 	}
 
 	template <typename DerivedConfigurations> bool

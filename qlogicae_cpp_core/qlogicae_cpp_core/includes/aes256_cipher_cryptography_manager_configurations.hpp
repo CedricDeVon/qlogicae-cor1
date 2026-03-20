@@ -9,13 +9,7 @@ namespace
 		Aes256CipherCryptographyManagerConfigurations :
 			AbstractConfigurations<Aes256CipherCryptographyManagerConfigurations>
     {
-	public:
-		static Aes256CipherCryptographyManagerConfigurations
-			initial_configurations;
-
-		static Aes256CipherCryptographyManagerConfigurations
-			default_configurations;
-
+	public:	
 		Aes256CipherCryptographyManagerConfigurations();
     };    
 }

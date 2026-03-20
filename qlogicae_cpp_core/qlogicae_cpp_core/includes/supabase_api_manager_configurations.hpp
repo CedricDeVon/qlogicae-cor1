@@ -10,12 +10,6 @@ namespace
 			AbstractConfigurations<SupabaseApiManagerConfigurations>
 	{
 	public:
-		static SupabaseApiManagerConfigurations
-			initial_configurations;
-
-		static SupabaseApiManagerConfigurations
-			default_configurations;
-
 		SupabaseApiManagerConfigurations();
 	};
 }

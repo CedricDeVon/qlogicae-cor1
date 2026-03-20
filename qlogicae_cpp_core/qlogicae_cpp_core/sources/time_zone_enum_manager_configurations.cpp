@@ -9,18 +9,6 @@ namespace
 		::TimeZoneEnumManagerConfigurations() :
 			AbstractConfigurations<TimeZoneEnumManagerConfigurations>()
 	{
-		type =
-			TimeZone
-				::UTC;
+		
 	}
-
-	TimeZoneEnumManagerConfigurations
-		TimeZoneEnumManagerConfigurations
-			::initial_configurations;
-
-	TimeZoneEnumManagerConfigurations
-		TimeZoneEnumManagerConfigurations
-			::default_configurations =
-				TimeZoneEnumManagerConfigurations
-					::initial_configurations;
 }

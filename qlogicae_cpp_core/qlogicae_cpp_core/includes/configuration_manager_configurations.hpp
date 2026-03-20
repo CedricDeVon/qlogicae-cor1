@@ -10,12 +10,6 @@ namespace
 			AbstractConfigurations<ConfigurationManagerConfigurations>
     {
 	public:
-		static ConfigurationManagerConfigurations
-			initial_configurations;
-
-		static ConfigurationManagerConfigurations
-			default_configurations;
-
 		ConfigurationManagerConfigurations();
     };    
 }

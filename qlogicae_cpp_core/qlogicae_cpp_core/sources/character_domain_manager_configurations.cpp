@@ -9,19 +9,7 @@ namespace
 		::CharacterDomainManagerConfigurations() :
 			AbstractConfigurations<CharacterDomainManagerConfigurations>()
 	{
-		type =
-			CharacterDomain
-				::ALPHABETIC;
+		
 	}
-
-	CharacterDomainManagerConfigurations
-		CharacterDomainManagerConfigurations
-			::initial_configurations;
-
-	CharacterDomainManagerConfigurations
-		CharacterDomainManagerConfigurations
-			::default_configurations =
-				CharacterDomainManagerConfigurations
-					::initial_configurations;
 }
 

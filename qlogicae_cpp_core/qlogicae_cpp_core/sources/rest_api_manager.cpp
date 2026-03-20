@@ -71,9 +71,9 @@ namespace
 					);
 			}			
 
-			curl_global_init(
-				CURL_GLOBAL_DEFAULT
-			);
+			SingletonManager
+				::get_singleton<CurlPackageManager>()
+					.setup();
 
 			size_t
 				size =

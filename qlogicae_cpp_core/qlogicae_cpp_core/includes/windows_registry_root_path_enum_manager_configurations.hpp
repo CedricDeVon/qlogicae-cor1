@@ -13,14 +13,8 @@ namespace
 	public:	
 		WindowsRegistryRootPath
 			type =
-				default_configurations
-					.type;
-
-		static WindowsRegistryRootPathEnumManagerConfigurations
-			initial_configurations;
-
-		static WindowsRegistryRootPathEnumManagerConfigurations
-			default_configurations;
+				WindowsRegistryRootPath
+					::HKCU;
 
 		WindowsRegistryRootPathEnumManagerConfigurations();
 	};

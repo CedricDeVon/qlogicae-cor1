@@ -15,39 +15,30 @@ namespace
 	public:		
 		bool
 			is_specified_length_enabled =
-				default_configurations
-					.is_specified_length_enabled;
+				false;
 
 		size_t
 			specified_length =
-				default_configurations
-					.specified_length;
+				128;
 
 		std::string
 			message =
-				default_configurations
-					.message;
+				"Log Message";
 
 		LogLevel
 			log_level =
-				default_configurations
-					.log_level;
+				LogLevel
+					::INFO;
 
 		TimeFormat
 			time_format =
-				default_configurations
-					.time_format;
+				TimeFormat
+					::FULL_TIMESTAMP;
 
 		LogFormat
 			log_format =
-				default_configurations
-					.log_format;
-
-		static TextLogManagerConfigurations
-			initial_configurations;
-
-		static TextLogManagerConfigurations
-			default_configurations;
+				LogFormat
+					::STANDARD;
 
 		TextLogManagerConfigurations();
 	};

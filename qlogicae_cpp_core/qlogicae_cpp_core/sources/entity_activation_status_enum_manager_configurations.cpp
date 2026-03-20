@@ -9,18 +9,6 @@ namespace
 		::EntityActivationStatusEnumManagerConfigurations() :
 			AbstractConfigurations<EntityActivationStatusEnumManagerConfigurations>()
 	{
-		type =
-			EntityActivationStatus
-				::ACTIVE;
+		
 	}
-
-	EntityActivationStatusEnumManagerConfigurations
-		EntityActivationStatusEnumManagerConfigurations
-			::initial_configurations;
-
-	EntityActivationStatusEnumManagerConfigurations
-		EntityActivationStatusEnumManagerConfigurations
-			::default_configurations =
-				EntityActivationStatusEnumManagerConfigurations
-					::initial_configurations;
 }

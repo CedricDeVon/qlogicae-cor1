@@ -13,14 +13,8 @@ namespace
 	public:	
 		TemperatureUnit
 			type =
-				default_configurations
-					.type;
-
-		static TemperatureUnitEnumManagerConfigurations
-			initial_configurations;
-
-		static TemperatureUnitEnumManagerConfigurations
-			default_configurations;
+				TemperatureUnit
+					::CELSIUS;
 
 		TemperatureUnitEnumManagerConfigurations();
 	};

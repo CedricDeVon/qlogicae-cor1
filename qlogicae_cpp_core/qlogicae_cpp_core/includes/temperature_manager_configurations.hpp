@@ -13,19 +13,11 @@ namespace
 	public:
 		TemperatureUnit
 			original_unit =
-				default_configurations
-					.original_unit;
+				TemperatureUnit::FAHRENHEIT;
 
 		TemperatureUnit
 			target_unit =
-				default_configurations
-					.target_unit;
-	
-		static TemperatureManagerConfigurations
-			initial_configurations;
-
-		static TemperatureManagerConfigurations
-			default_configurations;
+				TemperatureUnit::CELSIUS;
 
 		TemperatureManagerConfigurations();
 	};

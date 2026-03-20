@@ -10,12 +10,6 @@ namespace
 			AbstractConfigurations<CurlPackageManagerConfigurations>
 	{
 	public:		
-		static CurlPackageManagerConfigurations
-			initial_configurations;
-
-		static CurlPackageManagerConfigurations
-			default_configurations;
-
 		CurlPackageManagerConfigurations();
 	};
 }

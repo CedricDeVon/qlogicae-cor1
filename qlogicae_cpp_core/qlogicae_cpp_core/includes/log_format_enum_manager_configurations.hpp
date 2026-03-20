@@ -13,14 +13,8 @@ namespace
 	public:	
 		LogFormat
 			type =
-				default_configurations
-					.type;
-
-		static LogFormatEnumManagerConfigurations
-			initial_configurations;
-
-		static LogFormatEnumManagerConfigurations
-			default_configurations;
+				LogFormat
+					::STANDARD;
 
 		LogFormatEnumManagerConfigurations();
 	};

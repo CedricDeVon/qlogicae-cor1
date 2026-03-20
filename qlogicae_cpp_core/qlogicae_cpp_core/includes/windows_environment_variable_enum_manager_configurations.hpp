@@ -13,14 +13,8 @@ namespace
 	public:	
 		WindowsEnvironmentVariable
 			type =
-				default_configurations
-					.type;
-
-		static WindowsEnvironmentVariableEnumManagerConfigurations
-			initial_configurations;
-
-		static WindowsEnvironmentVariableEnumManagerConfigurations
-			default_configurations;
+				WindowsEnvironmentVariable
+					::USER;
 
 		WindowsEnvironmentVariableEnumManagerConfigurations();
 	};

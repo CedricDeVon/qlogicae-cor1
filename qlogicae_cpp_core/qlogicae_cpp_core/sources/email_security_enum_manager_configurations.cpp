@@ -9,18 +9,6 @@ namespace
 		::EmailSecurityEnumManagerConfigurations() :
 			AbstractConfigurations<EmailSecurityEnumManagerConfigurations>()
 	{
-		type =
-			EmailSecurity
-				::SSL;
+		
 	}
-
-	EmailSecurityEnumManagerConfigurations
-		EmailSecurityEnumManagerConfigurations
-			::initial_configurations;
-
-	EmailSecurityEnumManagerConfigurations
-		EmailSecurityEnumManagerConfigurations
-			::default_configurations =
-				EmailSecurityEnumManagerConfigurations
-					::initial_configurations;
 }

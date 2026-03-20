@@ -9,17 +9,6 @@ namespace
 		::TextFileIoManagerConfigurations() :
 			AbstractConfigurations<TextFileIoManagerConfigurations>()
 	{
-		file_path =
-			"";
+		
 	}
-
-	TextFileIoManagerConfigurations
-		TextFileIoManagerConfigurations
-			::initial_configurations;
-
-	TextFileIoManagerConfigurations
-		TextFileIoManagerConfigurations
-			::default_configurations =
-				TextFileIoManagerConfigurations
-					::initial_configurations;
 }

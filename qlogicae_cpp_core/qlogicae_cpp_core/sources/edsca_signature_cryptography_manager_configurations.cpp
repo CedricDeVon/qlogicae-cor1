@@ -11,14 +11,4 @@ namespace
 	{
 		
 	}
-
-	EdscaSignatureCryptographyManagerConfigurations
-		EdscaSignatureCryptographyManagerConfigurations
-			::initial_configurations;
-
-	EdscaSignatureCryptographyManagerConfigurations
-		EdscaSignatureCryptographyManagerConfigurations
-			::default_configurations =
-				EdscaSignatureCryptographyManagerConfigurations
-					::initial_configurations;
 }

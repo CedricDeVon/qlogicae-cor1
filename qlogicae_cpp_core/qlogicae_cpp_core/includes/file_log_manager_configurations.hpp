@@ -14,12 +14,6 @@ namespace
 			file_output_paths =
 				{};
 
-		static FileLogManagerConfigurations
-			initial_configurations;
-
-		static FileLogManagerConfigurations
-			default_configurations;
-
 		FileLogManagerConfigurations();
     };
 }

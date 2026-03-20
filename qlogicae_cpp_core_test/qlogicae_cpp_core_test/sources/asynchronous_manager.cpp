@@ -21,7 +21,7 @@ namespace
 		void
 			TearDown() override
 		{			
-			manager.reset();
+			manager.destruct();
 		}
 	};
 
@@ -41,7 +41,7 @@ namespace
 		void
 			TearDown() override
 		{			
-			manager.reset();
+			manager.destruct();
 		}
     };
 
@@ -215,6 +215,9 @@ namespace
 			manager.configurations.is_feature_runtime_execution_handling_enabled,
 			GetParam()
 		);
+
+		manager
+			.destruct();
 	}
 
 	INSTANTIATE_TEST_CASE_P(
@@ -257,7 +260,8 @@ namespace
 			}
 		);
 
-		manager.complete_all_threads();
+		manager
+			.destruct();
 	}
 
 	TEST_F(
@@ -293,7 +297,7 @@ namespace
 					while (!stop_flag.load())
 					{
 						manager
-							.reset();
+							.destruct();
 					}
 				}
 			);
@@ -344,27 +348,6 @@ namespace
 
 	TEST_F(
 		AsynchronousManagerTest,
-		Should_InitializeStaticConfigurationCorrectly_When_FirstAccessed
-	)
-	{
-		ASSERT_EQ(
-			AsynchronousManagerConfigurations::initial_configurations.is_feature_runtime_execution_handling_enabled,
-			true
-		);
-
-		ASSERT_EQ(
-			AsynchronousManagerConfigurations::default_configurations.is_feature_runtime_execution_handling_enabled,
-			AsynchronousManagerConfigurations::initial_configurations.is_feature_runtime_execution_handling_enabled
-		);
-
-		ASSERT_EQ(
-			manager.configurations.is_feature_runtime_execution_handling_enabled,
-			AsynchronousManagerConfigurations::initial_configurations.is_feature_runtime_execution_handling_enabled
-		);
-	}
-
-	TEST_F(
-		AsynchronousManagerTest,
 		Should_Post_Thread_Await_Return_Value
 	)
 	{	
@@ -403,7 +386,8 @@ namespace
 			)
 		);
 
-		manager.complete_all_threads();
+		manager
+			.destruct();
 
 		EXPECT_EQ(
 			result.load(),
@@ -432,7 +416,8 @@ namespace
 			)
 		);
 
-		manager.complete_all_threads();
+		manager
+			.destruct();
 
 		EXPECT_TRUE(
 			called.load()
@@ -456,7 +441,8 @@ namespace
 			)
 		);
 
-		manager.complete_all_threads();
+		manager
+			.destruct();
 
 		EXPECT_TRUE(
 			called.load()
@@ -503,7 +489,8 @@ namespace
 			)
 		);
 
-		manager.complete_all_threads();
+		manager
+			.destruct();
 
 		EXPECT_EQ(
 			result.load(),
@@ -532,7 +519,8 @@ namespace
 			)
 		);
 
-		manager.complete_all_threads();
+		manager
+			.destruct();
 
 		EXPECT_TRUE(
 			called.load()
@@ -584,7 +572,7 @@ namespace
 			)
 		);
 
-		EXPECT_TRUE(manager.complete_io_workers());
+		EXPECT_TRUE(manager.destruct());
 
 		EXPECT_TRUE(called.load());
 	}

@@ -10,12 +10,6 @@ namespace
 			AbstractConfigurations<AsynchronousManagerConfigurations>
     {
 	public:
-		static AsynchronousManagerConfigurations
-			initial_configurations;
-
-		static AsynchronousManagerConfigurations
-			default_configurations;
-
 		AsynchronousManagerConfigurations();
     };    
 }

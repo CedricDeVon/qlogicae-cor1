@@ -11,15 +11,5 @@ namespace
 	{
 		
 	}
-
-	QLogicaeFileSystemManagerConfigurations
-		QLogicaeFileSystemManagerConfigurations
-			::initial_configurations;
-
-	QLogicaeFileSystemManagerConfigurations
-		QLogicaeFileSystemManagerConfigurations
-			::default_configurations =
-				QLogicaeFileSystemManagerConfigurations
-					::initial_configurations;
 }
 

@@ -9,18 +9,7 @@ namespace
 		::RegularExpressionManagerConfigurations() :
 			AbstractConfigurations<RegularExpressionManagerConfigurations>()
 	{
-		pattern =
-			"";
+		
 	}
-
-	RegularExpressionManagerConfigurations
-		RegularExpressionManagerConfigurations
-			::initial_configurations;
-
-	RegularExpressionManagerConfigurations
-		RegularExpressionManagerConfigurations
-			::default_configurations =
-				RegularExpressionManagerConfigurations
-					::initial_configurations;
 }
 

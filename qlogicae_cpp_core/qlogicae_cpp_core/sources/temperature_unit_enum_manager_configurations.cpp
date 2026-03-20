@@ -9,18 +9,6 @@ namespace
 		::TemperatureUnitEnumManagerConfigurations() :
 			AbstractConfigurations<TemperatureUnitEnumManagerConfigurations>()
 	{
-		type =
-			TemperatureUnit
-				::CELSIUS;
+		
 	}
-
-	TemperatureUnitEnumManagerConfigurations
-		TemperatureUnitEnumManagerConfigurations
-			::initial_configurations;
-
-	TemperatureUnitEnumManagerConfigurations
-		TemperatureUnitEnumManagerConfigurations
-			::default_configurations =
-				TemperatureUnitEnumManagerConfigurations
-					::initial_configurations;
 }

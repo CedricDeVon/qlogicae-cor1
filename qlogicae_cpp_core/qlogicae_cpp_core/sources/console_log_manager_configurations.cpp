@@ -11,14 +11,4 @@ namespace
 	{
 		
 	}
-
-	ConsoleLogManagerConfigurations
-		ConsoleLogManagerConfigurations
-			::initial_configurations;
-
-	ConsoleLogManagerConfigurations
-		ConsoleLogManagerConfigurations
-			::default_configurations =
-				ConsoleLogManagerConfigurations
-					::initial_configurations;
 }

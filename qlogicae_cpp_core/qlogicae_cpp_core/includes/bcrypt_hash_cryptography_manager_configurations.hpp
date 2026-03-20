@@ -10,12 +10,6 @@ namespace
 			AbstractConfigurations<BcryptHashCryptographyManagerConfigurations>
     {
 	public:
-		static BcryptHashCryptographyManagerConfigurations
-			initial_configurations;
-
-		static BcryptHashCryptographyManagerConfigurations
-			default_configurations;
-
 		BcryptHashCryptographyManagerConfigurations();
     };    
 }

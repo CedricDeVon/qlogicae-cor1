@@ -9,20 +9,6 @@ namespace
 		::CsvFileIoManagerConfigurations() :
 			AbstractConfigurations<CsvFileIoManagerConfigurations>()
 	{
-		file_path =
-			"";
-
-		delimeter =
-			",";	
+		
 	}
-
-	CsvFileIoManagerConfigurations
-		CsvFileIoManagerConfigurations
-			::initial_configurations;
-
-	CsvFileIoManagerConfigurations
-		CsvFileIoManagerConfigurations
-			::default_configurations =
-				CsvFileIoManagerConfigurations
-					::initial_configurations;
 }

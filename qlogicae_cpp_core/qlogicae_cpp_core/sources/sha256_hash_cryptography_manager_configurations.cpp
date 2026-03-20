@@ -11,14 +11,4 @@ namespace
 	{
 		
 	}
-
-	Sha256HashCryptographyManagerConfigurations
-		Sha256HashCryptographyManagerConfigurations
-			::initial_configurations;
-
-	Sha256HashCryptographyManagerConfigurations
-		Sha256HashCryptographyManagerConfigurations
-			::default_configurations =
-				Sha256HashCryptographyManagerConfigurations
-					::initial_configurations;
 }

@@ -14,14 +14,8 @@ namespace
 	public:	
 		WindowsEnvironmentVariable
 			type =
-				default_configurations
-					.type;
-
-		static WindowsEnvironmentVariableManagerConfigurations
-			initial_configurations;
-
-		static WindowsEnvironmentVariableManagerConfigurations
-			default_configurations;
+				WindowsEnvironmentVariable
+					::USER;
 
 		WindowsEnvironmentVariableManagerConfigurations();
 	};

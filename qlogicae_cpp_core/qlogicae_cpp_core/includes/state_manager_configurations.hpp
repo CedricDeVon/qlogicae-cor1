@@ -10,12 +10,6 @@ namespace
 			AbstractConfigurations<StateManagerConfigurations>
 	{
 	public:
-		static StateManagerConfigurations
-			initial_configurations;
-
-		static StateManagerConfigurations
-			default_configurations;
-
 		StateManagerConfigurations();
 	};
 }

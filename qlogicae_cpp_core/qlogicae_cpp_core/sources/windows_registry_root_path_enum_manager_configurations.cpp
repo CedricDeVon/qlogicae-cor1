@@ -9,18 +9,6 @@ namespace
 		::WindowsRegistryRootPathEnumManagerConfigurations() :
 			AbstractConfigurations<WindowsRegistryRootPathEnumManagerConfigurations>()
 	{
-		type =
-			WindowsRegistryRootPath
-				::HKCU;
+		
 	}
-
-	WindowsRegistryRootPathEnumManagerConfigurations
-		WindowsRegistryRootPathEnumManagerConfigurations
-			::initial_configurations;
-
-	WindowsRegistryRootPathEnumManagerConfigurations
-		WindowsRegistryRootPathEnumManagerConfigurations
-			::default_configurations =
-				WindowsRegistryRootPathEnumManagerConfigurations
-					::initial_configurations;
 }

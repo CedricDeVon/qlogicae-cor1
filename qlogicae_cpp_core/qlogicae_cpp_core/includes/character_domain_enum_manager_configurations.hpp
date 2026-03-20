@@ -13,14 +13,8 @@ namespace
 	public:
 		CharacterDomain
 			type =
-				default_configurations
-					.type;
-
-		static CharacterDomainEnumManagerConfigurations
-			initial_configurations;
-
-		static CharacterDomainEnumManagerConfigurations
-			default_configurations;
+				CharacterDomain
+					::ALPHABETIC;
 
 		CharacterDomainEnumManagerConfigurations();
     };    

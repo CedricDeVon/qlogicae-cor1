@@ -9,23 +9,6 @@ namespace
 		::JsonWebTokenCryptographyManagerConfigurations() :
 			AbstractConfigurations<JsonWebTokenCryptographyManagerConfigurations>()
 	{
-		issuer =
-			"issuer";
-
-		lifetime =
-			std::chrono::seconds { 86'400'000 };
-
-		claims = 
-			{};
+		
 	}
-
-	JsonWebTokenCryptographyManagerConfigurations
-		JsonWebTokenCryptographyManagerConfigurations
-			::initial_configurations;
-
-	JsonWebTokenCryptographyManagerConfigurations
-		JsonWebTokenCryptographyManagerConfigurations
-			::default_configurations =
-				JsonWebTokenCryptographyManagerConfigurations
-					::initial_configurations;
 }

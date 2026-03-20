@@ -9,17 +9,6 @@ namespace
 		::TomlFileIoManagerConfigurations() :
 			AbstractConfigurations<TomlFileIoManagerConfigurations>()
 	{
-		file_path =
-			"";
+		
 	}
-
-	TomlFileIoManagerConfigurations
-		TomlFileIoManagerConfigurations
-			::initial_configurations;
-
-	TomlFileIoManagerConfigurations
-		TomlFileIoManagerConfigurations
-			::default_configurations =
-				TomlFileIoManagerConfigurations
-					::initial_configurations;
 }

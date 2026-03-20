@@ -9,13 +9,7 @@ namespace
 		WindowsSystemAccessManagerConfigurations :
 			AbstractConfigurations<WindowsSystemAccessManagerConfigurations>
 	{
-	public:	
-		static WindowsSystemAccessManagerConfigurations
-			initial_configurations;
-
-		static WindowsSystemAccessManagerConfigurations
-			default_configurations;
-
+	public:			
 		WindowsSystemAccessManagerConfigurations();
 	};
 }

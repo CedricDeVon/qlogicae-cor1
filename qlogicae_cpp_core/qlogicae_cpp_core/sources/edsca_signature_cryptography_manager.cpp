@@ -53,7 +53,7 @@ namespace
 			}			
 
 			return
-				sodium_init() < 0;     
+				!(sodium_init() > 1);
         }
         catch
         (

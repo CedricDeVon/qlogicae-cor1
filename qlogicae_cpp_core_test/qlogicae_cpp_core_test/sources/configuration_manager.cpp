@@ -4,7 +4,36 @@
 
 namespace
 	QLogicae::Cor::V1::Tests
-{
+{	
+	struct
+		ConfigurationManagerConfigurationsTest :
+			AbstractConfigurations<ConfigurationManagerConfigurationsTest>
+    {
+	public:
+		ConfigurationManagerConfigurationsTest();
+
+		static ConfigurationManagerConfigurationsTest
+			default_configurations;
+
+		static ConfigurationManagerConfigurationsTest
+			initial_configurations;
+    };    
+
+	ConfigurationManagerConfigurationsTest
+		::ConfigurationManagerConfigurationsTest() :
+			AbstractConfigurations<ConfigurationManagerConfigurationsTest>()
+	{
+
+	}
+
+	ConfigurationManagerConfigurationsTest
+		ConfigurationManagerConfigurationsTest
+			::default_configurations;
+
+	ConfigurationManagerConfigurationsTest
+		ConfigurationManagerConfigurationsTest
+			::initial_configurations;
+
 	class ConfigurationManagerTest : public ::testing::Test
     {
     public:
@@ -66,27 +95,27 @@ namespace
 
 	TEST_F(ConfigurationManagerTest, Should_UpdateDefaultConfigurations_When_SetupDefaultsCalled)
 	{
-		ConfigurationManagerConfigurations defaults;
+		ConfigurationManagerConfigurationsTest defaults;
 		defaults.is_feature_runtime_execution_handling_enabled = false;
 		defaults.is_thread_safety_handling_override_enabled = true;
 
-		manager.setup_defaults<ConfigurationManagerConfigurations>(defaults);
+		manager.setup_defaults<ConfigurationManagerConfigurationsTest>(defaults);
 
-		ASSERT_FALSE(ConfigurationManagerConfigurations::default_configurations.is_feature_runtime_execution_handling_enabled);
-		ASSERT_TRUE(ConfigurationManagerConfigurations::default_configurations.is_thread_safety_handling_override_enabled);
+		ASSERT_FALSE(ConfigurationManagerConfigurationsTest::default_configurations.is_feature_runtime_execution_handling_enabled);
+		ASSERT_TRUE(ConfigurationManagerConfigurationsTest::default_configurations.is_thread_safety_handling_override_enabled);
 	}
 
 	TEST_F(ConfigurationManagerTest, Should_ResetDefaultConfigurations_When_ResetDefaultsCalled)
 	{
-		ConfigurationManagerConfigurations temp;
+		ConfigurationManagerConfigurationsTest temp;
 		temp.is_feature_runtime_execution_handling_enabled = false;
 		temp.is_thread_safety_handling_override_enabled = true;
 
 		manager.setup_defaults(temp);
-		manager.reset_defaults<ConfigurationManagerConfigurations>();
+		manager.reset_defaults<ConfigurationManagerConfigurationsTest>();
 
-		ASSERT_TRUE(ConfigurationManagerConfigurations::default_configurations.is_feature_runtime_execution_handling_enabled);
-		ASSERT_FALSE(ConfigurationManagerConfigurations::default_configurations.is_thread_safety_handling_override_enabled);
+		ASSERT_TRUE(ConfigurationManagerConfigurationsTest::default_configurations.is_feature_runtime_execution_handling_enabled);
+		ASSERT_FALSE(ConfigurationManagerConfigurationsTest::default_configurations.is_thread_safety_handling_override_enabled);
 	}
 
 	TEST_P(ConfigurationManagerParameterizedTest, Should_WorkCorrectly_ForAllBooleanCombinations)
@@ -250,20 +279,22 @@ namespace
 
 	TEST_F(ConfigurationManagerTest, Should_ReturnFalse_When_SetupDefaultsCalledWithFeatureRuntimeExecutionDisabled)
 	{
-		ConfigurationManagerConfigurations configurations;
-		configurations.is_feature_runtime_execution_handling_enabled = false;
-		manager.configurations = configurations;
+		ConfigurationManagerConfigurationsTest configurations;
+		ConfigurationManagerConfigurations new_configurations;
+		new_configurations.is_feature_runtime_execution_handling_enabled = false;
+		manager.configurations = new_configurations;
 
-		ASSERT_FALSE(manager.setup_defaults<ConfigurationManagerConfigurations>(configurations));
+		ASSERT_FALSE(manager.setup_defaults<ConfigurationManagerConfigurationsTest>(configurations));
 	}
 
 	TEST_F(ConfigurationManagerTest, Should_ReturnFalse_When_ResetDefaultsCalledWithFeatureRuntimeExecutionDisabled)
 	{
-		ConfigurationManagerConfigurations configurations;
-		configurations.is_feature_runtime_execution_handling_enabled = false;
-		manager.configurations = configurations;
+		ConfigurationManagerConfigurationsTest configurations;
+		ConfigurationManagerConfigurations new_configurations;
+		new_configurations.is_feature_runtime_execution_handling_enabled = false;
+		manager.configurations = new_configurations;
 
-		ASSERT_FALSE(manager.reset_defaults<ConfigurationManagerConfigurations>());
+		ASSERT_FALSE(manager.reset_defaults<ConfigurationManagerConfigurationsTest>());
 	}
 
 	TEST_F(ConfigurationManagerTest, Should_HandleEdgeCaseFlagsCorrectly)
@@ -611,7 +642,7 @@ namespace
 
 	TEST_F(ConfigurationManagerTest, Should_HandleConcurrentSetupDefaultsResetDefaults_UnderMultipleThreads)
 	{
-		ConfigurationManagerConfigurations defaults;
+		ConfigurationManagerConfigurationsTest defaults;
 		defaults.is_feature_runtime_execution_handling_enabled = true;
 		defaults.is_thread_safety_handling_override_enabled = true;
 
@@ -620,7 +651,7 @@ namespace
 				for (int i = 0; i < 100; ++i)
 				{
 					manager.setup_defaults(defaults);
-					manager.reset_defaults<ConfigurationManagerConfigurations>();
+					manager.reset_defaults<ConfigurationManagerConfigurationsTest>();
 				}
 			};
 
@@ -635,13 +666,13 @@ namespace
 			t.join();
 		}
 
-		ASSERT_TRUE(ConfigurationManagerConfigurations::default_configurations.is_feature_runtime_execution_handling_enabled);
-		ASSERT_FALSE(ConfigurationManagerConfigurations::default_configurations.is_thread_safety_handling_override_enabled);
+		ASSERT_TRUE(ConfigurationManagerConfigurationsTest::default_configurations.is_feature_runtime_execution_handling_enabled);
+		ASSERT_FALSE(ConfigurationManagerConfigurationsTest::default_configurations.is_thread_safety_handling_override_enabled);
 	}
 
 	TEST_F(ConfigurationManagerTest, Should_HandleAsyncSetupDefaultsResetDefaults_When_CalledViaStdAsync)
 	{
-		ConfigurationManagerConfigurations defaults;
+		ConfigurationManagerConfigurationsTest defaults;
 		defaults.is_feature_runtime_execution_handling_enabled = true;
 		defaults.is_thread_safety_handling_override_enabled = true;
 
@@ -649,7 +680,7 @@ namespace
 			{
 				for (int i = 0; i < 100; ++i)
 				{
-					manager.reset_defaults<ConfigurationManagerConfigurations>();
+					manager.reset_defaults<ConfigurationManagerConfigurationsTest>();
 				}
 			});
 
@@ -664,8 +695,8 @@ namespace
 		future_reset.get();
 		future_setup.get();
 
-		ASSERT_TRUE(ConfigurationManagerConfigurations::default_configurations.is_feature_runtime_execution_handling_enabled);
-		ASSERT_TRUE(ConfigurationManagerConfigurations::default_configurations.is_thread_safety_handling_override_enabled);
+		ASSERT_TRUE(ConfigurationManagerConfigurationsTest::default_configurations.is_feature_runtime_execution_handling_enabled);
+		ASSERT_TRUE(ConfigurationManagerConfigurationsTest::default_configurations.is_thread_safety_handling_override_enabled);
 	}
 
 	struct ThrowingDefaultsManager : ConfigurationManager
@@ -757,23 +788,23 @@ namespace
 	{
 		ThrowingDefaultsManager throwing_manager;
 
-		ConfigurationManagerConfigurations saved_defaults = ConfigurationManagerConfigurations::default_configurations;
+		ConfigurationManagerConfigurationsTest saved_defaults = ConfigurationManagerConfigurationsTest::default_configurations;
 
 		ASSERT_THROW(
 			{
-				ConfigurationManagerConfigurations conf{};
+				ConfigurationManagerConfigurationsTest conf{};
 				throwing_manager.setup_defaults(conf);
 			}, std::runtime_error);
 
 		ASSERT_EQ(saved_defaults.is_feature_runtime_execution_handling_enabled,
-			ConfigurationManagerConfigurations::default_configurations.is_feature_runtime_execution_handling_enabled);
+			ConfigurationManagerConfigurationsTest::default_configurations.is_feature_runtime_execution_handling_enabled);
 		ASSERT_EQ(saved_defaults.is_thread_safety_handling_override_enabled,
-			ConfigurationManagerConfigurations::default_configurations.is_thread_safety_handling_override_enabled);
+			ConfigurationManagerConfigurationsTest::default_configurations.is_thread_safety_handling_override_enabled);
 	}
 
 	TEST_F(ConfigurationManagerTest, Should_HandleConcurrentSingletonAccessAndDefaultsModification)
 	{
-		ConfigurationManagerConfigurations defaults;
+		ConfigurationManagerConfigurationsTest defaults;
 		defaults.is_feature_runtime_execution_handling_enabled = true;
 		defaults.is_thread_safety_handling_override_enabled = true;
 
@@ -783,7 +814,7 @@ namespace
 				{
 					auto& singleton = SingletonManager::get_singleton<ConfigurationManager>();
 					singleton.setup_defaults(defaults);
-					singleton.reset_defaults<ConfigurationManagerConfigurations>();
+					singleton.reset_defaults<ConfigurationManagerConfigurationsTest>();
 				}
 			};
 
@@ -794,8 +825,8 @@ namespace
 		for (auto& t : threads)
 			t.join();
 
-		ASSERT_TRUE(ConfigurationManagerConfigurations::default_configurations.is_feature_runtime_execution_handling_enabled);
-		ASSERT_FALSE(ConfigurationManagerConfigurations::default_configurations.is_thread_safety_handling_override_enabled);
+		ASSERT_TRUE(ConfigurationManagerConfigurationsTest::default_configurations.is_feature_runtime_execution_handling_enabled);
+		ASSERT_FALSE(ConfigurationManagerConfigurationsTest::default_configurations.is_thread_safety_handling_override_enabled);
 	}
 
 	TEST_F(ConfigurationManagerTest, Should_DisableAllRuntimeExecution_When_AllFlagsFalseAndOverrideFalse)
@@ -879,19 +910,25 @@ namespace
 
 	TEST_F(ConfigurationManagerTest, Should_HandleAllHandlersSimultaneouslyUnderThreadedStress)
 	{
-		ConfigurationManagerConfigurations conf;
+		ConfigurationManagerConfigurationsTest conf;
+		ConfigurationManagerConfigurations new_configurations;
+
 		conf.is_runtime_execution_handling_override_enabled = true;
 		conf.is_edge_case_handling_override_enabled = true;
 		conf.is_thread_safety_handling_override_enabled = true;
+
+		new_configurations.is_runtime_execution_handling_override_enabled = true;
+		new_configurations.is_edge_case_handling_override_enabled = true;
+		new_configurations.is_thread_safety_handling_override_enabled = true;
 
 		auto task = [&]()
 			{
 				for (int i = 0; i < 200; ++i)
 				{
-					manager.reset_defaults<ConfigurationManagerConfigurations>();
+					manager.reset_defaults<ConfigurationManagerConfigurationsTest>();
 					manager.reset();
 					manager.setup_defaults(conf);
-					manager.setup(conf);
+					manager.setup(new_configurations);
 				}
 			};
 
@@ -920,34 +957,43 @@ namespace
 	{
 		ThrowingResetDefaultsRecoveryManager throwing_manager;
 
-		ASSERT_THROW(throwing_manager.reset_defaults<ConfigurationManagerConfigurations>(), std::runtime_error);
+		ASSERT_THROW(throwing_manager.reset_defaults<ConfigurationManagerConfigurationsTest>(), std::runtime_error);
 
-		ConfigurationManagerConfigurations conf;
-		conf.is_feature_runtime_execution_handling_enabled = true;
-		conf.is_thread_safety_handling_override_enabled = true;
+		ConfigurationManagerConfigurations new_configurations;
+
+		new_configurations.is_runtime_execution_handling_override_enabled = true;
+		new_configurations.is_edge_case_handling_override_enabled = true;
+		new_configurations.is_thread_safety_handling_override_enabled = true;
 
 		ASSERT_TRUE(throwing_manager.construct());
-		ASSERT_TRUE(throwing_manager.setup(conf));
+		ASSERT_TRUE(throwing_manager.setup(new_configurations));
 		ASSERT_TRUE(throwing_manager.destruct());
 	}
 
 	TEST_F(ConfigurationManagerTest, Should_ValidateAtomicCountersAcrossMultipleMethods)
 	{
+
+		ConfigurationManagerConfigurations new_configurations;
+
+		new_configurations.is_runtime_execution_handling_override_enabled = true;
+		new_configurations.is_edge_case_handling_override_enabled = true;
+		new_configurations.is_thread_safety_handling_override_enabled = true;
+
 		std::atomic<int> counter{ 0 };
-		auto task = [&counter, this]()
+		auto task = [&counter, &new_configurations, this]()
 			{
 				for (int i = 0; i < 100; ++i)
 				{
 					counter.fetch_add(1, std::memory_order_relaxed);
 
-					ConfigurationManagerConfigurations conf;
+					ConfigurationManagerConfigurationsTest conf;
 					conf.is_feature_runtime_execution_handling_enabled = true;
 					conf.is_thread_safety_handling_override_enabled = true;
 
-					manager.setup(conf);
+					manager.setup(new_configurations);
 					manager.reset();
 					manager.setup_defaults(conf);
-					manager.reset_defaults<ConfigurationManagerConfigurations>();
+					manager.reset_defaults<ConfigurationManagerConfigurationsTest>();
 				}
 			};
 

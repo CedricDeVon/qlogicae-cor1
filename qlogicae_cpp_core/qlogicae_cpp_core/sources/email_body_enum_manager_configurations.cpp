@@ -9,18 +9,6 @@ namespace
 		::EmailBodyEnumManagerConfigurations() :
 			AbstractConfigurations<EmailBodyEnumManagerConfigurations>()
 	{
-		type =
-			EmailBody
-				::PLAIN;
+		
 	}
-
-	EmailBodyEnumManagerConfigurations
-		EmailBodyEnumManagerConfigurations
-			::initial_configurations;
-
-	EmailBodyEnumManagerConfigurations
-		EmailBodyEnumManagerConfigurations
-			::default_configurations =
-				EmailBodyEnumManagerConfigurations
-					::initial_configurations;
 }

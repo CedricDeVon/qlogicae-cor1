@@ -11,15 +11,5 @@ namespace
 	{
 		
 	}
-
-	FunctionWrapperConfigurations
-		FunctionWrapperConfigurations
-			::initial_configurations;
-
-	FunctionWrapperConfigurations
-		FunctionWrapperConfigurations
-			::default_configurations =
-				FunctionWrapperConfigurations
-					::initial_configurations;
 }
 

@@ -9,17 +9,6 @@ namespace
 		::JsonFileIoManagerConfigurations() :
 			AbstractConfigurations<JsonFileIoManagerConfigurations>()
 	{
-		file_path =
-			"";
+		
 	}
-
-	JsonFileIoManagerConfigurations
-		JsonFileIoManagerConfigurations
-			::initial_configurations;
-
-	JsonFileIoManagerConfigurations
-		JsonFileIoManagerConfigurations
-			::default_configurations =
-				JsonFileIoManagerConfigurations
-					::initial_configurations;
 }

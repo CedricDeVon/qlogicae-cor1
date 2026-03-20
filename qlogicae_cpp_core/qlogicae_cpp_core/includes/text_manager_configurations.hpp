@@ -16,24 +16,15 @@ namespace
 
 		std::string
 			split_text_delimeter = 
-				default_configurations
-					.split_text_delimeter;
+				",";
 
 		bool
 			is_specified_length_enabled =
-				default_configurations
-					.is_specified_length_enabled;
+				false;
 
 		size_t
 			specified_length =
-				default_configurations
-					.specified_length;
-
-		static TextManagerConfigurations
-			initial_configurations;
-
-		static TextManagerConfigurations
-			default_configurations;
+				128;
 
 		TextManagerConfigurations();
     };    

@@ -9,18 +9,6 @@ namespace
 		::FileSystemEntityEnumManagerConfigurations() :
 			AbstractConfigurations<FileSystemEntityEnumManagerConfigurations>()
 	{
-		type =
-			FileSystemEntity
-				::ALL;
+		
 	}
-
-	FileSystemEntityEnumManagerConfigurations
-		FileSystemEntityEnumManagerConfigurations
-			::initial_configurations;
-
-	FileSystemEntityEnumManagerConfigurations
-		FileSystemEntityEnumManagerConfigurations
-			::default_configurations =
-				FileSystemEntityEnumManagerConfigurations
-					::initial_configurations;
 }

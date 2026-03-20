@@ -9,18 +9,6 @@ namespace
 		::UuidEnumManagerConfigurations() :
 			AbstractConfigurations<UuidEnumManagerConfigurations>()
 	{
-		type =
-			Uuid
-				::V4;
+		
 	}
-
-	UuidEnumManagerConfigurations
-		UuidEnumManagerConfigurations
-			::initial_configurations;
-
-	UuidEnumManagerConfigurations
-		UuidEnumManagerConfigurations
-			::default_configurations =
-				UuidEnumManagerConfigurations
-					::initial_configurations;
 }

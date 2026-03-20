@@ -13,14 +13,8 @@ namespace
 	public:	
 		TimeZone
 			type =
-				default_configurations
-					.type;
-
-		static TimeZoneEnumManagerConfigurations
-			initial_configurations;
-
-		static TimeZoneEnumManagerConfigurations
-			default_configurations;
+				TimeZone
+					::UTC;
 
 		TimeZoneEnumManagerConfigurations();
 	};

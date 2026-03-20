@@ -13,14 +13,8 @@ namespace
 	public:	
 		LogMedium
 			type =
-				default_configurations
-					.type;
-
-		static LogMediumEnumManagerConfigurations
-			initial_configurations;
-
-		static LogMediumEnumManagerConfigurations
-			default_configurations;
+				LogMedium
+					::ALL;
 
 		LogMediumEnumManagerConfigurations();
 	};

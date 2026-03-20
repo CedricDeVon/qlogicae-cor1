@@ -13,19 +13,12 @@ namespace
 	public:	
 		bool
 			is_text_case_conversion_enabled =
-				default_configurations
-					.is_text_case_conversion_enabled;
+				true;
 
 		TextCase
 			text_case =
-				default_configurations
-					.text_case;
-
-		static EnumManagerConfigurations
-			initial_configurations;
-
-		static EnumManagerConfigurations
-			default_configurations;
+				TextCase
+					::UPPERCASE;
 
 		EnumManagerConfigurations();
 	};

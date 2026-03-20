@@ -10,12 +10,6 @@ namespace
 			AbstractConfigurations<RandomEnumGenerationManagerConfigurations>
     {
 	public:
-		static RandomEnumGenerationManagerConfigurations
-			initial_configurations;
-
-		static RandomEnumGenerationManagerConfigurations
-			default_configurations;
-
 		RandomEnumGenerationManagerConfigurations();
     };
 }

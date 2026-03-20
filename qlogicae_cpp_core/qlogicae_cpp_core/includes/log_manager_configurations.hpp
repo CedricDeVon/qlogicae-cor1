@@ -15,27 +15,20 @@ namespace
 	public:		
 		bool
 			is_output_override_enabled =
-				DerivedConfigurations
-					::default_configurations
-						.is_output_override_enabled;
+				false;
 
 		bool
 			is_output_enabled =
-				DerivedConfigurations
-					::default_configurations
-						.is_output_enabled;
+				false;
 
 		LogLevel
 			log_level =
-				DerivedConfigurations
-					::default_configurations
-						.log_level;
+				LogLevel
+					::INFO;
 
 		std::string
 			text =
-				DerivedConfigurations
-					::default_configurations
-						.text;
+				"Message";
 
 		LogManagerConfigurations();		
     };
@@ -45,17 +38,6 @@ namespace
 			::LogManagerConfigurations() :
 					AbstractConfigurations<DerivedConfigurations>()
 	{
-		is_output_override_enabled =
-			false;
-
-		is_output_enabled =
-			false;
-
-		log_level =
-			LogLevel
-				::INFO;
-
-		text =
-			"Message";
+		
 	}
 }

@@ -10,12 +10,6 @@ namespace
 			AbstractConfigurations<Argon2idHashCryptographyManagerConfigurations>
     {
 	public:
-		static Argon2idHashCryptographyManagerConfigurations
-			initial_configurations;
-
-		static Argon2idHashCryptographyManagerConfigurations
-			default_configurations;
-
 		Argon2idHashCryptographyManagerConfigurations();
     };    
 }

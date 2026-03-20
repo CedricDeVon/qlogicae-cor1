@@ -11,15 +11,5 @@ namespace
 	{
 		
 	}
-
-	SodiumPackageManagerConfigurations
-		SodiumPackageManagerConfigurations
-			::initial_configurations;
-
-	SodiumPackageManagerConfigurations
-		SodiumPackageManagerConfigurations
-			::default_configurations =
-				SodiumPackageManagerConfigurations
-					::initial_configurations;
 }
 

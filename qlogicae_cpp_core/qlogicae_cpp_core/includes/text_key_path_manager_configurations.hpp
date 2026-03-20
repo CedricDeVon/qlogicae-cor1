@@ -12,14 +12,7 @@ namespace
 	public:
 		std::string
 			delimeter =
-				default_configurations
-					.delimeter;
-
-		static TextKeyPathManagerConfigurations
-			initial_configurations;
-
-		static TextKeyPathManagerConfigurations
-			default_configurations;
+				".";
 
 		TextKeyPathManagerConfigurations();
 	};

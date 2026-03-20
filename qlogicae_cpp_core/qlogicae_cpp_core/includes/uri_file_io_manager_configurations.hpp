@@ -12,19 +12,11 @@ namespace
 	public:
 		std::string
 			file_path =
-				default_configurations
-					.file_path;
+				"";
 
 		std::string
 			mime_type =
-				default_configurations
-					.mime_type;
-
-		static UriFileIoManagerConfigurations
-			initial_configurations;
-
-		static UriFileIoManagerConfigurations
-			default_configurations;
+				"application/octet-stream";
 
 		UriFileIoManagerConfigurations();
     };    

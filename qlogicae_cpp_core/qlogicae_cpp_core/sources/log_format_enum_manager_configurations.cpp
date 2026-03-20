@@ -9,18 +9,6 @@ namespace
 		::LogFormatEnumManagerConfigurations() :
 			AbstractConfigurations<LogFormatEnumManagerConfigurations>()
 	{
-		type =
-			LogFormat
-				::STANDARD;
+		
 	}
-
-	LogFormatEnumManagerConfigurations
-		LogFormatEnumManagerConfigurations
-			::initial_configurations;
-
-	LogFormatEnumManagerConfigurations
-		LogFormatEnumManagerConfigurations
-			::default_configurations =
-				LogFormatEnumManagerConfigurations
-					::initial_configurations;
 }

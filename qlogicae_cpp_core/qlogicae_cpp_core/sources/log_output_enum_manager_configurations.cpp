@@ -9,18 +9,6 @@ namespace
 		::LogOutputEnumManagerConfigurations() :
 			AbstractConfigurations<LogOutputEnumManagerConfigurations>()
 	{
-		type =
-			LogOutput
-				::ALL;
+		
 	}
-
-	LogOutputEnumManagerConfigurations
-		LogOutputEnumManagerConfigurations
-			::initial_configurations;
-
-	LogOutputEnumManagerConfigurations
-		LogOutputEnumManagerConfigurations
-			::default_configurations =
-				LogOutputEnumManagerConfigurations
-					::initial_configurations;
 }

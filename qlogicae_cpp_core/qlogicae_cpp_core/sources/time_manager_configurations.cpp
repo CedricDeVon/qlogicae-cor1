@@ -9,17 +9,6 @@ namespace
 		::TimeManagerConfigurations() :
 			AbstractConfigurations<TimeManagerConfigurations>()
 	{
-		time_zone =
-			TimeZone::UTC;
+		
 	}
-
-	TimeManagerConfigurations
-		TimeManagerConfigurations
-			::initial_configurations;
-
-	TimeManagerConfigurations
-		TimeManagerConfigurations
-			::default_configurations =
-				TimeManagerConfigurations
-					::initial_configurations;
 }

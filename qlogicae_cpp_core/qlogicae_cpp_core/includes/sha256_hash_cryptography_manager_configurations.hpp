@@ -10,12 +10,6 @@ namespace
 			AbstractConfigurations<Sha256HashCryptographyManagerConfigurations>
     {
 	public:
-		static Sha256HashCryptographyManagerConfigurations
-			initial_configurations;
-
-		static Sha256HashCryptographyManagerConfigurations
-			default_configurations;
-
 		Sha256HashCryptographyManagerConfigurations();
     };    
 }

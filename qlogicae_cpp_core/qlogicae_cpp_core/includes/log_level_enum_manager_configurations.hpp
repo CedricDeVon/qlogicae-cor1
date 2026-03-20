@@ -13,14 +13,8 @@ namespace
 	public:	
 		LogLevel
 			type =
-				default_configurations
-					.type;
-
-		static LogLevelEnumManagerConfigurations
-			initial_configurations;
-
-		static LogLevelEnumManagerConfigurations
-			default_configurations;
+				LogLevel
+					::INFO;
 
 		LogLevelEnumManagerConfigurations();
 	};

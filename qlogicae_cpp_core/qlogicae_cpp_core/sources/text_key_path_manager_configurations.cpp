@@ -9,17 +9,6 @@ namespace
 		::TextKeyPathManagerConfigurations() :
 			AbstractConfigurations<TextKeyPathManagerConfigurations>()
 	{
-		delimeter =
-			".";	
+		
 	}
-
-	TextKeyPathManagerConfigurations
-		TextKeyPathManagerConfigurations
-			::initial_configurations;
-
-	TextKeyPathManagerConfigurations
-		TextKeyPathManagerConfigurations
-			::default_configurations =
-				TextKeyPathManagerConfigurations
-					::initial_configurations;
 }

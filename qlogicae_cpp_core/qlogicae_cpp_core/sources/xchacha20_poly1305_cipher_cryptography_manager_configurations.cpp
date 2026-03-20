@@ -11,14 +11,4 @@ namespace
 	{
 		
 	}
-
-	XChaCha20Poly1305CipherCryptographyManagerConfigurations
-		XChaCha20Poly1305CipherCryptographyManagerConfigurations
-			::initial_configurations;
-
-	XChaCha20Poly1305CipherCryptographyManagerConfigurations
-		XChaCha20Poly1305CipherCryptographyManagerConfigurations
-			::default_configurations =
-				XChaCha20Poly1305CipherCryptographyManagerConfigurations
-					::initial_configurations;
 }

@@ -13,14 +13,8 @@ namespace
 	public:	
 		Uuid
 			type =
-				default_configurations
-					.type;
-
-		static UuidEnumManagerConfigurations
-			initial_configurations;
-
-		static UuidEnumManagerConfigurations
-			default_configurations;
+				Uuid
+					::V4;
 
 		UuidEnumManagerConfigurations();
 	};

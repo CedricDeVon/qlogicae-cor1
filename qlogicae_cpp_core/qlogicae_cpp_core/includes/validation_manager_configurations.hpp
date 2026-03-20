@@ -12,15 +12,8 @@ namespace
 	public:	
 		std::function<bool()>
 			conditional_callback =
-				default_configurations
-					.conditional_callback;
+				[]() { return true; };
 
-		static ValidationManagerConfigurations
-			initial_configurations;
-
-		static ValidationManagerConfigurations
-			default_configurations;
-		
 		ValidationManagerConfigurations();
 	};
 }

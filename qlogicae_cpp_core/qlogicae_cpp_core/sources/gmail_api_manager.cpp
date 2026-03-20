@@ -71,18 +71,10 @@ namespace
 					);
 			}			
 
-			static std::once_flag curl_init_flag;
-
-			std::call_once(
-				curl_init_flag,
-				[]()
-				{
-					curl_global_init(CURL_GLOBAL_DEFAULT);
-				}
-			);
-
 			return
-				true;
+				SingletonManager
+					::get_singleton<CurlPackageManager>()
+						.setup();
         }
         catch
         (

@@ -11,15 +11,5 @@ namespace
 	{
 		
 	}
-
-	RuntimeExecutionManagerConfigurations
-		RuntimeExecutionManagerConfigurations
-			::initial_configurations;
-
-	RuntimeExecutionManagerConfigurations
-		RuntimeExecutionManagerConfigurations
-			::default_configurations =
-				RuntimeExecutionManagerConfigurations
-					::initial_configurations;
 }
 

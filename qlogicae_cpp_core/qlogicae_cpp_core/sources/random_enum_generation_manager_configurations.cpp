@@ -11,14 +11,4 @@ namespace
 	{
 		
 	}
-
-	RandomEnumGenerationManagerConfigurations
-		RandomEnumGenerationManagerConfigurations
-			::initial_configurations;
-
-	RandomEnumGenerationManagerConfigurations
-		RandomEnumGenerationManagerConfigurations
-			::default_configurations =
-				RandomEnumGenerationManagerConfigurations
-					::initial_configurations;
 }

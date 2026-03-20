@@ -11,15 +11,5 @@ namespace
 	{
 		
 	}
-
-	CurlPackageManagerConfigurations
-		CurlPackageManagerConfigurations
-			::initial_configurations;
-
-	CurlPackageManagerConfigurations
-		CurlPackageManagerConfigurations
-			::default_configurations =
-				CurlPackageManagerConfigurations
-					::initial_configurations;
 }
 

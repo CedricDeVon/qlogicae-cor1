@@ -9,18 +9,7 @@ namespace
 		::SQLiteDatabaseManagerConfigurations() :
 			AbstractConfigurations<SQLiteDatabaseManagerConfigurations>()
 	{
-		file_path =
-			"";
+		
 	}
-
-	SQLiteDatabaseManagerConfigurations
-		SQLiteDatabaseManagerConfigurations
-			::initial_configurations;
-
-	SQLiteDatabaseManagerConfigurations
-		SQLiteDatabaseManagerConfigurations
-			::default_configurations =
-				SQLiteDatabaseManagerConfigurations
-					::initial_configurations;
 }
 

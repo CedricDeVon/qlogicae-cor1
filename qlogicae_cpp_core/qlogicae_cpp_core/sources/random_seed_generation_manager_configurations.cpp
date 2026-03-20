@@ -11,14 +11,4 @@ namespace
 	{
 		
 	}
-
-	RandomSeedGenerationManagerConfigurations
-		RandomSeedGenerationManagerConfigurations
-			::initial_configurations;
-
-	RandomSeedGenerationManagerConfigurations
-		RandomSeedGenerationManagerConfigurations
-			::default_configurations =
-				RandomSeedGenerationManagerConfigurations
-					::initial_configurations;
 }

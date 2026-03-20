@@ -13,14 +13,8 @@ namespace
 	public:	
 		FileSystemEntity
 			type =
-				default_configurations
-					.type;
-
-		static FileSystemEntityEnumManagerConfigurations
-			initial_configurations;
-
-		static FileSystemEntityEnumManagerConfigurations
-			default_configurations;
+				FileSystemEntity
+					::ALL;
 
 		FileSystemEntityEnumManagerConfigurations();
 	};

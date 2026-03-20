@@ -10,12 +10,6 @@ namespace
 			AbstractConfigurations<RandomNumberGenerationManagerConfigurations>
     {
 	public:
-		static RandomNumberGenerationManagerConfigurations
-			initial_configurations;
-
-		static RandomNumberGenerationManagerConfigurations
-			default_configurations;
-
 		RandomNumberGenerationManagerConfigurations();
     };
 }

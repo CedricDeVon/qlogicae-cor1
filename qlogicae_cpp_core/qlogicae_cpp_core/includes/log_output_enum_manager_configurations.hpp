@@ -13,14 +13,8 @@ namespace
 	public:	
 		LogOutput
 			type =
-				default_configurations
-					.type;
-
-		static LogOutputEnumManagerConfigurations
-			initial_configurations;
-
-		static LogOutputEnumManagerConfigurations
-			default_configurations;
+				LogOutput
+					::ALL;
 
 		LogOutputEnumManagerConfigurations();
 	};

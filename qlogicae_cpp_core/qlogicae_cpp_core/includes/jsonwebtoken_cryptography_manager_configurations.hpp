@@ -10,25 +10,17 @@ namespace
 			AbstractConfigurations<JsonWebTokenCryptographyManagerConfigurations>
     {
 	public:
-        std::string
+		std::string
 			issuer =
-				default_configurations
-					.issuer;
+				"issuer";
 
-        std::chrono::seconds
+		std::chrono::seconds
 			lifetime =
-				default_configurations
-					.lifetime;
+				std::chrono::seconds { 86'400'000 };
 
-        std::map<std::string, std::string>
-			claims =
+		std::map<std::string, std::string>
+			claims = 
 				{};
-
-		static JsonWebTokenCryptographyManagerConfigurations
-			initial_configurations;
-
-		static JsonWebTokenCryptographyManagerConfigurations
-			default_configurations;
 
 		JsonWebTokenCryptographyManagerConfigurations();
     };    

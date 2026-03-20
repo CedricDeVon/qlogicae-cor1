@@ -10,12 +10,6 @@ namespace
 			AbstractConfigurations<SodiumPackageManagerConfigurations>
 	{
 	public:		
-		static SodiumPackageManagerConfigurations
-			initial_configurations;
-
-		static SodiumPackageManagerConfigurations
-			default_configurations;
-
 		SodiumPackageManagerConfigurations();
 	};
 }

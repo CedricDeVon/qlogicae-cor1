@@ -12,24 +12,15 @@ namespace
 	public:
 		std::string
 			model_path =
-				default_configurations
-					.model_path;
+				"";
 
 		bool
 			enable_cuda =
-				default_configurations
-					.enable_cuda;
+				false;
 
 		int
 			device_id =
-				default_configurations
-					.device_id;
-
-		static OnnxApiManagerConfigurations
-			initial_configurations;
-
-		static OnnxApiManagerConfigurations
-			default_configurations;
+				1;
 
 		OnnxApiManagerConfigurations();
     };    

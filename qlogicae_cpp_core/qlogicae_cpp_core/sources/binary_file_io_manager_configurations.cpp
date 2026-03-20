@@ -12,14 +12,4 @@ namespace
 		file_path =
 			"";
 	}
-
-	BinaryFileIoManagerConfigurations
-		BinaryFileIoManagerConfigurations
-			::initial_configurations;
-
-	BinaryFileIoManagerConfigurations
-		BinaryFileIoManagerConfigurations
-			::default_configurations =
-				BinaryFileIoManagerConfigurations
-					::initial_configurations;
 }

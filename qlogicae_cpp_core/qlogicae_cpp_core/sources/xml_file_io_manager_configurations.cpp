@@ -9,20 +9,6 @@ namespace
 		::XmlFileIoManagerConfigurations() :
 			AbstractConfigurations<XmlFileIoManagerConfigurations>()
 	{
-		file_path =
-			"";
-
-		indentation_count =
-			1;
+		
 	}
-
-	XmlFileIoManagerConfigurations
-		XmlFileIoManagerConfigurations
-			::initial_configurations;
-
-	XmlFileIoManagerConfigurations
-		XmlFileIoManagerConfigurations
-			::default_configurations =
-				XmlFileIoManagerConfigurations
-					::initial_configurations;
 }

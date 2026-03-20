@@ -11,78 +11,59 @@ namespace
 	{
 	public:	
 		std::string
-			base_url;
+			base_url =
+				"http://127.0.0.1";
 
 		long 
 			connect_timeout_seconds =
-				default_configurations
-					.connect_timeout_seconds;
-
+				30;
 		long 
 			request_timeout_seconds =
-				default_configurations
-					.request_timeout_seconds;
+				30;
 
 		bool 
-			follow_redirects =
-				default_configurations
-					.follow_redirects;
+			follow_redirects = 
+				true;
 
 		bool 
 			enable_http2 =
-				default_configurations
-					.enable_http2;
+				true;
 
 		std::vector<std::string>
 			default_headers =
-				default_configurations
-					.default_headers;
+				{};
 
 		std::string
 			bearer_token =
-				default_configurations
-					.bearer_token;
+				"";
 
 		std::string
 			pinned_cert_file =
-				default_configurations
-					.pinned_cert_file;
+				"";
 
 		std::string
 			trusted_ca_bundle_file =
-				default_configurations
-					.trusted_ca_bundle_file;
+				"";
 
 		bool 
 			wait_forever =
-				default_configurations
-					.wait_forever;
+				false;
 
 		bool 
 			suppress_exceptions =
-				default_configurations
-					.suppress_exceptions;
+				false;
 
 		bool 
 			capture_body =
-				default_configurations
-					.capture_body;
+				true;
 
 		bool 
 			capture_headers =
-				default_configurations
-					.capture_headers;
+				true;
 
 		bool 
 			capture_telemetry =
-				default_configurations
-					.capture_telemetry;
-
-		static RestApiManagerConfigurations
-			initial_configurations;
-
-		static RestApiManagerConfigurations
-			default_configurations;
+				true;
 
 		RestApiManagerConfigurations();
 	};

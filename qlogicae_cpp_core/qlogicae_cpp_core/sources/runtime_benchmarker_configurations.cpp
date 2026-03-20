@@ -11,14 +11,4 @@ namespace
 	{
 		
 	}
-
-	RuntimeBenchmarkerConfigurations
-		RuntimeBenchmarkerConfigurations
-			::initial_configurations;
-
-	RuntimeBenchmarkerConfigurations
-		RuntimeBenchmarkerConfigurations
-			::default_configurations =
-				RuntimeBenchmarkerConfigurations
-					::initial_configurations;
 }

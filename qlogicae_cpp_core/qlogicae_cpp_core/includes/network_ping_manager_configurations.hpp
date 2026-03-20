@@ -14,24 +14,16 @@ namespace
 	public:		
         std::string
 			host_address =
-				default_configurations
-					.host_address;
+				"1.1.1.1";
 
 		TimeScaleUnit
 			time_scale_unit =
-				default_configurations
-					.time_scale_unit;
+				TimeScaleUnit
+					::MILLISECONDS;
 
 		std::chrono::milliseconds
 			timeout =
-				default_configurations
-					.timeout;
-
-		static NetworkPingManagerConfigurations
-			initial_configurations;
-
-		static NetworkPingManagerConfigurations
-			default_configurations;
+				std::chrono::milliseconds { 1000 };
 
 		NetworkPingManagerConfigurations();
     };

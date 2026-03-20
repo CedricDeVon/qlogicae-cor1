@@ -12,14 +12,7 @@ namespace
 	public:		
 		std::string
 			file_path =
-				default_configurations
-					.file_path;
-
-		static TextFileIoManagerConfigurations
-			initial_configurations;
-
-		static TextFileIoManagerConfigurations
-			default_configurations;
+				"";
 
 		TextFileIoManagerConfigurations();
 	};

@@ -10,12 +10,6 @@ namespace
 			AbstractConfigurations<QLogicaeApplicationManagerConfigurations>
     {
 	public:
-		static QLogicaeApplicationManagerConfigurations
-			initial_configurations;
-
-		static QLogicaeApplicationManagerConfigurations
-			default_configurations;
-
 		QLogicaeApplicationManagerConfigurations();
     };    
 }

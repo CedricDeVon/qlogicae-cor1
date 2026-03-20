@@ -9,18 +9,9 @@ namespace
 		::TimeScaleUnitEnumManagerConfigurations() :
 			AbstractConfigurations<TimeScaleUnitEnumManagerConfigurations>()
 	{
-		type =
-			TimeScaleUnit
-				::SECONDS;
+		
 	}
-
-	TimeScaleUnitEnumManagerConfigurations
-		TimeScaleUnitEnumManagerConfigurations
-			::initial_configurations;
-
-	TimeScaleUnitEnumManagerConfigurations
-		TimeScaleUnitEnumManagerConfigurations
-			::default_configurations =
-				TimeScaleUnitEnumManagerConfigurations
-					::initial_configurations;
 }
+
+
+

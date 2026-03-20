@@ -13,14 +13,8 @@ namespace
 	public:	
 		EmailBody
 			type =
-				default_configurations
-					.type;
-
-		static EmailBodyEnumManagerConfigurations
-			initial_configurations;
-
-		static EmailBodyEnumManagerConfigurations
-			default_configurations;
+				EmailBody
+					::PLAIN;
 
 		EmailBodyEnumManagerConfigurations();
 	};

@@ -12,24 +12,15 @@ namespace
 	public:	
 		HKEY
 			root_key =
-				default_configurations
-					.root_key;
+				HKEY_CURRENT_USER;
 
 		std::wstring
 			sub_key =
-				default_configurations
-					.sub_key;
+				L"Software\\App";
 
 		std::wstring
 			name_key =
-				default_configurations
-					.name_key;
-
-		static WindowsRegistryManagerConfigurations
-			initial_configurations;
-
-		static WindowsRegistryManagerConfigurations
-			default_configurations;
+				L"Data";
 
 		WindowsRegistryManagerConfigurations();
 	};

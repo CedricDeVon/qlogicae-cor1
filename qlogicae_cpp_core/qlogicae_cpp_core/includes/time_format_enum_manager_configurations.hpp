@@ -13,14 +13,8 @@ namespace
 	public:	
 		TimeFormat
 			type =
-				default_configurations
-					.type;
-
-		static TimeFormatEnumManagerConfigurations
-			initial_configurations;
-
-		static TimeFormatEnumManagerConfigurations
-			default_configurations;
+				TimeFormat
+					::FULL_TIMESTAMP;
 
 		TimeFormatEnumManagerConfigurations();
 	};

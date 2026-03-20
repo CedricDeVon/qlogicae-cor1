@@ -12,149 +12,119 @@ namespace
 	public:
 		std::string
 			file_path =
-				default_configurations
-					.file_path;
+				"data.db";
+
+		bool
+			is_feature_thread_safety_handling_enabled =
+				true;
 
 		bool
 			create_if_missing =
-				default_configurations
-					.create_if_missing;
+				true;
 
 		int
 			max_open_files =
-				default_configurations
-					.max_open_files;
+				-1;
 
 		bool
 			use_fsync =
-				default_configurations
-					.use_fsync;
+				false;
 
 		bool
 			use_direct_reads =
-				default_configurations
-					.use_direct_reads;
+				true;
 
 		bool
 			use_direct_io_for_flush_and_compaction =
-				default_configurations
-					.use_direct_io_for_flush_and_compaction;
+				true;
 
 		int
 			max_background_flushes =
-				default_configurations
-					.max_background_flushes;
+				1;
 
 		int
 			base_max_background_jobs =
-				default_configurations
-					.base_max_background_jobs;
+				4;
 
 		rocksdb::CompactionStyle
 			compaction_style =
-				default_configurations
-					.compaction_style;
+				rocksdb::kCompactionStyleLevel;
 
 		int
 			level0_file_num_compaction_trigger =
-				default_configurations
-					.level0_file_num_compaction_trigger;
+				10;
 
 		int
 			level0_slowdown_writes_trigger =
-				default_configurations
-					.level0_slowdown_writes_trigger;
+				20;
 
 		int
 			level0_stop_writes_trigger =
-				default_configurations
-					.level0_stop_writes_trigger;
+				40;
 
 		size_t
 			write_buffer_size =
-				default_configurations
-					.write_buffer_size;
+				128 * 1024 * 1024;
 
 		size_t
 			base_write_buffer_size =
-				default_configurations
-					.base_write_buffer_size;
+				64 * 1024 * 1024;
 
 		int
 			max_write_buffer_number =
-				default_configurations
-					.max_write_buffer_number;
+				6;
 
 		int
 			min_write_buffer_number_to_merge =
-				default_configurations
-					.min_write_buffer_number_to_merge;
+				2;
 
 		size_t
 			target_file_size_base =
-				default_configurations
-					.target_file_size_base;
+				64 * 1024 * 1024;
 
 		size_t
 			max_bytes_for_level_base =
-				default_configurations
-					.max_bytes_for_level_base;
+				512 * 1024 * 1024;
 
 		size_t
 			bytes_per_sync =
-				default_configurations
-					.bytes_per_sync;
+				1 << 20;
 
 		size_t
 			base_block_cache_size =
-				default_configurations
-					.base_block_cache_size;
+				64 * 1024 * 1024;
 
 		rocksdb::CompressionType
 			compression =
-				default_configurations
-					.compression;
+				rocksdb::kNoCompression;
 
 		bool
 			write_sync =
-				default_configurations
-					.write_sync;
+				false;
 
 		bool
 			write_disable_wal =
-				default_configurations
-					.write_disable_wal;
+				true;
 
 		bool
 			no_block_cache =
-				default_configurations
-					.no_block_cache;
+				true;
 
 		int
 			block_restart_interval =
-				default_configurations
-					.block_restart_interval;
+				4;
 
 		size_t
 			block_size =
-				default_configurations
-					.block_size;
+				4 * 1024;
 
 		size_t
 			background_threads =
-				default_configurations
-					.background_threads;
+				4;
 
 		double
 			new_bloom_filter_policy =
-				default_configurations
-					.new_bloom_filter_policy;
-
-		static RocksDbDatabaseManagerConfigurations
-			initial_configurations;
-
-		static RocksDbDatabaseManagerConfigurations
-			default_configurations;
+				10;
 
 		RocksDbDatabaseManagerConfigurations();
     };

@@ -11,14 +11,4 @@ namespace
 	{
 		
 	}
-
-	WindowsSystemAccessManagerConfigurations
-		WindowsSystemAccessManagerConfigurations
-			::initial_configurations;
-
-	WindowsSystemAccessManagerConfigurations
-		WindowsSystemAccessManagerConfigurations
-			::default_configurations =
-				WindowsSystemAccessManagerConfigurations
-					::initial_configurations;
 }

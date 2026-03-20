@@ -2,6 +2,7 @@
 
 #include "file_entity.hpp"
 #include "abstract_class.hpp"
+#include "curl_package_manager.hpp"
 #include "gmail_api_manager_response.hpp"
 #include "gmail_api_manager_configurations.hpp"
 

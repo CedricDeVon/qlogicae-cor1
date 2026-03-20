@@ -10,12 +10,6 @@ namespace
 			LogManagerConfigurations<ConsoleLogManagerConfigurations>
     {
 	public:
-		static ConsoleLogManagerConfigurations
-			initial_configurations;
-
-		static ConsoleLogManagerConfigurations
-			default_configurations;
-
 		ConsoleLogManagerConfigurations();
     };
 }

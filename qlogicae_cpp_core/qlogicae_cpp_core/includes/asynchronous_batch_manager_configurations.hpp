@@ -10,12 +10,6 @@ namespace
 			AbstractConfigurations<AsynchronousBatchManagerConfigurations>
     {
 	public:
-		static AsynchronousBatchManagerConfigurations
-			initial_configurations;
-
-		static AsynchronousBatchManagerConfigurations
-			default_configurations;
-
 		AsynchronousBatchManagerConfigurations();
     };    
 }

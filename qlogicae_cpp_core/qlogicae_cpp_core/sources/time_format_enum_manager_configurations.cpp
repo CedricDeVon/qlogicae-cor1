@@ -9,18 +9,6 @@ namespace
 		::TimeFormatEnumManagerConfigurations() :
 			AbstractConfigurations<TimeFormatEnumManagerConfigurations>()
 	{
-		type =
-			TimeFormat
-				::FULL_TIMESTAMP;
+		
 	}
-
-	TimeFormatEnumManagerConfigurations
-		TimeFormatEnumManagerConfigurations
-			::initial_configurations;
-
-	TimeFormatEnumManagerConfigurations
-		TimeFormatEnumManagerConfigurations
-			::default_configurations =
-				TimeFormatEnumManagerConfigurations
-					::initial_configurations;
 }

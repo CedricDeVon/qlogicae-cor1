@@ -11,14 +11,4 @@ namespace
 	{
 		
 	}
-
-	BcryptHashCryptographyManagerConfigurations
-		BcryptHashCryptographyManagerConfigurations
-			::initial_configurations;
-
-	BcryptHashCryptographyManagerConfigurations
-		BcryptHashCryptographyManagerConfigurations
-			::default_configurations =
-				BcryptHashCryptographyManagerConfigurations
-					::initial_configurations;
 }

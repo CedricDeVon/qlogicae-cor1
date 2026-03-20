@@ -9,18 +9,6 @@ namespace
 		::TextCaseEnumManagerConfigurations() :
 			AbstractConfigurations<TextCaseEnumManagerConfigurations>()
 	{
-		type =
-			TextCase
-				::NONE;
+		
 	}
-
-	TextCaseEnumManagerConfigurations
-		TextCaseEnumManagerConfigurations
-			::initial_configurations;
-
-	TextCaseEnumManagerConfigurations
-		TextCaseEnumManagerConfigurations
-			::default_configurations =
-				TextCaseEnumManagerConfigurations
-					::initial_configurations;
 }

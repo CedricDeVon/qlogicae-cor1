@@ -10,12 +10,6 @@ namespace
 			AbstractConfigurations<QLogicaeFileSystemManagerConfigurations>
     {
 	public:
-		static QLogicaeFileSystemManagerConfigurations
-			initial_configurations;
-
-		static QLogicaeFileSystemManagerConfigurations
-			default_configurations;
-
 		QLogicaeFileSystemManagerConfigurations();
     };    
 }

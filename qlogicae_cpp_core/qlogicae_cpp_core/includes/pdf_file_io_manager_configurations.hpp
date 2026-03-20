@@ -12,14 +12,7 @@ namespace
 	public:
 		std::string
 			file_path =
-				default_configurations
-					.file_path;
-
-		static PdfFileIoManagerConfigurations
-			initial_configurations;
-
-		static PdfFileIoManagerConfigurations
-			default_configurations;
+				"";
 
 		PdfFileIoManagerConfigurations();
     };    

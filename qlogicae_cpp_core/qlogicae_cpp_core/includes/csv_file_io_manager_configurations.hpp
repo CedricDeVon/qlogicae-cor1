@@ -12,20 +12,12 @@ namespace
 	public:
 		std::string
 			file_path =
-				default_configurations
-					.file_path;
+				"";	
 
-		std::string
+		std::string				
 			delimeter =
-				default_configurations
-					.delimeter;
-
-		static CsvFileIoManagerConfigurations
-			initial_configurations;
-
-		static CsvFileIoManagerConfigurations
-			default_configurations;
-
+				",";
+	
 		CsvFileIoManagerConfigurations();
     };    
 }

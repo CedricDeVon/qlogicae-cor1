@@ -13,14 +13,8 @@ namespace
 	public:
 		TextCase
 			type =
-				default_configurations
-					.type;
-
-		static TextCaseEnumManagerConfigurations
-			initial_configurations;
-
-		static TextCaseEnumManagerConfigurations
-			default_configurations;
+				TextCase
+					::NONE;
 
 		TextCaseEnumManagerConfigurations();
 	};

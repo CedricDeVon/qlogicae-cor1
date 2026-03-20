@@ -11,14 +11,4 @@ namespace
 	{
 		
 	}
-
-	EntityActivationManagerConfigurations
-		EntityActivationManagerConfigurations
-			::initial_configurations;
-
-	EntityActivationManagerConfigurations
-		EntityActivationManagerConfigurations
-			::default_configurations =
-				EntityActivationManagerConfigurations
-					::initial_configurations;
 }

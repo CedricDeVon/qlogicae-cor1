@@ -14,6 +14,14 @@ namespace
     public:		
 		AsynchronousBatchManager();
 
+		~AsynchronousBatchManager();
+
+		bool
+			construct();
+
+		bool
+			destruct();
+
 		std::unordered_map<std::string, std::any>
 			execute_await_batch(
 				const std::unordered_map<std::string, std::function<std::any()>>&

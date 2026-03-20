@@ -11,15 +11,5 @@ namespace
 	{
 		
 	}
-
-    AsynchronousManagerConfigurations
-		AsynchronousManagerConfigurations
-			::initial_configurations;
-
-	AsynchronousManagerConfigurations
-		AsynchronousManagerConfigurations
-			::default_configurations =
-				AsynchronousManagerConfigurations
-					::initial_configurations;
 }
 
