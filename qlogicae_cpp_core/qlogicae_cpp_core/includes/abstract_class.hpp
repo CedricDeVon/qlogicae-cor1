@@ -128,8 +128,8 @@ namespace
 					(
 						feature_handling_mutex_1
 					);
-			}		
-
+			}
+			
 			return
 				true;
 		}
