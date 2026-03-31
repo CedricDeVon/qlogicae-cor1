@@ -5,8 +5,8 @@
 
 namespace
 	QLogicae::Cor::V1
-{    
-    class
+{
+	class
 		AsynchronousManager :
 			public AbstractClass<AsynchronousManagerConfigurations>
     {
@@ -151,8 +151,33 @@ namespace
 	{
 		try
         {			
-			QLOGICAE_COR_V1_HANDLE_PRE_EXECUTION_WITH_EDGE_CASES(feature, implementation_method == nullptr);
-			QLOGICAE_COR_V1_HANDLE_MUTEX_LOCK(feature, 1);
+			if
+			(
+				configurations
+					.is_runtime_execution_disabled_for_feature_handling() ||				
+				(
+					configurations
+						.is_edge_case_enabled_for_feature_handling() &&
+					(
+						implementation_method == nullptr
+					)
+				)
+			)
+			{
+				return
+					{};
+			}
+
+			boost::unique_lock<boost::mutex>
+				mutex_lock;
+			if (configurations.is_thread_safety_enabled_for_feature_handling())
+			{
+				mutex_lock =
+					boost::unique_lock<boost::mutex>
+					(
+						feature_handling_mutex_1
+					);
+			}
 
 			if constexpr (std::is_void_v<ReturnType>)
 			{

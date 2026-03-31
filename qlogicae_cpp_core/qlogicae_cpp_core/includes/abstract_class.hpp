@@ -4,15 +4,13 @@
 #include "singleton_manager.hpp"
 #include "abstract_configurations.hpp"
 
-namespace
-	QLogicae::Cor::V1
-{
+QLOGICAE_COR_V1__BASE__HPP_CPP__COR_NAMESPACE_TEMPLATE
+(
     template <typename AbstractConfigurationsType> class
 		AbstractClass
     {
     public:
-		boost::mutex
-			feature_handling_mutex_1;
+		QLOGICAE_COR_V1__BASE__HPP__MUTEX_LAYER_1_TEMPLATE();
 
 		AbstractConfigurationsType
 			configurations;
@@ -67,126 +65,48 @@ namespace
 		AbstractClass<AbstractConfigurationsType>
 			::AbstractClass()
     {
-		try
-		{			
-			construct();
-		}
-		catch
-		(
-			const std::exception&
-				exception
-		)
-		{
-			handle_error_outputs<bool>(
-				exception
-			);
-		}
+		construct();
     }
 
 	template <typename AbstractConfigurationsType>
 		AbstractClass<AbstractConfigurationsType>
 			::~AbstractClass()
     {
-		try
-		{			
-			destruct();
-		}
-		catch
-		(
-			const std::exception&
-				exception
-		)
-		{
-			handle_error_outputs<bool>(
-				exception
-			);
-		}
+		destruct();
     }
 
 	template <typename AbstractConfigurationsType> bool
 		AbstractClass<AbstractConfigurationsType>
 			::construct()
 	{		
-		try
-		{	
-			if
-			(
-				configurations
-					.is_runtime_execution_disabled_for_utility_handling()
-			)
-			{
-				return
-					false;
-			}
-	
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_utility_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}
-			
-			return
-				true;
-		}
-		catch
+		QLOGICAE_COR_V1__BASE__HPP_CPP__METHOD_TEMPLATE
 		(
-			const std::exception&
-				exception
-		)
-		{
+			QLOGICAE_COR_V1__BASE__HPP_CPP__EMPTY_PRE_EXECUTION_GUARD,
+			QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_1,
+			QLOGICAE_COR_V1__BASE__HPP_CPP__EMPTY_RETURN_VALUE,
+
 			return
-				handle_error_outputs<bool>(
-					exception
-				);
-		}
+				true;,
+
+			QLOGICAE_COR_V1__BASE__HPP_CPP__EMPTY_CATCH_CODE
+		);
 	}
 
 	template <typename AbstractConfigurationsType> bool
 		AbstractClass<AbstractConfigurationsType>
 			::destruct()
 	{
-		try
-		{		
-			if
-			(
-				configurations
-					.is_runtime_execution_disabled_for_utility_handling()
-			)
-			{
-				return
-					false;
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_utility_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}
-
-			return
-				true;
-		}
-		catch
+		QLOGICAE_COR_V1__BASE__HPP_CPP__METHOD_TEMPLATE
 		(
-			const std::exception&
-				exception
-		)
-		{
+			QLOGICAE_COR_V1__BASE__HPP_CPP__EMPTY_PRE_EXECUTION_GUARD,
+			QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_1,
+			QLOGICAE_COR_V1__BASE__HPP_CPP__EMPTY_RETURN_VALUE,
+
 			return
-				handle_error_outputs<bool>(
-					exception
-				);
-		}
+				true;,
+
+			QLOGICAE_COR_V1__BASE__HPP_CPP__EMPTY_CATCH_CODE
+		);
 	}
 
 	template <typename AbstractConfigurationsType> bool
@@ -196,92 +116,40 @@ namespace
 					new_configurations
 			)
 	{
-		try
-		{	
-			if
-			(
-				configurations
-					.is_runtime_execution_disabled_for_utility_handling()
-			)
-			{
-				return
-					false;
-			}
-			
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_utility_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}			
+		QLOGICAE_COR_V1__BASE__HPP_CPP__METHOD_TEMPLATE
+		(
+			QLOGICAE_COR_V1__BASE__HPP_CPP__EMPTY_PRE_EXECUTION_GUARD,
+			QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_1,
+			QLOGICAE_COR_V1__BASE__HPP_CPP__EMPTY_RETURN_VALUE,
 
 			configurations =
 				new_configurations;
 
 			return
-				true;
-		}
-		catch
-		(
-			const std::exception&
-				exception
-		)
-		{
-			return
-				handle_error_outputs<bool>(
-					exception
-				);
-		}
+				true;,
+
+			QLOGICAE_COR_V1__BASE__HPP_CPP__EMPTY_CATCH_CODE
+		);
 	}
 
 	template <typename AbstractConfigurationsType> bool
 		AbstractClass<AbstractConfigurationsType>
 			::reset()
 	{
-		try
-		{	
-			if
-			(
-				configurations
-					.is_runtime_execution_disabled_for_utility_handling()
-			)
-			{
-				return
-					false;
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_utility_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}
+		QLOGICAE_COR_V1__BASE__HPP_CPP__METHOD_TEMPLATE
+		(
+			QLOGICAE_COR_V1__BASE__HPP_CPP__EMPTY_PRE_EXECUTION_GUARD,
+			QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_1,
+			QLOGICAE_COR_V1__BASE__HPP_CPP__EMPTY_RETURN_VALUE,
 
 			configurations =
 				{};
 
 			return
-				true;
-		}
-		catch
-		(
-			const std::exception&
-				exception
-		)
-		{			
-			return
-				handle_error_outputs<bool>(
-					exception
-				);
-		}
+				true;,
+
+			QLOGICAE_COR_V1__BASE__HPP_CPP__EMPTY_CATCH_CODE
+		);
 	} 
 	
 	template <typename AbstractConfigurationsType>
@@ -294,22 +162,11 @@ namespace
 					message
 			)
 	{				
-		if
+		QLOGICAE_COR_V1__BASE__HPP_CPP__HANDLE_ERROR_OUTPUTS_METHOD_TEMPLATE
 		(
-			configurations
-				.is_runtime_execution_disabled_for_feature_handling()
-		)
-		{
-			return
-				OutputType{};
-		}
-
-		return
-			SingletonManager::get_singleton<ErrorManager>()
-				.handle_error_outputs<OutputType>(
-					title,
-					message
-			);
+			OutputType,
+			(title, message)
+		);
 	}
 
 	template <typename AbstractConfigurationsType>
@@ -320,21 +177,11 @@ namespace
 					message
 			)
 	{	
-		if
+		QLOGICAE_COR_V1__BASE__HPP_CPP__HANDLE_ERROR_OUTPUTS_METHOD_TEMPLATE
 		(
-			configurations
-				.is_runtime_execution_disabled_for_feature_handling()
-		)
-		{
-			return
-				OutputType{};
-		}
-
-		return
-			SingletonManager::get_singleton<ErrorManager>()
-				.handle_error_outputs<OutputType>(
-					message
-			);
+			OutputType,
+			message
+		);
 	}
 
 	template <typename AbstractConfigurationsType>
@@ -345,21 +192,11 @@ namespace
 					exception
 			)
 	{
-		if
+		QLOGICAE_COR_V1__BASE__HPP_CPP__HANDLE_ERROR_OUTPUTS_METHOD_TEMPLATE
 		(
-			configurations
-				.is_runtime_execution_disabled_for_feature_handling()
-		)
-		{
-			return
-				OutputType{};
-		}
-
-		return
-			SingletonManager::get_singleton<ErrorManager>()
-				.handle_error_outputs<OutputType>(
-					exception
-			);
+			OutputType,
+			exception
+		);
 	} 
 
 	template <typename AbstractConfigurationsType>
@@ -370,51 +207,18 @@ namespace
 					callback
 			)
 	{
-		try
-		{
-			if
-			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling() ||				
-				(
-					configurations
-						.is_edge_case_enabled_for_feature_handling() &&
-					(
-						callback == nullptr
-					)
-				)
-			)
-			{
-				return
-					OutputType{};
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_feature_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}
+		QLOGICAE_COR_V1__BASE__HPP_CPP__METHOD_TEMPLATE
+		(
+			QLOGICAE_COR_V1__BASE__HPP_CPP__EMPTY_PRE_EXECUTION_GUARD,
+			QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_1,
+			OutputType{},
 
 			callback();
 
 			return
-				OutputType{};
-		}
-		catch
-		(
-			const std::exception&
-				exception
-		)
-		{
-			return
-				handle_error_outputs<OutputType>(
-					exception
-				);
-		}
-	}	
-}
+				OutputType{};,
+
+			QLOGICAE_COR_V1__BASE__HPP_CPP__EMPTY_CATCH_CODE
+		);		
+	}
+);

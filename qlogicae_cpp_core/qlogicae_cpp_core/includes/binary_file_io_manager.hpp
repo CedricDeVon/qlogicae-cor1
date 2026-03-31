@@ -41,7 +41,7 @@ namespace
 				const std::string&
 					file_path
 			);
-
+ 
 		bool
 			write_raw_text(
 				const std::string&

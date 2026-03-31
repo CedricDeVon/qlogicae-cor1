@@ -1,8 +1,7 @@
 #pragma once
 
-namespace
-	QLogicae::Cor::V1
-{
+QLOGICAE_COR_V1__BASE__HPP_CPP__COR_NAMESPACE_TEMPLATE
+(
 	template <typename DerivedConfigurations> struct
 		AbstractConfigurations
 	{
@@ -134,13 +133,7 @@ namespace
 		is_edge_case_handling_enabled =
 			true;
 
-		is_utility_edge_case_handling_enabled =
-			true;
-
 		is_feature_edge_case_handling_enabled =
-			true;
-
-		is_error_edge_case_handling_enabled =
 			true;
 
 		is_runtime_execution_handling_override_enabled =
@@ -149,13 +142,7 @@ namespace
 		is_runtime_execution_handling_enabled =
 			true;
 
-		is_utility_runtime_execution_handling_enabled =
-			true;
-
 		is_feature_runtime_execution_handling_enabled =
-			true;
-
-		is_error_runtime_execution_handling_enabled =
 			true;
 
 		is_thread_safety_handling_override_enabled =
@@ -164,11 +151,23 @@ namespace
 		is_thread_safety_handling_enabled =
 			true;
 			
-		is_utility_thread_safety_handling_enabled =
-			true;
-			
 		is_feature_thread_safety_handling_enabled =
 			true;
+
+		is_utility_edge_case_handling_enabled =
+			true;
+
+		is_error_edge_case_handling_enabled =
+			true;
+
+		is_utility_runtime_execution_handling_enabled =
+			true;
+
+		is_error_runtime_execution_handling_enabled =
+			true;
+
+		is_utility_thread_safety_handling_enabled =
+			true;			
 			
 		is_error_thread_safety_handling_enabled =
 			true;
@@ -335,5 +334,5 @@ namespace
 		return
 			!is_thread_safety_enabled_for_error_handling();
 	}
-}
+);
 

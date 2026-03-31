@@ -4,7 +4,7 @@
 
 namespace
 	QLogicae::Cor::V1
-{        
+{
 	boost::asio::io_context
 		AsynchronousManager::io_context;
 

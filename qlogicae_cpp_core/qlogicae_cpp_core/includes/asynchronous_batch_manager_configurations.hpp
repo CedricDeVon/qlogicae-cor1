@@ -5,7 +5,7 @@
 namespace
 	QLogicae::Cor::V1
 {    
-    struct
+	struct
 		AsynchronousBatchManagerConfigurations :
 			AbstractConfigurations<AsynchronousBatchManagerConfigurations>
     {
