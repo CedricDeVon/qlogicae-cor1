@@ -3,7 +3,7 @@
 #include "../includes/entity_activation_status_enum_manager.hpp"
 
 namespace
-	QLogicae::Cor::V1
+	QLOGICAE_COR_V1__BASE__HPP_CPP__COR_NAMESPACE_NAME
 {        	
 	EntityActivationStatusEnumManager
 		::EntityActivationStatusEnumManager() :

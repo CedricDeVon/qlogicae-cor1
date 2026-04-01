@@ -8,15 +8,17 @@
 #include <Shlwapi.h>
 
 namespace
-	QLogicae::Cor::V1
+	QLOGICAE_COR_V1__BASE__HPP_CPP__COR_NAMESPACE_NAME
 {
     class
 		FileSystemManager :
 			public AbstractClass<FileSystemManagerConfigurations>
     {
     public:       
-		boost::mutex
-			feature_handling_mutex_2;
+		QLOGICAE_COR_V1__INSTANCE__HPP__MUTEX_LAYER_TEMPLATE
+		(
+			QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_2
+		);
 
         FileSystemManager();
 

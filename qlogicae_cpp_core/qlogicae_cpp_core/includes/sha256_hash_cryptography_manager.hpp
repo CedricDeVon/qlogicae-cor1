@@ -5,15 +5,17 @@
 #include "sha256_hash_cryptography_manager_configurations.hpp"
 
 namespace
-	QLogicae::Cor::V1
+	QLOGICAE_COR_V1__BASE__HPP_CPP__COR_NAMESPACE_NAME
 {
     class
 		Sha256HashCryptographyManager :
 			public AbstractClass<Sha256HashCryptographyManagerConfigurations>
     {
     public:
-		boost::mutex
-			feature_handling_mutex_2;
+		QLOGICAE_COR_V1__INSTANCE__HPP__MUTEX_LAYER_TEMPLATE
+		(
+			QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_2
+		);
 
 		Sha256HashCryptographyManager();
 

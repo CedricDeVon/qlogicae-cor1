@@ -1,7 +1,8 @@
 ﻿#pragma once
 
-#include "framework.hpp"
 #include "qlogicae_cpp_core/includes/macros.hpp"
+
+#include "framework.hpp"
 
 #ifdef _MSC_VER
 #pragma warning(push)
@@ -187,7 +188,7 @@
 #include <immintrin.h>
 
 namespace
-	QLogicae::Cor::V1
+	QLOGICAE_COR_V1__BASE__HPP_CPP__COR_NAMESPACE_NAME
 {
 
 }

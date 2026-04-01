@@ -3,8 +3,8 @@
 #include "singleton_manager_configurations.hpp"
 
 namespace
-	QLogicae::Cor::V1
-{        
+	QLOGICAE_COR_V1__BASE__HPP_CPP__COR_NAMESPACE_NAME
+{
     class
 		SingletonManager
     {
@@ -12,9 +12,11 @@ namespace
 		static SingletonManagerConfigurations
 			configurations;
 
-		static boost::mutex
-			feature_handling_mutex_1;
-     
+		QLOGICAE_COR_V1__STATIC__HPP__MUTEX_LAYER_TEMPLATE
+		(
+			QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_1
+		);
+
 		SingletonManager();
 
 		~SingletonManager();

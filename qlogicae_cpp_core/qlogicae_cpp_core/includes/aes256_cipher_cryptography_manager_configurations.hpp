@@ -3,8 +3,8 @@
 #include "abstract_configurations.hpp"
 
 namespace
-	QLogicae::Cor::V1
-{    
+	QLOGICAE_COR_V1__BASE__HPP_CPP__COR_NAMESPACE_NAME
+{
     struct
 		Aes256CipherCryptographyManagerConfigurations :
 			AbstractConfigurations<Aes256CipherCryptographyManagerConfigurations>
@@ -13,4 +13,3 @@ namespace
 		Aes256CipherCryptographyManagerConfigurations();
     };    
 }
-

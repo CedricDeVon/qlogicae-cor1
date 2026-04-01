@@ -1,7 +1,7 @@
 ﻿#include "pch.hpp"
 
 namespace
-	QLogicae::Cor::V1::Sandbox
+	QLOGICAE_COR_V1__BASE__HPP_CPP__COR_SANDBOX_NAMESPACE_NAME
 {
 
 }

@@ -3,7 +3,7 @@
 #include "qlogicae_cpp_core/includes/timeout_clock.hpp"
 
 namespace
-	QLogicae::Cor::V1::Tests
+	QLOGICAE_COR_V1__BASE__HPP_CPP__COR_TESTS_NAMESPACE_NAME
 {
     class TimeoutClockTest : public ::testing::Test
     {

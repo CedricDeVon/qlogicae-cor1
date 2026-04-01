@@ -1,7 +1,8 @@
 #pragma once
 
-QLOGICAE_COR_V1__BASE__HPP_CPP__COR_NAMESPACE_TEMPLATE
-(
+namespace
+	QLOGICAE_COR_V1__BASE__HPP_CPP__COR_NAMESPACE_NAME
+{
 	template <typename DerivedConfigurations> struct
 		AbstractConfigurations
 	{
@@ -334,5 +335,4 @@ QLOGICAE_COR_V1__BASE__HPP_CPP__COR_NAMESPACE_TEMPLATE
 		return
 			!is_thread_safety_enabled_for_error_handling();
 	}
-);
-
+}

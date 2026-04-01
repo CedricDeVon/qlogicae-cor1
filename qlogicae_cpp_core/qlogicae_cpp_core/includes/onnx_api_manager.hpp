@@ -4,18 +4,22 @@
 #include "onnx_api_manager_configurations.hpp"
 
 namespace
-	QLogicae::Cor::V1
+	QLOGICAE_COR_V1__BASE__HPP_CPP__COR_NAMESPACE_NAME
 {
     class
 		OnnxApiManager :
 			public AbstractClass<OnnxApiManagerConfigurations>
     {
     public:		
-		boost::mutex
-			feature_handling_mutex_2;
+		QLOGICAE_COR_V1__INSTANCE__HPP__MUTEX_LAYER_TEMPLATE
+		(
+			QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_2
+		);
 
-		boost::mutex
-			feature_handling_mutex_3;
+		QLOGICAE_COR_V1__INSTANCE__HPP__MUTEX_LAYER_TEMPLATE
+		(
+			QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_3
+		);
 
 		Ort::Env
 			env_ { ORT_LOGGING_LEVEL_WARNING, "default" };

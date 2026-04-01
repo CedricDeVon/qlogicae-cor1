@@ -1,40 +1,80 @@
 ﻿#pragma once
 
-#include <gtest/gtest.h>
+#include "qlogicae_cpp_core/includes/macros.hpp"
 
-#define PCRE2_CODE_UNIT_WIDTH 8
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 4244)
+#endif
+
+#include <jwt-cpp/jwt.h>
+
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
+
 #include <pcre2.h>
-
-
-
+#include <sodium.h>
+#include <argon2.h>
+#include <sqlite3.h>
+#include <rapidcsv.h>
+#include <pugixml.hpp>
 #include <nanobench.h>
+#include <curl/curl.h>
+#include <toml++/toml.h>
+#include <xlnt/xlnt.hpp>
+#include <cppcodec/base32_rfc4648.hpp>
+#include <onnxruntime/onnxruntime_cxx_api.h>
 
-#include <io.h>
+#include <folly/init/Init.h>
+#include <folly/synchronization/MicroSpinLock.h>
 
 #include <fast_io.h>
 #include <fast_io_device.h>
+#include <fast_io_legacy.h>
 
-#include <absl/synchronization/mutex.h>
+#include <rapidjson/writer.h>
+#include <rapidjson/pointer.h>
+#include <rapidjson/document.h>
+#include <rapidjson/allocators.h>
+#include <rapidjson/prettywriter.h>
+#include <rapidjson/stringbuffer.h>
+#include <rapidjson/ostreamwrapper.h>
 
-#include <folly/File.h>
-#include <folly/Conv.h>
-#include <folly/Range.h>
-#include <folly/Format.h>
-#include <folly/init/Init.h>
-#include <folly/portability/Unistd.h>
-#include <folly/portability/SysTypes.h>
-#include <folly/synchronization/MicroSpinLock.h>
+#include <absl/time/time.h>
+#include <absl/time/clock.h>
+#include <absl/strings/ascii.h>
+#include <absl/strings/str_cat.h>
+#include <absl/strings/str_join.h>
+#include <absl/strings/str_split.h>
+#include <absl/strings/str_replace.h>
 
 #include <boost/asio.hpp>
-#include <boost/filesystem.hpp>
+#include <boost/locale.hpp>
+#include <boost/uuid/uuid.hpp>
+#include <boost/uuid/uuid_io.hpp>
 #include <boost/thread/mutex.hpp>
 #include <boost/thread/locks.hpp>
 #include <boost/thread/mutex.hpp>
-#include <boost/iostreams/stream.hpp>
+#include <boost/locale/boundary.hpp>
 #include <boost/thread/shared_mutex.hpp>
-#include <boost/iostreams/device/file.hpp>
+#include <boost/uuid/uuid_generators.hpp>
+#include <boost/uuid/string_generator.hpp>
 #include <boost/thread/recursive_mutex.hpp>
-#include <boost/iostreams/device/mapped_file.hpp>
+
+#include <rocksdb/db.h>
+#include <rocksdb/slice.h>
+#include <rocksdb/table.h>
+#include <rocksdb/options.h>
+#include <rocksdb/iterator.h>
+#include <rocksdb/listener.h>
+#include <rocksdb/convenience.h>
+#include <rocksdb/write_batch.h>
+#include <rocksdb/filter_policy.h>
+#include <rocksdb/compaction_filter.h>
+#include <rocksdb/utilities/checkpoint.h>
+#include <rocksdb/utilities/backup_engine.h>
+#include <rocksdb/utilities/transaction_db.h>
 
 #include <any>
 #include <compare>
@@ -136,14 +176,17 @@
 #include <codecvt>
 #include <shlobj.h>
 
-#include <windows.h>
 #include <winnt.h>
+#include <aclapi.h>
+#include <windows.h>
 #include <winsock2.h>
 #include <ws2tcpip.h>
+#include <shellapi.h>
 
-#include "qlogicae_cpp_core/includes/all.hpp"
+#include <immintrin.h>
 
-namespace QLogicaeCppCoreBenchmark
+namespace
+	QLOGICAE_COR_V1__BASE__HPP_CPP__COR_BENCHMARKS_NAMESPACE_NAME
 {
 
 }

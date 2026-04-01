@@ -312,12 +312,6 @@
     <ClCompile Include="qlogicae_cpp_core_test\sources\asynchronous_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core_test\sources\configuration_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core_test\sources\error_manager.cpp" />
-    <ClCompile Include="qlogicae_cpp_core_test\sources\random_character_generation_manager.cpp" />
-    <ClCompile Include="qlogicae_cpp_core_test\sources\random_enum_generation_manager.cpp" />
-    <ClCompile Include="qlogicae_cpp_core_test\sources\random_number_generation_manager.cpp" />
-    <ClCompile Include="qlogicae_cpp_core_test\sources\random_seed_generation_manager.cpp" />
-    <ClCompile Include="qlogicae_cpp_core_test\sources\random_string_generation_manager.cpp" />
-    <ClCompile Include="qlogicae_cpp_core_test\sources\random_value_generation_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core_test\sources\singleton_manager.cpp" />
   </ItemGroup>
   <ItemGroup>

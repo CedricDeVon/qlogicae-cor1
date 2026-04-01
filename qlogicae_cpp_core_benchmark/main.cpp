@@ -1,15 +1,27 @@
 ﻿#include "pch.hpp"
 
 // #include "main.hpp"
+// #include "qlogicae_cpp_core/includes/singleton_manager.hpp"
+// #include "qlogicae_cpp_core/includes/runtime_benchmarker.hpp"
 
-#include "qlogicae_cpp_core/includes/singleton_manager.hpp"
-#include "qlogicae_cpp_core/includes/runtime_benchmarker.hpp"
+int main(int argc, char** argv)
+{
+	// MapVsConstEnumAndStringReturn::execute();
 
+	return 0;
+}
+
+namespace
+	QLOGICAE_COR_V1__BASE__HPP_CPP__COR_BENCHMARKS_NAMESPACE_NAME
+{
+
+}
+
+/*
 
 namespace
 	MapVsConstEnumAndStringReturn
 {
-	/*
 
 	Conclusion:
 	- use either 'switch-case' or 'if-then', return constants
@@ -33,8 +45,6 @@ namespace
 
 	About
 	- Timestamp Created: 7:44 AM, February 9, 2026
-
-	*/
 
 	enum class EnumSubject1 :
 		uint8_t
@@ -180,7 +190,7 @@ namespace
 
 	void execute()
 	{
-		QLogicaeCppCore::RuntimeBenchmarkerTestSuite test_suite
+		QLOGICAE_COR_V1__BASE__HPP_CPP__COR_NAMESPACE_NAME::RuntimeBenchmarkerTestSuite test_suite
 		{
 			.name = "MapVsConstEnumAndStringReturn",
 			.epoch_iteration_pairs =
@@ -219,7 +229,7 @@ namespace
 			}
 		};
 
-		QLogicaeCppCore::RuntimeBenchmarker::singleton.execute(
+		QLOGICAE_COR_V1__BASE__HPP_CPP__COR_NAMESPACE_NAME::RuntimeBenchmarker::singleton.execute(
 			test_suite
 		);
 
@@ -229,20 +239,6 @@ namespace
 }
 
 
-
-int main(int argc, char** argv)
-{
-	MapVsConstEnumAndStringReturn::execute();
-
-	return 0;
-}
-
-namespace QLogicaeCppCoreBenchmark
-{
-
-}
-
-/*
 ConfigurationsManager::singleton.setup<AbstractConfigurations>(
 	AbstractConfigurations
 	{
@@ -251,9 +247,6 @@ ConfigurationsManager::singleton.setup<AbstractConfigurations>(
 );
 
 std::cout << AbstractConfigurations::default_configurations.is_enabled << "\n";
-*/
-
-/*
 
 AbstractConfigurations a;
 

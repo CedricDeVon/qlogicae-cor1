@@ -3,7 +3,7 @@
 #include "../includes/text_placeholder_manager.hpp"
 
 namespace
-	QLogicae::Cor::V1::Tests
+	QLOGICAE_COR_V1__BASE__HPP_CPP__COR_TESTS_NAMESPACE_NAME
 {
 	class TextPlaceholderManagerTest : public ::testing::Test
 	{

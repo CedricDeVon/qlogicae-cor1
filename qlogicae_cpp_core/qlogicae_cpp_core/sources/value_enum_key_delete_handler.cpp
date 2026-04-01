@@ -3,7 +3,7 @@
 #include "../includes/value_enum_key_delete_handler.hpp"
 
 namespace
-	QLogicae::Cor::V1
+	QLOGICAE_COR_V1__BASE__HPP_CPP__COR_NAMESPACE_NAME
 {
 
 }

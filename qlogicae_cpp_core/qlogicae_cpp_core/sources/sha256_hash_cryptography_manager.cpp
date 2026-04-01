@@ -3,7 +3,7 @@
 #include "../includes/sha256_hash_cryptography_manager.hpp"
 
 namespace
-	QLogicae::Cor::V1
+	QLOGICAE_COR_V1__BASE__HPP_CPP__COR_NAMESPACE_NAME
 {
     Sha256HashCryptographyManager
 		::Sha256HashCryptographyManager() :

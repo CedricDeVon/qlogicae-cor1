@@ -6,8 +6,8 @@
 #include "mutex_manager_configurations.hpp"
 
 namespace
-	QLogicae::Cor::V1
-{        
+	QLOGICAE_COR_V1__BASE__HPP_CPP__COR_NAMESPACE_NAME
+{
     class
 		MutexManager :
 			public AbstractClass<MutexManagerConfigurations>
@@ -45,9 +45,6 @@ namespace
 
 		std::unordered_map<std::pair<void*, std::string>, folly::MicroSpinLock, PairHashOperator>
 			folly_micro_spin_lock_collection;
-
-		boost::mutex
-			feature_handling_mutex_3;
 
 		MutexManager();
 

@@ -16,9 +16,3 @@
 #if _MSVC_LANG < 202002L
 #error "Error - QLogicae::Cor - Version C++20 or higher is required"
 #endif
-	
-namespace
-	QLogicae::Cor::V1::Tests
-{
-
-}

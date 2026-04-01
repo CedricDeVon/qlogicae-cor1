@@ -4,7 +4,7 @@
 
 // #include "qlogicae_cpp_core/includes/gmail_api_manager.hpp"
 
-using namespace QLogicae::Cor::V1;
+using namespace QLOGICAE_COR_V1__BASE__HPP_CPP__COR_NAMESPACE_NAME;
 
 int main(int argc, char** argv)
 {	
@@ -24,4 +24,8 @@ int main(int argc, char** argv)
 	return 0;
 }
 
+namespace
+	QLOGICAE_COR_V1__BASE__HPP_CPP__COR_SANDBOX_NAMESPACE_NAME
+{
 
+}

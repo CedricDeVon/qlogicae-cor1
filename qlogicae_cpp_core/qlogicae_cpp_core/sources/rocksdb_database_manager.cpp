@@ -3,7 +3,7 @@
 #include "../includes/rocksdb_database_manager.hpp"
 
 namespace
-	QLogicae::Cor::V1
+	QLOGICAE_COR_V1__BASE__HPP_CPP__COR_NAMESPACE_NAME
 {	    
 	RocksDbDatabaseManager
 		::RocksDbDatabaseManager() :

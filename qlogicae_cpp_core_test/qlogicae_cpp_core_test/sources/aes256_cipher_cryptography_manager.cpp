@@ -3,7 +3,7 @@
 #include "../includes/aes256_cipher_cryptography_manager.hpp"
 
 namespace
-	QLogicae::Cor::V1::Tests
+	QLOGICAE_COR_V1__BASE__HPP_CPP__COR_TESTS_NAMESPACE_NAME
 {
 	class Aes256CipherCryptographyManagerTest : public ::testing::Test
 	{
