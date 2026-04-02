@@ -82,35 +82,49 @@ namespace
 	template <typename AbstractConfigurationsType> bool
 		AbstractClass<AbstractConfigurationsType>
 			::construct()
-	{		
-		QLOGICAE_COR_V1__BASE__HPP_CPP__METHOD_TEMPLATE
-		(
-			QLOGICAE_COR_V1__BASE__HPP_CPP__EMPTY_PRE_EXECUTION_GUARD,
-			QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_1,
-			QLOGICAE_COR_V1__BASE__HPP_CPP__EMPTY_RETURN_VALUE,
+	{	
+		try
+		{
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
+			(
+				QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_1,
+				QLOGICAE_COR_V1__BASE__HPP_CPP__EMPTY_EDGE_CASES
+			);
 
 			return
-				true;,
-
-			QLOGICAE_COR_V1__BASE__HPP_CPP__EMPTY_CATCH_CODE
-		);
+				true;
+		}
+		catch
+		(
+			QLOGICAE_COR_V1__BASE__HPP_CPP__TRY_CATCH_EXCEPTION_PARAMETER
+		)
+		{
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE();
+		}
 	}
 
 	template <typename AbstractConfigurationsType> bool
 		AbstractClass<AbstractConfigurationsType>
 			::destruct()
 	{
-		QLOGICAE_COR_V1__BASE__HPP_CPP__METHOD_TEMPLATE
-		(
-			QLOGICAE_COR_V1__BASE__HPP_CPP__EMPTY_PRE_EXECUTION_GUARD,
-			QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_1,
-			QLOGICAE_COR_V1__BASE__HPP_CPP__EMPTY_RETURN_VALUE,
+		try
+		{
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
+			(
+				QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_1,
+				QLOGICAE_COR_V1__BASE__HPP_CPP__EMPTY_EDGE_CASES
+			);
 
 			return
-				true;,
-
-			QLOGICAE_COR_V1__BASE__HPP_CPP__EMPTY_CATCH_CODE
-		);
+				true;
+		}
+		catch
+		(
+			QLOGICAE_COR_V1__BASE__HPP_CPP__TRY_CATCH_EXCEPTION_PARAMETER
+		)
+		{
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE();
+		}
 	}
 
 	template <typename AbstractConfigurationsType> bool
@@ -120,41 +134,55 @@ namespace
 					new_configurations
 			)
 	{
-		QLOGICAE_COR_V1__BASE__HPP_CPP__METHOD_TEMPLATE
-		(
-			QLOGICAE_COR_V1__BASE__HPP_CPP__EMPTY_PRE_EXECUTION_GUARD,
-			QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_1,
-			QLOGICAE_COR_V1__BASE__HPP_CPP__EMPTY_RETURN_VALUE,
+		try
+		{
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
+			(
+				QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_1,
+				QLOGICAE_COR_V1__BASE__HPP_CPP__EMPTY_EDGE_CASES
+			);
 
 			configurations =
 				new_configurations;
 
 			return
-				true;,
-
-			QLOGICAE_COR_V1__BASE__HPP_CPP__EMPTY_CATCH_CODE
-		);
+				true;
+		}
+		catch
+		(
+			QLOGICAE_COR_V1__BASE__HPP_CPP__TRY_CATCH_EXCEPTION_PARAMETER
+		)
+		{
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE();
+		}
 	}
 
 	template <typename AbstractConfigurationsType> bool
 		AbstractClass<AbstractConfigurationsType>
 			::reset()
 	{
-		QLOGICAE_COR_V1__BASE__HPP_CPP__METHOD_TEMPLATE
-		(
-			QLOGICAE_COR_V1__BASE__HPP_CPP__EMPTY_PRE_EXECUTION_GUARD,
-			QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_1,
-			QLOGICAE_COR_V1__BASE__HPP_CPP__EMPTY_RETURN_VALUE,
+		try
+		{
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
+			(
+				QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_1,
+				QLOGICAE_COR_V1__BASE__HPP_CPP__EMPTY_EDGE_CASES
+			);
 
 			configurations =
 				{};
 
 			return
-				true;,
-
-			QLOGICAE_COR_V1__BASE__HPP_CPP__EMPTY_CATCH_CODE
-		);
-	} 
+				true;
+		}
+		catch
+		(
+			QLOGICAE_COR_V1__BASE__HPP_CPP__TRY_CATCH_EXCEPTION_PARAMETER
+		)
+		{
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE();
+		}
+	}
 	
 	template <typename AbstractConfigurationsType>
 	template <typename OutputType> OutputType
@@ -165,12 +193,21 @@ namespace
 				const std::string&
 					message
 			)
-	{				
-		QLOGICAE_COR_V1__BASE__HPP_CPP__HANDLE_ERROR_OUTPUTS_METHOD_TEMPLATE
+	{
+		QLOGICAE_COR_V1__BASE__HPP_CPP__EDGE_CASE_GUARD_TEMPLATE
 		(
-			OutputType,
-			(title, message)
+			OutputType{},
+			QLOGICAE_COR_V1__BASE__HPP_CPP__EMPTY_EDGE_CASES
 		);
+	
+		QLOGICAE_COR_V1__BASE__HPP_CPP__GET_SINGLETON_TEMPLATE(ErrorManager)
+			.handle_error_outputs<void>(
+				title,
+				message
+			);
+
+		return
+			OutputType{};
 	}
 
 	template <typename AbstractConfigurationsType>
@@ -181,11 +218,19 @@ namespace
 					message
 			)
 	{	
-		QLOGICAE_COR_V1__BASE__HPP_CPP__HANDLE_ERROR_OUTPUTS_METHOD_TEMPLATE
+		QLOGICAE_COR_V1__BASE__HPP_CPP__EDGE_CASE_GUARD_TEMPLATE
 		(
-			OutputType,
-			message
+			OutputType{},
+			QLOGICAE_COR_V1__BASE__HPP_CPP__EMPTY_EDGE_CASES
 		);
+	
+		QLOGICAE_COR_V1__BASE__HPP_CPP__GET_SINGLETON_TEMPLATE(ErrorManager)
+			.handle_error_outputs<void>(
+				message
+			);
+
+		return
+			OutputType{};
 	}
 
 	template <typename AbstractConfigurationsType>
@@ -193,15 +238,23 @@ namespace
 		AbstractClass<AbstractConfigurationsType>
 			::handle_error_outputs(
 				const std::exception&
-					exception
+					QLOGICAE_COR_V1__BASE__HPP_CPP__TRY_CATCH_EXCEPTION_NAME
 			)
 	{
-		QLOGICAE_COR_V1__BASE__HPP_CPP__HANDLE_ERROR_OUTPUTS_METHOD_TEMPLATE
+		QLOGICAE_COR_V1__BASE__HPP_CPP__EDGE_CASE_GUARD_TEMPLATE
 		(
-			OutputType,
-			exception
+			OutputType{},
+			QLOGICAE_COR_V1__BASE__HPP_CPP__EMPTY_EDGE_CASES
 		);
-	} 
+	
+		QLOGICAE_COR_V1__BASE__HPP_CPP__GET_SINGLETON_TEMPLATE(ErrorManager)
+			.handle_error_outputs<void>(
+				QLOGICAE_COR_V1__BASE__HPP_CPP__TRY_CATCH_EXCEPTION_NAME
+			);
+
+		return
+			OutputType{};
+	}
 
 	template <typename AbstractConfigurationsType>
 	template <typename OutputType> OutputType
@@ -210,19 +263,30 @@ namespace
 				const std::function<void()>&
 					callback
 			)
-	{
-		QLOGICAE_COR_V1__BASE__HPP_CPP__METHOD_TEMPLATE
-		(
-			QLOGICAE_COR_V1__BASE__HPP_CPP__EMPTY_PRE_EXECUTION_GUARD,
-			QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_1,
-			OutputType{},
+	{		
+		try
+		{
+			QLOGICAE_COR_V1__EXPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
+			(
+				OutputType{},
+				QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_1,
+				QLOGICAE_COR_V1__BASE__HPP_CPP__EMPTY_EDGE_CASES
+			);
 
 			callback();
 
 			return
-				OutputType{};,
-
-			QLOGICAE_COR_V1__BASE__HPP_CPP__EMPTY_CATCH_CODE
-		);		
+				OutputType{};
+		}
+		catch
+		(
+			QLOGICAE_COR_V1__BASE__HPP_CPP__TRY_CATCH_EXCEPTION_PARAMETER
+		)
+		{
+			QLOGICAE_COR_V1__EXPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE
+			(
+				OutputType{}
+			);
+		}	
 	}
 }

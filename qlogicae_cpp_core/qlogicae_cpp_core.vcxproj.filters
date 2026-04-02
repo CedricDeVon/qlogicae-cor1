@@ -717,7 +717,10 @@
     <ClInclude Include="qlogicae_cpp_core\includes\entity_activation_status_enum_manager_configurations.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="qlogicae_cpp_core\includes\macros.hpp">
+    <ClInclude Include="qlogicae_cpp_core\macros\all.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae_cpp_core\macros\checks.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

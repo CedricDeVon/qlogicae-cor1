@@ -424,7 +424,6 @@
     <ClInclude Include="qlogicae_cpp_core\includes\log_output.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\log_output_enum_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\log_output_enum_manager_configurations.hpp" />
-    <ClInclude Include="qlogicae_cpp_core\includes\macros.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\mutex_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\mutex_manager_configurations.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\network_ping_manager.hpp" />
@@ -568,6 +567,8 @@
     <ClInclude Include="qlogicae_cpp_core\includes\xchacha20_poly1305_cipher_cryptography_manager_configurations.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\xml_file_io_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\xml_file_io_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\macros\all.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\macros\checks.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
