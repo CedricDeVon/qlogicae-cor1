@@ -1,7 +1,8 @@
 ﻿#pragma once
 
+#include "qlogicae_cpp_core/macros/all.hpp"
+
 #include "framework.hpp"
-#include "qlogicae_cpp_core/includes/macros.hpp"
 
 #include <gtest/gtest.h>
 

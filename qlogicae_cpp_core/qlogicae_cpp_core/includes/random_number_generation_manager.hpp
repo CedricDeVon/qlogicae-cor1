@@ -65,35 +65,14 @@ namespace
             )
     {
         try
-        {
-            if
+        {            
+			QLOGICAE_COR_V1__EXPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
 			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling() ||				
-				(
-					configurations
-						.is_edge_case_enabled_for_feature_handling() &&
-					(
-						minimum > maximum ||
-						(minimum == 0 && maximum == 0)
-					)
-				)
-			)
-            {
-                return
-					minimum;
-            }
-
-            boost::unique_lock<boost::mutex> mutex_lock;
-            if (configurations
-                .is_thread_safety_enabled_for_feature_handling())
-            {
-                mutex_lock =
-                    boost::unique_lock<boost::mutex>
-                    (
-                        feature_handling_mutex_1
-                    );
-            }
+				minimum,
+				QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_1,
+				minimum > maximum ||
+				(minimum == 0 && maximum == 0)
+			);
 
 			const int maximum_attempt_limit = 1000;
 
@@ -248,34 +227,13 @@ namespace
             )
     {
         try
-        {
-			if
+        {			
+			QLOGICAE_COR_V1__EXPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
 			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling() ||				
-				(
-					configurations
-						.is_edge_case_enabled_for_feature_handling() &&
-					(
-						included.empty()
-					)
-				)
-			)
-			{
-				return
-					Type{};
-			}
-
-            boost::unique_lock<boost::mutex> mutex_lock;
-            if (configurations
-                .is_thread_safety_enabled_for_feature_handling())
-            {
-                mutex_lock =
-                    boost::unique_lock<boost::mutex>
-                    (
-                        feature_handling_mutex_1
-                    );
-            }
+				Type {},
+				QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_1,
+				included.empty()
+			);
 
 			std::uniform_int_distribution<std::size_t> distribution(0, included.size() - 1);
 			std::size_t index = distribution(SingletonManager::get_singleton<RandomSeedGenerationManager>().random_indeterministic_seed_engine);

@@ -36,20 +36,10 @@ namespace
 	{
 		try
 		{		
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if
+			QLOGICAE_COR_V1__BASE__HPP_CPP__THREAD_SAFETY_GUARD_TEMPLATE
 			(
-				configurations
-					.is_thread_safety_enabled_for_feature_handling()
-			)
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}
+				QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_1
+			);
 
 			if constexpr (std::is_pointer_v<InputObjectType>)
 			{
@@ -78,10 +68,17 @@ namespace
 			QLOGICAE_COR_V1__BASE__HPP_CPP__TRY_CATCH_EXCEPTION_PARAMETER
 		)
 		{
-			QLOGICAE_COR_V1__EXPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE
-			(
-				ResultType {}
-			);
+			if constexpr (std::is_default_constructible_v<ResultType>)
+			{
+				QLOGICAE_COR_V1__EXPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE
+				(
+					ResultType {}
+				);
+			}
+			else
+			{
+				throw;
+			}
 		}
 	}
 }
