@@ -67,16 +67,13 @@ namespace
         }
         catch
         (
-            const std::exception&
-                exception
+            QLOGICAE_COR_V1__BASE__HPP_CPP__TRY_CATCH_EXCEPTION_PARAMETER
         )
         {	
-			handle_error_outputs(
-				exception
+			QLOGICAE_COR_V1__EXPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE
+			(
+				value
 			);
-
-			return
-				value;
         }
 	}
 
@@ -209,37 +206,13 @@ namespace
         }
         catch
         (
-            const std::exception&
-                exception
+            QLOGICAE_COR_V1__BASE__HPP_CPP__TRY_CATCH_EXCEPTION_PARAMETER
         )
         {	
-			handle_error_outputs(
-				exception
+			QLOGICAE_COR_V1__EXPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE
+			(
+				"NONE"
 			);
-
-			switch (text_case)
-			{
-				case (TextCase::UPPERCASE):
-				{
-					return
-						"NONE";
-				}
-				case (TextCase::LOWERCASE):
-				{
-					return
-						"none";
-				}
-				case (TextCase::CAPITALIZE):
-				{
-					return
-						"None";
-				}
-				default:
-				{
-					return
-						"NONE";
-				}
-			}
         }
 	}
 
@@ -254,4 +227,3 @@ namespace
 			);
 	}
 }
-

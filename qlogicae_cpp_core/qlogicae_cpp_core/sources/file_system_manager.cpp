@@ -9,39 +9,13 @@ namespace
 		::FileSystemManager() :
 			AbstractClass<FileSystemManagerConfigurations>()
     {
-        try
-        {
-            construct();
-        }
-        catch
-        (
-            const std::exception&
-                exception
-        )
-        {
-			handle_error_outputs(
-				exception
-			);
-        }
+        construct();
     }
 
     FileSystemManager
 		::~FileSystemManager()
     {
-        try
-        {
-            destruct();
-        }
-        catch
-        (
-            const std::exception&
-                exception
-        )
-        {
-			handle_error_outputs(
-				exception
-			);
-        }
+        destruct();
     }
 
     bool
@@ -76,14 +50,10 @@ namespace
         }
         catch
         (
-            const std::exception&
-                exception
+            QLOGICAE_COR_V1__BASE__HPP_CPP__TRY_CATCH_EXCEPTION_PARAMETER
         )
         {
-			return
-				handle_error_outputs(
-					exception
-				);
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE();
         }
     }
 
@@ -119,14 +89,10 @@ namespace
         }
         catch
         (
-            const std::exception&
-                exception
+            QLOGICAE_COR_V1__BASE__HPP_CPP__TRY_CATCH_EXCEPTION_PARAMETER
         )
         {
-			return
-				handle_error_outputs(
-					exception
-				);
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE();
         }
     }
 
@@ -206,14 +172,10 @@ namespace
         }
         catch
         (
-			const std::exception&
-                exception
+			QLOGICAE_COR_V1__BASE__HPP_CPP__TRY_CATCH_EXCEPTION_PARAMETER
         )
         {
-            return
-				handle_error_outputs(
-					exception
-				);
+            QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE();
         }
 	}
 
@@ -269,16 +231,10 @@ namespace
         }
         catch
         (
-            const std::exception&
-                exception
+            QLOGICAE_COR_V1__BASE__HPP_CPP__TRY_CATCH_EXCEPTION_PARAMETER
         )
         {
-			handle_error_outputs(
-				exception
-			);
-
-			return
-				L"";
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE();
         }
     }
 
@@ -331,16 +287,10 @@ namespace
         }
         catch
         (
-            const std::exception&
-                exception
+            QLOGICAE_COR_V1__BASE__HPP_CPP__TRY_CATCH_EXCEPTION_PARAMETER
         )
         {
-			handle_error_outputs(
-				exception
-			);
-
-			return
-				L"";
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE();
         }
     }
 
@@ -391,16 +341,10 @@ namespace
         }
         catch
         (
-            const std::exception&
-                exception
+            QLOGICAE_COR_V1__BASE__HPP_CPP__TRY_CATCH_EXCEPTION_PARAMETER
         )
         {
-			handle_error_outputs(
-				exception
-			);
-
-			return
-				L"";
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE();
         }
     }
 
@@ -451,17 +395,10 @@ namespace
         }
         catch
         (
-            const std::exception&
-                exception
+            QLOGICAE_COR_V1__BASE__HPP_CPP__TRY_CATCH_EXCEPTION_PARAMETER
         )
         {
-			handle_error_outputs(
-				exception
-			);
-
-            return
-				L"";
-				
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE();
         }
     }
 
@@ -512,17 +449,10 @@ namespace
         }
         catch
         (
-            const std::exception&
-                exception
+            QLOGICAE_COR_V1__BASE__HPP_CPP__TRY_CATCH_EXCEPTION_PARAMETER
         )
         {
-			handle_error_outputs(
-				exception
-			);
-
-            return
-				L"";
-				
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE();
         }
     }
 
@@ -661,16 +591,10 @@ namespace
         }
         catch
         (
-            const std::exception&
-                exception
+            QLOGICAE_COR_V1__BASE__HPP_CPP__TRY_CATCH_EXCEPTION_PARAMETER
         )
         {
-			handle_error_outputs(
-				exception
-			);
-
-			return
-				0;
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE();
         }
 	}
 
@@ -810,16 +734,10 @@ namespace
         }
         catch
         (
-            const std::exception&
-                exception
+            QLOGICAE_COR_V1__BASE__HPP_CPP__TRY_CATCH_EXCEPTION_PARAMETER
         )
         {
-			handle_error_outputs(
-				exception
-			);
-
-			return
-				0;
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE();
         }
 	}
 
@@ -883,16 +801,10 @@ namespace
         }
         catch
         (
-            const std::exception&
-                exception
+            QLOGICAE_COR_V1__BASE__HPP_CPP__TRY_CATCH_EXCEPTION_PARAMETER
         )
         {
-			handle_error_outputs(
-				exception
-			);
-
-			return
-				0;
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE();
         }
 	}
 	
@@ -949,16 +861,10 @@ namespace
         }
         catch
         (
-            const std::exception&
-                exception
+            QLOGICAE_COR_V1__BASE__HPP_CPP__TRY_CATCH_EXCEPTION_PARAMETER
         )
         {
-			handle_error_outputs(
-				exception
-			);
-
-			return
-				0;
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE();
         }
 	}
 
@@ -1049,16 +955,10 @@ namespace
         }
         catch
         (
-            const std::exception&
-                exception
+            QLOGICAE_COR_V1__BASE__HPP_CPP__TRY_CATCH_EXCEPTION_PARAMETER
         )
         {
-			handle_error_outputs(
-				exception
-			);
-
-			return
-				0;
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE();
         }
 	}
 
@@ -1099,16 +999,10 @@ namespace
         }
         catch
         (
-            const std::exception&
-                exception
+            QLOGICAE_COR_V1__BASE__HPP_CPP__TRY_CATCH_EXCEPTION_PARAMETER
         )
         {
-			handle_error_outputs(
-				exception
-			);
-
-			return
-				L"";
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE();
         }
 	}
 
@@ -1175,16 +1069,10 @@ namespace
         }
         catch
         (
-            const std::exception&
-                exception
+            QLOGICAE_COR_V1__BASE__HPP_CPP__TRY_CATCH_EXCEPTION_PARAMETER
         )
         {
-			handle_error_outputs(
-				exception
-			);
-
-			return
-				L"";
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE();
         }
 	}
 
@@ -1223,16 +1111,10 @@ namespace
         }
         catch
         (
-            const std::exception&
-                exception
+            QLOGICAE_COR_V1__BASE__HPP_CPP__TRY_CATCH_EXCEPTION_PARAMETER
         )
         {
-			handle_error_outputs(
-				exception
-			);
-
-			return
-				L"";
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE();
         }
 	}
 
@@ -1272,16 +1154,10 @@ namespace
         }
         catch
         (
-            const std::exception&
-                exception
+            QLOGICAE_COR_V1__BASE__HPP_CPP__TRY_CATCH_EXCEPTION_PARAMETER
         )
         {
-			handle_error_outputs(
-				exception
-			);
-
-			return
-				L"";
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE();
         }
 	}
 
@@ -1322,14 +1198,10 @@ namespace
         }
         catch
         (
-            const std::exception&
-                exception
+            QLOGICAE_COR_V1__BASE__HPP_CPP__TRY_CATCH_EXCEPTION_PARAMETER
         )
         {
-			return
-				handle_error_outputs(
-					exception
-				);
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE();
         }
 	}
 
@@ -1370,14 +1242,10 @@ namespace
         }
         catch
         (
-            const std::exception&
-                exception
+            QLOGICAE_COR_V1__BASE__HPP_CPP__TRY_CATCH_EXCEPTION_PARAMETER
         )
         {
-			return
-				handle_error_outputs(
-					exception
-				);
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE();
         }
 	}
 
@@ -1422,14 +1290,10 @@ namespace
         }
         catch
         (
-            const std::exception&
-                exception
+            QLOGICAE_COR_V1__BASE__HPP_CPP__TRY_CATCH_EXCEPTION_PARAMETER
         )
         {
-			return
-				handle_error_outputs(
-					exception
-				);
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE();
         }
 	}
 
@@ -1474,14 +1338,10 @@ namespace
         }
         catch
         (
-            const std::exception&
-                exception
+            QLOGICAE_COR_V1__BASE__HPP_CPP__TRY_CATCH_EXCEPTION_PARAMETER
         )
         {
-			return
-				handle_error_outputs(
-					exception
-				);
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE();
         }
 	}
 
@@ -1524,14 +1384,10 @@ namespace
         }
         catch
         (
-            const std::exception&
-                exception
+            QLOGICAE_COR_V1__BASE__HPP_CPP__TRY_CATCH_EXCEPTION_PARAMETER
         )
         {
-			return
-				handle_error_outputs(
-					exception
-				);
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE();
         }
 	}
 
@@ -1586,14 +1442,10 @@ namespace
         }
         catch
         (
-            const std::exception&
-                exception
+            QLOGICAE_COR_V1__BASE__HPP_CPP__TRY_CATCH_EXCEPTION_PARAMETER
         )
         {
-			return
-				handle_error_outputs(
-					exception
-				);
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE();
         }
 	}
 
@@ -1650,14 +1502,10 @@ namespace
         }
         catch
         (
-            const std::exception&
-                exception
+            QLOGICAE_COR_V1__BASE__HPP_CPP__TRY_CATCH_EXCEPTION_PARAMETER
         )
         {
-			return
-				handle_error_outputs(
-					exception
-				);
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE();
         }
 	}
 
@@ -1714,14 +1562,10 @@ namespace
         }
         catch
         (
-            const std::exception&
-                exception
+            QLOGICAE_COR_V1__BASE__HPP_CPP__TRY_CATCH_EXCEPTION_PARAMETER
         )
         {
-			return
-				handle_error_outputs(
-					exception
-				);
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE();
         }
 	}
 
@@ -1761,14 +1605,10 @@ namespace
         }
         catch
         (
-            const std::exception&
-                exception
+            QLOGICAE_COR_V1__BASE__HPP_CPP__TRY_CATCH_EXCEPTION_PARAMETER
         )
         {
-			return
-				handle_error_outputs(
-					exception
-				);
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE();
         }
 	}
 
@@ -1809,14 +1649,10 @@ namespace
         }
         catch
         (
-            const std::exception&
-                exception
+            QLOGICAE_COR_V1__BASE__HPP_CPP__TRY_CATCH_EXCEPTION_PARAMETER
         )
         {
-			return
-				handle_error_outputs(
-					exception
-				);
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE();
         }
 	}
 
@@ -1866,14 +1702,10 @@ namespace
         }
         catch
         (
-            const std::exception&
-                exception
+            QLOGICAE_COR_V1__BASE__HPP_CPP__TRY_CATCH_EXCEPTION_PARAMETER
         )
         {
-			return
-				handle_error_outputs(
-					exception
-				);
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE();
         }
 	}
 
@@ -1922,14 +1754,10 @@ namespace
         }
         catch
         (
-            const std::exception&
-                exception
+            QLOGICAE_COR_V1__BASE__HPP_CPP__TRY_CATCH_EXCEPTION_PARAMETER
         )
         {
-			return
-				handle_error_outputs(
-					exception
-				);
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE();
         }
 	}
 
@@ -1978,14 +1806,10 @@ namespace
         }
         catch
         (
-            const std::exception&
-                exception
+            QLOGICAE_COR_V1__BASE__HPP_CPP__TRY_CATCH_EXCEPTION_PARAMETER
         )
         {
-			return
-				handle_error_outputs(
-					exception
-				);
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE();
         }
 	}
 
@@ -2034,14 +1858,10 @@ namespace
         }
         catch
         (
-            const std::exception&
-                exception
+            QLOGICAE_COR_V1__BASE__HPP_CPP__TRY_CATCH_EXCEPTION_PARAMETER
         )
         {
-			return
-				handle_error_outputs(
-					exception
-				);
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE();
         }
 	}
 
@@ -2083,14 +1903,10 @@ namespace
         }
         catch
         (
-            const std::exception&
-                exception
+            QLOGICAE_COR_V1__BASE__HPP_CPP__TRY_CATCH_EXCEPTION_PARAMETER
         )
         {
-			return
-				handle_error_outputs(
-					exception
-				);
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE();
         }
 	}
 
@@ -2132,14 +1948,10 @@ namespace
         }
         catch
         (
-            const std::exception&
-                exception
+            QLOGICAE_COR_V1__BASE__HPP_CPP__TRY_CATCH_EXCEPTION_PARAMETER
         )
         {
-			return
-				handle_error_outputs(
-					exception
-				);
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE();
         }
 	}
 
@@ -2181,14 +1993,10 @@ namespace
         }
         catch
         (
-            const std::exception&
-                exception
+            QLOGICAE_COR_V1__BASE__HPP_CPP__TRY_CATCH_EXCEPTION_PARAMETER
         )
         {
-			return
-				handle_error_outputs(
-					exception
-				);
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE();
         }
 	}
 
@@ -2227,14 +2035,10 @@ namespace
         }
         catch
         (
-            const std::exception&
-                exception
+            QLOGICAE_COR_V1__BASE__HPP_CPP__TRY_CATCH_EXCEPTION_PARAMETER
         )
         {
-			return
-				handle_error_outputs(
-					exception
-				);
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE();
         }
 	}
 
@@ -2281,14 +2085,10 @@ namespace
         }
         catch
         (
-            const std::exception&
-                exception
+            QLOGICAE_COR_V1__BASE__HPP_CPP__TRY_CATCH_EXCEPTION_PARAMETER
         )
         {
-			return
-				handle_error_outputs(
-					exception
-				);
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE();
         }
 	}
 
@@ -2368,14 +2168,10 @@ namespace
         }
         catch
         (
-            const std::exception&
-                exception
+            QLOGICAE_COR_V1__BASE__HPP_CPP__TRY_CATCH_EXCEPTION_PARAMETER
         )
         {
-			return
-				handle_error_outputs(
-					exception
-				);
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE();
         }
 	}
 
@@ -2436,16 +2232,10 @@ namespace
         }
         catch
         (
-            const std::exception&
-                exception
+            QLOGICAE_COR_V1__BASE__HPP_CPP__TRY_CATCH_EXCEPTION_PARAMETER
         )
         {
-			handle_error_outputs(
-				exception
-			);
-
-			return
-				{};
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE();
         }
 	}
 
@@ -3204,16 +2994,10 @@ namespace
         }
         catch
         (
-            const std::exception&
-                exception
+            QLOGICAE_COR_V1__BASE__HPP_CPP__TRY_CATCH_EXCEPTION_PARAMETER
         )
         {
-			handle_error_outputs(
-				exception
-			);
-
-			return
-				{};
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE();
         }
     }
 
@@ -3274,17 +3058,11 @@ namespace
         }
         catch
         (
-            const std::exception&
-                exception
+            QLOGICAE_COR_V1__BASE__HPP_CPP__TRY_CATCH_EXCEPTION_PARAMETER
         )
         {
-			handle_error_outputs(
-				exception
-			);
-
-			return
-				{};
-        }		
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE();
+        }
 	}
 
 	std::vector<std::wstring>
@@ -3344,17 +3122,11 @@ namespace
         }
         catch
         (
-            const std::exception&
-                exception
+            QLOGICAE_COR_V1__BASE__HPP_CPP__TRY_CATCH_EXCEPTION_PARAMETER
         )
         {
-			handle_error_outputs(
-				exception
-			);
-
-			return
-				{};
-        }		
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE();
+        }	
 	}
 
 	std::vector<std::string>
@@ -3414,17 +3186,11 @@ namespace
         }
         catch
         (
-            const std::exception&
-                exception
+            QLOGICAE_COR_V1__BASE__HPP_CPP__TRY_CATCH_EXCEPTION_PARAMETER
         )
         {
-			handle_error_outputs(
-				exception
-			);
-
-			return
-				{};
-        }		
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE();
+        }	
 	}
 
 	std::vector<std::string>
@@ -3484,16 +3250,10 @@ namespace
         }
         catch
         (
-            const std::exception&
-                exception
+            QLOGICAE_COR_V1__BASE__HPP_CPP__TRY_CATCH_EXCEPTION_PARAMETER
         )
         {
-			handle_error_outputs(
-				exception
-			);
-
-			return
-				{};
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE();
         }		
 	}
 
@@ -3555,16 +3315,10 @@ namespace
         }
         catch
         (
-            const std::exception&
-                exception
+            QLOGICAE_COR_V1__BASE__HPP_CPP__TRY_CATCH_EXCEPTION_PARAMETER
         )
         {
-			handle_error_outputs(
-				exception
-			);
-
-			return
-				{};
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE();
         }
 	}
 

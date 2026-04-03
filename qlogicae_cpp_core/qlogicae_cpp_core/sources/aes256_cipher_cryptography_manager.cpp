@@ -79,7 +79,8 @@ namespace
 				) != 0
 			)
 			{
-				return text;
+				return
+					text;
 			}
 
 			std::string
@@ -101,20 +102,18 @@ namespace
 
 			encoded.resize(std::strlen(encoded.c_str()));
 
-			return encoded;
+			return
+				encoded;
         }
         catch
         (
-            const std::exception&
-                exception
+            QLOGICAE_COR_V1__BASE__HPP_CPP__TRY_CATCH_EXCEPTION_PARAMETER
         )
         {
-			handle_error_outputs(
-				exception
+			QLOGICAE_COR_V1__EXPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE
+			(
+				text
 			);
-
-			return
-				text;
         }
 	}
 
@@ -226,16 +225,13 @@ namespace
         }
         catch
         (
-            const std::exception&
-                exception
+            QLOGICAE_COR_V1__BASE__HPP_CPP__TRY_CATCH_EXCEPTION_PARAMETER
         )
         {
-			handle_error_outputs(
-				exception
+			QLOGICAE_COR_V1__EXPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE
+			(
+				text
 			);
-
-			return
-				text;
         }
 	}
 }

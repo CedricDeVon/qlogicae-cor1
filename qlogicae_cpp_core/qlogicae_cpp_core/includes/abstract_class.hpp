@@ -268,7 +268,7 @@ namespace
 		{
 			QLOGICAE_COR_V1__EXPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
 			(
-				OutputType{},
+				OutputType {},
 				QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_1,
 				QLOGICAE_COR_V1__BASE__HPP_CPP__EMPTY_EDGE_CASES
 			);
@@ -276,7 +276,7 @@ namespace
 			callback();
 
 			return
-				OutputType{};
+				OutputType {};
 		}
 		catch
 		(
@@ -285,7 +285,7 @@ namespace
 		{
 			QLOGICAE_COR_V1__EXPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE
 			(
-				OutputType{}
+				OutputType {}
 			);
 		}	
 	}

@@ -9,20 +9,7 @@ namespace
 		::EdscaSignatureCryptographyManager() :
 			AbstractClass<EdscaSignatureCryptographyManagerConfigurations>()
 	{
-		try
-        {		
-			construct();		
-        }
-        catch
-        (
-            const std::exception&
-                exception
-        )
-        {	
-			handle_error_outputs(
-				exception
-			);
-        }
+		construct();	
 	}
 
 	bool
@@ -57,16 +44,10 @@ namespace
         }
         catch
         (
-            const std::exception&
-                exception
+            QLOGICAE_COR_V1__BASE__HPP_CPP__TRY_CATCH_EXCEPTION_PARAMETER
         )
         {	
-			handle_error_outputs(
-				exception
-			);
-
-			return
-				{};
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE();
         }
 	}
 
@@ -127,16 +108,10 @@ namespace
         }
         catch
         (
-            const std::exception&
-                exception
+            QLOGICAE_COR_V1__BASE__HPP_CPP__TRY_CATCH_EXCEPTION_PARAMETER
         )
         {	
-			handle_error_outputs(
-				exception
-			);
-
-			return
-				{};
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE();
         }
 	}
 
@@ -194,16 +169,10 @@ namespace
         }
         catch
         (
-            const std::exception&
-                exception
+            QLOGICAE_COR_V1__BASE__HPP_CPP__TRY_CATCH_EXCEPTION_PARAMETER
         )
         {	
-			handle_error_outputs(
-				exception
-			);
-
-			return
-				false;
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE();
         }
 	}
 
@@ -221,7 +190,8 @@ namespace
             std::vector<std::uint8_t>(private_key.begin(), private_key.end())
         );
 
-        return std::string(sig_vec.begin(), sig_vec.end());
+        return
+			std::string(sig_vec.begin(), sig_vec.end());
 	}
 
 	bool
@@ -235,11 +205,12 @@ namespace
 					signature
 			)
 	{
-		return verify(
-            std::vector<std::uint8_t>(text.begin(), text.end()),
-            std::vector<std::uint8_t>(public_key.begin(), public_key.end()),
-            std::vector<std::uint8_t>(signature.begin(), signature.end())
-        );
+		return
+			verify(
+				std::vector<std::uint8_t>(text.begin(), text.end()),
+				std::vector<std::uint8_t>(public_key.begin(), public_key.end()),
+				std::vector<std::uint8_t>(signature.begin(), signature.end())
+			);
 	}
 }
 

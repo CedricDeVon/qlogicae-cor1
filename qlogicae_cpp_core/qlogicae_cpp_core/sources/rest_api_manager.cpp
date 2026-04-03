@@ -9,39 +9,13 @@ namespace
 		::RestApiManager() :
 			AbstractClass<RestApiManagerConfigurations>()
     {
-		try
-        {
-            construct();
-        }
-        catch
-        (
-            const std::exception&
-                exception
-        )
-        {
-			handle_error_outputs(
-				exception
-			);
-        }
+		construct();
 	}        
 
 	RestApiManager
 		::~RestApiManager()
     {
-		try
-        {
-            destruct();
-        }
-        catch
-        (
-            const std::exception&
-                exception
-        )
-        {
-			handle_error_outputs(
-				exception
-			);
-        }
+		destruct();
 	}        
 
 	bool
@@ -109,14 +83,10 @@ namespace
         }
         catch
         (
-            const std::exception&
-                exception
+            QLOGICAE_COR_V1__BASE__HPP_CPP__TRY_CATCH_EXCEPTION_PARAMETER
         )
         {
-			return
-				handle_error_outputs(
-					exception
-				);
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE();
         }
 	}
 
@@ -152,14 +122,10 @@ namespace
         }
         catch
         (
-            const std::exception&
-                exception
+            QLOGICAE_COR_V1__BASE__HPP_CPP__TRY_CATCH_EXCEPTION_PARAMETER
         )
         {
-			return
-				handle_error_outputs(
-					exception
-				);
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE();
         }
 	}
 
@@ -473,8 +439,7 @@ namespace
 		}
 		catch
 		(
-			const std::exception&
-				exception
+			QLOGICAE_COR_V1__BASE__HPP_CPP__TRY_CATCH_EXCEPTION_PARAMETER
 		)
 		{
 			if (configurations.suppress_exceptions)
@@ -486,10 +451,7 @@ namespace
 					true;
 			};
 
-			return
-				handle_error_outputs(
-					exception
-				);				
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE();			
 		}
 	}
 		
@@ -549,16 +511,10 @@ namespace
 		}
 		catch
 		(
-			const std::exception&
-				exception
+			QLOGICAE_COR_V1__BASE__HPP_CPP__TRY_CATCH_EXCEPTION_PARAMETER
 		)
 		{
-			handle_error_outputs(
-				exception
-			);
-
-			return
-				nullptr;				
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE();	
 		}
 	}
 
@@ -616,14 +572,10 @@ namespace
         }
         catch
         (
-            const std::exception&
-                exception
+            QLOGICAE_COR_V1__BASE__HPP_CPP__TRY_CATCH_EXCEPTION_PARAMETER
         )
         {
-			return
-				handle_error_outputs<size_t>(
-					exception
-				);
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE();
         }	
 	}
 
@@ -690,14 +642,10 @@ namespace
         }
         catch
         (
-            const std::exception&
-                exception
+            QLOGICAE_COR_V1__BASE__HPP_CPP__TRY_CATCH_EXCEPTION_PARAMETER
         )
         {
-			return
-				handle_error_outputs<size_t>(
-					exception
-				);
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE();
         }	
 	}
 
@@ -764,14 +712,10 @@ namespace
         }
         catch
         (
-            const std::exception&
-                exception
+            QLOGICAE_COR_V1__BASE__HPP_CPP__TRY_CATCH_EXCEPTION_PARAMETER
         )
         {
-			return
-				handle_error_outputs(
-					exception
-				);
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE();
         }
 	}
 
@@ -839,14 +783,10 @@ namespace
         }
         catch
         (
-            const std::exception&
-                exception
+            QLOGICAE_COR_V1__BASE__HPP_CPP__TRY_CATCH_EXCEPTION_PARAMETER
         )
         {
-			return
-				handle_error_outputs<std::string>(
-					exception
-				);
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE();
         }
 	}
 }

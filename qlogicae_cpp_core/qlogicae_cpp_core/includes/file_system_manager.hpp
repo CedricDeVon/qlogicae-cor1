@@ -560,7 +560,7 @@ namespace
 					origin_path
 			);
 
-		// Unit Testing Required
+		// Additional Unit Testing Required
 		bool
 			clear_file_text(
 				const std::wstring&

@@ -73,21 +73,15 @@ namespace
 				return (input_object.*input_callback)(input_callback_arguments...);
 			}
 		}
-		catch (const std::exception& exception)
+		catch
+		(
+			QLOGICAE_COR_V1__BASE__HPP_CPP__TRY_CATCH_EXCEPTION_PARAMETER
+		)
 		{
-			handle_error_outputs(
-				exception
+			QLOGICAE_COR_V1__EXPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE
+			(
+				ResultType {}
 			);
-
-			if constexpr (std::is_default_constructible_v<ResultType>)
-			{
-				return
-					ResultType{};
-			}
-			else
-			{
-				throw;
-			}
 		}
 	}
 }

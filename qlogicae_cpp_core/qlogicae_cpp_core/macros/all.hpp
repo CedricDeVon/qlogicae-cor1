@@ -129,13 +129,13 @@
 
 
 
-#define QLOGICAE_COR_V1__BASE__HPP_CPP__CATCH_CODE_TEMPLATE(return_value) \
+#define QLOGICAE_COR_V1__BASE__HPP_CPP__CATCH_CODE_TEMPLATE(...) \
     handle_error_outputs<void>( \
 		QLOGICAE_COR_V1__BASE__HPP_CPP__TRY_CATCH_EXCEPTION_NAME \
 	); \
 \
 	return \
-		return_value; \
+		__VA_ARGS__; \
 
 #define QLOGICAE_COR_V1__VOID__HPP_CPP__CATCH_CODE_TEMPLATE() \
     QLOGICAE_COR_V1__BASE__HPP_CPP__CATCH_CODE_TEMPLATE \
@@ -149,47 +149,47 @@
 		QLOGICAE_COR_V1__BASE__HPP_CPP__IMPLICIT_RETURN_VALUE \
 	); \
 
-#define QLOGICAE_COR_V1__EXPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE(return_value) \
+#define QLOGICAE_COR_V1__EXPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE(...) \
     QLOGICAE_COR_V1__BASE__HPP_CPP__CATCH_CODE_TEMPLATE \
 	( \
-		return_value \
+		__VA_ARGS__ \
 	); \
 
 
 
-#define QLOGICAE_COR_V1__BASE__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE(return_value, mutex_layer_number, edge_case_statement) \
+#define QLOGICAE_COR_V1__BASE__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE(return_value, mutex_layer_number, ...) \
     QLOGICAE_COR_V1__BASE__HPP_CPP__EDGE_CASE_GUARD_TEMPLATE \
 	( \
 		return_value, \
-		edge_case_statement \
+		__VA_ARGS__ \
 	); \
 	QLOGICAE_COR_V1__BASE__HPP_CPP__THREAD_SAFETY_GUARD_TEMPLATE \
 	( \
 		mutex_layer_number \
 	); \
 
-#define QLOGICAE_COR_V1__VOID__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE(mutex_layer_number, edge_case_statement) \
+#define QLOGICAE_COR_V1__VOID__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE(mutex_layer_number, ...) \
     QLOGICAE_COR_V1__BASE__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE \
 	( \
 		QLOGICAE_COR_V1__BASE__HPP_CPP__VOID_RETURN_VALUE, \
 		mutex_layer_number, \
-		edge_case_statement \
+		__VA_ARGS__ \
 	); \
 
-#define QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE(mutex_layer_number, edge_case_statement) \
+#define QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE(mutex_layer_number, ...) \
     QLOGICAE_COR_V1__BASE__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE \
 	( \
 		QLOGICAE_COR_V1__BASE__HPP_CPP__IMPLICIT_RETURN_VALUE, \
 		mutex_layer_number, \
-		edge_case_statement \
+		__VA_ARGS__ \
 	); \
 
-#define QLOGICAE_COR_V1__EXPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE(return_value, mutex_layer_number, edge_case_statement) \
+#define QLOGICAE_COR_V1__EXPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE(return_value, mutex_layer_number, ...) \
     QLOGICAE_COR_V1__BASE__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE \
 	( \
 		return_value, \
 		mutex_layer_number, \
-		edge_case_statement \
+		__VA_ARGS__ \
 	); \
 
 

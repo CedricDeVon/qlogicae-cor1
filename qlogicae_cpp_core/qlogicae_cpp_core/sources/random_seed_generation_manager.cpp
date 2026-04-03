@@ -9,39 +9,13 @@ namespace
 		::RandomSeedGenerationManager() :
 			AbstractClass<RandomSeedGenerationManagerConfigurations>()
 	{
-		try
-		{
-			construct();
-		}
-		catch
-		(
-			const std::exception&
-				exception
-		)
-		{
-			handle_error_outputs(
-				exception
-			);
-		}
+		construct();
 	}
 
 	RandomSeedGenerationManager
 		::~RandomSeedGenerationManager()
 	{
-		try
-		{
-			destruct();
-		}
-		catch
-		(
-			const std::exception&
-				exception
-		)
-		{
-			handle_error_outputs(
-				exception
-			);
-		}
+		destruct();
 	}
 
 	bool
@@ -82,14 +56,10 @@ namespace
 		}
 		catch
 		(
-			const std::exception&
-				exception
+			QLOGICAE_COR_V1__BASE__HPP_CPP__TRY_CATCH_EXCEPTION_PARAMETER
 		)
 		{
-			return
-				handle_error_outputs(
-					exception
-				);
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE();
 		}
 	}
 
@@ -125,14 +95,10 @@ namespace
 		}
 		catch
 		(
-			const std::exception&
-				exception
+			QLOGICAE_COR_V1__BASE__HPP_CPP__TRY_CATCH_EXCEPTION_PARAMETER
 		)
 		{
-			return
-				handle_error_outputs(
-					exception
-				);
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE();
 		}
 	}
 
@@ -177,16 +143,13 @@ namespace
 		}
 		catch
 		(
-			const std::exception&
-				exception
+			QLOGICAE_COR_V1__BASE__HPP_CPP__TRY_CATCH_EXCEPTION_PARAMETER
 		)
 		{		
-			handle_error_outputs(
-				exception
+			QLOGICAE_COR_V1__EXPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE
+			(
+				random_indeterministic_seed_engine()
 			);
-
-			return
-				random_indeterministic_seed_engine();
 		}
 	}
 
@@ -254,16 +217,13 @@ namespace
 		}
 		catch
 		(
-			const std::exception&
-				exception
+			QLOGICAE_COR_V1__BASE__HPP_CPP__TRY_CATCH_EXCEPTION_PARAMETER
 		)
 		{		
-			handle_error_outputs(
-				exception
+			QLOGICAE_COR_V1__EXPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE
+			(
+				random_cryptography_seed_engine()
 			);
-
-			return
-				random_cryptography_seed_engine();
 		}
 	}
 
@@ -311,16 +271,13 @@ namespace
 		}
 		catch
 		(
-			const std::exception&
-				exception
+			QLOGICAE_COR_V1__BASE__HPP_CPP__TRY_CATCH_EXCEPTION_PARAMETER
 		)
 		{		
-			handle_error_outputs(
-				exception
+			QLOGICAE_COR_V1__EXPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE
+			(
+				random_deterministic_seed_engine()
 			);
-
-			return
-				random_deterministic_seed_engine();
 		}		
 	}
 
@@ -365,16 +322,10 @@ namespace
 		}
 		catch
 		(
-			const std::exception&
-				exception
+			QLOGICAE_COR_V1__BASE__HPP_CPP__TRY_CATCH_EXCEPTION_PARAMETER
 		)
 		{		
-			handle_error_outputs(
-				exception
-			);
-
-			return
-				false;
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE();
 		}
 	}
 
@@ -442,16 +393,10 @@ namespace
 		}
 		catch
 		(
-			const std::exception&
-				exception
+			QLOGICAE_COR_V1__BASE__HPP_CPP__TRY_CATCH_EXCEPTION_PARAMETER
 		)
 		{		
-			handle_error_outputs(
-				exception
-			);
-
-			return
-				false;
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE();
 		}
 	}
 
@@ -499,16 +444,10 @@ namespace
 		}
 		catch
 		(
-			const std::exception&
-				exception
+			QLOGICAE_COR_V1__BASE__HPP_CPP__TRY_CATCH_EXCEPTION_PARAMETER
 		)
 		{		
-			handle_error_outputs(
-				exception
-			);
-
-			return
-				false;
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE();
 		}		
 	}
 
@@ -557,14 +496,10 @@ namespace
 		}
 		catch
 		(
-			const std::exception&
-				exception
+			QLOGICAE_COR_V1__BASE__HPP_CPP__TRY_CATCH_EXCEPTION_PARAMETER
 		)
 		{
-			return
-				handle_error_outputs<std::uint64_t>(
-					exception
-				);
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE();
 		}
 	}
 
@@ -617,16 +552,13 @@ namespace
 		}
 		catch
 		(
-			const std::exception&
-				exception
+			QLOGICAE_COR_V1__BASE__HPP_CPP__TRY_CATCH_EXCEPTION_PARAMETER
 		)
 		{
-			handle_error_outputs(
-				exception
+			QLOGICAE_COR_V1__EXPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE
+			(
+				value
 			);
-
-			return
-				value;
 		}
 	}
 }
