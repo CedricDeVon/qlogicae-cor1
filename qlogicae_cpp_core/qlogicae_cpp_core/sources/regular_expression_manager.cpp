@@ -22,35 +22,13 @@ namespace
 			)
 	{
 		try
-        {		
-			if
+        {					
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
 			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling() ||				
-				(
-					configurations
-						.is_edge_case_enabled_for_feature_handling() &&
-					(
-						value.empty() ||
-						pattern.empty() 
-					)
-				)
-			)
-			{
-				return
-					false;
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_feature_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}			
+				QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_1,
+				value.empty() ||
+				pattern.empty() 
+			);	
 
 			int
 				error_number;
@@ -123,22 +101,11 @@ namespace
 	{
 		try
 		{
-			if
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
 			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling() ||				
-				(
-					configurations
-						.is_edge_case_enabled_for_feature_handling() &&
-					(
-						value.empty()
-					)
-				)
-			)
-			{
-				return
-					false;
-			}
+				QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_2,
+				value.empty()
+			);
 
 			pcre2_match_data*
 				match_data =

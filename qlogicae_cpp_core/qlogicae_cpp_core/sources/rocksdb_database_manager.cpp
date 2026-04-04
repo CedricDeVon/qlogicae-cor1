@@ -23,27 +23,12 @@ namespace
 			::construct()
     {
         try
-        {			
-			if
+        {					
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
 			(
-				configurations
-					.is_runtime_execution_disabled_for_utility_handling()
-			)
-			{
-				return
-					false;
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_utility_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}	
+				QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_1,
+				QLOGICAE_COR_V1__BASE__HPP_CPP__EMPTY_EDGE_CASES
+			);
 
 			RocksDbDatabaseManagerConfigurations
 				new_configurations;
@@ -113,26 +98,11 @@ namespace
     {
         try
         {		
-			if
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
 			(
-				configurations
-					.is_runtime_execution_disabled_for_utility_handling()
-			)
-			{
-				return
-					false;
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_utility_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}			
+				QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_1,
+				QLOGICAE_COR_V1__BASE__HPP_CPP__EMPTY_EDGE_CASES
+			);			
 
 			return
 				true;
@@ -155,30 +125,11 @@ namespace
 	{
 		try
         {		
-			if
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
 			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling()
-			)
-			{
-				return
-					false;
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if
-			(
-				configurations
-					.is_thread_safety_enabled_for_feature_handling()
-			)
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}			
+				QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_1,
+				QLOGICAE_COR_V1__BASE__HPP_CPP__EMPTY_EDGE_CASES
+			);		
 
 			configurations =
 				new_configurations;
@@ -248,37 +199,11 @@ namespace
 	{
 		try
         {		
-			if
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
 			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling() ||				
-				(
-					configurations
-						.is_edge_case_enabled_for_feature_handling() &&
-					(
-						value.empty()
-					)
-				)
-			)
-			{
-				return
-					false;
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if
-			(
-				configurations
-					.is_thread_safety_enabled_for_feature_handling()
-			)
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}			
+				QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_1,
+				value.empty()
+			);		
 
 			return
 				std::filesystem::exists(value);
@@ -300,39 +225,13 @@ namespace
 			)
 	{
 		try
-        {		
-			if
+        {					
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
 			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling() ||				
-				(
-					configurations
-						.is_edge_case_enabled_for_feature_handling() &&
-					(
-						value.empty() ||
-						object == nullptr
-					)
-				)
-			)
-			{
-				return
-					false;
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if
-			(
-				configurations
-					.is_thread_safety_enabled_for_feature_handling()
-			)
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}			
+				QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_1,
+				value.empty() ||
+				object == nullptr
+			);			
 
 			std::string result;
 
@@ -359,38 +258,12 @@ namespace
 			)
 	{
 		try
-        {		
-			if
+        {					
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
 			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling() ||				
-				(
-					configurations
-						.is_edge_case_enabled_for_feature_handling() &&
-					(
-						value.empty()
-					)
-				)
-			)
-			{
-				return
-					false;
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if
-			(
-				configurations
-					.is_thread_safety_enabled_for_feature_handling()
-			)
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}			
+				QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_1,
+				value.empty()
+			);	
 
 			return
 				object->Delete(
@@ -415,38 +288,12 @@ namespace
 			)
 	{
 		try
-        {		
-			if
+        {					
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
 			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling() ||				
-				(
-					configurations
-						.is_edge_case_enabled_for_feature_handling() &&
-					(
-						value.empty()
-					)
-				)
-			)
-			{
-				return
-					false;
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if
-			(
-				configurations
-					.is_thread_safety_enabled_for_feature_handling()
-			)
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}			
+				QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_1,
+				value.empty()
+			);	
 
 			rocksdb::ColumnFamilyHandle* handle = nullptr;
 
@@ -478,38 +325,12 @@ namespace
 			)
 	{
 		try
-        {		
-			if
+        {					
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
 			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling() ||				
-				(
-					configurations
-						.is_edge_case_enabled_for_feature_handling() &&
-					(
-						value.empty()
-					)
-				)
-			)
-			{
-				return
-					false;
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if
-			(
-				configurations
-					.is_thread_safety_enabled_for_feature_handling()
-			)
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}			
+				QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_1,
+				value.empty()
+			);		
 
 			auto iterator = column_families.find(value);
 
@@ -547,40 +368,12 @@ namespace
 			)
 	{
 		try
-        {		
-			if
+        {					
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
 			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling() ||				
-				(
-					configurations
-						.is_edge_case_enabled_for_feature_handling() &&
-					(
-						value.empty()
-					)
-				)
-			)
-			{
-				return
-					column_families.contains(
-						value
-					);
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if
-			(
-				configurations
-					.is_thread_safety_enabled_for_feature_handling()
-			)
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}			
+				QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_1,
+				value.empty()
+			);
 		
 			return
 				column_families.contains(
@@ -604,38 +397,12 @@ namespace
 			)
 	{
 		try
-        {		
-			if
+        {					
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
 			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling() ||				
-				(
-					configurations
-						.is_edge_case_enabled_for_feature_handling() &&
-					(
-						value.empty()
-					)
-				)
-			)
-			{
-				return
-					false;
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if
-			(
-				configurations
-					.is_thread_safety_enabled_for_feature_handling()
-			)
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}			
+				QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_1,
+				value.empty()
+			);			
 
 			rocksdb::BackupEngine* backup;
 			rocksdb::BackupEngineOptions options(value);
@@ -671,38 +438,12 @@ namespace
 			)
 	{
 		try
-        {		
-			if
+        {					
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
 			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling() ||				
-				(
-					configurations
-						.is_edge_case_enabled_for_feature_handling() &&
-					(
-						value.empty()
-					)
-				)
-			)
-			{
-				return
-					false;
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if
-			(
-				configurations
-					.is_thread_safety_enabled_for_feature_handling()
-			)
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}			
+				QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_1,
+				value.empty()
+			);		
 
 			close();
 
@@ -746,38 +487,12 @@ namespace
 			)
 	{
 		try
-        {		
-			if
+        {					
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
 			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling() ||				
-				(
-					configurations
-						.is_edge_case_enabled_for_feature_handling() &&
-					(
-						value.empty()
-					)
-				)
-			)
-			{
-				return
-					false;
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if
-			(
-				configurations
-					.is_thread_safety_enabled_for_feature_handling()
-			)
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}			
+				QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_1,
+				value.empty()
+			);			
 
 			rocksdb::Checkpoint* checkpoint;
 			auto string = rocksdb::Checkpoint::Create(object, &checkpoint);
@@ -814,39 +529,13 @@ namespace
 			)
 	{
 		try
-        {		
-			if
+        {					
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
 			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling() ||				
-				(
-					configurations
-						.is_edge_case_enabled_for_feature_handling() &&
-					(
-						value.empty() ||
-						object == nullptr
-					)
-				)
-			)
-			{
-				return
-					"";
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if
-			(
-				configurations
-					.is_thread_safety_enabled_for_feature_handling()
-			)
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}			
+				QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_1,
+				value.empty() ||
+				object == nullptr
+			);			
 
 			rocksdb::PinnableSlice pvalue;
 			rocksdb::ReadOptions options;
@@ -898,31 +587,12 @@ namespace
 			::batch_execute()
 	{
 		try
-        {		
-			if
+        {					
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
 			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling()
-			)
-			{
-				return
-					false;
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if
-			(
-				configurations
-					.is_thread_safety_enabled_for_feature_handling()
-			)
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_2
-					);
-			}			
+				QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_2,
+				QLOGICAE_COR_V1__BASE__HPP_CPP__EMPTY_EDGE_CASES
+			);	
 
 			auto string = object->Write(
 				write_options, &write_batch);
@@ -945,31 +615,12 @@ namespace
 			::begin_batch()
 	{
 		try
-        {		
-			if
+        {					
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
 			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling()
-			)
-			{
-				return
-					false;
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if
-			(
-				configurations
-					.is_thread_safety_enabled_for_feature_handling()
-			)
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}			
+				QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_1,
+				QLOGICAE_COR_V1__BASE__HPP_CPP__EMPTY_EDGE_CASES
+			);	
 
 			write_batch.Clear();
 
@@ -990,31 +641,12 @@ namespace
 			::commit_batch()
 	{
 		try
-        {		
-			if
+        {					
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
 			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling()
-			)
-			{
-				return
-					false;
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if
-			(
-				configurations
-					.is_thread_safety_enabled_for_feature_handling()
-			)
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}			
+				QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_1,
+				QLOGICAE_COR_V1__BASE__HPP_CPP__EMPTY_EDGE_CASES
+			);	
 
 			return
 				batch_execute();
@@ -1033,38 +665,12 @@ namespace
 			::begin_transaction()
 	{
 		try
-        {		
-			if
+        {					
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
 			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling() ||				
-				(
-					configurations
-						.is_edge_case_enabled_for_feature_handling() &&
-					(
-						transaction
-					)
-				)
-			)
-			{
-				return
-					false;
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if
-			(
-				configurations
-					.is_thread_safety_enabled_for_feature_handling()
-			)
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}			
+				QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_1,
+				transaction
+			);		
 
 			transaction = transaction_db->BeginTransaction(
 				write_options
@@ -1087,38 +693,12 @@ namespace
 			::commit_transaction()
 	{
 		try
-        {		
-			if
+        {					
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
 			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling() ||				
-				(
-					configurations
-						.is_edge_case_enabled_for_feature_handling() &&
-					(
-						!transaction
-					)
-				)
-			)
-			{
-				return
-					false;
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if
-			(
-				configurations
-					.is_thread_safety_enabled_for_feature_handling()
-			)
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}			
+				QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_1,
+				!transaction
+			);	
 
 			auto string = transaction->Commit();
 			delete transaction;
@@ -1141,38 +721,12 @@ namespace
 			::rollback_transaction()
 	{
 		try
-        {		
-			if
+        {				
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
 			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling() ||				
-				(
-					configurations
-						.is_edge_case_enabled_for_feature_handling() &&
-					(
-						!transaction
-					)
-				)
-			)
-			{
-				return
-					false;
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if
-			(
-				configurations
-					.is_thread_safety_enabled_for_feature_handling()
-			)
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}			
+				QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_1,
+				!transaction
+			);			
 
 			auto string = transaction->Rollback();
 			delete transaction;
@@ -1195,31 +749,12 @@ namespace
 			::close()
 	{
 		try
-        {		
-			if
+        {					
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
 			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling()
-			)
-			{
-				return
-					false;
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if
-			(
-				configurations
-					.is_thread_safety_enabled_for_feature_handling()
-			)
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_3
-					);
-			}			
+				QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_3,
+				QLOGICAE_COR_V1__BASE__HPP_CPP__EMPTY_EDGE_CASES
+			);	
 
 			if (object != nullptr)
             {
@@ -1262,31 +797,12 @@ namespace
 			::clear()
 	{
 		try
-        {		
-			if
+        {					
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
 			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling()
-			)
-			{
-				return
-					false;
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if
-			(
-				configurations
-					.is_thread_safety_enabled_for_feature_handling()
-			)
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_2
-					);
-			}			
+				QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_2,
+				QLOGICAE_COR_V1__BASE__HPP_CPP__EMPTY_EDGE_CASES
+			);		
 
 			close();
 
@@ -1316,31 +832,12 @@ namespace
 			::open()
 	{
 		try
-        {		
-			if
+        {					
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
 			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling()
-			)
-			{
-				return
-					false;
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if
-			(
-				configurations
-					.is_thread_safety_enabled_for_feature_handling()
-			)
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_2
-					);
-			}			
+				QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_2,
+				QLOGICAE_COR_V1__BASE__HPP_CPP__EMPTY_EDGE_CASES
+			);		
 
 			if (!std::filesystem::exists(configurations.file_path))
             {
@@ -1378,31 +875,12 @@ namespace
 			)
 	{
 		try
-        {		
-			if
+        {					
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
 			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling()
-			)
-			{
-				return
-					nullptr;
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if
-			(
-				configurations
-					.is_thread_safety_enabled_for_feature_handling()
-			)
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}			
+				QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_1,
+				QLOGICAE_COR_V1__BASE__HPP_CPP__EMPTY_EDGE_CASES
+			);	
 
             auto iterator = column_families.find(name);
             if (iterator != column_families.end())

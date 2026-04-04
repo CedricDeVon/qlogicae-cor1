@@ -51,27 +51,12 @@ namespace
 			::construct()
     {
         try
-        {			
-			if
+        {						
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
 			(
-				configurations
-					.is_runtime_execution_disabled_for_utility_handling()
-			)
-			{
-				return
-					false;
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_utility_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_2
-					);
-			}			
+				QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_2,
+				QLOGICAE_COR_V1__BASE__HPP_CPP__EMPTY_EDGE_CASES
+			);
 
 			begin_io_workers();
 
@@ -93,26 +78,11 @@ namespace
     {
         try
         {		
-			if
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
 			(
-				configurations
-					.is_runtime_execution_disabled_for_utility_handling()
-			)
-			{
-				return
-					false;
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_utility_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_2
-					);
-			}			
+				QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_2,
+				QLOGICAE_COR_V1__BASE__HPP_CPP__EMPTY_EDGE_CASES
+			);		
 
 			return
 				complete_io_workers() ||
@@ -135,34 +105,12 @@ namespace
 			)
     {
         try
-        {
-			if
+        {			
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
 			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling() ||				
-				(
-					configurations
-						.is_edge_case_enabled_for_feature_handling() &&
-					(
-						callback == nullptr
-					)
-				)
-			)
-			{
-				return
-					false;
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_feature_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}
+				QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_1,
+				callback == nullptr
+			);
 
             if (main_thread_pool == nullptr)
             {
@@ -211,26 +159,11 @@ namespace
     {
         try
         {
-			if
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
 			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling()
-			)
-			{
-				return
-					false;
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_feature_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}
+				QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_1,
+				QLOGICAE_COR_V1__BASE__HPP_CPP__EMPTY_EDGE_CASES
+			);
 		
 			size_t
 				count =
@@ -263,26 +196,11 @@ namespace
     {
         try
         {
-			if
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
 			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling()
-			)
-			{
-				return
-					false;
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_utility_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}
+				QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_1,
+				QLOGICAE_COR_V1__BASE__HPP_CPP__EMPTY_EDGE_CASES
+			);
 
 			temporary_thread_pool =
 				main_thread_pool;
@@ -312,26 +230,11 @@ namespace
     {
         try
         {
-			if
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
 			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling()
-			)
-			{
-				return
-					false;
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_utility_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}
+				QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_1,
+				QLOGICAE_COR_V1__BASE__HPP_CPP__EMPTY_EDGE_CASES
+			);
 		
 			work_guard.reset();
 			io_context.stop();
@@ -369,34 +272,12 @@ namespace
 		)
 	{
 		try
-        {
-			if
+        {			
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
 			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling() ||				
-				(
-					configurations
-						.is_edge_case_enabled_for_feature_handling() &&
-					(
-						implementation_method == nullptr
-					)
-				)
-			)
-			{
-				return
-					false;
-			}
-        
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_feature_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}
+				QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_1,
+				implementation_method == nullptr
+			);
 
 			boost::asio::co_spawn(
 				io_strand,
@@ -446,33 +327,11 @@ namespace
 	{
 		try
         {   
-			if
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
 			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling() ||				
-				(
-					configurations
-						.is_edge_case_enabled_for_feature_handling() &&
-					(
-						implementation_method == nullptr
-					)
-				)
-			)
-			{
-				return
-					false;
-			}
-        
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_feature_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}
+				QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_1,
+				implementation_method == nullptr
+			);
 
             if (main_thread_pool == nullptr)
             {
@@ -525,33 +384,11 @@ namespace
 	{
 		try
         {       
-			if
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
 			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling() ||				
-				(
-					configurations
-						.is_edge_case_enabled_for_feature_handling() &&
-					(
-						implementation_method == nullptr
-					)
-				)
-			)
-			{
-				return
-					false;
-			}
-     
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_feature_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}
+				QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_1,
+				implementation_method == nullptr
+			);
 
             if (main_thread_pool == nullptr)
             {

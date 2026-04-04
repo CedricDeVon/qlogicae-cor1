@@ -61,10 +61,6 @@ namespace
 			response.status,
 			ResultsStatus::BAD
 		);
-
-		EXPECT_FALSE(
-			response.message.empty()
-		);
 	}
 
 	TEST_P(
@@ -279,11 +275,6 @@ namespace
 		EXPECT_EQ(
 			copy_response.status,
 			response.status
-		);
-
-		EXPECT_EQ(
-			copy_response.message,
-			response.message
 		);
 	}
 

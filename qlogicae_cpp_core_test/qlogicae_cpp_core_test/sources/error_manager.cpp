@@ -996,7 +996,7 @@ namespace
 		ErrorManagerConfigurations configurations;
 
 		configurations
-			.is_utility_runtime_execution_handling_enabled =
+			.is_feature_runtime_execution_handling_enabled =
 				false;
 
 		manager.setup(
@@ -1019,7 +1019,7 @@ namespace
 		ErrorManagerConfigurations configurations;
 
 		configurations
-			.is_utility_runtime_execution_handling_enabled =
+			.is_feature_runtime_execution_handling_enabled =
 				false;
 
 		manager.setup(
@@ -1042,7 +1042,7 @@ namespace
 		ErrorManagerConfigurations configurations;
 
 		configurations
-			.is_utility_runtime_execution_handling_enabled =
+			.is_feature_runtime_execution_handling_enabled =
 				false;
 
 		manager.setup(

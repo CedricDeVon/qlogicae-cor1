@@ -65,9 +65,6 @@ namespace
         AsynchronousManagerConfigurations
             configurations;
 
-        configurations.is_feature_runtime_execution_handling_enabled =
-			false;
-
 		manager
 			.setup(configurations);
 
@@ -330,9 +327,6 @@ namespace
 		{
 			AsynchronousManagerConfigurations
 				configurations;
-
-			configurations.is_feature_runtime_execution_handling_enabled =
-				static_cast<bool>(index % 2);
 
 			ASSERT_TRUE(
 				manager

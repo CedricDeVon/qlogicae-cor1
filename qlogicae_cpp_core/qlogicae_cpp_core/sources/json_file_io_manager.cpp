@@ -65,36 +65,14 @@ namespace
 			)
 	{
 		try
-        {
-			if
+        {			
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
 			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling() ||				
-				(
-					configurations
-						.is_edge_case_enabled_for_feature_handling() &&
-					(
-						file_path.empty() ||
-						!std::filesystem::exists(file_path) ||
-						std::filesystem::is_directory(file_path)
-					)
-				)
-			)
-			{
-				return
-					false;
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_feature_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}
+				QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_1,
+				file_path.empty() ||
+				!std::filesystem::exists(file_path) ||
+				std::filesystem::is_directory(file_path)
+			);
 
 			fast_io::native_file_loader file(file_path);
 
@@ -122,37 +100,15 @@ namespace
 			)
 	{
 		try
-        {
-			if
+        {			
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
 			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling() ||				
-				(
-					configurations
-						.is_edge_case_enabled_for_feature_handling() &&
-					(
-						file_path.empty() ||
-						!std::filesystem::exists(file_path) ||
-						std::filesystem::is_directory(file_path) ||
-						!key_path.size()
-					)
-				)
-			)
-			{
-				return
-					false;
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_feature_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}
+				QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_1,
+				file_path.empty() ||
+				!std::filesystem::exists(file_path) ||
+				std::filesystem::is_directory(file_path) ||
+				!key_path.size()
+			);
 
 			fast_io::native_file_loader file(file_path);
 
@@ -183,37 +139,15 @@ namespace
 			)
 	{
 		try
-        {
-			if
+        {			
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
 			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling() ||				
-				(
-					configurations
-						.is_edge_case_enabled_for_feature_handling() &&
-					(
-						file_path.empty() ||
-						!std::filesystem::exists(file_path) ||
-						std::filesystem::is_directory(file_path) ||
-						!key_path.size()
-					)
-				)
-			)
-			{
-				return
-					"";
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_feature_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}
+				QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_1,
+				file_path.empty() ||
+				!std::filesystem::exists(file_path) ||
+				std::filesystem::is_directory(file_path) ||
+				!key_path.size()
+			);
 
 			fast_io::native_file_loader file(file_path);
 
@@ -252,37 +186,15 @@ namespace
 			)
 	{
 		try
-        {
-			if
+        {			
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
 			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling() ||				
-				(
-					configurations
-						.is_edge_case_enabled_for_feature_handling() &&
-					(
-						file_path.empty() ||
-						!std::filesystem::exists(file_path) ||
-						std::filesystem::is_directory(file_path) ||
-						!key_path.size()
-					)
-				)
-			)
-			{
-				return
-					"";
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_feature_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}
+				QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_1,
+				file_path.empty() ||
+				!std::filesystem::exists(file_path) ||
+				std::filesystem::is_directory(file_path) ||
+				!key_path.size()
+			);
 
 			fast_io::native_file_loader file(file_path);
 
@@ -317,37 +229,15 @@ namespace
 			)
 	{
 		try
-        {
-			if
+        {			
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
 			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling() ||				
-				(
-					configurations
-						.is_edge_case_enabled_for_feature_handling() &&
-					(
-						file_path.empty() ||
-						!std::filesystem::exists(file_path) ||
-						std::filesystem::is_directory(file_path) ||
-						!key_path.size()
-					)
-				)
-			)
-			{
-				return
-					0;
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_feature_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}
+				QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_1,
+				file_path.empty() ||
+				!std::filesystem::exists(file_path) ||
+				std::filesystem::is_directory(file_path) ||
+				!key_path.size()
+			);
 
 			fast_io::native_file_loader file(file_path);
 
@@ -382,37 +272,15 @@ namespace
 			)
 	{
 		try
-        {
-			if
+        {			
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
 			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling() ||				
-				(
-					configurations
-						.is_edge_case_enabled_for_feature_handling() &&
-					(
-						file_path.empty() ||
-						!std::filesystem::exists(file_path) ||
-						std::filesystem::is_directory(file_path) ||
-						!key_path.size()
-					)
-				)
-			)
-			{
-				return
-					false;
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_feature_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}
+				QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_1,
+				file_path.empty() ||
+				!std::filesystem::exists(file_path) ||
+				std::filesystem::is_directory(file_path) ||
+				!key_path.size()
+			);
 
 			fast_io::native_file_loader file(file_path);
 
@@ -450,37 +318,15 @@ namespace
 			)
 	{
 		try
-        {
-			if
+        {			
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
 			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling() ||				
-				(
-					configurations
-						.is_edge_case_enabled_for_feature_handling() &&
-					(
-						file_path.empty() ||
-						!std::filesystem::exists(file_path) ||
-						std::filesystem::is_directory(file_path) ||
-						!key_path.size()
-					)
-				)
-			)
-			{
-				return
-					nullptr;
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_feature_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}
+				QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_1,
+				file_path.empty() ||
+				!std::filesystem::exists(file_path) ||
+				std::filesystem::is_directory(file_path) ||
+				!key_path.size()
+			);
 
 			fast_io::native_file_loader file(file_path);
 
@@ -510,6 +356,12 @@ namespace
 		const std::vector<std::variant<std::string, size_t>>& key_path,
 		const std::string& value)
 	{
+		QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
+		(
+			QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_1,
+			QLOGICAE_COR_V1__BASE__HPP_CPP__EMPTY_EDGE_CASES
+		);
+
 		std::ifstream input(file_path, std::ios::binary);
 		if (!input)
 			return false;
@@ -726,19 +578,13 @@ namespace
 		const std::string& value)
 	{
 		try
-		{
-			if (configurations.is_runtime_execution_disabled_for_feature_handling() ||
-				(configurations.is_edge_case_enabled_for_feature_handling() &&
-					(file_path.empty() || key_path.empty())))
-			{
-				return false;
-			}
-
-			boost::unique_lock<boost::mutex> lock;
-			if (configurations.is_thread_safety_enabled_for_feature_handling())
-			{
-				lock = boost::unique_lock<boost::mutex>(feature_handling_mutex_1);
-			}
+		{			
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
+			(
+				QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_1,
+				file_path.empty() ||
+				key_path.empty()
+			);
 
 			std::ifstream input(file_path, std::ios::binary);
 			if (!input)
@@ -813,18 +659,15 @@ namespace
 		const std::vector<std::variant<std::string, size_t>>& key_path)
 	{
 		try
-		{
-			if (configurations.is_runtime_execution_disabled_for_feature_handling() ||
-				(configurations.is_edge_case_enabled_for_feature_handling() &&
-					(file_path.empty() || !std::filesystem::exists(file_path) ||
-						std::filesystem::is_directory(file_path) || key_path.empty())))
-			{
-				return false;
-			}
-
-			boost::unique_lock<boost::mutex> lock;
-			if (configurations.is_thread_safety_enabled_for_feature_handling())
-				lock = boost::unique_lock<boost::mutex>(feature_handling_mutex_1);
+		{			
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
+			(
+				QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_1,
+				file_path.empty() ||
+				!std::filesystem::exists(file_path) ||
+				std::filesystem::is_directory(file_path) ||
+				key_path.empty()
+			);
 
 			std::ifstream input(file_path, std::ios::binary);
 			if (!input)

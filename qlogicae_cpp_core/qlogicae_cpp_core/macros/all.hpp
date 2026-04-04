@@ -18,7 +18,7 @@
 #define QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_4 4
 
 #define QLOGICAE_COR_V1__BASE__HPP_CPP__EMPTY_EDGE_CASES false
-#define QLOGICAE_COR_V1__BASE__HPP_CPP__IMPLICIT_RETURN_VALUE {}
+#define QLOGICAE_COR_V1__BASE__HPP_CPP__IMPLICIT_RETURN_VALUE {};
 #define QLOGICAE_COR_V1__BASE__HPP_CPP__VOID_RETURN_VALUE QLOGICAE_COR_V1__BASE__HPP_CPP__EMPTY_MACROS
 #define QLOGICAE_COR_V1__BASE__HPP_CPP__EMPTY_NAMESPACE_CODE QLOGICAE_COR_V1__BASE__HPP_CPP__EMPTY_MACROS
 
@@ -61,8 +61,7 @@
 		) \
 	) \
     { \
-        return \
-			return_value; \
+        return return_value; \
     } \
 
 #define QLOGICAE_COR_V1__VOID__HPP_CPP__EDGE_CASE_GUARD_TEMPLATE(...) \
@@ -239,52 +238,6 @@
 
 
 /*
-
-
-#define QLOGICAE_COR_V1__BASE__HPP_CPP__CATCH_CODE_TEMPLATE(return_value) \
-	catch \
-	( \
-		const std::exception& \
-			exception \
-	) \
-	{ \
-		handle_error_outputs<void>( \
-			exception \
-		); \
-	\
-		return \
-			return_value; \
-	} \
-
-
-#define QLOGICAE_COR_V1__BASE__HPP_CPP__METHOD_TEMPLATE(edge_case_conditions, mutex_layer_number, return_value, try_code, catch_code) \
-	try \
-	{ \
-		QLOGICAE_COR_V1__BASE__HPP_CPP__EDGE_CASE_GUARD_TEMPLATE \
-		( \
-			edge_case_conditions, \
-			return_value \
-		); \
-		QLOGICAE_COR_V1__BASE__HPP_CPP__THREAD_SAFETY_GUARD_TEMPLATE \
-		( \
-			mutex_layer_number \
-		); \
-\
-		try_code \
-	} \
-	catch \
-	( \
-		const std::exception& \
-			exception \
-	) \
-	{ \
-		catch_code \
-\
-		QLOGICAE_COR_V1__BASE__HPP_CPP__CATCH_CODE_TEMPLATE \
-		( \
-			return_value \
-		); \
-	} \
 
 #define QLOGICAE_COR_V1__BASE__HPP_CPP__EMAIL_BODY_ENUM_CONSTANTS(first_statement, middle_statement, final_statement) \
 	first_statement(EmailBody, HTML) \

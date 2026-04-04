@@ -21,6 +21,11 @@ namespace
 		std::atomic<double>
 			cached_frequency;
 
+		QLOGICAE_COR_V1__INSTANCE__HPP__MUTEX_LAYER_TEMPLATE
+		(
+			QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_2
+		);
+
 		RuntimeExecutionManager();
 
 		~RuntimeExecutionManager();

@@ -589,7 +589,7 @@ namespace
 	{
 		instance
 			.configurations
-			.is_utility_runtime_execution_handling_enabled =
+			.is_feature_runtime_execution_handling_enabled =
 				false;
 
 		ASSERT_FALSE(
@@ -604,7 +604,7 @@ namespace
 	{
 		instance
 			.configurations
-			.is_utility_runtime_execution_handling_enabled =
+			.is_feature_runtime_execution_handling_enabled =
 				false;
 
 		ASSERT_FALSE(
@@ -619,7 +619,7 @@ namespace
 	{
 		instance
 			.configurations
-			.is_utility_runtime_execution_handling_enabled =
+			.is_feature_runtime_execution_handling_enabled =
 				false;
 
 		ASSERT_FALSE(
@@ -637,7 +637,7 @@ namespace
 
 		instance
 			.configurations
-			.is_utility_runtime_execution_handling_enabled =
+			.is_feature_runtime_execution_handling_enabled =
 				false;
 
 		ASSERT_FALSE(
@@ -662,10 +662,11 @@ namespace
 				.is_edge_case_handling_enabled =
 					true;
 
-		ASSERT_NO_THROW(
+		ASSERT_THROW(
 			instance.handle_callback_wrapper<void>(
 				nullptr
-			)
+			),
+			std::runtime_error
 		);
 	}
 

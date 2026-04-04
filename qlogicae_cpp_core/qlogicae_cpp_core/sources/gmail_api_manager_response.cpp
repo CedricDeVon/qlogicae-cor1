@@ -15,14 +15,4 @@ namespace
 		message =
 			"";
 	}
-
-	GmailApiManagerResponse
-		GmailApiManagerResponse
-			::initial_configurations;
-
-	GmailApiManagerResponse
-		GmailApiManagerResponse
-			::default_configurations =
-				GmailApiManagerResponse
-					::initial_configurations;
 }

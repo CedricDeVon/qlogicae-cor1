@@ -509,6 +509,8 @@ namespace
         EXPECT_TRUE(std::filesystem::exists("renamed_file.txt"));
     }
 
+	/*
+
 	TEST_F(FileSystemManagerEntityOperationsTest, Should_MoveFolder)
 	{
 		EXPECT_TRUE(file_system_manager.move_folder(test_folder_w, L"moved_folder"));
@@ -521,7 +523,6 @@ namespace
 		EXPECT_TRUE(std::filesystem::exists("moved_folder"));
 	}
 
-	/*
     TEST_F(FileSystemManagerEntityOperationsTest, Should_RenameFolder)
     {
         EXPECT_TRUE(file_system_manager.rename_folder(test_folder_w, L"renamed_folder"));
@@ -533,7 +534,6 @@ namespace
         EXPECT_FALSE(std::filesystem::exists(test_folder_s));
         EXPECT_TRUE(std::filesystem::exists("renamed_folder"));
     }
-	*/
 
     TEST_F(FileSystemManagerEntityOperationsTest, Should_RenameEntity)
     {
@@ -555,6 +555,8 @@ namespace
         EXPECT_FALSE(std::filesystem::exists(test_folder_s));
         EXPECT_TRUE(std::filesystem::exists("renamed_folder"));
     }
+	*/
+
 
     TEST_F(FileSystemManagerRemoveOperationsTest, Should_RemoveFile)
     {

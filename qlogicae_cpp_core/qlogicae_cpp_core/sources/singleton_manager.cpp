@@ -21,16 +21,10 @@ namespace
         SingletonManager
 			::construct()
     {       
-		boost::unique_lock<boost::mutex>
-			mutex_lock;
-		if (configurations.is_thread_safety_enabled_for_utility_handling())
-		{
-			mutex_lock =
-				boost::unique_lock<boost::mutex>
-				(
-					feature_handling_mutex_1
-				);
-		}			
+		QLOGICAE_COR_V1__BASE__HPP_CPP__THREAD_SAFETY_GUARD_TEMPLATE
+		(
+			QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_1
+		);			
 
 		return
 			true;
@@ -40,16 +34,10 @@ namespace
         SingletonManager
 			::destruct()
     {       
-		boost::unique_lock<boost::mutex>
-			mutex_lock;
-		if (configurations.is_thread_safety_enabled_for_utility_handling())
-		{
-			mutex_lock =
-				boost::unique_lock<boost::mutex>
-				(
-					feature_handling_mutex_1
-				);
-		}			
+		QLOGICAE_COR_V1__BASE__HPP_CPP__THREAD_SAFETY_GUARD_TEMPLATE
+		(
+			QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_1
+		);			
 
 		return
 			true;
@@ -62,16 +50,10 @@ namespace
 					new_configurations
 			)
     {        
-		boost::unique_lock<boost::mutex>
-			mutex_lock;
-		if (configurations.is_thread_safety_enabled_for_utility_handling())
-		{
-			mutex_lock =
-				boost::unique_lock<boost::mutex>
-				(
-					feature_handling_mutex_1
-				);
-		}	
+		QLOGICAE_COR_V1__BASE__HPP_CPP__THREAD_SAFETY_GUARD_TEMPLATE
+		(
+			QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_1
+		);	
 
 		configurations =
 			new_configurations;		
@@ -84,16 +66,10 @@ namespace
         SingletonManager
 			::reset()
     {       
-		boost::unique_lock<boost::mutex>
-			mutex_lock;
-		if (configurations.is_thread_safety_enabled_for_utility_handling())
-		{
-			mutex_lock =
-				boost::unique_lock<boost::mutex>
-				(
-					feature_handling_mutex_1
-				);
-		}			
+		QLOGICAE_COR_V1__BASE__HPP_CPP__THREAD_SAFETY_GUARD_TEMPLATE
+		(
+			QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_1
+		);	
 
 		SingletonManagerConfigurations
 			new_configurations;
@@ -117,16 +93,10 @@ namespace
 		SingletonManager
 			::get_this_singleton()
 	{		
-		boost::unique_lock<boost::mutex>
-			mutex_lock;
-		if (configurations.is_thread_safety_enabled_for_feature_handling())
-		{
-			mutex_lock =
-				boost::unique_lock<boost::mutex>
-				(
-					feature_handling_mutex_1
-				);
-		}
+		QLOGICAE_COR_V1__BASE__HPP_CPP__THREAD_SAFETY_GUARD_TEMPLATE
+		(
+			QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_1
+		);
 
 		static SingletonManager
 			singleton;

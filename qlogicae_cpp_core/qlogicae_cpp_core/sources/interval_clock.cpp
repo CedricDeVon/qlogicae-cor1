@@ -24,26 +24,11 @@ namespace
     {
         try
         {			
-			if
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
 			(
-				configurations
-					.is_runtime_execution_disabled_for_utility_handling()
-			)
-			{
-				return
-					false;
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_utility_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}			
+				QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_1,
+				QLOGICAE_COR_V1__BASE__HPP_CPP__EMPTY_EDGE_CASES
+			);		
 
 			is_cancelled_async.store(false);
 			is_paused_async.store(false);
@@ -68,26 +53,11 @@ namespace
     {
         try
         {		
-			if
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
 			(
-				configurations
-					.is_runtime_execution_disabled_for_utility_handling()
-			)
-			{
-				return
-					false;
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_utility_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}			
+				QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_1,
+				QLOGICAE_COR_V1__BASE__HPP_CPP__EMPTY_EDGE_CASES
+			);			
 
 			cancel();
 
@@ -118,35 +88,13 @@ namespace
 			::start()
 	{
 		try
-        {		
-			if
+        {					
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
 			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling() ||
-				(
-					configurations
-						.is_edge_case_enabled_for_feature_handling() &&
-					(
-						configurations.maximum_interval_count == 0 ||
-						configurations.delay_in_milliseconds.count() == 0
-					)
-				)
-			)
-			{
-				return
-					false;
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_feature_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_2
-					);
-			}			
+				QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_2,
+				configurations.maximum_interval_count == 0 ||
+				configurations.delay_in_milliseconds.count() == 0
+			);			
 
 			if (is_running_async.load())
 			{
@@ -187,26 +135,11 @@ namespace
 	{
 		try
         {		
-			if
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
 			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling()
-			)
-			{
-				return
-					false;
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_feature_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}			
+				QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_1,
+				QLOGICAE_COR_V1__BASE__HPP_CPP__EMPTY_EDGE_CASES
+			);			
 
 			is_cancelled_async.store(true);
 			is_running_async.store(false);
@@ -236,26 +169,11 @@ namespace
 	{
 		try
         {		
-			if
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
 			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling()
-			)
-			{
-				return
-					false;
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_feature_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}			
+				QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_1,
+				QLOGICAE_COR_V1__BASE__HPP_CPP__EMPTY_EDGE_CASES
+			);			
 
 			is_paused_async.store(true);
 
@@ -277,26 +195,11 @@ namespace
 	{
 		try
         {		
-			if
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
 			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling()
-			)
-			{
-				return
-					false;
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_feature_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}		
+				QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_1,
+				QLOGICAE_COR_V1__BASE__HPP_CPP__EMPTY_EDGE_CASES
+			);		
 
 			if (is_paused_async.load())
 			{
@@ -322,26 +225,11 @@ namespace
 	{
 		try
         {	
-			if
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
 			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling()
-			)
-			{
-				return
-					false;
-			}
-	
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_feature_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_2
-					);
-			}			
+				QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_2,
+				QLOGICAE_COR_V1__BASE__HPP_CPP__EMPTY_EDGE_CASES
+			);			
 
 			is_cancelled_async.store(true);
 			is_paused_async.store(false);
@@ -371,26 +259,11 @@ namespace
 	{
 		try
         {		
-			if
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
 			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling()
-			)
-			{
-				return
-					false;
-			}
-	
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_feature_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}			
+				QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_1,
+				QLOGICAE_COR_V1__BASE__HPP_CPP__EMPTY_EDGE_CASES
+			);		
 
 			cancel();
 
@@ -455,26 +328,11 @@ namespace
 	{
 		try
         {		
-			if
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
 			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling()
-			)
-			{
-				return
-					false;
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_feature_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_3
-					);
-			}			
+				QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_3,
+				QLOGICAE_COR_V1__BASE__HPP_CPP__EMPTY_EDGE_CASES
+			);			
 
 			if (!is_running_async.load())
 			{

@@ -20,34 +20,12 @@ namespace
 			)
 	{
 		try
-        {		
-			if
+        {					
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
 			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling() ||				
-				(
-					configurations
-						.is_edge_case_enabled_for_feature_handling() &&
-					(
-						format == TimeFormat::NONE
-					)
-				)
-			)
-			{
-				return
-					"";
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_feature_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}
+				QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_1,
+				format == TimeFormat::NONE
+			);
 
 			absl::Time now_time = absl::Now();
 			absl::Duration since_epoch = now_time - absl::UnixEpoch();
@@ -140,34 +118,12 @@ namespace
 			)
 	{
 		try
-        {		
-			if
+        {					
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
 			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling() ||				
-				(
-					configurations
-						.is_edge_case_enabled_for_feature_handling() &&
-					(
-						time_format == TimeFormat::NONE
-					)
-				)
-			)
-			{
-				return
-					"";
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_feature_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_2
-					);
-			}
+				QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_2,
+				time_format == TimeFormat::NONE
+			);
 
 			switch (time_format)
 			{
@@ -231,27 +187,13 @@ namespace
 			::get_time_zone()
 	{
 		try
-        {		
-			if
+        {					
+			QLOGICAE_COR_V1__EXPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
 			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling()
-			)
-			{
-				return
-					std::tm{};
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_feature_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_2
-					);
-			}
+				std::tm {},
+				QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_2,
+				QLOGICAE_COR_V1__BASE__HPP_CPP__EMPTY_EDGE_CASES
+			);
 
 			std::time_t time =
 				std::chrono::system_clock::to_time_t(
@@ -288,15 +230,10 @@ namespace
 	{
 		try
         {	
-			if
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__EDGE_CASE_GUARD_TEMPLATE
 			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling()
-			)
-			{
-				return
-					"";
-			}
+				QLOGICAE_COR_V1__BASE__HPP_CPP__EMPTY_EDGE_CASES
+			);
 
 			char buf[4];
 			std::snprintf(buf, sizeof(buf), "%03d", value);
@@ -323,35 +260,13 @@ namespace
 			)
 	{
 		try
-        {		
-			if
+        {					
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
 			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling() ||				
-				(
-					configurations
-						.is_edge_case_enabled_for_feature_handling() &&
-					(
-						time <= 0.0 ||
-						format == TimeScaleUnit::NONE
-					)
-				)
-			)
-			{
-				return
-					0.0;
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_feature_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_2
-					);
-			}
+				QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_2,
+				time <= 0.0 ||
+				format == TimeScaleUnit::NONE
+			);
 
 			switch (format)
 			{
@@ -387,35 +302,13 @@ namespace
 			)
 	{
 		try
-        {		
-			if
+        {					
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
 			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling() ||				
-				(
-					configurations
-						.is_edge_case_enabled_for_feature_handling() &&
-					(
-						time <= 0.0 ||
-						format == TimeScaleUnit::NONE
-					)
-				)
-			)
-			{
-				return
-					0.0;
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_feature_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_2
-					);
-			}
+				QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_2,
+				time <= 0.0 ||
+				format == TimeScaleUnit::NONE
+			);
 
 			switch (format)
 			{
@@ -452,26 +345,11 @@ namespace
 	{
 		try
         {	
-			if
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
 			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling()
-			)
-			{
-				return
-					"";
-			}
-	
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_feature_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_2
-					);
-			}
+				QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_2,
+				QLOGICAE_COR_V1__BASE__HPP_CPP__EMPTY_EDGE_CASES
+			);
 
 			return
 				absl::StrCat(
@@ -500,26 +378,11 @@ namespace
 	{
 		try
         {		
-			if
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
 			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling()
-			)
-			{
-				return
-					"";
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_feature_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_2
-					);
-			}
+				QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_2,
+				QLOGICAE_COR_V1__BASE__HPP_CPP__EMPTY_EDGE_CASES
+			);
 
 			return
 				absl::StrCat(
@@ -551,26 +414,11 @@ namespace
 	{
 		try
         {		
-			if
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
 			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling()
-			)
-			{
-				return
-					"";
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_feature_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_2
-					);
-			}
+				QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_2,
+				QLOGICAE_COR_V1__BASE__HPP_CPP__EMPTY_EDGE_CASES
+			);
 
 			return
 				absl::StrCat(
@@ -604,26 +452,11 @@ namespace
 	{
 		try
         {		
-			if
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
 			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling()
-			)
-			{
-				return
-					"";
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_feature_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_2
-					);
-			}
+				QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_2,
+				QLOGICAE_COR_V1__BASE__HPP_CPP__EMPTY_EDGE_CASES
+			);
 
 			char buffer[64];
 			if (std::strftime(buffer, sizeof(buffer), fmt, &tm))

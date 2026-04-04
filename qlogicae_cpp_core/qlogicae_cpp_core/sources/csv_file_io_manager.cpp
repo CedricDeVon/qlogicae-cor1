@@ -20,36 +20,14 @@ namespace
 			)
 	{
 		try
-        {
-			if
+        {			
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
 			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling() ||				
-				(
-					configurations
-						.is_edge_case_enabled_for_feature_handling() &&
-					(
-						file_path.empty() ||
-						!std::filesystem::exists(file_path) ||
-						std::filesystem::is_directory(file_path)
-					)
-				)
-			)
-			{
-				return
-					{};
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_feature_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}
+				QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_1,
+				file_path.empty() ||
+				!std::filesystem::exists(file_path) ||
+				std::filesystem::is_directory(file_path)
+			);
 
 			rapidcsv::Document document(file_path, rapidcsv::LabelParams(0, -1));
 			std::unordered_map<std::string, std::vector<std::string>> result;
@@ -87,37 +65,15 @@ namespace
 			)
 	{
 		try
-        {
-			if
+        {			
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
 			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling() ||				
-				(
-					configurations
-						.is_edge_case_enabled_for_feature_handling() &&
-					(
-						file_path.empty() ||
-						!std::filesystem::exists(file_path) ||
-						std::filesystem::is_directory(file_path) ||
-						!values.size()
-					)
-				)
-			)
-			{
-				return
-					false;
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_feature_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}
+				QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_1,
+				file_path.empty() ||
+				!std::filesystem::exists(file_path) ||
+				std::filesystem::is_directory(file_path) ||
+				!values.size()
+			);
 
 			size_t row_count = 0;
 			for (const auto& [_, col] : values)
@@ -175,37 +131,15 @@ namespace
 			)
 	{
 		try
-        {
-			if
+        {			
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
 			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling() ||				
-				(
-					configurations
-						.is_edge_case_enabled_for_feature_handling() &&
-					(
-						file_path.empty() ||
-						!std::filesystem::exists(file_path) ||
-						std::filesystem::is_directory(file_path) ||
-						!column_names.size()
-					)
-				)
-			)
-			{
-				return
-					false;
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_feature_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}
+				QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_1,
+				file_path.empty() ||
+				!std::filesystem::exists(file_path) ||
+				std::filesystem::is_directory(file_path) ||
+				!column_names.size()
+			);
 
 			rapidcsv::Document document(file_path, rapidcsv::LabelParams(0, -1));
 			for (size_t i = 0; i < column_names.size(); ++i)
@@ -235,36 +169,14 @@ namespace
 			)
 	{
 		try
-        {
-			if
+        {		
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
 			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling() ||				
-				(
-					configurations
-						.is_edge_case_enabled_for_feature_handling() &&
-					(
-						file_path.empty() ||
-						!std::filesystem::exists(file_path) ||
-						std::filesystem::is_directory(file_path)
-					)
-				)
-			)
-			{
-				return
-					false;
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_feature_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}
+				QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_1,
+				file_path.empty() ||
+				!std::filesystem::exists(file_path) ||
+				std::filesystem::is_directory(file_path)
+			);
 
 			rapidcsv::Document document(file_path, rapidcsv::LabelParams(0, -1));
 			document.GetColumnCount();
@@ -291,36 +203,14 @@ namespace
 			)
 	{
 		try
-        {
-			if
+        {			
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
 			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling() ||				
-				(
-					configurations
-						.is_edge_case_enabled_for_feature_handling() &&
-					(
-						file_path.empty() ||
-						!std::filesystem::exists(file_path) ||
-						std::filesystem::is_directory(file_path)
-					)
-				)
-			)
-			{
-				return
-					false;
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_feature_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}
+				QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_1,
+				file_path.empty() ||
+				!std::filesystem::exists(file_path) ||
+				std::filesystem::is_directory(file_path)
+			);
 
 			rapidcsv::Document document(file_path, rapidcsv::LabelParams(0, -1));
 			auto names = document.GetColumnNames();
@@ -352,36 +242,14 @@ namespace
 		)
 	{
 		try
-        {
-			if
+        {			
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
 			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling() ||				
-				(
-					configurations
-						.is_edge_case_enabled_for_feature_handling() &&
-					(
-						file_path.empty() ||
-						!std::filesystem::exists(file_path) ||
-						std::filesystem::is_directory(file_path)
-					)
-				)
-			)
-			{
-				return
-					false;
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_feature_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}
+				QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_1,
+				file_path.empty() ||
+				!std::filesystem::exists(file_path) ||
+				std::filesystem::is_directory(file_path)
+			);
 
 			rapidcsv::Document document(file_path, rapidcsv::LabelParams(0, -1));
 
@@ -408,38 +276,16 @@ namespace
 			)
 	{
 		try
-        {
-			if
+        {			
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
 			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling() ||				
-				(
-					configurations
-						.is_edge_case_enabled_for_feature_handling() &&
-					(
-						file_path.empty() ||
-						!std::filesystem::exists(file_path) ||
-						std::filesystem::is_directory(file_path) ||
-						column_name.empty() ||
-						row_index < 0
-					)
-				)
-			)
-			{
-				return
-					false;
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_feature_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}
+				QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_1,
+				file_path.empty() ||
+				!std::filesystem::exists(file_path) ||
+				std::filesystem::is_directory(file_path) ||
+				column_name.empty() ||
+				row_index < 0
+			);
 
 			rapidcsv::Document document(file_path, rapidcsv::LabelParams(0, -1));
 			auto names = document.GetColumnNames();
@@ -475,36 +321,14 @@ namespace
 			)
 	{
 		try
-        {
-			if
+        {			
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
 			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling() ||				
-				(
-					configurations
-						.is_edge_case_enabled_for_feature_handling() &&
-					(
-						file_path.empty() ||
-						!std::filesystem::exists(file_path) ||
-						std::filesystem::is_directory(file_path)
-					)
-				)
-			)
-			{
-				return
-					0;
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_feature_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}
+				QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_1,
+				file_path.empty() ||
+				!std::filesystem::exists(file_path) ||
+				std::filesystem::is_directory(file_path)
+			);
 
 			rapidcsv::Document document(file_path, rapidcsv::LabelParams(0, -1));
 
@@ -527,36 +351,14 @@ namespace
 			)
 	{
 		try
-        {
-			if
+        {			
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
 			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling() ||				
-				(
-					configurations
-						.is_edge_case_enabled_for_feature_handling() &&
-					(
-						file_path.empty() ||
-						!std::filesystem::exists(file_path) ||
-						std::filesystem::is_directory(file_path)
-					)
-				)
-			)
-			{
-				return
-					0;
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_feature_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}
+				QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_1,
+				file_path.empty() ||
+				!std::filesystem::exists(file_path) ||
+				std::filesystem::is_directory(file_path)
+			);
 
 			rapidcsv::Document document(file_path, rapidcsv::LabelParams(0, -1));
 
@@ -579,36 +381,14 @@ namespace
 			)
 	{
 		try
-        {
-			if
+        {			
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
 			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling() ||				
-				(
-					configurations
-						.is_edge_case_enabled_for_feature_handling() &&
-					(
-						file_path.empty() ||
-						!std::filesystem::exists(file_path) ||
-						std::filesystem::is_directory(file_path)
-					)
-				)
-			)
-			{
-				return
-					0;
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_feature_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}
+				QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_1,
+				file_path.empty() ||
+				!std::filesystem::exists(file_path) ||
+				std::filesystem::is_directory(file_path)
+			);
 
 			rapidcsv::Document document(file_path, rapidcsv::LabelParams(0, -1));
 			size_t count = 0;
@@ -644,36 +424,14 @@ namespace
 			)
 	{
 		try
-        {
-			if
+        {			
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
 			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling() ||				
-				(
-					configurations
-						.is_edge_case_enabled_for_feature_handling() &&
-					(
-						file_path.empty() ||
-						!std::filesystem::exists(file_path) ||
-						std::filesystem::is_directory(file_path)
-					)
-				)
-			)
-			{
-				return
-					0;
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_feature_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}
+				QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_1,
+				file_path.empty() ||
+				!std::filesystem::exists(file_path) ||
+				std::filesystem::is_directory(file_path)
+			);
 
 			rapidcsv::Document document(file_path, rapidcsv::LabelParams(0, -1));
 			size_t count = 0;
@@ -709,36 +467,14 @@ namespace
 			)
 	{
 		try
-        {
-			if
+        {			
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
 			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling() ||				
-				(
-					configurations
-						.is_edge_case_enabled_for_feature_handling() &&
-					(
-						file_path.empty() ||
-						!std::filesystem::exists(file_path) ||
-						std::filesystem::is_directory(file_path)
-					)
-				)
-			)
-			{
-				return
-					{};
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_feature_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}
+				QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_1,
+				file_path.empty() ||
+				!std::filesystem::exists(file_path) ||
+				std::filesystem::is_directory(file_path)
+			);
 
 			rapidcsv::Document document(file_path, rapidcsv::LabelParams(0, -1));
 
@@ -765,38 +501,16 @@ namespace
 			)
 	{
 		try
-        {
-			if
+        {			
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
 			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling() ||				
-				(
-					configurations
-						.is_edge_case_enabled_for_feature_handling() &&
-					(
-						file_path.empty() ||
-						!std::filesystem::exists(file_path) ||
-						std::filesystem::is_directory(file_path) ||
-						column_name.empty() ||
-						row_index < 0
-					)
-				)
-			)
-			{
-				return
-					"";
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_feature_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}
+				QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_1,
+				file_path.empty() ||
+				!std::filesystem::exists(file_path) ||
+				std::filesystem::is_directory(file_path) ||
+				column_name.empty() ||
+				row_index < 0
+			);
 
 			rapidcsv::Document document(file_path, rapidcsv::LabelParams(0, -1));
 			return document.GetCell<std::string>(column_name, row_index);
@@ -820,37 +534,15 @@ namespace
 			)
 	{
 		try
-        {
-			if
+        {			
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
 			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling() ||				
-				(
-					configurations
-						.is_edge_case_enabled_for_feature_handling() &&
-					(
-						file_path.empty() ||
-						!std::filesystem::exists(file_path) ||
-						std::filesystem::is_directory(file_path) ||
-						column_name.empty()
-					)
-				)
-			)
-			{
-				return
-					{};
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_feature_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}
+				QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_1,
+				file_path.empty() ||
+				!std::filesystem::exists(file_path) ||
+				std::filesystem::is_directory(file_path) ||
+				column_name.empty()
+			);
 
 			try
 			{
@@ -890,37 +582,15 @@ namespace
 			)
 	{
 		try
-        {
-			if
+        {		
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
 			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling() ||				
-				(
-					configurations
-						.is_edge_case_enabled_for_feature_handling() &&
-					(
-						file_path.empty() ||
-						!std::filesystem::exists(file_path) ||
-						std::filesystem::is_directory(file_path) ||
-						row_index < 0
-					)
-				)
-			)
-			{
-				return
-					{};
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_feature_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}
+				QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_1,
+				file_path.empty() ||
+				!std::filesystem::exists(file_path) ||
+				std::filesystem::is_directory(file_path) ||
+				row_index < 0
+			);
 
 			try
 			{
@@ -958,36 +628,14 @@ namespace
 			)
 	{
 		try
-        {
-			if
+        {			
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
 			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling() ||				
-				(
-					configurations
-						.is_edge_case_enabled_for_feature_handling() &&
-					(
-						file_path.empty() ||
-						!std::filesystem::exists(file_path) ||
-						std::filesystem::is_directory(file_path)
-					)
-				)
-			)
-			{
-				return
-					{};
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_feature_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}
+				QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_1,
+				file_path.empty() ||
+				!std::filesystem::exists(file_path) ||
+				std::filesystem::is_directory(file_path)
+			);
 
 			rapidcsv::Document document(file_path, rapidcsv::LabelParams(0, -1));
 			std::unordered_map<std::string, std::vector<std::string>> result;
@@ -1029,38 +677,16 @@ namespace
 			)
 	{
 		try
-        {
-			if
+        {			
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
 			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling() ||				
-				(
-					configurations
-						.is_edge_case_enabled_for_feature_handling() &&
-					(
-						file_path.empty() ||
-						!std::filesystem::exists(file_path) ||
-						std::filesystem::is_directory(file_path) ||
-						column_name.empty() ||
-						row_index < 0
-					)
-				)
-			)
-			{
-				return
-					false;
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_feature_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}
+				QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_1,
+				file_path.empty() ||
+				!std::filesystem::exists(file_path) ||
+				std::filesystem::is_directory(file_path) ||
+				column_name.empty() ||
+				row_index < 0
+			);
 
 			rapidcsv::Document document(file_path, rapidcsv::LabelParams(0, -1));
 			document.SetCell(column_name, row_index, value);
@@ -1090,38 +716,16 @@ namespace
 			)
 	{
 		try
-        {
-			if
+        {			
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
 			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling() ||				
-				(
-					configurations
-						.is_edge_case_enabled_for_feature_handling() &&
-					(
-						file_path.empty() ||
-						!std::filesystem::exists(file_path) ||
-						std::filesystem::is_directory(file_path) ||
-						column_name.empty() ||
-						!values.size()
-					)
-				)
-			)
-			{
-				return
-					false;
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_feature_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}
+				QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_1,
+				file_path.empty() ||
+				!std::filesystem::exists(file_path) ||
+				std::filesystem::is_directory(file_path) ||
+				column_name.empty() ||
+				!values.size()
+			);
 
 			rapidcsv::Document document(file_path, rapidcsv::LabelParams(0, -1));
 			for (const auto& [index, value] : values)
@@ -1157,38 +761,16 @@ namespace
 			)
 	{
 		try
-        {
-			if
+        {			
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
 			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling() ||				
-				(
-					configurations
-						.is_edge_case_enabled_for_feature_handling() &&
-					(
-						file_path.empty() ||
-						!std::filesystem::exists(file_path) ||
-						std::filesystem::is_directory(file_path) ||
-						column_name.empty() ||
-						!values.size()
-					)
-				)
-			)
-			{
-				return
-					false;
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_feature_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}
+				QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_1,
+				file_path.empty() ||
+				!std::filesystem::exists(file_path) ||
+				std::filesystem::is_directory(file_path) ||
+				column_name.empty() ||
+				!values.size()
+			);
 
 			rapidcsv::Document document(file_path, rapidcsv::LabelParams(0, -1));
 			auto rows = document.GetRowCount();
@@ -1222,38 +804,16 @@ namespace
 			)
 	{
 		try
-        {
-			if
+        {			
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
 			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling() ||				
-				(
-					configurations
-						.is_edge_case_enabled_for_feature_handling() &&
-					(
-						file_path.empty() ||
-						!std::filesystem::exists(file_path) ||
-						std::filesystem::is_directory(file_path) ||
-						row_index < 0 ||
-						!values.size()
-					)
-				)
-			)
-			{
-				return
-					false;
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_feature_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}
+				QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_1,
+				file_path.empty() ||
+				!std::filesystem::exists(file_path) ||
+				std::filesystem::is_directory(file_path) ||
+				row_index < 0 ||
+				!values.size()
+			);
 
 			rapidcsv::Document document(file_path, rapidcsv::LabelParams(0, -1));
 			for (const auto& [column, value] : values)
@@ -1287,37 +847,15 @@ namespace
 	{
 		try
         {
-			if
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
 			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling() ||				
-				(
-					configurations
-						.is_edge_case_enabled_for_feature_handling() &&
-					(
-						file_path.empty() ||
-						!std::filesystem::exists(file_path) ||
-						std::filesystem::is_directory(file_path) ||
-						row_index < 0 ||
-						!values.size()
-					)
-				)
-			)
-			{
-				return
-					false;
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_feature_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}
+				QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_1,
+				file_path.empty() ||
+				!std::filesystem::exists(file_path) ||
+				std::filesystem::is_directory(file_path) ||
+				row_index < 0 ||
+				!values.size()
+			);
 
 			rapidcsv::Document document(file_path, rapidcsv::LabelParams(0, -1));
 			auto names = document.GetColumnNames();
@@ -1349,37 +887,15 @@ namespace
 			)
 	{
 		try
-        {
-			if
+        {			
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
 			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling() ||				
-				(
-					configurations
-						.is_edge_case_enabled_for_feature_handling() &&
-					(
-						file_path.empty() ||
-						!std::filesystem::exists(file_path) ||
-						std::filesystem::is_directory(file_path) ||
-						!values.size()
-					)
-				)
-			)
-			{
-				return
-					false;
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_feature_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}
+				QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_1,
+				file_path.empty() ||
+				!std::filesystem::exists(file_path) ||
+				std::filesystem::is_directory(file_path) ||
+				!values.size()
+			);
 
 			rapidcsv::Document document(file_path, rapidcsv::LabelParams(0, -1));
 			for (const auto& [column, column_values] : values)
@@ -1418,38 +934,16 @@ namespace
 			)
 	{
 		try
-        {
-			if
+        {			
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
 			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling() ||				
-				(
-					configurations
-						.is_edge_case_enabled_for_feature_handling() &&
-					(
-						file_path.empty() ||
-						!std::filesystem::exists(file_path) ||
-						std::filesystem::is_directory(file_path) ||
-						column_name.empty() ||
-						!values.size()
-					)
-				)
-			)
-			{
-				return
-					false;
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_feature_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}
+				QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_1,
+				file_path.empty() ||
+				!std::filesystem::exists(file_path) ||
+				std::filesystem::is_directory(file_path) ||
+				column_name.empty() ||
+				!values.size()
+			);
 	
 			try
 			{
@@ -1502,37 +996,15 @@ namespace
 	{
 		try
         {
-			if
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
 			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling() ||				
-				(
-					configurations
-						.is_edge_case_enabled_for_feature_handling() &&
-					(
-						file_path.empty() ||
-						!std::filesystem::exists(file_path) ||
-						std::filesystem::is_directory(file_path) ||
-						column_name.empty() ||
-						!values.size()
-					)
-				)
-			)
-			{
-				return
-					false;
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_feature_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}
+				QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_1,
+				file_path.empty() ||
+				!std::filesystem::exists(file_path) ||
+				std::filesystem::is_directory(file_path) ||
+				column_name.empty() ||
+				!values.size()
+			);
 
 			try
 			{
@@ -1572,37 +1044,15 @@ namespace
 			)
 	{
 		try
-        {
-			if
+        {			
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
 			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling() ||				
-				(
-					configurations
-						.is_edge_case_enabled_for_feature_handling() &&
-					(
-						file_path.empty() ||
-						!std::filesystem::exists(file_path) ||
-						std::filesystem::is_directory(file_path) ||
-						!values.size()
-					)
-				)
-			)
-			{
-				return
-					false;
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_feature_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}
+				QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_1,
+				file_path.empty() ||
+				!std::filesystem::exists(file_path) ||
+				std::filesystem::is_directory(file_path) ||
+				!values.size()
+			);
 
 			rapidcsv::Document document(file_path, rapidcsv::LabelParams(0, -1));
 			std::vector<std::string> row(
@@ -1645,36 +1095,14 @@ namespace
 	{
 		try
         {
-			if
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
 			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling() ||				
-				(
-					configurations
-						.is_edge_case_enabled_for_feature_handling() &&
-					(
-						file_path.empty() ||
-						!std::filesystem::exists(file_path) ||
-						std::filesystem::is_directory(file_path) ||
-						!values.size()
-					)
-				)
-			)
-			{
-				return
-					false;
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_feature_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}
+				QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_1,
+				file_path.empty() ||
+				!std::filesystem::exists(file_path) ||
+				std::filesystem::is_directory(file_path) ||
+				!values.size()
+			);
 
 			rapidcsv::Document document(file_path, rapidcsv::LabelParams(0, -1));
 			document.InsertRow(
@@ -1707,38 +1135,16 @@ namespace
 			)
 	{
 		try
-        {
-			if
+        {			
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
 			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling() ||				
-				(
-					configurations
-						.is_edge_case_enabled_for_feature_handling() &&
-					(
-						file_path.empty() ||
-						!std::filesystem::exists(file_path) ||
-						std::filesystem::is_directory(file_path) ||
-						column_name.empty() ||
-						!values.size()
-					)
-				)
-			)
-			{
-				return
-					false;
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_feature_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}
+				QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_1,
+				file_path.empty() ||
+				!std::filesystem::exists(file_path) ||
+				std::filesystem::is_directory(file_path) ||
+				column_name.empty() ||
+				!values.size()
+			);
 
 			rapidcsv::Document document(file_path, rapidcsv::LabelParams(0, -1));
 			std::vector<std::string> column(
@@ -1778,38 +1184,16 @@ namespace
 			)
 	{
 		try
-        {
-			if
+        {			
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
 			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling() ||				
-				(
-					configurations
-						.is_edge_case_enabled_for_feature_handling() &&
-					(
-						file_path.empty() ||
-						!std::filesystem::exists(file_path) ||
-						std::filesystem::is_directory(file_path) ||
-						column_name.empty() ||
-						!values.size()
-					)
-				)
-			)
-			{
-				return
-					false;
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_feature_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}
+				QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_1,
+				file_path.empty() ||
+				!std::filesystem::exists(file_path) ||
+				std::filesystem::is_directory(file_path) ||
+				column_name.empty() ||
+				!values.size()
+			);
 
 			rapidcsv::Document document(file_path, rapidcsv::LabelParams(0, -1));
 			document.InsertColumn(0, values, column_name);
@@ -1839,38 +1223,16 @@ namespace
 			)
 	{
 		try
-        {
-			if
+        {			
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
 			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling() ||				
-				(
-					configurations
-						.is_edge_case_enabled_for_feature_handling() &&
-					(
-						file_path.empty() ||
-						!std::filesystem::exists(file_path) ||
-						std::filesystem::is_directory(file_path) ||
-						row_index < 0 ||
-						!values.size()
-					)
-				)
-			)
-			{
-				return
-					false;
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_feature_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}
+				QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_1,
+				file_path.empty() ||
+				!std::filesystem::exists(file_path) ||
+				std::filesystem::is_directory(file_path) ||
+				row_index < 0 ||
+				!values.size()
+			);
 
 			rapidcsv::Document document(file_path, rapidcsv::LabelParams(0, -1));
 			std::vector<std::string> row(
@@ -1911,38 +1273,16 @@ namespace
 			)
 	{
 		try
-        {
-			if
+        {			
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
 			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling() ||				
-				(
-					configurations
-						.is_edge_case_enabled_for_feature_handling() &&
-					(
-						file_path.empty() ||
-						!std::filesystem::exists(file_path) ||
-						std::filesystem::is_directory(file_path) ||
-						row_index < 0 ||
-						!values.size()
-					)
-				)
-			)
-			{
-				return
-					false;
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_feature_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}
+				QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_1,
+				file_path.empty() ||
+				!std::filesystem::exists(file_path) ||
+				std::filesystem::is_directory(file_path) ||
+				row_index < 0 ||
+				!values.size()
+			);
 
 			rapidcsv::Document document(file_path, rapidcsv::LabelParams(0, -1));
 			document.InsertRow(row_index, values);
@@ -1970,37 +1310,15 @@ namespace
 			)
 	{
 		try
-        {
-			if
+        {			
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
 			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling() ||				
-				(
-					configurations
-						.is_edge_case_enabled_for_feature_handling() &&
-					(
-						file_path.empty() ||
-						!std::filesystem::exists(file_path) ||
-						std::filesystem::is_directory(file_path) ||
-						column_name.empty()
-					)
-				)
-			)
-			{
-				return
-					false;
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_feature_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}
+				QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_1,
+				file_path.empty() ||
+				!std::filesystem::exists(file_path) ||
+				std::filesystem::is_directory(file_path) ||
+				column_name.empty()
+			);
 
 			rapidcsv::Document document(file_path, rapidcsv::LabelParams(0, -1));
 			auto names = document.GetColumnNames();
@@ -2036,37 +1354,15 @@ namespace
 			)
 	{
 		try
-        {
-			if
+        {			
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
 			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling() ||				
-				(
-					configurations
-						.is_edge_case_enabled_for_feature_handling() &&
-					(
-						file_path.empty() ||
-						!std::filesystem::exists(file_path) ||
-						std::filesystem::is_directory(file_path) ||
-						row_index < 0
-					)
-				)
-			)
-			{
-				return
-					false;
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_feature_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}
+				QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_1,
+				file_path.empty() ||
+				!std::filesystem::exists(file_path) ||
+				std::filesystem::is_directory(file_path) ||
+				row_index < 0
+			);
 
 			rapidcsv::Document document(file_path, rapidcsv::LabelParams(0, -1));
 			document.RemoveRow(row_index);

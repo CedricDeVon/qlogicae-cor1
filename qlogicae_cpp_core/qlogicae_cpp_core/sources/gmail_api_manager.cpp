@@ -24,26 +24,11 @@ namespace
     {
         try
         {		
-			if
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
 			(
-				configurations
-					.is_runtime_execution_disabled_for_utility_handling()
-			)
-			{
-				return
-					false;
-			}
-	
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_utility_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}			
+				QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_1,
+				QLOGICAE_COR_V1__BASE__HPP_CPP__EMPTY_EDGE_CASES
+			);
 
 			return
 				SingletonManager
@@ -65,26 +50,11 @@ namespace
     {
         try
         {		
-			if
+			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
 			(
-				configurations
-					.is_runtime_execution_disabled_for_utility_handling()
-			)
-			{
-				return
-					false;
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_utility_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}			
+				QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_1,
+				QLOGICAE_COR_V1__BASE__HPP_CPP__EMPTY_EDGE_CASES
+			);			
 
 			curl_global_cleanup();
 
@@ -116,44 +86,17 @@ namespace
 			response;
 
 		try
-        {		
-			if
+        {	
+			QLOGICAE_COR_V1__EXPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
 			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling()||				
-				(
-					configurations
-						.is_edge_case_enabled_for_feature_handling() &&
-					(
-						!configurations.full_smtp_server_address.size() ||
-						!configurations.sender_email_address.size() ||
-						configurations.to_recipients.empty() ||
-						!configurations.password_provider ||
-						!configurations.password_provider().size()
-					)
-				)
-			)
-			{				
-				response.status =
-					ResultsStatus::BAD;
-
-				response.message = 
-					"One or more configurations are invalid";
-
-				return
-					response;
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_utility_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}			
+				[&response]() { response.status = ResultsStatus::BAD; return response; }(),
+				QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_1,
+				!configurations.full_smtp_server_address.size() ||
+				!configurations.sender_email_address.size() ||
+				configurations.to_recipients.empty() ||
+				!configurations.password_provider ||
+				!configurations.password_provider().size()
+			);		
 
 			curl = curl_easy_init();
 			if (curl)
@@ -513,7 +456,7 @@ namespace
 
 			QLOGICAE_COR_V1__EXPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE
 			(
-				response
+				[&response]() { response.status = ResultsStatus::BAD; return response; }()
 			);
         }
 	}

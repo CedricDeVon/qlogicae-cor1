@@ -22,35 +22,14 @@ namespace
 			)
 	{
 		try
-        {		
-			if
+        {					
+			QLOGICAE_COR_V1__EXPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
 			(
-				configurations
-					.is_runtime_execution_disabled_for_feature_handling() ||				
-				(
-					configurations
-						.is_edge_case_enabled_for_feature_handling() &&
-					(
-						text.empty() ||
-						target_type == TextCase::NONE
-					)
-				)
-			)
-			{
-				return
-					text;
-			}
-
-			boost::unique_lock<boost::mutex>
-				mutex_lock;
-			if (configurations.is_thread_safety_enabled_for_feature_handling())
-			{
-				mutex_lock =
-					boost::unique_lock<boost::mutex>
-					(
-						feature_handling_mutex_1
-					);
-			}			
+				text,
+				QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_1,
+				text.empty() ||
+				target_type == TextCase::NONE
+			);				
 
 			std::string result = text;
 			if (configurations.is_specified_length_enabled)
@@ -191,7 +170,10 @@ namespace
             QLOGICAE_COR_V1__BASE__HPP_CPP__TRY_CATCH_EXCEPTION_PARAMETER
         )
         {
-			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE();
+			QLOGICAE_COR_V1__EXPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE
+			(
+				text
+			);
         }
 	}
 		

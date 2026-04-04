@@ -84,7 +84,6 @@ namespace
 	TEST_F(ConfigurationManagerTest, Should_ResetConfigurationsToDefault_When_Called)
 	{
 		ConfigurationManagerConfigurations configurations;
-		configurations.is_feature_runtime_execution_handling_enabled = false;
 		configurations.is_thread_safety_handling_override_enabled = true;
 
 		manager.setup(configurations);
@@ -262,7 +261,7 @@ namespace
 	TEST_F(ConfigurationManagerTest, Should_ReturnFalse_When_ConstructCalledWithRuntimeExecutionDisabled)
 	{
 		ConfigurationManagerConfigurations configurations;
-		configurations.is_utility_runtime_execution_handling_enabled = false;
+		configurations.is_feature_runtime_execution_handling_enabled = false;
 		manager.configurations = configurations;
 
 		ASSERT_FALSE(manager.construct());
@@ -271,7 +270,7 @@ namespace
 	TEST_F(ConfigurationManagerTest, Should_ReturnFalse_When_DestructCalledWithRuntimeExecutionDisabled)
 	{
 		ConfigurationManagerConfigurations configurations;
-		configurations.is_utility_runtime_execution_handling_enabled = false;
+		configurations.is_feature_runtime_execution_handling_enabled = false;
 		manager.configurations = configurations;
 
 		ASSERT_FALSE(manager.destruct());

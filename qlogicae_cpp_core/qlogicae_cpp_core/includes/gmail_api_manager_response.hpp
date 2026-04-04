@@ -10,19 +10,12 @@ namespace
     {
 		ResultsStatus
 			status =
-				default_configurations
-					.status;
+				ResultsStatus
+					::GOOD;
 
 		std::string
 			message =
-				default_configurations
-					.message;
-
-		static GmailApiManagerResponse
-			initial_configurations;
-
-		static GmailApiManagerResponse
-			default_configurations;
+				"";
 
 		GmailApiManagerResponse();
     };
