@@ -8,7 +8,7 @@ namespace
 	QLOGICAE_COR_V1__BASE__HPP_CPP__COR_NAMESPACE_NAME
 {
     template <typename AbstractConfigurationsType> class
-		AbstractClass
+		QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CLASS_NAME
     {
     public:
 		QLOGICAE_COR_V1__INSTANCE__HPP__MUTEX_LAYER_TEMPLATE
@@ -19,9 +19,9 @@ namespace
 		AbstractConfigurationsType
 			configurations;
 
-		AbstractClass();
+		QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CLASS_NAME();
 
-		~AbstractClass();
+		~QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CLASS_NAME();
 
         bool
             construct();
@@ -66,21 +66,21 @@ namespace
     };
 
 	template <typename AbstractConfigurationsType>
-		AbstractClass<AbstractConfigurationsType>
-			::AbstractClass()
+		QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CLASS_NAME<AbstractConfigurationsType>
+			::QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CLASS_NAME()
     {
 		construct();
     }
 
 	template <typename AbstractConfigurationsType>
-		AbstractClass<AbstractConfigurationsType>
-			::~AbstractClass()
+		QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CLASS_NAME<AbstractConfigurationsType>
+			::~QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CLASS_NAME()
     {
 		destruct();
     }
 
 	template <typename AbstractConfigurationsType> bool
-		AbstractClass<AbstractConfigurationsType>
+		QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CLASS_NAME<AbstractConfigurationsType>
 			::construct()
 	{	
 		try
@@ -104,7 +104,7 @@ namespace
 	}
 
 	template <typename AbstractConfigurationsType> bool
-		AbstractClass<AbstractConfigurationsType>
+		QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CLASS_NAME<AbstractConfigurationsType>
 			::destruct()
 	{
 		try
@@ -128,7 +128,7 @@ namespace
 	}
 
 	template <typename AbstractConfigurationsType> bool
-		AbstractClass<AbstractConfigurationsType>
+		QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CLASS_NAME<AbstractConfigurationsType>
 			::setup(
 				const AbstractConfigurationsType&
 					new_configurations
@@ -158,7 +158,7 @@ namespace
 	}
 
 	template <typename AbstractConfigurationsType> bool
-		AbstractClass<AbstractConfigurationsType>
+		QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CLASS_NAME<AbstractConfigurationsType>
 			::reset()
 	{
 		try
@@ -186,7 +186,7 @@ namespace
 	
 	template <typename AbstractConfigurationsType>
 	template <typename OutputType> OutputType
-		AbstractClass<AbstractConfigurationsType>
+		QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CLASS_NAME<AbstractConfigurationsType>
 			::handle_error_outputs(
 				const std::string&
 					title,
@@ -212,7 +212,7 @@ namespace
 
 	template <typename AbstractConfigurationsType>
 	template <typename OutputType> OutputType
-		AbstractClass<AbstractConfigurationsType>
+		QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CLASS_NAME<AbstractConfigurationsType>
 			::handle_error_outputs(
 				const std::string&
 					message
@@ -235,7 +235,7 @@ namespace
 
 	template <typename AbstractConfigurationsType>
 	template <typename OutputType> OutputType
-		AbstractClass<AbstractConfigurationsType>
+		QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CLASS_NAME<AbstractConfigurationsType>
 			::handle_error_outputs(
 				const std::exception&
 					QLOGICAE_COR_V1__BASE__HPP_CPP__TRY_CATCH_EXCEPTION_NAME
@@ -258,7 +258,7 @@ namespace
 
 	template <typename AbstractConfigurationsType>
 	template <typename OutputType> OutputType
-		AbstractClass<AbstractConfigurationsType>
+		QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CLASS_NAME<AbstractConfigurationsType>
 			::handle_callback_wrapper(
 				const std::function<void()>&
 					callback

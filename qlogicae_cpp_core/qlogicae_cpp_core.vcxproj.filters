@@ -720,7 +720,7 @@
     <ClInclude Include="qlogicae_cpp_core\macros\all.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="qlogicae_cpp_core\macros\checks.hpp">
+    <ClInclude Include="qlogicae_cpp_core\macros\pre_build_checks.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
