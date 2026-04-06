@@ -5,7 +5,7 @@ namespace
 {
 	enum class
 		ResultsStatus :
-			uint8_t
+			QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_ENUM_INHERITED_TYPE
 	{
 		GOOD,
 
@@ -21,6 +21,6 @@ namespace
 
 		ERROR_TYPE,
 
-		NONE
+		QLOGICAE_COR_V1__BASE__HPP_CPP__ENUM_CONSTANTS
 	};
 }

@@ -5,10 +5,10 @@ namespace
 {
     enum class
 		Uuid :
-			uint8_t
+			QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_ENUM_INHERITED_TYPE
     {
         V4,
 
-		NONE
+		QLOGICAE_COR_V1__BASE__HPP_CPP__ENUM_CONSTANTS
     };
 }

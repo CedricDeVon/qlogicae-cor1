@@ -5,10 +5,11 @@
 /*
 
 TODO:
+- macros enum derived value type /
+- macros enum constants /
+- macros struct derived value type *
 - macros class derived *
 - remove default methods *
-- macros enum derived value type *
-- macros struct derived value type *
 - refactor macros file system *
 	- pre_build_checks *
 - state manager .hpp *
@@ -26,16 +27,16 @@ TODO:
 	NONE \
 
 #define QLOGICAE_COR_V1__BASE__HPP_CPP__COR_NAMESPACE_NAME \
-	QLogicae::Cor::V1 \
+	qlogicae::cor::v1 \
 
 #define QLOGICAE_COR_V1__BASE__HPP_CPP__COR_TESTS_NAMESPACE_NAME \
-	QLOGICAE_COR_V1__BASE__HPP_CPP__COR_NAMESPACE_NAME::Tests \
+	QLOGICAE_COR_V1__BASE__HPP_CPP__COR_NAMESPACE_NAME::tests \
 
 #define QLOGICAE_COR_V1__BASE__HPP_CPP__COR_SANDBOX_NAMESPACE_NAME \
-	QLOGICAE_COR_V1__BASE__HPP_CPP__COR_NAMESPACE_NAME::Sandbox \
+	QLOGICAE_COR_V1__BASE__HPP_CPP__COR_NAMESPACE_NAME::sandbox \
 
 #define QLOGICAE_COR_V1__BASE__HPP_CPP__COR_BENCHMARKS_NAMESPACE_NAME \
-	QLOGICAE_COR_V1__BASE__HPP_CPP__COR_NAMESPACE_NAME::Benchmarks \
+	QLOGICAE_COR_V1__BASE__HPP_CPP__COR_NAMESPACE_NAME::benchmarks \
 
 #define QLOGICAE_COR_V1__BASE__HPP_CPP__MUTEX_LAYER_1 \
 	1 \

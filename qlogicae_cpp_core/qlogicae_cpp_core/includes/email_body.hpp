@@ -5,12 +5,12 @@ namespace
 {
     enum class
 		EmailBody :
-			uint8_t
+			QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_ENUM_INHERITED_TYPE
     {
 		HTML,
 
 		PLAIN,
 
-		NONE
+		QLOGICAE_COR_V1__BASE__HPP_CPP__ENUM_CONSTANTS
     };
 }

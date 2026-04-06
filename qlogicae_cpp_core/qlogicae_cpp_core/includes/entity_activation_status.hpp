@@ -5,7 +5,7 @@ namespace
 {
 	enum class
 		EntityActivationStatus :
-			uint8_t
+			QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_ENUM_INHERITED_TYPE
 	{
 		ACTIVE,
 
@@ -13,6 +13,6 @@ namespace
 
 		PENDING,
 
-		NONE
+		QLOGICAE_COR_V1__BASE__HPP_CPP__ENUM_CONSTANTS
 	};
 }
