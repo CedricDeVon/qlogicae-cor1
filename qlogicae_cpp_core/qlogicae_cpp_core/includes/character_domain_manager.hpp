@@ -9,7 +9,7 @@ namespace
 {
     class
 		CharacterDomainManager :
-			public AbstractClass<CharacterDomainManagerConfigurations>
+			public QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CLASS_NAME<CharacterDomainManagerConfigurations>
     {
     public:		
 		CharacterDomainManager();

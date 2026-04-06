@@ -8,7 +8,7 @@ namespace
 {
 	template <typename OutputType> class
 		ValueExtractorManager :
-			public AbstractClass<ValueExtractorManagerConfigurations<OutputType>>
+			public QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CLASS_NAME<ValueExtractorManagerConfigurations<OutputType>>
 	{
 	public:
 		ValueExtractorManager();

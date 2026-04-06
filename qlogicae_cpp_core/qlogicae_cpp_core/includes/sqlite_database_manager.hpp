@@ -10,7 +10,7 @@ namespace
 {
     class
 		SQLiteDatabaseManager :
-			public AbstractClass<SQLiteDatabaseManagerConfigurations>
+			public QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CLASS_NAME<SQLiteDatabaseManagerConfigurations>
     {
     public:
         std::shared_ptr<SQLiteBackend>

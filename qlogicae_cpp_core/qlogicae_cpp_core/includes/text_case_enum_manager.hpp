@@ -8,7 +8,7 @@ namespace
 {
     class
 		TextCaseEnumManager :
-			public AbstractClass<TextCaseEnumManagerConfigurations>
+			public QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CLASS_NAME<TextCaseEnumManagerConfigurations>
     {
     public:        
 		TextCaseEnumManager();

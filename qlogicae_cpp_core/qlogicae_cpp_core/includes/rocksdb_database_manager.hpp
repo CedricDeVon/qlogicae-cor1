@@ -8,7 +8,7 @@ namespace
 {
     class
 		RocksDbDatabaseManager :
-			public AbstractClass<RocksDbDatabaseManagerConfigurations>
+			public QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CLASS_NAME<RocksDbDatabaseManagerConfigurations>
     {
     public:        
 		rocksdb::DB*

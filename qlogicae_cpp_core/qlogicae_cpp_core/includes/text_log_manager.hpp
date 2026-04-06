@@ -14,7 +14,7 @@ namespace
 {
     class
 		TextLogManager :
-			public AbstractClass<TextLogManagerConfigurations>
+			public QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CLASS_NAME<TextLogManagerConfigurations>
     {
     public:        
 		TextLogManager();

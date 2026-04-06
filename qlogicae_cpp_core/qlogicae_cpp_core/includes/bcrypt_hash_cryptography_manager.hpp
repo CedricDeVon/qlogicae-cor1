@@ -8,7 +8,7 @@ namespace
 {
     class
 		BcryptHashCryptographyManager :
-			public AbstractClass<BcryptHashCryptographyManagerConfigurations>
+			public QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CLASS_NAME<BcryptHashCryptographyManagerConfigurations>
     {
     public:
 		BcryptHashCryptographyManager();

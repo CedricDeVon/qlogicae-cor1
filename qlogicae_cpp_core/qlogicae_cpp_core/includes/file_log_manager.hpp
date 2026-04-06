@@ -10,7 +10,7 @@ namespace
 {
     class
 		FileLogManager :
-			public AbstractClass<FileLogManagerConfigurations>
+			public QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CLASS_NAME<FileLogManagerConfigurations>
     {
     public:
 		FileLogManager();

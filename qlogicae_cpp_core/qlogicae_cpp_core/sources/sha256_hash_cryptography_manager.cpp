@@ -7,7 +7,7 @@ namespace
 {
     Sha256HashCryptographyManager
 		::Sha256HashCryptographyManager() :
-			AbstractClass<Sha256HashCryptographyManagerConfigurations>()
+			QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CLASS_NAME<Sha256HashCryptographyManagerConfigurations>()
 	{
 
 	}

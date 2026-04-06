@@ -9,7 +9,7 @@ namespace
 {
     class
 		EntityActivationManager :
-			public AbstractClass<EntityActivationManagerConfigurations>
+			public QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CLASS_NAME<EntityActivationManagerConfigurations>
     {
     public:
 		std::unordered_map<void*, EntityActivationStatus>

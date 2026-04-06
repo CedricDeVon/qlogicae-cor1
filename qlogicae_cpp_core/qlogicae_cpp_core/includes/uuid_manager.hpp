@@ -12,7 +12,7 @@ namespace
 {
     class
 		UuidManager :
-			public AbstractClass<UuidManagerConfigurations>
+			public QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CLASS_NAME<UuidManagerConfigurations>
     {
     public:
 		UuidManager();

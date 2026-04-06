@@ -9,7 +9,7 @@ namespace
 {
     class
 		EntityActivationStatusEnumManager :
-			public AbstractClass<EntityActivationStatusEnumManagerConfigurations>
+			public QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CLASS_NAME<EntityActivationStatusEnumManagerConfigurations>
     {
     public:
 		EntityActivationStatusEnumManager();

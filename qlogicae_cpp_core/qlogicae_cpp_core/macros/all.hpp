@@ -7,11 +7,13 @@
 TODO:
 - macros enum derived value type /
 - macros enum constants /
-- macros struct derived value type *
-- macros class derived *
+- macros struct derived value type /
+- refactor macros file system /
+	- pre_build_checks /
+- macros class derived /
+- macros singleton
+
 - remove default methods *
-- refactor macros file system *
-	- pre_build_checks *
 - state manager .hpp *
 - account session manager .hpp *
 - kyber .hpp *
@@ -79,14 +81,14 @@ TODO:
 #define QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_ENUM_NAME \
 	AbstractEnum \
 
+#define QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_ENUM_INHERITED_TYPE \
+	uint8_t \
+
 #define QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CLASS_NAME \
 	AbstractClass \
 
 #define QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CONFIGURATIONS_NAME \
 	AbstractConfigurations \
-
-#define QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_ENUM_INHERITED_TYPE \
-	uint8_t \
 
 
 

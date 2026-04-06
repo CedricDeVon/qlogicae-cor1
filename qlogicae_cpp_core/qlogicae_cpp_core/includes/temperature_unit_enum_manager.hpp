@@ -9,7 +9,7 @@ namespace
 {
     class
 		TemperatureUnitEnumManager :
-			public AbstractClass<TemperatureUnitEnumManagerConfigurations>
+			public QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CLASS_NAME<TemperatureUnitEnumManagerConfigurations>
     {
     public:
 		TemperatureUnitEnumManager();

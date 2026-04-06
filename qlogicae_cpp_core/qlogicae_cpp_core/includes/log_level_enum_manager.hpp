@@ -9,7 +9,7 @@ namespace
 {
     class
 		LogLevelEnumManager :
-			public AbstractClass<LogLevelEnumManagerConfigurations>
+			public QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CLASS_NAME<LogLevelEnumManagerConfigurations>
     {
     public:
 		LogLevelEnumManager();

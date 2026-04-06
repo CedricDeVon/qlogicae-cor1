@@ -7,7 +7,7 @@ namespace
 {
     Argon2idHashCryptographyManager
 		::Argon2idHashCryptographyManager() :
-			AbstractClass<Argon2idHashCryptographyManagerConfigurations>()
+			QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CLASS_NAME<Argon2idHashCryptographyManagerConfigurations>()
 	{
 
 	}

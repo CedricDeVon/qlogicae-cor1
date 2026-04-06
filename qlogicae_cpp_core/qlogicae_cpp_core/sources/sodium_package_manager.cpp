@@ -7,7 +7,7 @@ namespace
 {               
 	SodiumPackageManager
 		::SodiumPackageManager() :
-			AbstractClass<SodiumPackageManagerConfigurations>()
+			QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CLASS_NAME<SodiumPackageManagerConfigurations>()
 	{
 
 	}

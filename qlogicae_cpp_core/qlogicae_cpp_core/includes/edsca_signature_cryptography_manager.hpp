@@ -8,7 +8,7 @@ namespace
 {
     class
 		EdscaSignatureCryptographyManager :
-			public AbstractClass<EdscaSignatureCryptographyManagerConfigurations>
+			public QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CLASS_NAME<EdscaSignatureCryptographyManagerConfigurations>
     {
     public:
 		EdscaSignatureCryptographyManager();

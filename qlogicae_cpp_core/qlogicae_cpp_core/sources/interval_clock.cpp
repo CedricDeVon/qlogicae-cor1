@@ -7,7 +7,7 @@ namespace
 {
     IntervalClock
 		::IntervalClock() :
-			AbstractClass<IntervalClockConfigurations>()
+			QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CLASS_NAME<IntervalClockConfigurations>()
     {
         construct();
     }

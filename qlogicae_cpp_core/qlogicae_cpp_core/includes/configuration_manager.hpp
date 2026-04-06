@@ -8,7 +8,7 @@ namespace
 {
 	class
 		ConfigurationManager :
-			public AbstractClass<ConfigurationManagerConfigurations>
+			public QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CLASS_NAME<ConfigurationManagerConfigurations>
 	{
 	public:
 		ConfigurationManager();

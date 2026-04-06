@@ -7,7 +7,7 @@ namespace
 {	
     WindowsSystemAccessManager
 		::WindowsSystemAccessManager() :
-			AbstractClass<WindowsSystemAccessManagerConfigurations>()
+			QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CLASS_NAME<WindowsSystemAccessManagerConfigurations>()
 	{
 		
 	}

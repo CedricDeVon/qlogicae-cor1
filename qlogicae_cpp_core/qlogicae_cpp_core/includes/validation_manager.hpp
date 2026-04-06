@@ -8,7 +8,7 @@ namespace
 {
 	class
 		ValidationManager :
-			public AbstractClass<ValidationManagerConfigurations>
+			public QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CLASS_NAME<ValidationManagerConfigurations>
 	{
 	public:
 		ValidationManager();

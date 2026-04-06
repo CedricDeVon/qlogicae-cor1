@@ -7,7 +7,7 @@ namespace
 {
     XChaCha20Poly1305CipherCryptographyManager
 		::XChaCha20Poly1305CipherCryptographyManager() :
-			AbstractClass<XChaCha20Poly1305CipherCryptographyManagerConfigurations>()
+			QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CLASS_NAME<XChaCha20Poly1305CipherCryptographyManagerConfigurations>()
 	{
 			
 	}

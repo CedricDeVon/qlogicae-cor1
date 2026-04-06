@@ -8,7 +8,7 @@ namespace
 {
     class
 		Aes256CipherCryptographyManager :
-			public AbstractClass<Aes256CipherCryptographyManagerConfigurations>
+			public QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CLASS_NAME<Aes256CipherCryptographyManagerConfigurations>
     {
     public:
 		Aes256CipherCryptographyManager();

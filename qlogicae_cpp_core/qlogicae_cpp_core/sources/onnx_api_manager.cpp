@@ -7,7 +7,7 @@ namespace
 {        	
 	OnnxApiManager
 		::OnnxApiManager() :
-			AbstractClass<OnnxApiManagerConfigurations>()
+			QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CLASS_NAME<OnnxApiManagerConfigurations>()
     {
         
     }

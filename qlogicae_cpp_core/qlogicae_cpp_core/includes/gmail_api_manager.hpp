@@ -11,7 +11,7 @@ namespace
 {
     class
 		GmailApiManager :
-			public AbstractClass<GmailApiManagerConfigurations>
+			public QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CLASS_NAME<GmailApiManagerConfigurations>
     {
     public:
 		GmailApiManager();

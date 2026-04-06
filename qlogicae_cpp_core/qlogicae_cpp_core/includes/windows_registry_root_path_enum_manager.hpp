@@ -10,7 +10,7 @@ namespace
 {
     class
 		WindowsRegistryRootPathEnumManager :
-			public AbstractClass<WindowsRegistryRootPathEnumManagerConfigurations>
+			public QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CLASS_NAME<WindowsRegistryRootPathEnumManagerConfigurations>
     {
     public:
 		WindowsRegistryRootPathEnumManager();

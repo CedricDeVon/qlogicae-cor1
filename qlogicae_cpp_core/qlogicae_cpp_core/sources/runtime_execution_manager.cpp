@@ -7,7 +7,7 @@ namespace
 {
 	RuntimeExecutionManager
 		::RuntimeExecutionManager() :
-			AbstractClass<RuntimeExecutionManagerConfigurations>()
+			QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CLASS_NAME<RuntimeExecutionManagerConfigurations>()
 	{
 		construct();	
 	}

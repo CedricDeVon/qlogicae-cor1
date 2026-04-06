@@ -8,7 +8,7 @@ namespace
 {
     class
 		ConsoleIoManager :
-			public AbstractClass<ConsoleIoManagerConfigurations>
+			public QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CLASS_NAME<ConsoleIoManagerConfigurations>
     {
     public:
 		ConsoleIoManager();

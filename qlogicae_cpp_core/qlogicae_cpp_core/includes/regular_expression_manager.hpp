@@ -8,7 +8,7 @@ namespace
 {
     class
 		RegularExpressionManager :
-			public AbstractClass<RegularExpressionManagerConfigurations>
+			public QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CLASS_NAME<RegularExpressionManagerConfigurations>
     {
     public:
 		QLOGICAE_COR_V1__INSTANCE__HPP__MUTEX_LAYER_TEMPLATE

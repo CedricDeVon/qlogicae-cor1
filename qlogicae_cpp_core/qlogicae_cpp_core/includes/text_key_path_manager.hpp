@@ -8,7 +8,7 @@ namespace
 {
     class
 		TextKeyPathManager :
-			public AbstractClass<TextKeyPathManagerConfigurations>
+			public QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CLASS_NAME<TextKeyPathManagerConfigurations>
     {
     public:		
 		TextKeyPathManager();

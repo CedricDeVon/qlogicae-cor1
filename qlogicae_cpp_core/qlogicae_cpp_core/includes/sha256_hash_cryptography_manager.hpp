@@ -9,7 +9,7 @@ namespace
 {
     class
 		Sha256HashCryptographyManager :
-			public AbstractClass<Sha256HashCryptographyManagerConfigurations>
+			public QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CLASS_NAME<Sha256HashCryptographyManagerConfigurations>
     {
     public:
 		QLOGICAE_COR_V1__INSTANCE__HPP__MUTEX_LAYER_TEMPLATE

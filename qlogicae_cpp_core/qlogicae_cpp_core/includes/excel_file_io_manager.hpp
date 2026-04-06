@@ -8,7 +8,7 @@ namespace
 {
     class
 		ExcelFileIoManager :
-			public AbstractClass<ExcelFileIoManagerConfigurations>
+			public QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CLASS_NAME<ExcelFileIoManagerConfigurations>
     {
     public:		
 		ExcelFileIoManager();

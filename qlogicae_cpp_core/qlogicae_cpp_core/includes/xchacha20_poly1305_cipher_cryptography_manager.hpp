@@ -9,7 +9,7 @@ namespace
 {
     class
 		XChaCha20Poly1305CipherCryptographyManager :
-			public AbstractClass<XChaCha20Poly1305CipherCryptographyManagerConfigurations>
+			public QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CLASS_NAME<XChaCha20Poly1305CipherCryptographyManagerConfigurations>
     {
     public:
 		XChaCha20Poly1305CipherCryptographyManager();

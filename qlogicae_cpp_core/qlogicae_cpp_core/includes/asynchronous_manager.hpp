@@ -8,7 +8,7 @@ namespace
 {
 	class
 		AsynchronousManager :
-			public AbstractClass<AsynchronousManagerConfigurations>
+			public QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CLASS_NAME<AsynchronousManagerConfigurations>
     {
     public:                        		
 		static boost::asio::io_context

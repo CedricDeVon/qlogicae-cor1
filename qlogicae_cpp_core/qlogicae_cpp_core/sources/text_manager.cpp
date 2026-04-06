@@ -7,7 +7,7 @@ namespace
 {
     TextManager
 		::TextManager() :
-			AbstractClass<TextManagerConfigurations>()
+			QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CLASS_NAME<TextManagerConfigurations>()
 	{
 		construct();		
 	}

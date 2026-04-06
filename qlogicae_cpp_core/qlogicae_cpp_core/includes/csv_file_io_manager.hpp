@@ -8,7 +8,7 @@ namespace
 {
     class
 		CsvFileIoManager :
-			public AbstractClass<CsvFileIoManagerConfigurations>
+			public QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CLASS_NAME<CsvFileIoManagerConfigurations>
     {
     public:		
 		CsvFileIoManager();

@@ -8,7 +8,7 @@ namespace
 {
     class
 		StateManager :
-			public AbstractClass<StateManagerConfigurations>
+			public QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CLASS_NAME<StateManagerConfigurations>
     {
     public:		
 		StateManager();

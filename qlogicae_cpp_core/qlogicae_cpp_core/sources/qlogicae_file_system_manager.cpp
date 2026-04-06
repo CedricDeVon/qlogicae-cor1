@@ -7,7 +7,7 @@ namespace
 {
 	QLogicaeFileSystemManager
 		::QLogicaeFileSystemManager() :
-			AbstractClass<QLogicaeFileSystemManagerConfigurations>()
+			QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CLASS_NAME<QLogicaeFileSystemManagerConfigurations>()
     {
 
     }

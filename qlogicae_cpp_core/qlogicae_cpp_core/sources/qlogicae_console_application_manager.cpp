@@ -7,7 +7,7 @@ namespace
 {        	
 	QLogicaeConsoleApplicationManager
 		::QLogicaeConsoleApplicationManager() :
-			AbstractClass<QLogicaeConsoleApplicationManagerConfigurations>()
+			QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CLASS_NAME<QLogicaeConsoleApplicationManagerConfigurations>()
     {
         
     }

@@ -10,7 +10,7 @@ namespace
 {
     class
 		MutexManager :
-			public AbstractClass<MutexManagerConfigurations>
+			public QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CLASS_NAME<MutexManagerConfigurations>
     {
     public:     
 		std::unordered_map<std::pair<void*, std::string>, std::mutex, PairHashOperator>

@@ -8,7 +8,7 @@ namespace
 {
     class
 		TextManager :
-			public AbstractClass<TextManagerConfigurations>
+			public QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CLASS_NAME<TextManagerConfigurations>
     {
     public:
 		TextManager();
