@@ -260,6 +260,17 @@ TODO:
     SingletonManager \
 		::get_singleton<type_name>() \
 
+#define QLOGICAE_COR_V1__BASE__HPP_CPP__RESET_TO_DEFAULT_CONFIGURATIONS_TEMPLATE(type_name) \
+    type_name \
+		::default_configurations = \
+			new_configurations; \
+
+#define QLOGICAE_COR_V1__BASE__HPP_CPP__RESET_TO_INITIAL_CONFIGURATIONS_TEMPLATE(type_name) \
+	type_name \
+		::default_configurations = \
+			type_name:: \
+				initial_configurations; \
+
 #define QLOGICAE_COR_V1__BASE__HPP_CPP__FIRST_ENUM_TO_STRING_STATEMENT_TEMPLATE(enum_name, enum_constant) \
 	case (enum_name::enum_constant): return #enum_constant; \
 

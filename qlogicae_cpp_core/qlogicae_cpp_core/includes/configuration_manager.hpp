@@ -38,9 +38,10 @@ namespace
 				QLOGICAE_COR_V1__BASE__HPP_CPP__EMPTY_EDGE_CASES
 			);
 
-			TypeConfigurations
-				::default_configurations =
-					new_configurations;
+			QLOGICAE_COR_V1__BASE__HPP_CPP__RESET_TO_DEFAULT_CONFIGURATIONS_TEMPLATE
+			(
+				TypeConfigurations
+			);
 
 			return
 				true;
@@ -66,10 +67,10 @@ namespace
 				QLOGICAE_COR_V1__BASE__HPP_CPP__EMPTY_EDGE_CASES
 			);
 
-			TypeConfigurations
-				::default_configurations =
-					TypeConfigurations::
-						initial_configurations;
+			QLOGICAE_COR_V1__BASE__HPP_CPP__RESET_TO_INITIAL_CONFIGURATIONS_TEMPLATE
+			(
+				TypeConfigurations
+			);
 
 			return
 				true;
