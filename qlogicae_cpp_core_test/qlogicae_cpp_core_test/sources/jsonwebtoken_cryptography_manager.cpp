@@ -15,7 +15,7 @@ namespace
             manager.configurations.claims = { {"claim1", "value1"} };
         }
 
-        QLogicae::Cor::V1::JsonWebTokenCryptographyManager manager;
+        JsonWebTokenCryptographyManager manager;
 
         const std::string test_private_key =
 			"-----BEGIN EC PRIVATE KEY-----\n"

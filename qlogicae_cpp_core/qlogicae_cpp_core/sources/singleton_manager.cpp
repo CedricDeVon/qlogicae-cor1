@@ -8,13 +8,13 @@ namespace
 	SingletonManager
 		::SingletonManager()
     {
-        construct();
+        
     }
 
     SingletonManager
 		::~SingletonManager()
     {
-        destruct();
+        
     }
 
     bool

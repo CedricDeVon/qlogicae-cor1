@@ -65,7 +65,7 @@ namespace
 	template <typename OutputType>
 		ValueExtractorManager<OutputType>
 			::ValueExtractorManager() :
-				AbstractClass<ValueExtractorManagerConfigurations<OutputType>>()
+				QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CLASS_NAME<ValueExtractorManagerConfigurations<OutputType>>()
 	{
 		
 	}

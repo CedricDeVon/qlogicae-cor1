@@ -35,10 +35,9 @@ namespace
 				2,
 				text.data(),
 				text.size(),
-				SingletonManager
-					::get_singleton<RandomValueGenerationManager>()
-						.generate_random_salt()
-						.data(),
+				QLOGICAE_COR_V1__BASE__HPP_CPP__GET_SINGLETON_TEMPLATE(RandomValueGenerationManager)
+					.generate_random_salt()
+					.data(),
 				16,
 				32,
 				vb.data(),
