@@ -8,7 +8,7 @@ namespace
 {
 	struct
 		TextCaseEnumManagerConfigurations :
-			AbstractConfigurations<TextCaseEnumManagerConfigurations>
+			QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CONFIGURATIONS_NAME<TextCaseEnumManagerConfigurations>
 	{
 	public:
 		TextCase

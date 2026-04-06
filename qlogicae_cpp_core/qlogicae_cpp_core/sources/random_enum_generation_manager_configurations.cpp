@@ -7,7 +7,7 @@ namespace
 {
 	RandomEnumGenerationManagerConfigurations
 		::RandomEnumGenerationManagerConfigurations() :
-			AbstractConfigurations<RandomEnumGenerationManagerConfigurations>()
+			QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CONFIGURATIONS_NAME<RandomEnumGenerationManagerConfigurations>()
 	{
 		
 	}

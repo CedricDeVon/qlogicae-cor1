@@ -7,7 +7,7 @@ namespace
 {
 	WordFileIoManagerConfigurations
 		::WordFileIoManagerConfigurations() :
-			AbstractConfigurations<WordFileIoManagerConfigurations>()
+			QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CONFIGURATIONS_NAME<WordFileIoManagerConfigurations>()
 	{
 		
 	}

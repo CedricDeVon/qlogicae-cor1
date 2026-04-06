@@ -7,7 +7,7 @@ namespace
 {   
 	EntityActivationStatusEnumManagerConfigurations
 		::EntityActivationStatusEnumManagerConfigurations() :
-			AbstractConfigurations<EntityActivationStatusEnumManagerConfigurations>()
+			QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CONFIGURATIONS_NAME<EntityActivationStatusEnumManagerConfigurations>()
 	{
 		
 	}

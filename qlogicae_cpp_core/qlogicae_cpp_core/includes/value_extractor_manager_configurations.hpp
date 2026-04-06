@@ -7,7 +7,7 @@ namespace
 {
 	template <typename OutputType> struct
 		ValueExtractorManagerConfigurations :
-			AbstractConfigurations<ValueExtractorManagerConfigurations<OutputType>>
+			QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CONFIGURATIONS_NAME<ValueExtractorManagerConfigurations<OutputType>>
 	{
 	public:	
 		std::function<OutputType()>
@@ -20,7 +20,7 @@ namespace
 	template <typename OutputType>
 		ValueExtractorManagerConfigurations<OutputType>
 			::ValueExtractorManagerConfigurations() :
-				AbstractConfigurations<ValueExtractorManagerConfigurations>()
+				QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CONFIGURATIONS_NAME<ValueExtractorManagerConfigurations>()
 	{
 		
 	}

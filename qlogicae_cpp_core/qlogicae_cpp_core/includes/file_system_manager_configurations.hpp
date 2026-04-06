@@ -7,7 +7,7 @@ namespace
 {
     struct
 		FileSystemManagerConfigurations :
-			AbstractConfigurations<FileSystemManagerConfigurations>
+			QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CONFIGURATIONS_NAME<FileSystemManagerConfigurations>
     {
 	public:
 		bool

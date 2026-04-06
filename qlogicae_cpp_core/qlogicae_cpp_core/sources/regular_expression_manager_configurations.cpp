@@ -7,7 +7,7 @@ namespace
 {
 	RegularExpressionManagerConfigurations
 		::RegularExpressionManagerConfigurations() :
-			AbstractConfigurations<RegularExpressionManagerConfigurations>()
+			QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CONFIGURATIONS_NAME<RegularExpressionManagerConfigurations>()
 	{
 		
 	}

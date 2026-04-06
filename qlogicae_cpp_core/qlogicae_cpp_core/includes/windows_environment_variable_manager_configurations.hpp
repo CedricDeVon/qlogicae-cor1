@@ -9,7 +9,7 @@ namespace
 {
 	struct
 		WindowsEnvironmentVariableManagerConfigurations :
-			AbstractConfigurations<WindowsEnvironmentVariableManagerConfigurations>
+			QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CONFIGURATIONS_NAME<WindowsEnvironmentVariableManagerConfigurations>
 	{
 	public:	
 		WindowsEnvironmentVariable

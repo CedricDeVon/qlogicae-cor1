@@ -7,7 +7,7 @@ namespace
 {
     struct
 		RocksDbDatabaseManagerConfigurations :
-			AbstractConfigurations<RocksDbDatabaseManagerConfigurations>
+			QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CONFIGURATIONS_NAME<RocksDbDatabaseManagerConfigurations>
     {
 	public:
 		std::string

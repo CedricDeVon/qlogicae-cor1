@@ -7,7 +7,7 @@ namespace
 {
     struct
 		EntityActivationManagerConfigurations :
-			AbstractConfigurations<EntityActivationManagerConfigurations>
+			QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CONFIGURATIONS_NAME<EntityActivationManagerConfigurations>
     {
 	public:
 		EntityActivationManagerConfigurations();

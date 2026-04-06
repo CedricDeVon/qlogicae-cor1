@@ -8,7 +8,7 @@ namespace
 {
 	struct
 		TimeZoneEnumManagerConfigurations :
-			AbstractConfigurations<TimeZoneEnumManagerConfigurations>
+			QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CONFIGURATIONS_NAME<TimeZoneEnumManagerConfigurations>
 	{
 	public:	
 		TimeZone

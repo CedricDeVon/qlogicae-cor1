@@ -7,7 +7,7 @@ namespace
 {   
 	TemperatureUnitEnumManagerConfigurations
 		::TemperatureUnitEnumManagerConfigurations() :
-			AbstractConfigurations<TemperatureUnitEnumManagerConfigurations>()
+			QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CONFIGURATIONS_NAME<TemperatureUnitEnumManagerConfigurations>()
 	{
 		
 	}

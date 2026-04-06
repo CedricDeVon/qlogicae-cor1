@@ -7,7 +7,7 @@ namespace
 {
 	struct
 		TextErrorManagerConfigurations :
-			AbstractConfigurations<TextErrorManagerConfigurations>
+			QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CONFIGURATIONS_NAME<TextErrorManagerConfigurations>
 	{
 	public:
 		bool

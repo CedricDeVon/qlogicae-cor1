@@ -7,7 +7,7 @@ namespace
 {
 	ValidationManagerConfigurations
 		::ValidationManagerConfigurations() :
-			AbstractConfigurations<ValidationManagerConfigurations>()
+			QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CONFIGURATIONS_NAME<ValidationManagerConfigurations>()
 	{
 		
 	}

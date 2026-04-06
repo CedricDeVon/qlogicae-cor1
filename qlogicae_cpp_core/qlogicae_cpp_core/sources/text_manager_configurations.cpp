@@ -7,7 +7,7 @@ namespace
 {	
 	TextManagerConfigurations
 		::TextManagerConfigurations() :
-			AbstractConfigurations<TextManagerConfigurations>()
+			QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CONFIGURATIONS_NAME<TextManagerConfigurations>()
 	{
 		
 	}

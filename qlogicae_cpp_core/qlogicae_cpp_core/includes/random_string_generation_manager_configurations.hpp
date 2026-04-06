@@ -8,7 +8,7 @@ namespace
 {
     struct
 		RandomStringGenerationManagerConfigurations :
-			AbstractConfigurations<RandomStringGenerationManagerConfigurations>
+			QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CONFIGURATIONS_NAME<RandomStringGenerationManagerConfigurations>
     {
 	public:
 		CharacterDomain

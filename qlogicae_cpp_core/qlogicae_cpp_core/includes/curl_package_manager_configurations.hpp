@@ -7,7 +7,7 @@ namespace
 {
 	struct
 		CurlPackageManagerConfigurations :
-			AbstractConfigurations<CurlPackageManagerConfigurations>
+			QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CONFIGURATIONS_NAME<CurlPackageManagerConfigurations>
 	{
 	public:		
 		CurlPackageManagerConfigurations();

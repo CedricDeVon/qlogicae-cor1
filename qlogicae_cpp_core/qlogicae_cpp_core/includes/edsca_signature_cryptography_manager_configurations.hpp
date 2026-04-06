@@ -7,7 +7,7 @@ namespace
 {
     struct
 		EdscaSignatureCryptographyManagerConfigurations :
-			AbstractConfigurations<EdscaSignatureCryptographyManagerConfigurations>
+			QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CONFIGURATIONS_NAME<EdscaSignatureCryptographyManagerConfigurations>
     {
 	public:
 		EdscaSignatureCryptographyManagerConfigurations();

@@ -7,7 +7,7 @@ namespace
 {
 	AsynchronousManagerConfigurations
 		::AsynchronousManagerConfigurations() :
-			AbstractConfigurations<AsynchronousManagerConfigurations>()
+			QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CONFIGURATIONS_NAME<AsynchronousManagerConfigurations>()
 	{
 		
 	}

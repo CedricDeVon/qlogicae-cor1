@@ -7,7 +7,7 @@ namespace
 {
     struct
 		RandomCharacterGenerationManagerConfigurations :
-			AbstractConfigurations<RandomCharacterGenerationManagerConfigurations>
+			QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CONFIGURATIONS_NAME<RandomCharacterGenerationManagerConfigurations>
     {
 	public:
 		RandomCharacterGenerationManagerConfigurations();

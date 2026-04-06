@@ -7,7 +7,7 @@ namespace
 {
     struct
 		MutexManagerConfigurations :
-			AbstractConfigurations<MutexManagerConfigurations>
+			QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CONFIGURATIONS_NAME<MutexManagerConfigurations>
     {
 	public:
         std::string

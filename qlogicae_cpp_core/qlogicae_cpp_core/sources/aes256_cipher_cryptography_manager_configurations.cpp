@@ -7,7 +7,7 @@ namespace
 {
 	Aes256CipherCryptographyManagerConfigurations
 		::Aes256CipherCryptographyManagerConfigurations() :
-			AbstractConfigurations<Aes256CipherCryptographyManagerConfigurations>()
+			QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CONFIGURATIONS_NAME<Aes256CipherCryptographyManagerConfigurations>()
 	{
 		
 	}

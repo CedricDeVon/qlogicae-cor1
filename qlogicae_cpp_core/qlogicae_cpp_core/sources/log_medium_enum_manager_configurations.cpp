@@ -7,7 +7,7 @@ namespace
 {   
 	LogMediumEnumManagerConfigurations
 		::LogMediumEnumManagerConfigurations() :
-			AbstractConfigurations<LogMediumEnumManagerConfigurations>()
+			QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CONFIGURATIONS_NAME<LogMediumEnumManagerConfigurations>()
 	{
 		
 	}

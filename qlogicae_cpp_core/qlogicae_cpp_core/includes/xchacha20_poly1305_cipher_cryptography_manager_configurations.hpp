@@ -7,7 +7,7 @@ namespace
 {
     struct
 		XChaCha20Poly1305CipherCryptographyManagerConfigurations :
-			AbstractConfigurations<XChaCha20Poly1305CipherCryptographyManagerConfigurations>
+			QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CONFIGURATIONS_NAME<XChaCha20Poly1305CipherCryptographyManagerConfigurations>
     {
 	public:
 		XChaCha20Poly1305CipherCryptographyManagerConfigurations();

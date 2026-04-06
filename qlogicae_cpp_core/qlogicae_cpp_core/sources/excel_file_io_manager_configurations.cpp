@@ -7,7 +7,7 @@ namespace
 {
 	ExcelFileIoManagerConfigurations
 		::ExcelFileIoManagerConfigurations() :
-			AbstractConfigurations<ExcelFileIoManagerConfigurations>()
+			QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CONFIGURATIONS_NAME<ExcelFileIoManagerConfigurations>()
 	{
 		
 	}

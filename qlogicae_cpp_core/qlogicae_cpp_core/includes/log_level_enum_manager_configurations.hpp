@@ -8,7 +8,7 @@ namespace
 {
 	struct
 		LogLevelEnumManagerConfigurations :
-			AbstractConfigurations<LogLevelEnumManagerConfigurations>
+			QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CONFIGURATIONS_NAME<LogLevelEnumManagerConfigurations>
 	{
 	public:	
 		LogLevel

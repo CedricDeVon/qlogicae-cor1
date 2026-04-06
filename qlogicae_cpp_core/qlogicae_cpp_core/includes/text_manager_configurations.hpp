@@ -7,7 +7,7 @@ namespace
 {
     struct
 		TextManagerConfigurations :
-			AbstractConfigurations<TextManagerConfigurations>
+			QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CONFIGURATIONS_NAME<TextManagerConfigurations>
     {
 	public:
 		std::unordered_map<std::string, std::string>

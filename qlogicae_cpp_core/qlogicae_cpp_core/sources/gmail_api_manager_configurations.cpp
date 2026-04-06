@@ -7,7 +7,7 @@ namespace
 {
 	GmailApiManagerConfigurations
 		::GmailApiManagerConfigurations() :
-			AbstractConfigurations<GmailApiManagerConfigurations>()
+			QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CONFIGURATIONS_NAME<GmailApiManagerConfigurations>()
 	{		
 		is_inner_logging_enabled =
 			true;

@@ -7,7 +7,7 @@ namespace
 {   
 	LogOutputEnumManagerConfigurations
 		::LogOutputEnumManagerConfigurations() :
-			AbstractConfigurations<LogOutputEnumManagerConfigurations>()
+			QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CONFIGURATIONS_NAME<LogOutputEnumManagerConfigurations>()
 	{
 		
 	}

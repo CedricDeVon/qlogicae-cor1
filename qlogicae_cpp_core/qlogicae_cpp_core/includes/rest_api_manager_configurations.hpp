@@ -7,7 +7,7 @@ namespace
 {
 	struct
 		RestApiManagerConfigurations :
-			AbstractConfigurations<RestApiManagerConfigurations>
+			QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CONFIGURATIONS_NAME<RestApiManagerConfigurations>
 	{
 	public:	
 		std::string

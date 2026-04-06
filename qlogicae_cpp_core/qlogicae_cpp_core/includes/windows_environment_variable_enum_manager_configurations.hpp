@@ -8,7 +8,7 @@ namespace
 {
 	struct
 		WindowsEnvironmentVariableEnumManagerConfigurations :
-			AbstractConfigurations<WindowsEnvironmentVariableEnumManagerConfigurations>
+			QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CONFIGURATIONS_NAME<WindowsEnvironmentVariableEnumManagerConfigurations>
 	{
 	public:	
 		WindowsEnvironmentVariable

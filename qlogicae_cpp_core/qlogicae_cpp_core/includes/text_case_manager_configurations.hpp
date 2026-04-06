@@ -8,7 +8,7 @@ namespace
 {
 	struct
 		TextCaseManagerConfigurations :
-			AbstractConfigurations<TextCaseManagerConfigurations>
+			QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CONFIGURATIONS_NAME<TextCaseManagerConfigurations>
 	{
 	public:
 		bool

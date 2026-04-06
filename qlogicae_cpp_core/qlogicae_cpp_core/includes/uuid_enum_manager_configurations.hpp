@@ -8,7 +8,7 @@ namespace
 {
 	struct
 		UuidEnumManagerConfigurations :
-			AbstractConfigurations<UuidEnumManagerConfigurations>
+			QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CONFIGURATIONS_NAME<UuidEnumManagerConfigurations>
 	{
 	public:	
 		Uuid

@@ -7,7 +7,7 @@ namespace
 {
 	CharacterDomainManagerConfigurations
 		::CharacterDomainManagerConfigurations() :
-			AbstractConfigurations<CharacterDomainManagerConfigurations>()
+			QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CONFIGURATIONS_NAME<CharacterDomainManagerConfigurations>()
 	{
 		
 	}

@@ -8,7 +8,7 @@ namespace
 {
 	struct
 		EmailSecurityEnumManagerConfigurations :
-			AbstractConfigurations<EmailSecurityEnumManagerConfigurations>
+			QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CONFIGURATIONS_NAME<EmailSecurityEnumManagerConfigurations>
 	{
 	public:	
 		EmailSecurity

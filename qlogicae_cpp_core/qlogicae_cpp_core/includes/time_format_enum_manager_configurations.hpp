@@ -8,7 +8,7 @@ namespace
 {
 	struct
 		TimeFormatEnumManagerConfigurations :
-			AbstractConfigurations<TimeFormatEnumManagerConfigurations>
+			QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CONFIGURATIONS_NAME<TimeFormatEnumManagerConfigurations>
 	{
 	public:	
 		TimeFormat

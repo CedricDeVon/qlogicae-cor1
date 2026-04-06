@@ -7,7 +7,7 @@ namespace
 {
 	struct
 		TextFileIoManagerConfigurations :
-			AbstractConfigurations<TextFileIoManagerConfigurations>
+			QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CONFIGURATIONS_NAME<TextFileIoManagerConfigurations>
 	{
 	public:		
 		std::string

@@ -7,7 +7,7 @@ namespace
 {
     struct
 		IntervalClockConfigurations :
-			AbstractConfigurations<IntervalClockConfigurations>
+			QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CONFIGURATIONS_NAME<IntervalClockConfigurations>
     {
 	public:
 		std::function<bool(const size_t& current_iteration)>

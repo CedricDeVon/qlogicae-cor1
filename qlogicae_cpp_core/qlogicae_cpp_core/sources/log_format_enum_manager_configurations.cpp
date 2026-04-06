@@ -7,7 +7,7 @@ namespace
 {   
 	LogFormatEnumManagerConfigurations
 		::LogFormatEnumManagerConfigurations() :
-			AbstractConfigurations<LogFormatEnumManagerConfigurations>()
+			QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CONFIGURATIONS_NAME<LogFormatEnumManagerConfigurations>()
 	{
 		
 	}

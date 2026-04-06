@@ -7,7 +7,7 @@ namespace
 {
     struct
 		BcryptHashCryptographyManagerConfigurations :
-			AbstractConfigurations<BcryptHashCryptographyManagerConfigurations>
+			QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CONFIGURATIONS_NAME<BcryptHashCryptographyManagerConfigurations>
     {
 	public:
 		BcryptHashCryptographyManagerConfigurations();
