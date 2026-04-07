@@ -191,13 +191,12 @@ namespace
 			)
 	{
 		return
-			SingletonManager
-				::get_singleton<TextEncodingManager>()				
-					.convert_bytes_to_string(
-						read_raw_bytes(
-							file_path
-						)
-					);
+			QLOGICAE_COR_V1__BASE__HPP_CPP__GET_SINGLETON_TEMPLATE<TextEncodingManager>()				
+				.convert_bytes_to_string(
+					read_raw_bytes(
+						file_path
+					)
+				);
 	}
 
 	std::string
@@ -205,14 +204,13 @@ namespace
 			::read_raw_text()
 	{
 		return
-			SingletonManager
-				::get_singleton<TextEncodingManager>()				
-					.convert_bytes_to_string(
-						read_raw_bytes(
-							configurations
-								.file_path
-						)
-					);
+			QLOGICAE_COR_V1__BASE__HPP_CPP__GET_SINGLETON_TEMPLATE<TextEncodingManager>()				
+				.convert_bytes_to_string(
+					read_raw_bytes(
+						configurations
+							.file_path
+					)
+				);
 	}
 
 	bool
@@ -227,11 +225,10 @@ namespace
 		return
 			write_raw_bytes(
 				file_path,
-				SingletonManager
-					::get_singleton<TextEncodingManager>()					
-						.convert_string_to_bytes(
-							text
-						)
+				QLOGICAE_COR_V1__BASE__HPP_CPP__GET_SINGLETON_TEMPLATE<TextEncodingManager>()					
+					.convert_string_to_bytes(
+						text
+					)
 			);
 	}
 
@@ -246,11 +243,10 @@ namespace
 			write_raw_bytes(
 				configurations
 					.file_path,
-				SingletonManager
-					::get_singleton<TextEncodingManager>()					
-						.convert_string_to_bytes(
-							text
-						)
+				QLOGICAE_COR_V1__BASE__HPP_CPP__GET_SINGLETON_TEMPLATE<TextEncodingManager>()					
+					.convert_string_to_bytes(
+						text
+					)
 			);
 	}
 
@@ -266,11 +262,10 @@ namespace
 		return
 			append_raw_bytes(
 				file_path,
-				SingletonManager
-					::get_singleton<TextEncodingManager>()					
-						.convert_string_to_bytes(
-							text
-						)
+				QLOGICAE_COR_V1__BASE__HPP_CPP__GET_SINGLETON_TEMPLATE<TextEncodingManager>()					
+					.convert_string_to_bytes(
+						text
+					)
 			);
 	}
 
@@ -285,11 +280,10 @@ namespace
 			append_raw_bytes(
 				configurations
 					.file_path,
-				SingletonManager
-					::get_singleton<TextEncodingManager>()					
-						.convert_string_to_bytes(
-							text
-						)
+				QLOGICAE_COR_V1__BASE__HPP_CPP__GET_SINGLETON_TEMPLATE<TextEncodingManager>()					
+					.convert_string_to_bytes(
+						text
+					)
 			);
 	}
 }

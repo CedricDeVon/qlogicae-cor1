@@ -12,6 +12,7 @@ namespace
 
 	}        
 
+
 	std::string
 		ResultsStatusEnumManager
 			::convert_enum_to_string(

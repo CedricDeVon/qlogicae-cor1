@@ -218,12 +218,11 @@ namespace
 	{
 		return
 			log_raw_text(
-				SingletonManager
-					::get_singleton<TextLogManager>()					
-						.convert_text(
-							text,
-							log_level
-						)
+				QLOGICAE_COR_V1__BASE__HPP_CPP__GET_SINGLETON_TEMPLATE<TextLogManager>()					
+					.convert_text(
+						text,
+						log_level
+					)
 			);
 	}
 

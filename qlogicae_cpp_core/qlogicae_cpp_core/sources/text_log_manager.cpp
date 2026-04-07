@@ -39,8 +39,7 @@ namespace
 	
 			std::string
 				log_level_text =
-					SingletonManager
-						::get_singleton<LogLevelEnumManager>()						
+					QLOGICAE_COR_V1__BASE__HPP_CPP__GET_SINGLETON_TEMPLATE<LogLevelEnumManager>()						
 							.convert_enum_to_string(
 								log_level
 							);
@@ -123,8 +122,7 @@ namespace
 			convert_text(
 				message,
 				log_level,
-				SingletonManager
-					::get_singleton<TimeManager>()					
+				QLOGICAE_COR_V1__BASE__HPP_CPP__GET_SINGLETON_TEMPLATE<TimeManager>()					
 						.get_now(
 							time_format
 						),

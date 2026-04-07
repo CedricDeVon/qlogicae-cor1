@@ -232,23 +232,20 @@ namespace
 			)
 	{
 		return
-			SingletonManager
-				::get_singleton<TextManager>()
-					.convert_text<std::wstring, std::string>(
-						get_value(
-							root_key,
-							SingletonManager
-								::get_singleton<TextManager>()
-									.convert_text<std::string, std::wstring>(
-										sub_key
-									),
-							SingletonManager
-								::get_singleton<TextManager>()
-									.convert_text<std::string, std::wstring>(
-										name_key
-									)					
-						)
-					);
+			QLOGICAE_COR_V1__BASE__HPP_CPP__GET_SINGLETON_TEMPLATE<TextManager>()
+				.convert_text<std::wstring, std::string>(
+					get_value(
+						root_key,
+						QLOGICAE_COR_V1__BASE__HPP_CPP__GET_SINGLETON_TEMPLATE<TextManager>()
+							.convert_text<std::string, std::wstring>(
+								sub_key
+							),
+						QLOGICAE_COR_V1__BASE__HPP_CPP__GET_SINGLETON_TEMPLATE<TextManager>()
+							.convert_text<std::string, std::wstring>(
+								name_key
+							)					
+					)
+				);
 	}
 
 	bool
@@ -267,21 +264,18 @@ namespace
 		return
 			set_value(
 				root_key,
-				SingletonManager
-					::get_singleton<TextManager>()
-						.convert_text<std::string, std::wstring>(
-							sub_key
-						),
-				SingletonManager
-					::get_singleton<TextManager>()
-						.convert_text<std::string, std::wstring>(
-							name_key
-						),
-				SingletonManager
-					::get_singleton<TextManager>()
-						.convert_text<std::string, std::wstring>(
-							value
-						)					
+				QLOGICAE_COR_V1__BASE__HPP_CPP__GET_SINGLETON_TEMPLATE<TextManager>()
+					.convert_text<std::string, std::wstring>(
+						sub_key
+					),
+				QLOGICAE_COR_V1__BASE__HPP_CPP__GET_SINGLETON_TEMPLATE<TextManager>()
+					.convert_text<std::string, std::wstring>(
+						name_key
+					),
+				QLOGICAE_COR_V1__BASE__HPP_CPP__GET_SINGLETON_TEMPLATE<TextManager>()
+					.convert_text<std::string, std::wstring>(
+						value
+					)					
 			);
 	}
 
@@ -304,11 +298,10 @@ namespace
 
 			std::unordered_map<std::string, std::string> result;
 			std::wstring wstring_sub_key =
-				SingletonManager
-					::get_singleton<TextManager>()
-						.convert_text<std::string, std::wstring>(
-							sub_key
-						);
+				QLOGICAE_COR_V1__BASE__HPP_CPP__GET_SINGLETON_TEMPLATE<TextManager>()
+					.convert_text<std::string, std::wstring>(
+						sub_key
+					);
 
 			HKEY raw_key = nullptr;
 			if (RegOpenKeyExW(root_key, wstring_sub_key.data(), 0, KEY_READ, &raw_key) != ERROR_SUCCESS)
@@ -350,16 +343,14 @@ namespace
 					std::wstring name(value_name, value_name_size);
 					std::wstring value(reinterpret_cast<wchar_t*>(value_data));
 					result.emplace(
-						SingletonManager
-							::get_singleton<TextManager>()
-								.convert_text<std::wstring, std::string>(
-									name
-								),
-						SingletonManager
-							::get_singleton<TextManager>()
-								.convert_text<std::wstring, std::string>(
-									value
-								)						
+						QLOGICAE_COR_V1__BASE__HPP_CPP__GET_SINGLETON_TEMPLATE<TextManager>()
+							.convert_text<std::wstring, std::string>(
+								name
+							),
+						QLOGICAE_COR_V1__BASE__HPP_CPP__GET_SINGLETON_TEMPLATE<TextManager>()
+							.convert_text<std::wstring, std::string>(
+								value
+							)						
 					);
 				}
 			}
@@ -390,16 +381,14 @@ namespace
 		return
 			remove_value(
 				root_key,
-				SingletonManager
-					::get_singleton<TextManager>()
-						.convert_text<std::string, std::wstring>(
-							sub_key
-						),
-				SingletonManager
-					::get_singleton<TextManager>()
-						.convert_text<std::string, std::wstring>(
-							name_key
-						)			
+				QLOGICAE_COR_V1__BASE__HPP_CPP__GET_SINGLETON_TEMPLATE<TextManager>()
+					.convert_text<std::string, std::wstring>(
+						sub_key
+					),
+				QLOGICAE_COR_V1__BASE__HPP_CPP__GET_SINGLETON_TEMPLATE<TextManager>()
+					.convert_text<std::string, std::wstring>(
+						name_key
+					)			
 			);
 	}
 
@@ -417,16 +406,14 @@ namespace
 		return
 			is_path_found(
 				root_key,
-				SingletonManager
-					::get_singleton<TextManager>()
-						.convert_text<std::string, std::wstring>(
-							sub_key
-						),
-				SingletonManager
-					::get_singleton<TextManager>()
-						.convert_text<std::string, std::wstring>(
-							name_key
-						)					
+				QLOGICAE_COR_V1__BASE__HPP_CPP__GET_SINGLETON_TEMPLATE<TextManager>()
+					.convert_text<std::string, std::wstring>(
+						sub_key
+					),
+				QLOGICAE_COR_V1__BASE__HPP_CPP__GET_SINGLETON_TEMPLATE<TextManager>()
+					.convert_text<std::string, std::wstring>(
+						name_key
+					)					
 			);
 	}
 
@@ -514,18 +501,17 @@ namespace
 			::get_value_via_string()
 	{
 		return
-			SingletonManager
-				::get_singleton<TextManager>()
-					.convert_text<std::wstring, std::string>(
-						get_value(
-							configurations
-					.root_key,
-							configurations
-					.sub_key,
-							configurations
-					.name_key
-						)
-					);
+			QLOGICAE_COR_V1__BASE__HPP_CPP__GET_SINGLETON_TEMPLATE<TextManager>()
+				.convert_text<std::wstring, std::string>(
+					get_value(
+						configurations
+				.root_key,
+						configurations
+				.sub_key,
+						configurations
+				.name_key
+					)
+				);
 	}
 
 	bool
@@ -543,11 +529,10 @@ namespace
 					.sub_key,
 				configurations
 					.name_key,
-				SingletonManager
-					::get_singleton<TextManager>()
-						.convert_text<std::string, std::wstring>(
-							value
-						)					
+				QLOGICAE_COR_V1__BASE__HPP_CPP__GET_SINGLETON_TEMPLATE<TextManager>()
+					.convert_text<std::string, std::wstring>(
+						value
+					)					
 			);
 	}
 
@@ -558,11 +543,10 @@ namespace
 		return
 			get_values(
 				configurations.root_key,
-				SingletonManager
-					::get_singleton<TextManager>()
-						.convert_text<std::wstring, std::string>(
-							configurations.sub_key
-						)					
+				QLOGICAE_COR_V1__BASE__HPP_CPP__GET_SINGLETON_TEMPLATE<TextManager>()
+					.convert_text<std::wstring, std::string>(
+						configurations.sub_key
+					)					
 			);		
 	}
 

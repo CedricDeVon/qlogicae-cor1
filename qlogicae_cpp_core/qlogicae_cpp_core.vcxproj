@@ -338,10 +338,16 @@
     <ClInclude Include="qlogicae_cpp_core\includes\abstract_class.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\abstract_configurations.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\abstract_enum.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\account_sessions_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\account_sessions_manager_configurations.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\aes256_cipher_cryptography_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\aes256_cipher_cryptography_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\cryptography_migration_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\cryptography_migration_manager_configurations.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\curl_package_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\curl_package_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\dilithium_cryptography_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\dilithium_cryptography_manager_configurations.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\edsca_signature_cryptography_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\edsca_signature_cryptography_manager_configurations.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\all.hpp" />
@@ -411,6 +417,8 @@
     <ClInclude Include="qlogicae_cpp_core\includes\json_text_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\json_text_manager_configurations.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\key_index_hash_handler.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\kyber_cryptography_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\kyber_cryptography_manager_configurations.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\log_format.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\log_format_enum_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\log_format_enum_manager_configurations.hpp" />
@@ -426,6 +434,8 @@
     <ClInclude Include="qlogicae_cpp_core\includes\log_output_enum_manager_configurations.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\mutex_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\mutex_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\neo4j_api_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\neo4j_api_manager_configurations.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\network_ping_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\network_ping_manager_configurations.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\network_ping_manager_response.hpp" />
@@ -581,6 +591,8 @@
     <ClCompile Include="qlogicae_cpp_core\sources\abstract_class.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\abstract_configurations.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\abstract_enum.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\account_sessions_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\account_sessions_manager_configurations.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\aes256_cipher_cryptography_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\aes256_cipher_cryptography_manager_configurations.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\all.cpp" />
@@ -606,10 +618,14 @@
     <ClCompile Include="qlogicae_cpp_core\sources\console_io_manager_configurations.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\console_log_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\console_log_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\cryptography_migration_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\cryptography_migration_manager_configurations.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\csv_file_io_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\csv_file_io_manager_configurations.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\curl_package_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\curl_package_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\dilithium_cryptography_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\dilithium_cryptography_manager_configurations.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\edsca_signature_cryptography_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\edsca_signature_cryptography_manager_configurations.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\email_body.cpp" />
@@ -653,6 +669,8 @@
     <ClCompile Include="qlogicae_cpp_core\sources\json_text_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\json_text_manager_configurations.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\key_index_hash_handler.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\kyber_cryptography_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\kyber_cryptography_manager_configurations.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\log_format.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\log_format_enum_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\log_format_enum_manager_configurations.cpp" />
@@ -668,6 +686,8 @@
     <ClCompile Include="qlogicae_cpp_core\sources\log_output_enum_manager_configurations.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\mutex_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\mutex_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\neo4j_api_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\neo4j_api_manager_configurations.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\network_ping_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\network_ping_manager_configurations.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\network_ping_manager_response.cpp" />

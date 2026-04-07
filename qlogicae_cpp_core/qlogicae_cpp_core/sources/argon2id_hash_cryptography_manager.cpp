@@ -35,7 +35,7 @@ namespace
 				2,
 				text.data(),
 				text.size(),
-				QLOGICAE_COR_V1__BASE__HPP_CPP__GET_SINGLETON_TEMPLATE(RandomValueGenerationManager)
+				QLOGICAE_COR_V1__BASE__HPP_CPP__GET_SINGLETON_TEMPLATE<RandomValueGenerationManager>()
 					.generate_random_salt()
 					.data(),
 				16,

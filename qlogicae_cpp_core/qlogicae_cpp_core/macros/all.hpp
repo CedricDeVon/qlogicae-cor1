@@ -11,14 +11,14 @@ TODO:
 - refactor macros file system /
 	- pre_build_checks /
 - macros class derived /
-- macros singleton
+- remove default methods /
+- macros singleton /
+- supabase api .hpp /
+- state manager .hpp /
+- account session manager .hpp /
+- kyber .hpp /
+- dilithium .hpp /
 
-- remove default methods *
-- state manager .hpp *
-- account session manager .hpp *
-- kyber .hpp *
-- dilithium .hpp *
-- supabase api .hpp *
 - file io batch operations *
 
 */
@@ -256,9 +256,9 @@ TODO:
 
 
 
-#define QLOGICAE_COR_V1__BASE__HPP_CPP__GET_SINGLETON_TEMPLATE(type_name) \
+#define QLOGICAE_COR_V1__BASE__HPP_CPP__GET_SINGLETON_TEMPLATE \
     SingletonManager \
-		::get_singleton<type_name>() \
+		::get_singleton \
 
 #define QLOGICAE_COR_V1__BASE__HPP_CPP__RESET_TO_DEFAULT_CONFIGURATIONS_TEMPLATE(type_name) \
     type_name \

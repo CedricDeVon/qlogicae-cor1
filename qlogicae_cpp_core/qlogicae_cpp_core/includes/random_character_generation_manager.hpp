@@ -66,11 +66,11 @@ namespace
 
 			const std::string
 				domain =
-					QLOGICAE_COR_V1__BASE__HPP_CPP__GET_SINGLETON_TEMPLATE(CharacterDomainManager)
-							.get_value
-							(
-								character_domain
-							);
+					QLOGICAE_COR_V1__BASE__HPP_CPP__GET_SINGLETON_TEMPLATE<CharacterDomainManager>()
+						.get_value
+						(
+							character_domain
+						);
 
 			if
 			(
@@ -98,7 +98,7 @@ namespace
 				
 			std::uniform_int_distribution<std::size_t> distribution(0, eligible_count - 1);
 			std::size_t target_index =
-				distribution(QLOGICAE_COR_V1__BASE__HPP_CPP__GET_SINGLETON_TEMPLATE(RandomSeedGenerationManager).random_indeterministic_seed_engine);
+				distribution(QLOGICAE_COR_V1__BASE__HPP_CPP__GET_SINGLETON_TEMPLATE<RandomSeedGenerationManager>().random_indeterministic_seed_engine);
 				
 			for (const char c : domain)
 			{
@@ -181,7 +181,7 @@ namespace
 				std::uniform_int_distribution<std::size_t>(
 					0,
 					candidates.size() - 1
-				)(QLOGICAE_COR_V1__BASE__HPP_CPP__GET_SINGLETON_TEMPLATE(RandomSeedGenerationManager).random_indeterministic_seed_engine);
+				)(QLOGICAE_COR_V1__BASE__HPP_CPP__GET_SINGLETON_TEMPLATE<RandomSeedGenerationManager>().random_indeterministic_seed_engine);
 
 			return
 				candidates[index];

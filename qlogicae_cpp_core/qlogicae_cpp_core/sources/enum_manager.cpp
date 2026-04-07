@@ -37,12 +37,11 @@ namespace
 			);	
 
 			return
-				SingletonManager
-					::get_singleton<TextCaseManager>()					
-						.convert_text(
-							value,
-							target_text_case
-						);
+				QLOGICAE_COR_V1__BASE__HPP_CPP__GET_SINGLETON_TEMPLATE<TextCaseManager>()					
+					.convert_text(
+						value,
+						target_text_case
+					);
         }
         catch
         (

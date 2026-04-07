@@ -138,7 +138,8 @@ namespace
 
 		return
 			title +
-			configurations.title_message_separator +
+			configurations
+				.title_message_separator +
 			message;
 	}
 
@@ -156,8 +157,10 @@ namespace
 		);
 
 		return
-			configurations.default_title +
-			configurations.title_message_separator +
+			configurations
+				.default_title +
+			configurations
+				.title_message_separator +
 			message;
 	}
 
@@ -174,9 +177,12 @@ namespace
 		);
 
 		return
-			configurations.default_title +
-			configurations.title_message_separator +
-			exception.what();
+			configurations
+				.default_title +
+			configurations
+				.title_message_separator +
+			exception
+				.what();
 	}
 }
 

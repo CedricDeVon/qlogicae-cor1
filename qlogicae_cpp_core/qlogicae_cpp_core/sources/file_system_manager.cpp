@@ -75,8 +75,7 @@ namespace
 	{
 		return
 			clear_file_text(
-				SingletonManager
-				::get_singleton<TextManager>()
+				QLOGICAE_COR_V1__BASE__HPP_CPP__GET_SINGLETON_TEMPLATE<TextManager>()
 						.convert_text<std::wstring, std::string>(
 							file_path
 						)
@@ -1672,11 +1671,10 @@ namespace
 			::get_executable_folder_path()
     {
         return
-			SingletonManager
-				::get_singleton<TextManager>()
-					.convert_text<std::wstring, std::string>(
-						get_executable_folder_wstring_path()
-					);
+			QLOGICAE_COR_V1__BASE__HPP_CPP__GET_SINGLETON_TEMPLATE<TextManager>()
+				.convert_text<std::wstring, std::string>(
+					get_executable_folder_wstring_path()
+				);
     }
 
 	std::string
@@ -1684,11 +1682,10 @@ namespace
 			::get_executed_folder_path()
     {
         return
-			SingletonManager
-				::get_singleton<TextManager>()
-					.convert_text<std::wstring, std::string>(
-						get_executed_folder_wstring_path()
-					);
+			QLOGICAE_COR_V1__BASE__HPP_CPP__GET_SINGLETON_TEMPLATE<TextManager>()
+				.convert_text<std::wstring, std::string>(
+					get_executed_folder_wstring_path()
+				);
     }
 
 	std::string
@@ -1696,11 +1693,10 @@ namespace
 			::get_program_data_folder_path()
     {
         return
-			SingletonManager
-				::get_singleton<TextManager>()
-					.convert_text<std::wstring, std::string>(
-						get_program_data_folder_wstring_path()
-					);
+			QLOGICAE_COR_V1__BASE__HPP_CPP__GET_SINGLETON_TEMPLATE<TextManager>()
+				.convert_text<std::wstring, std::string>(
+					get_program_data_folder_wstring_path()
+				);
     }
 
     std::string
@@ -1708,11 +1704,10 @@ namespace
 			::get_local_app_data_folder_path()
     {
         return
-			SingletonManager
-				::get_singleton<TextManager>()
-					.convert_text<std::wstring, std::string>(
-						get_local_app_data_folder_wstring_path()
-					);
+			QLOGICAE_COR_V1__BASE__HPP_CPP__GET_SINGLETON_TEMPLATE<TextManager>()
+				.convert_text<std::wstring, std::string>(
+					get_local_app_data_folder_wstring_path()
+				);
 	}
 	
     std::string
@@ -1720,11 +1715,10 @@ namespace
 			::get_roaming_app_data_folder_path()
     {
         return
-			SingletonManager
-				::get_singleton<TextManager>()
-					.convert_text<std::wstring, std::string>(
-						get_roaming_app_data_folder_wstring_path()
-					);
+			QLOGICAE_COR_V1__BASE__HPP_CPP__GET_SINGLETON_TEMPLATE<TextManager>()
+				.convert_text<std::wstring, std::string>(
+					get_roaming_app_data_folder_wstring_path()
+				);
     }
 	
 	size_t
@@ -1736,11 +1730,10 @@ namespace
 	{
 		return
 			get_line_count(
-				SingletonManager
-				::get_singleton<TextManager>()
-						.convert_text<std::string, std::wstring>(
-							origin_path
-						)
+				QLOGICAE_COR_V1__BASE__HPP_CPP__GET_SINGLETON_TEMPLATE<TextManager>()
+					.convert_text<std::string, std::wstring>(
+						origin_path
+					)
 			);
 	}
 
@@ -1755,12 +1748,11 @@ namespace
 	{
 		return
 			get_column_count(
-				SingletonManager
-				::get_singleton<TextManager>()
-						.convert_text<std::string, std::wstring>(
-							origin_path
-						),
-				line_number
+				QLOGICAE_COR_V1__BASE__HPP_CPP__GET_SINGLETON_TEMPLATE<TextManager>()
+					.convert_text<std::string, std::wstring>(
+						origin_path
+					),
+					line_number
 			);
 	}
 
@@ -1773,11 +1765,10 @@ namespace
 	{
 		return
 			get_character_count(
-				SingletonManager
-				::get_singleton<TextManager>()
-						.convert_text<std::string, std::wstring>(
-							origin_path
-						)
+				QLOGICAE_COR_V1__BASE__HPP_CPP__GET_SINGLETON_TEMPLATE<TextManager>()
+					.convert_text<std::string, std::wstring>(
+						origin_path
+					)
 			);
 	}
 
@@ -1790,11 +1781,10 @@ namespace
 	{
 		return
 			get_file_byte_size(
-				SingletonManager
-				::get_singleton<TextManager>()
-						.convert_text<std::string, std::wstring>(
-							origin_path
-						)
+				QLOGICAE_COR_V1__BASE__HPP_CPP__GET_SINGLETON_TEMPLATE<TextManager>()
+					.convert_text<std::string, std::wstring>(
+						origin_path
+					)
 			);
 	}
 
@@ -1807,11 +1797,10 @@ namespace
 	{
 		return
 			get_folder_byte_size(
-				SingletonManager
-				::get_singleton<TextManager>()
-						.convert_text<std::string, std::wstring>(
-							origin_path
-						)
+				QLOGICAE_COR_V1__BASE__HPP_CPP__GET_SINGLETON_TEMPLATE<TextManager>()
+					.convert_text<std::string, std::wstring>(
+						origin_path
+					)
 			);
 	}
 
@@ -1823,17 +1812,15 @@ namespace
 			)
 	{
 		return
-			SingletonManager
-				::get_singleton<TextManager>()
-					.convert_text<std::wstring, std::string>(
-						get_absolute_path(
-							SingletonManager
-				::get_singleton<TextManager>()
-									.convert_text<std::string, std::wstring>(
-										origin_path
-									)
-						)
-					);	
+			QLOGICAE_COR_V1__BASE__HPP_CPP__GET_SINGLETON_TEMPLATE<TextManager>()
+				.convert_text<std::wstring, std::string>(
+					get_absolute_path(
+						QLOGICAE_COR_V1__BASE__HPP_CPP__GET_SINGLETON_TEMPLATE<TextManager>()
+							.convert_text<std::string, std::wstring>(
+								origin_path
+							)
+					)
+				);	
 	}
 
     std::string
@@ -1846,22 +1833,19 @@ namespace
 			)
 	{
 		return
-			SingletonManager
-				::get_singleton<TextManager>()
-					.convert_text<std::wstring, std::string>(
-						get_relative_path(
-							SingletonManager
-				::get_singleton<TextManager>()
-									.convert_text<std::string, std::wstring>(
-										origin_path
-									),
-							SingletonManager
-				::get_singleton<TextManager>()
-									.convert_text<std::string, std::wstring>(
-										target_path
-									)
-						)
-					);
+			QLOGICAE_COR_V1__BASE__HPP_CPP__GET_SINGLETON_TEMPLATE<TextManager>()
+				.convert_text<std::wstring, std::string>(
+					get_relative_path(
+						QLOGICAE_COR_V1__BASE__HPP_CPP__GET_SINGLETON_TEMPLATE<TextManager>()
+							.convert_text<std::string, std::wstring>(
+								origin_path
+							),
+						QLOGICAE_COR_V1__BASE__HPP_CPP__GET_SINGLETON_TEMPLATE<TextManager>()
+							.convert_text<std::string, std::wstring>(
+								target_path
+							)
+					)
+				);
 	}
 
     std::string
@@ -1872,17 +1856,15 @@ namespace
 			)
 	{
 		return
-			SingletonManager
-				::get_singleton<TextManager>()
-					.convert_text<std::wstring, std::string>(
-						get_file_extension(
-							SingletonManager
-				::get_singleton<TextManager>()
-									.convert_text<std::string, std::wstring>(
-										origin_path
-									)
-						)
-					);	
+			QLOGICAE_COR_V1__BASE__HPP_CPP__GET_SINGLETON_TEMPLATE<TextManager>()
+				.convert_text<std::wstring, std::string>(
+					get_file_extension(
+						QLOGICAE_COR_V1__BASE__HPP_CPP__GET_SINGLETON_TEMPLATE<TextManager>()
+							.convert_text<std::string, std::wstring>(
+								origin_path
+							)
+					)
+				);	
 	}
 
     std::string
@@ -1893,17 +1875,15 @@ namespace
 			)
 	{
 		return
-			SingletonManager
-				::get_singleton<TextManager>()
-					.convert_text<std::wstring, std::string>(
-						get_file_stem(
-							SingletonManager
-				::get_singleton<TextManager>()
-									.convert_text<std::string, std::wstring>(
-										origin_path
-									)
-						)
-					);	
+			QLOGICAE_COR_V1__BASE__HPP_CPP__GET_SINGLETON_TEMPLATE<TextManager>()
+				.convert_text<std::wstring, std::string>(
+					get_file_stem(
+						QLOGICAE_COR_V1__BASE__HPP_CPP__GET_SINGLETON_TEMPLATE<TextManager>()
+							.convert_text<std::string, std::wstring>(
+								origin_path
+							)
+					)
+				);	
 	}
 
     bool
@@ -1915,11 +1895,10 @@ namespace
 	{
 		return
 			is_path_found(
-				SingletonManager
-				::get_singleton<TextManager>()
-						.convert_text<std::string, std::wstring>(
-							origin_path
-						)
+				QLOGICAE_COR_V1__BASE__HPP_CPP__GET_SINGLETON_TEMPLATE<TextManager>()
+					.convert_text<std::string, std::wstring>(
+						origin_path
+					)
 			);	
 	}
 
@@ -1932,11 +1911,10 @@ namespace
 	{
 		return
 			is_entity(
-				SingletonManager
-				::get_singleton<TextManager>()
-						.convert_text<std::string, std::wstring>(
-							origin_path
-						)
+				QLOGICAE_COR_V1__BASE__HPP_CPP__GET_SINGLETON_TEMPLATE<TextManager>()
+					.convert_text<std::string, std::wstring>(
+						origin_path
+					)
 			);
 	}
 
@@ -1949,11 +1927,10 @@ namespace
 	{
 		return
 			is_file(
-				SingletonManager
-				::get_singleton<TextManager>()
-						.convert_text<std::string, std::wstring>(
-							origin_path
-						)
+				QLOGICAE_COR_V1__BASE__HPP_CPP__GET_SINGLETON_TEMPLATE<TextManager>()
+					.convert_text<std::string, std::wstring>(
+						origin_path
+					)
 			);
 	}
 
@@ -1966,11 +1943,10 @@ namespace
 	{
 		return
 			is_folder(
-				SingletonManager
-				::get_singleton<TextManager>()
-						.convert_text<std::string, std::wstring>(
-							origin_path
-						)
+				QLOGICAE_COR_V1__BASE__HPP_CPP__GET_SINGLETON_TEMPLATE<TextManager>()
+					.convert_text<std::string, std::wstring>(
+						origin_path
+					)
 			);
 	}
 
@@ -1985,11 +1961,10 @@ namespace
 	{
 		return
 			is_entity_user_permission_level_valid(
-				SingletonManager
-				::get_singleton<TextManager>()
-						.convert_text<std::string, std::wstring>(
-							origin_path
-						),
+				QLOGICAE_COR_V1__BASE__HPP_CPP__GET_SINGLETON_TEMPLATE<TextManager>()
+					.convert_text<std::string, std::wstring>(
+						origin_path
+					),
 				permission_level
 			);
 	}
@@ -2005,11 +1980,10 @@ namespace
 	{
 		return
 			set_entity_read_status(
-				SingletonManager
-				::get_singleton<TextManager>()
-						.convert_text<std::string, std::wstring>(
-							origin_path
-						),
+				QLOGICAE_COR_V1__BASE__HPP_CPP__GET_SINGLETON_TEMPLATE<TextManager>()
+					.convert_text<std::string, std::wstring>(
+						origin_path
+					),
 				value
 			);	
 	}
@@ -2025,11 +1999,10 @@ namespace
 	{
 		return
 			set_entity_write_status(
-				SingletonManager
-				::get_singleton<TextManager>()
-						.convert_text<std::string, std::wstring>(
-							origin_path
-						),
+				QLOGICAE_COR_V1__BASE__HPP_CPP__GET_SINGLETON_TEMPLATE<TextManager>()
+					.convert_text<std::string, std::wstring>(
+						origin_path
+					),
 				value
 			);		
 	}
@@ -2045,11 +2018,10 @@ namespace
 	{
 		return
 			set_entity_visibility(
-				SingletonManager
-				::get_singleton<TextManager>()
-						.convert_text<std::string, std::wstring>(
-							origin_path
-						),
+				QLOGICAE_COR_V1__BASE__HPP_CPP__GET_SINGLETON_TEMPLATE<TextManager>()
+					.convert_text<std::string, std::wstring>(
+						origin_path
+					),
 				value
 			);
 	}
@@ -2063,11 +2035,10 @@ namespace
 	{
 		return
 			create_folder(
-				SingletonManager
-				::get_singleton<TextManager>()
-						.convert_text<std::string, std::wstring>(
-							origin_path
-						)
+				QLOGICAE_COR_V1__BASE__HPP_CPP__GET_SINGLETON_TEMPLATE<TextManager>()
+					.convert_text<std::string, std::wstring>(
+						origin_path
+					)
 			);
 	}
 
@@ -2082,16 +2053,14 @@ namespace
 	{
 		return
 			copy_file(
-				SingletonManager
-				::get_singleton<TextManager>()
-						.convert_text<std::string, std::wstring>(
-							origin_path
-						),
-				SingletonManager
-				::get_singleton<TextManager>()
-						.convert_text<std::string, std::wstring>(
-							target_path
-						)
+				QLOGICAE_COR_V1__BASE__HPP_CPP__GET_SINGLETON_TEMPLATE<TextManager>()
+					.convert_text<std::string, std::wstring>(
+						origin_path
+					),
+				QLOGICAE_COR_V1__BASE__HPP_CPP__GET_SINGLETON_TEMPLATE<TextManager>()
+					.convert_text<std::string, std::wstring>(
+						target_path
+					)
 			);	
 	}
 
@@ -2106,16 +2075,14 @@ namespace
 	{
 		return
 			copy_folder(
-				SingletonManager
-				::get_singleton<TextManager>()
-						.convert_text<std::string, std::wstring>(
-							origin_path
-						),
-				SingletonManager
-				::get_singleton<TextManager>()
-						.convert_text<std::string, std::wstring>(
-							target_path
-						)
+				QLOGICAE_COR_V1__BASE__HPP_CPP__GET_SINGLETON_TEMPLATE<TextManager>()
+					.convert_text<std::string, std::wstring>(
+						origin_path
+					),
+				QLOGICAE_COR_V1__BASE__HPP_CPP__GET_SINGLETON_TEMPLATE<TextManager>()
+					.convert_text<std::string, std::wstring>(
+						target_path
+					)
 			);		
 	}
 
@@ -2130,16 +2097,14 @@ namespace
 	{
 		return
 			move_entity(
-				SingletonManager
-				::get_singleton<TextManager>()
-						.convert_text<std::string, std::wstring>(
-							origin_path
-						),
-				SingletonManager
-				::get_singleton<TextManager>()
-						.convert_text<std::string, std::wstring>(
-							target_path
-						)
+				QLOGICAE_COR_V1__BASE__HPP_CPP__GET_SINGLETON_TEMPLATE<TextManager>()
+					.convert_text<std::string, std::wstring>(
+						origin_path
+					),
+				QLOGICAE_COR_V1__BASE__HPP_CPP__GET_SINGLETON_TEMPLATE<TextManager>()
+					.convert_text<std::string, std::wstring>(
+						target_path
+					)
 			);	
 	}
 
@@ -2154,16 +2119,14 @@ namespace
 	{
 		return
 			move_file(
-				SingletonManager
-				::get_singleton<TextManager>()
-						.convert_text<std::string, std::wstring>(
-							origin_path
-						),
-				SingletonManager
-				::get_singleton<TextManager>()
-						.convert_text<std::string, std::wstring>(
-							target_path
-						)
+				QLOGICAE_COR_V1__BASE__HPP_CPP__GET_SINGLETON_TEMPLATE<TextManager>()
+					.convert_text<std::string, std::wstring>(
+						origin_path
+					),
+				QLOGICAE_COR_V1__BASE__HPP_CPP__GET_SINGLETON_TEMPLATE<TextManager>()
+					.convert_text<std::string, std::wstring>(
+						target_path
+					)
 			);
 	}
 
@@ -2178,16 +2141,14 @@ namespace
 	{
 		return
 			move_folder(
-				SingletonManager
-				::get_singleton<TextManager>()
-						.convert_text<std::string, std::wstring>(
-							origin_path
-						),
-				SingletonManager
-				::get_singleton<TextManager>()
-						.convert_text<std::string, std::wstring>(
-							target_path
-						)
+				QLOGICAE_COR_V1__BASE__HPP_CPP__GET_SINGLETON_TEMPLATE<TextManager>()
+					.convert_text<std::string, std::wstring>(
+						origin_path
+					),
+				QLOGICAE_COR_V1__BASE__HPP_CPP__GET_SINGLETON_TEMPLATE<TextManager>()
+					.convert_text<std::string, std::wstring>(
+						target_path
+					)
 			);	
 	}
 
@@ -2202,16 +2163,14 @@ namespace
 	{
 		return
 			rename_entity(
-				SingletonManager
-				::get_singleton<TextManager>()
-						.convert_text<std::string, std::wstring>(
-							origin_path
-						),
-				SingletonManager
-				::get_singleton<TextManager>()
-						.convert_text<std::string, std::wstring>(
-							name
-						)
+				QLOGICAE_COR_V1__BASE__HPP_CPP__GET_SINGLETON_TEMPLATE<TextManager>()
+					.convert_text<std::string, std::wstring>(
+						origin_path
+					),
+				QLOGICAE_COR_V1__BASE__HPP_CPP__GET_SINGLETON_TEMPLATE<TextManager>()
+					.convert_text<std::string, std::wstring>(
+						name
+					)
 			);	
 	}
 
@@ -2226,16 +2185,14 @@ namespace
 	{
 		return
 			rename_file(
-				SingletonManager
-				::get_singleton<TextManager>()
-						.convert_text<std::string, std::wstring>(
-							origin_path
-						),
-				SingletonManager
-				::get_singleton<TextManager>()
-						.convert_text<std::string, std::wstring>(
-							name
-						)
+				QLOGICAE_COR_V1__BASE__HPP_CPP__GET_SINGLETON_TEMPLATE<TextManager>()
+					.convert_text<std::string, std::wstring>(
+						origin_path
+					),
+				QLOGICAE_COR_V1__BASE__HPP_CPP__GET_SINGLETON_TEMPLATE<TextManager>()
+					.convert_text<std::string, std::wstring>(
+						name
+					)
 			);	
 	}
 
@@ -2250,16 +2207,14 @@ namespace
 	{
 		return
 			rename_folder(
-				SingletonManager
-				::get_singleton<TextManager>()
-						.convert_text<std::string, std::wstring>(
-							origin_path
-						),
-				SingletonManager
-				::get_singleton<TextManager>()
-						.convert_text<std::string, std::wstring>(
-							name
-						)
+				QLOGICAE_COR_V1__BASE__HPP_CPP__GET_SINGLETON_TEMPLATE<TextManager>()
+					.convert_text<std::string, std::wstring>(
+						origin_path
+					),
+				QLOGICAE_COR_V1__BASE__HPP_CPP__GET_SINGLETON_TEMPLATE<TextManager>()
+					.convert_text<std::string, std::wstring>(
+						name
+					)
 			);
 	}
 
@@ -2272,11 +2227,10 @@ namespace
 	{
 		return
 			remove_file(
-				SingletonManager
-				::get_singleton<TextManager>()
-						.convert_text<std::string, std::wstring>(
-							origin_path
-						)
+				QLOGICAE_COR_V1__BASE__HPP_CPP__GET_SINGLETON_TEMPLATE<TextManager>()
+					.convert_text<std::string, std::wstring>(
+						origin_path
+					)
 			);		
 	}
 
@@ -2289,11 +2243,10 @@ namespace
 	{
 		return
 			remove_folder(
-				SingletonManager
-				::get_singleton<TextManager>()
-						.convert_text<std::string, std::wstring>(
-							origin_path
-						)
+				QLOGICAE_COR_V1__BASE__HPP_CPP__GET_SINGLETON_TEMPLATE<TextManager>()
+					.convert_text<std::string, std::wstring>(
+						origin_path
+					)
 			);	
 	}
 
@@ -2306,11 +2259,10 @@ namespace
 	{
 		return
 			remove_folder_sub_files(
-				SingletonManager
-				::get_singleton<TextManager>()
-						.convert_text<std::string, std::wstring>(
-							origin_path
-						)
+				QLOGICAE_COR_V1__BASE__HPP_CPP__GET_SINGLETON_TEMPLATE<TextManager>()
+					.convert_text<std::string, std::wstring>(
+						origin_path
+					)
 			);
 	}
 

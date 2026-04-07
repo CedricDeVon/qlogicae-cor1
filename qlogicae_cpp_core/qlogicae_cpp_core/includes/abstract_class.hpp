@@ -200,7 +200,7 @@ namespace
 			QLOGICAE_COR_V1__BASE__HPP_CPP__EMPTY_EDGE_CASES
 		);
 	
-		QLOGICAE_COR_V1__BASE__HPP_CPP__GET_SINGLETON_TEMPLATE(ErrorManager)
+		QLOGICAE_COR_V1__BASE__HPP_CPP__GET_SINGLETON_TEMPLATE<ErrorManager>()
 			.handle_error_outputs<void>(
 				title,
 				message
@@ -224,7 +224,7 @@ namespace
 			QLOGICAE_COR_V1__BASE__HPP_CPP__EMPTY_EDGE_CASES
 		);
 	
-		QLOGICAE_COR_V1__BASE__HPP_CPP__GET_SINGLETON_TEMPLATE(ErrorManager)
+		QLOGICAE_COR_V1__BASE__HPP_CPP__GET_SINGLETON_TEMPLATE<ErrorManager>()
 			.handle_error_outputs<void>(
 				message
 			);
@@ -247,7 +247,7 @@ namespace
 			QLOGICAE_COR_V1__BASE__HPP_CPP__EMPTY_EDGE_CASES
 		);
 	
-		QLOGICAE_COR_V1__BASE__HPP_CPP__GET_SINGLETON_TEMPLATE(ErrorManager)
+		QLOGICAE_COR_V1__BASE__HPP_CPP__GET_SINGLETON_TEMPLATE<ErrorManager>()
 			.handle_error_outputs<void>(
 				QLOGICAE_COR_V1__BASE__HPP_CPP__TRY_CATCH_EXCEPTION_NAME
 			);

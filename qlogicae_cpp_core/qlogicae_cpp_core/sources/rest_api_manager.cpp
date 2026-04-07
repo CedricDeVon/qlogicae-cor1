@@ -30,9 +30,8 @@ namespace
 				QLOGICAE_COR_V1__BASE__HPP_CPP__EMPTY_EDGE_CASES
 			);			
 
-			SingletonManager
-				::get_singleton<CurlPackageManager>()
-					.setup();
+			QLOGICAE_COR_V1__BASE__HPP_CPP__GET_SINGLETON_TEMPLATE<CurlPackageManager>()
+				.setup();
 
 			size_t
 				size =

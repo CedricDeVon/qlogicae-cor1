@@ -83,8 +83,7 @@ namespace
 
 			AsynchronousManager&
 				asynchronous_manager =
-					SingletonManager
-						::get_singleton<AsynchronousManager>();
+					QLOGICAE_COR_V1__BASE__HPP_CPP__GET_SINGLETON_TEMPLATE<AsynchronousManager>();
 
 			std::unordered_map<std::string, std::future<std::any>>
 				futures;
@@ -146,8 +145,7 @@ namespace
 
 			AsynchronousManager&
 				asynchronous_manager =
-					SingletonManager
-						::get_singleton<AsynchronousManager>();
+					QLOGICAE_COR_V1__BASE__HPP_CPP__GET_SINGLETON_TEMPLATE<AsynchronousManager>();
 
 			std::unordered_map<std::string, std::future<std::any>>
 				outputs;
