@@ -18,6 +18,7 @@
 #include <pcre2.h>
 #include <sodium.h>
 #include <argon2.h>
+#include <oqs/oqs.h>
 #include <sqlite3.h>
 #include <rapidcsv.h>
 #include <pugixml.hpp>

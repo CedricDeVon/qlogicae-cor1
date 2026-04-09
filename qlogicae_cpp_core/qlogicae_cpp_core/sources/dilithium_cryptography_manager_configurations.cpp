@@ -9,6 +9,8 @@ namespace
 		::DilithiumCryptographyManagerConfigurations() :
 			QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CONFIGURATIONS_NAME<DilithiumCryptographyManagerConfigurations>()
 	{
-		
+		algorithm =
+			DilithiumCryptographyAlgorithm
+				::DILITHIUM_3;
 	}
 }

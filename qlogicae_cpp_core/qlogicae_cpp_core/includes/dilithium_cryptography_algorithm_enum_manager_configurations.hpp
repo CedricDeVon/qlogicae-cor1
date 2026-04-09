@@ -7,15 +7,15 @@ namespace
 	QLOGICAE_COR_V1__BASE__HPP_CPP__COR_NAMESPACE_NAME
 {
     struct
-		DilithiumCryptographyManagerConfigurations :
-			QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CONFIGURATIONS_NAME<DilithiumCryptographyManagerConfigurations>
+		DilithiumCryptographyAlgorithmEnumManagerConfigurations :
+			QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CONFIGURATIONS_NAME<DilithiumCryptographyAlgorithmEnumManagerConfigurations>
     {
 	public:	
 		DilithiumCryptographyAlgorithm
-			algorithm =
+			type =
 				DilithiumCryptographyAlgorithm
 					::DILITHIUM_3;
 
-		DilithiumCryptographyManagerConfigurations();
+		DilithiumCryptographyAlgorithmEnumManagerConfigurations();
     };    
 }

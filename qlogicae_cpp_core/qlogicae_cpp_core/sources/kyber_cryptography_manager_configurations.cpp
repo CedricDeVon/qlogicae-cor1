@@ -9,6 +9,8 @@ namespace
 		::KyberCryptographyManagerConfigurations() :
 			QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CONFIGURATIONS_NAME<KyberCryptographyManagerConfigurations>()
 	{
-		
+		algorithm =
+			KyberCryptographyAlgorithm
+				::KYBER_768;
 	}
 }

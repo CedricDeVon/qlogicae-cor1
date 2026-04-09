@@ -346,6 +346,9 @@
     <ClInclude Include="qlogicae_cpp_core\includes\cryptography_migration_manager_configurations.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\curl_package_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\curl_package_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\dilithium_cryptography_algorithm.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\dilithium_cryptography_algorithm_enum_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\dilithium_cryptography_algorithm_enum_manager_configurations.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\dilithium_cryptography_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\dilithium_cryptography_manager_configurations.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\edsca_signature_cryptography_manager.hpp" />
@@ -398,6 +401,8 @@
     <ClInclude Include="qlogicae_cpp_core\includes\file_system_entity.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\file_system_entity_enum_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\file_system_entity_enum_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\file_system_listener_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\file_system_listener_manager_configurations.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\file_system_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\file_system_manager_configurations.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\function_wrapper.hpp" />
@@ -417,6 +422,9 @@
     <ClInclude Include="qlogicae_cpp_core\includes\json_text_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\json_text_manager_configurations.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\key_index_hash_handler.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\kyber_cryptography_algorithm.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\kyber_cryptography_algorithm_enum_manager.hpp" />
+    <ClInclude Include="qlogicae_cpp_core\includes\kyber_cryptography_algorithm_enum_manager_configurations.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\kyber_cryptography_manager.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\kyber_cryptography_manager_configurations.hpp" />
     <ClInclude Include="qlogicae_cpp_core\includes\log_format.hpp" />
@@ -624,6 +632,9 @@
     <ClCompile Include="qlogicae_cpp_core\sources\csv_file_io_manager_configurations.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\curl_package_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\curl_package_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\dilithium_cryptography_algorithm.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\dilithium_cryptography_algorithm_enum_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\dilithium_cryptography_algorithm_enum_manager_configurations.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\dilithium_cryptography_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\dilithium_cryptography_manager_configurations.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\edsca_signature_cryptography_manager.cpp" />
@@ -651,6 +662,8 @@
     <ClCompile Include="qlogicae_cpp_core\sources\file_system_entity.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\file_system_entity_enum_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\file_system_entity_enum_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\file_system_listener_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\file_system_listener_manager_configurations.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\file_system_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\file_system_manager_configurations.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\function_wrapper.cpp" />
@@ -669,6 +682,9 @@
     <ClCompile Include="qlogicae_cpp_core\sources\json_text_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\json_text_manager_configurations.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\key_index_hash_handler.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\kyber_cryptography_algorithm.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\kyber_cryptography_algorithm_enum_manager.cpp" />
+    <ClCompile Include="qlogicae_cpp_core\sources\kyber_cryptography_algorithm_enum_manager_configurations.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\kyber_cryptography_manager.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\kyber_cryptography_manager_configurations.cpp" />
     <ClCompile Include="qlogicae_cpp_core\sources\log_format.cpp" />

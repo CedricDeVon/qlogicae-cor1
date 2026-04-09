@@ -7,15 +7,15 @@ namespace
 	QLOGICAE_COR_V1__BASE__HPP_CPP__COR_NAMESPACE_NAME
 {
     struct
-		KyberCryptographyManagerConfigurations :
-			QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CONFIGURATIONS_NAME<KyberCryptographyManagerConfigurations>
+		KyberCryptographyAlgorithmEnumManagerConfigurations :
+			QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CONFIGURATIONS_NAME<KyberCryptographyAlgorithmEnumManagerConfigurations>
     {
 	public:	
 		KyberCryptographyAlgorithm
-			algorithm =
+			type =
 				KyberCryptographyAlgorithm
 					::KYBER_768;
 
-		KyberCryptographyManagerConfigurations();
+		KyberCryptographyAlgorithmEnumManagerConfigurations();
     };    
 }
