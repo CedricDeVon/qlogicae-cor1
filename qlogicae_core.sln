@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.14.36127.28
+# Visual Studio Version 18
+VisualStudioVersion = 18.4.11626.88 stable
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "qlogicae_core", "qlogicae_core\qlogicae_core.vcxproj", "{07F44EB2-776B-4BB0-B462-589523A3D3F3}"
 EndProject
@@ -32,6 +32,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "qlogicae_cpp_core_test", "q
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "demo_1", "demo_1\demo_1.vcxproj", "{DE03E505-D66B-4AE2-B985-62D03DD08F40}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "a", "a\a.vcxproj", "{0A52349B-6740-4EAB-B305-02BC25FCFCD4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -142,6 +144,18 @@ Global
 		{DE03E505-D66B-4AE2-B985-62D03DD08F40}.Release|x64.Build.0 = Release|x64
 		{DE03E505-D66B-4AE2-B985-62D03DD08F40}.Release|x86.ActiveCfg = Release|Win32
 		{DE03E505-D66B-4AE2-B985-62D03DD08F40}.Release|x86.Build.0 = Release|Win32
+		{0A52349B-6740-4EAB-B305-02BC25FCFCD4}.Debug|x64.ActiveCfg = Debug|x64
+		{0A52349B-6740-4EAB-B305-02BC25FCFCD4}.Debug|x64.Build.0 = Debug|x64
+		{0A52349B-6740-4EAB-B305-02BC25FCFCD4}.Debug|x86.ActiveCfg = Debug|Win32
+		{0A52349B-6740-4EAB-B305-02BC25FCFCD4}.Debug|x86.Build.0 = Debug|Win32
+		{0A52349B-6740-4EAB-B305-02BC25FCFCD4}.Development|x64.ActiveCfg = Release|x64
+		{0A52349B-6740-4EAB-B305-02BC25FCFCD4}.Development|x64.Build.0 = Release|x64
+		{0A52349B-6740-4EAB-B305-02BC25FCFCD4}.Development|x86.ActiveCfg = Release|Win32
+		{0A52349B-6740-4EAB-B305-02BC25FCFCD4}.Development|x86.Build.0 = Release|Win32
+		{0A52349B-6740-4EAB-B305-02BC25FCFCD4}.Release|x64.ActiveCfg = Release|x64
+		{0A52349B-6740-4EAB-B305-02BC25FCFCD4}.Release|x64.Build.0 = Release|x64
+		{0A52349B-6740-4EAB-B305-02BC25FCFCD4}.Release|x86.ActiveCfg = Release|Win32
+		{0A52349B-6740-4EAB-B305-02BC25FCFCD4}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -42,9 +42,11 @@ namespace
 
 		std::unordered_map<std::pair<void*, std::string>, boost::shared_mutex, PairHashOperator>
 			boost_shared_mutex_collection;
-
+		
+#ifdef _M_X64
 		std::unordered_map<std::pair<void*, std::string>, folly::MicroSpinLock, PairHashOperator>
 			folly_micro_spin_lock_collection;
+#endif
 
 		MutexManager();
 

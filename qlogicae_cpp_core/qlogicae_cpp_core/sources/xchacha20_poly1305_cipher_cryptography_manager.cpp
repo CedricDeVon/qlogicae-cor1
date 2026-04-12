@@ -65,7 +65,7 @@ namespace
 			std::string
 				encoded(
 					sodium_base64_ENCODED_LEN(
-						ciphertext_length,
+						static_cast<size_t>(ciphertext_length),
 						sodium_base64_VARIANT_ORIGINAL
 					),
 					'\0'
@@ -75,7 +75,7 @@ namespace
 				encoded.data(),
 				encoded.size(),
 				ciphertext.data(),
-				ciphertext_length,
+				static_cast<size_t>(ciphertext_length),
 				sodium_base64_VARIANT_ORIGINAL
 			);
 
@@ -121,7 +121,7 @@ namespace
 			std::vector<unsigned char>
 				decoded(text.size());
 
-			unsigned long long
+			size_t
 				decoded_length =
 					0;
 
@@ -178,7 +178,7 @@ namespace
 
 			return std::string(
 				reinterpret_cast<const char*>(plaintext.data()),
-				plaintext_length
+				static_cast<size_t>(plaintext_length)
 			);
         }
         catch

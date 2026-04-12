@@ -6,6 +6,7 @@
 namespace
 	QLOGICAE_COR_V1__BASE__HPP_CPP__COR_NAMESPACE_NAME
 {
+#ifdef _M_X64
     class
 		OnnxApiManager :
 			public QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CLASS_NAME<OnnxApiManagerConfigurations>
@@ -272,4 +273,5 @@ namespace
 			);
         }		
 	}
+#endif
 }

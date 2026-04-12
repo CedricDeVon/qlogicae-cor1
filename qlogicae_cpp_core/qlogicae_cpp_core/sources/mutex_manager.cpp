@@ -29,6 +29,7 @@ namespace
 				name.empty()
 			);	
 
+#ifdef _M_X64
             folly::MicroSpinLock*
                 micro_spin_lock =
                 &folly_micro_spin_lock_collection
@@ -43,6 +44,7 @@ namespace
                 ];
 
             micro_spin_lock->lock();
+#endif
 
             return
 				true;
@@ -86,6 +88,7 @@ namespace
 				name.empty()
 			);	
 
+#ifdef _M_X64
 			void*
 				raw_pointer =
 					const_cast<void*>(
@@ -104,6 +107,7 @@ namespace
                 ];
 
             micro_spin_lock->unlock();
+#endif
 
             return
                 true;
@@ -173,8 +177,10 @@ namespace
 			boost_shared_mutex_collection
 				.clear();
 
+#ifdef _M_X64
 			folly_micro_spin_lock_collection
 				.clear();
+#endif
 
 			return
 				true;
