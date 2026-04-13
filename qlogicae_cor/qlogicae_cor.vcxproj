@@ -1,0 +1,845 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Development|Win32">
+      <Configuration>Development</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Development|x64">
+      <Configuration>Development</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>17.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{ab122c6b-5279-4209-9755-d3f55c48a94d}</ProjectGuid>
+    <RootNamespace>qlogicae_cpp_desktop_core</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>qlogicae_cor</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v145</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Development|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v145</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v145</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v145</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Development|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v145</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v145</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+    <Import Project="$(VCTargetsPath)\BuildCustomizations\masm.props" />
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Development|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Development|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\$(ProjectName)\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Development|x64'">
+    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\$(ProjectName)\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\$(ProjectName)\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\$(ProjectName)\</OutDir>
+    <IntDir>$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Development|Win32'">
+    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\$(ProjectName)\</OutDir>
+    <IntDir>$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\$(ProjectName)\</OutDir>
+    <IntDir>$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>QLOGICAE_DESKTOP_PLATFORM;_WIN32;NOMINMAX;WIN32_LEAN_AND_MEAN;HASH_LEN=32;PCRE2_CODE_UNIT_WIDTH=8;SALT_LEN=crypto_pwhash_SALTBYTES;_WIN32_WINNT=0x0A00;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.hpp</PrecompiledHeaderFile>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
+      <UseUnicodeForAssemblerListing>true</UseUnicodeForAssemblerListing>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <StringPooling>false</StringPooling>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <EnableParallelCodeGeneration>false</EnableParallelCodeGeneration>
+      <FloatingPointModel>Default</FloatingPointModel>
+      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <SubSystem>
+      </SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+    <Lib>
+      <AdditionalDependencies>Shlwapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\vcpkg\installed\x86-windows-static\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Development|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;NOMINMAX;HASH_LEN=32;WIN32_LEAN_AND_MEAN;PCRE2_CODE_UNIT_WIDTH=8;SALT_LEN=crypto_pwhash_SALTBYTES;ORT_DISABLE_SCHEMA_VALIDATION=1;_LIB;_WIN32;_WIN32_WINNT=0x0A00;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.hpp</PrecompiledHeaderFile>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
+      <UseUnicodeForAssemblerListing>true</UseUnicodeForAssemblerListing>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <DebugInformationFormat>None</DebugInformationFormat>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <OmitFramePointers>true</OmitFramePointers>
+      <StringPooling>true</StringPooling>
+      <EnableParallelCodeGeneration>true</EnableParallelCodeGeneration>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <EnableEnhancedInstructionSet>AdvancedVectorExtensions101</EnableEnhancedInstructionSet>
+      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <SubSystem>
+      </SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+    <Lib>
+      <AdditionalDependencies>Shlwapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\vcpkg\installed\x86-windows-static\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;NOMINMAX;HASH_LEN=32;WIN32_LEAN_AND_MEAN;PCRE2_CODE_UNIT_WIDTH=8;SALT_LEN=crypto_pwhash_SALTBYTES;ORT_DISABLE_SCHEMA_VALIDATION=1;_LIB;_WIN32;_WIN32_WINNT=0x0A00;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.hpp</PrecompiledHeaderFile>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
+      <UseUnicodeForAssemblerListing>true</UseUnicodeForAssemblerListing>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <DebugInformationFormat>None</DebugInformationFormat>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <OmitFramePointers>true</OmitFramePointers>
+      <StringPooling>true</StringPooling>
+      <EnableParallelCodeGeneration>true</EnableParallelCodeGeneration>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <EnableEnhancedInstructionSet>AdvancedVectorExtensions101</EnableEnhancedInstructionSet>
+      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <SubSystem>
+      </SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+    <Lib>
+      <AdditionalDependencies>Shlwapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\vcpkg\installed\x86-windows-static\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;NOMINMAX;HASH_LEN=32;WIN32_LEAN_AND_MEAN;PCRE2_CODE_UNIT_WIDTH=8;SALT_LEN=crypto_pwhash_SALTBYTES;ORT_DISABLE_SCHEMA_VALIDATION=1;_LIB;_WIN32;_DEBUG;_WIN32_WINNT=0x0A00;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.hpp</PrecompiledHeaderFile>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <OmitFramePointers>false</OmitFramePointers>
+      <StringPooling>false</StringPooling>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <UseUnicodeForAssemblerListing>true</UseUnicodeForAssemblerListing>
+      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalIncludeDirectories>
+      </AdditionalIncludeDirectories>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <EnableEnhancedInstructionSet>
+      </EnableEnhancedInstructionSet>
+      <FloatingPointModel>Default</FloatingPointModel>
+      <EnableParallelCodeGeneration>false</EnableParallelCodeGeneration>
+      <Optimization>Disabled</Optimization>
+      <IntrinsicFunctions>false</IntrinsicFunctions>
+      <FavorSizeOrSpeed>Neither</FavorSizeOrSpeed>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
+    </ClCompile>
+    <Link>
+      <SubSystem>
+      </SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+    <Lib>
+      <LinkTimeCodeGeneration>false</LinkTimeCodeGeneration>
+      <AdditionalOptions>/INCLUDE:mi_redirect %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalLibraryDirectories>C:\vcpkg\installed\x64-windows-static\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Shlwapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Development|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;NOMINMAX;HASH_LEN=32;WIN32_LEAN_AND_MEAN;PCRE2_CODE_UNIT_WIDTH=8;SALT_LEN=crypto_pwhash_SALTBYTES;ORT_DISABLE_SCHEMA_VALIDATION=1;_LIB;_WIN32;_WIN32_WINNT=0x0A00;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.hpp</PrecompiledHeaderFile>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
+      <DebugInformationFormat>None</DebugInformationFormat>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <OmitFramePointers>true</OmitFramePointers>
+      <StringPooling>true</StringPooling>
+      <UseUnicodeForAssemblerListing>true</UseUnicodeForAssemblerListing>
+      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalIncludeDirectories>
+      </AdditionalIncludeDirectories>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <EnableEnhancedInstructionSet>AdvancedVectorExtensions101</EnableEnhancedInstructionSet>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <EnableParallelCodeGeneration>true</EnableParallelCodeGeneration>
+    </ClCompile>
+    <Link>
+      <SubSystem>
+      </SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+    <Lib>
+      <AdditionalOptions>/INCLUDE:mi_redirect %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalLibraryDirectories>C:\vcpkg\installed\x64-windows-static\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Shlwapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;NOMINMAX;HASH_LEN=32;WIN32_LEAN_AND_MEAN;PCRE2_CODE_UNIT_WIDTH=8;SALT_LEN=crypto_pwhash_SALTBYTES;ORT_DISABLE_SCHEMA_VALIDATION=1;_LIB;_WIN32;_WIN32_WINNT=0x0A00;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.hpp</PrecompiledHeaderFile>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
+      <DebugInformationFormat>None</DebugInformationFormat>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <OmitFramePointers>true</OmitFramePointers>
+      <StringPooling>true</StringPooling>
+      <UseUnicodeForAssemblerListing>true</UseUnicodeForAssemblerListing>
+      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalIncludeDirectories>
+      </AdditionalIncludeDirectories>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <EnableEnhancedInstructionSet>AdvancedVectorExtensions101</EnableEnhancedInstructionSet>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <EnableParallelCodeGeneration>true</EnableParallelCodeGeneration>
+    </ClCompile>
+    <Link>
+      <SubSystem>
+      </SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+    <Lib>
+      <AdditionalOptions>/INCLUDE:mi_redirect %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalLibraryDirectories>C:\vcpkg\installed\x64-windows-static\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Shlwapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="pch.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\abstract_class.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\abstract_configurations.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\abstract_enum.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\account_sessions_manager.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\account_sessions_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\aes256_cipher_cryptography_manager.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\aes256_cipher_cryptography_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\cryptography_migration_manager.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\cryptography_migration_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\curl_package_manager.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\curl_package_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\dilithium_cryptography_algorithm.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\dilithium_cryptography_algorithm_enum_manager.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\dilithium_cryptography_algorithm_enum_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\dilithium_cryptography_manager.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\dilithium_cryptography_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\edsca_signature_cryptography_manager.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\edsca_signature_cryptography_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\all.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\argon2id_hash_cryptography_manager.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\argon2id_hash_cryptography_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\assembly.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\asynchronous_batch_manager.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\asynchronous_batch_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\asynchronous_manager.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\asynchronous_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\bcrypt_hash_cryptography_manager.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\bcrypt_hash_cryptography_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\binary_file_io_manager.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\binary_file_io_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\character_domain.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\character_domain_enum_manager.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\character_domain_enum_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\character_domain_manager.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\character_domain_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\configuration_manager.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\configuration_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\console_io_manager.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\console_io_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\console_log_manager.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\console_log_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\csv_file_io_manager.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\csv_file_io_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\email_body.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\email_body_enum_manager.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\email_body_enum_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\email_security.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\email_security_enum_manager.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\email_security_enum_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\entity_activation_manager.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\entity_activation_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\entity_activation_status.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\entity_activation_status_enum_manager.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\entity_activation_status_enum_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\enum_manager.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\enum_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\error_manager.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\error_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\excel_file_io_manager.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\excel_file_io_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\file_entity.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\file_log_manager.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\file_log_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\file_system_entity.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\file_system_entity_enum_manager.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\file_system_entity_enum_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\file_system_listener_manager.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\file_system_listener_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\file_system_manager.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\file_system_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\function_wrapper.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\function_wrapper_configurations.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\gmail_api_manager.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\gmail_api_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\gmail_api_manager_response.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\interval_clock.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\interval_clock_configurations.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\json.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\jsonwebtoken_cryptography_manager.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\jsonwebtoken_cryptography_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\json_file_io_manager.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\json_file_io_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\json_key_hash_handler.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\json_key_index_hash_handler.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\json_text_manager.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\json_text_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\key_index_hash_handler.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\kyber_cryptography_algorithm.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\kyber_cryptography_algorithm_enum_manager.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\kyber_cryptography_algorithm_enum_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\kyber_cryptography_manager.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\kyber_cryptography_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\log_format.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\log_format_enum_manager.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\log_format_enum_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\log_level.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\log_level_enum_manager.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\log_level_enum_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\log_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\log_medium.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\log_medium_enum_manager.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\log_medium_enum_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\log_output.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\log_output_enum_manager.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\log_output_enum_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\mutex_manager.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\mutex_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\neo4j_api_manager.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\neo4j_api_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\network_ping_manager.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\network_ping_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\network_ping_manager_response.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\onnx_api_manager.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\onnx_api_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\pair_hash_operator.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\precompiled_headers.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\pdf_file_io_manager.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\pdf_file_io_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\qlogicae_application_manager.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\qlogicae_application_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\qlogicae_console_application_manager.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\qlogicae_console_application_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\qlogicae_desktop_application_manager.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\qlogicae_desktop_application_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\qlogicae_file_system_manager.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\qlogicae_file_system_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\qlogicae_service_application_manager.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\qlogicae_service_application_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\random_character_generation_manager.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\random_character_generation_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\random_enum_generation_manager.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\random_enum_generation_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\random_number_generation_manager.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\random_number_generation_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\random_seed_generation_manager.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\random_seed_generation_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\random_string_generation_manager.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\random_string_generation_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\random_value_generation_manager.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\random_value_generation_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\regular_expression_manager.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\regular_expression_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\regular_key_delete_handler.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\rest_api_manager.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\rest_api_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\rest_api_manager_response.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\results.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\results_status.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\results_status_enum_manager.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\results_status_enum_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\rocksdb_database_manager.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\rocksdb_database_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\runtime_benchmarker.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\runtime_benchmarker_configurations.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\runtime_benchmarker_epoch_iteration_pair.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\runtime_benchmarker_test_case.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\runtime_benchmarker_test_suite.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\runtime_execution_manager.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\runtime_execution_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\sha256_hash_cryptography_manager.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\sha256_hash_cryptography_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\singleton_manager.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\singleton_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\sodium_package_manager.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\sodium_package_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\sqlite_backend.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\sqlite_database_manager.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\sqlite_database_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\sqlite_exception.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\sqlite_row.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\sqlite_statement.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\sqlite_statement_data.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\sqlite_transaction.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\state_manager.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\state_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\supabase_api_manager.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\supabase_api_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\temperature_manager.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\temperature_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\temperature_unit.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\temperature_unit_enum_manager.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\temperature_unit_enum_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\text_case.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\text_case_enum_manager.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\text_case_enum_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\text_case_manager.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\text_case_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\text_encoding.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\text_encoding_enum_manager.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\text_encoding_enum_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\text_encoding_manager.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\text_encoding_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\text_error_manager.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\text_error_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\text_file_io_manager.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\text_file_io_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\text_key_path_manager.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\text_key_path_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\text_log_manager.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\text_log_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\text_manager.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\text_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\text_placeholder_manager.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\text_placeholder_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\timeout_clock.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\timeout_clock_configurations.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\time_format.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\time_format_enum_manager.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\time_format_enum_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\time_manager.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\time_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\time_scale_unit.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\time_scale_unit_enum_manager.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\time_scale_unit_enum_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\time_zone.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\time_zone_enum_manager.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\time_zone_enum_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\toml_file_io_manager.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\toml_file_io_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\uri_file_io_manager.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\uri_file_io_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\uuid.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\uuid_enum_manager.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\uuid_enum_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\uuid_manager.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\uuid_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\validation_manager.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\validation_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\valid_mutex_lock.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\value_enum_key_delete_handler.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\value_extractor_manager.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\value_extractor_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\vector_string_hash_handler.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\windows_environment_variable.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\windows_environment_variable_enum_manager.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\windows_environment_variable_enum_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\windows_environment_variable_manager.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\windows_environment_variable_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\windows_registry_manager.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\windows_registry_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\windows_registry_root_path.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\windows_registry_root_path_enum_manager.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\windows_registry_root_path_enum_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\windows_system_access_manager.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\windows_system_access_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\word_file_io_manager.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\word_file_io_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\xchacha20_poly1305_cipher_cryptography_manager.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\xchacha20_poly1305_cipher_cryptography_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\xml_file_io_manager.hpp" />
+    <ClInclude Include="qlogicae\cor\includes\xml_file_io_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae\cor\macros\all.hpp" />
+    <ClInclude Include="qlogicae\cor\macros\pre_build_checks.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="pch.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Development|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Development|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor\sources\abstract_class.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\abstract_configurations.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\abstract_enum.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\account_sessions_manager.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\account_sessions_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\aes256_cipher_cryptography_manager.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\aes256_cipher_cryptography_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\all.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\argon2id_hash_cryptography_manager.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\argon2id_hash_cryptography_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\assembly.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\asynchronous_batch_manager.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\asynchronous_batch_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\asynchronous_manager.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\asynchronous_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\bcrypt_hash_cryptography_manager.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\bcrypt_hash_cryptography_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\binary_file_io_manager.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\binary_file_io_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\character_domain.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\character_domain_enum_manager.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\character_domain_enum_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\character_domain_manager.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\character_domain_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\configuration_manager.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\configuration_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\console_io_manager.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\console_io_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\console_log_manager.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\console_log_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\cryptography_migration_manager.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\cryptography_migration_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\csv_file_io_manager.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\csv_file_io_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\curl_package_manager.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\curl_package_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\dilithium_cryptography_algorithm.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\dilithium_cryptography_algorithm_enum_manager.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\dilithium_cryptography_algorithm_enum_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\dilithium_cryptography_manager.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\dilithium_cryptography_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\edsca_signature_cryptography_manager.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\edsca_signature_cryptography_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\email_body.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\email_body_enum_manager.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\email_body_enum_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\email_security.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\email_security_enum_manager.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\email_security_enum_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\entity_activation_manager.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\entity_activation_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\entity_activation_status.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\entity_activation_status_enum_manager.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\entity_activation_status_enum_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\enum_manager.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\enum_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\error_manager.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\error_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\excel_file_io_manager.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\excel_file_io_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\file_entity.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\file_log_manager.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\file_log_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\file_system_entity.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\file_system_entity_enum_manager.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\file_system_entity_enum_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\file_system_listener_manager.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\file_system_listener_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\file_system_manager.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\file_system_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\function_wrapper.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\function_wrapper_configurations.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\gmail_api_manager.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\gmail_api_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\gmail_api_manager_response.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\interval_clock.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\interval_clock_configurations.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\json.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\jsonwebtoken_cryptography_manager.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\jsonwebtoken_cryptography_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\json_file_io_manager.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\json_file_io_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\json_key_index_hash_handler.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\json_text_manager.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\json_text_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\key_index_hash_handler.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\kyber_cryptography_algorithm.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\kyber_cryptography_algorithm_enum_manager.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\kyber_cryptography_algorithm_enum_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\kyber_cryptography_manager.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\kyber_cryptography_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\log_format.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\log_format_enum_manager.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\log_format_enum_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\log_level.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\log_level_enum_manager.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\log_level_enum_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\log_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\log_medium.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\log_medium_enum_manager.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\log_medium_enum_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\log_output.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\log_output_enum_manager.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\log_output_enum_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\mutex_manager.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\mutex_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\neo4j_api_manager.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\neo4j_api_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\network_ping_manager.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\network_ping_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\network_ping_manager_response.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\onnx_api_manager.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\onnx_api_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\pair_hash_operator.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\pdf_file_io_manager.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\pdf_file_io_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\qlogicae_application_manager.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\qlogicae_application_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\qlogicae_console_application_manager.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\qlogicae_console_application_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\qlogicae_desktop_application_manager.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\qlogicae_desktop_application_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\qlogicae_file_system_manager.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\qlogicae_file_system_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\qlogicae_service_application_manager.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\qlogicae_service_application_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\random_character_generation_manager.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\random_character_generation_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\random_enum_generation_manager.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\random_enum_generation_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\random_number_generation_manager.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\random_number_generation_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\random_seed_generation_manager.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\random_seed_generation_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\random_string_generation_manager.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\random_string_generation_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\random_value_generation_manager.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\random_value_generation_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\regular_expression_manager.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\regular_expression_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\regular_key_delete_handler.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\rest_api_manager.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\rest_api_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\rest_api_manager_response.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\results.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\results_status.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\results_status_enum_manager.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\results_status_enum_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\rocksdb_database_manager.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\rocksdb_database_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\runtime_benchmarker.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\runtime_benchmarker_configurations.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\runtime_benchmarker_epoch_iteration_pair.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\runtime_benchmarker_test_case.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\runtime_benchmarker_test_suite.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\runtime_execution_manager.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\runtime_execution_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\sha256_hash_cryptography_manager.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\sha256_hash_cryptography_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\singleton_manager.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\singleton_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\sodium_package_manager.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\sodium_package_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\state_manager.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\state_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\supabase_api_manager.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\supabase_api_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\temperature_manager.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\temperature_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\temperature_unit.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\temperature_unit_enum_manager.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\temperature_unit_enum_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\text_case.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\text_case_enum_manager.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\text_case_enum_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\text_case_manager.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\text_case_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\text_encoding.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\text_encoding_enum_manager.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\text_encoding_enum_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\text_encoding_manager.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\text_encoding_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\text_error_manager.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\text_error_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\text_file_io_manager.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\text_file_io_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\text_key_path_manager.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\text_key_path_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\text_log_manager.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\text_log_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\text_manager.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\text_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\text_placeholder_manager.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\text_placeholder_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\timeout_clock.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\timeout_clock_configurations.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\time_format.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\time_format_enum_manager.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\time_format_enum_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\time_manager.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\time_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\time_scale_unit.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\time_scale_unit_enum_manager.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\time_scale_unit_enum_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\time_zone.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\time_zone_enum_manager.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\time_zone_enum_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\toml_file_io_manager.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\toml_file_io_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\uri_file_io_manager.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\uri_file_io_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\uuid.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\uuid_enum_manager.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\uuid_enum_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\uuid_manager.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\uuid_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\validation_manager.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\validation_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\valid_mutex_lock.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\value_enum_key_delete_handler.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\value_extractor_manager.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\value_extractor_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\vector_string_hash_handler.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\windows_environment_variable.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\windows_environment_variable_enum_manager.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\windows_environment_variable_enum_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\windows_environment_variable_manager.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\windows_environment_variable_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\windows_registry_manager.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\windows_registry_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\windows_registry_root_path.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\windows_registry_root_path_enum_manager.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\windows_registry_root_path_enum_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\windows_system_access_manager.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\windows_system_access_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\word_file_io_manager.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\word_file_io_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\xchacha20_poly1305_cipher_cryptography_manager.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\xchacha20_poly1305_cipher_cryptography_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\xml_file_io_manager.cpp" />
+    <ClCompile Include="qlogicae\cor\sources\xml_file_io_manager_configurations.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+    <Import Project="$(VCTargetsPath)\BuildCustomizations\masm.targets" />
+  </ImportGroup>
+</Project>

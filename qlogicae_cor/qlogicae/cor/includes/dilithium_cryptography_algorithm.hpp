@@ -1,0 +1,18 @@
+#pragma once
+
+namespace
+	QLOGICAE_COR_V1__BASE__HPP_CPP__COR_NAMESPACE_NAME
+{
+    enum class
+		DilithiumCryptographyAlgorithm :
+			QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_ENUM_INHERITED_TYPE
+    {
+		DILITHIUM_2,
+
+		DILITHIUM_3,
+
+		DILITHIUM_5,
+
+		QLOGICAE_COR_V1__BASE__HPP_CPP__ENUM_CONSTANTS
+    };
+}

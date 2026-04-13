@@ -1,0 +1,18 @@
+#pragma once
+
+namespace
+	QLOGICAE_COR_V1__BASE__HPP_CPP__COR_NAMESPACE_NAME
+{
+    enum class
+		TextEncoding :
+			QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_ENUM_INHERITED_TYPE
+    {
+		BASE16,
+
+		BASE32,
+
+        BASE64,
+
+		QLOGICAE_COR_V1__BASE__HPP_CPP__ENUM_CONSTANTS
+    };
+}
