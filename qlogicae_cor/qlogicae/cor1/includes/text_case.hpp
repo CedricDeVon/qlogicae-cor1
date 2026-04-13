@@ -1,0 +1,22 @@
+#pragma once
+
+namespace
+	QLOGICAE_COR1__BASE__HPP_CPP__COR_NAMESPACE_NAME
+{
+    enum class
+		TextCase :
+			QLOGICAE_COR1__BASE__HPP_CPP__ABSTRACT_ENUM_INHERITED_TYPE
+    {
+        LOWERCASE,
+
+		UPPERCASE,
+
+		CAPITALIZE,
+
+		TITLE,
+
+		SENTENCE,
+
+		QLOGICAE_COR1__BASE__HPP_CPP__ENUM_CONSTANTS
+    };
+}
