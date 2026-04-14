@@ -160,7 +160,7 @@ namespace
 		manager.set_value_via_wstring(L"Value1");
 		manager.set_value(HKEY_CURRENT_USER, manager.configurations.sub_key, L"ExtraKey", L"ExtraValue");
 		auto result = manager.get_values_via_wstring();
-		ASSERT_GE(result.size(), 2);
+		ASSERT_GE(result.size(), static_cast<size_t>(2));
 		ASSERT_EQ(result[manager.configurations.name_key], L"Value1");
 		ASSERT_EQ(result[L"ExtraKey"], L"ExtraValue");
 	}
@@ -170,7 +170,7 @@ namespace
 		manager.set_value_via_string("Value1");
 		manager.set_value(HKEY_CURRENT_USER, manager.configurations.sub_key, L"ExtraKey", L"ExtraValue");
 		auto result = manager.get_values_via_string();
-		ASSERT_GE(result.size(), 2);
+		ASSERT_GE(result.size(), static_cast<size_t>(2));
 		ASSERT_EQ(result["ExtraKey"], "ExtraValue");
 	}
 

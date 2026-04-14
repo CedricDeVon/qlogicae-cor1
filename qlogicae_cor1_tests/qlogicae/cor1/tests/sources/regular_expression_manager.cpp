@@ -1,6 +1,6 @@
 ﻿#include "pch.hpp"
 
-#include "qlogicae_cpp_core/includes/regular_expression_manager.hpp"
+#include "../includes/regular_expression_manager.hpp"
 
 namespace
     QLOGICAE_COR1__BASE__HPP_CPP__COR_TESTS_NAMESPACE_NAME

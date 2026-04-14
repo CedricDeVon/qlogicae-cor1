@@ -9,25 +9,37 @@
       <Configuration>Release</Configuration>
       <Platform>Win32</Platform>
     </ProjectConfiguration>
-    <ProjectConfiguration Include="Debug|x64">
-      <Configuration>Debug</Configuration>
-      <Platform>x64</Platform>
-    </ProjectConfiguration>
     <ProjectConfiguration Include="Release|x64">
       <Configuration>Release</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
+    <ProjectConfiguration Include="Development|Win32">
+      <Configuration>Development</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Development|x64">
+      <Configuration>Development</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{19411956-f069-4cff-8f92-1078faa62423}</ProjectGuid>
+    <ProjectGuid>{15cdb56c-c586-482c-8be8-a3f4c22469f9}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
     <ConfigurationType>Application</ConfigurationType>
     <PlatformToolset>v145</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
+    <ProjectName>qlogicae_cor1_test</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <VCToolsVersion />
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Development|Win32'">
     <VCToolsVersion />
   </PropertyGroup>
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -36,27 +48,44 @@
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <VCToolsVersion />
   </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Development|x64'">
+    <VCToolsVersion />
+  </PropertyGroup>
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <VCToolsVersion />
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
-  <ImportGroup Label="ExtensionSettings" />
+  <ImportGroup Label="ExtensionSettings">
+    <Import Project="$(VCTargetsPath)\BuildCustomizations\masm.props" />
+  </ImportGroup>
   <ImportGroup Label="Shared" />
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\$(ProjectName)\</OutDir>
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Development|x64'">
+    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\$(ProjectName)\</OutDir>
+    <LinkIncremental>
+    </LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\$(ProjectName)\</OutDir>
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\$(ProjectName)\</OutDir>
+    <IntDir>$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Development|Win32'">
     <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\$(ProjectName)\</OutDir>
     <IntDir>$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\$(ProjectName)\</OutDir>
     <IntDir>$(Platform)\$(Configuration)\</IntDir>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\$(ProjectName)\</OutDir>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\$(ProjectName)\</OutDir>
+    <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <ItemDefinitionGroup />
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -64,25 +93,31 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.hpp</PrecompiledHeaderFile>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>NOMINMAX;HASH_LEN=32;WIN32_LEAN_AND_MEAN;PCRE2_CODE_UNIT_WIDTH=8;SALT_LEN=crypto_pwhash_SALTBYTES;_DEBUG;_WIN32;_CONSOLE;_WIN32_WINNT=0x0A00</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NOMINMAX;HASH_LEN=32;WIN32_LEAN_AND_MEAN;PCRE2_CODE_UNIT_WIDTH=8;SALT_LEN=crypto_pwhash_SALTBYTES;ORT_DISABLE_SCHEMA_VALIDATION=1;_DEBUG;_CONSOLE;_WIN32_WINNT=0x0A00;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <AdditionalIncludeDirectories>../qlogicae_cor1;C:\vcpkg\installed\x86-windows\include</AdditionalIncludeDirectories>
-      <SDLCheck>false</SDLCheck>
-      <MultiProcessorCompilation>false</MultiProcessorCompilation>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <StringPooling>false</StringPooling>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <EnableParallelCodeGeneration>false</EnableParallelCodeGeneration>
+      <EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
+      <FloatingPointModel>Default</FloatingPointModel>
+      <ConformanceMode>false</ConformanceMode>
       <UseUnicodeForAssemblerListing>true</UseUnicodeForAssemblerListing>
-      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
-      <FunctionLevelLinking>false</FunctionLevelLinking>
+      <MultiProcessorCompilation>false</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
       <AdditionalLibraryDirectories>$(SolutionDir)$(IntDir)qlogicae_cor1;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>Rpcrt4.lib;qlogicae_cor1.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
+      <EntryPointSymbol>
+      </EntryPointSymbol>
+      <NoEntryPoint>false</NoEntryPoint>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -90,33 +125,73 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.hpp</PrecompiledHeaderFile>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>NOMINMAX;HASH_LEN=32;WIN32_LEAN_AND_MEAN;PCRE2_CODE_UNIT_WIDTH=8;SALT_LEN=crypto_pwhash_SALTBYTES;_DEBUG;_WIN32;_CONSOLE;_WIN32_WINNT=0x0A00</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NOMINMAX;HASH_LEN=32;WIN32_LEAN_AND_MEAN;PCRE2_CODE_UNIT_WIDTH=8;SALT_LEN=crypto_pwhash_SALTBYTES;ORT_DISABLE_SCHEMA_VALIDATION=1;_DEBUG;_CONSOLE;_WIN32_WINNT=0x0A00;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
-      <AdditionalIncludeDirectories>../qlogicae_cor1;C:\vcpkg\installed\x64-windows\include</AdditionalIncludeDirectories>
-      <SDLCheck>false</SDLCheck>
-      <MultiProcessorCompilation>false</MultiProcessorCompilation>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
       <OmitFramePointers>false</OmitFramePointers>
+      <StringPooling>false</StringPooling>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
       <UseUnicodeForAssemblerListing>true</UseUnicodeForAssemblerListing>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
-      <FunctionLevelLinking>false</FunctionLevelLinking>
+      <AdditionalIncludeDirectories>../qlogicae_cor1;C:\vcpkg\installed\x64-windows\include</AdditionalIncludeDirectories>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <MultiProcessorCompilation>false</MultiProcessorCompilation>
+      <EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
+      <FloatingPointModel>Default</FloatingPointModel>
+      <EnableParallelCodeGeneration>false</EnableParallelCodeGeneration>
+      <IntrinsicFunctions>false</IntrinsicFunctions>
+      <FavorSizeOrSpeed>Neither</FavorSizeOrSpeed>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
+      <ConformanceMode>false</ConformanceMode>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
+      <LinkTimeCodeGeneration>
+      </LinkTimeCodeGeneration>
       <AdditionalLibraryDirectories>$(SolutionDir)$(IntDir)qlogicae_cor1;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>Rpcrt4.lib;qlogicae_cor1.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
+      <EntryPointSymbol>
+      </EntryPointSymbol>
+      <NoEntryPoint>false</NoEntryPoint>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Development|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.hpp</PrecompiledHeaderFile>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
+      <UseUnicodeForAssemblerListing>true</UseUnicodeForAssemblerListing>
+      <ConformanceMode>false</ConformanceMode>
+      <MultiProcessorCompilation>false</MultiProcessorCompilation>
+      <AdditionalIncludeDirectories>../qlogicae_cor1;C:\vcpkg\installed\x86-windows\include</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <AdditionalLibraryDirectories>$(SolutionDir)$(IntDir)qlogicae_cor1;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Rpcrt4.lib;qlogicae_cor1.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <EntryPointSymbol>
+      </EntryPointSymbol>
+      <NoEntryPoint>false</NoEntryPoint>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.hpp</PrecompiledHeaderFile>
-      <PreprocessorDefinitions>NOMINMAX;HASH_LEN=32;WIN32_LEAN_AND_MEAN;PCRE2_CODE_UNIT_WIDTH=8;SALT_LEN=crypto_pwhash_SALTBYTES;NDEBUG;_WIN32;_CONSOLE;_WIN32_WINNT=0x0A00</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NOMINMAX;HASH_LEN=32;WIN32_LEAN_AND_MEAN;PCRE2_CODE_UNIT_WIDTH=8;SALT_LEN=crypto_pwhash_SALTBYTES;ORT_DISABLE_SCHEMA_VALIDATION=1;NDEBUG;_CONSOLE;_WIN32_WINNT=0x0A00;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
@@ -126,17 +201,16 @@
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
-      <OmitFramePointers>false</OmitFramePointers>
+      <OmitFramePointers>true</OmitFramePointers>
       <WholeProgramOptimization>true</WholeProgramOptimization>
-      <SDLCheck>false</SDLCheck>
-      <MultiProcessorCompilation>false</MultiProcessorCompilation>
       <StringPooling>true</StringPooling>
-      <FunctionLevelLinking>false</FunctionLevelLinking>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
       <EnableParallelCodeGeneration>true</EnableParallelCodeGeneration>
       <EnableEnhancedInstructionSet>AdvancedVectorExtensions101</EnableEnhancedInstructionSet>
       <FloatingPointModel>Fast</FloatingPointModel>
+      <ConformanceMode>false</ConformanceMode>
       <UseUnicodeForAssemblerListing>true</UseUnicodeForAssemblerListing>
-      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
+      <MultiProcessorCompilation>false</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -146,45 +220,91 @@
       <AdditionalLibraryDirectories>$(SolutionDir)$(IntDir)qlogicae_cor1;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>Rpcrt4.lib;qlogicae_cor1.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
+      <EntryPointSymbol>
+      </EntryPointSymbol>
+      <NoEntryPoint>false</NoEntryPoint>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Development|x64'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.hpp</PrecompiledHeaderFile>
+      <PreprocessorDefinitions>NDEBUG;NOMINMAX;HASH_LEN=32;WIN32_LEAN_AND_MEAN;PCRE2_CODE_UNIT_WIDTH=8;SALT_LEN=crypto_pwhash_SALTBYTES;ORT_DISABLE_SCHEMA_VALIDATION=1;_CONSOLE;_WIN32_WINNT=0x0A00;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <OmitFramePointers>true</OmitFramePointers>
+      <WholeProgramOptimization>true</WholeProgramOptimization>
+      <StringPooling>true</StringPooling>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <UseUnicodeForAssemblerListing>true</UseUnicodeForAssemblerListing>
+      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalIncludeDirectories>../qlogicae_cor1;C:\vcpkg\installed\x64-windows\include</AdditionalIncludeDirectories>
+      <MultiProcessorCompilation>false</MultiProcessorCompilation>
+      <EnableEnhancedInstructionSet>AdvancedVectorExtensions101</EnableEnhancedInstructionSet>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <EnableParallelCodeGeneration>true</EnableParallelCodeGeneration>
+      <ConformanceMode>false</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
+      <AdditionalLibraryDirectories>$(SolutionDir)$(IntDir)qlogicae_cor1;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Rpcrt4.lib;qlogicae_cor1.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <EntryPointSymbol>
+      </EntryPointSymbol>
+      <NoEntryPoint>false</NoEntryPoint>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.hpp</PrecompiledHeaderFile>
-      <PreprocessorDefinitions>NOMINMAX;HASH_LEN=32;WIN32_LEAN_AND_MEAN;PCRE2_CODE_UNIT_WIDTH=8;SALT_LEN=crypto_pwhash_SALTBYTES;NDEBUG;_WIN32;_CONSOLE;_WIN32_WINNT=0x0A00</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NOMINMAX;HASH_LEN=32;WIN32_LEAN_AND_MEAN;PCRE2_CODE_UNIT_WIDTH=8;SALT_LEN=crypto_pwhash_SALTBYTES;ORT_DISABLE_SCHEMA_VALIDATION=1;NDEBUG;_CONSOLE;_WIN32_WINNT=0x0A00;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
-      <AdditionalIncludeDirectories>../qlogicae_cor1;C:\vcpkg\installed\x64-windows\include</AdditionalIncludeDirectories>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
-      <OmitFramePointers>false</OmitFramePointers>
+      <OmitFramePointers>true</OmitFramePointers>
       <WholeProgramOptimization>true</WholeProgramOptimization>
-      <SDLCheck>false</SDLCheck>
-      <MultiProcessorCompilation>false</MultiProcessorCompilation>
       <StringPooling>true</StringPooling>
-      <FunctionLevelLinking>false</FunctionLevelLinking>
-      <EnableParallelCodeGeneration>true</EnableParallelCodeGeneration>
-      <EnableEnhancedInstructionSet>AdvancedVectorExtensions101</EnableEnhancedInstructionSet>
-      <FloatingPointModel>Fast</FloatingPointModel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
       <UseUnicodeForAssemblerListing>true</UseUnicodeForAssemblerListing>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalIncludeDirectories>../qlogicae_cor1;C:\vcpkg\installed\x64-windows\include</AdditionalIncludeDirectories>
+      <MultiProcessorCompilation>false</MultiProcessorCompilation>
+      <EnableEnhancedInstructionSet>AdvancedVectorExtensions101</EnableEnhancedInstructionSet>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <EnableParallelCodeGeneration>true</EnableParallelCodeGeneration>
+      <ConformanceMode>false</ConformanceMode>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
       <AdditionalLibraryDirectories>$(SolutionDir)$(IntDir)qlogicae_cor1;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>Rpcrt4.lib;qlogicae_cor1.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
+      <EntryPointSymbol>
+      </EntryPointSymbol>
+      <NoEntryPoint>false</NoEntryPoint>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="main.hpp" />
     <ClInclude Include="pch.hpp" />
     <ClInclude Include="qlogicae\cor1\tests\includes\abstract_class.hpp" />
     <ClInclude Include="qlogicae\cor1\tests\includes\aes256_cipher_cryptography_manager.hpp" />
@@ -276,124 +396,44 @@
     <ClInclude Include="qlogicae\cor1\tests\resources\application.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="pch.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Development|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="qlogicae\cor1\tests\sources\abstract_class.cpp" />
-    <ClCompile Include="qlogicae\cor1\tests\sources\aes256_cipher_cryptography_manager.cpp" />
     <ClCompile Include="qlogicae\cor1\tests\sources\all.cpp" />
     <ClCompile Include="qlogicae\cor1\tests\sources\application.cpp" />
-    <ClCompile Include="qlogicae\cor1\tests\sources\argon2id_hash_cryptography_manager.cpp" />
     <ClCompile Include="qlogicae\cor1\tests\sources\assembly.cpp" />
-    <ClCompile Include="qlogicae\cor1\tests\sources\asynchronous_batch_manager.cpp" />
-    <ClCompile Include="qlogicae\cor1\tests\sources\asynchronous_manager.cpp" />
-    <ClCompile Include="qlogicae\cor1\tests\sources\bcrypt_hash_cryptography_manager.cpp" />
-    <ClCompile Include="qlogicae\cor1\tests\sources\binary_file_io_manager.cpp" />
-    <ClCompile Include="qlogicae\cor1\tests\sources\character_domain_enum_manager.cpp" />
-    <ClCompile Include="qlogicae\cor1\tests\sources\character_domain_manager.cpp" />
-    <ClCompile Include="qlogicae\cor1\tests\sources\configuration_manager.cpp" />
-    <ClCompile Include="qlogicae\cor1\tests\sources\console_io_manager.cpp" />
-    <ClCompile Include="qlogicae\cor1\tests\sources\console_log_manager.cpp" />
-    <ClCompile Include="qlogicae\cor1\tests\sources\csv_file_io_manager.cpp" />
-    <ClCompile Include="qlogicae\cor1\tests\sources\curl_package_manager.cpp" />
-    <ClCompile Include="qlogicae\cor1\tests\sources\edsca_signature_cryptography_manager.cpp" />
-    <ClCompile Include="qlogicae\cor1\tests\sources\email_body_enum_manager.cpp" />
-    <ClCompile Include="qlogicae\cor1\tests\sources\email_security_enum_manager.cpp" />
-    <ClCompile Include="qlogicae\cor1\tests\sources\entity_activation_manager.cpp" />
-    <ClCompile Include="qlogicae\cor1\tests\sources\entity_activation_status_enum_manager.cpp" />
-    <ClCompile Include="qlogicae\cor1\tests\sources\enum_manager.cpp" />
     <ClCompile Include="qlogicae\cor1\tests\sources\error_manager.cpp" />
-    <ClCompile Include="qlogicae\cor1\tests\sources\excel_file_io_manager.cpp" />
-    <ClCompile Include="qlogicae\cor1\tests\sources\file_log_manager.cpp" />
-    <ClCompile Include="qlogicae\cor1\tests\sources\file_system_entity_enum_manager.cpp" />
-    <ClCompile Include="qlogicae\cor1\tests\sources\file_system_manager.cpp" />
-    <ClCompile Include="qlogicae\cor1\tests\sources\function_wrapper.cpp" />
-    <ClCompile Include="qlogicae\cor1\tests\sources\gmail_api_manager.cpp" />
-    <ClCompile Include="qlogicae\cor1\tests\sources\interval_clock.cpp" />
-    <ClCompile Include="qlogicae\cor1\tests\sources\jsonwebtoken_cryptography_manager.cpp" />
-    <ClCompile Include="qlogicae\cor1\tests\sources\json_file_io_manager.cpp" />
-    <ClCompile Include="qlogicae\cor1\tests\sources\json_text_manager.cpp" />
-    <ClCompile Include="qlogicae\cor1\tests\sources\log_format_enum_manager.cpp" />
-    <ClCompile Include="qlogicae\cor1\tests\sources\log_level_enum_manager.cpp" />
-    <ClCompile Include="qlogicae\cor1\tests\sources\log_medium_enum_manager.cpp" />
-    <ClCompile Include="qlogicae\cor1\tests\sources\log_output_enum_manager.cpp" />
-    <ClCompile Include="qlogicae\cor1\tests\sources\mutex_manager.cpp" />
-    <ClCompile Include="qlogicae\cor1\tests\sources\network_ping_manager.cpp" />
-    <ClCompile Include="qlogicae\cor1\tests\sources\onnx_api_manager.cpp" />
-    <ClCompile Include="qlogicae\cor1\tests\sources\random_character_generation_manager.cpp" />
-    <ClCompile Include="qlogicae\cor1\tests\sources\random_enum_generation_manager.cpp" />
-    <ClCompile Include="qlogicae\cor1\tests\sources\random_number_generation_manager.cpp" />
-    <ClCompile Include="qlogicae\cor1\tests\sources\random_seed_generation_manager.cpp" />
-    <ClCompile Include="qlogicae\cor1\tests\sources\random_string_generation_manager.cpp" />
-    <ClCompile Include="qlogicae\cor1\tests\sources\random_value_generation_manager.cpp" />
-    <ClCompile Include="qlogicae\cor1\tests\sources\regular_expression_manager.cpp" />
-    <ClCompile Include="qlogicae\cor1\tests\sources\rest_api_manager.cpp" />
     <ClCompile Include="qlogicae\cor1\tests\sources\results.cpp" />
     <ClCompile Include="qlogicae\cor1\tests\sources\results_status_enum_manager.cpp" />
-    <ClCompile Include="qlogicae\cor1\tests\sources\rocksdb_database_manager.cpp" />
-    <ClCompile Include="qlogicae\cor1\tests\sources\runtime_execution_manager.cpp" />
-    <ClCompile Include="qlogicae\cor1\tests\sources\sha256_hash_cryptography_manager.cpp" />
     <ClCompile Include="qlogicae\cor1\tests\sources\singleton_manager.cpp" />
-    <ClCompile Include="qlogicae\cor1\tests\sources\sodium_package_manager.cpp" />
-    <ClCompile Include="qlogicae\cor1\tests\sources\temperature_manager.cpp" />
-    <ClCompile Include="qlogicae\cor1\tests\sources\temperature_unit_enum_manager.cpp" />
-    <ClCompile Include="qlogicae\cor1\tests\sources\text_case_enum_manager.cpp" />
-    <ClCompile Include="qlogicae\cor1\tests\sources\text_case_manager.cpp" />
-    <ClCompile Include="qlogicae\cor1\tests\sources\text_encoding_enum_manager.cpp" />
-    <ClCompile Include="qlogicae\cor1\tests\sources\text_encoding_manager.cpp" />
-    <ClCompile Include="qlogicae\cor1\tests\sources\text_error_manager.cpp" />
-    <ClCompile Include="qlogicae\cor1\tests\sources\text_file_io_manager.cpp" />
-    <ClCompile Include="qlogicae\cor1\tests\sources\text_key_path_manager.cpp" />
-    <ClCompile Include="qlogicae\cor1\tests\sources\text_log_manager.cpp" />
-    <ClCompile Include="qlogicae\cor1\tests\sources\text_manager.cpp" />
-    <ClCompile Include="qlogicae\cor1\tests\sources\text_placeholder_manager.cpp" />
-    <ClCompile Include="qlogicae\cor1\tests\sources\timeout_clock.cpp" />
-    <ClCompile Include="qlogicae\cor1\tests\sources\time_format_enum_manager.cpp" />
-    <ClCompile Include="qlogicae\cor1\tests\sources\time_manager.cpp" />
-    <ClCompile Include="qlogicae\cor1\tests\sources\time_scale_unit_enum_manager.cpp" />
-    <ClCompile Include="qlogicae\cor1\tests\sources\time_zone_enum_manager.cpp" />
-    <ClCompile Include="qlogicae\cor1\tests\sources\toml_file_io_manager.cpp" />
-    <ClCompile Include="qlogicae\cor1\tests\sources\uuid_enum_manager.cpp" />
-    <ClCompile Include="qlogicae\cor1\tests\sources\uuid_manager.cpp" />
-    <ClCompile Include="qlogicae\cor1\tests\sources\validation_manager.cpp" />
-    <ClCompile Include="qlogicae\cor1\tests\sources\value_extractor_manager.cpp" />
-    <ClCompile Include="qlogicae\cor1\tests\sources\windows_environment_variable_enum_manager.cpp" />
-    <ClCompile Include="qlogicae\cor1\tests\sources\windows_environment_variable_manager.cpp" />
-    <ClCompile Include="qlogicae\cor1\tests\sources\windows_registry_manager.cpp" />
-    <ClCompile Include="qlogicae\cor1\tests\sources\windows_registry_root_path_enum_manager.cpp" />
-    <ClCompile Include="qlogicae\cor1\tests\sources\windows_system_access_manager.cpp" />
-    <ClCompile Include="qlogicae\cor1\tests\sources\xchacha20_poly1305_cipher_cryptography_manager.cpp" />
-    <ClCompile Include="qlogicae\cor1\tests\sources\xml_file_io_manager.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\qlogicae_cor1\qlogicae_cor1.vcxproj">
-      <Project>{ab122c6b-5279-4209-9755-d3f55c48a94d}</Project>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="model.onnx">
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</DeploymentContent>
       <FileType>Document</FileType>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</DeploymentContent>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
     </CopyFileToFolders>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="qlogicae\cor1\tests\resources\application.rc" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\qlogicae_cor1\qlogicae_cor1.vcxproj">
+      <Project>{ab122c6b-5279-4209-9755-d3f55c48a94d}</Project>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
-    <Import Project="..\packages\Microsoft.googletest.v140.windesktop.msvcstl.static.rt-dyn.1.8.1.8\build\native\Microsoft.googletest.v140.windesktop.msvcstl.static.rt-dyn.targets" Condition="Exists('..\packages\Microsoft.googletest.v140.windesktop.msvcstl.static.rt-dyn.1.8.1.8\build\native\Microsoft.googletest.v140.windesktop.msvcstl.static.rt-dyn.targets')" />
+    <Import Project="..\packages\Microsoft.googletest.v140.windesktop.msvcstl.static.rt-dyn.1.8.1.7\build\native\Microsoft.googletest.v140.windesktop.msvcstl.static.rt-dyn.targets" Condition="Exists('..\packages\Microsoft.googletest.v140.windesktop.msvcstl.static.rt-dyn.1.8.1.7\build\native\Microsoft.googletest.v140.windesktop.msvcstl.static.rt-dyn.targets')" />
+    <Import Project="$(VCTargetsPath)\BuildCustomizations\masm.targets" />
   </ImportGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\Microsoft.googletest.v140.windesktop.msvcstl.static.rt-dyn.1.8.1.8\build\native\Microsoft.googletest.v140.windesktop.msvcstl.static.rt-dyn.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.googletest.v140.windesktop.msvcstl.static.rt-dyn.1.8.1.8\build\native\Microsoft.googletest.v140.windesktop.msvcstl.static.rt-dyn.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.googletest.v140.windesktop.msvcstl.static.rt-dyn.1.8.1.7\build\native\Microsoft.googletest.v140.windesktop.msvcstl.static.rt-dyn.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.googletest.v140.windesktop.msvcstl.static.rt-dyn.1.8.1.7\build\native\Microsoft.googletest.v140.windesktop.msvcstl.static.rt-dyn.targets'))" />
   </Target>
 </Project>

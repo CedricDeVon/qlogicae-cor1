@@ -5,6 +5,7 @@
 namespace
 	QLOGICAE_COR1__BASE__HPP_CPP__COR_TESTS_NAMESPACE_NAME
 {
+#ifdef _M_X64			
 	class OnnxApiManagerTest : public ::testing::Test
 	{
 	public:
@@ -311,4 +312,5 @@ namespace
 		auto results = manager.infer_via_numerics<float>(inputs);
 		ASSERT_EQ(results.size(), manager.output_names_str_.size());
 	}
+#endif
 }

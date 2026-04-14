@@ -5,7 +5,6 @@
 namespace
 	QLOGICAE_COR1__BASE__HPP_CPP__COR_NAMESPACE_NAME
 {        
-#ifdef _M_X64
 	OnnxApiManager
 		::OnnxApiManager() :
 			QLOGICAE_COR1__BASE__HPP_CPP__ABSTRACT_CLASS_NAME<OnnxApiManagerConfigurations>()
@@ -25,6 +24,7 @@ namespace
 				QLOGICAE_COR1__BASE__HPP_CPP__EMPTY_EDGE_CASES
 			);
 
+#ifdef _M_X64
 			session_options_.SetIntraOpNumThreads(1);
 			session_options_.SetGraphOptimizationLevel(
 				ORT_DISABLE_ALL
@@ -87,6 +87,7 @@ namespace
 				output_names_ptrs_[i] =
 					output_names_str_[i].c_str();
 			}
+#endif
 
 			return true;
         }
@@ -144,6 +145,7 @@ namespace
 				!inputs.size()
 			);
 
+#ifdef _M_X64
 			input_tensors_.clear();
 			input_name_ptrs_runtime_.clear();
 
@@ -179,6 +181,7 @@ namespace
 				input_tensors_.push_back(std::move(input_tensor));
 				input_name_ptrs_runtime_.push_back(input_names_ptrs_[i]);
 			}
+#endif
 
 			return
 				true;
@@ -207,6 +210,7 @@ namespace
 			std::unordered_map<std::string,
 			std::vector<std::string>> results;
 
+#ifdef _M_X64
 			for (size_t i = 0; i < output_tensors_.size(); ++i) {
 
 				size_t count =
@@ -240,6 +244,7 @@ namespace
 
 				results[output_names_str_[i]] = std::move(strings);
 			}
+#endif
 
 			return
 				results;
@@ -274,8 +279,11 @@ namespace
 				feature_size < 1
 			);
 
-			std::vector<int64_t> shape =
-				input_shapes_[input_index];
+			std::vector<int64_t> shape;
+
+#ifdef _M_X64
+				shape =
+					input_shapes_[input_index];
 
 			shape[0] = static_cast<int64_t>(batch_size);
 
@@ -291,6 +299,7 @@ namespace
 				static_cast<int64_t>(feature_size /
 					(known_product /
 						shape.back()));
+#endif
 
 			return
 				shape;
@@ -316,6 +325,7 @@ namespace
 				QLOGICAE_COR1__BASE__HPP_CPP__EMPTY_EDGE_CASES
 			);
 
+#ifdef _M_X64			
 			output_tensors_ = session_.Run(
 				Ort::RunOptions{},
 				input_name_ptrs_runtime_.data(),
@@ -324,6 +334,7 @@ namespace
 				output_names_ptrs_.data(),
 				output_names_ptrs_.size()
 			);
+#endif
 
 			return
 				true;
@@ -336,5 +347,4 @@ namespace
 			QLOGICAE_COR1__IMPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE();
         }		
 	}
-#endif
 }

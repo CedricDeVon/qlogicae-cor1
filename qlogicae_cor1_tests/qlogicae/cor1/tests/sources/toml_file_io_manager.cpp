@@ -188,7 +188,7 @@ string_array = ["a", "b", "c"]
 		for (auto& t : threads) t.join();
 
 		auto arr_value = manager.get_value<std::vector<int>>(temp_file.string(), { "section", "array_key" });
-		EXPECT_GE(arr_value.size(), 8);
+		EXPECT_GE(arr_value.size(), static_cast<size_t>(8));
 		int key2_val = manager.get_value<int>(temp_file.string(), { "section", "key2" });
 		EXPECT_TRUE(key2_val % 10 == 0);
 	}
@@ -275,7 +275,7 @@ string_array = ["a", "b", "c"]
 		for (auto& t : threads) t.join();
 
 		auto arr_value = manager.get_value<std::vector<int>>(temp_file.string(), { "section", "array_key" });
-		EXPECT_GE(arr_value.size(), 8);
+		EXPECT_GE(arr_value.size(), static_cast<size_t>(8));
 	}
 
 	TEST_F(TomlFileIoManagerExtendedTest, MixedTypeArrayAppend)

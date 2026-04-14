@@ -390,7 +390,7 @@ namespace
 		ASSERT_EQ(future_result.wait_for(std::chrono::seconds(2)),
 			std::future_status::ready);
 
-		ASSERT_LE(future_result.get().size(), 5);
+		ASSERT_LE(static_cast<size_t>(future_result.get().size()), static_cast<size_t>(5));
 	}
 
 	TEST_F(TextCaseManagerTest,

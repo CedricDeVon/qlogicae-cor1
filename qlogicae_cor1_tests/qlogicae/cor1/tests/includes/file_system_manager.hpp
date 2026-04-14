@@ -1,6 +1,6 @@
 #pragma once
 
-#include "qlogicae_cpp_core/includes/file_system_manager.hpp"
+#include "qlogicae/cor1/includes/file_system_manager.hpp"
 
 #include <Shlwapi.h>
 

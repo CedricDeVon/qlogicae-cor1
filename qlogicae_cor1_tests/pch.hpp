@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #include "qlogicae/cor1/tests/includes/precompiled_headers.hpp"
 

@@ -6,7 +6,6 @@
 namespace
 	QLOGICAE_COR1__BASE__HPP_CPP__COR_NAMESPACE_NAME
 {
-#ifdef _M_X64
     class
 		OnnxApiManager :
 			public QLOGICAE_COR1__BASE__HPP_CPP__ABSTRACT_CLASS_NAME<OnnxApiManagerConfigurations>
@@ -22,6 +21,7 @@ namespace
 			QLOGICAE_COR1__BASE__HPP_CPP__MUTEX_LAYER_3
 		);
 
+#ifdef _M_X64
 		Ort::Env
 			env_ { ORT_LOGGING_LEVEL_WARNING, "default" };
 
@@ -30,6 +30,13 @@ namespace
 
 		Ort::SessionOptions
 			session_options_ {};
+
+		std::vector<Ort::Value>
+			input_tensors_;
+
+		std::vector<Ort::Value>
+			output_tensors_;
+#endif
 
 		std::vector<std::string>
 			input_names_str_;
@@ -48,12 +55,6 @@ namespace
 
 		std::vector<const char*>
 			input_name_ptrs_runtime_;
-
-		std::vector<Ort::Value>
-			input_tensors_;
-
-		std::vector<Ort::Value>
-			output_tensors_;
 
 		std::vector<std::vector<float>>
 			numeric_buffers_;
@@ -161,6 +162,7 @@ namespace
 				!inputs.size()
 			);
 
+#ifdef _M_X64
 			input_tensors_.clear();
 			input_name_ptrs_runtime_.clear();
 			numeric_buffers_.clear();
@@ -216,6 +218,7 @@ namespace
 
 				input_name_ptrs_runtime_.push_back(input_names_ptrs_[i]);
 			}
+#endif
 
 			return
 				true;
@@ -243,6 +246,7 @@ namespace
 
 			std::unordered_map<std::string, std::span<const Type>> results;
 
+#ifdef _M_X64
 			for (size_t i = 0; i < output_tensors_.size(); ++i)
 			{
 				auto type_info =
@@ -258,6 +262,7 @@ namespace
 				results[output_names_str_[i]] =
 					std::span<const Type>(data, count);
 			}
+#endif
 
 			return
 				results;
@@ -273,5 +278,4 @@ namespace
 			);
         }		
 	}
-#endif
 }

@@ -292,18 +292,18 @@ namespace
 
 	TEST_F(FileSystemManagerPathOperationsTest, Should_ReturnFileByteSize)
 	{
-		size_t size_w = file_system_manager.get_file_byte_size(test_file_w);
-		size_t size_s = file_system_manager.get_file_byte_size(test_file_s);
-		EXPECT_GT(size_w, 0);
-		EXPECT_GT(size_s, 0);
+		auto size_w = file_system_manager.get_file_byte_size(test_file_w);
+		auto size_s = file_system_manager.get_file_byte_size(test_file_s);
+		EXPECT_GT(size_w, static_cast<size_t>(0));
+		EXPECT_GT(size_s, static_cast<size_t>(0));
 	}
 
 	TEST_F(FileSystemManagerPathOperationsTest, Should_ReturnFolderByteSize)
 	{
-		size_t size_w = file_system_manager.get_folder_byte_size(test_folder_w.c_str());
-		size_t size_s = file_system_manager.get_folder_byte_size(test_folder_s);
-		EXPECT_GE(size_w, 0);
-		EXPECT_GE(size_s, 0);
+		auto size_w = file_system_manager.get_folder_byte_size(test_folder_w.c_str());
+		auto size_s = file_system_manager.get_folder_byte_size(test_folder_s);
+		EXPECT_GE(size_w, static_cast<size_t>(0));
+		EXPECT_GE(size_s, static_cast<size_t>(0));
 	}
 
 	TEST_F(FileSystemManagerPathOperationsTest, Should_ReturnAbsolutePath)

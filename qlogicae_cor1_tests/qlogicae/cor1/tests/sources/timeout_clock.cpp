@@ -1,6 +1,6 @@
 #include "pch.hpp"
 
-#include "qlogicae_cpp_core/includes/timeout_clock.hpp"
+#include "../includes/timeout_clock.hpp"
 
 namespace
 	QLOGICAE_COR1__BASE__HPP_CPP__COR_TESTS_NAMESPACE_NAME
