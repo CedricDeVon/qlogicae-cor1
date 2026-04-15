@@ -1,5 +1,9 @@
 #include "pch.hpp"
 
+#if QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_CONDITIONS_ENABLED_TEMPLATE( \
+		FULL \
+	)
+
 #include "../includes/excel_file_io_manager.hpp"
 
 namespace
@@ -217,3 +221,5 @@ namespace
 		::testing::Values("", " ", "InvalidCell", "\0")
 	);
 }
+
+#endif

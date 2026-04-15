@@ -1,5 +1,9 @@
 #include "pch.hpp"
 
+#if QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_CONDITIONS_ENABLED_TEMPLATE( \
+		FULL \
+	)
+
 #include "../includes/console_io_manager.hpp"
 
 namespace
@@ -1027,3 +1031,5 @@ namespace
 		EXPECT_NO_THROW(manager.builtin_scan());
 	}
 }
+
+#endif

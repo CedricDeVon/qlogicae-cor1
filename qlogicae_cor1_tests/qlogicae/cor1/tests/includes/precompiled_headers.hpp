@@ -2,6 +2,10 @@
 
 #include "qlogicae/cor1/includes/precompiled_headers.hpp"
 
+#if QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_CONDITIONS_ENABLED_TEMPLATE( \
+		FULL \
+	)
+
 #include <gtest/gtest.h>
 
 #include "qlogicae/cor1/includes/results.hpp"
@@ -96,7 +100,4 @@
 #include "qlogicae/cor1/includes/binary_file_io_manager.hpp"
 #include "qlogicae/cor1/includes/csv_file_io_manager.hpp"
 
-/*
-
-*/
-
+#endif

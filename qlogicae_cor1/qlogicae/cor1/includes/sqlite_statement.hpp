@@ -1,5 +1,9 @@
 #pragma once
 
+#if QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_CONDITIONS_ENABLED_TEMPLATE( \
+		FULL \
+	)
+
 #include "sqlite_row.hpp"
 #include "sqlite_backend.hpp"
 #include "sqlite_exception.hpp"
@@ -200,3 +204,5 @@ namespace
 			);
     };
 }
+
+#endif

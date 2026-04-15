@@ -1,5 +1,9 @@
 #include "pch.hpp"
 
+#if QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_CONDITIONS_ENABLED_TEMPLATE( \
+		FULL \
+	)
+
 #include "../includes/text_encoding_manager.hpp"
 
 namespace
@@ -389,3 +393,5 @@ namespace
 		ASSERT_EQ(encoded_base64, encoding_manager.encode_base64(input));
 	}
 }
+
+#endif

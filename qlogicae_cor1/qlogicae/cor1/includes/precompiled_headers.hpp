@@ -2,6 +2,10 @@
 
 #include "../macros/all.hpp"
 
+#if QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_CONDITIONS_ENABLED_TEMPLATE( \
+		FULL \
+	)
+
 #ifdef _MSC_VER
 #pragma warning(push)
 #pragma warning(disable: 4244)
@@ -29,6 +33,7 @@
 #ifdef _M_X64
 
 #include <onnxruntime/onnxruntime_cxx_api.h> 
+
 #include <folly/init/Init.h> 
 #include <folly/synchronization/MicroSpinLock.h> 
 
@@ -195,3 +200,5 @@ namespace
 {
 
 }
+
+#endif

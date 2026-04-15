@@ -1,5 +1,9 @@
 #pragma once
 
+#if QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_CONDITIONS_ENABLED_TEMPLATE( \
+		FULL \
+	)
+
 #include "abstract_configurations.hpp"
 #include "windows_registry_root_path.hpp"
 
@@ -19,3 +23,5 @@ namespace
 		WindowsRegistryRootPathEnumManagerConfigurations();
 	};
 }
+
+#endif

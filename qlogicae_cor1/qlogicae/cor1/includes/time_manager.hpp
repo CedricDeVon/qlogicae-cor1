@@ -1,5 +1,9 @@
 #pragma once
 
+#if QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_CONDITIONS_ENABLED_TEMPLATE( \
+		FULL \
+	)
+
 #include "time_zone.hpp"
 #include "time_format.hpp"
 #include "abstract_class.hpp"
@@ -613,3 +617,5 @@ namespace
 		}
 	}
 }
+
+#endif

@@ -1,5 +1,9 @@
 #include "pch.hpp"
 
+#if QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_CONDITIONS_ENABLED_TEMPLATE( \
+		FULL \
+	)
+
 #include "../includes/toml_file_io_manager.hpp"
 
 namespace
@@ -284,3 +288,5 @@ string_array = ["a", "b", "c"]
 		EXPECT_TRUE(manager.append_value<double>(temp_file.string(), { "section", "array_key" }, 1.23));
 	}
 }
+
+#endif

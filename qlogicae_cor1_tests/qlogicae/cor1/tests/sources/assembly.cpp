@@ -1,5 +1,9 @@
 ﻿#include "pch.hpp"
 
+#if QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_CONDITIONS_ENABLED_TEMPLATE( \
+		FULL \
+	)
+
 #include "../includes/assembly.hpp"
 
 #ifndef x64_MASM
@@ -14,3 +18,4 @@ namespace
 
 }
 
+#endif

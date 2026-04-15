@@ -1,5 +1,9 @@
 #include "pch.hpp"
 
+#if QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_CONDITIONS_ENABLED_TEMPLATE( \
+		FULL \
+	)
+
 #include "../includes/enum_manager.hpp"
 
 namespace
@@ -236,3 +240,5 @@ namespace
 		EXPECT_EQ(manager.get_none_string(), "None");
 	}
 }
+
+#endif

@@ -1,5 +1,9 @@
 #pragma once
 
+#if QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_CONDITIONS_ENABLED_TEMPLATE( \
+		FULL \
+	)
+
 #include "abstract_class.hpp"
 #include "text_case_manager.hpp"
 #include "text_placeholder_manager_configurations.hpp"
@@ -29,3 +33,5 @@ namespace
 			);
     };    
 }
+
+#endif

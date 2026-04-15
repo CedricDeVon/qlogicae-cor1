@@ -1,5 +1,9 @@
 #pragma once
 
+#if QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_CONDITIONS_ENABLED_TEMPLATE( \
+		FULL \
+	)
+
 #include "abstract_class.hpp"
 #include "entity_activation_status.hpp"
 #include "entity_activation_manager_configurations.hpp"
@@ -49,3 +53,5 @@ namespace
 			clear_entities();		
 	};
 }
+
+#endif

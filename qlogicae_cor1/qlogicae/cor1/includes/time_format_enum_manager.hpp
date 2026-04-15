@@ -1,5 +1,9 @@
 #pragma once
 
+#if QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_CONDITIONS_ENABLED_TEMPLATE( \
+		FULL \
+	)
+
 #include "time_format.hpp"
 #include "enum_manager.hpp"
 #include "abstract_class.hpp"
@@ -34,3 +38,5 @@ namespace
 			convert_string_to_enum();
     };
 }
+
+#endif

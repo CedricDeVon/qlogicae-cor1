@@ -1,5 +1,9 @@
 #pragma once
 
+#if QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_CONDITIONS_ENABLED_TEMPLATE( \
+		FULL \
+	)
+
 #include "file_entity.hpp"
 #include "abstract_class.hpp"
 #include "curl_package_manager.hpp"
@@ -28,3 +32,5 @@ namespace
 			send_email();
 	};
 }
+
+#endif

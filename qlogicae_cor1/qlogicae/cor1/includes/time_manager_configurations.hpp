@@ -1,5 +1,9 @@
 #pragma once
 
+#if QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_CONDITIONS_ENABLED_TEMPLATE( \
+		FULL \
+	)
+
 #include "time_zone.hpp"
 #include "abstract_configurations.hpp"
 
@@ -18,3 +22,5 @@ namespace
 		TimeManagerConfigurations();
 	};
 }
+
+#endif

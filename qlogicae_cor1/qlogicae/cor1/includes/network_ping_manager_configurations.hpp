@@ -1,5 +1,9 @@
 #pragma once
 
+#if QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_CONDITIONS_ENABLED_TEMPLATE( \
+		FULL \
+	)
+
 #include "time_scale_unit.hpp"
 #include "abstract_configurations.hpp"
 #include "network_ping_manager_response.hpp"
@@ -28,3 +32,5 @@ namespace
 		NetworkPingManagerConfigurations();
     };
 }
+
+#endif

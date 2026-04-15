@@ -1,5 +1,9 @@
 #pragma once
 
+#if QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_CONDITIONS_ENABLED_TEMPLATE( \
+		FULL \
+	)
+
 #include "log_level.hpp"
 #include "abstract_class.hpp"
 #include "text_log_manager.hpp"
@@ -77,3 +81,5 @@ namespace
 			log_raw_text();
 	};
 }
+
+#endif

@@ -1,5 +1,9 @@
 #pragma once
 
+#if QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_CONDITIONS_ENABLED_TEMPLATE( \
+		FULL \
+	)
+
 #include "text_manager.hpp"
 #include "abstract_class.hpp"
 #include "regular_key_delete_handler.hpp"
@@ -154,3 +158,5 @@ namespace
 			is_path_found_via_string();
 	};
 }
+
+#endif

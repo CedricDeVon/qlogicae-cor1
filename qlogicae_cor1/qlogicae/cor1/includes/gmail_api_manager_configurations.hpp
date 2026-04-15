@@ -1,5 +1,9 @@
 #pragma once
 
+#if QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_CONDITIONS_ENABLED_TEMPLATE( \
+		FULL \
+	)
+
 #include "email_body.hpp"
 #include "file_entity.hpp"
 #include "email_security.hpp"
@@ -68,3 +72,5 @@ namespace
 		GmailApiManagerConfigurations();
     };
 }
+
+#endif

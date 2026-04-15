@@ -1,5 +1,9 @@
 #pragma once
 
+#if QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_CONDITIONS_ENABLED_TEMPLATE( \
+		FULL \
+	)
+
 #include "character_domain.hpp"
 #include "abstract_configurations.hpp"
 
@@ -23,3 +27,5 @@ namespace
 		RandomStringGenerationManagerConfigurations();
     };
 }
+
+#endif

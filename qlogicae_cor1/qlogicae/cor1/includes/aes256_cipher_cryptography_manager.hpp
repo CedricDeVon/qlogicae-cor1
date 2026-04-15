@@ -1,5 +1,9 @@
 #pragma once
 
+#if QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_CONDITIONS_ENABLED_TEMPLATE( \
+		FULL \
+	)
+
 #include "abstract_class.hpp"
 #include "aes256_cipher_cryptography_manager_configurations.hpp"
 
@@ -34,3 +38,5 @@ namespace
 			);
     };
 }
+
+#endif
