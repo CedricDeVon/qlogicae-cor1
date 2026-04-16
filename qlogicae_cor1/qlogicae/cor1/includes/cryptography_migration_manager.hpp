@@ -16,6 +16,15 @@ namespace
     {
     public:
 		CryptographyMigrationManager();
+
+		bool
+			migrate(
+				const std::function<bool()>&
+					callback
+			);
+
+		bool
+			migrate();
 	};
 }
 

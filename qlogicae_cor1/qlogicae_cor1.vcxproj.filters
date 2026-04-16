@@ -783,6 +783,9 @@
     <ClInclude Include="qlogicae\cor1\macros\in_build_definitions.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\state_manager_item.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -1509,6 +1512,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="qlogicae\cor1\sources\kyber_cryptography_algorithm_enum_manager_configurations.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\state_manager_item.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -509,6 +509,7 @@
     <ClInclude Include="qlogicae\cor1\includes\sqlite_transaction.hpp" />
     <ClInclude Include="qlogicae\cor1\includes\state_manager.hpp" />
     <ClInclude Include="qlogicae\cor1\includes\state_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae\cor1\includes\state_manager_item.hpp" />
     <ClInclude Include="qlogicae\cor1\includes\supabase_api_manager.hpp" />
     <ClInclude Include="qlogicae\cor1\includes\supabase_api_manager_configurations.hpp" />
     <ClInclude Include="qlogicae\cor1\includes\temperature_manager.hpp" />
@@ -764,6 +765,7 @@
     <ClCompile Include="qlogicae\cor1\sources\sodium_package_manager_configurations.cpp" />
     <ClCompile Include="qlogicae\cor1\sources\state_manager.cpp" />
     <ClCompile Include="qlogicae\cor1\sources\state_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae\cor1\sources\state_manager_item.cpp" />
     <ClCompile Include="qlogicae\cor1\sources\supabase_api_manager.cpp" />
     <ClCompile Include="qlogicae\cor1\sources\supabase_api_manager_configurations.cpp" />
     <ClCompile Include="qlogicae\cor1\sources\temperature_manager.cpp" />

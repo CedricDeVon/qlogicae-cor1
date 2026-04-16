@@ -13,7 +13,8 @@ namespace
 		::CryptographyMigrationManagerConfigurations() :
 			QLOGICAE_COR1__BASE__HPP_CPP__ABSTRACT_CONFIGURATIONS_NAME<CryptographyMigrationManagerConfigurations>()
 	{
-		
+		callback =
+			[]() -> bool { return true; };
 	}
 }
 
