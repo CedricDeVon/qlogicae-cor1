@@ -36,13 +36,13 @@ namespace
 		std::unordered_map<std::string,std::any>
 			get(
 				const std::vector<std::string>&
-					keys
+					item_keys
 			);
 
 		std::any
 			get(
 				const std::string&
-					key
+					item_key
 			);
 
 		bool
@@ -80,33 +80,33 @@ namespace
 		bool
 			set(
 				const std::string&
-					key,
+					item_key,
 				const std::any&
-					value
+					item_value
 			);
 
 		bool
 			reset(
 				const std::vector<std::string>&
-					keys
+					item_keys
 			);
 
 		bool
 			reset(
 				const std::string&
-					key
+					item_key
 			);
 
 		bool
 			remove(
 				const std::vector<std::string>&
-					keys
+					item_keys
 			);
 
 		bool
 			remove(
 				const std::string&
-					key
+					item_key
 			);
 
 		bool
