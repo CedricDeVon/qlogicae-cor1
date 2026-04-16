@@ -1,7 +1,7 @@
 #include "pch.hpp"
 
 #if QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_CONDITIONS_ENABLED_TEMPLATE( \
-		FULL \
+		AsynchronousBatchManagerConfigurations \
 	)
 
 #include "../includes/asynchronous_batch_manager_configurations.hpp"

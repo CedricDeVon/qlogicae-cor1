@@ -1,7 +1,7 @@
 #pragma once
 
 #if QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_CONDITIONS_ENABLED_TEMPLATE( \
-		FULL \
+		Argon2idHashCryptographyManager \
 	)
 
 #include "abstract_class.hpp"

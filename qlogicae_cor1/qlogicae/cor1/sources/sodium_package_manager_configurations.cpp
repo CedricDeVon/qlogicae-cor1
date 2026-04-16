@@ -1,7 +1,7 @@
 #include "pch.hpp"
 
 #if QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_CONDITIONS_ENABLED_TEMPLATE( \
-		FULL \
+		SodiumPackageManagerConfigurations \
 	)
 
 #include "../includes/sodium_package_manager_configurations.hpp"

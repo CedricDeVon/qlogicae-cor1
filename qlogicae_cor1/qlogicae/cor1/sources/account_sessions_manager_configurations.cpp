@@ -1,7 +1,7 @@
 #include "pch.hpp"
 
 #if QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_CONDITIONS_ENABLED_TEMPLATE( \
-		FULL \
+		AccountSessionsManagerConfigurations \
 	)
 
 #include "../includes/account_sessions_manager_configurations.hpp"

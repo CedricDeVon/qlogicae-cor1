@@ -1,7 +1,7 @@
 #include "pch.hpp"
 
 #if QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_CONDITIONS_ENABLED_TEMPLATE( \
-		FULL \
+		TimeScaleUnitEnumManager \
 	)
 
 #include "../includes/time_scale_unit_enum_manager.hpp"

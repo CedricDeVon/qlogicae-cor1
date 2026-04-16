@@ -1,7 +1,7 @@
 #include "pch.hpp"
 
 #if QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_CONDITIONS_ENABLED_TEMPLATE( \
-		FULL \
+		XChaCha20Poly1305CipherCryptographyManagerConfigurations \
 	)
 
 #include "../includes/xchacha20_poly1305_cipher_cryptography_manager_configurations.hpp"

@@ -1,7 +1,7 @@
 #include "pch.hpp"
 
 #if QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_CONDITIONS_ENABLED_TEMPLATE( \
-		FULL \
+		LogOutputEnumManagerConfigurations \
 	)
 
 #include "../includes/log_output_enum_manager_configurations.hpp"

@@ -1,7 +1,7 @@
 #include "pch.hpp"
 
 #if QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_CONDITIONS_ENABLED_TEMPLATE( \
-		FULL \
+		Aes256CipherCryptographyManagerConfigurations \
 	)
 
 #include "../includes/aes256_cipher_cryptography_manager_configurations.hpp"
