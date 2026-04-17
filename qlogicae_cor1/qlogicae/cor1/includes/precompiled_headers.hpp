@@ -2,10 +2,6 @@
 
 #include "../macros/all.hpp"
 
-#if QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_CONDITIONS_ENABLED_TEMPLATE( \
-		PrecompiledHeaders \
-	)
-
 #ifdef _MSC_VER
 #pragma warning(push)
 #pragma warning(disable: 4244)
@@ -200,5 +196,3 @@ namespace
 {
 
 }
-
-#endif

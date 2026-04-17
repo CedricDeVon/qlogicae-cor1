@@ -1,7 +1,7 @@
 ﻿#include "pch.hpp"
 
 #if QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_CONDITIONS_ENABLED_TEMPLATE( \
-		ABSTRACT_CLASS \
+		AbstractClass \
 	)
 
 #include "../includes/abstract_class.hpp"
