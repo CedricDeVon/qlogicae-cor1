@@ -24,7 +24,7 @@ namespace
 				{};
 
 		std::unordered_map<std::string, std::function<std::any()>>
-			callbacks =
+			signals =
 				{};
 	};
 }

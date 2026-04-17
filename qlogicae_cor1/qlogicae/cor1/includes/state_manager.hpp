@@ -48,7 +48,7 @@ namespace
 		bool
 			signal(
 				const std::unordered_map<std::string, std::vector<std::string>>&
-					items
+					target_items
 			);
 
 		bool
@@ -62,7 +62,7 @@ namespace
 				const std::string&
 					item_key,
 				const std::vector<std::string>&
-					action_keys
+					signal_keys
 			);
 
 		bool

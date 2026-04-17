@@ -287,75 +287,13 @@
 	)
 
 
-/*
 
-TODO:
-- macros enum derived value type /
-- macros enum constants /
-- macros struct derived value type /
-- refactor macros file system /
-	- pre_build_checks /
-- macros class derived /
-- remove default methods /
-- macros singleton /
-- supabase api .hpp /
-- state manager .hpp /
-- account session manager .hpp /
-- kyber .hpp /
-- dilithium .hpp /
+#define QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE(name) \
+    QLOGICAE_COR1__BASE__HPP_CPP__##name##__IS_COMPILATION_ENABLED \
 
-- file io batch operations *
+#define QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_CONDITIONS_ENABLED_TEMPLATE(name) \
+    QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE(Full) || \
+    QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE(name)
 
-
-#define QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CLASS_DERIVIATION_STATEMENT(derived_type) \
-	public AbstractClass<derived_type> \
-
-#define QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CLASS_DERIVIATION_STATEMENT(derived_type) \
-	AbstractClass<derived_type>() \
-
-
-
-#define QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CONFIGURATIONS_DERIVIATION_STATEMENT(derived_type) \
-	AbstractConfigurations<derived_type> \
-
-#define QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CONFIGURATIONS_DERIVIATION_STATEMENT(derived_type) \
-	AbstractConfigurations<derived_type>() \
-
-
-
-#define QLOGICAE_COR_V1__BASE__HPP_CPP__EMAIL_BODY_ENUM_CONSTANTS(first_statement, middle_statement, final_statement) \
-	first_statement(EmailBody, HTML) \
-	middle_statement(EmailBody, PLAIN) \
-	final_statement(EmailBody, NONE) \
-
-#define QLOGICAE_COR_V1__BASE__HPP__ENUM_TEMPLATE(enum_name, ...) \
-	enum class \
-		enum_name : \
-			uint8_t \
-	{ \
-		__VA_ARGS__, \
-\
-		QLOGICAE_COR1__BASE__HPP_CPP__ENUM_CONSTANTS \
-	}; \
-
-#define QLOGICAE_COR_V1__BASE__HPP__IMPLEMENTED_CONFIGURATIONS_TEMPLATE(configurations_name, ...) \
-	struct \
-		configurations_name : \
-			AbstractConfigurations<configurations_name> \
-	{ \
-	public: \
-		__VA_ARGS__ \
-\
-		configurations_name(); \
-	}; \
-
-#define QLOGICAE_COR_V1__BASE__CPP__IMPLEMENTED_CONFIGURATIONS_TEMPLATE(configurations_name) \
-	configurations_name \
-		::configurations_name() : \
-			AbstractConfigurations<configurations_name>() \
-	{ \
-\
-	} \
-
-
-*/
+#define QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE(...) \
+    QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE(Full) || (__VA_ARGS__) \

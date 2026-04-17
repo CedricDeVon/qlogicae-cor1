@@ -20,7 +20,7 @@ namespace
 		StateManager
 			::add(
 				const std::vector<StateManagerItem>&
-					items
+					new_items
 			)
 	{
 		try
@@ -28,8 +28,17 @@ namespace
 			QLOGICAE_COR1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
 			(
 				QLOGICAE_COR1__BASE__HPP_CPP__MUTEX_LAYER_1,
-				items.empty()
+				new_items.empty()
 			);
+
+			for (const auto& new_item : new_items)
+			{				
+				if (items.contains(new_item.key))
+				{
+					items[new_item.key] =
+						new_item;
+				}					
+			}
 
 			return
 				true;
@@ -55,8 +64,11 @@ namespace
 			QLOGICAE_COR1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
 			(
 				QLOGICAE_COR1__BASE__HPP_CPP__MUTEX_LAYER_1,
-				QLOGICAE_COR1__BASE__HPP_CPP__EMPTY_EDGE_CASES
+				items.contains(item.key)
 			);
+
+			items[item.key] =
+				item;
 
 			return
 				true;
@@ -70,7 +82,7 @@ namespace
 		}
 	}
 
-	std::unordered_map<std::string,std::any>
+	std::unordered_map<std::string, std::any>
 		StateManager
 			::get(
 				const std::vector<std::string>&
@@ -85,8 +97,18 @@ namespace
 				item_keys.empty()
 			);
 
+			std::unordered_map<std::string,std::any>
+				results;
+
+			for (const auto& item_key : item_keys)
+			{	
+				results[item_key] =
+					items[item_key]
+						.current_value;
+			}
+
 			return
-				{};
+				results;
 		}
 		catch
 		(
@@ -113,7 +135,8 @@ namespace
 			);
 
 			return
-				true;
+				items[item_key]
+					.current_value;
 		}
 		catch
 		(
@@ -128,7 +151,7 @@ namespace
 		StateManager
 			::signal(
 				const std::unordered_map<std::string, std::vector<std::string>>&
-					items
+					target_items
 			)
 	{
 		try
@@ -136,8 +159,19 @@ namespace
 			QLOGICAE_COR1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
 			(
 				QLOGICAE_COR1__BASE__HPP_CPP__MUTEX_LAYER_1,
-				items.empty()
+				target_items.empty()
 			);
+
+			for (const auto& [item_key, signal_keys] : target_items)
+			{				
+				for (const auto& signal_key : signal_keys)
+				{				
+					if (items[item_key].signals.contains(signal_key))
+					{
+						items[item_key].signals[signal_key]();
+					}
+				}
+			}
 
 			return
 				true;
@@ -166,6 +200,17 @@ namespace
 				item_keys.empty()
 			);
 
+			for (const auto& item_key : item_keys)
+			{				
+				for (const auto& [signal_key, signal_method] : items[item_key].signals)
+				{				
+					if (signal_method)
+					{
+						signal_method();
+					}
+				}
+			}
+
 			return
 				true;
 		}
@@ -184,7 +229,7 @@ namespace
 				const std::string&
 					item_key,
 				const std::vector<std::string>&
-					action_keys
+					signal_keys
 			)
 	{
 		try
@@ -193,8 +238,17 @@ namespace
 			(
 				QLOGICAE_COR1__BASE__HPP_CPP__MUTEX_LAYER_1,
 				item_key.empty() ||
-				action_keys.empty()
+				signal_keys.empty() ||
+				!items.contains(item_key)
 			);
+
+			for (const auto& signal_key : signal_keys)
+			{				
+				if (items[item_key].signals.contains(signal_key))
+				{
+					items[item_key].signals[signal_key]();
+				}
+			}
 
 			return
 				true;
@@ -220,8 +274,17 @@ namespace
 			QLOGICAE_COR1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
 			(
 				QLOGICAE_COR1__BASE__HPP_CPP__MUTEX_LAYER_1,
-				item_key.empty()
+				item_key.empty() ||
+				!items.contains(item_key)
 			);
+
+			for (const auto& [signal_key, signal_method] : items[item_key].signals)
+			{
+				if (signal_method)
+				{
+					signal_method();
+				}				
+			}
 
 			return
 				true;
@@ -239,7 +302,7 @@ namespace
 		StateManager
 			::set(
 				const std::unordered_map<std::string, std::any>&
-					items
+					new_items
 			)
 	{
 		try
@@ -247,8 +310,17 @@ namespace
 			QLOGICAE_COR1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
 			(
 				QLOGICAE_COR1__BASE__HPP_CPP__MUTEX_LAYER_1,
-				items.empty()
+				new_items.empty()
 			);
+
+			for (const auto& [new_item_key, new_item_value] : new_items)
+			{
+				if (items.contains(new_item_key))
+				{
+					items[new_item_key].current_value =
+						new_item_value;
+				}				
+			}
 
 			return
 				true;
@@ -276,8 +348,12 @@ namespace
 			QLOGICAE_COR1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
 			(
 				QLOGICAE_COR1__BASE__HPP_CPP__MUTEX_LAYER_1,
-				item_key.empty()
+				item_key.empty() ||
+				!items.contains(item_key)
 			);
+
+			items[item_key].current_value =
+				item_value;
 
 			return
 				true;
@@ -306,6 +382,15 @@ namespace
 				item_keys.empty()
 			);
 
+			for (const auto& item_key : item_keys)
+			{
+				if (items.contains(item_key))
+				{
+					items[item_key].current_value =
+						items[item_key].initial_value;
+				}				
+			}
+			
 			return
 				true;
 		}
@@ -330,8 +415,12 @@ namespace
 			QLOGICAE_COR1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
 			(
 				QLOGICAE_COR1__BASE__HPP_CPP__MUTEX_LAYER_1,
-				item_key.empty()
+				item_key.empty() ||
+				!items.contains(item_key)
 			);
+
+			items[item_key].current_value =
+				items[item_key].initial_value;
 
 			return
 				true;
@@ -360,6 +449,14 @@ namespace
 				item_keys.empty()
 			);
 
+			for (const auto& item_key : item_keys)
+			{
+				if (items.contains(item_key))
+				{
+					items.erase(item_key);
+				}				
+			}
+			
 			return
 				true;
 		}
@@ -384,8 +481,12 @@ namespace
 			QLOGICAE_COR1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
 			(
 				QLOGICAE_COR1__BASE__HPP_CPP__MUTEX_LAYER_1,
-				item_key.empty()
+				item_key.empty() ||
+				!items.contains(item_key)
 			);
+
+			items
+				.erase(item_key);
 
 			return
 				true;
@@ -408,8 +509,11 @@ namespace
 			QLOGICAE_COR1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
 			(
 				QLOGICAE_COR1__BASE__HPP_CPP__MUTEX_LAYER_1,
-				QLOGICAE_COR1__BASE__HPP_CPP__EMPTY_EDGE_CASES
+				!items.size()
 			);
+
+			items
+				.clear();
 
 			return
 				true;

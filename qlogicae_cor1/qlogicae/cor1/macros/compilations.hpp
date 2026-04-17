@@ -1,16 +1,11 @@
 #pragma once
 
-#include "../macros/all.hpp"
-
-#ifdef _MSC_VER
-#pragma warning(push)
-#pragma warning(disable: 4244)
-#endif
-
 #include <jwt-cpp/jwt.h> 
 
 #ifdef _MSC_VER
+
 #pragma warning(pop)
+
 #endif
 
 #include <pcre2.h> 
@@ -190,9 +185,3 @@
 #include <shellapi.h>
 
 #include <immintrin.h>
-
-namespace
-	QLOGICAE_COR1__BASE__HPP_CPP__COR_NAMESPACE_NAME
-{
-
-}

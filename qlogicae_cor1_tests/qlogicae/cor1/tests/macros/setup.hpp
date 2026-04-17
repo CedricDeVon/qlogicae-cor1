@@ -1,10 +1,6 @@
 #pragma once
 
-#include "qlogicae/cor1/includes/precompiled_headers.hpp"
-
-#if QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_CONDITIONS_ENABLED_TEMPLATE( \
-		FULL \
-	)
+#include "qlogicae/cor1/macros/setup.hpp"
 
 #include <gtest/gtest.h>
 
@@ -14,7 +10,6 @@
 #include "qlogicae/cor1/includes/singleton_manager.hpp"
 #include "qlogicae/cor1/includes/asynchronous_manager.hpp"
 #include "qlogicae/cor1/includes/results_status_enum_manager.hpp"
-
 #include "qlogicae/cor1/includes/aes256_cipher_cryptography_manager.hpp"
 #include "qlogicae/cor1/includes/argon2id_hash_cryptography_manager.hpp"
 #include "qlogicae/cor1/includes/asynchronous_batch_manager.hpp"
@@ -55,7 +50,6 @@
 #include "qlogicae/cor1/includes/random_value_generation_manager.hpp"
 #include "qlogicae/cor1/includes/regular_expression_manager.hpp"
 #include "qlogicae/cor1/includes/rest_api_manager.hpp"
-
 #include "qlogicae/cor1/includes/rocksdb_database_manager.hpp"
 #include "qlogicae/cor1/includes/toml_file_io_manager.hpp"
 #include "qlogicae/cor1/includes/runtime_execution_manager.hpp"
@@ -99,5 +93,3 @@
 #include "qlogicae/cor1/includes/xml_file_io_manager.hpp"
 #include "qlogicae/cor1/includes/binary_file_io_manager.hpp"
 #include "qlogicae/cor1/includes/csv_file_io_manager.hpp"
-
-#endif

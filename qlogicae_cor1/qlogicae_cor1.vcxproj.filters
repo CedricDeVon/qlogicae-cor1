@@ -714,12 +714,6 @@
     <ClInclude Include="qlogicae\cor1\includes\entity_activation_status_enum_manager_configurations.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="qlogicae\cor1\macros\all.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\macros\pre_build_checks.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="qlogicae\cor1\includes\account_sessions_manager.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -774,16 +768,22 @@
     <ClInclude Include="qlogicae\cor1\includes\kyber_cryptography_algorithm_enum_manager_configurations.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\precompiled_headers.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\macros\pre_build_definitions.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\macros\in_build_definitions.hpp">
+    <ClInclude Include="qlogicae\cor1\macros\setup.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="qlogicae\cor1\includes\state_manager_item.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\macros\definitions.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\macros\checks.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\macros\configurations.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\macros\compilations.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

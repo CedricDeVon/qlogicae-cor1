@@ -1,40 +1,12 @@
 #pragma once
 
-// Visual Studio 2026
+#if QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE(Full)
+#define QLOGICAE_COR1__BASE__HPP_CPP__Full__IS_COMPILATION_ENABLED 1
 
-#ifndef NOMINMAX
-#define NOMINMAX
+#else
+#define QLOGICAE_COR1__BASE__HPP_CPP__Full__IS_COMPILATION_ENABLED 0
+
 #endif
-
-#ifndef WIN32_LEAN_AND_MEAN
-#define WIN32_LEAN_AND_MEAN
-#endif
-
-#ifndef HASH_LEN
-#define HASH_LEN 32
-#endif
-
-#ifndef _WIN32_WINNT
-#define _WIN32_WINNT 0x0A00
-#endif
-
-/*
-
-*/
-
-// 1
-
-#define QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE(name) \
-    QLOGICAE_COR1__BASE__HPP_CPP__##name##__IS_COMPILATION_ENABLED \
-
-#define QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_CONDITIONS_ENABLED_TEMPLATE(name) \
-    QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE(All) || \
-    QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE(name)
-
-#define QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE(...) \
-    QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE(All) || (__VA_ARGS__) \
-
-
 
 #if QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE(All)
 #define QLOGICAE_COR1__BASE__HPP_CPP__All__IS_COMPILATION_ENABLED 1
@@ -961,14 +933,6 @@
 
 #else
 #define QLOGICAE_COR1__BASE__HPP_CPP__PdfFileIoManagerConfigurations__IS_COMPILATION_ENABLED 0
-
-#endif
-
-#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE(QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE(PrecompiledHeaders))
-#define QLOGICAE_COR1__BASE__HPP_CPP__PrecompiledHeaders__IS_COMPILATION_ENABLED 1
-
-#else
-#define QLOGICAE_COR1__BASE__HPP_CPP__PrecompiledHeaders__IS_COMPILATION_ENABLED 0
 
 #endif
 
@@ -2044,7 +2008,23 @@
 
 #endif
 
-// Vcpkg
+
+
+#ifndef NOMINMAX
+#define NOMINMAX
+#endif
+
+#ifndef WIN32_LEAN_AND_MEAN
+#define WIN32_LEAN_AND_MEAN
+#endif
+
+#ifndef HASH_LEN
+#define HASH_LEN 32
+#endif
+
+#ifndef _WIN32_WINNT
+#define _WIN32_WINNT 0x0A00
+#endif
 
 
 
@@ -2060,31 +2040,12 @@
 #define SALT_LEN crypto_pwhash_SALTBYTES
 #endif
 
-/*
 
-// 2
 
-- VS2026 Precompiled definitions
-- Define definitions if empty
-- Modify definitions
-- imports
+#ifdef _MSC_VER
 
-#ifdef _M_X64
-    // x64 build
-#elif defined(_M_IX86)
-    // x86 build
-#else
-    // other (ARM, etc.)
+#pragma warning(push)
+#pragma warning(disable: 4244)
+
 #endif
 
-
-
-#ifdef _WIN32
-    // Windows code
-#endif
-
-#ifdef _WIN64
-    // x64-only Windows code
-#endif
-
-*/
