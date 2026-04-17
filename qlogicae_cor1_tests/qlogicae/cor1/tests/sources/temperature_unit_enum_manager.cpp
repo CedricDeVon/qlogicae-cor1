@@ -1,35 +1,14 @@
 #include "pch.hpp"
 
 #if QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_CONDITIONS_ENABLED_TEMPLATE( \
-		FULL \
+		TemperatureUnitEnumManager \
 	)
 
 #include "../includes/temperature_unit_enum_manager.hpp"
 
 namespace
 	QLOGICAE_COR1__BASE__HPP_CPP__COR_TESTS_NAMESPACE_NAME
-{
-	class TemperatureUnitEnumManagerTest :
-		public ::testing::Test
-	{
-	public:
-		TemperatureUnitEnumManager manager;
-
-		void
-			SetUp() override
-		{
-			manager.construct();
-			manager.reset();
-		}
-
-		void
-			TearDown() override
-		{
-			manager.destruct();
-			manager.reset();
-		}
-	};
-
+{	
 	TEST_F(TemperatureUnitEnumManagerTest, Should_ReturnNone_When_InvalidString)
 	{
 		std::string invalid_string = "INVALID_VALUE";
@@ -136,12 +115,6 @@ namespace
 		EXPECT_EQ(&first_instance, &second_instance);
 	}
 
-	class TemperatureUnitEnumManagerParameterizedTest :
-		public TemperatureUnitEnumManagerTest,
-		public ::testing::WithParamInterface<std::pair<std::string, TemperatureUnit>>
-	{
-	};
-
 	INSTANTIATE_TEST_CASE_P(
 		StringToEnumConversions,
 		TemperatureUnitEnumManagerParameterizedTest,
@@ -164,12 +137,6 @@ namespace
 		TemperatureUnit result = manager.convert_string_to_enum(input);
 		EXPECT_EQ(result, expected);
 	}
-
-	class TemperatureUnitEnumManagerEnumToStringParameterizedTest :
-		public TemperatureUnitEnumManagerTest,
-		public ::testing::WithParamInterface<TemperatureUnit>
-	{
-	};
 
 	INSTANTIATE_TEST_CASE_P(
 		EnumToStringConversions,

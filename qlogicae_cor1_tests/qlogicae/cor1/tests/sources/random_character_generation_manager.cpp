@@ -1,37 +1,14 @@
 #include "pch.hpp"
 
 #if QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_CONDITIONS_ENABLED_TEMPLATE( \
-		FULL \
+		RandomCharacterGenerationManager \
 	)
 
 #include "../includes/random_character_generation_manager.hpp"
 
 namespace
 	QLOGICAE_COR1__BASE__HPP_CPP__COR_TESTS_NAMESPACE_NAME
-{
-	class RandomCharacterGenerationManagerTest :
-		public ::testing::Test
-	{
-	public:
-		RandomCharacterGenerationManagerTest()
-		{
-		}
-
-		RandomCharacterGenerationManager manager_instance;
-	};
-
-	class ParameterizedDomainTest :
-		public RandomCharacterGenerationManagerTest,
-		public ::testing::WithParamInterface<int>
-	{
-	};
-
-	class ParameterizedValidDomainTest :
-		public RandomCharacterGenerationManagerTest,
-		public ::testing::WithParamInterface<CharacterDomain>
-	{
-	};
-
+{	
 	TEST_F(
 		RandomCharacterGenerationManagerTest,
 		Should_ReturnDefault_When_DomainEmpty

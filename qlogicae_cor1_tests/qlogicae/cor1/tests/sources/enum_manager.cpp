@@ -1,35 +1,14 @@
 #include "pch.hpp"
 
 #if QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_CONDITIONS_ENABLED_TEMPLATE( \
-		FULL \
+		EnumManager \
 	)
 
 #include "../includes/enum_manager.hpp"
 
 namespace
 	QLOGICAE_COR1__BASE__HPP_CPP__COR_TESTS_NAMESPACE_NAME
-{
-	class EnumManagerTest :
-		public ::testing::Test
-	{
-	public:
-		EnumManager manager;
-
-		void
-			SetUp() override
-		{
-			manager.construct();
-			manager.reset();
-		}
-
-		void
-			TearDown() override
-		{
-			manager.destruct();
-			manager.reset();
-		}
-	};
-
+{	
 	TEST_F(EnumManagerTest, Should_ReturnOriginalValue_When_RuntimeExecutionDisabled)
 	{
 		EnumManagerConfigurations configurations;
@@ -88,7 +67,7 @@ namespace
 
 	TEST_F(EnumManagerTest, Should_HandleExceptionGracefully)
 	{
-		class ExceptionThrower : public EnumManager
+		class EnumManagerExceptionThrower : public EnumManager
 		{
 		public:
 			std::string convert_enum_string(
@@ -100,7 +79,7 @@ namespace
 			}
 		};
 
-		ExceptionThrower test_manager;
+		EnumManagerExceptionThrower test_manager;
 		std::string value = "value";
 		EXPECT_THROW(test_manager.convert_enum_string(value, TextCase::UPPERCASE, TextCase::UPPERCASE), std::runtime_error);
 	}

@@ -1,7 +1,7 @@
 #include "pch.hpp"
 
 #if QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_CONDITIONS_ENABLED_TEMPLATE( \
-		FULL \
+		NetworkPingManager \
 	)
 
 #include "../includes/network_ping_manager.hpp"
@@ -9,27 +9,6 @@
 namespace
 	QLOGICAE_COR1__BASE__HPP_CPP__COR_TESTS_NAMESPACE_NAME
 {
-    struct NetworkPingManagerTestParam
-    {
-        std::string host_address;
-    };
-
-    class NetworkPingManagerTest : public ::testing::Test
-    {
-    public:
-        NetworkPingManager manager;
-
-        void SetUp() override
-        {
-            manager.construct();
-        }
-
-        void TearDown() override
-        {
-            manager.destruct();
-        }
-    };
-
     TEST_F(NetworkPingManagerTest, Should_ReturnZero_When_RuntimeDisabled)
     {
         manager.configurations.is_feature_runtime_execution_handling_enabled = false;
@@ -92,9 +71,6 @@ namespace
         EXPECT_GE(result.roundtrip_duration, 0);
     }
 
-    class NetworkPingManagerParameterizedTest : public NetworkPingManagerTest,
-        public ::testing::WithParamInterface<NetworkPingManagerTestParam> {};
-
     INSTANTIATE_TEST_CASE_P(
         HostVariations,
         NetworkPingManagerParameterizedTest,
@@ -146,8 +122,6 @@ namespace
         }
     }
 
-	struct NetworkPingManagerAsyncTest : public NetworkPingManagerTest {};
-
 	TEST_F(NetworkPingManagerAsyncTest, Should_HandleTcpPingAsync)
 	{
 		manager.configurations.is_feature_thread_safety_handling_enabled = true;
@@ -160,9 +134,6 @@ namespace
 		auto result = future_ping.get();
 		EXPECT_GT(result.roundtrip_duration, 0);
 	}
-
-	struct NetworkPingManagerInvalidHostTest : public NetworkPingManagerTest, 
-		public ::testing::WithParamInterface<NetworkPingManagerTestParam> {};
 
 	INSTANTIATE_TEST_CASE_P(
 		InvalidHosts,
@@ -190,8 +161,6 @@ namespace
 		EXPECT_EQ(result.receive_duration, 0);
 	}
 
-	struct NetworkPingManagerTimeoutTest : public NetworkPingManagerTest {};
-
 	TEST_F(NetworkPingManagerTimeoutTest, Should_HandleTcpPingTimeout)
 	{
 		manager.configurations.timeout = std::chrono::milliseconds {1};
@@ -200,8 +169,6 @@ namespace
 		EXPECT_EQ(result.sent_duration, 0);
 		EXPECT_EQ(result.receive_duration, 0);
 	}
-
-	struct NetworkPingManagerTimeScaleUnitTest : public NetworkPingManagerTest {};
 
 	TEST_F(NetworkPingManagerTimeScaleUnitTest, Should_ScaleDurations_AllUnits)
 	{

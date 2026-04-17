@@ -1,33 +1,14 @@
 #include "pch.hpp"
 
 #if QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_CONDITIONS_ENABLED_TEMPLATE( \
-		FULL \
+		CurlPackageManager \
 	)
 
 #include "../includes/curl_package_manager.hpp"
 
 namespace
 	QLOGICAE_COR1__BASE__HPP_CPP__COR_TESTS_NAMESPACE_NAME
-{
-	class CurlPackageManagerTest :
-		public ::testing::Test
-	{
-	public:
-		CurlPackageManagerTest()
-		{
-			manager.reset();
-		}
-
-		CurlPackageManager
-			manager;
-	};
-
-	class CurlPackageManagerParameterizedTest :
-		public CurlPackageManagerTest,
-		public ::testing::WithParamInterface<bool>
-	{
-	};
-
+{	
 	TEST_F(CurlPackageManagerTest, Should_ReturnTrue_When_SetupWithDefaultConfigurations)
 	{
 		ASSERT_TRUE(manager.setup());
@@ -337,12 +318,6 @@ namespace
 			ASSERT_TRUE(manager.setup());
 		}
 	}
-
-	class CurlPackageManagerParameterizedInvalidTest :
-		public CurlPackageManagerTest,
-		public ::testing::WithParamInterface<CurlPackageManagerConfigurations>
-	{
-	};
 
 	INSTANTIATE_TEST_CASE_P(
 		CurlPackageManagerParameterizedInvalid,

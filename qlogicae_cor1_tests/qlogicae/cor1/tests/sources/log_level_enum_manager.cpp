@@ -1,35 +1,14 @@
 #include "pch.hpp"
 
 #if QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_CONDITIONS_ENABLED_TEMPLATE( \
-		FULL \
+		LogLevelEnumManager \
 	)
 
 #include "../includes/log_level_enum_manager.hpp"
 
 namespace
 	QLOGICAE_COR1__BASE__HPP_CPP__COR_TESTS_NAMESPACE_NAME
-{
-	class LogLevelEnumManagerTest :
-		public ::testing::Test
-	{
-	public:
-		LogLevelEnumManager manager;
-
-		void
-			SetUp() override
-		{
-			manager.construct();
-			manager.reset();
-		}
-
-		void
-			TearDown() override
-		{
-			manager.destruct();
-			manager.reset();
-		}
-	};
-
+{	
 	TEST_F(LogLevelEnumManagerTest, Should_ReturnNone_When_InvalidString)
 	{
 		std::string invalid_string = "INVALID_VALUE";
@@ -136,12 +115,6 @@ namespace
 		EXPECT_EQ(&first_instance, &second_instance);
 	}
 
-	class LogLevelEnumManagerParameterizedTest :
-		public LogLevelEnumManagerTest,
-		public ::testing::WithParamInterface<std::pair<std::string, LogLevel>>
-	{
-	};
-
 	INSTANTIATE_TEST_CASE_P(
 		StringToEnumConversions,
 		LogLevelEnumManagerParameterizedTest,
@@ -169,12 +142,6 @@ namespace
 		LogLevel result = manager.convert_string_to_enum(input);
 		EXPECT_EQ(result, expected);
 	}
-
-	class LogLevelEnumManagerEnumToStringParameterizedTest :
-		public LogLevelEnumManagerTest,
-		public ::testing::WithParamInterface<LogLevel>
-	{
-	};
 
 	INSTANTIATE_TEST_CASE_P(
 		EnumToStringConversions,

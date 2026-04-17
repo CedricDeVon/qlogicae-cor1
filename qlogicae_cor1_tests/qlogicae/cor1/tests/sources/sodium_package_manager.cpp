@@ -1,33 +1,14 @@
 #include "pch.hpp"
 
 #if QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_CONDITIONS_ENABLED_TEMPLATE( \
-		FULL \
+		SodiumPackageManager \
 	)
 
 #include "../includes/sodium_package_manager.hpp"
 
 namespace
 	QLOGICAE_COR1__BASE__HPP_CPP__COR_TESTS_NAMESPACE_NAME
-{
-	class SodiumPackageManagerTest :
-		public ::testing::Test
-	{
-	public:
-		SodiumPackageManagerTest()
-		{
-			manager.reset();
-		}
-
-		SodiumPackageManager
-			manager;
-	};
-
-	class SodiumPackageManagerParameterizedTest :
-		public SodiumPackageManagerTest,
-		public ::testing::WithParamInterface<bool>
-	{
-	};
-
+{	
 	TEST_F(SodiumPackageManagerTest, Should_ReturnTrue_When_SetupWithDefaultConfigurations)
 	{
 		ASSERT_TRUE(manager.setup());
@@ -337,12 +318,6 @@ namespace
 			ASSERT_TRUE(manager.setup());
 		}
 	}
-
-	class SodiumPackageManagerParameterizedInvalidTest :
-		public SodiumPackageManagerTest,
-		public ::testing::WithParamInterface<SodiumPackageManagerConfigurations>
-	{
-	};
 
 	INSTANTIATE_TEST_CASE_P(
 		SodiumPackageManagerParameterizedInvalid,

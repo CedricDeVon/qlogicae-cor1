@@ -1,35 +1,14 @@
 #include "pch.hpp"
 
 #if QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_CONDITIONS_ENABLED_TEMPLATE( \
-		FULL \
+		ResultsStatusEnumManager \
 	)
 
 #include "../includes/results_status_enum_manager.hpp"
 
 namespace
 	QLOGICAE_COR1__BASE__HPP_CPP__COR_TESTS_NAMESPACE_NAME
-{
-	class ResultsStatusEnumManagerTest :
-		public ::testing::Test
-	{
-	public:
-		ResultsStatusEnumManager manager;
-
-		void
-			SetUp() override
-		{
-			manager.construct();
-			manager.reset();
-		}
-
-		void
-			TearDown() override
-		{
-			manager.destruct();
-			manager.reset();
-		}
-	};
-
+{	
 	TEST_F(ResultsStatusEnumManagerTest, Should_ReturnNone_When_InvalidString)
 	{
 		std::string invalid_string = "INVALID_VALUE";
@@ -136,12 +115,6 @@ namespace
 		EXPECT_EQ(&first_instance, &second_instance);
 	}
 
-	class ResultsStatusEnumManagerParameterizedTest :
-		public ResultsStatusEnumManagerTest,
-		public ::testing::WithParamInterface<std::pair<std::string, ResultsStatus>>
-	{
-	};
-
 	INSTANTIATE_TEST_CASE_P(
 		StringToEnumConversions,
 		ResultsStatusEnumManagerParameterizedTest,
@@ -168,12 +141,6 @@ namespace
 		ResultsStatus result = manager.convert_string_to_enum(input);
 		EXPECT_EQ(result, expected);
 	}
-
-	class ResultsStatusEnumManagerEnumToStringParameterizedTest :
-		public ResultsStatusEnumManagerTest,
-		public ::testing::WithParamInterface<ResultsStatus>
-	{
-	};
 
 	INSTANTIATE_TEST_CASE_P(
 		EnumToStringConversions,

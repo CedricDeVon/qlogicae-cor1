@@ -1,32 +1,14 @@
 #include "pch.hpp"
 
 #if QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_CONDITIONS_ENABLED_TEMPLATE( \
-		FULL \
+		RandomValueGenerationManager \
 	)
 
 #include "../includes/random_value_generation_manager.hpp"
 
 namespace
 	QLOGICAE_COR1__BASE__HPP_CPP__COR_TESTS_NAMESPACE_NAME
-{
-	class RandomValueGenerationManagerTest :
-		public ::testing::Test
-	{
-	public:
-		RandomValueGenerationManagerTest()
-		{
-		}
-
-		RandomValueGenerationManager
-			random_value_manager_instance;
-	};
-
-	class RandomValueGenerationManagerParameterizedTest :
-		public RandomValueGenerationManagerTest,
-		public ::testing::WithParamInterface<size_t>
-	{
-	};
-
+{	
 	TEST_F(RandomValueGenerationManagerTest,
 		Should_GenerateNonEmptySalt_When_Called)
 	{

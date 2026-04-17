@@ -1,54 +1,14 @@
 #include "pch.hpp"
 
 #if QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_CONDITIONS_ENABLED_TEMPLATE( \
-		FULL \
+		TextKeyPathManager\
 	)
 
 #include "../includes/text_key_path_manager.hpp"
 
 namespace
 	QLOGICAE_COR1__BASE__HPP_CPP__COR_TESTS_NAMESPACE_NAME
-{
-	class
-		TextKeyPathManagerConfigurationOverrideTest :
-			public ::testing::Test
-	{
-	public:
-		TextKeyPathManager
-			manager;
-
-		std::vector<std::string>
-			sample_key_path_vector = { "root", "child", "leaf" };
-
-		std::string
-			sample_key_path_string = "root.child.leaf";
-
-		std::string
-			sample_delimiter = ".";
-
-		TextKeyPathManagerConfigurationOverrideTest() = default;
-	};
-
-	class
-		TextKeyPathManagerTest :
-			public ::testing::Test
-	{
-	public:
-		TextKeyPathManager
-			manager;
-
-		std::vector<std::string>
-			sample_key_path_vector = { "root", "child", "leaf" };
-
-		std::string
-			sample_key_path_string = "root.child.leaf";
-
-		std::string
-			sample_delimiter = ".";
-
-		TextKeyPathManagerTest() = default;
-	};
-
+{	
 	TEST_F(TextKeyPathManagerTest, Should_ConvertStringToVector_When_ValidInput)
 	{
 		const auto result =
@@ -189,13 +149,6 @@ namespace
 			EXPECT_EQ(string_result, sample_key_path_string);
 		}
 	}
-
-	class
-		TextKeyPathManagerParameterizedTest :
-			public TextKeyPathManagerTest,
-			public ::testing::WithParamInterface<std::pair<std::string, std::string>>
-	{
-	};
 
 	TEST_P(TextKeyPathManagerParameterizedTest, Should_HandleParameterizedTests_When_VariousInputs)
 	{

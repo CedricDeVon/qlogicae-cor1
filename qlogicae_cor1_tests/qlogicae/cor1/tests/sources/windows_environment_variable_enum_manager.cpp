@@ -8,28 +8,7 @@
 
 namespace
 	QLOGICAE_COR1__BASE__HPP_CPP__COR_TESTS_NAMESPACE_NAME
-{
-	class WindowsEnvironmentVariableEnumManagerTest :
-		public ::testing::Test
-	{
-	public:
-		WindowsEnvironmentVariableEnumManager manager;
-
-		void
-			SetUp() override
-		{
-			manager.construct();
-			manager.reset();
-		}
-
-		void
-			TearDown() override
-		{
-			manager.destruct();
-			manager.reset();
-		}
-	};
-
+{	
 	TEST_F(WindowsEnvironmentVariableEnumManagerTest, Should_ReturnNone_When_InvalidString)
 	{
 		std::string invalid_string = "INVALID_VALUE";
@@ -136,12 +115,6 @@ namespace
 		EXPECT_EQ(&first_instance, &second_instance);
 	}
 
-	class WindowsEnvironmentVariableEnumManagerParameterizedTest :
-		public WindowsEnvironmentVariableEnumManagerTest,
-		public ::testing::WithParamInterface<std::pair<std::string, WindowsEnvironmentVariable>>
-	{
-	};
-
 	INSTANTIATE_TEST_CASE_P(
 		StringToEnumConversions,
 		WindowsEnvironmentVariableEnumManagerParameterizedTest,
@@ -163,12 +136,6 @@ namespace
 		WindowsEnvironmentVariable result = manager.convert_string_to_enum(input);
 		EXPECT_EQ(result, expected);
 	}
-
-	class WindowsEnvironmentVariableEnumManagerEnumToStringParameterizedTest :
-		public WindowsEnvironmentVariableEnumManagerTest,
-		public ::testing::WithParamInterface<WindowsEnvironmentVariable>
-	{
-	};
 
 	INSTANTIATE_TEST_CASE_P(
 		EnumToStringConversions,

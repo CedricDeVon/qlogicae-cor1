@@ -1,69 +1,14 @@
 #include "pch.hpp"
 
 #if QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_CONDITIONS_ENABLED_TEMPLATE( \
-		FULL \
+		ConfigurationManager \
 	)
 
 #include "../includes/configuration_manager.hpp"
 
 namespace
 	QLOGICAE_COR1__BASE__HPP_CPP__COR_TESTS_NAMESPACE_NAME
-{	
-	struct
-		ConfigurationManagerConfigurationsTest :
-			AbstractConfigurations<ConfigurationManagerConfigurationsTest>
-    {
-	public:
-		ConfigurationManagerConfigurationsTest();
-
-		static ConfigurationManagerConfigurationsTest
-			default_configurations;
-
-		static ConfigurationManagerConfigurationsTest
-			initial_configurations;
-    };    
-
-	ConfigurationManagerConfigurationsTest
-		::ConfigurationManagerConfigurationsTest() :
-			AbstractConfigurations<ConfigurationManagerConfigurationsTest>()
-	{
-
-	}
-
-	ConfigurationManagerConfigurationsTest
-		ConfigurationManagerConfigurationsTest
-			::default_configurations;
-
-	ConfigurationManagerConfigurationsTest
-		ConfigurationManagerConfigurationsTest
-			::initial_configurations;
-
-	class ConfigurationManagerTest : public ::testing::Test
-    {
-    public:
-		ConfigurationManager manager;
-
-		void
-			SetUp() override
-		{
-			manager.construct();
-			manager.reset();
-		}
-
-		void
-			TearDown() override
-		{
-			manager.destruct();
-			manager.reset();
-		}
-	};
-
-	class ConfigurationManagerParameterizedTest :
-		public ConfigurationManagerTest,
-		public ::testing::WithParamInterface<std::tuple<bool, bool>>
-	{
-	};
-
+{		
 	TEST_F(ConfigurationManagerTest, Should_ConstructSuccessfully_When_NoException)
 	{
 		ASSERT_TRUE(manager.construct());
@@ -356,20 +301,6 @@ namespace
 		ASSERT_THROW(throwing_manager.destruct(), std::runtime_error);
 	}
 
-	class ThrowingConfigurationManager : public ConfigurationManager
-	{
-	public:
-		template <typename TypeConfigurations> bool setup_defaults(const TypeConfigurations&)
-		{
-			throw std::runtime_error("setup_defaults fail");
-		}
-
-		template <typename TypeConfigurations> bool reset_defaults()
-		{
-			throw std::runtime_error("reset_defaults fail");
-		}
-	};
-
 	TEST_F(ConfigurationManagerTest, Should_HandleExceptionsInSetupResetDefaults)
 	{
 		ThrowingConfigurationManager throwing_manager;
@@ -410,12 +341,6 @@ namespace
 		ASSERT_TRUE(manager.configurations.is_thread_safety_enabled_for_feature_handling());
 		ASSERT_FALSE(manager.configurations.is_thread_safety_disabled_for_feature_handling());
 	}
-
-	class ConfigurationManagerAllFlagsParameterizedTest :
-		public ConfigurationManagerTest,
-		public ::testing::WithParamInterface<ConfigurationManagerConfigurations>
-	{
-	};
 
 	TEST_P(ConfigurationManagerAllFlagsParameterizedTest, Should_HandleAllFlagCombinations)
 	{
@@ -498,26 +423,6 @@ namespace
 		ASSERT_FALSE(manager.configurations.is_thread_safety_enabled_for_utility_handling());
 	}
 
-	class ConfigurationManagerExceptionTest : public ::testing::Test
-	{
-	public:
-		ConfigurationManager manager;
-
-		void
-			SetUp()
-		{
-			manager.construct();
-			manager.reset();
-		}
-
-		void
-			TearDown()
-		{
-			manager.destruct();
-			manager.reset();
-		}
-	};
-
 	TEST_F(ConfigurationManagerExceptionTest, Should_ReturnFalse_When_ConstructThrows)
 	{
 		struct ThrowingConfigManager : ConfigurationManager
@@ -559,15 +464,6 @@ namespace
 			std::runtime_error
 		);
 	}
-
-	struct ThrowingDefaults : ConfigurationManager
-	{
-		template <typename T>
-		bool setup_defaults(const T&)
-		{
-			throw std::runtime_error("error");
-		}
-	};
 
 	TEST_F(ConfigurationManagerExceptionTest, Should_ReturnFalse_When_ResetDefaultsThrows)
 	{
@@ -702,21 +598,6 @@ namespace
 		ASSERT_TRUE(ConfigurationManagerConfigurationsTest::default_configurations.is_thread_safety_handling_override_enabled);
 	}
 
-	struct ThrowingDefaultsManager : ConfigurationManager
-	{
-		template <typename T>
-		bool setup_defaults(const T&)
-		{
-			throw std::runtime_error("error");
-		}
-
-		template <typename T>
-		bool reset_defaults()
-		{
-			throw std::runtime_error("error");
-		}
-	};
-
 	TEST_F(ConfigurationManagerTest, Should_ReturnFalse_When_SetupDefaultsThrowsException)
 	{
 		ThrowingDefaultsManager throwing_manager;
@@ -738,12 +619,6 @@ namespace
 			}, std::runtime_error
 		);
 	}
-
-	class ConfigurationManagerExhaustiveFlagsTest :
-		public ConfigurationManagerTest,
-		public ::testing::WithParamInterface<ConfigurationManagerConfigurations>
-	{
-	};
 
 	TEST_P(ConfigurationManagerExhaustiveFlagsTest, Should_HandleAllBooleanFlagCombinationsExhaustively)
 	{
@@ -847,15 +722,6 @@ namespace
 		ASSERT_FALSE(manager.configurations.is_runtime_execution_enabled_for_error_handling());
 	}
 
-	struct ThrowingResetDefaultsManager : ConfigurationManager
-	{
-		template <typename T>
-		bool reset_defaults()
-		{
-			throw std::runtime_error("reset_defaults fail");
-		}
-	};
-
 	TEST_F(ConfigurationManagerTest, Should_HandleExceptionWhenResetDefaultsThrows)
 	{
 		ThrowingResetDefaultsManager throwing_manager;
@@ -947,15 +813,6 @@ namespace
 		ASSERT_TRUE(manager.configurations.is_thread_safety_enabled_for_error_handling());
 	}
 
-	struct ThrowingResetDefaultsRecoveryManager : ConfigurationManager
-	{
-		template <typename T>
-		bool reset_defaults()
-		{
-			throw std::runtime_error("reset_defaults fail");
-		}
-	};
-
 	TEST_F(ConfigurationManagerTest, Should_ContinueOperationAfterResetDefaultsThrows)
 	{
 		ThrowingResetDefaultsRecoveryManager throwing_manager;
@@ -1009,12 +866,6 @@ namespace
 
 		ASSERT_EQ(counter.load(std::memory_order_relaxed), 800);
 	}
-
-	class ConfigurationManagerOverridesFalseTest :
-		public ConfigurationManagerTest,
-		public ::testing::WithParamInterface<ConfigurationManagerConfigurations>
-	{
-	};
 
 	TEST_P(ConfigurationManagerOverridesFalseTest, Should_HandleCombinedOverridesFalseWithEnabledFlags)
 	{

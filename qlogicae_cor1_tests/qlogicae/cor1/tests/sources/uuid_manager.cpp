@@ -1,76 +1,14 @@
 #include "pch.hpp"
 
 #if QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_CONDITIONS_ENABLED_TEMPLATE( \
-		FULL \
+		UuidManager \
 	)
 
 #include "../includes/uuid_manager.hpp"
 
 namespace
 	QLOGICAE_COR1__BASE__HPP_CPP__COR_TESTS_NAMESPACE_NAME
-{
-	class UuidManagerTest : public ::testing::Test
-	{
-	public:
-		UuidManager manager;
-
-		void
-			SetUp() override
-		{
-			manager.construct();
-			manager.reset();
-		}
-
-		void
-			TearDown() override
-		{
-			manager.destruct();
-			manager.reset();
-		}
-	};
-
-	class UuidManagerIsValidTest :
-		public ::testing::TestWithParam<std::tuple<Uuid, std::string, bool>>
-	{
-	public:
-		UuidManager manager;
-
-		void
-			SetUp() override
-		{
-			manager.construct();
-			manager.reset();
-		}
-
-		void
-			TearDown() override
-		{
-			manager.destruct();
-			manager.reset();
-		}
-	};
-
-	class UuidManagerGenerateUuidTest :
-		public ::testing::TestWithParam<Uuid>
-	{
-	public:
-		UuidManager manager;
-
-		void
-			SetUp() override
-		{
-			manager.construct();
-			manager.reset();
-		}
-
-		void
-			TearDown() override
-		{
-			manager.destruct();
-			manager.reset();
-		}
-	};
-
+{	
 	TEST_F(UuidManagerTest, Should_ReturnSameInstance_When_AccessedMultipleTimes)
 	{
 		auto& instance1 = SingletonManager::get_singleton<UuidManager>();

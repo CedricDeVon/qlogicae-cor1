@@ -1,41 +1,14 @@
 #include "pch.hpp"
 
 #if QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_CONDITIONS_ENABLED_TEMPLATE( \
-		FULL \
+		TextEncodingManager \
 	)
 
 #include "../includes/text_encoding_manager.hpp"
 
 namespace
 	QLOGICAE_COR1__BASE__HPP_CPP__COR_TESTS_NAMESPACE_NAME
-{
-	class TextEncodingManagerTest : public ::testing::Test
-	{
-	public:
-		TextEncodingManager encoding_manager;
-
-		void
-			SetUp() override
-		{
-			encoding_manager.construct();
-			encoding_manager.reset();
-		}
-
-		void
-			TearDown() override
-		{
-			encoding_manager.destruct();
-			encoding_manager.reset();
-		}
-	};
-
-	class TextEncodingManagerParameterizedTest :
-		public TextEncodingManagerTest,
-		public ::testing::WithParamInterface<std::tuple<std::string,
-		TextEncoding, TextEncoding, std::string>>
-	{
-	};
-
+{	
 	TEST_F(TextEncodingManagerTest, Should_ReturnEmpty_When_DecodeBase16EmptyString)
 	{
 		std::string result = encoding_manager.decode_base16("");
