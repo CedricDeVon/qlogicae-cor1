@@ -2008,6 +2008,289 @@
 
 #endif
 
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE(QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE(FollyVcpkgImports))
+#define QLOGICAE_COR1__BASE__HPP_CPP__FollyVcpkgImports__IS_COMPILATION_ENABLED 1
+
+#ifdef _M_X64
+
+#include <folly/init/Init.h> 
+#include <folly/synchronization/MicroSpinLock.h> 
+
+#endif
+
+#else
+#define QLOGICAE_COR1__BASE__HPP_CPP__FollyVcpkgImports__IS_COMPILATION_ENABLED 0
+
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE(QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE(RapidCsvVcpkgImports))
+#define QLOGICAE_COR1__BASE__HPP_CPP__RapidCsvVcpkgImports__IS_COMPILATION_ENABLED 1
+
+#include <rapidcsv.h>
+
+#else
+#define QLOGICAE_COR1__BASE__HPP_CPP__RapidCsvVcpkgImports__IS_COMPILATION_ENABLED 0
+
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE(QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE(CurlVcpkgImports))
+#define QLOGICAE_COR1__BASE__HPP_CPP__CurlVcpkgImports__IS_COMPILATION_ENABLED 1
+
+#include <curl/curl.h> 
+
+#else
+#define QLOGICAE_COR1__BASE__HPP_CPP__CurlVcpkgImports__IS_COMPILATION_ENABLED 0
+
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE(QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE(XlntVcpkgImports))
+#define QLOGICAE_COR1__BASE__HPP_CPP__XlntVcpkgImports__IS_COMPILATION_ENABLED 1
+
+#include <xlnt/xlnt.hpp> 
+
+#else
+#define QLOGICAE_COR1__BASE__HPP_CPP__XlntVcpkgImports__IS_COMPILATION_ENABLED 0
+
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE(QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE(LibOqsVcpkgImports))
+#define QLOGICAE_COR1__BASE__HPP_CPP__LibOqsVcpkgImports__IS_COMPILATION_ENABLED 1
+
+#ifndef ORT_DISABLE_SCHEMA_VALIDATION
+#define ORT_DISABLE_SCHEMA_VALIDATION 1
+#endif
+
+#include <oqs/oqs.h>
+
+#else
+#define QLOGICAE_COR1__BASE__HPP_CPP__LibOqsVcpkgImports__IS_COMPILATION_ENABLED 0
+
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE(QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE(JwtCppVcpkgImports))
+#define QLOGICAE_COR1__BASE__HPP_CPP__JwtCppVcpkgImports__IS_COMPILATION_ENABLED 1
+
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable : 4996)
+#endif
+
+#include <jwt-cpp/jwt.h>
+
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
+
+#else
+#define QLOGICAE_COR1__BASE__HPP_CPP__JwtCppVcpkgImports__IS_COMPILATION_ENABLED 0
+
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE(QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE(OnnxRuntimeVcpkgImports))
+#define QLOGICAE_COR1__BASE__HPP_CPP__OnnxRuntimeVcpkgImports__IS_COMPILATION_ENABLED 1
+
+#ifdef _M_X64
+
+#include <onnxruntime/onnxruntime_cxx_api.h> 
+
+#endif
+
+#else
+#define QLOGICAE_COR1__BASE__HPP_CPP__OnnxRuntimeVcpkgImports__IS_COMPILATION_ENABLED 0
+
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE(QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE(RocksDbVcpkgImports))
+#define QLOGICAE_COR1__BASE__HPP_CPP__RocksDbVcpkgImports__IS_COMPILATION_ENABLED 1
+
+#include <rocksdb/db.h> 
+#include <rocksdb/slice.h> 
+#include <rocksdb/table.h> 
+#include <rocksdb/options.h> 
+#include <rocksdb/iterator.h> 
+#include <rocksdb/listener.h> 
+#include <rocksdb/convenience.h> 
+#include <rocksdb/write_batch.h> 
+#include <rocksdb/filter_policy.h> 
+#include <rocksdb/compaction_filter.h> 
+#include <rocksdb/utilities/checkpoint.h> 
+#include <rocksdb/utilities/backup_engine.h> 
+#include <rocksdb/utilities/transaction_db.h> 
+
+#else
+#define QLOGICAE_COR1__BASE__HPP_CPP__RocksDbVcpkgImports__IS_COMPILATION_ENABLED 0
+
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE(QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE(NanobenchVcpkgImports))
+#define QLOGICAE_COR1__BASE__HPP_CPP__NanobenchVcpkgImports__IS_COMPILATION_ENABLED 1
+
+#include <nanobench.h>
+
+#else
+#define QLOGICAE_COR1__BASE__HPP_CPP__NanobenchVcpkgImports__IS_COMPILATION_ENABLED 0
+
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE(QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE(SodiumVcpkgImports))
+#define QLOGICAE_COR1__BASE__HPP_CPP__SodiumVcpkgImports__IS_COMPILATION_ENABLED 1
+
+#ifndef SALT_LEN
+#define SALT_LEN crypto_pwhash_SALTBYTES
+#endif
+
+#include <sodium.h> 
+
+#else
+#define QLOGICAE_COR1__BASE__HPP_CPP__SodiumVcpkgImports__IS_COMPILATION_ENABLED 0
+
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE(QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE(Sqlite3VcpkgImports))
+#define QLOGICAE_COR1__BASE__HPP_CPP__Sqlite3VcpkgImports__IS_COMPILATION_ENABLED 1
+
+#include <sqlite3.h>
+
+#else
+#define QLOGICAE_COR1__BASE__HPP_CPP__Sqlite3VcpkgImports__IS_COMPILATION_ENABLED 0
+
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE(QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE(TomlPlusPlusVcpkgImports))
+#define QLOGICAE_COR1__BASE__HPP_CPP__TomlPlusPlusVcpkgImports__IS_COMPILATION_ENABLED 1
+
+#include <toml++/toml.h> 
+
+#else
+#define QLOGICAE_COR1__BASE__HPP_CPP__TomlPlusPlusVcpkgImports__IS_COMPILATION_ENABLED 0
+
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE(QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE(PugixmlVcpkgImports))
+#define QLOGICAE_COR1__BASE__HPP_CPP__PugixmlVcpkgImports__IS_COMPILATION_ENABLED 1
+
+#include <pugixml.hpp> 
+
+#else
+#define QLOGICAE_COR1__BASE__HPP_CPP__PugixmlVcpkgImports__IS_COMPILATION_ENABLED 0
+
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE(QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE(Pcre2VcpkgImports))
+#define QLOGICAE_COR1__BASE__HPP_CPP__Pcre2VcpkgImports__IS_COMPILATION_ENABLED 1
+
+#ifndef PCRE2_CODE_UNIT_WIDTH
+#define PCRE2_CODE_UNIT_WIDTH 8
+#endif
+
+#include <pcre2.h> 
+
+#else
+#define QLOGICAE_COR1__BASE__HPP_CPP__Pcre2VcpkgImports__IS_COMPILATION_ENABLED 0
+
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE(QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE(Argon2VcpkgImports))
+#define QLOGICAE_COR1__BASE__HPP_CPP__Argon2VcpkgImports__IS_COMPILATION_ENABLED 1
+
+#include <argon2.h> 
+
+#else
+#define QLOGICAE_COR1__BASE__HPP_CPP__Argon2VcpkgImports__IS_COMPILATION_ENABLED 0
+
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE(QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE(CppCodecVcpkgImports))
+#define QLOGICAE_COR1__BASE__HPP_CPP__CppCodecVcpkgImports__IS_COMPILATION_ENABLED 1
+
+#include <cppcodec/base32_rfc4648.hpp> 
+
+#else
+#define QLOGICAE_COR1__BASE__HPP_CPP__CppCodecVcpkgImports__IS_COMPILATION_ENABLED 0
+
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE(QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE(FastIoVcpkgImports))
+#define QLOGICAE_COR1__BASE__HPP_CPP__FastIoVcpkgImports__IS_COMPILATION_ENABLED 1
+
+#include <fast_io.h> 
+#include <fast_io_device.h> 
+#include <fast_io_legacy.h> 
+
+#else
+#define QLOGICAE_COR1__BASE__HPP_CPP__FastIoVcpkgImports__IS_COMPILATION_ENABLED 0
+
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE(QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE(RapidJsonVcpkgImports))
+#define QLOGICAE_COR1__BASE__HPP_CPP__RapidJsonVcpkgImports__IS_COMPILATION_ENABLED 1
+
+#include <rapidjson/writer.h> 
+#include <rapidjson/pointer.h> 
+#include <rapidjson/document.h> 
+#include <rapidjson/allocators.h> 
+#include <rapidjson/prettywriter.h> 
+#include <rapidjson/stringbuffer.h> 
+#include <rapidjson/ostreamwrapper.h> 
+
+#else
+#define QLOGICAE_COR1__BASE__HPP_CPP__RapidJsonVcpkgImports__IS_COMPILATION_ENABLED 0
+
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE(QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE(AbslVcpkgImports))
+#define QLOGICAE_COR1__BASE__HPP_CPP__AbslVcpkgImports__IS_COMPILATION_ENABLED 1
+
+#include <absl/time/time.h> 
+#include <absl/time/clock.h> 
+#include <absl/strings/ascii.h> 
+#include <absl/strings/str_cat.h> 
+#include <absl/strings/str_join.h> 
+#include <absl/strings/str_split.h> 
+#include <absl/strings/str_replace.h> 
+
+#else
+#define QLOGICAE_COR1__BASE__HPP_CPP__AbslVcpkgImports__IS_COMPILATION_ENABLED 0
+
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE(QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE(BoostVcpkgImports))
+#define QLOGICAE_COR1__BASE__HPP_CPP__BoostVcpkgImports__IS_COMPILATION_ENABLED 1
+
+#include <boost/asio.hpp> 
+#include <boost/locale.hpp> 
+#include <boost/uuid/uuid.hpp> 
+#include <boost/uuid/uuid_io.hpp> 
+#include <boost/thread/mutex.hpp> 
+#include <boost/thread/locks.hpp> 
+#include <boost/thread/mutex.hpp> 
+#include <boost/locale/boundary.hpp> 
+#include <boost/thread/shared_mutex.hpp> 
+#include <boost/uuid/uuid_generators.hpp> 
+#include <boost/uuid/string_generator.hpp> 
+#include <boost/thread/recursive_mutex.hpp> 
+
+#else
+#define QLOGICAE_COR1__BASE__HPP_CPP__BoostVcpkgImports__IS_COMPILATION_ENABLED 0
+
+#endif
+
+#if _M_X64 || _M_IX86
+
+#include <windows.h>
+#include <winnt.h>
+
+#include <winsock2.h>
+#include <ws2tcpip.h>
+
+#include <shellapi.h>
+#include <shlobj.h>
+
+#include <aclapi.h>
+
+#endif
+
+
 
 
 #ifndef NOMINMAX
@@ -2025,27 +2308,3 @@
 #ifndef _WIN32_WINNT
 #define _WIN32_WINNT 0x0A00
 #endif
-
-
-
-#ifndef PCRE2_CODE_UNIT_WIDTH
-#define PCRE2_CODE_UNIT_WIDTH 8
-#endif
-
-#ifndef ORT_DISABLE_SCHEMA_VALIDATION
-#define ORT_DISABLE_SCHEMA_VALIDATION 1
-#endif
-
-#ifndef SALT_LEN
-#define SALT_LEN crypto_pwhash_SALTBYTES
-#endif
-
-
-
-#ifdef _MSC_VER
-
-#pragma warning(push)
-#pragma warning(disable: 4244)
-
-#endif
-
