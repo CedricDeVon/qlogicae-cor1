@@ -79,7 +79,7 @@
 
 	#ifdef _MSC_VER
 		#pragma warning(push)
-		#pragma warning(disable : 4996)
+		#pragma warning(disable : 4244 4267)
 	#endif
 
 		#include <jwt-cpp/jwt.h>
@@ -537,6 +537,16 @@
 		) \
 	)
 	#define QLOGICAE_COR1__BASE__HPP_CPP__Argon2idHashCryptographyManagerConfigurations__IS_COMPILATION_ENABLED 1
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+		QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+			Assembly \
+		) \
+	)
+#define QLOGICAE_COR1__BASE__HPP_CPP__Assembly__IS_COMPILATION_ENABLED 1
 
 #else
 #endif
