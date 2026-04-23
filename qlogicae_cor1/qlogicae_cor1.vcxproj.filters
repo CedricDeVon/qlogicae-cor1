@@ -786,6 +786,12 @@
     <ClInclude Include="qlogicae\cor1\macros\compilations.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\yaml_file_io_manager.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\yaml_file_io_manager_configurations.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -1515,6 +1521,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="qlogicae\cor1\sources\state_manager_item.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\yaml_file_io_manager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\yaml_file_io_manager_configurations.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
