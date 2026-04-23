@@ -11,3 +11,15 @@ namespace
 }
 
 #endif
+
+/*
+
+- qlogicae logis
+
+- yaml_file_io_manager
+- qlogicae_application_manager
+- qlogicae_console_application_manager
+- qlogicae_service_application_manager
+- qlogicae_file_system_application_manager
+
+*/
