@@ -20,12 +20,29 @@ namespace
 			QLOGICAE_COR1__BASE__HPP_CPP__MUTEX_LAYER_2
 		);
 
-		QLOGICAE_COR1__INSTANCE__HPP__MUTEX_LAYER_TEMPLATE
-		(
-			QLOGICAE_COR1__BASE__HPP_CPP__MUTEX_LAYER_3
-		);
-
 		YamlFileIoManager();
+
+		YAML::Node
+			load_yaml(
+				const std::string&
+					file_path
+			);
+
+		bool
+			save_yaml(
+				const std::string&
+					file_path,
+				const YAML::Node&
+					node
+			);
+
+		YAML::Node
+			traverse(
+				YAML::Node
+					node,
+				const std::vector<std::variant<std::string, size_t>>&
+					key_path
+			);
 
 		bool
 			is_valid(

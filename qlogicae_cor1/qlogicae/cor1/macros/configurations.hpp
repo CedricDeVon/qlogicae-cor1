@@ -309,6 +309,25 @@
 
 #if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
 		QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+			YamlCppVcpkgImports \
+		) \
+	)
+#define QLOGICAE_COR1__BASE__HPP_CPP__YamlCppVcpkgImports__IS_COMPILATION_ENABLED 1
+
+#pragma warning(push)
+#pragma warning(disable : 4244)
+#endif
+
+#include <yaml-cpp/yaml.h>
+
+#ifdef _MSC_VER
+#pragma warning(pop)
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+		QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
 			StdImports \
 		) \
 	)
