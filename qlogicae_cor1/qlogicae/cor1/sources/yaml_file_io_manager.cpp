@@ -448,7 +448,7 @@ namespace
             )
     {
         return
-                append_raw_yaml(file_path, key_path, value);
+            append_raw_yaml(file_path, key_path, value);
     }
 
     bool
