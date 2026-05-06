@@ -44,6 +44,13 @@ namespace
 				return false;
 			}
 
+			if (kem->length_public_key == 0 ||
+				kem->length_secret_key == 0)
+			{
+				OQS_KEM_free(kem);
+				return false;
+			}
+
 			public_key.resize(kem->length_public_key);
 			private_key.resize(kem->length_secret_key);
 
@@ -86,7 +93,7 @@ namespace
 			(
 				QLOGICAE_COR1__BASE__HPP_CPP__MUTEX_LAYER_1,
 				algorithm == KyberCryptographyAlgorithm::NONE ||
-				!public_key.size()
+				public_key.empty()
 			);			
 
 			OQS_KEM* kem = OQS_KEM_new(
@@ -95,6 +102,12 @@ namespace
 			);
 			if (kem == nullptr)
 			{
+				return false;
+			}
+
+			if (public_key.size() != kem->length_public_key)
+			{
+				OQS_KEM_free(kem);
 				return false;
 			}
 
@@ -145,8 +158,8 @@ namespace
 			(
 				QLOGICAE_COR1__BASE__HPP_CPP__MUTEX_LAYER_1,
 				algorithm == KyberCryptographyAlgorithm::NONE ||
-				!private_key.size() ||
-				!ciphertext.size() 
+				private_key.empty() ||
+				ciphertext.empty() 
 			);			
 
 			OQS_KEM* kem = OQS_KEM_new(
@@ -155,6 +168,13 @@ namespace
 			);
 			if (kem == nullptr)
 			{
+				return false;
+			}
+
+			if (private_key.size() != kem->length_secret_key ||
+				ciphertext.size() != kem->length_ciphertext)
+			{
+				OQS_KEM_free(kem);
 				return false;
 			}
 
@@ -173,8 +193,7 @@ namespace
 
 			OQS_KEM_free(kem);
 
-			return
-				true;
+			return true;
         }
         catch
         (

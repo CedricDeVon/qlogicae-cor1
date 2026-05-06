@@ -105,17 +105,17 @@ namespace
 				case (DilithiumCryptographyAlgorithm::DILITHIUM_2):
 				{
 					return
-						"Dilithium2";
+						"ML-DSA-44";
 				}
 				case (DilithiumCryptographyAlgorithm::DILITHIUM_3):
 				{
 					return
-						"Dilithium3";
+						"ML-DSA-65";
 				}
 				case (DilithiumCryptographyAlgorithm::DILITHIUM_5):
 				{
 					return
-						"Dilithium5";
+						"ML-DSA-87";
 				}
 				case (DilithiumCryptographyAlgorithm::NONE):
 				{

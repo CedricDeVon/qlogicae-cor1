@@ -86,8 +86,8 @@ namespace
 			(
 				QLOGICAE_COR1__BASE__HPP_CPP__MUTEX_LAYER_1,
 				algorithm == DilithiumCryptographyAlgorithm::NONE ||
-				!private_key.size() ||
-				!message.size()
+				private_key.empty() ||
+				message.empty()
 			);			
 
 			OQS_SIG* sig = OQS_SIG_new(
@@ -96,6 +96,12 @@ namespace
 			);
 			if (sig == nullptr)
 			{
+				return false;
+			}
+
+			if(private_key.size() != sig->length_secret_key)
+			{
+				OQS_SIG_free(sig);
 				return false;
 			}
 
@@ -115,12 +121,17 @@ namespace
 				return false;
 			}
 
+			if(signature_len > sig->length_signature)
+			{
+				OQS_SIG_free(sig);
+				return false;
+			}
+
 			signature.resize(signature_len);
 
 			OQS_SIG_free(sig);
 
-			return
-				true;
+			return true;
         }
         catch
         (
@@ -150,9 +161,9 @@ namespace
 			(
 				QLOGICAE_COR1__BASE__HPP_CPP__MUTEX_LAYER_1,
 				algorithm == DilithiumCryptographyAlgorithm::NONE ||
-				!public_key.size() ||
-				!message.size() ||
-				!signature.size()
+				public_key.empty() ||
+				message.empty() ||
+				signature.empty()
 			);			
 
 			OQS_SIG* sig = OQS_SIG_new(
@@ -161,6 +172,12 @@ namespace
 			);
 			if (sig == nullptr)
 			{
+				return false;
+			}
+
+			if (public_key.size() != sig->length_public_key)
+			{
+				OQS_SIG_free(sig);
 				return false;
 			}
 
@@ -175,8 +192,7 @@ namespace
 
 			OQS_SIG_free(sig);
 
-			return
-				true;
+			return status == OQS_SUCCESS;
         }
         catch
         (

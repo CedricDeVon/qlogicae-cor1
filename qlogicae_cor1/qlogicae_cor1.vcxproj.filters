@@ -507,12 +507,6 @@
     <ClInclude Include="qlogicae\cor1\includes\windows_system_access_manager_configurations.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\word_file_io_manager.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\word_file_io_manager_configurations.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="qlogicae\cor1\includes\xchacha20_poly1305_cipher_cryptography_manager.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -1122,12 +1116,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="qlogicae\cor1\sources\windows_system_access_manager_configurations.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\word_file_io_manager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\word_file_io_manager_configurations.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="qlogicae\cor1\sources\xchacha20_poly1305_cipher_cryptography_manager.cpp">
