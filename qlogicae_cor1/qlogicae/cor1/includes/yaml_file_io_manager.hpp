@@ -44,6 +44,12 @@ namespace
 					key_path
 			);
 
+		YAML::Node
+			resolve_or_create(
+				YAML::Node root,
+					const std::vector<std::variant<std::string, size_t>>& key_path
+			);
+
 		bool
 			is_valid(
 				const std::string&
@@ -223,6 +229,7 @@ namespace
 					key_path
 			);
 	};
+
 }
 
 #endif

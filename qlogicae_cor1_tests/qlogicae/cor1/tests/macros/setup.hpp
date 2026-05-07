@@ -100,3 +100,5 @@
 #include "qlogicae/cor1/includes/xml_file_io_manager.hpp"
 #include "qlogicae/cor1/includes/binary_file_io_manager.hpp"
 #include "qlogicae/cor1/includes/csv_file_io_manager.hpp"
+#include "qlogicae/cor1/includes/yaml_file_io_manager.hpp"
+#include "qlogicae/cor1/includes/file_system_listener_manager.hpp"
