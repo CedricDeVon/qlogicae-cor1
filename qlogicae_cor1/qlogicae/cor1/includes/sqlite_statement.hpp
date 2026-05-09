@@ -15,6 +15,12 @@ namespace
     class SQLiteStatement
     {
     public:
+		bool
+			finished;
+
+		bool
+			has_row_state;
+
 		std::shared_ptr<SQLiteBackend>
 			backend;
 
@@ -37,6 +43,8 @@ namespace
             const std::string&
 				sql_text
         );
+
+		SQLiteStatement();
 
 		int
 			resolve_named_index(
@@ -202,7 +210,8 @@ namespace
 				const std::optional<Type>&
 					value
 			);
-    };
+    };	
 }
 
 #endif
+

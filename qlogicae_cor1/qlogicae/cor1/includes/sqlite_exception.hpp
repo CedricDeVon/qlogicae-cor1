@@ -19,11 +19,11 @@ namespace
 
         SQLiteException(
             const std::string&
-				message,
+				message_value,
             const int
-				error_code,
+				error_code_value,
             const int
-				extended_code
+				extended_code_value
         );
 
 		SQLiteException();
@@ -31,3 +31,4 @@ namespace
 }
 
 #endif
+

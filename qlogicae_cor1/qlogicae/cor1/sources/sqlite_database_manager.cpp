@@ -7,19 +7,27 @@
 #include "../includes/sqlite_database_manager.hpp"
 
 namespace
-	QLOGICAE_COR_V1__BASE__HPP_CPP__COR_NAMESPACE_NAME
+	QLOGICAE_COR1__BASE__HPP_CPP__COR_NAMESPACE_NAME
 {	
-    SQLiteDatabaseManager
+    
+
+}
+
+#endif
+
+/*
+
+SQLiteDatabaseManager
 		::SQLiteDatabaseManager()
-    {
-        construct();
-    }
+	{
+		construct();
+	}
 
 	SQLiteDatabaseManager
 		::~SQLiteDatabaseManager()
-    {
-        destruct();
-    }
+	{
+		destruct();
+	}
 
 	bool
 		SQLiteDatabaseManager
@@ -36,7 +44,7 @@ namespace
 		)
 		{
 			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE();
-		}	
+		}
 	}
 
 	bool
@@ -54,10 +62,10 @@ namespace
 		)
 		{
 			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE();
-		}	
+		}
 	}
 
-    SQLiteStatement
+	SQLiteStatement
 		SQLiteDatabaseManager
 			::setup_statement(
 				const std::string&
@@ -65,7 +73,7 @@ namespace
 				const std::string&
 					sql_text
 			)
-    {
+	{
 		try
 		{
 			return
@@ -87,8 +95,8 @@ namespace
 					""
 				)
 			);
-		}	        
-    }
+		}
+	}
 
 	SQLiteStatement
 		SQLiteDatabaseManager
@@ -96,7 +104,7 @@ namespace
 				const std::string&
 					sql_text
 			)
-    {
+	{
 		try
 		{
 			return
@@ -119,13 +127,13 @@ namespace
 					""
 				)
 			);
-		}	        
-    }
+		}
+	}
 
-    int64_t
+	int64_t
 		SQLiteDatabaseManager
 			::last_insert_rowid()
-    {
+	{
 		try
 		{
 			if
@@ -147,7 +155,7 @@ namespace
 					(
 						feature_handling_mutex_1
 					);
-			}			
+			}
 
 			return
 				sqlite3_last_insert_rowid(
@@ -162,7 +170,6 @@ namespace
 		{
 			QLOGICAE_COR_V1__IMPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE();
 		}
-    }
-}
+	}
 
-#endif
+*/

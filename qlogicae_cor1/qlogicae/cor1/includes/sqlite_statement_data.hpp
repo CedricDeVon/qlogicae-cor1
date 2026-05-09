@@ -5,7 +5,7 @@
 	)
 
 namespace
-	QLOGICAE_COR1__BASE__HPP_CPP__COR_NAMESPACE_NAME
+    QLOGICAE_COR1__BASE__HPP_CPP__COR_NAMESPACE_NAME
 {
     struct
 		SQLiteStatementData
@@ -22,6 +22,28 @@ namespace
 		SQLiteStatementData();
         
         ~SQLiteStatementData();
+        
+        SQLiteStatementData(
+                SQLiteStatementData&&
+                    instance
+            ) noexcept;
+
+        SQLiteStatementData&
+            operator=(
+                SQLiteStatementData&&
+                    instance
+            ) noexcept;
+
+        SQLiteStatementData(
+                const SQLiteStatementData&
+                    instance
+            ) = delete;
+
+        SQLiteStatementData&
+            operator = (
+                const SQLiteStatementData&
+                    instance
+            ) = delete;
     };
 }
 

@@ -7,7 +7,7 @@
 #include "../includes/sqlite_row.hpp"
 
 namespace
-	QLOGICAE_COR_V1__BASE__HPP_CPP__COR_NAMESPACE_NAME
+	QLOGICAE_COR1__BASE__HPP_CPP__COR_NAMESPACE_NAME
 {
 	SQLiteRow
 		::SQLiteRow(
@@ -21,27 +21,106 @@ namespace
 
 	}
 
+	void
+        validate_statement(
+            sqlite3_stmt*
+                statement
+        )
+    {
+        if (statement == nullptr)
+        {
+            throw SQLiteException(
+                "Invalid Statement",
+                -1,
+                -1
+            );
+        }
+    }
+
+    void
+        validate_column_index(
+            sqlite3_stmt*
+                statement,
+            int
+                column_index
+        )
+    {
+        validate_statement(statement);
+
+        int column_count =
+            sqlite3_column_count(
+                statement
+            );
+
+        if (
+            column_index < 0 ||
+            column_index >= column_count
+        )
+        {
+            throw SQLiteException(
+                "Invalid Column Index",
+                -1,
+                -1
+            );
+        }
+    }
+
+    void
+        validate_column_type(
+            sqlite3_stmt*
+                statement,
+            int
+                column_index,
+            int
+                expected_type
+        )
+    {
+        validate_column_index(
+            statement,
+            column_index
+        );
+
+        int type =
+            sqlite3_column_type(
+                statement,
+                column_index
+            );
+
+        if (type == SQLITE_NULL)
+        {
+            throw SQLiteException(
+                "Column Should Not Be Null",
+                -1,
+                -1
+            );
+        }
+
+        if (type != expected_type)
+        {
+            throw SQLiteException(
+                "Column Type Mismatch",
+                -1,
+                -1
+            );
+        }
+    }
+
     template<> int
 		SQLiteRow::get<int>(
 			int
 				column_index
 		)
     {
-        if (sqlite3_column_type(statement, column_index) == SQLITE_NULL)
-        {
-            throw
-				SQLiteException(
-					"Column Should Not Be Null",
-					-1,
-					-1
-				);
-        }
+		validate_column_type(
+			statement,
+			column_index,
+			SQLITE_INTEGER
+		);
 
-        return
-			sqlite3_column_int(
-				statement,
-				column_index
-			);
+		return sqlite3_column_int(
+			statement,
+			column_index
+		);
     }
 
     template<> double
@@ -51,21 +130,16 @@ namespace
 					column_index
 			)
     {
-        if (sqlite3_column_type(statement, column_index) == SQLITE_NULL)
-        {
-            throw
-				SQLiteException(
-					"Column Should Not Be Null",
-					-1,
-					-1
-				);
-        }
+		validate_column_type(
+			statement,
+			column_index,
+			SQLITE_FLOAT
+		);
 
-        return
-			sqlite3_column_double(
-				statement,
-				column_index
-			);
+		return sqlite3_column_double(
+			statement,
+			column_index
+		);
     }
 
     template<> float
@@ -90,8 +164,16 @@ namespace
 					column_index
 			)
     {
-        return
-			get<int>(column_index) != 0;
+		validate_column_type(
+			statement,
+			column_index,
+			SQLITE_INTEGER
+		);
+
+		return sqlite3_column_int(
+			statement,
+			column_index
+		) != 0;
     }
 
     template<> std::string
@@ -101,19 +183,48 @@ namespace
 					column_index
 			)
     {
-        const char*
-			text =
-				reinterpret_cast<const char*>(
-					sqlite3_column_text(
-						statement,
-						column_index
-					)
-				);
+		validate_column_index(
+            statement,
+            column_index
+        );
 
-        return
-			text ?
-				std::string(text) :
-				"";
+        int type =
+            sqlite3_column_type(
+                statement,
+                column_index
+            );
+
+        if (type == SQLITE_NULL)
+        {
+            return "";
+        }
+
+        if (type != SQLITE_TEXT)
+        {
+            throw SQLiteException(
+                "Column Type Mismatch",
+                -1,
+                -1
+            );
+        }
+
+        const unsigned char*
+            text =
+                sqlite3_column_text(
+                    statement,
+                    column_index
+                );
+
+        if (text == nullptr)
+        {
+            return "";
+        }
+
+        return std::string(
+            reinterpret_cast<
+                const char*
+            >(text)
+        );
     }
 
     template<> int
@@ -123,12 +234,50 @@ namespace
 					column_name
 			)
     {
-        return
-			get<int>(
-				get_index(
-					column_name
-				)
-			);
+		return get<int>(
+			get_index(
+				column_name
+			)
+		);
+    }
+
+	template<> double
+        SQLiteRow::get<double>(
+            const std::string&
+                column_name
+        )
+    {
+        return get<double>(
+            get_index(
+                column_name
+            )
+        );
+    }
+
+    template<> float
+        SQLiteRow::get<float>(
+            const std::string&
+                column_name
+        )
+    {
+        return get<float>(
+            get_index(
+                column_name
+            )
+        );
+    }
+
+    template<> bool
+        SQLiteRow::get<bool>(
+            const std::string&
+                column_name
+        )
+    {
+        return get<bool>(
+            get_index(
+                column_name
+            )
+        );
     }
 
     template<> std::string
@@ -150,6 +299,8 @@ namespace
 		SQLiteRow
 			::get_column_count()
 	{
+		validate_statement(statement);
+
 		return
 			sqlite3_column_count(
 				statement
@@ -163,15 +314,32 @@ namespace
 					column_index
 			)
 	{
-		const char* name =
-			sqlite3_column_name(
-				statement,
-				column_index
-			);
+        validate_statement(statement);
 
-		return name ?
-			std::string(name) :
-			"";
+        int column_count =
+            sqlite3_column_count(
+                statement
+            );
+
+        if (
+            column_index < 0 ||
+            column_index >= column_count
+            )
+        {
+            return "";
+        }
+
+        const char*
+            name =
+            sqlite3_column_name(
+                statement,
+                column_index
+            );
+
+        return
+            name ?
+            std::string(name) :
+            "";
 	}
 
 	int
@@ -181,42 +349,48 @@ namespace
 					column_name
 			)
 	{
-		auto
-			it =
-				column_name_to_index
-					.find(
-						column_name
-					);
+        validate_statement(statement);
 
-		if (it != column_name_to_index.end())
-		{
-			return
-				it->second;
-		}
+        auto iterator =
+            column_name_to_index.find(
+                column_name
+            );
 
-		int
-			count =
-				get_column_count();
+        if (
+            iterator !=
+            column_name_to_index.end()
+            )
+        {
+            return iterator->second;
+        }
 
-		for
-		(
-			int index = 0;
-			index < count;
-			++index
-		)
-		{
-			if (get_column_name(index) == column_name)
-			{
-				column_name_to_index[column_name] =
-					index;
+        int count =
+            get_column_count();
 
-				return
-					index;
-			}
-		}
+        for(
+            int index = 0;
+            index < count;
+            ++index
+            )
+        {
+            if (
+                get_column_name(index) ==
+                column_name
+                )
+            {
+                column_name_to_index[
+                    column_name
+                ] = index;
 
-		throw
-			SQLiteException("column name not found", -1, -1);
+                return index;
+            }
+        }
+
+        throw SQLiteException(
+            "Column Name Not Found",
+            -1,
+            -1
+        );    
 	}
 }
 

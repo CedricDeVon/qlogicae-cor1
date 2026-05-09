@@ -1138,20 +1138,149 @@
 
 #if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
 		QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
-			FileSystemListenerManager \
+			FileSystemEvent \
 		) \
 	)
-	#define QLOGICAE_COR1__BASE__HPP_CPP__FileSystemListenerManager__IS_COMPILATION_ENABLED 1
+	#define QLOGICAE_COR1__BASE__HPP_CPP__FileSystemEvent__IS_COMPILATION_ENABLED 1
 
 #else
 #endif
 
 #if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
 		QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
-			FileSystemListenerManagerConfigurations \
+			FileSystemEventListenerAction \
 		) \
 	)
-	#define QLOGICAE_COR1__BASE__HPP_CPP__FileSystemListenerManagerConfigurations__IS_COMPILATION_ENABLED 1
+	#define QLOGICAE_COR1__BASE__HPP_CPP__FileSystemEventListenerAction__IS_COMPILATION_ENABLED 1
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+		QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+			FileSystemEventListenerActionEnumManager \
+		) \
+	)
+	#define QLOGICAE_COR1__BASE__HPP_CPP__FileSystemEventListenerActionEnumManager__IS_COMPILATION_ENABLED 1
+
+#else
+#endif
+
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+		QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+			FileSystemEventListenerActionEnumManagerConfigurations \
+		) \
+	)
+	#define QLOGICAE_COR1__BASE__HPP_CPP__FileSystemEventListenerActionEnumManagerConfigurations__IS_COMPILATION_ENABLED 1
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+		QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+			FileSystemEventListenerManager \
+		) \
+	)
+	#define QLOGICAE_COR1__BASE__HPP_CPP__FileSystemEventListenerManager__IS_COMPILATION_ENABLED 1
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+		QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+			FileSystemEventListenerManagerConfigurations \
+		) \
+	)
+	#define QLOGICAE_COR1__BASE__HPP_CPP__FileSystemEventListenerManagerConfigurations__IS_COMPILATION_ENABLED 1
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+		QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+			FileSystemEventListenerManagerOptions \
+		) \
+	)
+	#define QLOGICAE_COR1__BASE__HPP_CPP__FileSystemEventListenerManagerOptions__IS_COMPILATION_ENABLED 1
+
+#else
+#endif
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+		QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+			FileSystemEventListenerMetadataFlags \
+		) \
+	)
+	#define QLOGICAE_COR1__BASE__HPP_CPP__FileSystemEventListenerMetadataFlags__IS_COMPILATION_ENABLED 1
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+		QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+			FileSystemEventListenerMetadataFlagsEnumManager \
+		) \
+	)
+	#define QLOGICAE_COR1__BASE__HPP_CPP__FileSystemEventListenerMetadataFlagsEnumManager__IS_COMPILATION_ENABLED 1
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+		QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+			FileSystemEventListenerMetadataFlagsEnumManagerConfigurations \
+		) \
+	)
+	#define QLOGICAE_COR1__BASE__HPP_CPP__FileSystemEventListenerMetadataFlagsEnumManagerConfigurations__IS_COMPILATION_ENABLED 1
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+		QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+			FileSystemEventListenerSlot \
+		) \
+	)
+	#define QLOGICAE_COR1__BASE__HPP_CPP__FileSystemEventListenerSlot__IS_COMPILATION_ENABLED 1
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+		QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+			FileSystemEventListenerSource \
+		) \
+	)
+	#define QLOGICAE_COR1__BASE__HPP_CPP__FileSystemEventListenerSource__IS_COMPILATION_ENABLED 1
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+		QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+			FileSystemEventListenerSourceEnumManager \
+		) \
+	)
+	#define QLOGICAE_COR1__BASE__HPP_CPP__FileSystemEventListenerSourceEnumManager__IS_COMPILATION_ENABLED 1
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+		QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+			FileSystemEventListenerSourceEnumManagerConfigurations \
+		) \
+	)
+	#define QLOGICAE_COR1__BASE__HPP_CPP__FileSystemEventListenerSourceEnumManagerConfigurations__IS_COMPILATION_ENABLED 1
+
+#else
+#endif
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+		QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+			FileSystemEventListenerWatchContext \
+		) \
+	)
+	#define QLOGICAE_COR1__BASE__HPP_CPP__FileSystemEventListenerWatchContext__IS_COMPILATION_ENABLED 1
 
 #else
 #endif
@@ -2118,80 +2247,80 @@
 
 #if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
 		QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
-			SqliteBackend \
+			SQLiteBackend \
 		) \
 	)
-	#define QLOGICAE_COR1__BASE__HPP_CPP__SqliteBackend__IS_COMPILATION_ENABLED 1
+	#define QLOGICAE_COR1__BASE__HPP_CPP__SQLiteBackend__IS_COMPILATION_ENABLED 1
 
 #else
 #endif
 
 #if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
 		QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
-			SqliteDatabaseManager \
+			SQLiteDatabaseManager \
 		) \
 	)
-	#define QLOGICAE_COR1__BASE__HPP_CPP__SqliteDatabaseManager__IS_COMPILATION_ENABLED 1
+	#define QLOGICAE_COR1__BASE__HPP_CPP__SQLiteDatabaseManager__IS_COMPILATION_ENABLED 1
 
 #else
 #endif
 
 #if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
 		QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
-			SqliteDatabaseManagerConfigurations \
+			SQLiteDatabaseManagerConfigurations \
 		) \
 	)
-	#define QLOGICAE_COR1__BASE__HPP_CPP__SqliteDatabaseManagerConfigurations__IS_COMPILATION_ENABLED 1
+	#define QLOGICAE_COR1__BASE__HPP_CPP__SQLiteDatabaseManagerConfigurations__IS_COMPILATION_ENABLED 1
 
 #else
 #endif
 
 #if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
 		QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
-			SqliteException \
+			SQLiteException \
 		) \
 	)
-	#define QLOGICAE_COR1__BASE__HPP_CPP__SqliteException__IS_COMPILATION_ENABLED 1
+	#define QLOGICAE_COR1__BASE__HPP_CPP__SQLiteException__IS_COMPILATION_ENABLED 1
 
 #else
 #endif
 
 #if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
 		QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
-			SqliteRow \
+			SQLiteRow \
 		) \
 	)
-	#define QLOGICAE_COR1__BASE__HPP_CPP__SqliteRow__IS_COMPILATION_ENABLED 1
+	#define QLOGICAE_COR1__BASE__HPP_CPP__SQLiteRow__IS_COMPILATION_ENABLED 1
 
 #else
 #endif
 
 #if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
 		QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
-			SqliteStatement \
+			SQLiteStatement \
 		) \
 	)
-	#define QLOGICAE_COR1__BASE__HPP_CPP__SqliteStatement__IS_COMPILATION_ENABLED 1
+	#define QLOGICAE_COR1__BASE__HPP_CPP__SQLiteStatement__IS_COMPILATION_ENABLED 1
 
 #else
 #endif
 
 #if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
 		QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
-			SqliteStatementData \
+			SQLiteStatementData \
 		) \
 	)
-	#define QLOGICAE_COR1__BASE__HPP_CPP__SqliteStatementData__IS_COMPILATION_ENABLED 1
+	#define QLOGICAE_COR1__BASE__HPP_CPP__SQLiteStatementData__IS_COMPILATION_ENABLED 1
 
 #else
 #endif
 
 #if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
 		QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
-			SqliteTransaction \
+			SQLiteTransaction \
 		) \
 	)
-	#define QLOGICAE_COR1__BASE__HPP_CPP__SqliteTransaction__IS_COMPILATION_ENABLED 1
+	#define QLOGICAE_COR1__BASE__HPP_CPP__SQLiteTransaction__IS_COMPILATION_ENABLED 1
 
 #else
 #endif

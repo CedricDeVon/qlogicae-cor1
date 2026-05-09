@@ -16,175 +16,271 @@ namespace
 
 	}
 
-	static YAML::Node
-	traverse_to_parent(
-		YAML::Node root,
-		const std::vector<std::variant<std::string, size_t>>& key_path
-	)
-	{
-		if (!root.IsDefined() || key_path.empty())
-			return YAML::Node(YAML::NodeType::Undefined);
+	YAML::Node
+		YamlFileIoManager
+			::traverse_to_parent_node(
+				YAML::Node
+					root,
+				const std::vector<std::variant<std::string, size_t>>&
+					key_path
+			)
+	{		
+		try
+        {	
+			QLOGICAE_COR1__EXPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
+			(
+				YAML::Node(YAML::NodeType::Undefined),
+				QLOGICAE_COR1__BASE__HPP_CPP__MUTEX_LAYER_2,
+				QLOGICAE_COR1__BASE__HPP_CPP__EMPTY_EDGE_CASES
+			);
 
-		YAML::Node current = root;
-
-		for (size_t i = 0; i + 1 < key_path.size(); ++i)
-		{
-			const auto& key = key_path[i];
-
-			if (std::holds_alternative<std::string>(key))
-			{
-				const auto& k = std::get<std::string>(key);
-
-				if (!current.IsMap())
-					current = YAML::Node(YAML::NodeType::Map);
-
-				if (!current[k])
-					current[k] = YAML::Node();
-
-				current = current[k];
-			}
-			else
-			{
-				size_t idx = std::get<size_t>(key);
-
-				if (!current.IsSequence())
-					current = YAML::Node(YAML::NodeType::Sequence);
-
-				while (current.size() <= idx)
-					current.push_back(YAML::Node());
-
-				current = current[idx];
-			}
-		}
-
-		return current;
-	}
-
-	static YAML::Node safe_traverse(
-		const YAML::Node& node,
-		const std::vector<std::variant<std::string, size_t>>& key_path
-	)
-	{
-		if (!node.IsDefined() || key_path.empty())
-			return YAML::Node(YAML::NodeType::Undefined);
-
-		YAML::Node current = node;
-
-		for (const auto& key : key_path)
-		{
-			if (!current.IsDefined())
+			if (!root.IsDefined() || key_path.empty())
 				return YAML::Node(YAML::NodeType::Undefined);
 
-			if (std::holds_alternative<std::string>(key))
+			YAML::Node current = root;
+
+			for (size_t i = 0; i + 1 < key_path.size(); ++i)
 			{
-				if (!current.IsMap())
-					return YAML::Node(YAML::NodeType::Undefined);
+				const auto& key = key_path[i];
 
-				const auto& k = std::get<std::string>(key);
+				if (std::holds_alternative<std::string>(key))
+				{
+					const auto& k = std::get<std::string>(key);
 
-				if (!current[k])
-					return YAML::Node(YAML::NodeType::Undefined);
+					if (!current.IsMap())
+						current = YAML::Node(YAML::NodeType::Map);
 
-				current = current[k];
+					if (!current[k])
+						current[k] = YAML::Node();
+
+					current = current[k];
+				}
+				else
+				{
+					size_t idx = std::get<size_t>(key);
+
+					if (!current.IsSequence())
+						current = YAML::Node(YAML::NodeType::Sequence);
+
+					while (current.size() <= idx)
+						current.push_back(YAML::Node());
+
+					current = current[idx];
+				}
 			}
-			else
-			{
-				if (!current.IsSequence())
-					return YAML::Node(YAML::NodeType::Undefined);
 
-				size_t idx = std::get<size_t>(key);
-
-				if (idx >= current.size())
-					return YAML::Node(YAML::NodeType::Undefined);
-
-				current = current[idx];
-			}
-		}
-
-		return current;
+			return current;
+        }
+        catch
+        (
+            QLOGICAE_COR1__BASE__HPP_CPP__TRY_CATCH_EXCEPTION_PARAMETER
+        )
+        {
+			QLOGICAE_COR1__EXPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE(
+				YAML::Node(YAML::NodeType::Undefined)
+			);
+        }
 	}
 
-	static YAML::Node walk_root(YAML::Node& root,
-		const std::vector<std::variant<std::string, size_t>>& key_path,
-		bool create)
-	{
-		if (!root.IsDefined())
-		{
-			if (!create) return YAML::Node();
-			root = YAML::Node(YAML::NodeType::Map);
-		}
-
-		YAML::Node current = root;
-
-		for (size_t i = 0; i + 1 < key_path.size(); ++i)
-		{
-			const auto& key = key_path[i];
-
-			if (std::holds_alternative<std::string>(key))
-			{
-				const auto& k = std::get<std::string>(key);
-
-				if (!current.IsMap())
-				{
-					if (!create) return YAML::Node();
-					current = YAML::Node(YAML::NodeType::Map);
-				}
-
-				if (!current[k] && create)
-					current[k] = YAML::Node();
-
-				current = current[k];
-			}
-			else
-			{
-				size_t idx = std::get<size_t>(key);
-
-				if (!current.IsSequence())
-				{
-					if (!create) return YAML::Node();
-					current = YAML::Node(YAML::NodeType::Sequence);
-				}
-
-				while (current.size() <= idx)
-					current.push_back(YAML::Node());
-
-				current = current[idx];
-			}
-		}
-
-		return current;
-	}
-
-
-
-	YAML::Node YamlFileIoManager::load_yaml(const std::string& file_path)
-	{
-		if (file_path.empty())
-			return YAML::Node(YAML::NodeType::Undefined);
-
-		if (!std::filesystem::exists(file_path))
-			return YAML::Node(YAML::NodeType::Undefined);
-
+	YAML::Node
+		YamlFileIoManager
+			::safe_traverse_tree(
+				const YAML::Node&
+					node,
+				const std::vector<std::variant<std::string, size_t>>&
+					key_path
+			)
+	{		
 		try
-		{
+        {	
+			QLOGICAE_COR1__EXPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
+			(
+				YAML::Node(YAML::NodeType::Undefined),
+				QLOGICAE_COR1__BASE__HPP_CPP__MUTEX_LAYER_2,
+				QLOGICAE_COR1__BASE__HPP_CPP__EMPTY_EDGE_CASES
+			);
+
+			if (!node.IsDefined() || key_path.empty())
+				return YAML::Node(YAML::NodeType::Undefined);
+
+			YAML::Node current = node;
+
+			for (const auto& key : key_path)
+			{
+				if (!current.IsDefined())
+					return YAML::Node(YAML::NodeType::Undefined);
+
+				if (std::holds_alternative<std::string>(key))
+				{
+					if (!current.IsMap())
+						return YAML::Node(YAML::NodeType::Undefined);
+
+					const auto& k = std::get<std::string>(key);
+
+					if (!current[k])
+						return YAML::Node(YAML::NodeType::Undefined);
+
+					current = current[k];
+				}
+				else
+				{
+					if (!current.IsSequence())
+						return YAML::Node(YAML::NodeType::Undefined);
+
+					size_t idx = std::get<size_t>(key);
+
+					if (idx >= current.size())
+						return YAML::Node(YAML::NodeType::Undefined);
+
+					current = current[idx];
+				}
+			}
+
+			return current;
+        }
+        catch
+        (
+            QLOGICAE_COR1__BASE__HPP_CPP__TRY_CATCH_EXCEPTION_PARAMETER
+        )
+        {
+			QLOGICAE_COR1__EXPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE(
+				YAML::Node(YAML::NodeType::Undefined)
+			);
+        }
+	}
+
+	YAML::Node
+		YamlFileIoManager
+			::walk_root_node(
+				YAML::Node&
+					root,
+				const std::vector<std::variant<std::string, size_t>>&
+					key_path,
+				bool
+					create
+			)
+	{		
+		try
+        {	
+			QLOGICAE_COR1__EXPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
+			(
+				YAML::Node(YAML::NodeType::Undefined),
+				QLOGICAE_COR1__BASE__HPP_CPP__MUTEX_LAYER_2,
+				QLOGICAE_COR1__BASE__HPP_CPP__EMPTY_EDGE_CASES
+			);
+
+			if (!root.IsDefined())
+			{
+				if (!create) return YAML::Node();
+				root = YAML::Node(YAML::NodeType::Map);
+			}
+
+			YAML::Node current = root;
+
+			for (size_t i = 0; i + 1 < key_path.size(); ++i)
+			{
+				const auto& key = key_path[i];
+
+				if (std::holds_alternative<std::string>(key))
+				{
+					const auto& k = std::get<std::string>(key);
+
+					if (!current.IsMap())
+					{
+						if (!create) return YAML::Node();
+						current = YAML::Node(YAML::NodeType::Map);
+					}
+
+					if (!current[k] && create)
+						current[k] = YAML::Node();
+
+					current = current[k];
+				}
+				else
+				{
+					size_t idx = std::get<size_t>(key);
+
+					if (!current.IsSequence())
+					{
+						if (!create) return YAML::Node();
+						current = YAML::Node(YAML::NodeType::Sequence);
+					}
+
+					while (current.size() <= idx)
+						current.push_back(YAML::Node());
+
+					current = current[idx];
+				}
+			}
+
+			return current;
+        }
+        catch
+        (
+            QLOGICAE_COR1__BASE__HPP_CPP__TRY_CATCH_EXCEPTION_PARAMETER
+        )
+        {
+			QLOGICAE_COR1__EXPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE(
+				YAML::Node(YAML::NodeType::Undefined)
+			);
+        }
+	}
+
+	YAML::Node
+		YamlFileIoManager
+			::load(
+				const std::string&
+					file_path
+			)
+	{
+		try
+        {	
+			QLOGICAE_COR1__EXPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
+			(
+				YAML::Node(YAML::NodeType::Undefined),
+				QLOGICAE_COR1__BASE__HPP_CPP__MUTEX_LAYER_2,
+				QLOGICAE_COR1__BASE__HPP_CPP__EMPTY_EDGE_CASES
+			);
+
+			if (file_path.empty())
+				return YAML::Node(YAML::NodeType::Undefined);
+
+			if (!std::filesystem::exists(file_path))
+				return YAML::Node(YAML::NodeType::Undefined);
+
 			return YAML::LoadFile(file_path);
-		}
-		catch (...)
-		{
-			return YAML::Node(YAML::NodeType::Undefined);
-		}
+        }
+        catch
+        (
+            QLOGICAE_COR1__BASE__HPP_CPP__TRY_CATCH_EXCEPTION_PARAMETER
+        )
+        {
+			QLOGICAE_COR1__EXPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE(
+				YAML::Node(YAML::NodeType::Undefined)
+			);
+        }
 	}
 
-	bool YamlFileIoManager::save_yaml(
-		const std::string& file_path,
-		const YAML::Node& node
-	)
+	bool
+		YamlFileIoManager
+			::save(
+				const std::string&
+					file_path,
+				const YAML::Node&
+					node
+			)
 	{
-		if (file_path.empty())
-			return false;
-
 		try
-		{
+        {	
+			QLOGICAE_COR1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
+			(
+				QLOGICAE_COR1__BASE__HPP_CPP__MUTEX_LAYER_2,
+				QLOGICAE_COR1__BASE__HPP_CPP__EMPTY_EDGE_CASES
+			);
+
+			if (file_path.empty())
+				return false;
+
 			std::ofstream out(file_path, std::ios::trunc);
 			if (!out.is_open())
 				return false;
@@ -192,179 +288,376 @@ namespace
 			out << YAML::Dump(node);
 
 			return !out.fail();
-		}
-		catch (...)
-		{
-			return false;
-		}
+        }
+        catch
+        (
+            QLOGICAE_COR1__BASE__HPP_CPP__TRY_CATCH_EXCEPTION_PARAMETER
+        )
+        {
+			QLOGICAE_COR1__IMPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE();
+        }
 	}
 
-	YAML::Node YamlFileIoManager::traverse(
-		YAML::Node node,
-		const std::vector<std::variant<std::string, size_t>>& key_path
-	)
+	YAML::Node
+		YamlFileIoManager
+			::traverse_tree(
+				YAML::Node
+					node,
+				const std::vector<std::variant<std::string, size_t>>&
+					key_path
+			)
 	{
-		return safe_traverse(node, key_path);
+		return safe_traverse_tree(node, key_path);
 	}
 
-	YAML::Node YamlFileIoManager::resolve_or_create(
-		YAML::Node root,
-		const std::vector<std::variant<std::string, size_t>>& key_path
-	)
+	YAML::Node
+		YamlFileIoManager
+			::resolve_or_create(
+				YAML::Node
+					root,
+				const std::vector<std::variant<std::string, size_t>>&
+					key_path
+			)
 	{
-		YAML::Node current = root;
+		try
+        {	
+			QLOGICAE_COR1__EXPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
+			(
+				YAML::Node(YAML::NodeType::Undefined),
+				QLOGICAE_COR1__BASE__HPP_CPP__MUTEX_LAYER_1,
+				QLOGICAE_COR1__BASE__HPP_CPP__EMPTY_EDGE_CASES
+			);
 
-		for (size_t i = 0; i < key_path.size(); ++i)
-		{
-			const auto& key = key_path[i];
+			YAML::Node current = root;
 
-			if (std::holds_alternative<std::string>(key))
+			for (size_t i = 0; i < key_path.size(); ++i)
 			{
-				if (!current.IsMap())
-					current = YAML::Node(YAML::NodeType::Map);
+				const auto& key = key_path[i];
 
-				const auto& k = std::get<std::string>(key);
+				if (std::holds_alternative<std::string>(key))
+				{
+					if (!current.IsMap())
+						current = YAML::Node(YAML::NodeType::Map);
 
-				if (!current[k])
-					current[k] = YAML::Node();
+					const auto& k = std::get<std::string>(key);
 
-				current = current[k];
+					if (!current[k])
+						current[k] = YAML::Node();
+
+					current = current[k];
+				}
+				else
+				{
+					if (!current.IsSequence())
+						current = YAML::Node(YAML::NodeType::Sequence);
+
+					size_t idx = std::get<size_t>(key);
+
+					while (current.size() <= idx)
+						current.push_back(YAML::Node());
+
+					current = current[idx];
+				}
 			}
-			else
-			{
-				if (!current.IsSequence())
-					current = YAML::Node(YAML::NodeType::Sequence);
 
-				size_t idx = std::get<size_t>(key);
-
-				while (current.size() <= idx)
-					current.push_back(YAML::Node());
-
-				current = current[idx];
-			}
-		}
-
-		return current;
+			return current;
+        }
+        catch
+        (
+            QLOGICAE_COR1__BASE__HPP_CPP__TRY_CATCH_EXCEPTION_PARAMETER
+        )
+        {
+			QLOGICAE_COR1__EXPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE(
+				YAML::Node(YAML::NodeType::Undefined)
+			);
+        }		
 	}
 
-	bool YamlFileIoManager::is_valid(const std::string& file_path)
+	bool
+		YamlFileIoManager
+			::is_valid(
+				const std::string&
+					file_path
+			)
+	{		
+		try
+        {	
+			QLOGICAE_COR1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
+			(
+				QLOGICAE_COR1__BASE__HPP_CPP__MUTEX_LAYER_1,
+				QLOGICAE_COR1__BASE__HPP_CPP__EMPTY_EDGE_CASES
+			);
+
+			auto node = load(file_path);
+
+			return node.IsDefined() && !node.IsNull();
+        }
+        catch
+        (
+            QLOGICAE_COR1__BASE__HPP_CPP__TRY_CATCH_EXCEPTION_PARAMETER
+        )
+        {
+			QLOGICAE_COR1__IMPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE();
+        }
+	}
+
+	bool
+		YamlFileIoManager
+			::is_key_path_valid(
+				const std::string&
+					file_path,
+				const std::vector<std::variant<std::string, size_t>>&
+					key_path
+			)
+	{		
+		try
+        {	
+			QLOGICAE_COR1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
+			(
+				QLOGICAE_COR1__BASE__HPP_CPP__MUTEX_LAYER_1,
+				QLOGICAE_COR1__BASE__HPP_CPP__EMPTY_EDGE_CASES
+			);
+
+			if (file_path.empty() || key_path.empty())
+				return false;
+
+			auto root = load(file_path);
+			auto node = safe_traverse_tree(root, key_path);
+
+			return node.IsDefined() && !node.IsNull();
+        }
+        catch
+        (
+            QLOGICAE_COR1__BASE__HPP_CPP__TRY_CATCH_EXCEPTION_PARAMETER
+        )
+        {
+			QLOGICAE_COR1__IMPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE();
+        }
+	}
+
+	std::string
+		YamlFileIoManager
+			::get_raw_yaml(
+				const std::string&
+					file_path,
+				const std::vector<std::variant<std::string, size_t>>&
+					key_path
+			)
+	{		
+		try
+        {	
+			QLOGICAE_COR1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
+			(
+				QLOGICAE_COR1__BASE__HPP_CPP__MUTEX_LAYER_1,
+				QLOGICAE_COR1__BASE__HPP_CPP__EMPTY_EDGE_CASES
+			);
+
+			auto node = safe_traverse_tree(load(file_path),key_path);
+
+			if(!node.IsDefined())
+				return "";
+
+			return YAML::Dump(node);
+        }
+        catch
+        (
+            QLOGICAE_COR1__BASE__HPP_CPP__TRY_CATCH_EXCEPTION_PARAMETER
+        )
+        {
+			QLOGICAE_COR1__IMPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE();
+        }
+	}
+
+	std::string
+		YamlFileIoManager
+			::get_string(
+				const std::string&
+					file_path,
+				const std::vector<std::variant<std::string, size_t>>&
+					key_path
+			)
 	{
-		auto node = load_yaml(file_path);
-		return node.IsDefined() && !node.IsNull();
+		try
+        {	
+			QLOGICAE_COR1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
+			(
+				QLOGICAE_COR1__BASE__HPP_CPP__MUTEX_LAYER_1,
+				QLOGICAE_COR1__BASE__HPP_CPP__EMPTY_EDGE_CASES
+			);
+
+			auto node = safe_traverse_tree(load(file_path),key_path);
+
+			if(!node.IsDefined() || !node.IsScalar())
+				return "";
+
+			return node.as<std::string>();
+        }
+        catch
+        (
+            QLOGICAE_COR1__BASE__HPP_CPP__TRY_CATCH_EXCEPTION_PARAMETER
+        )
+        {
+			QLOGICAE_COR1__IMPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE();
+        }
 	}
 
-	bool YamlFileIoManager::is_key_path_valid(
-		const std::string& file_path,
-		const std::vector<std::variant<std::string, size_t>>& key_path
-	)
-	{
-		if (file_path.empty() || key_path.empty())
-			return false;
+	double
+		YamlFileIoManager
+			::get_double(
+				const std::string&
+					file_path,
+				const std::vector<std::variant<std::string, size_t>>&
+					key_path
+			)
+	{		
+		try
+        {	
+			QLOGICAE_COR1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
+			(
+				QLOGICAE_COR1__BASE__HPP_CPP__MUTEX_LAYER_1,
+				QLOGICAE_COR1__BASE__HPP_CPP__EMPTY_EDGE_CASES
+			);
 
-		auto root = load_yaml(file_path);
-		auto node = safe_traverse(root, key_path);
+			auto node = safe_traverse_tree(load(file_path),key_path);
 
-		return node.IsDefined() && !node.IsNull();
+			if(!node.IsDefined() || !node.IsScalar())
+				return 0.0;
+
+			return node.as<double>();
+        }
+        catch
+        (
+            QLOGICAE_COR1__BASE__HPP_CPP__TRY_CATCH_EXCEPTION_PARAMETER
+        )
+        {
+			QLOGICAE_COR1__IMPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE();
+        }
 	}
 
-	std::string YamlFileIoManager::get_raw_yaml(
-		const std::string& file_path,
-		const std::vector<std::variant<std::string, size_t>>& key_path
-	)
-	{
-		auto node = safe_traverse(load_yaml(file_path), key_path);
+	bool
+		YamlFileIoManager
+			::get_boolean(
+				const std::string&
+					file_path,
+				const std::vector<std::variant<std::string, size_t>>&
+					key_path
+			)
+	{		
+		try
+        {	
+			QLOGICAE_COR1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
+			(
+				QLOGICAE_COR1__BASE__HPP_CPP__MUTEX_LAYER_1,
+				QLOGICAE_COR1__BASE__HPP_CPP__EMPTY_EDGE_CASES
+			);
 
-		if (!node.IsDefined())
-			return "";
+            auto node = safe_traverse_tree(load(file_path), key_path);
 
-		return YAML::Dump(node);
+			if (!node.IsDefined() || !node.IsScalar())
+				return false;
+
+			return node.as<bool>();
+        }
+        catch
+        (
+            QLOGICAE_COR1__BASE__HPP_CPP__TRY_CATCH_EXCEPTION_PARAMETER
+        )
+        {
+			QLOGICAE_COR1__IMPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE();
+        }
 	}
 
-	std::string YamlFileIoManager::get_string(
-		const std::string& file_path,
-		const std::vector<std::variant<std::string, size_t>>& key_path
-	)
-	{
-		auto node = safe_traverse(load_yaml(file_path), key_path);
-
-		if (!node.IsDefined() || !node.IsScalar())
-			return "";
-
-		try { return node.as<std::string>(); }
-		catch (...) { return ""; }
-	}
-
-	double YamlFileIoManager::get_double(
-		const std::string& file_path,
-		const std::vector<std::variant<std::string, size_t>>& key_path
-	)
-	{
-		auto node = safe_traverse(load_yaml(file_path), key_path);
-
-		if (!node.IsDefined() || !node.IsScalar())
-			return 0.0;
-
-		try { return node.as<double>(); }
-		catch (...) { return 0.0; }
-	}
-
-	bool YamlFileIoManager::get_boolean(
-		const std::string& file_path,
-		const std::vector<std::variant<std::string, size_t>>& key_path
-	)
-	{
-		auto node = safe_traverse(load_yaml(file_path), key_path);
-
-		if (!node.IsDefined() || !node.IsScalar())
-			return false;
-
-		try { return node.as<bool>(); }
-		catch (...) { return false; }
-	}
-
-	std::nullptr_t YamlFileIoManager::get_null(
-		const std::string&,
-		const std::vector<std::variant<std::string, size_t>>&
-	)
+	std::nullptr_t
+		YamlFileIoManager
+			::get_null(
+				const std::string&
+					file_path,
+				const std::vector<std::variant<std::string, size_t>>&
+					pairs
+			)
 	{
 		return nullptr;
 	}
 
-	bool YamlFileIoManager::set_raw_yaml(
-		const std::string& file_path,
-		const std::vector<std::variant<std::string, size_t>>& key_path,
-		const std::string& value
-	)
-	{
-		if (file_path.empty() || key_path.empty())
-			return false;
+	bool
+		YamlFileIoManager
+			::set_raw_yaml(
+				const std::string&
+					file_path,
+				const std::vector<std::variant<std::string, size_t>>&
+					key_path,
+				const std::string&
+					value
+			)
+	{				
+		try
+        {	
+			QLOGICAE_COR1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
+			(
+				QLOGICAE_COR1__BASE__HPP_CPP__MUTEX_LAYER_1,
+				QLOGICAE_COR1__BASE__HPP_CPP__EMPTY_EDGE_CASES
+			);
 
-		YAML::Node root = load_yaml(file_path);
+			if (file_path.empty() || key_path.empty())
+				return false;
 
-		if (!root.IsDefined() || root.IsNull())
-			root = YAML::Node(YAML::NodeType::Map);
+			YAML::Node root = load(file_path);
 
-		YAML::Node current = root;
+			if (!root.IsDefined() || root.IsNull())
+				root = YAML::Node(YAML::NodeType::Map);
 
-		for (size_t i = 0; i + 1 < key_path.size(); ++i)
-		{
-			const auto& key = key_path[i];
+			YAML::Node current = root;
 
-			if (std::holds_alternative<std::string>(key))
+			for (size_t i = 0; i + 1 < key_path.size(); ++i)
 			{
-				const auto& k = std::get<std::string>(key);
+				const auto& key = key_path[i];
 
-				if (!current.IsMap())
-					current = YAML::Node(YAML::NodeType::Map);
+				if (std::holds_alternative<std::string>(key))
+				{
+					const auto& k = std::get<std::string>(key);
 
-				if (!current[k])
-					current[k] = YAML::Node(YAML::NodeType::Map);
+					if (!current.IsMap())
+						current = YAML::Node(YAML::NodeType::Map);
 
-				current = current[k];
+					if (!current[k])
+						current[k] = YAML::Node(YAML::NodeType::Map);
+
+					current = current[k];
+				}
+				else
+				{
+					size_t idx = std::get<size_t>(key);
+
+					if (!current.IsSequence())
+						current = YAML::Node(YAML::NodeType::Sequence);
+
+					while (current.size() <= idx)
+						current.push_back(YAML::Node());
+
+					current = current[idx];
+				}
+			}
+
+			const auto& last = key_path.back();
+
+			YAML::Node parsed;
+
+			try
+			{
+				parsed = YAML::Load(value);
+			}
+			catch (...)
+			{
+				parsed = YAML::Node(value);
+			}
+
+			if (std::holds_alternative<std::string>(last))
+			{
+				current[std::get<std::string>(last)] = parsed;
 			}
 			else
 			{
-				size_t idx = std::get<size_t>(key);
+				size_t idx = std::get<size_t>(last);
 
 				if (!current.IsSequence())
 					current = YAML::Node(YAML::NodeType::Sequence);
@@ -372,87 +665,118 @@ namespace
 				while (current.size() <= idx)
 					current.push_back(YAML::Node());
 
-				current = current[idx];
-			}
-		}
+				current[idx] = parsed;
+			}       
 
-		const auto& last = key_path.back();
-
-		YAML::Node parsed;
-
-		try
-		{
-			parsed = YAML::Load(value);
-		}
-		catch (...)
-		{
-			parsed = YAML::Node(value);
-		}
-
-		if (std::holds_alternative<std::string>(last))
-		{
-			current[std::get<std::string>(last)] = parsed;
-		}
-		else
-		{
-			size_t idx = std::get<size_t>(last);
-
-			if (!current.IsSequence())
-				current = YAML::Node(YAML::NodeType::Sequence);
-
-			while (current.size() <= idx)
-				current.push_back(YAML::Node());
-
-			current[idx] = parsed;
-		}
-
-		return save_yaml(file_path, root);
+			return save(file_path,root);
+        }
+        catch
+        (
+            QLOGICAE_COR1__BASE__HPP_CPP__TRY_CATCH_EXCEPTION_PARAMETER
+        )
+        {
+			QLOGICAE_COR1__IMPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE();
+        }
 	}
 
-	bool YamlFileIoManager::set_string(
-		const std::string& file_path,
-		const std::vector<std::variant<std::string, size_t>>& key_path,
-		const std::string& value
-	)
+	bool
+		YamlFileIoManager
+			::set_string(
+				const std::string&
+					file_path,
+				const std::vector<std::variant<std::string, size_t>>&
+					key_path,
+				const std::string&
+					value
+			)
 	{
 		return set_raw_yaml(file_path, key_path, value);
 	}
 
-	bool YamlFileIoManager::append_raw_yaml(
-		const std::string& file_path,
-		const std::vector<std::variant<std::string, size_t>>& key_path,
-		const std::string& value
-	)
-	{
-		if (file_path.empty() || key_path.empty())
-			return false;
+	bool
+		YamlFileIoManager
+			::append_raw_yaml(
+				const std::string&
+					file_path,
+				const std::vector<std::variant<std::string, size_t>>&
+					key_path,
+				const std::string&
+					value
+			)
+	{		
+		try
+        {	
+			QLOGICAE_COR1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
+			(
+				QLOGICAE_COR1__BASE__HPP_CPP__MUTEX_LAYER_1,
+				QLOGICAE_COR1__BASE__HPP_CPP__EMPTY_EDGE_CASES
+			);
 
-		YAML::Node root = load_yaml(file_path);
+			if (file_path.empty() || key_path.empty())
+				return false;
 
-		if (!root.IsDefined() || root.IsNull())
-			root = YAML::Node(YAML::NodeType::Map);
+			YAML::Node root = load(file_path);
 
-		YAML::Node current = root;
+			if (!root.IsDefined() || root.IsNull())
+				root = YAML::Node(YAML::NodeType::Map);
 
-		for (size_t i = 0; i + 1 < key_path.size(); ++i)
-		{
-			const auto& key = key_path[i];
+			YAML::Node current = root;
 
-			if (std::holds_alternative<std::string>(key))
+			for (size_t i = 0; i + 1 < key_path.size(); ++i)
 			{
-				const auto& k = std::get<std::string>(key);
+				const auto& key = key_path[i];
 
-				if (!current.IsMap())
-					current = YAML::Node(YAML::NodeType::Map);
+				if (std::holds_alternative<std::string>(key))
+				{
+					const auto& k = std::get<std::string>(key);
 
-				if (!current[k])
-					current[k] = YAML::Node(YAML::NodeType::Map);
+					if (!current.IsMap())
+						current = YAML::Node(YAML::NodeType::Map);
 
-				current = current[k];
+					if (!current[k])
+						current[k] = YAML::Node(YAML::NodeType::Map);
+
+					current = current[k];
+				}
+				else
+				{
+					size_t idx = std::get<size_t>(key);
+
+					if (!current.IsSequence())
+						current = YAML::Node(YAML::NodeType::Sequence);
+
+					while (current.size() <= idx)
+						current.push_back(YAML::Node());
+
+					current = current[idx];
+				}
+			}
+
+			const auto& last = key_path.back();
+
+			YAML::Node parsed;
+
+			try
+			{
+				parsed = YAML::Load(value);
+			}
+			catch (...)
+			{
+				parsed = YAML::Node(value);
+			}
+
+			if (std::holds_alternative<std::string>(last))
+			{
+				auto target = current[std::get<std::string>(last)];
+
+				if (!target.IsSequence())
+					target = YAML::Node(YAML::NodeType::Sequence);
+
+				target.push_back(parsed);
 			}
 			else
 			{
-				size_t idx = std::get<size_t>(key);
+				size_t idx = std::get<size_t>(last);
 
 				if (!current.IsSequence())
 					current = YAML::Node(YAML::NodeType::Sequence);
@@ -460,190 +784,257 @@ namespace
 				while (current.size() <= idx)
 					current.push_back(YAML::Node());
 
-				current = current[idx];
+				auto target = current[idx];
+
+				if (!target.IsSequence())
+					target = YAML::Node(YAML::NodeType::Sequence);
+
+				target.push_back(parsed);
 			}
-		}
 
-		const auto& last = key_path.back();
-
-		YAML::Node parsed;
-
-		try
-		{
-			parsed = YAML::Load(value);
-		}
-		catch (...)
-		{
-			parsed = YAML::Node(value);
-		}
-
-		if (std::holds_alternative<std::string>(last))
-		{
-			auto target = current[std::get<std::string>(last)];
-
-			if (!target.IsSequence())
-				target = YAML::Node(YAML::NodeType::Sequence);
-
-			target.push_back(parsed);
-		}
-		else
-		{
-			size_t idx = std::get<size_t>(last);
-
-			if (!current.IsSequence())
-				current = YAML::Node(YAML::NodeType::Sequence);
-
-			while (current.size() <= idx)
-				current.push_back(YAML::Node());
-
-			auto target = current[idx];
-
-			if (!target.IsSequence())
-				target = YAML::Node(YAML::NodeType::Sequence);
-
-			target.push_back(parsed);
-		}
-
-		return save_yaml(file_path, root);
+			return save(file_path, root);       
+        }
+        catch
+        (
+            QLOGICAE_COR1__BASE__HPP_CPP__TRY_CATCH_EXCEPTION_PARAMETER
+        )
+        {
+			QLOGICAE_COR1__IMPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE();
+        }
 	}
 
-	bool YamlFileIoManager::append_string(
-		const std::string& file_path,
-		const std::vector<std::variant<std::string, size_t>>& key_path,
-		const std::string& value
-	)
-	{
-		if (file_path.empty() || key_path.empty())
-			return false;
+	bool
+		YamlFileIoManager
+			::append_string(
+				const std::string&
+					file_path,
+				const std::vector<std::variant<std::string, size_t>>&
+					key_path,
+				const std::string&
+					value
+			)
+	{		
+		try
+        {	
+			QLOGICAE_COR1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
+			(
+				QLOGICAE_COR1__BASE__HPP_CPP__MUTEX_LAYER_1,
+				QLOGICAE_COR1__BASE__HPP_CPP__EMPTY_EDGE_CASES
+			);
 
-		YAML::Node root = load_yaml(file_path);
-
-		if (!root.IsDefined() || root.IsNull())
-			root = YAML::Node(YAML::NodeType::Map);
-
-		YAML::Node parent = walk_root(root, key_path, true);
-
-		const auto& last = key_path.back();
-
-		if (std::holds_alternative<std::string>(last))
-		{
-			const auto& k = std::get<std::string>(last);
-
-			if (!parent[k])
-				parent[k] = YAML::Node(YAML::NodeType::Sequence);
-
-			if (!parent[k].IsSequence())
+            if (file_path.empty() || key_path.empty())
 				return false;
 
-			parent[k].push_back(value);
-		}
-		else
-		{
-			size_t idx = std::get<size_t>(last);
+			YAML::Node root = load(file_path);
 
-			if (!parent.IsSequence())
-				parent = YAML::Node(YAML::NodeType::Sequence);
+			if (!root.IsDefined() || root.IsNull())
+				root = YAML::Node(YAML::NodeType::Map);
 
-			while (parent.size() <= idx)
-				parent.push_back(YAML::Node());
+			YAML::Node parent = walk_root_node(root, key_path, true);
 
-			if (!parent[idx].IsSequence())
-				parent[idx] = YAML::Node(YAML::NodeType::Sequence);
+			const auto& last = key_path.back();
 
-			parent[idx].push_back(value);
-		}
+			if (std::holds_alternative<std::string>(last))
+			{
+				const auto& k = std::get<std::string>(last);
 
-		return save_yaml(file_path, root);
+				if (!parent[k])
+					parent[k] = YAML::Node(YAML::NodeType::Sequence);
+
+				if (!parent[k].IsSequence())
+					return false;
+
+				parent[k].push_back(value);
+			}
+			else
+			{
+				size_t idx = std::get<size_t>(last);
+
+				if (!parent.IsSequence())
+					parent = YAML::Node(YAML::NodeType::Sequence);
+
+				while (parent.size() <= idx)
+					parent.push_back(YAML::Node());
+
+				if (!parent[idx].IsSequence())
+					parent[idx] = YAML::Node(YAML::NodeType::Sequence);
+
+				parent[idx].push_back(value);
+			}
+
+			return save(file_path, root);
+        }
+        catch
+        (
+            QLOGICAE_COR1__BASE__HPP_CPP__TRY_CATCH_EXCEPTION_PARAMETER
+        )
+        {
+			QLOGICAE_COR1__IMPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE();
+        }
 	}
 
-	bool YamlFileIoManager::remove_value(
-		const std::string& file_path,
-		const std::vector<std::variant<std::string, size_t>>& key_path
-	)
+	bool
+		YamlFileIoManager
+			::remove_value(
+				const std::string&
+					file_path,
+				const std::vector<std::variant<std::string, size_t>>&
+					key_path
+			)
+	{		
+		try
+        {	
+			QLOGICAE_COR1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
+			(
+				QLOGICAE_COR1__BASE__HPP_CPP__MUTEX_LAYER_1,
+				QLOGICAE_COR1__BASE__HPP_CPP__EMPTY_EDGE_CASES
+			);
+
+			if (file_path.empty() || key_path.empty())
+				return false;
+
+			YAML::Node root = load(file_path);
+
+			if (!root.IsDefined())
+				return false;
+
+			YAML::Node parent = traverse_to_parent_node(root, key_path);
+
+			if (!parent.IsDefined())
+				return false;
+
+			const auto& last = key_path.back();
+
+			if (std::holds_alternative<std::string>(last))
+			{
+				parent.remove(std::get<std::string>(last));
+			}
+			else
+			{
+				size_t idx = std::get<size_t>(last);
+
+				if (parent.IsSequence() && idx < parent.size())
+					parent.remove(idx);
+			}
+
+			return save(file_path, root);
+       
+        }
+        catch
+        (
+            QLOGICAE_COR1__BASE__HPP_CPP__TRY_CATCH_EXCEPTION_PARAMETER
+        )
+        {
+			QLOGICAE_COR1__IMPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE();
+        }  
+	}
+
+	bool
+		YamlFileIoManager
+			::is_valid()
 	{
-		if (file_path.empty() || key_path.empty())
-			return false;
-
-		YAML::Node root = load_yaml(file_path);
-
-		if (!root.IsDefined())
-			return false;
-
-		YAML::Node parent = traverse_to_parent(root, key_path);
-
-		if (!parent.IsDefined())
-			return false;
-
-		const auto& last = key_path.back();
-
-		if (std::holds_alternative<std::string>(last))
-		{
-			parent.remove(std::get<std::string>(last));
-		}
-		else
-		{
-			size_t idx = std::get<size_t>(last);
-
-			if (parent.IsSequence() && idx < parent.size())
-				parent.remove(idx);
-		}
-
-		return save_yaml(file_path, root);
+		return is_valid(configurations.file_path);
 	}
 
-	bool YamlFileIoManager::is_valid() { return is_valid(configurations.file_path); }
-
-	bool YamlFileIoManager::is_key_path_valid(const std::vector<std::variant<std::string, size_t>>& p)
+	bool
+		YamlFileIoManager
+			::is_key_path_valid(
+				const std::vector<std::variant<std::string, size_t>>& p
+			)
 	{
 		return is_key_path_valid(configurations.file_path, p);
 	}
 
-	std::string YamlFileIoManager::get_raw_yaml(const std::vector<std::variant<std::string, size_t>>& p)
+	std::string
+		YamlFileIoManager
+			::get_raw_yaml(
+				const std::vector<std::variant<std::string, size_t>>& p
+			)
 	{
 		return get_raw_yaml(configurations.file_path, p);
 	}
 
-	std::string YamlFileIoManager::get_string(const std::vector<std::variant<std::string, size_t>>& p)
+	std::string
+		YamlFileIoManager
+			::get_string(
+				const std::vector<std::variant<std::string, size_t>>& p
+			)
 	{
 		return get_string(configurations.file_path, p);
 	}
 
-	double YamlFileIoManager::get_double(const std::vector<std::variant<std::string, size_t>>& p)
+	double
+		YamlFileIoManager
+			::get_double(
+				const std::vector<std::variant<std::string, size_t>>& p
+			)
 	{
 		return get_double(configurations.file_path, p);
 	}
 
-	bool YamlFileIoManager::get_boolean(const std::vector<std::variant<std::string, size_t>>& p)
+	bool
+		YamlFileIoManager
+			::get_boolean(
+				const std::vector<std::variant<std::string, size_t>>& p
+			)
 	{
 		return get_boolean(configurations.file_path, p);
 	}
 
-	std::nullptr_t YamlFileIoManager::get_null(const std::vector<std::variant<std::string, size_t>>& p)
+	std::nullptr_t
+		YamlFileIoManager
+			::get_null(
+				const std::vector<std::variant<std::string, size_t>>& p
+			)
 	{
 		return get_null(configurations.file_path, p);
 	}
 
-	bool YamlFileIoManager::set_raw_yaml(const std::vector<std::variant<std::string, size_t>>& p, const std::string& v)
+	bool
+		YamlFileIoManager
+			::set_raw_yaml(
+				const std::vector<std::variant<std::string, size_t>>& p,
+				const std::string& v
+			)
 	{
 		return set_raw_yaml(configurations.file_path, p, v);
 	}
 
-	bool YamlFileIoManager::set_string(const std::vector<std::variant<std::string, size_t>>& p, const std::string& v)
+	bool
+		YamlFileIoManager
+			::set_string(
+				const std::vector<std::variant<std::string, size_t>>& p,
+				const std::string& v
+			)
 	{
 		return set_string(configurations.file_path, p, v);
 	}
 
-	bool YamlFileIoManager::append_raw_yaml(const std::vector<std::variant<std::string, size_t>>& p, const std::string& v)
+	bool
+		YamlFileIoManager
+			::append_raw_yaml(
+				const std::vector<std::variant<std::string, size_t>>& p,
+				const std::string& v
+			)
 	{
 		return append_raw_yaml(configurations.file_path, p, v);
 	}
 
-	bool YamlFileIoManager::append_string(const std::vector<std::variant<std::string, size_t>>& p, const std::string& v)
+	bool
+		YamlFileIoManager
+			::append_string(
+				const std::vector<std::variant<std::string, size_t>>& p,
+				const std::string& v
+			)
 	{
 		return append_string(configurations.file_path, p, v);
 	}
 
-	bool YamlFileIoManager::remove_value(const std::vector<std::variant<std::string, size_t>>& p)
+	bool
+		YamlFileIoManager
+			::remove_value(
+				const std::vector<std::variant<std::string, size_t>>& p
+			)
 	{
 		return remove_value(configurations.file_path, p);
 	}

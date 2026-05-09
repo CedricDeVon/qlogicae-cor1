@@ -642,30 +642,6 @@
     <ClInclude Include="qlogicae\cor1\includes\state_manager_configurations.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\sqlite_backend.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\sqlite_exception.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\sqlite_row.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\sqlite_statement.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\sqlite_statement_data.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\sqlite_transaction.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\sqlite_database_manager_configurations.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\sqlite_database_manager.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="qlogicae\cor1\includes\entity_activation_status.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -738,10 +714,10 @@
     <ClInclude Include="qlogicae\cor1\includes\neo4j_api_manager_configurations.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\file_system_listener_manager.hpp">
+    <ClInclude Include="qlogicae\cor1\includes\file_system_event_listener_manager.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\file_system_listener_manager_configurations.hpp">
+    <ClInclude Include="qlogicae\cor1\includes\file_system_event_listener_manager_configurations.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="qlogicae\cor1\includes\dilithium_cryptography_algorithm.hpp">
@@ -784,6 +760,60 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="qlogicae\cor1\includes\yaml_file_io_manager_configurations.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\sqlite_exception.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\sqlite_row.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\sqlite_statement.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\sqlite_statement_data.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\sqlite_backend.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\file_system_event_listener_action_enum_manager.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\file_system_event_listener_action_enum_manager_configurations.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\file_system_event_listener_source_enum_manager.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\file_system_event_listener_source_enum_manager_configurations.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\file_system_event_listener_metadata_flags_enum_manager.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\file_system_event_listener_metadata_flags_enum_manager_configurations.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\file_system_event.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\file_system_event_listener_manager_options.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\file_system_event_listener_watch_context.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\file_system_event_listener_slot.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\file_system_event_listener_action.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\file_system_event_listener_source.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\file_system_event_listener_metadata_flags.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -1484,12 +1514,6 @@
     <ClCompile Include="qlogicae\cor1\sources\neo4j_api_manager_configurations.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\file_system_listener_manager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\file_system_listener_manager_configurations.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="qlogicae\cor1\sources\dilithium_cryptography_algorithm.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -1515,6 +1539,66 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="qlogicae\cor1\sources\yaml_file_io_manager_configurations.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\sqlite_backend.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\sqlite_row.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\sqlite_statement.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\sqlite_exception.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\sqlite_statement_data.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\file_system_event.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\file_system_event_listener_action.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\file_system_event_listener_action_enum_manager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\file_system_event_listener_action_enum_manager_configurations.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\file_system_event_listener_manager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\file_system_event_listener_manager_configurations.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\file_system_event_listener_manager_options.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\file_system_event_listener_metadata_flags.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\file_system_event_listener_metadata_flags_enum_manager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\file_system_event_listener_metadata_flags_enum_manager_configurations.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\file_system_event_listener_slot.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\file_system_event_listener_source.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\file_system_event_listener_source_enum_manager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\file_system_event_listener_source_enum_manager_configurations.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\file_system_event_listener_watch_context.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

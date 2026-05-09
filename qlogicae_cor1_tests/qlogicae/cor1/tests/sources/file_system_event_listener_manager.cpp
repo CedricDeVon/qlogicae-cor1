@@ -1,50 +1,16 @@
 #include "pch.hpp"
 
 #if QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_CONDITIONS_ENABLED_TEMPLATE( \
-		FileSystemListenerManager \
+		FileSystemEventListenerManager \
 	)
 
-#include "../includes/file_system_listener_manager.hpp"
+#include "../includes/file_system_event_listener_manager.hpp"
 
 namespace
 	QLOGICAE_COR1__BASE__HPP_CPP__COR_TESTS_NAMESPACE_NAME
-{	
-    class
-        FileSystemListenerManagerTest :
-            public testing::Test
-    {
-    public:
-        FileSystemListenerManager
-            manager;
-
-        FileSystemListenerManagerOptions
-            default_options;
-
-        void
-        SetUp() override
-        {
-            default_options.is_recursive_enabled = true;
-
-            default_options.debounce_interval =
-                std::chrono::milliseconds(1);
-        }
-
-        void
-        TearDown() override
-        {
-            manager.stop_watching();
-        }
-    };
-
-    class
-        FileSystemListenerManagerParameterizedExtensionTest :
-            public FileSystemListenerManagerTest,
-            public testing::WithParamInterface<std::string>
-    {
-    };
-
+{	    
     TEST_F(
-        FileSystemListenerManagerTest,
+        FileSystemEventListenerManagerTest,
         Should_ExpectFalse_When_StopWatchingWithoutStart
     )
     {
@@ -54,7 +20,7 @@ namespace
     }
 
     TEST_F(
-        FileSystemListenerManagerTest,
+        FileSystemEventListenerManagerTest,
         Should_ExpectTrue_When_StartWatchingCalledInitially
     )
     {
@@ -77,7 +43,7 @@ namespace
     }
 
     TEST_F(
-        FileSystemListenerManagerTest,
+        FileSystemEventListenerManagerTest,
         Should_ExpectFalse_When_StartWatchingCalledTwice
     )
     {
@@ -91,7 +57,7 @@ namespace
     }
 
     TEST_F(
-        FileSystemListenerManagerTest,
+        FileSystemEventListenerManagerTest,
         Should_ExpectTrue_When_StopWatchingAfterStart
     )
     {
@@ -105,91 +71,91 @@ namespace
     }
 
     TEST_F(
-        FileSystemListenerManagerTest,
+        FileSystemEventListenerManagerTest,
         Should_ExpectCreated_When_TranslateAddAction
     )
     {
         auto result =
-            FileSystemListenerManager::translate_action(
+            manager.translate_action(
                 efsw::Actions::Add
             );
 
         EXPECT_EQ(
             result,
-            FileSystemEventAction::CREATED
+            FileSystemEventListenerAction::CREATED
         );
     }
 
     TEST_F(
-        FileSystemListenerManagerTest,
+        FileSystemEventListenerManagerTest,
         Should_ExpectDeleted_When_TranslateDeleteAction
     )
     {
         auto result =
-            FileSystemListenerManager::translate_action(
+            manager.translate_action(
                 efsw::Actions::Delete
             );
 
         EXPECT_EQ(
             result,
-            FileSystemEventAction::DELETED
+            FileSystemEventListenerAction::DELETED
         );
     }
     
     TEST_F(
-        FileSystemListenerManagerTest,
+        FileSystemEventListenerManagerTest,
         Should_ExpectModified_When_TranslateModifiedAction
     )
     {
         auto result =
-            FileSystemListenerManager::translate_action(
+            manager.translate_action(
                 efsw::Actions::Modified
             );
 
         EXPECT_EQ(
             result,
-            FileSystemEventAction::MODIFIED
+            FileSystemEventListenerAction::MODIFIED
         );
     }
 
     TEST_F(
-        FileSystemListenerManagerTest,
+        FileSystemEventListenerManagerTest,
         Should_ExpectMoved_When_TranslateMovedAction
     )
     {
         auto result =
-            FileSystemListenerManager::translate_action(
+            manager.translate_action(
                 efsw::Actions::Moved
             );
 
         EXPECT_EQ(
             result,
-            FileSystemEventAction::MOVED
+            FileSystemEventListenerAction::MOVED
         );
     }
 
     TEST_F(
-        FileSystemListenerManagerTest,
+        FileSystemEventListenerManagerTest,
         Should_ExpectUnknown_When_TranslateUnknownAction
     )
     {
         auto result =
-            FileSystemListenerManager::translate_action(
+            manager.translate_action(
                 static_cast<efsw::Action>(999)
             );
 
         EXPECT_EQ(
             result,
-            FileSystemEventAction::UNKNOWN
+            FileSystemEventListenerAction::UNKNOWN
         );
     }
 
     TEST_F(
-        FileSystemListenerManagerTest,
+        FileSystemEventListenerManagerTest,
         Should_ExpectTrue_When_PassesFilterWithEmptyOptions
     )
     {
-        FileSystemListenerManagerOptions options;
+        FileSystemEventListenerManagerOptions options;
 
         auto result = manager.passes_filter(
             "example.txt",
@@ -200,11 +166,11 @@ namespace
     }
 
     TEST_P(
-        FileSystemListenerManagerParameterizedExtensionTest,
+        FileSystemEventListenerManagerParameterizedExtensionTest,
         Should_ExpectTrue_When_ExtensionMatches
     )
     {
-        FileSystemListenerManagerOptions options;
+        FileSystemEventListenerManagerOptions options;
 
         options.extensions.insert(GetParam());
 
@@ -219,11 +185,11 @@ namespace
     }
 
     TEST_F(
-        FileSystemListenerManagerTest,
+        FileSystemEventListenerManagerTest,
         Should_ExpectFalse_When_ExtensionDoesNotMatch
     )
     {
-        FileSystemListenerManagerOptions options;
+        FileSystemEventListenerManagerOptions options;
 
         options.extensions.insert(".json");
 
@@ -236,11 +202,11 @@ namespace
     }
 
     TEST_F(
-        FileSystemListenerManagerTest,
+        FileSystemEventListenerManagerTest,
         Should_ExpectFalse_When_NoExtensionExists
     )
     {
-        FileSystemListenerManagerOptions options;
+        FileSystemEventListenerManagerOptions options;
 
         options.extensions.insert(".txt");
 
@@ -253,11 +219,11 @@ namespace
     }
 
     TEST_F(
-        FileSystemListenerManagerTest,
+        FileSystemEventListenerManagerTest,
         Should_ExpectTrue_When_ExplicitFileMatches
     )
     {
-        FileSystemListenerManagerOptions options;
+        FileSystemEventListenerManagerOptions options;
 
         options.explicit_files.insert(
             "folder/sample.txt"
@@ -272,11 +238,11 @@ namespace
     }
 
     TEST_F(
-        FileSystemListenerManagerTest,
+        FileSystemEventListenerManagerTest,
         Should_ExpectFalse_When_ExplicitFileDoesNotMatch
     )
     {
-        FileSystemListenerManagerOptions options;
+        FileSystemEventListenerManagerOptions options;
 
         options.explicit_files.insert(
             "folder/other.txt"
@@ -291,7 +257,7 @@ namespace
     }
 
     TEST_F(
-        FileSystemListenerManagerTest,
+        FileSystemEventListenerManagerTest,
         Should_ExpectFalse_When_ResolveFullPathMissingWatch
     )
     {
@@ -310,7 +276,7 @@ namespace
     }
 
     TEST_F(
-        FileSystemListenerManagerTest,
+        FileSystemEventListenerManagerTest,
         Should_ExpectTrue_When_ResolveOldPathEmptyFilename
     )
     {
@@ -329,7 +295,7 @@ namespace
     }
 
     TEST_F(
-        FileSystemListenerManagerTest,
+        FileSystemEventListenerManagerTest,
         Should_ExpectFalse_When_ResolveOldPathMissingWatch
     )
     {
@@ -346,7 +312,7 @@ namespace
     }
 
     TEST_F(
-        FileSystemListenerManagerTest,
+        FileSystemEventListenerManagerTest,
         Should_ExpectTrue_When_AddListenerCalled
     )
     {
@@ -362,7 +328,7 @@ namespace
     }
 
     TEST_F(
-        FileSystemListenerManagerTest,
+        FileSystemEventListenerManagerTest,
         Should_ExpectTrue_When_NotifyBatchWithSingleListener
     )
     {
@@ -391,7 +357,7 @@ namespace
     }
 
     TEST_F(
-        FileSystemListenerManagerTest,
+        FileSystemEventListenerManagerTest,
         Should_ExpectAllCallbacks_When_MultipleListenersRegistered
     )
     {
@@ -425,7 +391,7 @@ namespace
     }
 
     TEST_F(
-        FileSystemListenerManagerTest,
+        FileSystemEventListenerManagerTest,
         Should_ExpectAsyncCompletion_When_NotifyBatchUsingFuture
     )
     {
@@ -463,7 +429,7 @@ namespace
     }
 
     TEST_F(
-        FileSystemListenerManagerTest,
+        FileSystemEventListenerManagerTest,
         Should_ExpectAtomicConsistency_When_ConcurrentListenersAdded
     )
     {
@@ -506,7 +472,7 @@ namespace
     }
 
     TEST_F(
-        FileSystemListenerManagerTest,
+        FileSystemEventListenerManagerTest,
         Should_ExpectQueueProgress_When_StressDispatchLoop
     )
     {
@@ -562,7 +528,7 @@ namespace
     }
 
     TEST_F(
-        FileSystemListenerManagerTest,
+        FileSystemEventListenerManagerTest,
         Should_ExpectNoThrow_When_HandlingUnknownWatchIdentifier
     )
     {
@@ -578,11 +544,11 @@ namespace
     }
 
     TEST_F(
-        FileSystemListenerManagerTest,
+        FileSystemEventListenerManagerTest,
         Should_ExpectRingBufferWrite_When_HandleFileActionValid
     )
     {
-        FileSystemWatchContext context;
+        FileSystemEventListenerWatchContext context;
 
         context.directory = "root";
 
@@ -606,16 +572,16 @@ namespace
 
         EXPECT_EQ(
             slot.event.action,
-            FileSystemEventAction::CREATED
+            FileSystemEventListenerAction::CREATED
         );
     }
 
     TEST_F(
-        FileSystemListenerManagerTest,
+        FileSystemEventListenerManagerTest,
         Should_ExpectNoWrite_When_FilterRejectsPath
     )
     {
-        FileSystemWatchContext context;
+        FileSystemEventListenerWatchContext context;
 
         context.directory = "root";
 
@@ -635,17 +601,17 @@ namespace
     }
 
     TEST_F(
-        FileSystemListenerManagerTest,
+        FileSystemEventListenerManagerTest,
         Should_ExpectMoveAssignment_When_EventSlotMoved
     )
     {
-        FileSystemEventSlot source_slot;
+        FileSystemEventListenerSlot source_slot;
 
         source_slot.event.path = "source.txt";
 
         source_slot.is_ready.store(true);
 
-        FileSystemEventSlot destination_slot;
+        FileSystemEventListenerSlot destination_slot;
 
         destination_slot = std::move(source_slot);
 
@@ -660,17 +626,17 @@ namespace
     }
 
     TEST_F(
-        FileSystemListenerManagerTest,
+        FileSystemEventListenerManagerTest,
         Should_ExpectMoveConstruction_When_EventSlotMoved
     )
     {
-        FileSystemEventSlot source_slot;
+        FileSystemEventListenerSlot source_slot;
 
         source_slot.event.path = "constructed.txt";
 
         source_slot.is_ready.store(true);
 
-        FileSystemEventSlot destination_slot(
+        FileSystemEventListenerSlot destination_slot(
             std::move(source_slot)
         );
 
@@ -685,7 +651,7 @@ namespace
     }
 
     TEST_F(
-        FileSystemListenerManagerTest,
+        FileSystemEventListenerManagerTest,
         Should_ExpectNoThrow_When_NotifyBatchEmpty
     )
     {
@@ -697,11 +663,11 @@ namespace
     }
 
     TEST_F(
-        FileSystemListenerManagerTest,
+        FileSystemEventListenerManagerTest,
         Should_ExpectSequenceIncrement_When_MultipleActionsHandled
     )
     {
-        FileSystemWatchContext context;
+        FileSystemEventListenerWatchContext context;
 
         context.directory = "root";
 
@@ -727,7 +693,7 @@ namespace
     }
 
     TEST_F(
-        FileSystemListenerManagerTest,
+        FileSystemEventListenerManagerTest,
         Should_ExpectConcurrentDispatch_When_MultiThreadedNotify
     )
     {
@@ -783,7 +749,7 @@ namespace
     }
 
     TEST_F(
-        FileSystemListenerManagerTest,
+        FileSystemEventListenerManagerTest,
         Should_ExpectFastCompletion_When_PerformanceValidated
     )
     {
@@ -794,7 +760,7 @@ namespace
              index < 10000;
              ++index)
         {
-            FileSystemListenerManagerOptions options;
+            FileSystemEventListenerManagerOptions options;
 
             manager.passes_filter(
                 "performance.txt",
@@ -814,7 +780,7 @@ namespace
     }
 
     TEST_F(
-        FileSystemListenerManagerTest,
+        FileSystemEventListenerManagerTest,
         Should_ExpectNoThrow_When_ListenerThrowsException
     )
     {
@@ -837,11 +803,11 @@ namespace
     }
 
     TEST_F(
-        FileSystemListenerManagerTest,
+        FileSystemEventListenerManagerTest,
         Should_ExpectMaximumQueueCapacity_When_BufferFilled
     )
     {
-        FileSystemWatchContext context;
+        FileSystemEventListenerWatchContext context;
 
         context.directory = "root";
 
@@ -867,8 +833,8 @@ namespace
     }
 
     INSTANTIATE_TEST_CASE_P(
-        FileSystemListenerManagerExtensions,
-        FileSystemListenerManagerParameterizedExtensionTest,
+        FileSystemEventListenerManagerExtensions,
+        FileSystemEventListenerManagerParameterizedExtensionTest,
         testing::Values(
             std::string(".txt"),
             std::string(".json"),
@@ -878,11 +844,11 @@ namespace
     );
 
     TEST_F(
-        FileSystemListenerManagerTest,
+        FileSystemEventListenerManagerTest,
         Should_ExpectTrue_When_ResolveFullPathSuccessful
     )
     {
-        FileSystemWatchContext context;
+        FileSystemEventListenerWatchContext context;
 
         context.directory = "root";
 
@@ -906,11 +872,11 @@ namespace
     }
 
     TEST_F(
-        FileSystemListenerManagerTest,
+        FileSystemEventListenerManagerTest,
         Should_ExpectTrue_When_ResolveOldPathSuccessful
     )
     {
-        FileSystemWatchContext context;
+        FileSystemEventListenerWatchContext context;
 
         context.directory = "root";
 
@@ -934,7 +900,7 @@ namespace
     }
 
     TEST_F(
-        FileSystemListenerManagerTest,
+        FileSystemEventListenerManagerTest,
         Should_ExpectOverwrite_When_RingBufferSlotAlreadyReady
     )
     {
@@ -946,7 +912,7 @@ namespace
 
         manager.read_index.store(0);
 
-        FileSystemWatchContext context;
+        FileSystemEventListenerWatchContext context;
 
         context.directory = "root";
 
@@ -971,11 +937,11 @@ namespace
     }
 
     TEST_F(
-        FileSystemListenerManagerTest,
+        FileSystemEventListenerManagerTest,
         Should_ExpectWraparound_When_QueueIndexExceedsCapacity
     )
     {
-        FileSystemWatchContext context;
+        FileSystemEventListenerWatchContext context;
 
         context.directory = "root";
 
@@ -1012,7 +978,7 @@ namespace
     }
 
     TEST_F(
-        FileSystemListenerManagerTest,
+        FileSystemEventListenerManagerTest,
         Should_ExpectCompleteDispatch_When_BatchBoundaryEquals256
     )
     {
@@ -1064,7 +1030,7 @@ namespace
     }
 
     TEST_F(
-        FileSystemListenerManagerTest,
+        FileSystemEventListenerManagerTest,
         Should_ExpectTrue_When_NotifyBatchWithoutListeners
     )
     {
@@ -1082,7 +1048,7 @@ namespace
     }
 
     TEST_F(
-        FileSystemListenerManagerTest,
+        FileSystemEventListenerManagerTest,
         Should_ExpectAllEventsProcessed_When_MultipleBatchEvents
     )
     {
@@ -1116,11 +1082,11 @@ namespace
     }
 
     TEST_F(
-        FileSystemListenerManagerTest,
+        FileSystemEventListenerManagerTest,
         Should_ExpectOldPathPopulated_When_MovedActionHandled
     )
     {
-        FileSystemWatchContext context;
+        FileSystemEventListenerWatchContext context;
 
         context.directory = "root";
 
@@ -1148,12 +1114,12 @@ namespace
 
         EXPECT_EQ(
             slot.event.action,
-            FileSystemEventAction::MOVED
+            FileSystemEventListenerAction::MOVED
         );
     }
 
     TEST_F(
-        FileSystemListenerManagerTest,
+        FileSystemEventListenerManagerTest,
         Should_ExpectGracefulShutdown_When_StopDuringDispatch
     )
     {
@@ -1190,7 +1156,7 @@ namespace
     }
 
     TEST_F(
-        FileSystemListenerManagerTest,
+        FileSystemEventListenerManagerTest,
         Should_ExpectYieldBranchExecution_When_DispatchLoopIdle
     )
     {
@@ -1214,11 +1180,11 @@ namespace
     }
 
     TEST_F(
-        FileSystemListenerManagerTest,
+        FileSystemEventListenerManagerTest,
         Should_ExpectExplicitFilePriority_When_ExtensionMismatch
     )
     {
-        FileSystemListenerManagerOptions options;
+        FileSystemEventListenerManagerOptions options;
 
         options.extensions.insert(".json");
 
@@ -1235,11 +1201,11 @@ namespace
     }
 
     TEST_F(
-        FileSystemListenerManagerTest,
+        FileSystemEventListenerManagerTest,
         Should_ExpectPathGenerated_When_EmptyFilenameHandled
     )
     {
-        FileSystemWatchContext context;
+        FileSystemEventListenerWatchContext context;
 
         context.directory = "root";
 
@@ -1262,11 +1228,11 @@ namespace
     }
 
     TEST_F(
-        FileSystemListenerManagerTest,
+        FileSystemEventListenerManagerTest,
         Should_ExpectUnicodePathHandled_When_PathContainsUnicode
     )
     {
-        FileSystemWatchContext context;
+        FileSystemEventListenerWatchContext context;
 
         context.directory = "根";
 
@@ -1290,11 +1256,11 @@ namespace
     }
 
     TEST_F(
-        FileSystemListenerManagerTest,
+        FileSystemEventListenerManagerTest,
         Should_ExpectOverwriteHandling_When_QueueExceedsCapacity
     )
     {
-        FileSystemWatchContext context;
+        FileSystemEventListenerWatchContext context;
 
         context.directory = "root";
 
@@ -1325,11 +1291,11 @@ namespace
     }
 
     TEST_F(
-        FileSystemListenerManagerTest,
+        FileSystemEventListenerManagerTest,
         Should_ExpectConcurrentWrites_When_HandleFileActionStress
     )
     {
-        FileSystemWatchContext context;
+        FileSystemEventListenerWatchContext context;
 
         context.directory = "root";
 
@@ -1376,7 +1342,7 @@ namespace
     }
 
     TEST_F(
-        FileSystemListenerManagerTest,
+        FileSystemEventListenerManagerTest,
         Should_ExpectExceptionPropagation_When_DispatchLoopListenerThrows
     )
     {
@@ -1413,7 +1379,7 @@ namespace
     }
 
     TEST_F(
-        FileSystemListenerManagerTest,
+        FileSystemEventListenerManagerTest,
         Should_ExpectPartialBatchDispatch_When_EventCountBelow256
     )
     {
@@ -1463,7 +1429,7 @@ namespace
     }
 
     TEST_F(
-        FileSystemListenerManagerTest,
+        FileSystemEventListenerManagerTest,
         Should_ExpectMultipleDispatchIterations_When_EventCountExceeds256
     )
     {
@@ -1515,7 +1481,7 @@ namespace
     }
 
     TEST_F(
-        FileSystemListenerManagerTest,
+        FileSystemEventListenerManagerTest,
         Should_ExpectSlotReset_When_DispatchConsumesEvents
     )
     {
@@ -1549,7 +1515,7 @@ namespace
     }
 
     TEST_F(
-        FileSystemListenerManagerTest,
+        FileSystemEventListenerManagerTest,
         Should_ExpectReadIndexAdvance_When_DispatchProcessesEvents
     )
     {
@@ -1593,7 +1559,7 @@ namespace
     }
 
     TEST_F(
-        FileSystemListenerManagerTest,
+        FileSystemEventListenerManagerTest,
         Should_ExpectOrderingPreserved_When_NotifyBatchDispatches
     )
     {
@@ -1630,7 +1596,7 @@ namespace
     }
 
     TEST_F(
-        FileSystemListenerManagerTest,
+        FileSystemEventListenerManagerTest,
         Should_ExpectDuplicateCallbacks_When_SameListenerAddedTwice
     )
     {
@@ -1656,7 +1622,7 @@ namespace
     }
 
     TEST_F(
-        FileSystemListenerManagerTest,
+        FileSystemEventListenerManagerTest,
         Should_ExpectSafeConcurrentMutation_When_AddListenerDuringNotify
     )
     {
@@ -1702,11 +1668,11 @@ namespace
     }
 
     TEST_F(
-        FileSystemListenerManagerTest,
+        FileSystemEventListenerManagerTest,
         Should_ExpectPathResolution_When_DirectoryEmpty
     )
     {
-        FileSystemWatchContext context;
+        FileSystemEventListenerWatchContext context;
 
         context.directory = "";
 
@@ -1730,11 +1696,11 @@ namespace
     }
 
     TEST_F(
-        FileSystemListenerManagerTest,
+        FileSystemEventListenerManagerTest,
         Should_ExpectPathResolution_When_RelativePathEmpty
     )
     {
-        FileSystemWatchContext context;
+        FileSystemEventListenerWatchContext context;
 
         context.directory = "root";
 
@@ -1758,11 +1724,11 @@ namespace
     }
 
     TEST_F(
-        FileSystemListenerManagerTest,
+        FileSystemEventListenerManagerTest,
         Should_ExpectOldPathResolution_When_DirectoryEmpty
     )
     {
-        FileSystemWatchContext context;
+        FileSystemEventListenerWatchContext context;
 
         context.directory = "";
 
@@ -1786,11 +1752,11 @@ namespace
     }
 
     TEST_F(
-        FileSystemListenerManagerTest,
+        FileSystemEventListenerManagerTest,
         Should_ExpectTrue_When_AnyExtensionMatches
     )
     {
-        FileSystemListenerManagerOptions options;
+        FileSystemEventListenerManagerOptions options;
 
         options.extensions.insert(".json");
 
@@ -1805,11 +1771,11 @@ namespace
     }
 
     TEST_F(
-        FileSystemListenerManagerTest,
+        FileSystemEventListenerManagerTest,
         Should_ExpectFalse_When_ExtensionCaseMismatch
     )
     {
-        FileSystemListenerManagerOptions options;
+        FileSystemEventListenerManagerOptions options;
 
         options.extensions.insert(".TXT");
 
@@ -1822,11 +1788,11 @@ namespace
     }
 
     TEST_F(
-        FileSystemListenerManagerTest,
+        FileSystemEventListenerManagerTest,
         Should_ExpectTrue_When_ExplicitFileExistsWithoutExtension
     )
     {
-        FileSystemListenerManagerOptions options;
+        FileSystemEventListenerManagerOptions options;
 
         options.explicit_files.insert("README");
 
@@ -1839,11 +1805,11 @@ namespace
     }
 
     TEST_F(
-        FileSystemListenerManagerTest,
+        FileSystemEventListenerManagerTest,
         Should_ExpectLastExtensionUsed_When_PathContainsMultipleDots
     )
     {
-        FileSystemListenerManagerOptions options;
+        FileSystemEventListenerManagerOptions options;
 
         options.extensions.insert(".gz");
 
@@ -1856,11 +1822,11 @@ namespace
     }
 
     TEST_F(
-        FileSystemListenerManagerTest,
+        FileSystemEventListenerManagerTest,
         Should_ExpectDeletedAction_When_HandleDeleteEvent
     )
     {
-        FileSystemWatchContext context;
+        FileSystemEventListenerWatchContext context;
 
         context.directory = "root";
 
@@ -1878,16 +1844,16 @@ namespace
 
         EXPECT_EQ(
             slot.event.action,
-            FileSystemEventAction::DELETED
+            FileSystemEventListenerAction::DELETED
         );
     }
 
     TEST_F(
-        FileSystemListenerManagerTest,
+        FileSystemEventListenerManagerTest,
         Should_ExpectUnknownAction_When_HandleUnknownEvent
     )
     {
-        FileSystemWatchContext context;
+        FileSystemEventListenerWatchContext context;
 
         context.directory = "root";
 
@@ -1905,16 +1871,16 @@ namespace
 
         EXPECT_EQ(
             slot.event.action,
-            FileSystemEventAction::UNKNOWN
+            FileSystemEventListenerAction::UNKNOWN
         );
     }
 
     TEST_F(
-        FileSystemListenerManagerTest,
+        FileSystemEventListenerManagerTest,
         Should_ExpectEmptyOldPath_When_MovedOldFilenameEmpty
     )
     {
-        FileSystemWatchContext context;
+        FileSystemEventListenerWatchContext context;
 
         context.directory = "root";
 
@@ -1934,11 +1900,11 @@ namespace
     }
 
     TEST_F(
-        FileSystemListenerManagerTest,
+        FileSystemEventListenerManagerTest,
         Should_ExpectPathGenerated_When_InvalidPathCombinationProvided
     )
     {
-        FileSystemWatchContext context;
+        FileSystemEventListenerWatchContext context;
 
         context.directory = "root";
 
@@ -1961,11 +1927,11 @@ namespace
     }
 
     TEST_F(
-        FileSystemListenerManagerTest,
+        FileSystemEventListenerManagerTest,
         Should_ExpectMonotonicSequence_When_HandleFileActionConcurrent
     )
     {
-        FileSystemWatchContext context;
+        FileSystemEventListenerWatchContext context;
 
         context.directory = "root";
 
@@ -2012,7 +1978,7 @@ namespace
     }
 
     TEST_F(
-        FileSystemListenerManagerTest,
+        FileSystemEventListenerManagerTest,
         Should_ExpectSlotReusable_When_DispatchConsumesSlot
     )
     {
@@ -2042,7 +2008,7 @@ namespace
 
         EXPECT_TRUE(future.get());
 
-        FileSystemWatchContext context;
+        FileSystemEventListenerWatchContext context;
 
         context.directory = "root";
 
@@ -2069,7 +2035,7 @@ namespace
     }
 
     TEST_F(
-        FileSystemListenerManagerTest,
+        FileSystemEventListenerManagerTest,
         Should_ExpectFalse_When_StopWatchingCalledAfterSuccessfulStop
     )
     {
@@ -2081,7 +2047,7 @@ namespace
     }
 
     TEST_F(
-        FileSystemListenerManagerTest,
+        FileSystemEventListenerManagerTest,
         Should_ExpectRestartPossible_When_StartAfterStop
     )
     {
@@ -2093,7 +2059,7 @@ namespace
     }
 
     TEST_F(
-        FileSystemListenerManagerTest,
+        FileSystemEventListenerManagerTest,
         Should_ExpectDispatchOfReadySlot_When_ReadEqualsWrite
     )
     {
@@ -2140,7 +2106,7 @@ namespace
     }
 
     TEST_F(
-        FileSystemListenerManagerTest,
+        FileSystemEventListenerManagerTest,
         Should_ExpectListenerMutationSafe_When_ListenerAddsListener
     )
     {
@@ -2169,7 +2135,7 @@ namespace
     }
 
     TEST_F(
-        FileSystemListenerManagerTest,
+        FileSystemEventListenerManagerTest,
         Should_ExpectExceptionPropagation_When_OnlyOneListenerThrows
     )
     {
@@ -2196,15 +2162,15 @@ namespace
     }
 
     TEST_F(
-        FileSystemListenerManagerTest,
+        FileSystemEventListenerManagerTest,
         Should_ExpectLatestContextUsed_When_WatchRegistryOverwritten
     )
     {
-        FileSystemWatchContext first_context;
+        FileSystemEventListenerWatchContext first_context;
 
         first_context.directory = "old";
 
-        FileSystemWatchContext second_context;
+        FileSystemEventListenerWatchContext second_context;
 
         second_context.directory = "new";
 
@@ -2236,11 +2202,11 @@ namespace
     }
 
     TEST_F(
-        FileSystemListenerManagerTest,
+        FileSystemEventListenerManagerTest,
         Should_ExpectOverwriteSemantics_When_QueueOverflowOccurs
     )
     {
-        FileSystemWatchContext context;
+        FileSystemEventListenerWatchContext context;
 
         context.directory = "root";
 
@@ -2279,7 +2245,7 @@ namespace
     }
 
     TEST_F(
-        FileSystemListenerManagerTest,
+        FileSystemEventListenerManagerTest,
         Should_ExpectNoDuplicateDispatch_When_BatchSplitAt256Boundary
     )
     {
@@ -2346,7 +2312,7 @@ namespace
     }
 
     TEST_F(
-        FileSystemListenerManagerTest,
+        FileSystemEventListenerManagerTest,
         Should_ExpectNotifyBatchStopsOnListenerException
     )
     {
@@ -2384,7 +2350,7 @@ namespace
     }
 
     TEST_F(
-        FileSystemListenerManagerTest,
+        FileSystemEventListenerManagerTest,
         Should_ExpectStartStopRestartThreadLifecycle
     )
     {
@@ -2398,7 +2364,7 @@ namespace
     }
 
     TEST_F(
-        FileSystemListenerManagerTest,
+        FileSystemEventListenerManagerTest,
         Should_ExpectDoubleStopSafeBehavior
     )
     {
@@ -2410,11 +2376,11 @@ namespace
     }
 
     TEST_F(
-        FileSystemListenerManagerTest,
+        FileSystemEventListenerManagerTest,
         Should_ExpectOldestSlotOverwritten_When_BufferWrapsMultipleTimes
     )
     {
-        FileSystemWatchContext context;
+        FileSystemEventListenerWatchContext context;
 
         context.directory = "root";
 
@@ -2450,11 +2416,11 @@ namespace
     }
 
     TEST_F(
-        FileSystemListenerManagerTest,
+        FileSystemEventListenerManagerTest,
         Should_ExpectStrictMonotonicSequenceUnderConcurrency
     )
     {
-        FileSystemWatchContext context;
+        FileSystemEventListenerWatchContext context;
 
         context.directory = "root";
 
@@ -2493,7 +2459,7 @@ namespace
     }
 
     TEST_F(
-        FileSystemListenerManagerTest,
+        FileSystemEventListenerManagerTest,
         Should_ExpectNoDispatchAfterStopDuringActiveLoop
     )
     {
@@ -2539,11 +2505,11 @@ namespace
     }
 
     TEST_F(
-        FileSystemListenerManagerTest,
+        FileSystemEventListenerManagerTest,
         Should_ExpectMovedEdgeCase_When_OldPathMissingButNewValid
     )
     {
-        FileSystemWatchContext context;
+        FileSystemEventListenerWatchContext context;
 
         context.directory = "root";
 
@@ -2564,11 +2530,11 @@ namespace
     }
 
     TEST_F(
-        FileSystemListenerManagerTest,
+        FileSystemEventListenerManagerTest,
         Should_ExpectFilterNormalization_ForTrailingSlashAndCase
     )
     {
-        FileSystemListenerManagerOptions options;
+        FileSystemEventListenerManagerOptions options;
 
         options.extensions.insert(".txt");
 
@@ -2582,11 +2548,11 @@ namespace
     }
 
     TEST_F(
-        FileSystemListenerManagerTest,
+        FileSystemEventListenerManagerTest,
         Should_ExpectUnicodeExtensionMatch_When_Normalized
     )
     {
-        FileSystemListenerManagerOptions options;
+        FileSystemEventListenerManagerOptions options;
 
         options.extensions.insert(".txt");
 
@@ -2599,11 +2565,11 @@ namespace
     }
 
     TEST_F(
-        FileSystemListenerManagerTest,
+        FileSystemEventListenerManagerTest,
         Should_ExpectRingBufferReuseAfterFullCycle
     )
     {
-        FileSystemWatchContext context;
+        FileSystemEventListenerWatchContext context;
 
         context.directory = "root";
 
@@ -2629,7 +2595,7 @@ namespace
     }
 
     TEST_F(
-        FileSystemListenerManagerTest,
+        FileSystemEventListenerManagerTest,
         Should_ExpectDispatchPartitioning_When_BatchExceeds256
     )
     {
@@ -2677,7 +2643,7 @@ namespace
     }
 
     TEST_F(
-        FileSystemListenerManagerTest,
+        FileSystemEventListenerManagerTest,
         Should_ExpectNoDuplicateDispatch_When_MultipleIterationsRun
     )
     {
@@ -2725,7 +2691,7 @@ namespace
     }
 
     TEST_F(
-        FileSystemListenerManagerTest,
+        FileSystemEventListenerManagerTest,
         Should_ExpectExact256Boundary_When_DispatchSlicesBatch
     )
     {
@@ -2770,7 +2736,7 @@ namespace
     }
 
     TEST_F(
-        FileSystemListenerManagerTest,
+        FileSystemEventListenerManagerTest,
         Should_ExpectFIFOConsistency_When_RingBufferWrapsMultipleCycles
     )
     {
@@ -2824,7 +2790,7 @@ namespace
     }
 
     TEST_F(
-        FileSystemListenerManagerTest,
+        FileSystemEventListenerManagerTest,
         Should_ExpectStartStopCycle_When_WatchingRestarted
     )
     {
@@ -2838,7 +2804,7 @@ namespace
     }
 
     TEST_F(
-        FileSystemListenerManagerTest,
+        FileSystemEventListenerManagerTest,
         Should_ExpectIdempotentStop_When_StopCalledMultipleTimes
     )
     {
@@ -2850,14 +2816,14 @@ namespace
     }
 
     TEST_F(
-        FileSystemListenerManagerTest,
+        FileSystemEventListenerManagerTest,
         Should_ExpectSequenceMonotonic_When_ConcurrentHandleFileActionStress
     )
     {
         constexpr std::size_t threads = 8;
         constexpr std::size_t per_thread = 200;
 
-        FileSystemWatchContext context;
+        FileSystemEventListenerWatchContext context;
         context.directory = "root";
         manager.watch_registry.emplace(1, context);
 

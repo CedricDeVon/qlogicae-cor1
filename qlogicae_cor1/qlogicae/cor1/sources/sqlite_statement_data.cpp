@@ -7,7 +7,7 @@
 #include "../includes/sqlite_statement_data.hpp"
 
 namespace
-	QLOGICAE_COR_V1__BASE__HPP_CPP__COR_NAMESPACE_NAME
+	QLOGICAE_COR1__BASE__HPP_CPP__COR_NAMESPACE_NAME
 {
     SQLiteStatementData
 		::SQLiteStatementData(
@@ -29,9 +29,51 @@ namespace
     SQLiteStatementData
 		::~SQLiteStatementData()
     {
-        sqlite3_finalize(
-			statement_handle
-		);
+        if (statement_handle != nullptr)
+		{
+			sqlite3_finalize(statement_handle);
+			statement_handle = nullptr;
+		}
+    }
+	
+    SQLiteStatementData
+        ::SQLiteStatementData(
+            SQLiteStatementData&&
+                instance
+        ) noexcept
+    {
+        statement_handle =
+            instance.statement_handle;
+
+        instance.statement_handle =
+            nullptr;
+    }
+
+    SQLiteStatementData&
+        SQLiteStatementData
+            ::operator=(
+                SQLiteStatementData&&
+                    instance
+            ) noexcept
+    {
+        if (this != &instance)
+        {
+            if (statement_handle != nullptr)
+            {
+                sqlite3_finalize(
+                    statement_handle
+                );
+            }
+
+            statement_handle =
+                instance.statement_handle;
+
+            instance.statement_handle =
+                nullptr;
+        }
+
+        return
+            *this;
     }
 }
 

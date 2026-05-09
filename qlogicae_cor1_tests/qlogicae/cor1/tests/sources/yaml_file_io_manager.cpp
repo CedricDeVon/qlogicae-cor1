@@ -18,7 +18,7 @@ namespace
 			std::chrono::steady_clock::now();
 
 		YAML::Node result =
-			yaml_file_io_manager.load_yaml(
+			yaml_file_io_manager.load(
 				temporary_file_path.string()
 			);
 
@@ -48,7 +48,7 @@ namespace
 			std::chrono::steady_clock::now();
 
 		YAML::Node result =
-			yaml_file_io_manager.load_yaml(
+			yaml_file_io_manager.load(
 				"invalid_file.yaml"
 			);
 
@@ -94,7 +94,7 @@ namespace
 	)
 	{
 		YAML::Node root_node =
-			yaml_file_io_manager.load_yaml(
+			yaml_file_io_manager.load(
 				temporary_file_path.string()
 			);
 
@@ -106,7 +106,7 @@ namespace
 		};
 
 		YAML::Node result =
-			yaml_file_io_manager.traverse(
+			yaml_file_io_manager.traverse_tree(
 				root_node,
 				key_path
 			);
@@ -123,7 +123,7 @@ namespace
 	)
 	{
 		YAML::Node root_node =
-			yaml_file_io_manager.load_yaml(
+			yaml_file_io_manager.load(
 				temporary_file_path.string()
 			);
 
@@ -135,7 +135,7 @@ namespace
 		};
 
 		YAML::Node result =
-			yaml_file_io_manager.traverse(
+			yaml_file_io_manager.traverse_tree(
 				root_node,
 				key_path
 			);
@@ -152,7 +152,7 @@ namespace
 	)
 	{
 		YAML::Node root_node =
-			yaml_file_io_manager.load_yaml(
+			yaml_file_io_manager.load(
 				temporary_file_path.string()
 			);
 
@@ -162,7 +162,7 @@ namespace
 		};
 
 		YAML::Node result =
-			yaml_file_io_manager.traverse(
+			yaml_file_io_manager.traverse_tree(
 				root_node,
 				key_path
 			);
@@ -176,14 +176,14 @@ namespace
 	)
 	{
 		YAML::Node root_node =
-			yaml_file_io_manager.load_yaml(
+			yaml_file_io_manager.load(
 				temporary_file_path.string()
 			);
 
 		std::vector<std::variant<std::string, size_t>> key_path;
 
 		YAML::Node result =
-			yaml_file_io_manager.traverse(
+			yaml_file_io_manager.traverse_tree(
 				root_node,
 				key_path
 			);
@@ -408,7 +408,7 @@ namespace
 		node["saved"] = "content";
 
 		bool result =
-			yaml_file_io_manager.save_yaml(
+			yaml_file_io_manager.save(
 				temporary_file_path.string(),
 				node
 			);
@@ -416,7 +416,7 @@ namespace
 		EXPECT_TRUE(result);
 
 		YAML::Node loaded_node =
-			yaml_file_io_manager.load_yaml(
+			yaml_file_io_manager.load(
 				temporary_file_path.string()
 			);
 
@@ -601,7 +601,7 @@ namespace
 
 		EXPECT_NO_THROW(
 			{
-				yaml_file_io_manager.traverse(
+				yaml_file_io_manager.traverse_tree(
 					YAML::Node(),
 					empty_key_path
 				);
@@ -610,13 +610,13 @@ namespace
 
 		EXPECT_NO_THROW(
 			{
-				yaml_file_io_manager.load_yaml("");
+				yaml_file_io_manager.load("");
 			}
 		);
 
 		EXPECT_NO_THROW(
 			{
-				yaml_file_io_manager.save_yaml(
+				yaml_file_io_manager.save(
 					"",
 					YAML::Node()
 				);
@@ -638,7 +638,7 @@ namespace
 		}
 
 		EXPECT_TRUE(
-			yaml_file_io_manager.save_yaml(
+			yaml_file_io_manager.save(
 				temporary_file_path.string(),
 				large_node
 			)
@@ -735,13 +735,14 @@ namespace
 			"string_value"
 		};
 
-		EXPECT_NO_THROW(
+		EXPECT_THROW(
 			{
 				yaml_file_io_manager.get_double(
 					temporary_file_path.string(),
 					key_path
 				);
-			}
+			},
+			std::exception
 		);
 	}
 
@@ -802,12 +803,13 @@ namespace
 
 		output_file.close();
 
-		EXPECT_NO_THROW(
+		EXPECT_THROW(
 			{
-				yaml_file_io_manager.load_yaml(
+				yaml_file_io_manager.load(
 					temporary_file_path.string()
 				);
-			}
+			},
+			std::exception
 		);
 	}
 
@@ -879,7 +881,7 @@ namespace
 	)
 	{
 		YAML::Node root_node =
-			yaml_file_io_manager.load_yaml(
+			yaml_file_io_manager.load(
 				temporary_file_path.string()
 			);
 
@@ -891,7 +893,7 @@ namespace
 		};
 
 		YAML::Node result =
-			yaml_file_io_manager.traverse(
+			yaml_file_io_manager.traverse_tree(
 				root_node,
 				key_path
 			);
@@ -910,7 +912,7 @@ namespace
 
 		EXPECT_NO_THROW(
 			{
-				yaml_file_io_manager.save_yaml(
+				yaml_file_io_manager.save(
 					"",
 					node
 				);
@@ -1028,7 +1030,7 @@ namespace
 		};
 
 		YAML::Node result =
-			yaml_file_io_manager.traverse(
+			yaml_file_io_manager.traverse_tree(
 				YAML::Node(),
 				key_path
 			);
@@ -1141,7 +1143,7 @@ namespace
 				[this]()
 				{
 					return
-						yaml_file_io_manager.load_yaml(
+						yaml_file_io_manager.load(
 							"missing.yaml"
 						);
 				}
@@ -1229,7 +1231,7 @@ namespace
 
 		EXPECT_NO_THROW(
 			{
-				yaml_file_io_manager.load_yaml(
+				yaml_file_io_manager.load(
 					temporary_file_path.string()
 				);
 			}
@@ -1364,7 +1366,7 @@ namespace
 		EXPECT_TRUE(result);
 
 		auto node =
-			yaml_file_io_manager.load_yaml(
+			yaml_file_io_manager.load(
 				temporary_file_path.string()
 			);
 
@@ -1566,7 +1568,7 @@ namespace
 	)
 	{
 		auto node =
-			yaml_file_io_manager.load_yaml(
+			yaml_file_io_manager.load(
 				temporary_file_path.string()
 			);
 
@@ -1606,7 +1608,7 @@ namespace
 		);
 
 		YAML::Node reloaded =
-			yaml_file_io_manager.load_yaml(
+			yaml_file_io_manager.load(
 				temporary_file_path.string()
 			);
 
@@ -1697,7 +1699,7 @@ namespace
 		);
 
 		YAML::Node reloaded =
-			yaml_file_io_manager.load_yaml(
+			yaml_file_io_manager.load(
 				temporary_file_path.string()
 			);
 
@@ -1730,7 +1732,7 @@ namespace
 		}
 
 		YAML::Node node =
-			yaml_file_io_manager.load_yaml(
+			yaml_file_io_manager.load(
 				temporary_file_path.string()
 			);
 
@@ -1756,7 +1758,7 @@ namespace
 		);
 
 		YAML::Node node =
-			yaml_file_io_manager.load_yaml(
+			yaml_file_io_manager.load(
 				temporary_file_path.string()
 			);
 
@@ -1784,7 +1786,7 @@ namespace
 		);
 
 		YAML::Node node =
-			yaml_file_io_manager.load_yaml(
+			yaml_file_io_manager.load(
 				temporary_file_path.string()
 			);
 
@@ -1797,7 +1799,7 @@ namespace
 	)
 	{
 		YAML::Node root =
-			yaml_file_io_manager.load_yaml(
+			yaml_file_io_manager.load(
 				temporary_file_path.string()
 			);
 
@@ -1824,7 +1826,7 @@ namespace
 	)
 	{
 		YAML::Node root =
-			yaml_file_io_manager.load_yaml(
+			yaml_file_io_manager.load(
 				temporary_file_path.string()
 			);
 
@@ -1875,12 +1877,12 @@ namespace
 			"string_value"
 		};
 
-		EXPECT_DOUBLE_EQ(
+		EXPECT_THROW(
 			yaml_file_io_manager.get_double(
 				temporary_file_path.string(),
 				key_path
 			),
-			0.0
+			std::exception
 		);
 	}
 
@@ -1895,11 +1897,12 @@ namespace
 			"string_value"
 		};
 
-		EXPECT_FALSE(
+		EXPECT_THROW(
 			yaml_file_io_manager.get_boolean(
 				temporary_file_path.string(),
 				key_path
-			)
+			),
+			std::exception
 		);
 	}
 

@@ -5,7 +5,7 @@
 	)
 
 namespace
-	QLOGICAE_COR1__BASE__HPP_CPP__COR_NAMESPACE_NAME
+    QLOGICAE_COR1__BASE__HPP_CPP__COR_NAMESPACE_NAME
 {
     struct
 		SQLiteBackend
@@ -22,6 +22,26 @@ namespace
 		SQLiteBackend();
 
         ~SQLiteBackend();
+
+        SQLiteBackend(
+            const SQLiteBackend&
+                instance
+        ) = delete;
+        
+        SQLiteBackend& operator = (
+            const SQLiteBackend&
+                instance
+        ) = delete;
+
+        SQLiteBackend(
+            SQLiteBackend&&
+                instance
+        ) noexcept;
+        
+        SQLiteBackend& operator = (
+            SQLiteBackend&&
+                instance
+        ) noexcept;
     };
 }
 

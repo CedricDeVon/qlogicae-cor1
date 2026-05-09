@@ -23,21 +23,19 @@ namespace
 		YamlFileIoManager();
 
 		YAML::Node
-			load_yaml(
-				const std::string&
-					file_path
-			);
-
-		bool
-			save_yaml(
-				const std::string&
-					file_path,
-				const YAML::Node&
-					node
+			traverse_to_parent_node(
+				YAML::Node root,
+				const std::vector<std::variant<std::string, size_t>>& key_path
 			);
 
 		YAML::Node
-			traverse(
+			safe_traverse_tree(
+				const YAML::Node& node,
+				const std::vector<std::variant<std::string, size_t>>& key_path
+			);
+
+		YAML::Node
+			traverse_tree(
 				YAML::Node
 					node,
 				const std::vector<std::variant<std::string, size_t>>&
@@ -47,7 +45,31 @@ namespace
 		YAML::Node
 			resolve_or_create(
 				YAML::Node root,
-					const std::vector<std::variant<std::string, size_t>>& key_path
+					const std::vector<std::variant<std::string, size_t>>&
+						key_path
+			);
+		
+		YAML::Node
+			walk_root_node(
+				YAML::Node& root,
+				const std::vector<std::variant<std::string, size_t>>&
+					key_path,
+				bool
+					create
+			);
+		
+		YAML::Node
+			load(
+				const std::string&
+					file_path
+			);
+
+		bool
+			save(
+				const std::string&
+					file_path,
+				const YAML::Node&
+					node
 			);
 
 		bool
@@ -229,7 +251,6 @@ namespace
 					key_path
 			);
 	};
-
 }
 
 #endif
