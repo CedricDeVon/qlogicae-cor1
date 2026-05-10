@@ -17,7 +17,7 @@ namespace
 
 /*
 
-SQLiteDatabaseManager
+	SQLiteDatabaseManager
 		::SQLiteDatabaseManager()
 	{
 		construct();

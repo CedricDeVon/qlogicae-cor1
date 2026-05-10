@@ -463,6 +463,8 @@
     <ClInclude Include="qlogicae\cor1\includes\onnx_api_manager_configurations.hpp" />
     <ClInclude Include="qlogicae\cor1\includes\pair_hash_operator.hpp" />
     <ClInclude Include="qlogicae\cor1\includes\sqlite_backend.hpp" />
+    <ClInclude Include="qlogicae\cor1\includes\sqlite_database_manager.hpp" />
+    <ClInclude Include="qlogicae\cor1\includes\sqlite_database_manager_configurations.hpp" />
     <ClInclude Include="qlogicae\cor1\includes\sqlite_exception.hpp" />
     <ClInclude Include="qlogicae\cor1\includes\sqlite_row.hpp" />
     <ClInclude Include="qlogicae\cor1\includes\sqlite_statement.hpp" />
@@ -787,6 +789,8 @@
     <ClCompile Include="qlogicae\cor1\sources\sodium_package_manager.cpp" />
     <ClCompile Include="qlogicae\cor1\sources\sodium_package_manager_configurations.cpp" />
     <ClCompile Include="qlogicae\cor1\sources\sqlite_backend.cpp" />
+    <ClCompile Include="qlogicae\cor1\sources\sqlite_database_manager.cpp" />
+    <ClCompile Include="qlogicae\cor1\sources\sqlite_database_manager_configurations.cpp" />
     <ClCompile Include="qlogicae\cor1\sources\sqlite_exception.cpp" />
     <ClCompile Include="qlogicae\cor1\sources\sqlite_row.cpp" />
     <ClCompile Include="qlogicae\cor1\sources\sqlite_statement.cpp" />

@@ -11,7 +11,7 @@ namespace
 {
 	SQLiteDatabaseManagerConfigurations
 		::SQLiteDatabaseManagerConfigurations() :
-			QLOGICAE_COR_V1__BASE__HPP_CPP__ABSTRACT_CONFIGURATIONS_NAME<SQLiteDatabaseManagerConfigurations>()
+			QLOGICAE_COR1__BASE__HPP_CPP__ABSTRACT_CONFIGURATIONS_NAME<SQLiteDatabaseManagerConfigurations>()
 	{
 		
 	}
