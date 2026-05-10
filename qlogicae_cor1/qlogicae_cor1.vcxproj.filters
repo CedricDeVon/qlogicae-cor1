@@ -18,6 +18,21 @@
     <ClInclude Include="pch.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="qlogicae\cor1\macros\setup.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\macros\definitions.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\macros\checks.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\macros\configurations.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\macros\compilations.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="qlogicae\cor1\includes\abstract_class.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -30,46 +45,16 @@
     <ClInclude Include="qlogicae\cor1\includes\error_manager_configurations.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\text_manager.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\text_manager_configurations.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\windows_registry_manager.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\windows_registry_manager_configurations.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\windows_registry_root_path.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\value_enum_key_delete_handler.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\regular_key_delete_handler.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="qlogicae\cor1\includes\singleton_manager.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="qlogicae\cor1\includes\singleton_manager_configurations.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\assembly.hpp">
+    <ClInclude Include="qlogicae\cor1\includes\aes256_cipher_cryptography_manager.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\all.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\abstract_enum.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\asynchronous_manager.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\asynchronous_manager_configurations.hpp">
+    <ClInclude Include="qlogicae\cor1\includes\aes256_cipher_cryptography_manager_configurations.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="qlogicae\cor1\includes\bcrypt_hash_cryptography_manager.hpp">
@@ -78,10 +63,43 @@
     <ClInclude Include="qlogicae\cor1\includes\bcrypt_hash_cryptography_manager_configurations.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\aes256_cipher_cryptography_manager.hpp">
+    <ClInclude Include="qlogicae\cor1\includes\abstract_enum.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\aes256_cipher_cryptography_manager_configurations.hpp">
+    <ClInclude Include="qlogicae\cor1\includes\account_sessions_manager.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\account_sessions_manager_configurations.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\argon2id_hash_cryptography_manager.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\all.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\argon2id_hash_cryptography_manager_configurations.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\assembly.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\asynchronous_batch_manager.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\asynchronous_batch_manager_configurations.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\asynchronous_manager_configurations.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\asynchronous_manager.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\binary_file_io_manager.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\binary_file_io_manager_configurations.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="qlogicae\cor1\includes\character_domain.hpp">
@@ -99,9 +117,6 @@
     <ClInclude Include="qlogicae\cor1\includes\character_domain_manager_configurations.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\console_io_manager_configurations.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="qlogicae\cor1\includes\configuration_manager.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -111,10 +126,91 @@
     <ClInclude Include="qlogicae\cor1\includes\console_io_manager.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\csv_file_io_manager_configurations.hpp">
+    <ClInclude Include="qlogicae\cor1\includes\console_io_manager_configurations.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\console_log_manager.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\console_log_manager_configurations.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\cryptography_migration_manager.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\cryptography_migration_manager_configurations.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="qlogicae\cor1\includes\csv_file_io_manager.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\csv_file_io_manager_configurations.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\curl_package_manager.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\curl_package_manager_configurations.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\dilithium_cryptography_algorithm.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\dilithium_cryptography_algorithm_enum_manager.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\dilithium_cryptography_algorithm_enum_manager_configurations.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\dilithium_cryptography_manager.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\dilithium_cryptography_manager_configurations.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\edsca_signature_cryptography_manager.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\edsca_signature_cryptography_manager_configurations.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\email_body.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\email_body_enum_manager.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\email_body_enum_manager_configurations.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\email_security.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\email_security_enum_manager.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\email_security_enum_manager_configurations.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\entity_activation_manager.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\entity_activation_manager_configurations.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\entity_activation_status.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\entity_activation_status_enum_manager.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\entity_activation_status_enum_manager_configurations.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\enum_manager.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\enum_manager_configurations.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="qlogicae\cor1\includes\excel_file_io_manager.hpp">
@@ -123,7 +219,13 @@
     <ClInclude Include="qlogicae\cor1\includes\excel_file_io_manager_configurations.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\file_system_manager_configurations.hpp">
+    <ClInclude Include="qlogicae\cor1\includes\file_entity.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\file_log_manager.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\file_log_manager_configurations.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="qlogicae\cor1\includes\file_system_entity.hpp">
@@ -135,13 +237,61 @@
     <ClInclude Include="qlogicae\cor1\includes\file_system_entity_enum_manager_configurations.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\file_system_event.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\file_system_event_listener_action.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\file_system_event_listener_action_enum_manager.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\file_system_event_listener_action_enum_manager_configurations.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\file_system_event_listener_manager.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\file_system_event_listener_manager_configurations.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\file_system_event_listener_manager_options.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\file_system_event_listener_metadata_flags.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\file_system_event_listener_metadata_flags_enum_manager.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\file_system_event_listener_metadata_flags_enum_manager_configurations.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\file_system_event_listener_slot.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\file_system_event_listener_source.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\file_system_event_listener_source_enum_manager.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\file_system_event_listener_source_enum_manager_configurations.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\file_system_event_listener_watch_context.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="qlogicae\cor1\includes\file_system_manager.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\function_wrapper_configurations.hpp">
+    <ClInclude Include="qlogicae\cor1\includes\file_system_manager_configurations.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="qlogicae\cor1\includes\function_wrapper.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\function_wrapper_configurations.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="qlogicae\cor1\includes\gmail_api_manager.hpp">
@@ -151,9 +301,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="qlogicae\cor1\includes\gmail_api_manager_response.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\json_key_index_hash_handler.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="qlogicae\cor1\includes\interval_clock.hpp">
@@ -174,10 +321,37 @@
     <ClInclude Include="qlogicae\cor1\includes\json_key_hash_handler.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\log_output_enum_manager_configurations.hpp">
+    <ClInclude Include="qlogicae\cor1\includes\json_key_index_hash_handler.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\json_text_manager.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\json_text_manager_configurations.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\jsonwebtoken_cryptography_manager.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\jsonwebtoken_cryptography_manager_configurations.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="qlogicae\cor1\includes\key_index_hash_handler.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\kyber_cryptography_algorithm.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\kyber_cryptography_algorithm_enum_manager.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\kyber_cryptography_algorithm_enum_manager_configurations.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\kyber_cryptography_manager.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\kyber_cryptography_manager_configurations.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="qlogicae\cor1\includes\log_format.hpp">
@@ -216,13 +390,19 @@
     <ClInclude Include="qlogicae\cor1\includes\log_output_enum_manager.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\qlogicae_service_application_manager_configurations.hpp">
+    <ClInclude Include="qlogicae\cor1\includes\log_output_enum_manager_configurations.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="qlogicae\cor1\includes\mutex_manager.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="qlogicae\cor1\includes\mutex_manager_configurations.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\neo4j_api_manager.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\neo4j_api_manager_configurations.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="qlogicae\cor1\includes\network_ping_manager.hpp">
@@ -276,10 +456,25 @@
     <ClInclude Include="qlogicae\cor1\includes\qlogicae_service_application_manager.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\random_value_generation_manager.hpp">
+    <ClInclude Include="qlogicae\cor1\includes\qlogicae_service_application_manager_configurations.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\random_value_generation_manager_configurations.hpp">
+    <ClInclude Include="qlogicae\cor1\includes\random_character_generation_manager.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\random_character_generation_manager_configurations.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\random_enum_generation_manager.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\random_enum_generation_manager_configurations.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\random_number_generation_manager.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\random_number_generation_manager_configurations.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="qlogicae\cor1\includes\random_seed_generation_manager.hpp">
@@ -288,10 +483,25 @@
     <ClInclude Include="qlogicae\cor1\includes\random_seed_generation_manager_configurations.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\random_string_generation_manager.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\random_string_generation_manager_configurations.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\random_value_generation_manager.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\random_value_generation_manager_configurations.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="qlogicae\cor1\includes\regular_expression_manager.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="qlogicae\cor1\includes\regular_expression_manager_configurations.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\regular_key_delete_handler.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="qlogicae\cor1\includes\rest_api_manager.hpp">
@@ -307,9 +517,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="qlogicae\cor1\includes\results_status.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\sha256_hash_cryptography_manager_configurations.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="qlogicae\cor1\includes\results_status_enum_manager.hpp">
@@ -348,7 +555,46 @@
     <ClInclude Include="qlogicae\cor1\includes\sha256_hash_cryptography_manager.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\temperature_unit_enum_manager_configurations.hpp">
+    <ClInclude Include="qlogicae\cor1\includes\sha256_hash_cryptography_manager_configurations.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\sodium_package_manager.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\sodium_package_manager_configurations.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\sqlite_backend.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\sqlite_database_manager.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\sqlite_database_manager_configurations.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\sqlite_exception.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\sqlite_row.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\sqlite_statement.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\sqlite_statement_data.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\sqlite_transaction.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\state_manager.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\state_manager_configurations.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\state_manager_item.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="qlogicae\cor1\includes\supabase_api_manager.hpp">
@@ -369,7 +615,7 @@
     <ClInclude Include="qlogicae\cor1\includes\temperature_unit_enum_manager.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\text_encoding.hpp">
+    <ClInclude Include="qlogicae\cor1\includes\temperature_unit_enum_manager_configurations.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="qlogicae\cor1\includes\text_case.hpp">
@@ -387,13 +633,19 @@
     <ClInclude Include="qlogicae\cor1\includes\text_case_manager_configurations.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\text_encoding.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="qlogicae\cor1\includes\text_encoding_enum_manager.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="qlogicae\cor1\includes\text_encoding_enum_manager_configurations.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\text_key_path_manager_configurations.hpp">
+    <ClInclude Include="qlogicae\cor1\includes\text_encoding_manager.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\text_encoding_manager_configurations.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="qlogicae\cor1\includes\text_error_manager.hpp">
@@ -411,10 +663,34 @@
     <ClInclude Include="qlogicae\cor1\includes\text_key_path_manager.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\text_encoding_manager_configurations.hpp">
+    <ClInclude Include="qlogicae\cor1\includes\text_key_path_manager_configurations.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\text_log_manager.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="qlogicae\cor1\includes\text_log_manager_configurations.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\text_manager.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\text_manager_configurations.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\text_placeholder_manager.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\text_placeholder_manager_configurations.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\time_format.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\time_format_enum_manager.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\time_format_enum_manager_configurations.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="qlogicae\cor1\includes\time_manager.hpp">
@@ -459,13 +735,19 @@
     <ClInclude Include="qlogicae\cor1\includes\uri_file_io_manager_configurations.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\uuid_enum_manager_configurations.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="qlogicae\cor1\includes\uuid.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="qlogicae\cor1\includes\uuid_enum_manager.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\uuid_enum_manager_configurations.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\uuid_manager.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\uuid_manager_configurations.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="qlogicae\cor1\includes\valid_mutex_lock.hpp">
@@ -475,6 +757,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="qlogicae\cor1\includes\validation_manager_configurations.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\value_enum_key_delete_handler.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="qlogicae\cor1\includes\value_extractor_manager.hpp">
@@ -493,6 +778,21 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="qlogicae\cor1\includes\windows_environment_variable_enum_manager_configurations.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\windows_environment_variable_manager.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\windows_environment_variable_manager_configurations.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\windows_registry_manager.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\windows_registry_manager_configurations.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qlogicae\cor1\includes\windows_registry_root_path.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="qlogicae\cor1\includes\windows_registry_root_path_enum_manager.hpp">
@@ -519,348 +819,15 @@
     <ClInclude Include="qlogicae\cor1\includes\xml_file_io_manager_configurations.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\argon2id_hash_cryptography_manager_configurations.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\binary_file_io_manager_configurations.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\console_log_manager_configurations.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\enum_manager_configurations.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\file_log_manager_configurations.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\json_text_manager_configurations.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\random_character_generation_manager_configurations.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\random_enum_generation_manager_configurations.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\random_number_generation_manager_configurations.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\random_string_generation_manager_configurations.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\text_placeholder_manager_configurations.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\time_format_enum_manager_configurations.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\time_format.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\uuid_manager_configurations.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\windows_environment_variable_manager_configurations.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\argon2id_hash_cryptography_manager.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\binary_file_io_manager.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\console_log_manager.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\enum_manager.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\file_log_manager.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\text_log_manager.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\text_encoding_manager.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\time_format_enum_manager.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\windows_environment_variable_manager.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\random_character_generation_manager.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\random_enum_generation_manager.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\random_number_generation_manager.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\random_string_generation_manager.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\text_placeholder_manager.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\uuid_manager.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\asynchronous_batch_manager.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\asynchronous_batch_manager_configurations.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\json_text_manager.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\edsca_signature_cryptography_manager.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\edsca_signature_cryptography_manager_configurations.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\entity_activation_manager.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\jsonwebtoken_cryptography_manager.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\jsonwebtoken_cryptography_manager_configurations.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\entity_activation_manager_configurations.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\state_manager.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\state_manager_configurations.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\entity_activation_status.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\email_body.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\email_security.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\file_entity.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\sodium_package_manager.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\sodium_package_manager_configurations.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\curl_package_manager.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\curl_package_manager_configurations.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\email_body_enum_manager.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\email_security_enum_manager.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\entity_activation_status_enum_manager.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\email_body_enum_manager_configurations.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\email_security_enum_manager_configurations.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\entity_activation_status_enum_manager_configurations.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\account_sessions_manager.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\account_sessions_manager_configurations.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\kyber_cryptography_manager.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\kyber_cryptography_manager_configurations.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\dilithium_cryptography_manager.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\dilithium_cryptography_manager_configurations.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\cryptography_migration_manager.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\cryptography_migration_manager_configurations.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\neo4j_api_manager.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\neo4j_api_manager_configurations.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\file_system_event_listener_manager.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\file_system_event_listener_manager_configurations.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\dilithium_cryptography_algorithm.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\kyber_cryptography_algorithm.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\dilithium_cryptography_algorithm_enum_manager.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\dilithium_cryptography_algorithm_enum_manager_configurations.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\kyber_cryptography_algorithm_enum_manager.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\kyber_cryptography_algorithm_enum_manager_configurations.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\macros\setup.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\state_manager_item.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\macros\definitions.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\macros\checks.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\macros\configurations.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\macros\compilations.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="qlogicae\cor1\includes\yaml_file_io_manager.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="qlogicae\cor1\includes\yaml_file_io_manager_configurations.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\sqlite_exception.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\sqlite_row.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\sqlite_statement.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\sqlite_statement_data.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\sqlite_backend.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\file_system_event_listener_action_enum_manager.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\file_system_event_listener_action_enum_manager_configurations.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\file_system_event_listener_source_enum_manager.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\file_system_event_listener_source_enum_manager_configurations.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\file_system_event_listener_metadata_flags_enum_manager.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\file_system_event_listener_metadata_flags_enum_manager_configurations.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\file_system_event.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\file_system_event_listener_manager_options.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\file_system_event_listener_watch_context.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\file_system_event_listener_slot.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\file_system_event_listener_action.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\file_system_event_listener_source.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\file_system_event_listener_metadata_flags.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\sqlite_database_manager.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="qlogicae\cor1\includes\sqlite_database_manager_configurations.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\windows_registry_manager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\singleton_manager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\singleton_manager_configurations.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\windows_registry_manager_configurations.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\error_manager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\error_manager_configurations.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\abstract_class.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\regular_key_delete_handler.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\windows_registry_root_path.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\all.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\assembly.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\abstract_enum.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="qlogicae\cor1\sources\aes256_cipher_cryptography_manager.cpp">
@@ -869,10 +836,22 @@
     <ClCompile Include="qlogicae\cor1\sources\aes256_cipher_cryptography_manager_configurations.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\asynchronous_manager.cpp">
+    <ClCompile Include="qlogicae\cor1\sources\bcrypt_hash_cryptography_manager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\asynchronous_manager_configurations.cpp">
+    <ClCompile Include="qlogicae\cor1\sources\bcrypt_hash_cryptography_manager_configurations.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\abstract_enum.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\account_sessions_manager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\account_sessions_manager_configurations.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\all.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="qlogicae\cor1\sources\argon2id_hash_cryptography_manager.cpp">
@@ -881,22 +860,19 @@
     <ClCompile Include="qlogicae\cor1\sources\argon2id_hash_cryptography_manager_configurations.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\random_value_generation_manager.cpp">
+    <ClCompile Include="qlogicae\cor1\sources\assembly.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\random_value_generation_manager_configurations.cpp">
+    <ClCompile Include="qlogicae\cor1\sources\asynchronous_batch_manager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\text_manager.cpp">
+    <ClCompile Include="qlogicae\cor1\sources\asynchronous_batch_manager_configurations.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\text_manager_configurations.cpp">
+    <ClCompile Include="qlogicae\cor1\sources\asynchronous_manager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\bcrypt_hash_cryptography_manager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\bcrypt_hash_cryptography_manager_configurations.cpp">
+    <ClCompile Include="qlogicae\cor1\sources\asynchronous_manager_configurations.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="qlogicae\cor1\sources\binary_file_io_manager.cpp">
@@ -938,10 +914,76 @@
     <ClCompile Include="qlogicae\cor1\sources\console_log_manager_configurations.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\cryptography_migration_manager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\cryptography_migration_manager_configurations.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="qlogicae\cor1\sources\csv_file_io_manager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="qlogicae\cor1\sources\csv_file_io_manager_configurations.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\curl_package_manager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\curl_package_manager_configurations.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\dilithium_cryptography_algorithm.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\dilithium_cryptography_algorithm_enum_manager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\dilithium_cryptography_algorithm_enum_manager_configurations.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\dilithium_cryptography_manager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\dilithium_cryptography_manager_configurations.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\edsca_signature_cryptography_manager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\edsca_signature_cryptography_manager_configurations.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\email_body.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\email_body_enum_manager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\email_body_enum_manager_configurations.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\email_security.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\email_security_enum_manager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\email_security_enum_manager_configurations.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\entity_activation_manager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\entity_activation_manager_configurations.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\entity_activation_status.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\entity_activation_status_enum_manager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\entity_activation_status_enum_manager_configurations.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="qlogicae\cor1\sources\enum_manager.cpp">
@@ -954,6 +996,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="qlogicae\cor1\sources\excel_file_io_manager_configurations.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\file_entity.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="qlogicae\cor1\sources\file_log_manager.cpp">
@@ -969,6 +1014,51 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="qlogicae\cor1\sources\file_system_entity_enum_manager_configurations.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\file_system_event.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\file_system_event_listener_action.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\file_system_event_listener_action_enum_manager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\file_system_event_listener_action_enum_manager_configurations.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\file_system_event_listener_manager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\file_system_event_listener_manager_configurations.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\file_system_event_listener_manager_options.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\file_system_event_listener_metadata_flags.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\file_system_event_listener_metadata_flags_enum_manager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\file_system_event_listener_metadata_flags_enum_manager_configurations.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\file_system_event_listener_slot.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\file_system_event_listener_source.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\file_system_event_listener_source_enum_manager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\file_system_event_listener_source_enum_manager_configurations.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\file_system_event_listener_watch_context.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="qlogicae\cor1\sources\file_system_manager.cpp">
@@ -992,66 +1082,6 @@
     <ClCompile Include="qlogicae\cor1\sources\gmail_api_manager_response.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\log_format.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\log_format_enum_manager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\log_format_enum_manager_configurations.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\log_level.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\log_level_enum_manager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\log_level_enum_manager_configurations.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\text_log_manager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\text_log_manager_configurations.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\text_encoding.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\text_encoding_enum_manager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\text_encoding_enum_manager_configurations.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\text_encoding_manager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\text_encoding_manager_configurations.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\text_case.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\text_case_enum_manager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\text_case_enum_manager_configurations.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\text_case_manager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\text_case_manager_configurations.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\time_manager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\time_manager_configurations.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="qlogicae\cor1\sources\interval_clock.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -1070,7 +1100,52 @@
     <ClCompile Include="qlogicae\cor1\sources\json_key_index_hash_handler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\json_text_manager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\json_text_manager_configurations.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\jsonwebtoken_cryptography_manager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\jsonwebtoken_cryptography_manager_configurations.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="qlogicae\cor1\sources\key_index_hash_handler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\kyber_cryptography_algorithm.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\kyber_cryptography_algorithm_enum_manager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\kyber_cryptography_algorithm_enum_manager_configurations.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\kyber_cryptography_manager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\kyber_cryptography_manager_configurations.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\log_format.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\log_format_enum_manager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\log_format_enum_manager_configurations.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\log_level.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\log_level_enum_manager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\log_level_enum_manager_configurations.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="qlogicae\cor1\sources\log_manager_configurations.cpp">
@@ -1100,6 +1175,12 @@
     <ClCompile Include="qlogicae\cor1\sources\mutex_manager_configurations.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\neo4j_api_manager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\neo4j_api_manager_configurations.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="qlogicae\cor1\sources\network_ping_manager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -1122,45 +1203,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="qlogicae\cor1\sources\pdf_file_io_manager_configurations.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\windows_environment_variable.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\windows_environment_variable_enum_manager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\windows_environment_variable_enum_manager_configurations.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\windows_environment_variable_manager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\windows_environment_variable_manager_configurations.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\windows_registry_root_path_enum_manager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\windows_registry_root_path_enum_manager_configurations.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\windows_system_access_manager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\windows_system_access_manager_configurations.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\xchacha20_poly1305_cipher_cryptography_manager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\xchacha20_poly1305_cipher_cryptography_manager_configurations.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\xml_file_io_manager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\xml_file_io_manager_configurations.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="qlogicae\cor1\sources\qlogicae_application_manager.cpp">
@@ -1223,10 +1265,19 @@
     <ClCompile Include="qlogicae\cor1\sources\random_string_generation_manager_configurations.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\random_value_generation_manager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\random_value_generation_manager_configurations.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="qlogicae\cor1\sources\regular_expression_manager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="qlogicae\cor1\sources\regular_expression_manager_configurations.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\regular_key_delete_handler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="qlogicae\cor1\sources\rest_api_manager.cpp">
@@ -1283,6 +1334,42 @@
     <ClCompile Include="qlogicae\cor1\sources\sha256_hash_cryptography_manager_configurations.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\sodium_package_manager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\sodium_package_manager_configurations.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\sqlite_backend.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\sqlite_database_manager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\sqlite_database_manager_configurations.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\sqlite_exception.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\sqlite_row.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\sqlite_statement.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\sqlite_statement_data.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\state_manager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\state_manager_configurations.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\state_manager_item.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="qlogicae\cor1\sources\supabase_api_manager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -1304,6 +1391,36 @@
     <ClCompile Include="qlogicae\cor1\sources\temperature_unit_enum_manager_configurations.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\text_case.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\text_case_enum_manager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\text_case_enum_manager_configurations.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\text_case_manager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\text_case_manager_configurations.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\text_encoding.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\text_encoding_enum_manager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\text_encoding_enum_manager_configurations.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\text_encoding_manager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\text_encoding_manager_configurations.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="qlogicae\cor1\sources\text_error_manager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -1316,16 +1433,28 @@
     <ClCompile Include="qlogicae\cor1\sources\text_file_io_manager_configurations.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\text_key_path_manager_configurations.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="qlogicae\cor1\sources\text_key_path_manager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\text_placeholder_manager_configurations.cpp">
+    <ClCompile Include="qlogicae\cor1\sources\text_key_path_manager_configurations.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\text_log_manager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\text_log_manager_configurations.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\text_manager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\text_manager_configurations.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="qlogicae\cor1\sources\text_placeholder_manager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\text_placeholder_manager_configurations.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="qlogicae\cor1\sources\time_format.cpp">
@@ -1335,6 +1464,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="qlogicae\cor1\sources\time_format_enum_manager_configurations.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\time_manager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\time_manager_configurations.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="qlogicae\cor1\sources\time_scale_unit.cpp">
@@ -1409,133 +1544,52 @@
     <ClCompile Include="qlogicae\cor1\sources\vector_string_hash_handler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\asynchronous_batch_manager.cpp">
+    <ClCompile Include="qlogicae\cor1\sources\windows_environment_variable.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\asynchronous_batch_manager_configurations.cpp">
+    <ClCompile Include="qlogicae\cor1\sources\windows_environment_variable_enum_manager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\edsca_signature_cryptography_manager_configurations.cpp">
+    <ClCompile Include="qlogicae\cor1\sources\windows_environment_variable_enum_manager_configurations.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\edsca_signature_cryptography_manager.cpp">
+    <ClCompile Include="qlogicae\cor1\sources\windows_environment_variable_manager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\entity_activation_manager_configurations.cpp">
+    <ClCompile Include="qlogicae\cor1\sources\windows_environment_variable_manager_configurations.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\entity_activation_manager.cpp">
+    <ClCompile Include="qlogicae\cor1\sources\windows_registry_manager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\json_text_manager.cpp">
+    <ClCompile Include="qlogicae\cor1\sources\windows_registry_manager_configurations.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\json_text_manager_configurations.cpp">
+    <ClCompile Include="qlogicae\cor1\sources\windows_registry_root_path.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\jsonwebtoken_cryptography_manager.cpp">
+    <ClCompile Include="qlogicae\cor1\sources\windows_registry_root_path_enum_manager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\jsonwebtoken_cryptography_manager_configurations.cpp">
+    <ClCompile Include="qlogicae\cor1\sources\windows_registry_root_path_enum_manager_configurations.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\state_manager.cpp">
+    <ClCompile Include="qlogicae\cor1\sources\windows_system_access_manager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\state_manager_configurations.cpp">
+    <ClCompile Include="qlogicae\cor1\sources\windows_system_access_manager_configurations.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\entity_activation_status.cpp">
+    <ClCompile Include="qlogicae\cor1\sources\xchacha20_poly1305_cipher_cryptography_manager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\file_entity.cpp">
+    <ClCompile Include="qlogicae\cor1\sources\xchacha20_poly1305_cipher_cryptography_manager_configurations.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\curl_package_manager.cpp">
+    <ClCompile Include="qlogicae\cor1\sources\xml_file_io_manager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\curl_package_manager_configurations.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\sodium_package_manager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\sodium_package_manager_configurations.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\email_body.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\email_body_enum_manager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\email_body_enum_manager_configurations.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\email_security.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\email_security_enum_manager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\email_security_enum_manager_configurations.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\entity_activation_status_enum_manager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\entity_activation_status_enum_manager_configurations.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\account_sessions_manager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\account_sessions_manager_configurations.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\cryptography_migration_manager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\cryptography_migration_manager_configurations.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\dilithium_cryptography_manager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\dilithium_cryptography_manager_configurations.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\kyber_cryptography_manager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\kyber_cryptography_manager_configurations.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\neo4j_api_manager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\neo4j_api_manager_configurations.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\dilithium_cryptography_algorithm.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\kyber_cryptography_algorithm.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\dilithium_cryptography_algorithm_enum_manager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\dilithium_cryptography_algorithm_enum_manager_configurations.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\kyber_cryptography_algorithm_enum_manager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\kyber_cryptography_algorithm_enum_manager_configurations.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\state_manager_item.cpp">
+    <ClCompile Include="qlogicae\cor1\sources\xml_file_io_manager_configurations.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="qlogicae\cor1\sources\yaml_file_io_manager.cpp">
@@ -1544,73 +1598,25 @@
     <ClCompile Include="qlogicae\cor1\sources\yaml_file_io_manager_configurations.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\sqlite_backend.cpp">
+    <ClCompile Include="qlogicae\cor1\sources\sqlite_transaction.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\sqlite_row.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\sqlite_statement.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\sqlite_exception.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\sqlite_statement_data.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\file_system_event.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\file_system_event_listener_action.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\file_system_event_listener_action_enum_manager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\file_system_event_listener_action_enum_manager_configurations.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\file_system_event_listener_manager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\file_system_event_listener_manager_configurations.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\file_system_event_listener_manager_options.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\file_system_event_listener_metadata_flags.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\file_system_event_listener_metadata_flags_enum_manager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\file_system_event_listener_metadata_flags_enum_manager_configurations.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\file_system_event_listener_slot.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\file_system_event_listener_source.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\file_system_event_listener_source_enum_manager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\file_system_event_listener_source_enum_manager_configurations.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\file_system_event_listener_watch_context.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\sqlite_database_manager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\sqlite_database_manager_configurations.cpp">
+    <ClCompile Include="qlogicae\cor1\sources\abstract_class.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="qlogicae\cor1\sources\abstract_configurations.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\error_manager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\error_manager_configurations.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\singleton_manager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\singleton_manager_configurations.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
