@@ -1563,7 +1563,7 @@ namespace
         Should_ExpectOrderingPreserved_When_NotifyBatchDispatches
     )
     {
-        std::vector<std::size_t> received;
+        std::vector<uint64_t> received;
 
         manager.add_listener(
             [&received](const FileSystemEvent& event)
@@ -2269,7 +2269,7 @@ namespace
 
         std::atomic<std::size_t> callback_count(0);
 
-        std::vector<std::size_t> seen;
+        std::vector<uint64_t> seen;
 
         std::mutex m;
 
@@ -2651,7 +2651,7 @@ namespace
 
         constexpr std::size_t event_count = 300;
 
-        std::unordered_set<std::size_t> seen;
+        std::unordered_set<uint64_t> seen;
 
         for (std::size_t index = 0; index < event_count; ++index)
         {
@@ -2756,7 +2756,7 @@ namespace
 
         manager.write_index.store(total);
 
-        std::vector<std::size_t> order;
+        std::vector<uint64_t> order;
         std::mutex mtx;
 
         manager.add_listener(
