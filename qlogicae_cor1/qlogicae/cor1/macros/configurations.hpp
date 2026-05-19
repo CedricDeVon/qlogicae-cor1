@@ -331,12 +331,10 @@
 #define QLOGICAE_COR1__BASE__HPP_CPP__YamlCppVcpkgImports__IS_COMPILATION_ENABLED 1
 
 #pragma warning(push)
-#pragma warning(disable : 4244)
-#endif
+#pragma warning(disable : 4244 4251 4275)
 
 #include <yaml-cpp/yaml.h>
 
-#ifdef _MSC_VER
 #pragma warning(pop)
 
 #else
