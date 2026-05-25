@@ -4,8 +4,6 @@
 		WindowsRegistryRootPathEnumManager \
 	)
 
-#include "enum_manager.hpp"
-#include "abstract_class.hpp"
 #include "windows_registry_root_path.hpp"
 #include "windows_registry_root_path_enum_manager_configurations.hpp"
 

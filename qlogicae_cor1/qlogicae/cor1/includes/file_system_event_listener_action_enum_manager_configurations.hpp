@@ -4,7 +4,6 @@
 		FileSystemEventListenerActionEnumManagerConfigurations \
 	)
 
-#include "abstract_configurations.hpp"
 #include "file_system_event_listener_action.hpp"
 
 namespace

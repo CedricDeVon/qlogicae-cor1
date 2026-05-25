@@ -4,7 +4,6 @@
 		EntityActivationManager \
 	)
 
-#include "abstract_class.hpp"
 #include "entity_activation_status.hpp"
 #include "entity_activation_manager_configurations.hpp"
 

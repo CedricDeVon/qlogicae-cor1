@@ -4,9 +4,7 @@
 		RandomCharacterGenerationManager \
 	)
 
-#include "abstract_class.hpp"
 #include "character_domain.hpp"
-#include "text_encoding_manager.hpp"
 #include "character_domain_manager.hpp"
 #include "random_seed_generation_manager.hpp"
 #include "random_character_generation_manager_configurations.hpp"

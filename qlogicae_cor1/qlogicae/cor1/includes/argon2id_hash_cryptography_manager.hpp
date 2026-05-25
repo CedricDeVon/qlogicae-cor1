@@ -4,7 +4,6 @@
 		Argon2idHashCryptographyManager \
 	)
 
-#include "abstract_class.hpp"
 #include "random_value_generation_manager.hpp"
 #include "argon2id_hash_cryptography_manager_configurations.hpp"
 
@@ -29,6 +28,20 @@ namespace
 				const std::string&
 					text,
 				const std::string&
+					hash
+			);
+
+		bool
+			hash_text(
+				std::vector<uint8_t>&
+					text
+			);
+
+		bool
+			verify_text(
+				const std::vector<uint8_t>&
+					text,
+				const std::vector<uint8_t>&
 					hash
 			);
     };

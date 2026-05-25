@@ -4,8 +4,6 @@
 		XChaCha20Poly1305CipherCryptographyManager \
 	)
 
-#include "text_manager.hpp"
-#include "abstract_class.hpp"
 #include "xchacha20_poly1305_cipher_cryptography_manager_configurations.hpp"
 
 namespace
@@ -35,6 +33,26 @@ namespace
 				const std::string&
 					private_key,
 				const std::string&
+					nonce
+			);
+
+		bool
+			encrypt_text(
+				std::vector<uint8_t>&
+					text,
+				const std::vector<uint8_t>&
+					private_key,
+				const std::vector<uint8_t>&
+					nonce
+			);
+
+		bool
+			decrypt_text(
+				std::vector<uint8_t>&
+					text,
+				const std::vector<uint8_t>&
+					private_key,
+				const std::vector<uint8_t>&
 					nonce
 			);
     };

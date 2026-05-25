@@ -4,7 +4,6 @@
 		BcryptHashCryptographyManager \
 	)
 
-#include "abstract_class.hpp"
 #include "bcrypt_hash_cryptography_manager_configurations.hpp"
 
 namespace
@@ -36,6 +35,20 @@ namespace
 				const std::string&
 					text,
 				const std::string&
+					hash
+			);
+
+		bool
+			hash_text(
+				std::vector<uint8_t>&
+					text
+			);
+
+		bool
+			verify_text(
+				const std::vector<uint8_t>&
+					text,
+				const std::vector<uint8_t>&
 					hash
 			);
     };

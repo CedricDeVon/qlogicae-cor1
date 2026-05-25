@@ -196,7 +196,182 @@ namespace
 			);
         }
 	}
-}
+	
+	bool
+		Aes256CipherCryptographyManager
+			::encrypt_text(
+				std::vector<uint8_t>&
+					text,
+				const std::vector<uint8_t>&
+					private_key,
+				const std::vector<uint8_t>&
+					nonce
+			)
+	{
+		try
+        {					
+			QLOGICAE_COR1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
+			(
+				QLOGICAE_COR1__BASE__HPP_CPP__MUTEX_LAYER_1,
+				!text.size() ||
+				!private_key.size() ||
+				!nonce.size() ||
+				private_key.size() !=
+				crypto_aead_aes256gcm_KEYBYTES ||
+				nonce.size() !=
+				crypto_aead_aes256gcm_NPUBBYTES
+			);			
+			
+			std::vector<uint8_t>
+				ciphertext(
+					text.size() +
+					crypto_aead_aes256gcm_ABYTES
+				);
 
+			unsigned long long
+				ciphertext_length =
+					0;
+
+			if
+			(
+				crypto_aead_aes256gcm_encrypt(
+					reinterpret_cast<unsigned char*>(
+						ciphertext.data()
+					),
+					&ciphertext_length,
+					reinterpret_cast<const unsigned char*>(
+						text.data()
+					),
+					static_cast<unsigned long long>(
+						text.size()
+					),
+					nullptr,
+					0,
+					nullptr,
+					reinterpret_cast<const unsigned char*>(
+						nonce.data()
+					),
+					reinterpret_cast<const unsigned char*>(
+						private_key.data()
+					)
+				) != 0
+			)
+			{
+				return
+					false;
+			}
+
+			ciphertext.resize(
+				static_cast<size_t>(
+					ciphertext_length
+				)
+			);
+
+			text =
+				std::move(
+					ciphertext
+				);
+
+			return
+				true;
+        }
+        catch
+        (
+            QLOGICAE_COR1__BASE__HPP_CPP__TRY_CATCH_EXCEPTION_PARAMETER
+        )
+        {
+			QLOGICAE_COR1__IMPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE();
+        }
+	}
+
+	bool
+		Aes256CipherCryptographyManager
+			::decrypt_text(
+				std::vector<uint8_t>&
+					text,
+				const std::vector<uint8_t>&
+					private_key,
+				const std::vector<uint8_t>&
+					nonce
+			)
+	{
+		try
+        {					
+			QLOGICAE_COR1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
+			(
+				QLOGICAE_COR1__BASE__HPP_CPP__MUTEX_LAYER_1,
+				!text.size() ||
+				!private_key.size() ||
+				!nonce.size() ||
+				text.size() <
+				crypto_aead_aes256gcm_ABYTES ||
+				private_key.size() !=
+				crypto_aead_aes256gcm_KEYBYTES ||
+				nonce.size() !=
+				crypto_aead_aes256gcm_NPUBBYTES
+			);			
+			
+			std::vector<uint8_t>
+				plaintext(
+					text.size() -
+					crypto_aead_aes256gcm_ABYTES
+				);
+
+			unsigned long long
+				plaintext_length =
+					0;
+
+			if
+			(
+				crypto_aead_aes256gcm_decrypt(
+					reinterpret_cast<unsigned char*>(
+						plaintext.data()
+					),
+					&plaintext_length,
+					nullptr,
+					reinterpret_cast<const unsigned char*>(
+						text.data()
+					),
+					static_cast<unsigned long long>(
+						text.size()
+					),
+					nullptr,
+					0,
+					reinterpret_cast<const unsigned char*>(
+						nonce.data()
+					),
+					reinterpret_cast<const unsigned char*>(
+						private_key.data()
+					)
+				) != 0
+			)
+			{
+				return
+					false;
+			}
+
+			plaintext.resize(
+				static_cast<size_t>(
+					plaintext_length
+				)
+			);
+
+			text =
+				std::move(
+					plaintext
+				);
+
+			return
+				true;
+        }
+        catch
+        (
+            QLOGICAE_COR1__BASE__HPP_CPP__TRY_CATCH_EXCEPTION_PARAMETER
+        )
+        {
+			QLOGICAE_COR1__IMPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE();
+        }
+	}
+}
 
 #endif

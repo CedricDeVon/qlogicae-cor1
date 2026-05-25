@@ -10,13 +10,24 @@
 namespace
 	QLOGICAE_COR1__BASE__HPP_CPP__COR_NAMESPACE_NAME
 {
+    int main(int, char**);
+
     class
 		QLogicaeConsoleApplicationManager :
 			public QLOGICAE_COR1__BASE__HPP_CPP__ABSTRACT_CLASS_NAME<QLogicaeConsoleApplicationManagerConfigurations>
     {
-    public:		
+    public:				
 		QLogicaeConsoleApplicationManager();
+		
+		~QLogicaeConsoleApplicationManager();
+
+        bool
+            construct();
+
+		bool
+            destruct();
     };
 }
 
 #endif
+

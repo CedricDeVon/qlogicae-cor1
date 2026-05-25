@@ -4,7 +4,6 @@
 		DilithiumCryptographyAlgorithmEnumManagerConfigurations \
 	)
 
-#include "abstract_configurations.hpp"
 #include "dilithium_cryptography_algorithm.hpp"
 
 namespace

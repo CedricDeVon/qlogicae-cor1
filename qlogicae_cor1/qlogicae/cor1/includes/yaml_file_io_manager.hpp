@@ -4,7 +4,6 @@
 		YamlFileIoManager \
 	)
 
-#include "abstract_class.hpp"
 #include "yaml_file_io_manager_configurations.hpp"
 
 namespace
@@ -254,3 +253,4 @@ namespace
 }
 
 #endif
+

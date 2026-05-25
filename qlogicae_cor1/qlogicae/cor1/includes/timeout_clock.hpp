@@ -4,7 +4,6 @@
 		TimeoutClock \
 	)
 
-#include "abstract_class.hpp"
 #include "timeout_clock_configurations.hpp"
 
 namespace

@@ -4,8 +4,6 @@
 		BinaryFileIoManager \
 	)
 
-#include "abstract_class.hpp"
-#include "text_encoding_manager.hpp"
 #include "binary_file_io_manager_configurations.hpp"
 
 namespace

@@ -4,7 +4,6 @@
 		XmlFileIoManager \
 	)
 
-#include "abstract_class.hpp"
 #include "xml_file_io_manager_configurations.hpp"
 
 namespace
@@ -133,6 +132,9 @@ namespace
 				const ValueType&
 					value
 			);
+
+
+
 
 		bool
 			is_key_found(

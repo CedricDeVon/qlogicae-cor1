@@ -4,7 +4,6 @@
 		SQLiteDatabaseManager \
 	)
 
-#include "abstract_class.hpp"
 #include "sqlite_database_manager_configurations.hpp"
 
 namespace

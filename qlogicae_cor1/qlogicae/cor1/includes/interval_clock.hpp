@@ -4,7 +4,6 @@
 		IntervalClock \
 	)
 
-#include "abstract_class.hpp"
 #include "interval_clock_configurations.hpp"
 
 namespace

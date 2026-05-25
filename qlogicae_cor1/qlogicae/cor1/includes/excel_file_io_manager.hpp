@@ -4,7 +4,6 @@
 		ExcelFileIoManager \
 	)
 
-#include "abstract_class.hpp"
 #include "excel_file_io_manager_configurations.hpp"
 
 namespace

@@ -4,7 +4,6 @@
 		DilithiumCryptographyManager \
 	)
 
-#include "abstract_class.hpp"
 #include "dilithium_cryptography_algorithm_enum_manager.hpp"
 #include "dilithium_cryptography_manager_configurations.hpp"
 

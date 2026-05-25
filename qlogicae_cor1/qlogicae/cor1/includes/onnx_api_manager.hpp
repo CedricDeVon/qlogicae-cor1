@@ -4,7 +4,6 @@
 		OnnxApiManager \
 	)
 
-#include "abstract_class.hpp"
 #include "onnx_api_manager_configurations.hpp"
 
 namespace

@@ -4,7 +4,6 @@
 		ValidationManager \
 	)
 
-#include "abstract_class.hpp"
 #include "validation_manager_configurations.hpp"
 
 namespace

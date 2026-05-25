@@ -4,8 +4,6 @@
 		RestApiManager \
 	)
 
-#include "abstract_class.hpp"
-#include "curl_package_manager.hpp"
 #include "rest_api_manager_response.hpp"
 #include "rest_api_manager_configurations.hpp"
 

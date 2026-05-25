@@ -16,7 +16,16 @@ namespace
     {
     public:
 		QLogicaeFileSystemManager();
+
+		~QLogicaeFileSystemManager();
+		
+        bool
+            construct();
+
+		bool
+            destruct();
     };
 }
 
 #endif
+

@@ -4,8 +4,6 @@
 		TextPlaceholderManager \
 	)
 
-#include "abstract_class.hpp"
-#include "text_case_manager.hpp"
 #include "text_placeholder_manager_configurations.hpp"
 
 namespace

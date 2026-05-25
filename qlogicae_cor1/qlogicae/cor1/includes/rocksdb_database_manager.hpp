@@ -4,7 +4,6 @@
 		RocksDbDatabaseManager \
 	)
 
-#include "abstract_class.hpp"
 #include "rocksdb_database_manager_configurations.hpp"
 
 namespace

@@ -4,7 +4,6 @@
 		WindowsRegistryRootPathEnumManagerConfigurations \
 	)
 
-#include "abstract_configurations.hpp"
 #include "windows_registry_root_path.hpp"
 
 namespace

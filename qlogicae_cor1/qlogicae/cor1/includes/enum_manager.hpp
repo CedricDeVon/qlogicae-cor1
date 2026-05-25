@@ -4,9 +4,6 @@
 		EnumManager \
 	)
 
-#include "text_case.hpp"
-#include "abstract_class.hpp"
-#include "text_case_manager.hpp"
 #include "enum_manager_configurations.hpp"
 
 namespace

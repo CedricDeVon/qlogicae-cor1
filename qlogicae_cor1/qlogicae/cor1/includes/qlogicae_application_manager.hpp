@@ -4,7 +4,6 @@
 		QLogicaeApplicationManager \
 	)
 
-#include "abstract_class.hpp"
 #include "qlogicae_application_manager_configurations.hpp"
 
 namespace
@@ -15,7 +14,29 @@ namespace
 			public QLOGICAE_COR1__BASE__HPP_CPP__ABSTRACT_CLASS_NAME<QLogicaeApplicationManagerConfigurations>
     {
     public:
+		QLOGICAE_COR1__INSTANCE__HPP__MUTEX_LAYER_TEMPLATE
+		(
+			QLOGICAE_COR1__BASE__HPP_CPP__MUTEX_LAYER_2
+		);
+
 		QLogicaeApplicationManager();
+		
+		~QLogicaeApplicationManager();
+
+		bool
+			construct();
+
+		bool
+			destruct();
+
+		bool
+			setup(
+				const QLogicaeApplicationManagerConfigurations&
+					new_configurations
+			);
+
+		bool
+            reset();
     };
 }
 

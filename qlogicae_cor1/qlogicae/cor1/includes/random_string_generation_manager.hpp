@@ -4,10 +4,7 @@
 		RandomStringGenerationManager \
 	)
 
-#include "abstract_class.hpp"
 #include "character_domain.hpp"
-#include "singleton_manager.hpp"
-#include "text_encoding_manager.hpp"
 #include "character_domain_manager.hpp"
 #include "random_seed_generation_manager.hpp"
 #include "random_string_generation_manager_configurations.hpp"

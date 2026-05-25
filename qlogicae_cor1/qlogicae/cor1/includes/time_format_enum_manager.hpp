@@ -5,8 +5,6 @@
 	)
 
 #include "time_format.hpp"
-#include "enum_manager.hpp"
-#include "abstract_class.hpp"
 #include "time_format_enum_manager_configurations.hpp"
 
 namespace

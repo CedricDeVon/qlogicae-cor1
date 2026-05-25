@@ -4,8 +4,8 @@
 		ResultsStatusEnumManager \
 	)
 
-#include "results_status.hpp"
 #include "abstract_class.hpp"
+#include "results_status.hpp"
 #include "results_status_enum_manager_configurations.hpp"
 
 namespace

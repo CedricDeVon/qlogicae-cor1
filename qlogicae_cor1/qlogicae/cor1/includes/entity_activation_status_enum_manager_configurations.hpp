@@ -4,7 +4,6 @@
 		EntityActivationStatusEnumManagerConfigurations \
 	)
 
-#include "abstract_configurations.hpp"
 #include "entity_activation_status.hpp"
 
 namespace

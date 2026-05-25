@@ -4,7 +4,6 @@
 		WindowsSystemAccessManager \
 	)
 
-#include "abstract_class.hpp"
 #include "windows_system_access_manager_configurations.hpp"
 
 namespace

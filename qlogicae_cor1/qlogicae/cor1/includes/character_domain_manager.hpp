@@ -4,7 +4,6 @@
 		CharacterDomainManager \
 	)
 
-#include "abstract_class.hpp"
 #include "character_domain.hpp"
 #include "character_domain_manager_configurations.hpp"
 

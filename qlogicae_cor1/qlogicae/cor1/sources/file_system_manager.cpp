@@ -173,6 +173,42 @@ namespace
 			QLOGICAE_COR1__IMPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE();
         }
     }
+	
+	std::wstring
+        FileSystemManager
+			::get_executable_file_wstring_path()
+    {
+        try
+        {       
+			QLOGICAE_COR1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
+			(
+				QLOGICAE_COR1__BASE__HPP_CPP__MUTEX_LAYER_1,
+				QLOGICAE_COR1__BASE__HPP_CPP__EMPTY_EDGE_CASES
+			);
+     
+			wchar_t buffer[MAX_PATH];
+			DWORD length =
+				GetModuleFileNameW(
+					nullptr,
+					buffer,
+					MAX_PATH
+				);
+
+			if (length == 0 || length == MAX_PATH)
+			{
+				return L"";
+			}
+
+			return std::wstring(buffer);
+        }
+        catch
+        (
+            QLOGICAE_COR1__BASE__HPP_CPP__TRY_CATCH_EXCEPTION_PARAMETER
+        )
+        {
+			QLOGICAE_COR1__IMPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE();
+        }
+    }
 
 	std::wstring
         FileSystemManager
@@ -1678,6 +1714,17 @@ namespace
 			QLOGICAE_COR1__BASE__HPP_CPP__GET_SINGLETON_TEMPLATE<TextManager>()
 				.convert_text<std::wstring, std::string>(
 					get_executable_folder_wstring_path()
+				);
+    }
+
+	std::string
+        FileSystemManager
+			::get_executable_file_path()
+    {
+        return
+			QLOGICAE_COR1__BASE__HPP_CPP__GET_SINGLETON_TEMPLATE<TextManager>()
+				.convert_text<std::wstring, std::string>(
+					get_executable_file_wstring_path()
 				);
     }
 

@@ -4,7 +4,6 @@
 		FileSystemEventListenerSourceEnumManagerConfigurations \
 	)
 
-#include "abstract_class.hpp"
 #include "file_system_event_listener_source.hpp"
 #include "file_system_event_listener_source_enum_manager_configurations.hpp"
 

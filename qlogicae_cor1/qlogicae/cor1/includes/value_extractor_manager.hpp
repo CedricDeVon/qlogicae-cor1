@@ -4,7 +4,6 @@
 		ValueExtractorManager \
 	)
 
-#include "abstract_class.hpp"
 #include "value_extractor_manager_configurations.hpp"
 
 namespace

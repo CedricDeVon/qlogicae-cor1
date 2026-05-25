@@ -4,7 +4,6 @@
 		RuntimeExecutionManager \
 	)
 
-#include "abstract_class.hpp"
 #include "time_scale_unit.hpp"
 #include "runtime_execution_manager_configurations.hpp"
 

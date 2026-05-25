@@ -4,7 +4,6 @@
 		FunctionWrapper \
 	)
 
-#include "abstract_class.hpp"
 #include "function_wrapper_configurations.hpp"
 
 namespace

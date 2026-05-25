@@ -4,7 +4,6 @@
 		SupabaseApiManager \
 	)
 
-#include "abstract_class.hpp"
 #include "supabase_api_manager_configurations.hpp"
 
 namespace

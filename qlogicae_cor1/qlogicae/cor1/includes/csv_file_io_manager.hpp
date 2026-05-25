@@ -4,7 +4,6 @@
 		CsvFileIoManager \
 	)
 
-#include "abstract_class.hpp"
 #include "csv_file_io_manager_configurations.hpp"
 
 namespace
@@ -285,6 +284,8 @@ namespace
 				const size_t&
 					row_index
 			);
+
+
 
 		std::unordered_map<std::string, std::vector<std::string>>
 			read();

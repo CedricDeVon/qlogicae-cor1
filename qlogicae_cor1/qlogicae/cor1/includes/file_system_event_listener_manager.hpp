@@ -4,7 +4,6 @@
 		FileSystemEventListenerManager \
 	)
 
-#include "abstract_class.hpp"
 #include "file_system_entity.hpp"
 #include "file_system_event_listener_slot.hpp"
 #include "file_system_event_listener_source.hpp"

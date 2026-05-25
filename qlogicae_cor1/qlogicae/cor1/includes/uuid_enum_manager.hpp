@@ -5,8 +5,6 @@
 	)
 
 #include "uuid.hpp"
-#include "enum_manager.hpp"
-#include "abstract_class.hpp"
 #include "uuid_enum_manager_configurations.hpp"
 
 namespace

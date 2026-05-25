@@ -4,7 +4,6 @@
 		TextFileIoManager \
 	)
 
-#include "abstract_class.hpp"
 #include "text_file_io_manager_configurations.hpp"
 
 namespace

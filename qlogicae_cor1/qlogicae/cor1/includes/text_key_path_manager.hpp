@@ -4,7 +4,6 @@
 		TextKeyPathManager \
 	)
 
-#include "abstract_class.hpp"
 #include "text_key_path_manager_configurations.hpp"
 
 namespace

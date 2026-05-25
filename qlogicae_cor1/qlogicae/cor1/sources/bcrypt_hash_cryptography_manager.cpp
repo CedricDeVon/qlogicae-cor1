@@ -141,6 +141,108 @@ namespace
 			QLOGICAE_COR1__IMPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE();
         }
 	}
+	
+	bool
+		BcryptHashCryptographyManager
+			::hash_text(
+				std::vector<uint8_t>&
+					text
+			)
+	{
+		try
+        {					
+			QLOGICAE_COR1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
+			(
+				QLOGICAE_COR1__BASE__HPP_CPP__MUTEX_LAYER_1,
+				!text.size()
+			);			
+
+			std::vector<uint8_t>
+				hash(
+					crypto_pwhash_STRBYTES
+				);
+
+			if
+			(
+				crypto_pwhash_str(
+					reinterpret_cast<char*>(
+						hash.data()
+					),
+					reinterpret_cast<const char*>(
+						text.data()
+					),
+					text.size(),
+					crypto_pwhash_OPSLIMIT_MODERATE,
+					crypto_pwhash_MEMLIMIT_MODERATE
+				) != 0
+			)
+			{
+				return
+					false;
+			}
+
+			hash.resize(
+				std::strlen(
+					reinterpret_cast<const char*>(
+						hash.data()
+					)
+				)
+			);
+
+			text =
+				std::move(
+					hash
+				);
+
+			return
+				true;
+        }
+        catch
+        (
+            QLOGICAE_COR1__BASE__HPP_CPP__TRY_CATCH_EXCEPTION_PARAMETER
+        )
+        {
+			QLOGICAE_COR1__IMPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE();
+        }
+	}
+
+	bool
+		BcryptHashCryptographyManager
+			::verify_text(
+				const std::vector<uint8_t>&
+					text,
+				const std::vector<uint8_t>&
+					hash
+			)
+	{
+		try
+        {					
+			QLOGICAE_COR1__IMPLICIT__HPP_CPP__PRE_EXECUTION_GUARD_TEMPLATE
+			(
+				QLOGICAE_COR1__BASE__HPP_CPP__MUTEX_LAYER_1,
+				!text.size() ||
+				!hash.size()
+			);			
+
+			return
+				crypto_pwhash_str_verify(
+					reinterpret_cast<const char*>(
+						hash.data()
+					),
+					reinterpret_cast<const char*>(
+						text.data()
+					),
+					text.size()
+				) == 0;
+        }
+        catch
+        (
+            QLOGICAE_COR1__BASE__HPP_CPP__TRY_CATCH_EXCEPTION_PARAMETER
+        )
+        {
+			QLOGICAE_COR1__IMPLICIT__HPP_CPP__CATCH_CODE_TEMPLATE();
+        }
+	}
 }
 
 #endif

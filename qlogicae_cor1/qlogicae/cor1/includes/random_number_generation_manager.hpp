@@ -4,7 +4,6 @@
 		RandomNumberGenerationManager \
 	)
 
-#include "abstract_class.hpp"
 #include "random_seed_generation_manager.hpp"
 #include "random_number_generation_manager_configurations.hpp"
 

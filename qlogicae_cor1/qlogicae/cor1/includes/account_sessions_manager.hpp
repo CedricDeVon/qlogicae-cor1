@@ -4,7 +4,6 @@
 		AccountSessionsManager \
 	)
 
-#include "abstract_class.hpp"
 #include "account_sessions_manager_configurations.hpp"
 
 namespace

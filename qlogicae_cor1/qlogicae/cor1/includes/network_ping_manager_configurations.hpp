@@ -5,7 +5,6 @@
 	)
 
 #include "time_scale_unit.hpp"
-#include "abstract_configurations.hpp"
 #include "network_ping_manager_response.hpp"
 
 namespace

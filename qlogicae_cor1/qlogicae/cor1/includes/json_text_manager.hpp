@@ -4,7 +4,6 @@
 		JsonTextManager \
 	)
 
-#include "abstract_class.hpp"
 #include "json_text_manager_configurations.hpp"
 
 namespace

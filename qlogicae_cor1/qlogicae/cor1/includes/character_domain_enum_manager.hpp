@@ -4,7 +4,6 @@
 		CharacterDomainEnumManager \
 	)
 
-#include "abstract_class.hpp"
 #include "character_domain.hpp"
 #include "character_domain_enum_manager_configurations.hpp"
 

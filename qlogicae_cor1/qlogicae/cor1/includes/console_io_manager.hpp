@@ -4,7 +4,6 @@
 		ConsoleIoManager \
 	)
 
-#include "abstract_class.hpp"
 #include "console_io_manager_configurations.hpp"
 
 namespace

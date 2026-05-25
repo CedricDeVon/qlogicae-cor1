@@ -4,7 +4,6 @@
 		TemperatureManager \
 	)
 
-#include "abstract_class.hpp"
 #include "temperature_unit.hpp"
 #include "temperature_manager_configurations.hpp"
 

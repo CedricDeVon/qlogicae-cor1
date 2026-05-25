@@ -4,7 +4,6 @@
 		WindowsEnvironmentVariableEnumManagerConfigurations \
 	)
 
-#include "abstract_configurations.hpp"
 #include "windows_environment_variable.hpp"
 
 namespace

@@ -8,7 +8,6 @@
 #include "log_format.hpp"
 #include "time_format.hpp"
 #include "time_manager.hpp"
-#include "abstract_class.hpp"
 #include "log_level_enum_manager.hpp"
 #include "log_format_enum_manager.hpp"
 #include "text_log_manager_configurations.hpp"

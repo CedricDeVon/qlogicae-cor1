@@ -4,7 +4,6 @@
 		EmailSecurityEnumManager \
 	)
 
-#include "abstract_class.hpp"
 #include "email_security.hpp"
 #include "email_security_enum_manager_configurations.hpp"
 

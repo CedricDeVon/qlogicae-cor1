@@ -4,7 +4,6 @@
 		RegularExpressionManager \
 	)
 
-#include "abstract_class.hpp"
 #include "regular_expression_manager_configurations.hpp"
 
 namespace

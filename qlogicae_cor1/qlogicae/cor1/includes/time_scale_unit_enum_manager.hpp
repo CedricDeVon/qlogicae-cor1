@@ -4,10 +4,7 @@
 		TimeScaleUnitEnumManager \
 	)
 
-#include "enum_manager.hpp"
-#include "abstract_class.hpp"
 #include "time_scale_unit.hpp"
-#include "singleton_manager.hpp"
 #include "time_scale_unit_enum_manager_configurations.hpp"
 
 namespace

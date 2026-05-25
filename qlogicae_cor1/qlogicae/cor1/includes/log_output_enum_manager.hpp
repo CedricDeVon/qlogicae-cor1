@@ -5,7 +5,6 @@
 	)
 
 #include "log_output.hpp"
-#include "abstract_class.hpp"
 #include "log_output_enum_manager_configurations.hpp"
 
 namespace

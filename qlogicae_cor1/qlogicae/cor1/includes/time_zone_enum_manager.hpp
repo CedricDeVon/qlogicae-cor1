@@ -5,8 +5,6 @@
 	)
 
 #include "time_zone.hpp"
-#include "enum_manager.hpp"
-#include "abstract_class.hpp"
 #include "time_zone_enum_manager_configurations.hpp"
 
 namespace

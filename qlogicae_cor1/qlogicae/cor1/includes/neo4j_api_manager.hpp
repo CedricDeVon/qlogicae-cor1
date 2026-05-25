@@ -4,7 +4,6 @@
 		Neo4jApiManager \
 	)
 
-#include "abstract_class.hpp"
 #include "neo4j_api_manager_configurations.hpp"
 
 namespace

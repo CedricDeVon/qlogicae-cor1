@@ -4,7 +4,6 @@
 		FileSystemEntityEnumManager \
 	)
 
-#include "abstract_class.hpp"
 #include "file_system_entity.hpp"
 #include "file_system_entity_enum_manager_configurations.hpp"
 

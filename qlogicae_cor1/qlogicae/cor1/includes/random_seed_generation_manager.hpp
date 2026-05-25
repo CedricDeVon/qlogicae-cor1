@@ -4,7 +4,6 @@
 		RandomSeedGenerationManager \
 	)
 
-#include "abstract_class.hpp"
 #include "random_seed_generation_manager_configurations.hpp"
 
 namespace

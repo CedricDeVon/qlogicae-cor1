@@ -4,7 +4,6 @@
 		RuntimeBenchmarker \
 	)
 
-#include "abstract_class.hpp"
 #include "runtime_benchmarker_test_case.hpp"
 #include "runtime_benchmarker_test_suite.hpp"
 #include "runtime_benchmarker_configurations.hpp"

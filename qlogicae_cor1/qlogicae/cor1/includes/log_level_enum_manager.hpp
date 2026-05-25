@@ -5,7 +5,6 @@
 	)
 
 #include "log_level.hpp"
-#include "abstract_class.hpp"
 #include "log_level_enum_manager_configurations.hpp"
 
 namespace

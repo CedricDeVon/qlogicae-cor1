@@ -5,7 +5,6 @@
 	)
 
 #include "log_level.hpp"
-#include "abstract_class.hpp"
 #include "text_log_manager.hpp"
 #include "file_log_manager_configurations.hpp"
 

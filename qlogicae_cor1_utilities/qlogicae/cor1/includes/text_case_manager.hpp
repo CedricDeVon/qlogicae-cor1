@@ -5,7 +5,6 @@
 	)
 
 #include "text_case.hpp"
-#include "enum_manager.hpp"
 #include "abstract_class.hpp"
 #include "text_case_manager_configurations.hpp"
 

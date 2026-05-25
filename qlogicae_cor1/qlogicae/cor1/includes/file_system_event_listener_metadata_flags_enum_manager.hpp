@@ -4,7 +4,6 @@
 		FileSystemEventListenerMetadataFlagsEnumManager \
 	)
 
-#include "abstract_class.hpp"
 #include "file_system_event_listener_metadata_flags.hpp"
 #include "file_system_event_listener_metadata_flags_enum_manager_configurations.hpp"
 

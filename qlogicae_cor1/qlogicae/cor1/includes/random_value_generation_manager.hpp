@@ -4,7 +4,6 @@
 		RandomValueGenerationManager \
 	)
 
-#include "abstract_class.hpp"
 #include "random_value_generation_manager_configurations.hpp"
 
 namespace

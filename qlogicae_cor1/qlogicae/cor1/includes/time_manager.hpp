@@ -6,7 +6,6 @@
 
 #include "time_zone.hpp"
 #include "time_format.hpp"
-#include "abstract_class.hpp"
 #include "time_scale_unit.hpp"
 #include "time_manager_configurations.hpp"
 

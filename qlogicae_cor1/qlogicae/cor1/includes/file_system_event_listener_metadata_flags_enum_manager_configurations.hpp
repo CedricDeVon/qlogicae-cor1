@@ -4,7 +4,6 @@
 		FileSystemEventListenerMetadataFlagsEnumManagerConfigurations \
 	)
 
-#include "abstract_configurations.hpp"
 #include "file_system_event_listener_metadata_flags.hpp"
 
 namespace

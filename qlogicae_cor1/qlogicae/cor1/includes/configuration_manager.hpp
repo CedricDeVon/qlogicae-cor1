@@ -4,7 +4,6 @@
 		ConfigurationManager \
 	)
 
-#include "abstract_class.hpp"
 #include "configuration_manager_configurations.hpp"
 
 namespace

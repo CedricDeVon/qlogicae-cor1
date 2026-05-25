@@ -4,7 +4,6 @@
 		NetworkPingManager \
 	)
 
-#include "abstract_class.hpp"
 #include "time_scale_unit.hpp"
 #include "network_ping_manager_response.hpp"
 #include "network_ping_manager_configurations.hpp"

@@ -4,7 +4,6 @@
 		JsonWebTokenCryptographyManager \
 	)
 
-#include "abstract_class.hpp"
 #include "jsonwebtoken_cryptography_manager_configurations.hpp"
 
 namespace
@@ -32,6 +31,24 @@ namespace
 				const std::string&
 					text,
 				const std::string&
+					public_key
+			);
+
+		bool
+			sign_text(
+				std::vector<uint8_t>&
+					text,
+				const std::vector<uint8_t>&
+					public_key,
+				const std::vector<uint8_t>&
+					private_key
+			);
+
+		bool
+			verify_text(
+				std::vector<uint8_t>&
+					text,
+				const std::vector<uint8_t>&
 					public_key
 			);
 	};

@@ -4,8 +4,6 @@
 		FileSystemManager \
 	)
 
-#include "text_manager.hpp"
-#include "abstract_class.hpp"
 #include "file_system_entity.hpp"
 #include "file_system_manager_configurations.hpp"
 
@@ -36,6 +34,9 @@ namespace
 
 		std::wstring
 			get_executable_folder_wstring_path();
+
+        std::wstring
+            get_executable_file_wstring_path();
 
 		std::wstring
 			get_executed_folder_wstring_path();
@@ -253,6 +254,9 @@ namespace
 
 		std::string
 			get_executable_folder_path();
+
+        std::string
+			get_executable_file_path();
 
 		std::string
 			get_executed_folder_path();

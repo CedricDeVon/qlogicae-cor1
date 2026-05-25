@@ -4,7 +4,6 @@
 		EntityActivationStatusEnumManager \
 	)
 
-#include "abstract_class.hpp"
 #include "entity_activation_status.hpp"
 #include "entity_activation_status_enum_manager_configurations.hpp"
 

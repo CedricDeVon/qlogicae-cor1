@@ -4,7 +4,6 @@
 		Aes256CipherCryptographyManager \
 	)
 
-#include "abstract_class.hpp"
 #include "aes256_cipher_cryptography_manager_configurations.hpp"
 
 namespace
@@ -34,6 +33,26 @@ namespace
 				const std::string&
 					private_key,
 				const std::string&
+					nonce
+			);
+
+		bool
+			encrypt_text(
+				std::vector<uint8_t>&
+					text,
+				const std::vector<uint8_t>&
+					private_key,
+				const std::vector<uint8_t>&
+					nonce
+			);
+
+		bool
+			decrypt_text(
+				std::vector<uint8_t>&
+					text,
+				const std::vector<uint8_t>&
+					private_key,
+				const std::vector<uint8_t>&
 					nonce
 			);
     };

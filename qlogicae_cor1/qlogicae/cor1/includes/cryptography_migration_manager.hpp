@@ -4,7 +4,6 @@
 		CryptographyMigrationManager \
 	)
 
-#include "abstract_class.hpp"
 #include "cryptography_migration_manager_configurations.hpp"
 
 namespace

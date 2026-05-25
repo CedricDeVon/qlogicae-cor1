@@ -4,7 +4,6 @@
 		EdscaSignatureCryptographyManager \
 	)
 
-#include "abstract_class.hpp"
 #include "edsca_signature_cryptography_manager_configurations.hpp"
 
 namespace

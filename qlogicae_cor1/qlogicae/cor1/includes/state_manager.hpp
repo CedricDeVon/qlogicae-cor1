@@ -4,7 +4,6 @@
 		StateManager \
 	)
 
-#include "abstract_class.hpp"
 #include "state_manager_item.hpp"
 #include "state_manager_configurations.hpp"
 

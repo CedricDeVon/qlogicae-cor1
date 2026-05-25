@@ -4,7 +4,6 @@
 		KyberCryptographyAlgorithmEnumManagerConfigurations \
 	)
 
-#include "abstract_configurations.hpp"
 #include "kyber_cryptography_algorithm.hpp"
 
 namespace

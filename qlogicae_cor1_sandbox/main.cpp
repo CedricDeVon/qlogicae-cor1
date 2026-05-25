@@ -1,6 +1,52 @@
 ﻿#include "pch.hpp"
 
-#include "main.hpp"
+// #include "main.hpp"
+
+// #pragma comment(linker, "/SUBSYSTEM:WINDOWS")
+// #pragma comment(linker, "/ENTRY:mainCRTStartup")
+
+#include <iostream>
+#include <Windows.h>
+
+int main(int, char**)
+{    
+    return 0;
+}
+
+/*
+
+#include <iostream>
+#include <string>
+#include <cstdio>
+#include <nlohmann/json.hpp>
+
+std::string run_python()
+{
+    std::string output;
+    char buffer[128];
+
+    FILE* pipe = _popen("python script.py","r");
+
+    while(fgets(buffer,sizeof(buffer),pipe))
+    {
+        output += buffer;
+    }
+
+    _pclose(pipe);
+    return output;
+}
+
+int main()
+{
+    std::string raw = run_python();
+
+    auto json = nlohmann::json::parse(raw);
+
+    std::cout << json["result"] << std::endl;
+}
+
+
+
 
 #include <Windows.h>
 
@@ -408,8 +454,8 @@ int main(int argc, char** argv)
         if (a == "--install") return install_service() ? 0 : 1;
         if (a == "--update") return update_service() ? 0 : 1;
         if (a == "--uninstall") return uninstall_service() ? 0 : 1;
-        if(a == "--start") return start_service() ? 0 : 1;
-        if(a == "--stop") return stop_service() ? 0 : 1;
+        if (a == "--start") return start_service() ? 0 : 1;
+        if (a == "--stop") return stop_service() ? 0 : 1;
     }
 
     return run_service();
@@ -419,3 +465,4 @@ namespace
 {
 
 }
+*/

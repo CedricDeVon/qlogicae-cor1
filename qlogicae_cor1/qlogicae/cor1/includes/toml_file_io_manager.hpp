@@ -4,7 +4,6 @@
 		TomlFileIoManager \
 	)
 
-#include "abstract_class.hpp"
 #include "toml_file_io_manager_configurations.hpp"
 
 namespace
@@ -298,6 +297,7 @@ namespace
 }
 
 #endif
+
 
 /*		
 	template<typename ValueType> bool

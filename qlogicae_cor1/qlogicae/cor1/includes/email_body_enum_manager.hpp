@@ -5,7 +5,6 @@
 	)
 
 #include "email_body.hpp"
-#include "abstract_class.hpp"
 #include "email_body_enum_manager_configurations.hpp"
 
 namespace

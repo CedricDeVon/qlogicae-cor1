@@ -4,11 +4,7 @@
 		WindowsRegistryManager \
 	)
 
-#include "text_manager.hpp"
-#include "abstract_class.hpp"
-#include "regular_key_delete_handler.hpp"
 #include "windows_registry_root_path.hpp"
-#include "value_enum_key_delete_handler.hpp"
 #include "windows_registry_manager_configurations.hpp"
 
 namespace

@@ -5,7 +5,6 @@
 	)
 
 #include "log_medium.hpp"
-#include "abstract_class.hpp"
 #include "log_medium_enum_manager_configurations.hpp"
 
 namespace

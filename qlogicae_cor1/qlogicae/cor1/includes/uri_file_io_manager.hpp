@@ -4,7 +4,6 @@
 		UriFileIoManager \
 	)
 
-#include "abstract_class.hpp"
 #include "uri_file_io_manager_configurations.hpp"
 
 namespace

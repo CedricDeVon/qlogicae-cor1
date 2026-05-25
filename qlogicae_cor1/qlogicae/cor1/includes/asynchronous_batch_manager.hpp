@@ -4,8 +4,6 @@
 		AsynchronousBatchManager \
 	)
 
-#include "abstract_class.hpp"
-#include "asynchronous_manager.hpp"
 #include "asynchronous_batch_manager_configurations.hpp"
 
 namespace

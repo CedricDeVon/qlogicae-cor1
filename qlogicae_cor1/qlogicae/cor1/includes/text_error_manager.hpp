@@ -4,7 +4,6 @@
 		TextErrorManager \
 	)
 
-#include "abstract_class.hpp"
 #include "text_error_manager_configurations.hpp"
 
 namespace
