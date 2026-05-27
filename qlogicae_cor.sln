@@ -15,6 +15,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "qlogicae_cor1_sandbox", "ql
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "qlogicae_cor1_utilities", "qlogicae_cor1_utilities\qlogicae_cor1_utilities.vcxproj", "{E73FE7B2-0223-43BE-B5C3-8807DC683DA8}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "qlogicae_cor1_layer_1", "qlogicae_cor1_layer_1\qlogicae_cor1_layer_1.vcxproj", "{7BF44066-E303-4596-8606-23311468A536}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		debug|x64 = debug|x64
@@ -123,6 +125,22 @@ Global
 		{E73FE7B2-0223-43BE-B5C3-8807DC683DA8}.Release|x64.Build.0 = debug|x64
 		{E73FE7B2-0223-43BE-B5C3-8807DC683DA8}.Release|x86.ActiveCfg = debug|Win32
 		{E73FE7B2-0223-43BE-B5C3-8807DC683DA8}.Release|x86.Build.0 = debug|Win32
+		{7BF44066-E303-4596-8606-23311468A536}.debug|x64.ActiveCfg = debug|x64
+		{7BF44066-E303-4596-8606-23311468A536}.debug|x64.Build.0 = debug|x64
+		{7BF44066-E303-4596-8606-23311468A536}.debug|x86.ActiveCfg = debug|Win32
+		{7BF44066-E303-4596-8606-23311468A536}.debug|x86.Build.0 = debug|Win32
+		{7BF44066-E303-4596-8606-23311468A536}.deployment|x64.ActiveCfg = deployment|x64
+		{7BF44066-E303-4596-8606-23311468A536}.deployment|x64.Build.0 = deployment|x64
+		{7BF44066-E303-4596-8606-23311468A536}.deployment|x86.ActiveCfg = deployment|Win32
+		{7BF44066-E303-4596-8606-23311468A536}.deployment|x86.Build.0 = deployment|Win32
+		{7BF44066-E303-4596-8606-23311468A536}.development|x64.ActiveCfg = development|x64
+		{7BF44066-E303-4596-8606-23311468A536}.development|x64.Build.0 = development|x64
+		{7BF44066-E303-4596-8606-23311468A536}.development|x86.ActiveCfg = development|Win32
+		{7BF44066-E303-4596-8606-23311468A536}.development|x86.Build.0 = development|Win32
+		{7BF44066-E303-4596-8606-23311468A536}.Release|x64.ActiveCfg = debug|x64
+		{7BF44066-E303-4596-8606-23311468A536}.Release|x64.Build.0 = debug|x64
+		{7BF44066-E303-4596-8606-23311468A536}.Release|x86.ActiveCfg = debug|Win32
+		{7BF44066-E303-4596-8606-23311468A536}.Release|x86.Build.0 = debug|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
