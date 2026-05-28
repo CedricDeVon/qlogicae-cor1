@@ -1,5 +1,8 @@
 #pragma once
 
+#include "checks.hpp"
+#include "definitions.hpp"
+
 /*
 
 QLOGICAE_COR1__BASE__HPP_CPP__BoostVcpkgImports__IS_COMPILATION_ENABLED=1

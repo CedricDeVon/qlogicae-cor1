@@ -29,10 +29,10 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{7bf44066-e303-4596-8606-23311468a536}</ProjectGuid>
-    <RootNamespace>qlogicae_cor1_layer_1</RootNamespace>
+    <ProjectGuid>{0df0b1ac-a571-422e-b9b0-a07e74d10e19}</ProjectGuid>
+    <RootNamespace>qlogicae_cor1_layer_3</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
-    <ProjectName>qlogicae_cor1_layer_1</ProjectName>
+    <ProjectName>qlogicae_cor1_layer_3</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='debug|Win32'" Label="Configuration">
@@ -301,7 +301,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_LIB;_WIN32_WINNT=0x0A00;QLOGICAE_COR1__BASE__HPP_CPP__Full__IS_COMPILATION_ENABLED=0;QLOGICAE_COR1__BASE__HPP_CPP__FullOverride__IS_COMPILATION_ENABLED=0;QLOGICAE_COR1__BASE__HPP_CPP__BoostVcpkgImports__IS_COMPILATION_ENABLED=1;QLOGICAE_COR1__BASE__HPP_CPP__FastIoVcpkgImports__IS_COMPILATION_ENABLED=1;QLOGICAE_COR1__BASE__HPP_CPP__StdImports__IS_COMPILATION_ENABLED=1;QLOGICAE_COR1__BASE__HPP_CPP__AbstractConfigurations__IS_COMPILATION_ENABLED=1;QLOGICAE_COR1__BASE__HPP_CPP__SingletonManagerConfigurations__IS_COMPILATION_ENABLED=1;QLOGICAE_COR1__BASE__HPP_CPP__SingletonManager__IS_COMPILATION_ENABLED=1;QLOGICAE_COR1__BASE__HPP_CPP__ErrorManagerConfigurations__IS_COMPILATION_ENABLED=1;QLOGICAE_COR1__BASE__HPP_CPP__ErrorManager__IS_COMPILATION_ENABLED=1;QLOGICAE_COR1__BASE__HPP_CPP__AbstractClass__IS_COMPILATION_ENABLED=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;_LIB;_WIN32_WINNT=0x0A00;QLOGICAE_COR1__BASE__HPP_CPP__Full__IS_COMPILATION_ENABLED=1;QLOGICAE_COR1__BASE__HPP_CPP__FullOverride__IS_COMPILATION_ENABLED=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.hpp</PrecompiledHeaderFile>
@@ -314,8 +314,7 @@
       <StringPooling>true</StringPooling>
       <UseUnicodeForAssemblerListing>true</UseUnicodeForAssemblerListing>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalIncludeDirectories>
-      </AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\qlogicae_cor1_layer_1;..\qlogicae_cor1_layer_2;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <EnableEnhancedInstructionSet>AdvancedVectorExtensions102</EnableEnhancedInstructionSet>
       <FloatingPointModel>Fast</FloatingPointModel>
@@ -328,23 +327,13 @@
     </Link>
     <Lib>
       <AdditionalOptions>/INCLUDE:mi_redirect %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalLibraryDirectories>C:\vcpkg\installed\x64-windows-static\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>Shlwapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\vcpkg\installed\x64-windows-static\lib;..\x64\development\qlogicae_cor1_layer_2;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>qlogicae_cor1_layer_2.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="pch.hpp" />
-    <ClInclude Include="qlogicae\cor1\includes\abstract_class.hpp" />
-    <ClInclude Include="qlogicae\cor1\includes\abstract_configurations.hpp" />
-    <ClInclude Include="qlogicae\cor1\includes\abstract_enum.hpp" />
-    <ClInclude Include="qlogicae\cor1\includes\error_manager.hpp" />
-    <ClInclude Include="qlogicae\cor1\includes\error_manager_configurations.hpp" />
-    <ClInclude Include="qlogicae\cor1\includes\singleton_manager.hpp" />
-    <ClInclude Include="qlogicae\cor1\includes\singleton_manager_configurations.hpp" />
-    <ClInclude Include="qlogicae\cor1\layer_1\macros\setup.hpp" />
-    <ClInclude Include="qlogicae\cor1\macros\checks.hpp" />
-    <ClInclude Include="qlogicae\cor1\macros\definitions.hpp" />
-    <ClInclude Include="qlogicae\cor1\macros\layer_1.hpp" />
+    <ClInclude Include="qlogicae\cor1\macros\layer_3.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -355,13 +344,14 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='development|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='debug|Win32'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="qlogicae\cor1\sources\abstract_class.cpp" />
-    <ClCompile Include="qlogicae\cor1\sources\abstract_configurations.cpp" />
-    <ClCompile Include="qlogicae\cor1\sources\abstract_enum.cpp" />
-    <ClCompile Include="qlogicae\cor1\sources\error_manager.cpp" />
-    <ClCompile Include="qlogicae\cor1\sources\error_manager_configurations.cpp" />
-    <ClCompile Include="qlogicae\cor1\sources\singleton_manager.cpp" />
-    <ClCompile Include="qlogicae\cor1\sources\singleton_manager_configurations.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\qlogicae_cor1_layer_1\qlogicae_cor1_layer_1.vcxproj">
+      <Project>{7bf44066-e303-4596-8606-23311468a536}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\qlogicae_cor1_layer_2\qlogicae_cor1_layer_2.vcxproj">
+      <Project>{69638cd6-e440-4752-b1ea-664d2988ffe9}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
