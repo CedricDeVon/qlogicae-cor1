@@ -314,8 +314,7 @@
       <StringPooling>true</StringPooling>
       <UseUnicodeForAssemblerListing>true</UseUnicodeForAssemblerListing>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalIncludeDirectories>
-      </AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\vcpkg\installed\x64-windows\include</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <EnableEnhancedInstructionSet>AdvancedVectorExtensions102</EnableEnhancedInstructionSet>
       <FloatingPointModel>Fast</FloatingPointModel>

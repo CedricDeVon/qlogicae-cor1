@@ -314,7 +314,7 @@
       <StringPooling>true</StringPooling>
       <UseUnicodeForAssemblerListing>true</UseUnicodeForAssemblerListing>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalIncludeDirectories>..\qlogicae_cor1_layer_1;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\vcpkg\installed\x64-windows\include;..\qlogicae_cor1_layer_1;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <EnableEnhancedInstructionSet>AdvancedVectorExtensions102</EnableEnhancedInstructionSet>
       <FloatingPointModel>Fast</FloatingPointModel>

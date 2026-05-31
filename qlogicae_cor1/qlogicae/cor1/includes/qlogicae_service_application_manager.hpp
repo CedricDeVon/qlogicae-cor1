@@ -4,8 +4,6 @@
 		QLogicaeServiceApplicationManager \
 	)
 
-#include "abstract_class.hpp"
-#include "service_application_manager.hpp"
 #include "qlogicae_service_application_manager_configurations.hpp"
 
 namespace

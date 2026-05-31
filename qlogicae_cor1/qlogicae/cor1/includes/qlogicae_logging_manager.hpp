@@ -4,7 +4,6 @@
 		QLogicaeLoggingManager \
 	)
 
-#include "abstract_class.hpp"
 #include "qlogicae_logging_manager_configurations.hpp"
 
 namespace

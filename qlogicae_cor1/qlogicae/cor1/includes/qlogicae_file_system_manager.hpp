@@ -4,7 +4,6 @@
 		QLogicaeFileSystemManager \
 	)
 
-#include "abstract_class.hpp"
 #include "qlogicae_file_system_manager_configurations.hpp"
 
 namespace

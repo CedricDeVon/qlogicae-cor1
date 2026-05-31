@@ -356,11 +356,6 @@
   <ItemGroup>
     <Text Include="notes.txt" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\qlogicae_cor1\qlogicae_cor1.vcxproj">
-      <Project>{ab122c6b-5279-4209-9755-d3f55c48a94d}</Project>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
     <Import Project="$(VCTargetsPath)\BuildCustomizations\masm.targets" />

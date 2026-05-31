@@ -32,7 +32,7 @@
     <ProjectGuid>{3e14998d-2c37-49ab-962e-c91e87dc7dff}</ProjectGuid>
     <RootNamespace>qlogicae_cor1_layer_4</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
-    <ProjectName>qlogicae_cor1_layer_4</ProjectName>
+    <ProjectName>qlogicae_cor1</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='debug|Win32'" Label="Configuration">
@@ -333,6 +333,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="pch.hpp" />
+    <ClInclude Include="qlogicae\cor1\includes\qlogicae_file_system_manager.hpp" />
+    <ClInclude Include="qlogicae\cor1\includes\qlogicae_file_system_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae\cor1\includes\qlogicae_logging_manager.hpp" />
+    <ClInclude Include="qlogicae\cor1\includes\qlogicae_logging_manager_configurations.hpp" />
+    <ClInclude Include="qlogicae\cor1\includes\qlogicae_service_application_manager.hpp" />
+    <ClInclude Include="qlogicae\cor1\includes\qlogicae_service_application_manager_configurations.hpp" />
     <ClInclude Include="qlogicae\cor1\macros\layer_4.hpp" />
   </ItemGroup>
   <ItemGroup>
@@ -344,6 +350,12 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='development|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='debug|Win32'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\qlogicae_file_system_manager.cpp" />
+    <ClCompile Include="qlogicae\cor1\sources\qlogicae_file_system_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae\cor1\sources\qlogicae_logging_manager.cpp" />
+    <ClCompile Include="qlogicae\cor1\sources\qlogicae_logging_manager_configurations.cpp" />
+    <ClCompile Include="qlogicae\cor1\sources\qlogicae_service_application_manager.cpp" />
+    <ClCompile Include="qlogicae\cor1\sources\qlogicae_service_application_manager_configurations.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
