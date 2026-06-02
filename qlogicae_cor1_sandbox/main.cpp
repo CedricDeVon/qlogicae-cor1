@@ -5,8 +5,8 @@
 // #pragma comment(linker, "/SUBSYSTEM:WINDOWS")
 // #pragma comment(linker, "/ENTRY:mainCRTStartup")
 
-#include <iostream>
-#include <Windows.h>
+// #include <iostream>
+// #include <Windows.h>
 
 int main(int, char**)
 {    
