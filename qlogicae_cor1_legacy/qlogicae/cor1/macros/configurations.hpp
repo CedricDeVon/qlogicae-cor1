@@ -3417,3 +3417,1302 @@
 
 #else
 #endif
+
+
+
+
+
+
+
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+		QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+			CurlVcpkgImports \
+		) \
+	)
+	
+
+	#include <curl/curl.h> 
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+		QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+			FastIoVcpkgImports \
+		) \
+	)
+	
+
+	#include <fast_io_device.h> 
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+		QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+			FollyVcpkgImports \
+		) \
+	)
+	
+
+	#ifdef _M_X64
+		#include <folly/init/Init.h> 
+		#include <folly/synchronization/MicroSpinLock.h> 
+
+	#endif
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+		QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+			SodiumVcpkgImports \
+		) \
+	)
+	
+
+	#ifndef SALT_LEN
+		#define SALT_LEN crypto_pwhash_SALTBYTES
+
+	#endif
+
+	#include <sodium.h> 
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+		QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+			Pcre2VcpkgImports \
+		) \
+	)
+	
+
+	#ifndef PCRE2_CODE_UNIT_WIDTH
+		#define PCRE2_CODE_UNIT_WIDTH 8
+	#endif
+
+	#include <pcre2.h> 
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+		QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+			EfswVcpkgImports \
+		) \
+	)
+	
+
+	#ifndef ORT_DISABLE_SCHEMA_VALIDATION
+	#define ORT_DISABLE_SCHEMA_VALIDATION 1
+	#endif
+
+	#include <efsw/efsw.hpp>
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+		QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+			CppCodecVcpkgImports \
+		) \
+	)
+	
+
+	#include <cppcodec/base32_rfc4648.hpp> 
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+		QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+			AbslVcpkgImports \
+		) \
+	)
+	
+
+	#include <absl/time/time.h> 
+	#include <absl/time/clock.h> 
+	#include <absl/strings/ascii.h> 
+	#include <absl/strings/str_cat.h> 
+	#include <absl/strings/str_join.h> 
+	#include <absl/strings/str_split.h> 
+	#include <absl/strings/str_replace.h> 
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+		QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+			BoostVcpkgImports \
+		) \
+	)
+	
+
+	#include <boost/thread/mutex.hpp> 
+	#include <boost/thread/locks.hpp> 
+	#include <boost/thread/shared_mutex.hpp> 
+	#include <boost/thread/recursive_mutex.hpp> 
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+		QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+			StdImports \
+		) \
+	)
+	
+
+	#include <random>
+	#include <iostream>
+	#include <shlobj.h>
+	#include <unordered_set>
+	#include <unordered_map>
+
+#else
+#endif
+
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            AsynchronousBatchManager \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            AsynchronousBatchManagerConfigurations \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            AsynchronousManager \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            AsynchronousManagerConfigurations \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            CharacterDomain \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            CharacterDomainEnumManager \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            CharacterDomainEnumManagerConfigurations \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            CharacterDomainManager \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            CharacterDomainManagerConfigurations \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            ConfigurationManager \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            ConfigurationManagerConfigurations \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            ConsoleIoManager \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            ConsoleIoManagerConfigurations \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            CurlPackageManager \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            CurlPackageManagerConfigurations \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            EntityActivationManager \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            EntityActivationManagerConfigurations \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            EntityActivationStatus \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            EntityActivationStatusEnumManager \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            EntityActivationStatusEnumManagerConfigurations \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            EnumManager \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            EnumManagerConfigurations \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            FileEntity \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            FileSystemAliasEntityPathManager \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            FileSystemAliasEntityPathManagerConfigurations \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            FileSystemEntity \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            FileSystemEntityEnumManager \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            FileSystemEntityEnumManagerConfigurations \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            FileSystemEvent \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            FileSystemEventListenerAction \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            FileSystemEventListenerActionEnumManager \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            FileSystemEventListenerActionEnumManagerConfigurations \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            FileSystemEventListenerManager \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            FileSystemEventListenerManagerConfigurations \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            FileSystemEventListenerManagerOptions \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            FileSystemEventListenerMetadataFlags \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            FileSystemEventListenerMetadataFlagsEnumManager \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            FileSystemEventListenerMetadataFlagsEnumManagerConfigurations \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            FileSystemEventListenerSlot \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            FileSystemEventListenerSource \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            FileSystemEventListenerSourceEnumManager \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            FileSystemEventListenerSourceEnumManagerConfigurations \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            FileSystemEventListenerWatchContext \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            FileSystemManager \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            FileSystemManagerConfigurations \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            FunctionWrapper \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            FunctionWrapperConfigurations \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            IntervalClock \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            IntervalClockConfigurations \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            KeyIndexHashHandler \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            MutexManager \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            MutexManagerConfigurations \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            PairHashOperator \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            RandomCharacterGenerationManager \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            RandomCharacterGenerationManagerConfigurations \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            RandomEnumGenerationManager \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            RandomEnumGenerationManagerConfigurations \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            RandomNumberGenerationManager \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            RandomNumberGenerationManagerConfigurations \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            RandomSeedGenerationManager \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            RandomSeedGenerationManagerConfigurations \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            RandomStringGenerationManager \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            RandomStringGenerationManagerConfigurations \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            RandomValueGenerationManager \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            RandomValueGenerationManagerConfigurations \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            RegularExpressionManager \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            RegularExpressionManagerConfigurations \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            RegularKeyDeleteHandler \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            Results \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            ResultsStatus \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            ResultsStatusEnumManager \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            ResultsStatusEnumManagerConfigurations \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            RuntimeExecutionManager \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            RuntimeExecutionManagerConfigurations \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            SodiumPackageManager \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            SodiumPackageManagerConfigurations \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            TextCase \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            TextCaseEnumManager \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            TextCaseEnumManagerConfigurations \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            TextCaseManager \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            TextCaseManagerConfigurations \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            TextEncoding \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            TextEncodingEnumManager \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            TextEncodingEnumManagerConfigurations \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            TextEncodingManager \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            TextEncodingManagerConfigurations \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            TextErrorManager \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            TextErrorManagerConfigurations \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            TextKeyPathManager \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            TextKeyPathManagerConfigurations \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            TextManager \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            TextManagerConfigurations \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            TextPlaceholderManager \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            TextPlaceholderManagerConfigurations \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            TimeFormat \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            TimeFormatEnumManager \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            TimeFormatEnumManagerConfigurations \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            TimeManager \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            TimeManagerConfigurations \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            TimeScaleUnit \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            TimeScaleUnitEnumManager \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            TimeScaleUnitEnumManagerConfigurations \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            TimeZone \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            TimeZoneEnumManager \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            TimeZoneEnumManagerConfigurations \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            TimeoutClock \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            TimeoutClockConfigurations \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            ValidMutexLock \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            ValidationManager \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            ValidationManagerConfigurations \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            ValueEnumKeyDeleteHandler \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            ValueExtractorManager \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            ValueExtractorManagerConfigurations \
+        ) \
+    )
+
+
+#else
+#endif
+
+#if QLOGICAE_COR1__BASE__HPP_CPP__COMPILATION_CONDITIONS_TEMPLATE( \
+        QLOGICAE_COR1__BASE__HPP_CPP__IS_COMPILATION_ENABLED_TEMPLATE( \
+            VectorStringHashHandler \
+        ) \
+    )
+
+
+#else
+#endif
+
