@@ -4,17 +4,49 @@
 		TomlFileIoManager \
 	)
 
+#include "abstract_batch_operation_configurations.hpp"
 #include "toml_file_io_manager_configurations.hpp"
 
 namespace
 	QLOGICAE_COR1__BASE__HPP_CPP__COR_NAMESPACE_NAME
 {
+	enum class
+		TomlFileIoBatchOperation :
+			QLOGICAE_COR1__BASE__HPP_CPP__ABSTRACT_ENUM_INHERITED_TYPE
+    {
+		IS_FILE_VALID,
+
+		IS_KEY_PATH_VALID,
+
+		GET_MANY_VALUES,
+
+		SET_MANY_VALUES,
+
+		REMOVE_MANY_VALUES,
+
+        QLOGICAE_COR1__BASE__HPP_CPP__ENUM_CONSTANTS
+    };
+
+	struct
+		TomlFileIoBatchOperationConfigurations :
+			public AbstractBatchOperationConfigurations<TomlFileIoBatchOperation>
+	{
+	public:		
+		
+	};
+
     class
 		TomlFileIoManager :
 			public QLOGICAE_COR1__BASE__HPP_CPP__ABSTRACT_CLASS_NAME<TomlFileIoManagerConfigurations>
     {
     public:		
 		TomlFileIoManager();
+
+		std::unordered_map<std::string, std::any>
+			execute_batch_operations(
+				const std::unordered_map<std::string, TomlFileIoBatchOperationConfigurations>&
+					batch_operations
+			);
 
 		bool
 			is_key_found(

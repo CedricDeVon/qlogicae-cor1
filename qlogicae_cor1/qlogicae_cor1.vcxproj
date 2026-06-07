@@ -334,6 +334,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="pch.hpp" />
+    <ClInclude Include="qlogicae\cor1\includes\abstract_batch_operation_configurations.hpp" />
     <ClInclude Include="qlogicae\cor1\includes\account_sessions_manager.hpp" />
     <ClInclude Include="qlogicae\cor1\includes\account_sessions_manager_configurations.hpp" />
     <ClInclude Include="qlogicae\cor1\includes\aes256_cipher_cryptography_manager.hpp" />
@@ -487,6 +488,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='development|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='debug|Win32'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="qlogicae\cor1\sources\abstract_batch_operation_configurations.cpp" />
     <ClCompile Include="qlogicae\cor1\sources\account_sessions_manager.cpp" />
     <ClCompile Include="qlogicae\cor1\sources\account_sessions_manager_configurations.cpp" />
     <ClCompile Include="qlogicae\cor1\sources\aes256_cipher_cryptography_manager.cpp" />

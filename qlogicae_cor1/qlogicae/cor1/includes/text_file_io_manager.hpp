@@ -4,17 +4,55 @@
 		TextFileIoManager \
 	)
 
+#include "abstract_batch_operation_configurations.hpp"
 #include "text_file_io_manager_configurations.hpp"
 
 namespace
 	QLOGICAE_COR1__BASE__HPP_CPP__COR_NAMESPACE_NAME
 {
+	enum class
+		TextFileIoBatchOperation :
+			QLOGICAE_COR1__BASE__HPP_CPP__ABSTRACT_ENUM_INHERITED_TYPE
+    {
+		IS_FILE_VALID,
+
+		READ_ALL_LINES,
+
+		WRITE_ALL_LINES,
+
+		CLEAR_ALL_LINES,
+
+		READ_MANY_LINES,
+
+		APPEND_MANY_LINES,
+
+		INSERT_MANY_LINES,
+
+		REMOVE_MANY_LINES,
+
+        QLOGICAE_COR1__BASE__HPP_CPP__ENUM_CONSTANTS
+    };
+
+	struct
+		TextFileIoBatchOperationConfigurations :
+			public AbstractBatchOperationConfigurations<TextFileIoBatchOperation>
+	{
+	public:		
+		
+	};
+
     class
 		TextFileIoManager :
 			public QLOGICAE_COR1__BASE__HPP_CPP__ABSTRACT_CLASS_NAME<TextFileIoManagerConfigurations>
     {
     public:		
 		TextFileIoManager();
+
+		std::unordered_map<std::string, std::any>
+			execute_batch_operations(
+				const std::unordered_map<std::string, TextFileIoBatchOperationConfigurations>&
+					batch_operations
+			);
 
 		std::string
 			read_text(

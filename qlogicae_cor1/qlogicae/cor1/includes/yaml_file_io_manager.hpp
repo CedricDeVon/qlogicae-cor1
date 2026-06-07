@@ -4,11 +4,31 @@
 		YamlFileIoManager \
 	)
 
+#include "abstract_batch_operation_configurations.hpp"
 #include "yaml_file_io_manager_configurations.hpp"
 
 namespace
 	QLOGICAE_COR1__BASE__HPP_CPP__COR_NAMESPACE_NAME
 {
+	enum class
+		YamlFileIoBatchOperation :
+			QLOGICAE_COR1__BASE__HPP_CPP__ABSTRACT_ENUM_INHERITED_TYPE
+    {
+		IS_FILE_VALID,
+
+		GET_URI,
+
+        QLOGICAE_COR1__BASE__HPP_CPP__ENUM_CONSTANTS
+    };
+
+	struct
+		YamlFileIoBatchOperationConfigurations :
+			public AbstractBatchOperationConfigurations<YamlFileIoBatchOperation>
+	{
+	public:		
+		
+	};
+
 	class
 		YamlFileIoManager:
 			public QLOGICAE_COR1__BASE__HPP_CPP__ABSTRACT_CLASS_NAME<YamlFileIoManagerConfigurations>
@@ -20,6 +40,12 @@ namespace
 		);
 
 		YamlFileIoManager();
+
+		std::unordered_map<std::string, std::any>
+			execute_batch_operations(
+				const std::unordered_map<std::string, YamlFileIoBatchOperationConfigurations>&
+					batch_operations
+			);
 
 		YAML::Node
 			traverse_to_parent_node(

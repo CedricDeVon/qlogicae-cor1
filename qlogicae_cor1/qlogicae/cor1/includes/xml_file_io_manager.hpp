@@ -4,17 +4,43 @@
 		XmlFileIoManager \
 	)
 
+#include "abstract_batch_operation_configurations.hpp"
 #include "xml_file_io_manager_configurations.hpp"
 
 namespace
 	QLOGICAE_COR1__BASE__HPP_CPP__COR_NAMESPACE_NAME
 {
+	enum class
+		XmlFileIoBatchOperation :
+			QLOGICAE_COR1__BASE__HPP_CPP__ABSTRACT_ENUM_INHERITED_TYPE
+    {
+		IS_FILE_VALID,
+
+		GET_URI,
+
+        QLOGICAE_COR1__BASE__HPP_CPP__ENUM_CONSTANTS
+    };
+
+	struct
+		XmlFileIoBatchOperationConfigurations :
+			public AbstractBatchOperationConfigurations<XmlFileIoBatchOperation>
+	{
+	public:		
+		
+	};
+
     class
 		XmlFileIoManager :
 			public QLOGICAE_COR1__BASE__HPP_CPP__ABSTRACT_CLASS_NAME<XmlFileIoManagerConfigurations>
     {
     public:		
 		XmlFileIoManager();
+
+		std::unordered_map<std::string, std::any>
+			execute_batch_operations(
+				const std::unordered_map<std::string, XmlFileIoBatchOperationConfigurations>&
+					batch_operations
+			);
 
 		bool
 			is_key_found(

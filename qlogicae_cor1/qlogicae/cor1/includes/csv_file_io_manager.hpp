@@ -4,17 +4,95 @@
 		CsvFileIoManager \
 	)
 
+#include "abstract_batch_operation_configurations.hpp"
 #include "csv_file_io_manager_configurations.hpp"
 
 namespace
 	QLOGICAE_COR1__BASE__HPP_CPP__COR_NAMESPACE_NAME
 {
+	enum class
+		CsvFileIoBatchOperation :
+			QLOGICAE_COR1__BASE__HPP_CPP__ABSTRACT_ENUM_INHERITED_TYPE
+    {
+		IS_FILE_VALID,
+
+		IS_COLUMN_NAME_FOUND,
+
+		IS_ROW_INDEX_FOUND,
+
+		IS_CELL_COORDINATE_FOUND,
+
+		GET_MANY_COLUMN_SIZES,
+
+		GET_MANY_ROW_SIZES,
+
+		GET_COLUMN_NAMES,
+
+		GET_EMPTY_COLUMN_CELL_COUNT,
+
+		GET_EMPTY_ROW_CELL_COUNT,
+
+		GET_EMPTY_TABLE_CELL_COUNT,
+
+		GET_NON_EMPTY_COLUMN_CELL_COUNT,
+
+		GET_NON_EMPTY_ROW_CELL_COUNT,
+
+		GET_NON_EMPTY_TABLE_CELL_COUNT,
+
+		GET_MANY_COLUMNS,
+
+		GET_MANY_ROWS,
+
+		GET_MANY_CELLS,
+
+		SET_MANY_COLUMNS,
+
+		SET_MANY_ROWS,
+
+		SET_MANY_CELLS,
+
+		INSERT_MANY_COLUMNS,
+
+		INSERT_MANY_ROWS,
+
+		APPEND_MANY_COLUMNS,
+
+		APPEND_MANY_ROWS,
+
+		REMOVE_MANY_COLUMNS,
+
+		REMOVE_MANY_ROWS,
+
+		READ_TABLE,
+
+		WRITE_TABLE,
+
+		CLEAR_TABLE,
+
+        QLOGICAE_COR1__BASE__HPP_CPP__ENUM_CONSTANTS
+    };
+
+	struct
+		CsvFileIoBatchOperationConfigurations :
+			public AbstractBatchOperationConfigurations<CsvFileIoBatchOperation>
+	{
+	public:		
+		
+	};
+
     class
 		CsvFileIoManager :
 			public QLOGICAE_COR1__BASE__HPP_CPP__ABSTRACT_CLASS_NAME<CsvFileIoManagerConfigurations>
     {
     public:		
 		CsvFileIoManager();
+
+		std::unordered_map<std::string, std::any>
+			execute_batch_operations(
+				const std::unordered_map<std::string, CsvFileIoBatchOperationConfigurations>&
+					batch_operations
+			);
 
 		std::unordered_map<std::string, std::vector<std::string>>
 			read(
