@@ -31,8 +31,81 @@ namespace
 				batch_operations.empty()
 			);
 
+			std::unordered_map<std::string, std::any>
+				batch_operation_outpus;
+
+			std::string
+				file_path;						
+
+			std::ifstream
+				input_file;
+                        
+			for (const auto& [batch_operation_key, batch_operation_value] : batch_operations)
+			{
+				file_path =
+					std::any_cast<std::string>(
+						batch_operation_value.inputs.at("file_path")
+					);
+
+				switch (batch_operation_value.type)
+				{
+					case (UriFileIoBatchOperation::IS_FILE_VALID):
+					{
+						batch_operation_outpus[batch_operation_key] =
+							bool(
+								!file_path.empty() &&
+								std::filesystem::exists(file_path) &
+								!std::filesystem::is_directory(file_path)
+							);
+
+						break;
+					}
+					case (UriFileIoBatchOperation::GET_URI):
+					{
+						input_file = std::ifstream(
+							file_path,
+							std::ios::binary
+						);
+
+						if (!input_file)
+						{
+							batch_operation_outpus[batch_operation_key] =
+								bool(false);
+
+							continue;
+						}
+
+						std::ostringstream
+							input_file_stream;
+
+						input_file_stream << input_file.rdbuf();
+
+						batch_operation_outpus[batch_operation_key] =
+							std::string(
+								"data:" +
+								std::any_cast<std::string>(
+									batch_operation_value.inputs.at("mime_type")
+								) +
+								";base64," +
+								"AKLOMP_ENCODED(" +
+								input_file_stream.str() +
+								")"
+							);
+
+						break;
+					}
+					default:
+					{
+						batch_operation_outpus[batch_operation_key] =
+							bool(false);
+
+						break;
+					}
+				}				
+			}
+
             return
-				{};
+				batch_operation_outpus;
         }
         catch
         (

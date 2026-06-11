@@ -12,25 +12,17 @@ namespace
 	template <typename EnumType> struct
 		AbstractBatchOperationConfigurations
 	{
-	public:						
-		std::string
-			file_path = 
-				"";
-
-		std::any
+	public:								
+		std::unordered_map<std::string, std::any>
 			inputs =
 				{};
-
-		bool
-			is_asynchronous =
-				false;
 
 		bool
 			is_error_ignored =
 				false;
 
 		EnumType
-			operation_type =
+			type =
 				EnumType
 					::NONE;
 	};
