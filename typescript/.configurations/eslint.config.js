@@ -4,16 +4,31 @@ import tseslint from 'typescript-eslint';
 export default tseslint.config(
 	{
 		ignores: [
+			'node_modules/**',
+			'.build/**',
+			'.builds/**',
 			'build/**',
 			'builds/**',
+			'.dist/**',
+			'.dists/**',
 			'dist/**',
 			'dists/**',
-			'sandbox/**',
-			'node_modules/**',
+			'.output/**',
+			'.outputs/**',
+			'output/**',
+			'outputs/**',
+			'.coverage/**',
+			'.coverages/**',
 			'coverage/**',
 			'coverages/**',
+			'.report/**',
+			'.reports/**',
 			'report/**',
 			'reports/**',
+			'.temp/**',
+			'.temporary/**',
+			'temp/**',
+			'temporary/**',
 			'.qlogicae/**',
 			'qlogicae/**'
 		]

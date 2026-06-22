@@ -7,15 +7,19 @@ temp/**/*
 temporary/**/*
 
 # output
+.out/**/*
+.output/**/*
+.outputs/**/*
 out/**/*
+output/**/*
+outputs/**/*
+.dist/**/*
 dist/**/*
 *.tgz
+.build/**/*
 build/**/*
 library/**/*
 libraries/**/*
-
-qlogicae/**/*
-.qlogicae/**/*
 
 # code coverage
 coverage/**/*
@@ -44,5 +48,12 @@ report.[0-9]_.[0-9]_.[0-9]_.[0-9]_.json
 # Finder (MacOS) folder config
 .DS_Store
 
-sandbox/**/*
 reports/**/*
+
+# QLogicae
+qlogicae/**/*
+.qlogicae/private/**/*
+
+# Sandbox
+.sandbox
+sandbox

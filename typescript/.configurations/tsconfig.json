@@ -9,7 +9,7 @@
 		"types": ["bun", "node"],
 
 		"rootDir": "../sources",
-		"outDir": "../qlogicae",
+		"outDir": "../.outputs/build/qlogicae",
 
 		"declaration": true,
 		"declarationMap": true,

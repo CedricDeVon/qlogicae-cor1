@@ -9,15 +9,34 @@ bun.lockb
 /static/
 
 # Folders
+.build
+.builds
 build
 builds
+
+.coverage
+.coverages
 coverage
 coverages
+
+.output
+.outputs
 output
 outputs
+
+.dist
+.dists
 dist
 dists
+
 node_modules
-sandbox
+
+.report
+.reports
 report
 reports
+
+.temp
+.temporary
+temp
+temporary

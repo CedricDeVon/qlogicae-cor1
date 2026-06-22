@@ -4,8 +4,8 @@ import baseConfig from './vitest.config';
 export default mergeConfig(baseConfig, {
 	test: {
 		coverage: {
-			reportsDirectory: './reports/tests/unit'
+			reportsDirectory: './.outputs/reports/tests/bench'
 		},
-		include: ['./tests/**/*.test.ts']
+		include: ['./tests/**/*.bench.ts']
 	}
 });
