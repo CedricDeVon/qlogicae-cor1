@@ -1,6 +1,6 @@
 {
 	"name": "qlogicae-cor1",
-	"version": "1.2.6",
+	"version": "1.2.7",
 	"author": "Vaughn Cedric L. Araneta",
 	"main": "./qlogicae/cor1/index.js",
 	"module": "index.ts",
