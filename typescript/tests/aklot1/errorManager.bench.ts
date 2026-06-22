@@ -1,7 +1,7 @@
 import { bench, describe } from 'vitest';
 
-import { ErrorManager } from '../../qlogicae/aklot1/errorManager';
-import { ErrorManagerConfigurations } from '../../qlogicae/aklot1/errorManagerConfigurations';
+import { ErrorManager } from '../../qlogicae/cor1/errorManager';
+import { ErrorManagerConfigurations } from '../../qlogicae/cor1/errorManagerConfigurations';
 
 describe('ErrorManager Benchmarks', () => {
 	bench('setup - normal', () => {

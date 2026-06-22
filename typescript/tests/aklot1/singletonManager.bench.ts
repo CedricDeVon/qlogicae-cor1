@@ -1,6 +1,6 @@
 import { bench, describe } from 'vitest';
 
-import { SingletonManager } from '../../qlogicae/aklot1/singletonManager';
+import { SingletonManager } from '../../qlogicae/cor1/singletonManager';
 
 class TestClass {
 	public value = Math.random();

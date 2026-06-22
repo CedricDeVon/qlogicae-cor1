@@ -1,3 +1,5 @@
 #!/usr/bin/env bun
 
-console.log('Helo');
+import data from '../../package.json' with { type: 'json' };
+
+console.log(`${data.version}`);

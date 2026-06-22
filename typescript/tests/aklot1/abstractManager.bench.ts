@@ -1,7 +1,7 @@
 import { bench, describe } from 'vitest';
 
-import { AbstractManager } from '../../qlogicae/aklot1/abstractManager';
-import { AbstractManagerConfigurations } from '../../qlogicae/aklot1/abstractManagerConfigurations';
+import { AbstractManager } from '../../qlogicae/cor1/abstractManager';
+import { AbstractManagerConfigurations } from '../../qlogicae/cor1/abstractManagerConfigurations';
 
 class TestConfigurations extends AbstractManagerConfigurations {}
 
