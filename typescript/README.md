@@ -8,7 +8,7 @@
 
 <div style="text-align: center;">
   <h1>QLogicae Cor1</h1>
-  <p style="font-style: italic;">"The core library for QLogicae framework integrations for JavaScript and TypeScript applications"</p>
+  <p style="font-style: italic;">"The core QLogicae framework integrations, via library, for TypeScript and JavaScript applications"</p>
 <div style="margin: 32px 64px;">
 
 ![Version](https://img.shields.io/badge/Version-1.2-blue)

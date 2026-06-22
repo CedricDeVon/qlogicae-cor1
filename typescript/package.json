@@ -1,6 +1,6 @@
 {
 	"name": "qlogicae-cor1",
-	"version": "1.2.2",
+	"version": "1.2.3",
 	"author": "Vaughn Cedric L. Araneta",
 	"main": "./qlogicae/cor1/index.js",
 	"module": "index.ts",
@@ -22,9 +22,16 @@
 	"bin": {
 		"qlogicae-cor1": "./qlogicae/cor1/version.js"
 	},
-	"description": "The core library for QLogicae framework integrations via JavaScript/TypeScript",
+	"description": "The core QLogicae framework integrations, via library, for TypeScript and JavaScript applications",
 	"license": "MIT",
 	"private": false,
+	"files": [
+		"licenses",
+		"assets",
+		"qlogicae",
+		"package.json",
+		"README.md"
+	],
 	"scripts": {
 		"login": "npm login",
 		"clean": "bun run clean:build && bun run clean:reports",
@@ -51,7 +58,7 @@
 		"workflow:deploy:major": "bun run workflow:deploy:pre && npm version major && bun run workflow:deploy:commit && bun run workflow:deploy:post",
 		"workflow:deploy:minor": "bun run workflow:deploy:pre && npm version minor && bun run workflow:deploy:commit && bun run workflow:deploy:post",
 		"workflow:deploy:patch": "bun run workflow:deploy:pre && npm version patch && bun run workflow:deploy:commit && bun run workflow:deploy:post",
-		"workflow:deploy:standalone": "bun run workflow:deploy:pre && bun run workflow:deploy:commit && bun run workflow:deploy:post",
+		"workflow:deploy": "bun run workflow:deploy:pre && bun run workflow:deploy:commit && bun run workflow:deploy:post",
 		"workflow:deploy:post": "(bun publish --cwd ./.outputs/build && git push) || (bun run login && bun publish --cwd ./.outputs/build && git push)"
 	},
 	"type": "module",
