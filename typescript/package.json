@@ -20,7 +20,7 @@
 		"vitest": "^4.1.9"
 	},
 	"bin": {
-		"qlogicae-cor1": "./outputs/build/qlogicae/cor1/cli.js"
+		"qlogicae-cor1": "./.outputs/build/qlogicae/cor1/cli.js"
 	},
 	"description": "The core library for QLogicae framework integrations via JavaScript/TypeScript",
 	"license": "MIT",
