@@ -88,13 +88,13 @@ jobs:
             - run: sleep 15
 
             - if: matrix.package_manager == 'npm'
-              run: npm install qlogicae_aklot@latest
+              run: npm install qlogicae-cor1@latest
 
             - if: matrix.package_manager == 'pnpm'
-              run: pnpm add qlogicae_aklot@latest
+              run: pnpm add qlogicae-cor1@latest
 
             - if: matrix.package_manager == 'yarn'
-              run: yarn add qlogicae_aklot@latest
+              run: yarn add qlogicae-cor1@latest
 
             - if: matrix.package_manager == 'bun'
-              run: bun add qlogicae_aklot@latest
+              run: bun add qlogicae-cor1@latest
