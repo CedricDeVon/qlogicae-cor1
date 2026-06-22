@@ -1,15 +1,15 @@
 {
 	"name": ".sandbox",
 	"module": "index.ts",
-	"type": "module",
-	"private": true,
 	"devDependencies": {
 		"@types/bun": "latest"
 	},
 	"peerDependencies": {
 		"typescript": "^5"
 	},
+	"private": true,
+	"type": "module",
 	"dependencies": {
-		"qlogicae-cor1": "^1.2.8"
+		"qlogicae-cor1": "^1.2.9"
 	}
 }
