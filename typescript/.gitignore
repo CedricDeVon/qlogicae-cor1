@@ -20,6 +20,8 @@ dist/**/*
 build/**/*
 library/**/*
 libraries/**/*
+reports/**/*
+*reports/**/*
 
 # code coverage
 coverage/**/*
@@ -48,11 +50,8 @@ report.[0-9]_.[0-9]_.[0-9]_.[0-9]_.json
 # Finder (MacOS) folder config
 .DS_Store
 
-reports/**/*
-
 # QLogicae
-qlogicae/**/*
-.qlogicae/private/**/*
+.qlogicae/**/*
 
 # Sandbox
 .sandbox

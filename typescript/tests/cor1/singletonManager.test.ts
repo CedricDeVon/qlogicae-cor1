@@ -1,7 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 
-import { SingletonManager } from '../../.outputs/build/qlogicae/cor1/singletonManager';
-import { SingletonManagerConfigurations } from '../../.outputs/build/qlogicae/cor1/singletonManagerConfigurations';
+import { SingletonManager } from '../../.outputs/build/singletonManager';
+import { SingletonManagerConfigurations } from '../../.outputs/build/singletonManagerConfigurations';
 
 class TestClass {
 	public readonly value = Math.random();

@@ -1,7 +1,7 @@
 import { bench, describe } from 'vitest';
 
-import { AbstractManager } from '../../.outputs/build/qlogicae/cor1/abstractManager';
-import { AbstractManagerConfigurations } from '../../.outputs/build/qlogicae/cor1/abstractManagerConfigurations';
+import { AbstractManager } from '../../.outputs/build/abstractManager';
+import { AbstractManagerConfigurations } from '../../.outputs/build/abstractManagerConfigurations';
 
 class TestConfigurations extends AbstractManagerConfigurations {}
 
