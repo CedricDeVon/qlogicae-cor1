@@ -2,7 +2,7 @@ import { Glob } from 'bun';
 import { build } from 'esbuild';
 import { mkdir } from 'node:fs/promises';
 
-await mkdir('./.outputs/build', {
+await mkdir('./.outputs/build/qlogicae', {
 	recursive: true
 });
 
@@ -14,8 +14,8 @@ for await (const file of new Glob('**/*.ts').scan('sources')) {
 
 await build({
 	entryPoints: entry_points,
-	outbase: './sources/cor1',
-	outdir: './.outputs/build',
+	outbase: './sources',
+	outdir: './.outputs/build/qlogicae',
 	bundle: false,
 	format: 'esm',
 	platform: 'neutral',

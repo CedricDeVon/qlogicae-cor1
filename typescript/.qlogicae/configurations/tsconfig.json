@@ -8,8 +8,8 @@
 		"allowJs": true,
 		"types": ["bun", "node"],
 
-		"rootDir": "../../sources/cor1",
-		"outDir": "../../.outputs/build",
+		"rootDir": "../../sources",
+		"outDir": "../../.outputs/build/qlogicae",
 
 		"declaration": true,
 		"declarationMap": true,

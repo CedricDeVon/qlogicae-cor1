@@ -2,7 +2,7 @@
 	"name": "qlogicae-cor1",
 	"version": "1.2.6",
 	"author": "Vaughn Cedric L. Araneta",
-	"main": "./index.js",
+	"main": "./qlogicae/cor1/index.js",
 	"module": "index.ts",
 	"devDependencies": {
 		"@eslint/js": "^10.0.1",
@@ -20,7 +20,7 @@
 		"vitest": "^4.1.9"
 	},
 	"bin": {
-		"qlogicae-cor1": "./version.js"
+		"qlogicae-cor1": "./qlogicae/cor1/version.js"
 	},
 	"description": "The core library for the QLogicae framework",
 	"license": "MIT",
@@ -56,7 +56,7 @@
 		"workflow:deploy:post": "(bun publish --cwd ./.outputs/build && git push origin && git push origin --tags) || (bun run login && bun publish --cwd ./.outputs/build && git push origin && git push origin --tags)"
 	},
 	"type": "module",
-	"types": "./index.d.ts",
+	"types": "./qlogicae/cor1/index.d.ts",
 	"keywords": [
 		"qlogicae",
 		"framework",

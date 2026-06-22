@@ -28,9 +28,7 @@ export default tseslint.config(
 			'.temp/**',
 			'.temporary/**',
 			'temp/**',
-			'temporary/**',
-			'.qlogicae/**',
-			'qlogicae/**'
+			'temporary/**'
 		]
 	},
 
