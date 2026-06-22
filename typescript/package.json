@@ -1,5 +1,5 @@
 {
-	"name": "@qlogicae/cor1",
+	"name": "qlogicae_cor1",
 	"version": "1.2.0",
 	"author": "Vaughn Cedric L. Araneta",
 	"main": "./qlogicae/cor1/index.js",
