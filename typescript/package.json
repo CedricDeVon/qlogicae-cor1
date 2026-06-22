@@ -52,7 +52,7 @@
 		"workflow:deploy:minor": "bun run workflow:deploy:pre && npm version minor && bun run workflow:deploy:commit && bun run workflow:deploy:post",
 		"workflow:deploy:patch": "bun run workflow:deploy:pre && npm version patch && bun run workflow:deploy:commit && bun run workflow:deploy:post",
 		"workflow:deploy:standalone": "bun run workflow:deploy:pre && bun run workflow:deploy:commit && bun run workflow:deploy:post",
-		"workflow:deploy:post": "(bun publish ./outputs/build/ && git push) || (bun run login && bun publish ./outputs/build/ && git push)"
+		"workflow:deploy:post": "(bun publish ./.outputs/build/ && git push) || (bun run login && bun publish ./.outputs/build/ && git push)"
 	},
 	"type": "module",
 	"types": "./qlogicae/cor1/index.d.ts"
