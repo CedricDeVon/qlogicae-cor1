@@ -1,14 +1,14 @@
 </br>
 
 <div style="width: 100%; display: flex; justify-content: center;">
-    <image alt="The QLogicae Logo" src="./assets/qlogicae1.png" width="256px">
+    <image alt="The QLogicae Logo" src="./qlogicae/assets/qlogicae1.png" width="256px">
 </div>
 
 </br>
 
 <div style="text-align: center;">
   <h1>QLogicae Cor1</h1>
-  <p style="font-style: italic;">"The core QLogicae framework integrations, via library, for multiple languages"</p>
+  <p style="font-style: italic;">"The core library for the QLogicae framework"</p>
 <div style="margin: 32px 64px;">
 
 ![Version](https://img.shields.io/badge/Version-1.2-blue)
