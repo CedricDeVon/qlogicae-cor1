@@ -1,6 +1,6 @@
 {
 	"name": "qlogicae-cor1",
-	"version": "1.2.3",
+	"version": "1.2.4",
 	"author": "Vaughn Cedric L. Araneta",
 	"main": "./qlogicae/cor1/index.js",
 	"module": "index.ts",
@@ -58,8 +58,8 @@
 		"workflow:deploy:major": "bun run workflow:deploy:pre && npm version major && bun run workflow:deploy:commit && bun run workflow:deploy:post",
 		"workflow:deploy:minor": "bun run workflow:deploy:pre && npm version minor && bun run workflow:deploy:commit && bun run workflow:deploy:post",
 		"workflow:deploy:patch": "bun run workflow:deploy:pre && npm version patch && bun run workflow:deploy:commit && bun run workflow:deploy:post",
-		"workflow:deploy": "bun run workflow:deploy:pre && bun run workflow:deploy:commit && bun run workflow:deploy:post",
-		"workflow:deploy:post": "(bun publish --cwd ./.outputs/build && git push) || (bun run login && bun publish --cwd ./.outputs/build && git push)"
+		"workflow:deploy": "bun run workflow:deploy:pre && bun run workflow:deploy:commit && git tag \"typescript-v$(node -p \"require('./package.json').version\")\" && bun run workflow:deploy:post",
+		"workflow:deploy:post": "(bun publish --cwd ./.outputs/build && git push origin && git push origin --tags) || (bun run login && bun publish --cwd ./.outputs/build && git push origin && git push origin --tags)"
 	},
 	"type": "module",
 	"types": "./qlogicae/cor1/index.d.ts"
