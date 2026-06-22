@@ -8,7 +8,7 @@
 
 <div style="text-align: center;">
   <h1>QLogicae Cor1</h1>
-  <p style="font-style: italic;">"A Polyglot core library for the QLogicae framework"</p>
+  <p style="font-style: italic;">"The core QLogicae framework integrations, via library, for multiple languages"</p>
 <div style="margin: 32px 64px;">
 
 ![Version](https://img.shields.io/badge/Version-1.2-blue)
