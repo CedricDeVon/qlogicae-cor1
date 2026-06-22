@@ -1,6 +1,6 @@
 {
 	"name": "qlogicae-cor1",
-	"version": "1.2.5",
+	"version": "1.2.6",
 	"author": "Vaughn Cedric L. Araneta",
 	"main": "./index.js",
 	"module": "index.ts",
@@ -25,11 +25,6 @@
 	"description": "The core library for the QLogicae framework",
 	"license": "MIT",
 	"private": false,
-	"files": [
-		"qlogicae",
-		"package.json",
-		"README.md"
-	],
 	"scripts": {
 		"login": "npm login",
 		"clean": "bun run clean:build && bun run clean:reports",

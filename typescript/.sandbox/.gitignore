@@ -1,30 +1,13 @@
 # dependencies (bun install)
 node_modules
 
-.temp/**/*
-.temporary/**/*
-temp/**/*
-temporary/**/*
-
 # output
-.out/**/*
-.output/**/*
-.outputs/**/*
-out/**/*
-output/**/*
-outputs/**/*
-.dist/**/*
-dist/**/*
+out
+dist
 *.tgz
-.build/**/*
-build/**/*
-library/**/*
-libraries/**/*
-reports/**/*
-*reports/**/*
 
 # code coverage
-coverage/**/*
+coverage
 *.lcov
 
 # logs
@@ -49,7 +32,3 @@ report.[0-9]_.[0-9]_.[0-9]_.[0-9]_.json
 
 # Finder (MacOS) folder config
 .DS_Store
-
-# QLogicae
-
-# Sandbox
