@@ -1,4 +1,8 @@
 
+# QLogicae
+.qlogicae/private/**/*
+
+# Temporary
 .temp/**/*
 .temporary/**/*
 temp/**/*
