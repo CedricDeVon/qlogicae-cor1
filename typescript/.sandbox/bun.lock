@@ -5,7 +5,7 @@
     "": {
       "name": ".sandbox",
       "dependencies": {
-        "qlogicae-cor1": "^1.2.6",
+        "qlogicae-cor1": "^1.2.8",
       },
       "devDependencies": {
         "@types/bun": "latest",
@@ -22,7 +22,7 @@
 
     "bun-types": ["bun-types@1.3.14", "", { "dependencies": { "@types/node": "*" } }, "sha512-4N0ig0fEomHt5R0KCFWjovxow98rIoRwKolrYdCcknNwMekCXRnWEUvgu5soYV8QXtVsrUD8B95MBOZGPvr6KQ=="],
 
-    "qlogicae-cor1": ["qlogicae-cor1@1.2.6", "", { "bin": { "qlogicae-cor1": "version.js" } }, "sha512-EKgRSOm8M2/tSE/Ffmxe/W36FhKkj+ygA6Z1div91e/1P7mVix2PNMr6rGT1ENgDqV3/wPvZtmRn/5wuIVksLA=="],
+    "qlogicae-cor1": ["qlogicae-cor1@1.2.8", "", { "bin": { "qlogicae-cor1": "qlogicae/cor1/version.js" } }, "sha512-bbD7e2oEDGgshGW0u2xsqqWUGmALzJjuiQ4fm6GZR56OhOUpaz5I0wtjYtJWOzKrfKAQ9ojiotlHMp1HW7T8+w=="],
 
     "typescript": ["typescript@5.9.3", "", { "bin": { "tsc": "bin/tsc", "tsserver": "bin/tsserver" } }, "sha512-jl1vZzPDinLr9eUt3J/t7V6FgNEw9QjvBPdysz9KfQDD41fQrC2Y4vKQdiaUpFT4bXlb1RHhLpp8wtm6M5TgSw=="],
 

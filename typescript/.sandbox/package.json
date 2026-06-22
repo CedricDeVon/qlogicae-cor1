@@ -10,6 +10,6 @@
 		"typescript": "^5"
 	},
 	"dependencies": {
-		"qlogicae-cor1": "^1.2.6"
+		"qlogicae-cor1": "^1.2.8"
 	}
 }
