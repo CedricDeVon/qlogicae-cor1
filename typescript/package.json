@@ -58,6 +58,7 @@
 	"types": "./qlogicae/cor1/index.d.ts",
 	"keywords": [
 		"qlogicae",
+		"cor",
 		"framework",
 		"library",
 		"package",
