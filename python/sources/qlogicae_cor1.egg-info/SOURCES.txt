@@ -1,7 +1,0 @@
-README.md
-pyproject.toml
-sources/qlogicae_cor1.egg-info/PKG-INFO
-sources/qlogicae_cor1.egg-info/SOURCES.txt
-sources/qlogicae_cor1.egg-info/dependency_links.txt
-sources/qlogicae_cor1.egg-info/top_level.txt
-tests/test_main.py

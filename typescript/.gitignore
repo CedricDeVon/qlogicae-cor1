@@ -5,8 +5,6 @@ node_modules
 .temporary/**/*
 temp/**/*
 temporary/**/*
-
-# output
 .out/**/*
 .output/**/*
 .outputs/**/*
@@ -18,8 +16,6 @@ dist/**/*
 *.tgz
 .build/**/*
 build/**/*
-library/**/*
-libraries/**/*
 reports/**/*
 *reports/**/*
 
@@ -50,7 +46,5 @@ report.[0-9]_.[0-9]_.[0-9]_.[0-9]_.json
 # Finder (MacOS) folder config
 .DS_Store
 
-# QLogicae
-.qlogicae/private/**/*
-
-# Sandbox
+# Project
+.project/private/**/*

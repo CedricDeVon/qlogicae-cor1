@@ -2,34 +2,7 @@
 	"folders": [
 		{
 			"path": "."
-		},				
-		{
-			"path": ".github"
-		},
-		{
-			"path": ".qlogicae"
-		},
-		{
-			"path": ".temporary"
-		},
-		{
-			"path": "typescript"
-		},
-		{
-			"path": "python"
-		},
-		{
-			"path": "rust"
-		},
-		{
-			"path": "cpp"
-		},
-		{
-			"path": "qlogicae"
-		},
-		{
-			"path": "documents"
-		},
+		}
 	],
 	"settings": {}
 }
