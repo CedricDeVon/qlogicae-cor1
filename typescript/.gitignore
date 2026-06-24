@@ -1,26 +1,26 @@
 # dependencies (bun install)
 node_modules
 
-.temp/**/*
-.temporary/**/*
-temp/**/*
-temporary/**/*
-.out/**/*
-.output/**/*
-.outputs/**/*
-out/**/*
-output/**/*
-outputs/**/*
-.dist/**/*
-dist/**/*
+.temp/
+.temporary/
+temp/
+temporary/
+.out/
+.output/
+.outputs/
+out/
+output/
+outputs/
+.dist/
+dist/
 *.tgz
-.build/**/*
-build/**/*
-reports/**/*
-*reports/**/*
+.build/
+build/
+reports/
+*reports/
 
 # code coverage
-coverage/**/*
+coverage/
 *.lcov
 
 # logs
@@ -47,4 +47,4 @@ report.[0-9]_.[0-9]_.[0-9]_.[0-9]_.json
 .DS_Store
 
 # Project
-.project/private/**/*
+devops/private/
