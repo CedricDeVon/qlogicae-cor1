@@ -81,7 +81,3 @@ print(cache["filesystem-2"])
 
 
 
-# print(subprocess.check_output(
-#     ["pwd"],
-#     text=True
-# ))

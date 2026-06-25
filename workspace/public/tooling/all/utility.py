@@ -1,6 +1,7 @@
 import os
 import json
 import shutil
+import subprocess
 from pathlib import Path
 
 from all.cache import cache
@@ -10,7 +11,7 @@ from all.filesystem import filesystem
 
 class Utility:
     def handle_setup(self):
-        logger.log_info("start")
+        logger.log_info("all setup - start")
 
         # Temporary Values
         value_1 = ""
@@ -111,7 +112,7 @@ class Utility:
             ).get("all", {}).get("workspace-projects", {})
         )   
 
-        logger.log_info("complete")
+        logger.log_info("all setup - complete")
 
     def handle_shutdown(self):
         logger.shutdown()
@@ -123,12 +124,8 @@ class Utility:
 
         self.handle_shutdown()
 
-    def handle_filesystem_setup(self):
-        self.handle_setup();
-
-        cache.view_values()
-
-        logger.log_info("start")
+    def handle_setup_filesystem(self):
+        logger.log_info("all filesystem setup - start")
 
         # # All
         for project_name in cache.get_value("all-workspace-project-names"):
@@ -176,10 +173,25 @@ class Utility:
         )
         logger.log_info(f"copying 'root' file system to '.' file system - complete")
 
+        logger.log_info("all filesystem setup - complete")
 
-        self.handle_shutdown();
+    def handle_verify_tools(self):
+        logger.log_info(f"verifying tools - start")
 
-        logger.log_info("complete")
+        logger.log_info(f"Docker: {subprocess.check_output(
+            ["docker", "--version"],
+            text=True
+        ).strip()}")
+        logger.log_info(f"Git: {subprocess.check_output(
+            ["git", "--version"],
+            text=True
+        ).strip()}")
+        logger.log_info(f"GitHub CLI: {subprocess.check_output(
+            ["gh", "--version"],
+            text=True
+        ).strip()}")
+
+        logger.log_info(f"verifying tools - complete")
 
 
-utility = Utility()
+all_utility = Utility()

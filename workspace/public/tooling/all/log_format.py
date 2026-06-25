@@ -1,7 +1,7 @@
 import time
-import inspect
 import logging
-from datetime import datetime, UTC
+
+from all.timestamp import timestamp
 
 
 class LogFormat(logging.Formatter):
@@ -12,15 +12,7 @@ class LogFormat(logging.Formatter):
         timestamp_nanoseconds = time.time_ns()
 
         return (
-            f"[{(
-            f"{datetime.fromtimestamp(
-                timestamp_nanoseconds /
-                1_000_000_000,
-                UTC
-            ):%Y-%m-%dT%H:%M:%S}"
-            f".{timestamp_nanoseconds % 1_000_000_000:09d}"
-            "Z"
-        )}] "
+            f"[{timestamp.generate_standard_timestamp()}] "
             f"[{record.pathname}:{record.funcName}():{record.lineno}] "
             f"[{record.levelname}] - "
             f"{record.getMessage()}"

@@ -5,9 +5,6 @@ from all.logger import logger
 
 
 class FileSystem:
-    def __init__(self):
-        pass
-
     def is_filesystem_path_valid(self, value):
         path = Path(
             value
