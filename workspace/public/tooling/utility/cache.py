@@ -10,7 +10,7 @@ class Cache:
 
     def get_value(self, key):
         if key not in self.data:
-            utility_logger.log_error("Key not found in 'Cache'")
+            utility_logger.log_error(f"Key '{key}' not found")
 
             raise Exception()
 
@@ -45,7 +45,7 @@ class Cache:
 
     def remove_value(self, key):
         if key not in self.data:
-            utility_logger.log_error("Key not found in 'Cache'")
+            utility_logger.log_error(f"Key '{key}' not found")
 
             raise Exception()
 

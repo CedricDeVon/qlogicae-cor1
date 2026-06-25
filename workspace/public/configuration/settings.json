@@ -2,6 +2,9 @@
     "all": {
         "workspace-projects": [
             "typescript"
-        ]
+        ],
+        "git-commit-template-messages": {
+            
+        }
     }
 }
