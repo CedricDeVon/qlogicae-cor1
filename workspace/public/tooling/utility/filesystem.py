@@ -35,8 +35,35 @@ class FileSystem:
 
             raise Exception()
 
-    def copy_paste(self, items):
-        pass
+    def clean_folder(self, path):
+        directory = Path(path).resolve()
+
+        protected_paths = {
+            Path("/"),
+            Path.home(),
+        }
+
+        if directory in protected_paths:
+            utility_logger.log_error(f"Folder '{path}' is invalid")
+
+            raise Exception()
+
+        if not directory.exists():
+            utility_logger.log_error(f"Folder '{path}' is invalid")
+
+            raise Exception()
+
+        if not directory.is_dir():
+            utility_logger.log_error(f"Folder '{path}' is invalid")
+
+            raise Exception()
+
+        for item in directory.iterdir():
+            if item.is_file() or item.is_symlink():
+                item.unlink()
+                
+            elif item.is_dir():
+                shutil.rmtree(item)
 
 
 utility_filesystem = FileSystem()

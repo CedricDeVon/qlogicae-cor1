@@ -37,7 +37,7 @@ class Handler:
         # Workspace Log File
         utility_cache.set_value(
             "all-workspace-private-log-all-full-path",
-            f"{utility_cache.get_value("all-current-root-project-full-path")}/workspace/private/log/all.log"
+            f"{utility_cache.get_value("all-current-root-project-full-path")}/workspace/private/output/log/all.log"
         )
         utility_logger.add_file_output(
             utility_cache.get_value("all-workspace-private-log-all-full-path")
