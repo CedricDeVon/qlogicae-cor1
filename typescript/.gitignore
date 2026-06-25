@@ -13,11 +13,12 @@ output/
 outputs/
 .dist/
 dist/
-*.tgz
 .build/
 build/
 reports/
 *reports/
+
+*.tgz
 
 # code coverage
 coverage/
@@ -47,4 +48,4 @@ report.[0-9]_.[0-9]_.[0-9]_.[0-9]_.json
 .DS_Store
 
 # Project
-devops/private/
+workspace/private/

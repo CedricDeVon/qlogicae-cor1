@@ -4,4 +4,4 @@ from pathlib import Path
 
 from all.utility import utility
 
-utility.handle_debug()
+utility.handle_filesystem_setup()

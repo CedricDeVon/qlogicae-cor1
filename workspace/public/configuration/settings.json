@@ -1,6 +1,6 @@
 {
     "all": {
-        "developing-projects": [
+        "workspace-projects": [
             "typescript"
         ]
     }

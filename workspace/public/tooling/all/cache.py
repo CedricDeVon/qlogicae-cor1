@@ -1,5 +1,6 @@
 from all.logger import logger
 
+
 class Cache:
     data = {}
 
@@ -19,7 +20,6 @@ class Cache:
         self.data[key] = value
 
         return True
-
 
     def remove_value(self, key):
         if key not in self.data:
