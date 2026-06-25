@@ -31,7 +31,7 @@ class FileSystem:
         )
 
         if not path.is_dir():
-            utility_logger.log_error(f"Folder '{path}' is invalid")
+            utility_logger.log_error(f"'{path}' is invalid")
 
             raise Exception()
 
@@ -44,26 +44,26 @@ class FileSystem:
         }
 
         if directory in protected_paths:
-            utility_logger.log_error(f"Folder '{path}' is invalid")
+            utility_logger.log_error(f"'{path}' is protected")
 
             raise Exception()
 
         if not directory.exists():
-            utility_logger.log_error(f"Folder '{path}' is invalid")
-
-            raise Exception()
+            return True
 
         if not directory.is_dir():
-            utility_logger.log_error(f"Folder '{path}' is invalid")
+            utility_logger.log_error(f"'{path}' is not a folder")
 
             raise Exception()
 
         for item in directory.iterdir():
             if item.is_file() or item.is_symlink():
                 item.unlink()
-                
+
             elif item.is_dir():
                 shutil.rmtree(item)
+
+        return True
 
 
 utility_filesystem = FileSystem()

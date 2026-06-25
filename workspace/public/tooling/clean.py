@@ -23,7 +23,7 @@ def handle_root_target_option():
     utility_filesystem.clean_folder(
         f"{utility_cache.get_value(
             "all-current-root-project-full-path"
-        )}/workspace/private/output"
+        )}/workspace/private/temporary"
     )
 
 
@@ -42,7 +42,7 @@ def handle_project_target_option(project_name):
     utility_filesystem.clean_folder(
         f"{utility_cache.get_value(
             "all-current-root-project-full-path"
-        )}/{project_name}/workspace/private/output"
+        )}/{project_name}/workspace/private/temporary"
     )
     
 
