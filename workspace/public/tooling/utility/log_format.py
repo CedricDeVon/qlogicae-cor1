@@ -1,7 +1,7 @@
 import time
 import logging
 
-from all.timestamp import timestamp
+from utility.timestamp import utility_timestamp
 
 
 class LogFormat(logging.Formatter):
@@ -9,10 +9,8 @@ class LogFormat(logging.Formatter):
         self,
         record: logging.LogRecord
     ) -> str:
-        timestamp_nanoseconds = time.time_ns()
-
         return (
-            f"[{timestamp.generate_standard_timestamp()}] "
+            f"[{utility_timestamp.generate_standard_timestamp()}] "
             f"[{record.pathname}:{record.funcName}():{record.lineno}] "
             f"[{record.levelname}] - "
             f"{record.getMessage()}"

@@ -7,7 +7,7 @@ from logging.handlers import (
     QueueListener
 )
 
-from all.log_format import LogFormat
+from utility.log_format import LogFormat
 
 
 class Logger:
@@ -205,5 +205,5 @@ class Logger:
         )
 
 
-logger = Logger()
+utility_logger = Logger()
 

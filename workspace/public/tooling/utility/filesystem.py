@@ -1,7 +1,7 @@
 import shutil
 from pathlib import Path
 
-from all.logger import logger
+from utility.logger import utility_logger
 
 
 class FileSystem:
@@ -11,7 +11,7 @@ class FileSystem:
         )
 
         if not path.exists():
-            logger.log_error(f"Path '{path}' is invalid")
+            utility_logger.log_error(f"Path '{path}' is invalid")
 
             raise Exception()
 
@@ -21,7 +21,7 @@ class FileSystem:
         )
 
         if not path.is_file():
-            logger.log_error(f"File '{path}' is invalid")
+            utility_logger.log_error(f"File '{path}' is invalid")
 
             raise Exception()
 
@@ -31,10 +31,13 @@ class FileSystem:
         )
 
         if not path.is_dir():
-            logger.log_error(f"Folder '{path}' is invalid")
+            utility_logger.log_error(f"Folder '{path}' is invalid")
 
             raise Exception()
 
+    def copy_paste(self, items):
+        pass
 
-filesystem = FileSystem()
+
+utility_filesystem = FileSystem()
 

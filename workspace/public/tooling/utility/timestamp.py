@@ -2,7 +2,7 @@ import time
 from datetime import datetime, UTC
 
 
-class TimeStamp:
+class Timestamp:
     def generate_standard_timestamp(self):
         timestamp_nanoseconds = time.time_ns()
 
@@ -18,5 +18,5 @@ class TimeStamp:
         )}")
 
         
-timestamp = TimeStamp()
+utility_timestamp = Timestamp()
 
