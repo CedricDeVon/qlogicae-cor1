@@ -3,7 +3,7 @@ from pathlib import Path
 
 
 class FileSystem:
-    def validate_filesystem_path(self, value):
+    def throw_if_filesystem_path_invalid(self, value):
         path = Path(
             value
         )
@@ -11,9 +11,9 @@ class FileSystem:
         if not path.exists():
             raise Exception(f"Path '{path}' is invalid")
 
-        return value
+        return False
 
-    def validate_file_path(self, value):
+    def throw_if_file_path_invalid(self, value):
         path = Path(
             value
         )
@@ -21,9 +21,9 @@ class FileSystem:
         if not path.is_file():
             raise Exception(f"File '{path}' is invalid")
 
-        return value
+        return False
 
-    def validate_folder_path(self, value):
+    def throw_if_folder_path_invalid(self, value):
         path = Path(
             value
         )
@@ -31,7 +31,7 @@ class FileSystem:
         if not path.is_dir():
             raise Exception(f"'{path}' is invalid")
 
-        return value
+        return False
 
     def is_filesystem_path_valid(self, value):
         path = Path(
@@ -93,5 +93,5 @@ class FileSystem:
         return True
 
 
-utility_filesystem = FileSystem()
+singleton = FileSystem()
 

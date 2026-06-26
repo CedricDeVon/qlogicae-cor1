@@ -1,7 +1,7 @@
 import time
 import logging
 
-from utility.timestamp import utility_timestamp
+from library import timestamp
 
 
 class LogFormat(logging.Formatter):
@@ -10,7 +10,7 @@ class LogFormat(logging.Formatter):
         record: logging.LogRecord
     ):
         return (
-            f"[ {utility_timestamp.generate_standard_timestamp()} ] "
+            f"[ {timestamp.singleton.generate_standard_timestamp()} ] "
             f"[ {record.levelname} ] "
             f"{record.getMessage()}"
         )

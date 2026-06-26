@@ -2,9 +2,8 @@ import os
 import argparse
 import subprocess
 
-from utility.cache import utility_cache
-from utility.logger import utility_logger
-from utility.handler import utility_handler
+from library.target_cache_value import TargetCacheValue
+from library import value_cache, logger, handler, file_logger
 
 
 def handle_all_target_option():
@@ -13,17 +12,19 @@ def handle_all_target_option():
 
 def handle_typescript_target_option():
     os.chdir(
-        f"{utility_cache.get_value(
-            "all-current-root-project-full-path"
+        f"{value_cache.singleton.get_one_value(
+            "all-current-root-project-full-path",
+            target_cache_value=TargetCacheValue.FOLDER_PATH
         )}/typescript"
     )
-    utility_logger.log_info(f"{subprocess.check_output(
+    logger.singleton.log_info(f"{subprocess.check_output(
         ["bun", "install"],
         text=True
     ).strip()}")
     os.chdir(
-        f"{utility_cache.get_value(
-            "all-current-root-project-full-path"
+        f"{value_cache.singleton.get_one_value(
+            "all-current-root-project-full-path",
+            target_cache_value=TargetCacheValue.FOLDER_PATH
         )}"
     )
 
@@ -36,7 +37,7 @@ cli_parser.add_argument(
 )
 cli_arguments = cli_parser.parse_args()
 
-utility_handler.handle_setup()
+handler.singleton.handle_setup()
 
 if "all" in cli_arguments.target:
     handle_all_target_option()
@@ -44,5 +45,5 @@ if "all" in cli_arguments.target:
 elif "typescript" in cli_arguments.target:
     handle_typescript_target_option()
 
-utility_handler.handle_shutdown()
+handler.singleton.handle_shutdown()
 

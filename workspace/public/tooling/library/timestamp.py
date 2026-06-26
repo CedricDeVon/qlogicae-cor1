@@ -18,5 +18,5 @@ class Timestamp:
         )}")
 
         
-utility_timestamp = Timestamp()
+singleton = Timestamp()
 

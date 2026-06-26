@@ -6,14 +6,12 @@ from logging.handlers import (
     QueueListener
 )
 
-from utility.log_format import LogFormat
-from utility.log_options import LogOptions
+from library.log_format import LogFormat
+from library.log_options import LogOptions
 
 
 class FileLogger:
-    def __init__(
-        self
-    ):
+    def __init__(self):
         self.logger = logging.getLogger(
             "file-logger"
         )
@@ -128,7 +126,7 @@ class FileLogger:
             options
         )
 
-    def _rebuild_listener(
+    def rebuild_listener(
         self
     ):
         self.listener.stop()
@@ -141,6 +139,8 @@ class FileLogger:
         )
 
         self.listener.start()
+
+        return True
 
     def add_file_output(
         self,
@@ -173,7 +173,7 @@ class FileLogger:
             handler
         )
 
-        self._rebuild_listener()
+        self.rebuild_listener()
 
         return True
 
@@ -198,7 +198,7 @@ class FileLogger:
             path
         ]
 
-        self._rebuild_listener()
+        self.rebuild_listener()
 
         return True
 
@@ -212,7 +212,7 @@ class FileLogger:
 
         self.file_handlers.clear()
 
-        self._rebuild_listener()
+        self.rebuild_listener()
 
         return True
 
@@ -228,6 +228,8 @@ class FileLogger:
 
         self.file_handlers.clear()
 
+        return True
 
-utility_file_logger = FileLogger()
+
+singleton = FileLogger()
 

@@ -1,7 +1,7 @@
 import logging
 
-from utility.log_format import LogFormat
-from utility.log_options import LogOptions
+from library.log_format import LogFormat
+from library.log_options import LogOptions
 
 
 class ConsoleLogger:
@@ -114,4 +114,4 @@ class ConsoleLogger:
         )
 
 
-utility_console_logger = ConsoleLogger()
+singleton = ConsoleLogger()

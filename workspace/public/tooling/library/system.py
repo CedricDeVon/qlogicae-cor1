@@ -14,5 +14,5 @@ class System:
         ).strip()
 
 
-utility_system = System()
+singleton = System()
 

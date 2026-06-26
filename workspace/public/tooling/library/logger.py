@@ -7,10 +7,9 @@ from logging.handlers import (
     QueueListener
 )
 
-from utility.log_format import LogFormat
-from utility.log_options import LogOptions
-from utility.file_logger import utility_file_logger
-from utility.console_logger import utility_console_logger
+from library import file_logger, console_logger
+from library.log_format import LogFormat
+from library.log_options import LogOptions
 
 
 class Logger:
@@ -22,7 +21,7 @@ class Logger:
         ),
         file_options=LogOptions()
     ):
-        utility_console_logger.log(
+        console_logger.singleton.log(
             message,
             LogOptions(
                 is_enabled=console_options.is_enabled,
@@ -32,7 +31,7 @@ class Logger:
             )
         )
 
-        utility_file_logger.log(
+        file_logger.singleton.log(
             message,
             LogOptions(
                 is_enabled=file_options.is_enabled,
@@ -132,7 +131,9 @@ class Logger:
     def shutdown(
         self
     ):
-        utility_file_logger.shutdown()
+        file_logger.singleton.shutdown()
+
+        return True
 
 
-utility_logger = Logger()
+singleton = Logger()
