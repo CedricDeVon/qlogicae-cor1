@@ -13,7 +13,7 @@ export class ErrorManagerConfigurations extends AbstractManagerConfigurations {
 
 	public isRuntimeThrowOutputEnabled: boolean;
 
-	public title: string = `Error at 'QLogicae.Aklot1'`;
+	public title: string = `Error at 'qlogicae-cor1'`;
 
 	public message: string = 'Something went wrong here';
 

@@ -1,9 +1,9 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
-import { ErrorManager } from '../../.outputs/build/qlogicae/cor1/errorManager';
-import { AbstractManager } from '../../.outputs/build/qlogicae/cor1/abstractManager';
-import { SingletonManager } from '../../.outputs/build/qlogicae/cor1/singletonManager';
-import { AbstractManagerConfigurations } from '../../.outputs/build/qlogicae/cor1/abstractManagerConfigurations';
+import { ErrorManager } from '../output/build/library/errorManager';
+import { AbstractManager } from '../output/build/library/abstractManager';
+import { SingletonManager } from '../output/build/library/singletonManager';
+import { AbstractManagerConfigurations } from '../output/build/library/abstractManagerConfigurations';
 
 class TestConfigurations extends AbstractManagerConfigurations {}
 

@@ -1,8 +1,8 @@
 {
 	"name": "qlogicae-cor1",
-	"version": "1.2.10",
+	"version": "1.2.11",
 	"author": "Vaughn Cedric L. Araneta",
-	"main": "./qlogicae/cor1/index.js",
+	"main": "./index.js",
 	"module": "index.ts",
 	"devDependencies": {
 		"@eslint/js": "^10.0.1",
@@ -23,40 +23,43 @@
 		"yarn": "^1.22.22"
 	},
 	"bin": {
-		"qlogicae-cor1": "./qlogicae/cor1/version.js"
+		"qlogicae-cor1": "./library/version.js"
 	},
 	"description": "The core library for the QLogicae framework",
 	"keywords": [
 		"qlogicae",
 		"cor",
+		"cor1",
 		"framework",
 		"library",
 		"package",
 		"typescript",
-		"javascript"
+		"javascript",
+		"ts",
+		"js"
 	],
 	"license": "MIT",
 	"private": false,
 	"scripts": {
 		"login": "npm login",
 		"clean:all": "bun run clean:build && bun run clean:reports",
-		"clean:build": "bunx rimraf ./.outputs/build",
-		"clean:reports": "bunx rimraf ./.outputs/reports",
-		"format": "bunx prettier --config './.qlogicae/public/configurations/.prettierrc' --write .",
-		"format:check": "bunx prettier --config './.qlogicae/public/configurations/.prettierrc' --check .",
-		"lint": "bunx eslint --config './.qlogicae/public/configurations/eslint.config.js' .",
-		"transpile": "bunx tsc --project './.qlogicae/public/configurations/tsconfig.json'",
-		"bundle": "bun './.qlogicae/public/configurations/esbuild.js'",
+		"clean:build": "bunx rimraf ./output/build",
+		"clean:reports": "bunx rimraf ./output/report",
+		"format": "bunx prettier --config './.prettierrc' --write .",
+		"format:check": "bunx prettier --config './.prettierrc' --check .",
+		"lint": "bunx eslint --config './eslint.config.js' .",
+		"transpile": "bunx tsc --project './tsconfig.json'",
+		"bundle": "bun './esbuild.js'",
 		"build:pre": "bun run clean:build && bun run format && bun run lint",
 		"build": "bun run build:pre && bun run transpile && bun run bundle && bun run build:post",
-		"build:post": "cp package.json ./.outputs/build && cp ../README.md ./.outputs/build && cp -r ../qlogicae ./.outputs/build",
+		"build:post": "cp package.json ./output/build && cp ./LICENSE ./output/build && cp ./README.md ./output/build && cp -r ./project ./output/build",
 		"test:all": "bun run test:unit && bun run test:benchmark",
-		"test:unit": "bunx vitest run --watch=false --config './.qlogicae/public/configurations/vitest.unit.config.ts' --reporter=verbose --coverage",
-		"test:benchmark": "bunx vitest bench --watch=false --config './.qlogicae/public/configurations/vitest.bench.config.ts' --coverage",
+		"test:unit": "bunx vitest run --watch=false --config './vitest.unit.config.ts' --reporter=verbose --coverage",
+		"test:benchmark": "bunx vitest bench --watch=false --config './vitest.bench.config.ts' --coverage",
 		"deploy:tag": "git tag \"typescript-v$(node -p \"require('./package.json').version\")\"",
 		"deploy:push": "git push origin && git push origin \"typescript-v$(node -p \"require('./package.json').version\")\"",
-		"deploy:check": "bun run build && npm pack ./.outputs/build --dry-run",
-		"deploy:publish": "bun publish --cwd ./.outputs/build && bun run deploy:push",
+		"deploy:check": "bun run build && npm pack ./output/build --dry-run",
+		"deploy:publish": "bun publish --cwd ./output/build && bun run deploy:push",
 		"deploy:commit": "git add . && git commit -m 'deployment attempt' || true",
 		"workflow:develop": "bun run build",
 		"workflow:test": "bun run build && bun run test",
@@ -67,5 +70,5 @@
 		"workflow:deploy:post": "(bun run deploy:publish) || (bun run login && bun run deploy:publish)"
 	},
 	"type": "module",
-	"types": "./qlogicae/cor1/index.d.ts"
+	"types": "./index.d.ts"
 }

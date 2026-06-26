@@ -1,7 +1,7 @@
 import { beforeEach, afterEach, describe, expect, it, vi } from 'vitest';
 
-import { ErrorManager } from '../../.outputs/build/qlogicae/cor1/errorManager';
-import { ErrorManagerConfigurations } from '../../.outputs/build/qlogicae/cor1/errorManagerConfigurations';
+import { ErrorManager } from '../output/build/library/errorManager';
+import { ErrorManagerConfigurations } from '../output/build/library/errorManagerConfigurations';
 
 class ThrowingSetupErrorManager extends ErrorManager {
 	public override setup(_configuration: ErrorManagerConfigurations): boolean {

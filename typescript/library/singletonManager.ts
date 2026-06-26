@@ -73,7 +73,7 @@ export class SingletonManager {
 			return instance;
 		} catch {
 			throw new Error(
-				"Error at 'QLogicae.Aklot1' - Something went wrong here"
+				"Error at 'qlogicae-cor1' - Something went wrong here"
 			);
 		}
 	}
@@ -86,7 +86,7 @@ export class SingletonManager {
 		try {
 			if (instanceCount <= 0) {
 				throw new Error(
-					"Error at 'QLogicae.Aklot1' - Something went wrong here"
+					"Error at 'qlogicae-cor1' - Something went wrong here"
 				);
 			}
 
@@ -107,7 +107,7 @@ export class SingletonManager {
 			return instances[Math.abs(index) % instanceCount]!;
 		} catch {
 			throw new Error(
-				"Error at 'QLogicae.Aklot1' - Something went wrong here"
+				"Error at 'qlogicae-cor1' - Something went wrong here"
 			);
 		}
 	}
