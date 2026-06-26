@@ -10,9 +10,8 @@ class LogFormat(logging.Formatter):
         record: logging.LogRecord
     ):
         return (
-            f"[{utility_timestamp.generate_standard_timestamp()}] "
-            # f"[{record.pathname}:{record.funcName}():{record.lineno}] "
-            f"[{record.levelname}] | "
+            f"[ {utility_timestamp.generate_standard_timestamp()} ] "
+            f"[ {record.levelname} ] "
             f"{record.getMessage()}"
         )
 

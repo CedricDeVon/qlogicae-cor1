@@ -1,6 +1,3 @@
-from utility.logger import utility_logger
-from utility.filesystem import utility_filesystem
-
 
 class Cache:
     data = {}
@@ -9,10 +6,10 @@ class Cache:
         self.data = {}
 
     def get_value(self, key):
-        if key not in self.data:
-            utility_logger.log_error(f"Key '{key}' not found")
-
-            raise Exception()
+        if key not in self.data:            
+            raise Exception(
+                f"Key '{key}' not found"
+            )
 
         return self.data[key]
 
@@ -22,32 +19,11 @@ class Cache:
 
         return True
 
-    def set_filesystem_path_value(self, key, value):
-        utility_filesystem.is_filesystem_path_valid(value)
-
-        self.data[key] = value
-
-        return True
-
-    def set_file_path_value(self, key, value):
-        utility_filesystem.is_file_path_valid(value)
-
-        self.data[key] = value
-
-        return True
-
-    def set_folder_path_value(self, key, value):
-        utility_filesystem.is_folder_path_valid(value)
-
-        self.data[key] = value
-
-        return True
-
     def remove_value(self, key):
         if key not in self.data:
-            utility_logger.log_error(f"Key '{key}' not found")
-
-            raise Exception()
+            raise Exception(
+                f"Key '{key}' not found"
+            )
 
         del data[key]
 

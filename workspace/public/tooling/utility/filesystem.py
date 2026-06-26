@@ -1,19 +1,45 @@
 import shutil
 from pathlib import Path
 
-from utility.logger import utility_logger
-
 
 class FileSystem:
+    def validate_filesystem_path(self, value):
+        path = Path(
+            value
+        )
+
+        if not path.exists():
+            raise Exception(f"Path '{path}' is invalid")
+
+        return value
+
+    def validate_file_path(self, value):
+        path = Path(
+            value
+        )
+
+        if not path.is_file():
+            raise Exception(f"File '{path}' is invalid")
+
+        return value
+
+    def validate_folder_path(self, value):
+        path = Path(
+            value
+        )
+
+        if not path.is_dir():
+            raise Exception(f"'{path}' is invalid")
+
+        return value
+
     def is_filesystem_path_valid(self, value):
         path = Path(
             value
         )
 
         if not path.exists():
-            utility_logger.log_error(f"Path '{path}' is invalid")
-
-            raise Exception()
+            raise Exception(f"Path '{path}' is invalid")
 
     def is_file_path_valid(self, value):
         path = Path(
@@ -21,9 +47,7 @@ class FileSystem:
         )
 
         if not path.is_file():
-            utility_logger.log_error(f"File '{path}' is invalid")
-
-            raise Exception()
+            raise Exception(f"File '{path}' is invalid")
 
     def is_folder_path_valid(self, value):
         path = Path(
@@ -31,11 +55,9 @@ class FileSystem:
         )
 
         if not path.is_dir():
-            utility_logger.log_error(f"'{path}' is invalid")
+            raise Exception(f"'{path}' is invalid")
 
-            raise Exception()
-
-    def clean_folder(self, path):
+    def clean_filesystem_path(self, path):
         directory = Path(path).resolve()
 
         protected_paths = {
@@ -44,17 +66,13 @@ class FileSystem:
         }
 
         if directory in protected_paths:
-            utility_logger.log_error(f"'{path}' is protected")
-
-            raise Exception()
+            raise Exception(f"'{path}' is protected")
 
         if not directory.exists():
             return True
 
         if not directory.is_dir():
-            utility_logger.log_error(f"'{path}' is not a folder")
-
-            raise Exception()
+            raise Exception(f"'{path}' is not a folder")
 
         for item in directory.iterdir():
             if item.is_file() or item.is_symlink():
@@ -62,6 +80,15 @@ class FileSystem:
 
             elif item.is_dir():
                 shutil.rmtree(item)
+
+        return True
+
+    def copy_filesystem_path(self, first_path, second_path):
+        shutil.copytree(
+            first_path,
+            second_path,
+            dirs_exist_ok=True
+        )
 
         return True
 

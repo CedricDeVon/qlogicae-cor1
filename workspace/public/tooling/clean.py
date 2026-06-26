@@ -20,7 +20,7 @@ def handle_root_target_option():
         )}"
     )
 
-    utility_filesystem.clean_folder(
+    utility_filesystem.clean_filesystem_path(
         f"{utility_cache.get_value(
             "all-current-root-project-full-path"
         )}/workspace/private/temporary"
@@ -28,7 +28,7 @@ def handle_root_target_option():
 
 
 def handle_projects_target_option():
-    for project_name in utility_cache.get_value("all-workspace-project-names"):
+    for project_name in utility_cache.get_value("all-workspace-projects"):
         handle_project_target_option(project_name)
 
 
@@ -39,7 +39,7 @@ def handle_project_target_option(project_name):
         )}/{project_name}"
     )    
     
-    utility_filesystem.clean_folder(
+    utility_filesystem.clean_filesystem_path(
         f"{utility_cache.get_value(
             "all-current-root-project-full-path"
         )}/{project_name}/workspace/private/temporary"
@@ -66,7 +66,7 @@ elif "root" in cli_arguments.target:
 elif "projects" in cli_arguments.target:
     handle_projects_target_option()
 
-elif cli_arguments.target in utility_cache.get_value("all-workspace-project-names"):
+elif cli_arguments.target in utility_cache.get_value("all-workspace-projects"):
     handle_project_target_option(
         cli_arguments.target
     )

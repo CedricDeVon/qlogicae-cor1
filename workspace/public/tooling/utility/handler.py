@@ -8,25 +8,33 @@ import yaml
 
 from utility.cache import utility_cache
 from utility.logger import utility_logger
+from utility.filesystem import utility_filesystem
+from utility.file_logger import utility_file_logger
 
 
 class Handler:
     def handle_setup(self):
         # Essential File System Paths
-        utility_cache.set_folder_path_value(
+        utility_cache.set_value(
             "all-current-root-project-full-path",
-            Path(__file__).resolve().parent.parent.parent.parent.parent
+            utility_filesystem.validate_folder_path(
+                Path(__file__).resolve().parent.parent.parent.parent.parent
+            )
         )
         
 
-        utility_cache.set_folder_path_value(
+        utility_cache.set_value(
             "all-original-cli-full-path",
-            Path.cwd()
+            utility_filesystem.validate_folder_path(
+                Path.cwd()            
+            )
         )
-        utility_cache.set_folder_path_value(
+        utility_cache.set_value(
             "all-current-cli-full-path",
-            utility_cache.get_value(
-                "all-current-root-project-full-path"
+            utility_filesystem.validate_folder_path(
+                utility_cache.get_value(
+                    "all-current-root-project-full-path"
+                )            
             )
         )
         os.chdir(
@@ -39,26 +47,36 @@ class Handler:
         # Workspace Log File
         utility_cache.set_value(
             "all-workspace-private-log-all-full-path",
-            f"{utility_cache.get_value("all-current-root-project-full-path")}/workspace/private/temporary/log/all.log"
+            utility_filesystem.validate_file_path(
+                f"{utility_cache.get_value("all-current-root-project-full-path")}/workspace/private/temporary/log/all.log"                
+            )
         )
-        utility_logger.add_file_output(
-            utility_cache.get_value("all-workspace-private-log-all-full-path")
+        utility_file_logger.add_file_output(
+            utility_filesystem.validate_file_path(
+                utility_cache.get_value("all-workspace-private-log-all-full-path")                
+            )
         )
 
 
         # Configurations
         utility_cache.set_value(
             "all-workspace-public-configuration-settings-full-path",
-            f"{utility_cache.get_value("all-current-root-project-full-path")}/workspace/public/configuration/setting.yaml"
+            utility_filesystem.validate_file_path(
+                f"{utility_cache.get_value("all-current-root-project-full-path")}/workspace/public/configuration/setting.yaml"                
+            )
         )
         utility_cache.set_value(
             "all-workspace-private-configuration-settings-full-path",
-            f"{utility_cache.get_value("all-current-root-project-full-path")}/workspace/private/configuration/setting.yaml"
+            utility_filesystem.validate_file_path(
+                f"{utility_cache.get_value("all-current-root-project-full-path")}/workspace/private/configuration/setting.yaml"                
+            )
         )
 
         with open(
-            utility_cache.get_value(
-                "all-workspace-public-configuration-settings-full-path"
+            utility_filesystem.validate_file_path(
+                utility_cache.get_value(
+                    "all-workspace-public-configuration-settings-full-path"
+                )   
             ),
             "r",
             encoding="utf-8"
@@ -69,9 +87,11 @@ class Handler:
             )
 
         with open(
-            utility_cache.get_value(
-                "all-workspace-private-configuration-settings-full-path"
-            ),
+            utility_filesystem.validate_file_path(
+                utility_cache.get_value(
+                    "all-workspace-private-configuration-settings-full-path"
+                )   
+            )            ,
             "r",
             encoding="utf-8"
         ) as file:
@@ -82,13 +102,11 @@ class Handler:
 
 
         utility_cache.set_value(
-            "all-workspace-project-names",
+            "all-workspace-projects",
             utility_cache.get_value(
                 "all-workspace-public-configuration-settings-data"
             )["all"]["workspace-projects"]
         )   
-
-        utility_cache.view_values()
 
     def handle_shutdown(self):
         utility_logger.shutdown()

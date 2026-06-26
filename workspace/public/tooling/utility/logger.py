@@ -1,209 +1,138 @@
 import queue
 import logging
-import asyncio
 from pathlib import Path
+from dataclasses import dataclass
 from logging.handlers import (
     QueueHandler,
     QueueListener
 )
 
 from utility.log_format import LogFormat
+from utility.log_options import LogOptions
+from utility.file_logger import utility_file_logger
+from utility.console_logger import utility_console_logger
 
 
 class Logger:
-    def __init__(self):
-        self.logger = logging.getLogger(
-            "all"
-        )
-
-        self.logger.setLevel(
-            logging.DEBUG
-        )
-
-        self.logger.propagate = False
-
-        self.file_handlers = {}
-
-        self.log_queue = queue.Queue()
-
-        self.stream_handler = (
-            logging.StreamHandler()
-        )
-
-        self.stream_handler.setFormatter(
-            LogFormat()
-        )
-
-        self.logger.handlers.clear()
-
-        self.logger.addHandler(
-            self.stream_handler
-        )
-
-        self.queue_handler = (
-            QueueHandler(
-                self.log_queue
-            )
-        )
-
-        self.logger.addHandler(
-            self.queue_handler
-        )
-
-        self.listener = (
-            QueueListener(
-                self.log_queue
-            )
-        )
-
-        self.listener.start()
-
-    def _rebuild_listener(
-        self
-    ):
-        self.listener.stop()
-
-        self.listener = (
-            QueueListener(
-                self.log_queue,
-                *self.file_handlers.values()
-            )
-        )
-
-        self.listener.start()
-
-    def add_file_output(
+    def log(
         self,
-        file_path
+        message,
+        console_options=LogOptions(
+            is_verbose=False
+        ),
+        file_options=LogOptions()
     ):
-        path = Path(
-            file_path
-        ).resolve()
-
-        if path in self.file_handlers:
-            return False
-
-        path.parent.mkdir(
-            parents=True,
-            exist_ok=True
-        )
-
-        handler = logging.FileHandler(
-            path,
-            encoding="utf-8"
-        )
-
-        handler.setFormatter(
-            LogFormat()
-        )
-
-        self.file_handlers[path] = (
-            handler
-        )
-
-        self._rebuild_listener()
-
-        return True
-
-    def remove_file_output(
-        self,
-        file_path
-    ):
-        path = Path(
-            file_path
-        ).resolve()
-
-        handler = (
-            self.file_handlers.get(
-                path
+        utility_console_logger.log(
+            message,
+            LogOptions(
+                is_enabled=console_options.is_enabled,
+                is_verbose=console_options.is_verbose,
+                log_level=console_options.log_level,
+                stack_level=console_options.stack_level + 1
             )
         )
 
-        if handler is None:
-            return False
+        utility_file_logger.log(
+            message,
+            LogOptions(
+                is_enabled=file_options.is_enabled,
+                is_verbose=file_options.is_verbose,
+                log_level=file_options.log_level,
+                stack_level=file_options.stack_level + 1
+            )
+        )
 
-        handler.close()
-
-        del self.file_handlers[path]
-
-        self._rebuild_listener()
-
-        return True
-
-    def clear_file_outputs(
-        self
-    ):
-        for handler in (
-            self.file_handlers.values()
-        ):
-            handler.close()
-
-        self.file_handlers.clear()
-
-        self._rebuild_listener()
-
-        return True
-
-    def shutdown(
-        self
-    ):
-        self.listener.stop()
-
-        for handler in (
-            self.file_handlers.values()
-        ):
-            handler.close()
+        return message
 
     def log_debug(
         self,
         message,
-        stack_level=2
+        console_options=LogOptions(
+            log_level=logging.DEBUG,
+            is_verbose=False
+        ),
+        file_options=LogOptions(
+            log_level=logging.DEBUG
+        )
     ):
-        self.logger.debug(
+        return self.log(
             message,
-            stacklevel=stack_level
+            console_options,
+            file_options
         )
 
     def log_info(
         self,
         message,
-        stack_level=2
+        console_options=LogOptions(
+            log_level=logging.INFO,
+            is_verbose=False
+        ),
+        file_options=LogOptions(
+            log_level=logging.INFO
+        )
     ):
-        self.logger.info(
+        return self.log(
             message,
-            stacklevel=stack_level
+            console_options,
+            file_options
         )
 
     def log_warning(
         self,
         message,
-        stack_level=2
+        console_options=LogOptions(
+            log_level=logging.WARNING,
+            is_verbose=False
+        ),
+        file_options=LogOptions(
+            log_level=logging.WARNING
+        )
     ):
-        self.logger.warning(
+        return self.log(
             message,
-            stacklevel=stack_level
+            console_options,
+            file_options
         )
 
     def log_error(
         self,
         message,
-        stack_level=2
+        console_options=LogOptions(
+            log_level=logging.ERROR,
+            is_verbose=False
+        ),
+        file_options=LogOptions(
+            log_level=logging.ERROR
+        )
     ):
-        self.logger.error(
+        return self.log(
             message,
-            stacklevel=stack_level
+            console_options,
+            file_options
         )
 
     def log_critical(
         self,
         message,
-        stack_level=2
-    ):
-        self.logger.critical(
-            message,
-            stacklevel=stack_level
+        console_options=LogOptions(
+            log_level=logging.CRITICAL,
+            is_verbose=False
+        ),
+        file_options=LogOptions(
+            log_level=logging.CRITICAL
         )
+    ):
+        return self.log(
+            message,
+            console_options,
+            file_options
+        )
+
+    def shutdown(
+        self
+    ):
+        utility_file_logger.shutdown()
 
 
 utility_logger = Logger()
-
