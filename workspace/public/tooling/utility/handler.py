@@ -4,6 +4,8 @@ import shutil
 import subprocess
 from pathlib import Path
 
+import yaml
+
 from utility.cache import utility_cache
 from utility.logger import utility_logger
 
@@ -47,11 +49,11 @@ class Handler:
         # Configurations
         utility_cache.set_value(
             "all-workspace-public-configuration-settings-full-path",
-            f"{utility_cache.get_value("all-current-root-project-full-path")}/workspace/public/configuration/settings.json"
+            f"{utility_cache.get_value("all-current-root-project-full-path")}/workspace/public/configuration/setting.yaml"
         )
         utility_cache.set_value(
             "all-workspace-private-configuration-settings-full-path",
-            f"{utility_cache.get_value("all-current-root-project-full-path")}/workspace/private/configuration/settings.json"
+            f"{utility_cache.get_value("all-current-root-project-full-path")}/workspace/private/configuration/setting.yaml"
         )
 
         with open(
@@ -63,7 +65,7 @@ class Handler:
         ) as file:
             utility_cache.set_value(
                 "all-workspace-public-configuration-settings-data",
-                json.load(file)
+                yaml.safe_load(file)
             )
 
         with open(
@@ -75,7 +77,7 @@ class Handler:
         ) as file:
             utility_cache.set_value(
                 "all-workspace-private-configuration-settings-data",
-                json.load(file)
+                yaml.safe_load(file)
             )        
 
 
@@ -83,8 +85,10 @@ class Handler:
             "all-workspace-project-names",
             utility_cache.get_value(
                 "all-workspace-public-configuration-settings-data"
-            ).get("all", {}).get("workspace-projects", {})
+            )["all"]["workspace-projects"]
         )   
+
+        utility_cache.view_values()
 
     def handle_shutdown(self):
         utility_logger.shutdown()
