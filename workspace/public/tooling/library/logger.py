@@ -7,9 +7,9 @@ from logging.handlers import (
     QueueListener
 )
 
-from library import file_logger, console_logger
 from library.log_format import LogFormat
 from library.log_options import LogOptions
+from library import file_logger, console_logger
 
 
 class Logger:
