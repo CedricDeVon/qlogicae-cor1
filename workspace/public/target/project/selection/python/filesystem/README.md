@@ -1,16 +1,3 @@
-Metadata-Version: 2.4
-Name: qlogicae-cor1
-Version: 1.0.2
-Summary: The core library for the QLogicae framework
-Author-email: "Vaughn Cedric L. Araneta" <vaughncedriclipardoaraneta@gmail.com>
-License-Expression: MIT
-Classifier: Programming Language :: Python :: 3
-Classifier: Operating System :: OS Independent
-Requires-Python: >=3.14
-Description-Content-Type: text/markdown
-License-File: LICENSE
-Dynamic: license-file
-
 </br>
 
 <div style="width: 100%; display: flex; justify-content: center;">
