@@ -3,6 +3,7 @@ import argparse
 import subprocess
 
 from library import logger, handler, value_cache
+from library.target_cache_value import TargetCacheValue
 
 
 def handle_all_target_option():
@@ -28,8 +29,8 @@ def handle_root_target_option():
 def handle_typescript_target_option():
     os.chdir(
         f"{value_cache.singleton.get_one_value(
-            "all-current-root-project-full-path"
-        )}/typescript"
+            "root-current-full-path"
+        )}/selection/typescript"
     )
     logger.singleton.log_info(f"Node: {subprocess.check_output(
         ["node", "--version"],
@@ -61,21 +62,34 @@ def handle_typescript_target_option():
     ).strip()}")
     os.chdir(
         f"{value_cache.singleton.get_one_value(
-            "all-current-root-project-full-path"
+            "root-current-full-path"
         )}"
     )
 
 
-cli_parser = argparse.ArgumentParser()
+handler.singleton.handle_setup()
+
+cli_parser = argparse.ArgumentParser(
+    description="Dev tool",
+    epilog="For more information, visit https://github.com/..."
+)
 
 cli_parser.add_argument(
-    "--target",
-    default="all"
+    "-wt",
+    "--workspace-target",
+    default="all",
+    choices=[
+        "all",
+        "root",
+        *value_cache.singleton.get_one_value(
+            "project-selections",
+            target_cache_value=TargetCacheValue.DEFINED
+        )
+    ],
+    help="Workspace target"
 )
 
 cli_arguments = cli_parser.parse_args()
-
-handler.singleton.handle_setup()
 
 if "all" in cli_arguments.target:
     handle_all_target_option()
@@ -85,7 +99,6 @@ elif "root" in cli_arguments.target:
 
 elif "typescript" in cli_arguments.target:
     handle_typescript_target_option();
-
 
 handler.singleton.handle_shutdown()
 

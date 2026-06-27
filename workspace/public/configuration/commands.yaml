@@ -1,0 +1,24 @@
+
+data:
+  verify-toolset:
+    description: "description"
+    epilog: "epilog"
+
+    arguments:
+      workspace-target:
+        type: "option"
+        default: "default"        
+        help: "help"        
+        choices:
+          - all
+          - root
+          # - project
+          # - typescript
+          # - python
+      
+    tree:
+
+
+  
+metadata:
+

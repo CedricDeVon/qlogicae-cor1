@@ -13,9 +13,9 @@ def handle_all_target_option():
 def handle_typescript_target_option():
     os.chdir(
         f"{value_cache.singleton.get_one_value(
-            "all-current-root-project-full-path",
+            "root-current-full-path",
             target_cache_value=TargetCacheValue.FOLDER_PATH
-        )}/typescript"
+        )}/selection/typescript"
     )
     logger.singleton.log_info(f"{subprocess.check_output(
         ["bun", "install"],
@@ -23,7 +23,7 @@ def handle_typescript_target_option():
     ).strip()}")
     os.chdir(
         f"{value_cache.singleton.get_one_value(
-            "all-current-root-project-full-path",
+            "root-current-full-path",
             target_cache_value=TargetCacheValue.FOLDER_PATH
         )}"
     )

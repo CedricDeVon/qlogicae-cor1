@@ -84,7 +84,7 @@ class Handler:
                     else:
                         raw_data = current_file.read()   
 
-                    raw_data = {} if raw_data is None else raw_data                    
+                    raw_data = {} if raw_data["data"] is None else raw_data                    
 
 
                     value_cache.singleton.set_one_value(
@@ -101,11 +101,11 @@ class Handler:
 
         # Parsed
         value_cache.singleton.set_one_value(
-            "all-project-selections",
+            "project-selections",
             value_cache.singleton.get_one_value(
                 "root-workspace/public/configuration/settings.yaml-data",
                 target_cache_value=TargetCacheValue.DEFINED
-            )["all"]["project-selections"],
+            )["data"]["project"]["selections"],
             target_cache_value=TargetCacheValue.DEFINED
         )
 

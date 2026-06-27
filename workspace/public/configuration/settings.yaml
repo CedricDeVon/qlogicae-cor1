@@ -1,8 +1,13 @@
-all:  
-  project-selections:
-    - typescript
 
-root:
+data:
+  all:  
 
-projects:
+  root:
+
+  project:
+    selections:
+      - typescript
+      - python
   
+metadata:
+

@@ -1,4 +1,4 @@
-from library import value_cache, logger, handler, file_logger
+from library import value_cache, handler
 
 
 handler.singleton.handle_setup()
