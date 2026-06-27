@@ -1,5 +1,5 @@
 all:  
-  workspace-projects:
+  project-selections:
     - typescript
 
 root:

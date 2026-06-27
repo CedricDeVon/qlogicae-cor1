@@ -101,11 +101,11 @@ class Handler:
 
         # Parsed
         value_cache.singleton.set_one_value(
-            "all-workspace-projects",
+            "all-project-selections",
             value_cache.singleton.get_one_value(
                 "root-workspace/public/configuration/settings.yaml-data",
                 target_cache_value=TargetCacheValue.DEFINED
-            )["all"]["workspace-projects"],
+            )["all"]["project-selections"],
             target_cache_value=TargetCacheValue.DEFINED
         )
 
