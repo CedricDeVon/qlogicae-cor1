@@ -1,0 +1,98 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "qlogicae-cor1"
+version = "1.0.2"
+description = "The core library for the QLogicae framework"
+readme = "README.md"
+requires-python = ">=3.14"
+license = "MIT"
+
+authors = [
+    { name = "Vaughn Cedric L. Araneta", email = "vaughncedriclipardoaraneta@gmail.com" }
+]
+
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent"
+]
+
+dependencies = []
+
+[tool.setuptools]
+package-dir = {"" = "library"}
+
+[tool.setuptools.packages.find]
+where = ["library"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["test"]
+
+[tool.mypy]
+strict = true
+warn_return_any = true
+warn_unused_configs = true
+warn_unreachable = true
+warn_no_return = true
+disallow_any_generics = true
+disallow_any_unimported = true
+explicit_package_bases = true
+namespace_packages = true
+files = ["library", "test"]
+
+[tool.ruff]
+line-length = 88
+target-version = "py314"
+exclude = [
+    ".venv",
+    ".git",
+    "__pycache__",
+    ".output",
+    "output",
+    ".outputs",
+    "outputs",
+    ".dist",
+    "dist",
+    ".build",
+    "build",
+]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+ignore = []
+fixable = ["ALL"]
+unfixable = []
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+
+[tool.hatch.envs.default.scripts]
+lint = "ruff check ."
+format = "ruff format ."
+audit-security = "pip-audit"
+clean-build = "rm -rf ./outputs/build && mkdir -p ./outputs/build"
+clean-test-unit = "rm -rf ./outputs/test/unit && mkdir -p ./outputs/test/unit"
+clean-test-benchmarks = "rm -rf ./outputs/test/benchmarks && mkdir -p ./outputs/test/benchmarks"
+build = "hatch run clean-build && hatch build && mv dist/* ./outputs/build"
+workflow-test-unit = "hatch run clean-test-unit && pytest -vv --cov=library --cov-branch --cov-report=term-missing --cov-report=html:./outputs/test/unit/html --cov-report=xml:./outputs/test/unit/coverage.xml --cov-report=json:./outputs/test/unit/coverage.json --junitxml=./outputs/test/unit/junit.xml"
+workflow-test-benchmarks = "clean-test-benchmarks && pytest -vv --benchmark-enable --benchmark-json=./outputs/test/benchmarks/benchmark.json"
+
+[tool.hatch.build]
+include = [
+    "library/**/*.py",
+    "project/**/*",
+    "README.md",
+    "LICENSE",
+    "pyproject.toml",
+]
+exclude = [
+    "**/__pycache__/**",
+    "**/*.pyc",
+    ".github/**",
+    "test/**",
+    "docs/**",
+]
