@@ -1,0 +1,4 @@
+
+# public-value-1: "A-{{ public-value-2 }}"
+# public-value-2: "A.A-{{ public-value-3 }} A.B-{{ public-value-3 }}"
+# public-value-3: "{{ private-value-1 }} {{ private-value-2 }} {{ private-value-3 }}"

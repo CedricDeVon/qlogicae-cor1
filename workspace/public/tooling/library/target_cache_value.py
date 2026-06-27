@@ -7,3 +7,5 @@ class TargetCacheValue(Enum):
     FILE_PATH = 2
     FOLDER_PATH = 3
     DEFINED = 4
+
+# python3 -m devops.clean 

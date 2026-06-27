@@ -1,0 +1,8 @@
+all:  
+  workspace-projects:
+    - typescript
+
+root:
+
+projects:
+  
