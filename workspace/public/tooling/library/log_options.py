@@ -2,10 +2,7 @@ import logging
 from dataclasses import dataclass
 
 
-@dataclass(
-    frozen=True,
-    slots=True
-)
+@dataclass(frozen=True, slots=True)
 class LogOptions:
     is_enabled: bool = True
     is_verbose: bool = True

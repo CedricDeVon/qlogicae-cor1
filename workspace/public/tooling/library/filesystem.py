@@ -3,10 +3,11 @@ from pathlib import Path
 
 
 class FileSystem:
+    def get_root_workspace_folder(self):
+        return Path(__file__).resolve().parent.parent.parent.parent.parent
+
     def throw_if_filesystem_path_invalid(self, value):
-        path = Path(
-            value
-        )
+        path = Path(value)
 
         if not path.exists():
             raise Exception(f"Path '{path}' is invalid")
@@ -14,9 +15,7 @@ class FileSystem:
         return False
 
     def throw_if_file_path_invalid(self, value):
-        path = Path(
-            value
-        )
+        path = Path(value)
 
         if not path.is_file():
             raise Exception(f"File '{path}' is invalid")
@@ -24,9 +23,7 @@ class FileSystem:
         return False
 
     def throw_if_folder_path_invalid(self, value):
-        path = Path(
-            value
-        )
+        path = Path(value)
 
         if not path.is_dir():
             raise Exception(f"'{path}' is invalid")
@@ -34,25 +31,19 @@ class FileSystem:
         return False
 
     def is_filesystem_path_valid(self, value):
-        path = Path(
-            value
-        )
+        path = Path(value)
 
         if not path.exists():
             raise Exception(f"Path '{path}' is invalid")
 
     def is_file_path_valid(self, value):
-        path = Path(
-            value
-        )
+        path = Path(value)
 
         if not path.is_file():
             raise Exception(f"File '{path}' is invalid")
 
     def is_folder_path_valid(self, value):
-        path = Path(
-            value
-        )
+        path = Path(value)
 
         if not path.is_dir():
             raise Exception(f"'{path}' is invalid")
@@ -84,14 +75,9 @@ class FileSystem:
         return True
 
     def copy_filesystem_path(self, first_path, second_path):
-        shutil.copytree(
-            first_path,
-            second_path,
-            dirs_exist_ok=True
-        )
+        shutil.copytree(first_path, second_path, dirs_exist_ok=True)
 
         return True
 
 
 singleton = FileSystem()
-
