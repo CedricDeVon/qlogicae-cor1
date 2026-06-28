@@ -72,24 +72,34 @@ class Handler:
                 if not configuration_file.is_file():
                     continue
                                 
-                raw_data = {}
+                raw = {}
+                data = {}
+                metadata = {}
+                
                 with open(configuration_file.resolve(), "r", encoding="utf-8"
                 ) as current_file:
                     if any(suffix in {".yaml", ".yml"} for suffix in configuration_file.suffixes):
-                        raw_data = yaml.safe_load(current_file)                        
-
+                        raw = yaml.safe_load(current_file) or {}    
+                    
                     elif any(suffix in {".json"} for suffix in configuration_file.suffixes):
-                        raw_data = json.load(current_file)
+                        raw = json.load(current_file) or {}
 
                     else:
-                        raw_data = current_file.read()   
-
-                    raw_data = {} if raw_data["data"] is None else raw_data                    
-
+                        raw = current_file.read() or {}
 
                     value_cache.singleton.set_one_value(
+                        f"root-workspace/{scope_name}/configuration/{configuration_file.name}-raw",
+                        ({} if raw is None else raw) or {},
+                        target_cache_value=TargetCacheValue.ANY
+                    )
+                    value_cache.singleton.set_one_value(
                         f"root-workspace/{scope_name}/configuration/{configuration_file.name}-data",
-                        raw_data,
+                        ({} if not "data" in raw else raw["data"]) or {},
+                        target_cache_value=TargetCacheValue.ANY
+                    )
+                    value_cache.singleton.set_one_value(
+                        f"root-workspace/{scope_name}/configuration/{configuration_file.name}-metadata",
+                        ({} if not "metadata" in raw else raw["metadata"]) or {},
                         target_cache_value=TargetCacheValue.ANY
                     )
                     value_cache.singleton.set_one_value(
@@ -101,55 +111,63 @@ class Handler:
 
         # Parsed
         value_cache.singleton.set_one_value(
+            "root-selection-full-path",
+            f"{value_cache.singleton.get_one_value(
+                "root-current-full-path",
+                target_cache_value=TargetCacheValue.DEFINED
+            )}/selection",
+            target_cache_value=TargetCacheValue.DEFINED
+        )
+        value_cache.singleton.set_one_value(
             "project-selections",
             value_cache.singleton.get_one_value(
                 "root-workspace/public/configuration/settings.yaml-data",
                 target_cache_value=TargetCacheValue.DEFINED
-            )["data"]["project"]["selections"],
+            )["project"]["selections"],
             target_cache_value=TargetCacheValue.DEFINED
         )
+        value_cache.singleton.set_one_value(
+            "project-selections",
+            value_cache.singleton.get_one_value(
+                "root-workspace/public/configuration/settings.yaml-data",
+                target_cache_value=TargetCacheValue.DEFINED
+            )["project"]["selections"],
+            target_cache_value=TargetCacheValue.DEFINED
+        )
+        value_cache.singleton.set_one_value(
+            "all-value-cache-macros",
+            value_cache.singleton.get_one_value(
+                "root-workspace/public/configuration/settings.yaml-data",
+                target_cache_value=TargetCacheValue.DEFINED
+            )["all"]["value-cache-macros"],
+            target_cache_value=TargetCacheValue.DEFINED
+        )
+            
 
         value_cache.singleton.set_one_value(
             "all-macros",
-            value_cache.singleton.get_one_value(
-                "root-workspace/private/configuration/macros.yaml-data",
-                target_cache_value=TargetCacheValue.DEFINED
-            ) |
-            value_cache.singleton.get_one_value(
-                "root-workspace/public/configuration/macros.yaml-data",
-                target_cache_value=TargetCacheValue.DEFINED
+            macros.singleton.resolve_many(
+                {
+                    key: f"{value_cache.singleton.get_one_value(
+                        key,
+                        target_cache_value=TargetCacheValue.FOLDER_PATH
+                    )}"
+                    for key in value_cache.singleton.get_one_value(
+                        "all-value-cache-macros",
+                        target_cache_value=TargetCacheValue.DEFINED
+                    )
+                } |
+                value_cache.singleton.get_one_value(
+                    "root-workspace/private/configuration/macros.yaml-data",
+                    target_cache_value=TargetCacheValue.DEFINED
+                ) |
+                value_cache.singleton.get_one_value(
+                    "root-workspace/public/configuration/macros.yaml-data",
+                    target_cache_value=TargetCacheValue.DEFINED
+                )
             ),
             target_cache_value=TargetCacheValue.DEFINED
         )
-
-        # cache = {}
-        # values = value_cache.singleton.get_one_value(
-        #     "all-macros",
-        #     target_cache_value=TargetCacheValue.DEFINED
-        # )            
-
-        # resolved = {
-        #     key: resolve(
-        #         key,
-        #         values,
-        #         cache,
-        #         set()
-        #     )
-        #     for key in values
-        # }
-
-        # commands = {
-        #     "command": "{{ private-value-1 }}",
-        #     "another": "{{ public-value-2 }}"
-        # }
-
-        # expanded = {
-        #     key: expand(value, resolved)
-        #     for key, value in commands.items()
-        # }
-
-        # print(expanded)
-        
 
     def handle_shutdown(self):
         logger.singleton.shutdown()

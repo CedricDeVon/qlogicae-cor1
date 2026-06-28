@@ -1,6 +1,9 @@
 
 data:
   all:  
+    value-cache-macros:
+      - root-current-full-path
+      - root-selection-full-path
 
   root:
 

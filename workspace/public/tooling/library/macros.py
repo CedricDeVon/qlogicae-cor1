@@ -1,8 +1,5 @@
 import re
 
-from library import value_cache
-from library.target_cache_value import TargetCacheValue
-
 
 class Macros:
     def __init__(self):
@@ -10,7 +7,24 @@ class Macros:
             r"\{\{\s*([A-Za-z0-9._-]+)\s*\}\}"
         )
 
-    def resolve(
+    def resolve_many(
+        self,
+        values
+    ):
+        cache = {}
+
+        return {
+            key: self.resolve_one(
+                key,
+                values,
+                cache,
+                set()
+            )
+            for key in values
+        }
+
+    def resolve_one(
+        self,
         key,
         values,
         cache,
@@ -20,23 +34,28 @@ class Macros:
             return cache[key]
 
         if key in stack:
-            raise ValueError(
+            raise Exception(
                 f"Circular reference detected: {key}"
+            )
+
+        if key not in values:
+            raise Exception(
+                f"Unknown template: {key}"
             )
 
         stack.add(key)
 
         value = values[key]
 
-        def replace(match: re.Match) -> str:
+        if not isinstance(value, str):
+            cache[key] = value
+            stack.remove(key)
+            return value
+
+        def handle_parse_one(match):
             referenced_key = match.group(1)
 
-            if referenced_key not in values:
-                raise KeyError(
-                    f"Unknown template: {referenced_key}"
-                )
-
-            return resolve(
+            return self.resolve_one(
                 referenced_key,
                 values,
                 cache,
@@ -44,7 +63,7 @@ class Macros:
             )
 
         resolved = self.pattern.sub(
-            replace,
+            handle_parse_one,
             value
         )
 
@@ -54,13 +73,67 @@ class Macros:
 
         return resolved
 
-    def parse(text, resolved):
-        def replace(match: re.Match):
-            key = match.group(1)
-            return resolved.get(key, match.group(0))
+    def parse_many(
+        self,
+        values,
+        resolved
+    ):
+        return self.parse_one(
+            values,
+            resolved
+        )
 
-        return self.pattern.sub(replace, text)
+    def parse_one(
+        self,
+        value,
+        resolved
+    ):
+        if isinstance(value, str):
+            return self.pattern.sub(
+                lambda match: resolved.get(
+                    match.group(1),
+                    match.group(0)
+                ),
+                value
+            )
+
+        if isinstance(value, dict):
+            return {
+                key: self.parse_one(
+                    child,
+                    resolved
+                )
+                for key, child in value.items()
+            }
+
+        if isinstance(value, list):
+            return [
+                self.parse_one(
+                    child,
+                    resolved
+                )
+                for child in value
+            ]
+
+        if isinstance(value, tuple):
+            return tuple(
+                self.parse_one(
+                    child,
+                    resolved
+                )
+                for child in value
+            )
+
+        if isinstance(value, set):
+            return {
+                self.parse_one(
+                    child,
+                    resolved
+                )
+                for child in value
+            }
+
+        return value
 
 
 singleton = Macros()
-
