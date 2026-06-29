@@ -1,4 +1,4 @@
-class ValueCacheStorage:
+class ValueCacheStorageManager:
     collection = {}
 
     def __init__(self):
@@ -31,26 +31,24 @@ class ValueCacheStorage:
 
     def get_one_value(self, keys):
         if not keys:
-            raise ValueError("'keys' cannot be empty")
+            return None
 
         cache = self.collection
 
         for key in keys:
             if isinstance(cache, dict):
                 if key not in cache:
-                    raise KeyError(f"key '{key}' not found")
+                    return None
 
             elif isinstance(cache, (list, tuple)):
                 if not isinstance(key, int):
-                    raise TypeError(f"'{type(key).__name__}' is not an integer")
+                    return None
 
                 if key < 0 or key >= len(cache):
-                    raise IndexError(f"index '{key}' is out of range")
+                    return None
 
             else:
-                raise TypeError(
-                    f"cannot traverse into '{type(cache).__name__}'"
-                )
+                return None
 
             cache = cache[key]
 
@@ -73,20 +71,14 @@ class ValueCacheStorage:
                     if not create_missing:
                         raise KeyError(f"key '{key}' not found")
 
-                    cache[key] = {}
-
                 elif not isinstance(cache[key], (dict, list)):
-                    raise TypeError(
-                        f"key '{key}' does not reference a dictionary or list"
-                    )
+                    raise TypeError(f"key '{key}' does not reference a dictionary or list")
 
                 cache = cache[key]
 
             elif isinstance(cache, list):
                 if not isinstance(key, int):
-                    raise TypeError(
-                        f"expected an index, got '{type(key).__name__}'"
-                    )
+                    raise TypeError(f"expected an index, got '{type(key).__name__}'")
 
                 if key < 0 or key >= len(cache):
                     raise IndexError(f"index '{key}' is out of range")
@@ -94,9 +86,7 @@ class ValueCacheStorage:
                 cache = cache[key]
 
             else:
-                raise TypeError(
-                    f"cannot traverse into '{type(cache).__name__}'"
-                )
+                raise TypeError(f"cannot traverse into '{type(cache).__name__}'")
 
         last = keys[-1]
 
@@ -179,4 +169,4 @@ class ValueCacheStorage:
         return True
 
 
-singleton = ValueCacheStorage()
+singleton = ValueCacheStorageManager()

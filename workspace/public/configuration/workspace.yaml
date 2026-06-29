@@ -1,0 +1,87 @@
+
+data:
+  all:
+    macros:  
+      value-cache:
+        - root-current-full-path
+        - root-selection-full-path
+
+      file:
+        public-value: "{{ root-current-full-path }}/{{ private-value }}"
+
+  root:
+
+  project:
+    selections:
+      - typescript
+      - python
+
+    typescript:
+
+    python:
+
+metadata:
+
+
+
+# debug-value-cache:
+  #   description: "Displays all cache values"
+  #   epilog: "..."
+
+  # clean-temporary:
+  #   description: "Cleaning 'temporary' folders"
+  #   epilog: "..."
+
+  #   inputs:
+  #     workspace-target:
+  #       help: "The selected workspace folder"
+  #       input-type: "option"
+  #       output-type: "execution"
+  #       default: "all"
+
+
+  # verify-toolset:
+  #   description: "Verifying project toolset via version display confirmations"
+  #   epilog: "..."
+
+  #   inputs:
+  #     workspace-target:
+  #       help: "The selected workspace folder"
+  #       input-type: "option"
+  #       output-type: "execution"
+  #       default: "all"        
+
+  #   outputs:
+  #     workspace-target:
+  #       all:
+  #         - name: "docker"
+  #           command: "docker --version"
+
+  #         - name: "git"
+  #           command: "git --version"
+
+  #         - name: "github-cli"
+  #           command: "gh --version"
+
+  #       typescript:
+  #         - name: "node"
+  #           command: "node --version"
+
+  #         - name: "fnm"
+  #           command: "fnm --version"
+
+  #         - name: "npm"
+  #           command: "npm --version"
+
+  #         - name: "bun"
+  #           command: "bun --version"
+
+  #         - name: "corepack"
+  #           command: "bunx corepack --version"
+
+  #         - name: "pnpm"
+  #           command: "bunx pnpm --version"
+
+  #         - name: "yarn"
+  #           command: "bunx yarn --version"
+  

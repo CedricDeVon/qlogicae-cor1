@@ -4,7 +4,7 @@ from library.log_format import LogFormat
 from library.log_options import LogOptions
 
 
-class ConsoleLogger:
+class ConsoleLogManager:
     def __init__(self):
         self.logger = logging.getLogger("console-logger")
 
@@ -55,4 +55,4 @@ class ConsoleLogger:
         return self.log(message, options)
 
 
-singleton = ConsoleLogger()
+singleton = ConsoleLogManager()

@@ -3,7 +3,7 @@ import subprocess
 from pathlib import Path
 
 
-class System:
+class SystemManager:
     def change_cli_filesystem_path(
         self,
         value,
@@ -40,4 +40,4 @@ class System:
         return result.stdout.strip()
 
 
-singleton = System()
+singleton = SystemManager()

@@ -1,7 +1,7 @@
 import re
 
 
-class Macros:
+class MacrosManager:
     def __init__(self):
         self.pattern = re.compile(r"\{\{\s*([A-Za-z0-9._-]+)\s*\}\}")
 
@@ -72,4 +72,4 @@ class Macros:
         return value
 
 
-singleton = Macros()
+singleton = MacrosManager()

@@ -1,17 +1,17 @@
 import logging
 
-from library import console_logger, file_logger
+from library import console_log_manager, file_log_manager
 from library.log_options import LogOptions
 
 
-class Logger:
+class LogManager:
     def log(
         self,
         message,
         console_options=LogOptions(is_verbose=False),
         file_options=LogOptions(),
     ):
-        console_logger.singleton.log(
+        console_log_manager.singleton.log(
             message,
             LogOptions(
                 is_enabled=console_options.is_enabled,
@@ -21,7 +21,7 @@ class Logger:
             ),
         )
 
-        file_logger.singleton.log(
+        file_log_manager.singleton.log(
             message,
             LogOptions(
                 is_enabled=file_options.is_enabled,
@@ -76,9 +76,9 @@ class Logger:
         return self.log(message, console_options, file_options)
 
     def shutdown(self):
-        file_logger.singleton.shutdown()
+        file_log_manager.singleton.shutdown()
 
         return True
 
 
-singleton = Logger()
+singleton = LogManager()

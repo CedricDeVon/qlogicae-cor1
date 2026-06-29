@@ -7,7 +7,7 @@ from library.log_format import LogFormat
 from library.log_options import LogOptions
 
 
-class FileLogger:
+class FileLogManager:
     def __init__(self):
         self.logger = logging.getLogger("file-logger")
 
@@ -124,4 +124,4 @@ class FileLogger:
         return True
 
 
-singleton = FileLogger()
+singleton = FileLogManager()
