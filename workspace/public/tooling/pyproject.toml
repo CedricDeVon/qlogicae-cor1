@@ -54,7 +54,6 @@ skip-magic-trailing-comma = false
 [tool.hatch.envs.default.scripts]
 lint = "ruff check ."
 format = "ruff format ."
-audit-security = "pip-audit"
 
 [tool.hatch.envs.default]
 skip-install = true

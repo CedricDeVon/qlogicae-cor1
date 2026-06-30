@@ -72,13 +72,17 @@ class ValueCacheStorageManager:
                         raise KeyError(f"key '{key}' not found")
 
                 elif not isinstance(cache[key], (dict, list)):
-                    raise TypeError(f"key '{key}' does not reference a dictionary or list")
+                    raise TypeError(
+                        f"key '{key}' does not reference a dictionary or list"
+                    )
 
                 cache = cache[key]
 
             elif isinstance(cache, list):
                 if not isinstance(key, int):
-                    raise TypeError(f"expected an index, got '{type(key).__name__}'")
+                    raise TypeError(
+                        f"expected an index, got '{type(key).__name__}'"
+                    )
 
                 if key < 0 or key >= len(cache):
                     raise IndexError(f"index '{key}' is out of range")
@@ -86,7 +90,9 @@ class ValueCacheStorageManager:
                 cache = cache[key]
 
             else:
-                raise TypeError(f"cannot traverse into '{type(cache).__name__}'")
+                raise TypeError(
+                    f"cannot traverse into '{type(cache).__name__}'"
+                )
 
         last = keys[-1]
 
@@ -158,7 +164,7 @@ class ValueCacheStorageManager:
         return True
 
     def display_one_item(self, key):
-        print(f"{key}: {self.collection[key]}")
+        print(f"- {key}: {self.collection[key]}")
 
         return True
 

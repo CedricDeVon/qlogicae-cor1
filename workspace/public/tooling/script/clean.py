@@ -2,86 +2,77 @@ import argparse
 import os
 
 from library import (
-    filesystem,
-    handler,
-    value_cache,
+    filesystem_manager,
+    handler_manager,
+    macros_manager,
+    value_cache_manager,
 )
 from library.target_cache_value import TargetCacheValue
 
 
-def handle_all_target_option():
-    handle_root_target_option()
-    handle_projects_target_option()
-
-
-def handle_root_target_option():
-    os.chdir(
-        f"{
-            value_cache.singleton.get_one_value(
-                'root-current-full-path',
-                target_cache_value=TargetCacheValue.FOLDER_PATH,
-            )
-        }"
+def handler_manager_callback():
+    cli_parser = argparse.ArgumentParser(
+        description="clean tool",
+        epilog="...",
     )
 
-    filesystem.singleton.clean_filesystem_path(
-        f"{
-            value_cache.singleton.get_one_value(
-                'root-current-full-path',
-                target_cache_value=TargetCacheValue.FOLDER_PATH,
-            )
-        }/workspace/private/temporary"
+    cli_parser.add_argument(
+        "-t",
+        "--target",
+        dest="target",
+        help="target paths",
+        choices=(value_cache_manager.singleton.get_one_value(
+            ["all-clean-include-targets"],
+            target_cache_value=TargetCacheValue.DEFINED,
+        ) or {}),
     )
 
+    cli_parser.add_argument(
+        "-td",
+        "--target-display",
+        dest="target_display",
+        help="displays target filesystem paths",
+        action=argparse.BooleanOptionalAction,
+        default=False,
+    )    
 
-def handle_projects_target_option():
-    for project_name in value_cache.singleton.get_one_value(
-        "project-selections",
+    cli_arguments = cli_parser.parse_args()
+
+    for include_path in value_cache_manager.singleton.get_one_value(
+        [
+            f"root-workspace/public/configuration/workspace.yaml-raw",
+            "data",
+            "all",
+            "clean",
+            "include",
+            "targets",
+            cli_arguments.target,
+        ],
         target_cache_value=TargetCacheValue.DEFINED,
-    ):
-        handle_project_target_option(project_name)
+    ) or {}:      
+        parsed_include_path = macros_manager.singleton.parse_one(
+            include_path,
+            (value_cache_manager.singleton.get_one_value(
+                ["all-macros"],
+                target_cache_value=TargetCacheValue.DEFINED,
+            ) or {})
+        )
 
+        if parsed_include_path in (value_cache_manager.singleton.get_one_value(
+            ["all-clean-exclude-targets"],
+            target_cache_value=TargetCacheValue.DEFINED,
+        ) or {}):
+            continue
 
-def handle_project_target_option(project_name):
-    os.chdir(
-        f"{
-            value_cache.singleton.get_one_value(
-                'root-current-full-path',
-                target_cache_value=TargetCacheValue.FOLDER_PATH,
-            )
-        }/selection/{project_name}"
-    )
+        if cli_arguments.target_display:
+            print(parsed_include_path)
+            continue        
 
-    filesystem.singleton.clean_filesystem_path(
-        f"{
-            value_cache.singleton.get_one_value(
-                'root-current-full-path',
-                target_cache_value=TargetCacheValue.FOLDER_PATH,
-            )
-        }/{project_name}/workspace/private/temporary"
-    )
+        filesystem_manager.singleton.clean_filesystem_path(
+            parsed_include_path
+        )
 
+handler_manager.singleton.handle(
+    handler_manager_callback
+)
 
-cli_parser = argparse.ArgumentParser()
-
-cli_parser.add_argument("--target", default="all")
-
-cli_arguments = cli_parser.parse_args()
-
-handler.singleton.handle_setup()
-
-if "all" in cli_arguments.target:
-    handle_all_target_option()
-
-elif "root" in cli_arguments.target:
-    handle_root_target_option()
-
-elif "projects" in cli_arguments.target:
-    handle_projects_target_option()
-
-elif cli_arguments.target in value_cache.singleton.get_one_value(
-    "project-selections", target_cache_value=TargetCacheValue.DEFINED
-):
-    handle_project_target_option(cli_arguments.target)
-
-handler.singleton.handle_shutdown()

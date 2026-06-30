@@ -4,10 +4,35 @@ data:
     macros:  
       value-cache:
         - root-current-full-path
-        - root-selection-full-path
-
+        
       file:
         public-value: "{{ root-current-full-path }}/{{ private-value }}"
+
+    clean:
+      exclude:
+        targets:
+          - "{{ root-current-full-path }}"
+          - "{{ root-current-full-path }}/selection"
+          - "{{ root-current-full-path }}/workspace"
+          - "{{ root-current-full-path }}/github"  
+          - "{{ root-current-full-path }}/.temporary"            
+
+      include:
+        targets:
+          root-temporary:
+            - "{{ root-current-full-path }}/workspace/private/temporary/log"
+            - "{{ root-current-full-path }}/workspace/private/temporary/cache"
+
+          typescript-temporary:
+            - "{{ root-current-full-path }}/selection/typescript/output"
+
+          python-temporary:            
+            - "{{ root-current-full-path }}/selection/python/.benchmarks"
+            - "{{ root-current-full-path }}/selection/python/.pytest_cache"
+            - "{{ root-current-full-path }}/selection/python/.ruff_cache"
+            - "{{ root-current-full-path }}/selection/python/build"
+            - "{{ root-current-full-path }}/selection/python/dist"
+            - "{{ root-current-full-path }}/selection/python/output"
 
   root:
 
