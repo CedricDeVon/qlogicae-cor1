@@ -1,8 +1,10 @@
 import os
 import shlex
 import subprocess
-from collections.abc import Sequence
 from pathlib import Path
+from collections.abc import Sequence
+
+from library.execute_command_return import ExecuteCommandReturn
 
 
 class SystemManager:
@@ -27,6 +29,7 @@ class SystemManager:
     def execute_command(
         self,
         command,
+        return_type=ExecuteCommandReturn.MINIMAL_RETURN
     ):
         if not command:
             raise ValueError("command cannot be empty")
@@ -37,29 +40,22 @@ class SystemManager:
         elif not isinstance(command, Sequence):
             raise TypeError("command must be a string or a sequence")
 
-        return subprocess.run(
-            command,
-            check=True,
-            text=True,
-            encoding="utf-8",
-        )
 
+        match return_type:
+            case ExecuteCommandReturn.MINIMAL_RETURN:
+                return subprocess.run(
+                    command,
+                    check=True,
+                    text=True,
+                    encoding="utf-8",
+                )
 
+            case ExecuteCommandReturn.FULL_RETURN:
+                return subprocess.check_output(
+                    command,
+                    text=True,
+                    encoding="utf-8",
+                ).strip()
+
+        
 singleton = SystemManager()
-
-# def execute_command(
-#     self,
-#     command,
-# ):
-#     if not command:
-#         raise Exception("command cannot be empty")
-
-#     result = subprocess.run(
-#         command.split(),
-#         check=True,
-#         capture_output=True,
-#         text=True,
-#         encoding="utf-8",
-#     )
-
-#     return result.stdout.strip()

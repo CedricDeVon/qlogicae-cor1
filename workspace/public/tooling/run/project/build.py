@@ -2,19 +2,19 @@ import argparse
 import subprocess
 
 from library.target_cache_value import TargetCacheValue
-from library import log_manager, system_manager, handler_manager, value_cache_manager, macros_manager
+from library.execute_command_return import ExecuteCommandReturn
+from library import log_manager, system_manager, handler_manager, value_cache_manager, macros_manager, filesystem_manager
 
 
 def handle_manager_callback():
     cli_parser = argparse.ArgumentParser(
-        description="linting tool",
+        description="'run.project.build' command",
         epilog="...",
     )
-
     cli_parser.add_argument(
         "-t",
         "--target",
-        help="target",
+        help="workspace target",
         dest="target",
         default=value_cache_manager.singleton.get_one_value(
             ["all-workspace-target"],
@@ -25,7 +25,6 @@ def handle_manager_callback():
             target_cache_value=TargetCacheValue.DEFINED,
         ) or {})
     )
-
     cli_arguments = cli_parser.parse_args()      
 
 
@@ -38,7 +37,6 @@ def handle_manager_callback():
                     "all",
                     "full-path",
                     cli_arguments.target
-                    
                 ],                
                 target_cache_value=TargetCacheValue.DEFINED,
             ),
@@ -53,9 +51,15 @@ def handle_manager_callback():
     if cli_arguments.target == "typescript":        
         log_manager.singleton.log_info(
             system_manager.singleton.execute_command(
-                "bun run lint"
+                "bun run build",
+                ExecuteCommandReturn.FULL_RETURN
             )                 
         )   
+
+    else:
+        log_manager.singleton.log_info(
+            f"'{cli_arguments}' is not an existing cli option set"
+        )
 
 
     system_manager.singleton.change_cli_filesystem_path(

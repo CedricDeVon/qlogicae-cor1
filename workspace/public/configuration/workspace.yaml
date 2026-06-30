@@ -6,12 +6,12 @@ data:
 
       default:
         targets:
-          - all
           - root
 
       project:
         targets:
           - typescript
+          - python
 
     clean:
       exclude:
@@ -41,6 +41,7 @@ data:
     full-path:
       root: "{{ root-current-full-path }}"
       typescript: "{{ root-current-full-path }}/selection/typescript"
+      python: "{{ root-current-full-path }}/selection/python"
 
   root:
 
