@@ -4,7 +4,7 @@ from library import handler_manager, value_cache_manager
 
 def handle_manager_callback():
     cli_parser = argparse.ArgumentParser(
-        description="debug tool",
+        description="debugging tool",
         epilog="...",
     )
 
@@ -13,18 +13,19 @@ def handle_manager_callback():
         "--target",
         help="target",
         dest="target",
-        default="cache",
+        default="value-cache",
         choices={
-            "cache"
+            "value-cache"
         },
     )
 
     cli_arguments = cli_parser.parse_args()
 
-    if cli_arguments.target == "cache":
+    if cli_arguments.target == "value-cache":
         value_cache_manager.singleton.display_all_items()
 
 
 handler_manager.singleton.handle(
     handle_manager_callback
 )
+

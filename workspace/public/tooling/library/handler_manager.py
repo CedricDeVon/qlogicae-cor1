@@ -100,20 +100,74 @@ class HandlerManager:
                 
 
         value_cache_manager.singleton.set_one_value(
-            ["all-workspace-targets"],
-            {"all", "root"}
-            | set(
+            ["all-workspace-default-targets"],
+            set(
                 value_cache_manager.singleton.get_one_value(
                     [
                         f"root-workspace/public/configuration/workspace.yaml-raw",
                         "data",
-                        "project",
-                        "selections",
+                        "all",
+                        "selection",
+                        "default",
+                        "targets",
                     ],
                     target_cache_value=TargetCacheValue.ANY,
                 )
                 or []
             ),
+        )
+
+        value_cache_manager.singleton.set_one_value(
+            ["all-workspace-project-targets"],
+            set(
+                value_cache_manager.singleton.get_one_value(
+                    [
+                        f"root-workspace/public/configuration/workspace.yaml-raw",
+                        "data",
+                        "all",
+                        "selection",
+                        "project",
+                        "targets",
+                    ],
+                    target_cache_value=TargetCacheValue.ANY,
+                )
+                or []
+            ),
+        )
+
+        value_cache_manager.singleton.set_one_value(
+            ["all-workspace-targets"],
+            set(
+                value_cache_manager.singleton.get_one_value(
+                    [
+                        "all-workspace-default-targets"
+                    ],
+                    target_cache_value=TargetCacheValue.ANY,
+                )
+                or []
+            ) | set(
+                value_cache_manager.singleton.get_one_value(
+                    [
+                        "all-workspace-project-targets"
+                    ],
+                    target_cache_value=TargetCacheValue.ANY,
+                )
+                or []
+            )
+        )        
+
+        value_cache_manager.singleton.set_one_value(
+            ["all-workspace-target"],
+            value_cache_manager.singleton.get_one_value(
+                [
+                    f"root-workspace/public/configuration/workspace.yaml-raw",
+                    "data",
+                    "all",
+                    "selection",
+                    "target",
+                ],
+                target_cache_value=TargetCacheValue.ANY,
+            )
         )
 
         value_cache_manager.singleton.set_one_value(

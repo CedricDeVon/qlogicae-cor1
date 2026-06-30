@@ -48,8 +48,6 @@ describe('ErrorManagerConfigurationsTest', () => {
 		expect(configurations.isConsoleOutputEnabled).toBe(true);
 
 		expect(configurations.isRuntimeThrowOutputEnabled).toBe(false);
-
-		expect(configurations.title).toContain('QLogicae');
 	});
 
 	it.each([

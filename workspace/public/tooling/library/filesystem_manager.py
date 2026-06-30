@@ -79,5 +79,16 @@ class FileSystem:
 
         return True
 
+    def move_filesystem_path(self, first_path, second_path):
+        source = Path(first_path)
+        destination = Path(second_path)
+
+        destination.mkdir(parents=True, exist_ok=True)
+
+        for path in source.iterdir():
+            shutil.move(path, destination / path.name)
+
+        return True
+
 
 singleton = FileSystem()

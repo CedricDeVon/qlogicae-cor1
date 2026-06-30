@@ -1,12 +1,17 @@
 
 data:
-  all:
-    macros:  
-      value-cache:
-        - root-current-full-path
-        
-      file:
-        public-value: "{{ root-current-full-path }}/{{ private-value }}"
+  all:    
+    selection:
+      target: "typescript"
+
+      default:
+        targets:
+          - all
+          - root
+
+      project:
+        targets:
+          - typescript
 
     clean:
       exclude:
@@ -26,24 +31,20 @@ data:
           typescript-temporary:
             - "{{ root-current-full-path }}/selection/typescript/output"
 
-          python-temporary:            
-            - "{{ root-current-full-path }}/selection/python/.benchmarks"
-            - "{{ root-current-full-path }}/selection/python/.pytest_cache"
-            - "{{ root-current-full-path }}/selection/python/.ruff_cache"
-            - "{{ root-current-full-path }}/selection/python/build"
-            - "{{ root-current-full-path }}/selection/python/dist"
-            - "{{ root-current-full-path }}/selection/python/output"
+    macros:  
+      value-cache:
+        - root-current-full-path
+        
+      file:
+        public-value: "{{ root-current-full-path }}/{{ private-value }}"
+
+    full-path:
+      root: "{{ root-current-full-path }}"
+      typescript: "{{ root-current-full-path }}/selection/typescript"
 
   root:
 
-  project:
-    selections:
-      - typescript
-      - python
-
-    typescript:
-
-    python:
+  project:    
 
 metadata:
 

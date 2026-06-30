@@ -12,7 +12,7 @@ from library.target_cache_value import TargetCacheValue
 
 def handler_manager_callback():
     cli_parser = argparse.ArgumentParser(
-        description="clean tool",
+        description="cleaning tool",
         epilog="...",
     )
 
@@ -71,6 +71,7 @@ def handler_manager_callback():
         filesystem_manager.singleton.clean_filesystem_path(
             parsed_include_path
         )
+
 
 handler_manager.singleton.handle(
     handler_manager_callback

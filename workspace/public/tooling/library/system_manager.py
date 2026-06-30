@@ -1,5 +1,7 @@
 import os
+import shlex
 import subprocess
+from collections.abc import Sequence
 from pathlib import Path
 
 
@@ -27,17 +29,37 @@ class SystemManager:
         command,
     ):
         if not command:
-            raise Exception("command cannot be empty")
+            raise ValueError("command cannot be empty")
 
-        result = subprocess.run(
+        if isinstance(command, str):
+            command = shlex.split(command)
+            
+        elif not isinstance(command, Sequence):
+            raise TypeError("command must be a string or a sequence")
+
+        return subprocess.run(
             command,
             check=True,
-            capture_output=True,
             text=True,
             encoding="utf-8",
         )
 
-        return result.stdout.strip()
-
 
 singleton = SystemManager()
+
+# def execute_command(
+#     self,
+#     command,
+# ):
+#     if not command:
+#         raise Exception("command cannot be empty")
+
+#     result = subprocess.run(
+#         command.split(),
+#         check=True,
+#         capture_output=True,
+#         text=True,
+#         encoding="utf-8",
+#     )
+
+#     return result.stdout.strip()
