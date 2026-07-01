@@ -281,6 +281,44 @@ class HandlerManager:
         )
 
         value_cache_manager.singleton.set_one_value(
+            ["all-script-targets"],
+            {
+                key for key, value in
+                (
+                    (value_cache_manager.singleton.get_one_value(
+                    [
+                        f"root-workspace/public/configuration/workspace.yaml-raw",
+                        "data",
+                        "all",
+                        "script",
+                        "targets",
+                    ],
+                    target_cache_value=TargetCacheValue.ANY,
+                    ) or {})
+                ).items()
+            },
+        )
+
+        value_cache_manager.singleton.set_one_value(
+            ["all-script-types"],
+            {
+                key for key in
+                (
+                    (value_cache_manager.singleton.get_one_value(
+                    [
+                        f"root-workspace/public/configuration/workspace.yaml-raw",
+                        "data",
+                        "all",
+                        "script",
+                        "types",
+                    ],
+                    target_cache_value=TargetCacheValue.ANY,
+                    ) or {})
+                )
+            },
+        )
+
+        value_cache_manager.singleton.set_one_value(
             ["root-workspace/private/temporary/log/all.log-full-path"],
             f"{
                 value_cache_manager.singleton.get_one_value(

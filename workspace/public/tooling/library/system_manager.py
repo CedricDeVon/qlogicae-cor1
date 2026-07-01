@@ -57,5 +57,6 @@ class SystemManager:
                     encoding="utf-8",
                 ).strip()
 
+
         
 singleton = SystemManager()

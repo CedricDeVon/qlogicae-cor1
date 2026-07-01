@@ -15,6 +15,129 @@ data:
           - typescript
           - python
 
+
+    script:
+      types:
+        - individual
+        - collection
+
+      targets:
+        all-toolset-verify:
+          type: "collection"
+          commands:
+            - typescript-toolset-verify    
+
+        typescript-toolset-verify:
+          enter-full-path: "{{ root-current-full-path }}/selection/typescript"
+          type: "individual"
+          commands:
+            - "docker --version"
+            - 'git --version'
+            - 'gh --version'
+            - 'node --version'
+            - 'fnm --version'
+            - 'npm --version'
+            - 'bun --version'
+            - 'bunx corepack --version'
+            - 'bunx pnpm --version'
+            - 'bunx yarn --version'
+
+        all-test-unit:
+          type: "collection"
+          commands:
+            - typescript-test-unit      
+
+        typescript-test-unit:
+          enter-full-path: "{{ root-current-full-path }}/selection/typescript"
+          type: "individual"
+          commands:
+            - "bun run test:unit"
+
+
+        all-test-benchmark:
+          type: "collection"
+          commands:
+            - typescript-test-benchmark    
+
+        typescript-test-benchmark:
+          enter-full-path: "{{ root-current-full-path }}/selection/typescript"
+          type: "individual"
+          commands:
+            - "bun run test:benchmark"
+
+
+        all-codebase-format:
+          type: "collection"
+          commands:
+            - typescript-codebase-format    
+
+        typescript-codebase-format:
+          enter-full-path: "{{ root-current-full-path }}/selection/typescript"
+          type: "individual"
+          commands:
+            - "bun run format"
+
+
+        all-codebase-lint:
+          type: "collection"
+          commands:
+            - typescript-codebase-lint    
+
+        typescript-codebase-lint:
+          enter-full-path: "{{ root-current-full-path }}/selection/typescript"
+          type: "individual"
+          commands:
+            - "bun run lint"
+
+
+        all-project-build:
+          type: "collection"
+          commands:
+            - typescript-project-build    
+
+        typescript-project-build:
+          enter-full-path: "{{ root-current-full-path }}/selection/typescript"
+          type: "individual"
+  # 
+          commands:
+            - "bun run build"
+
+
+        all-project-setup:
+          type: "collection"
+          commands:
+            - typescript-project-setup    
+
+        typescript-project-setup:
+          enter-full-path: "{{ root-current-full-path }}/selection/typescript"
+          type: "individual"
+          commands:
+            - "bun install"
+
+
+        all-project-update:
+          type: "collection"
+          commands:
+            - typescript-project-update    
+
+        typescript-project-update:
+          enter-full-path: "{{ root-current-full-path }}/selection/typescript"
+          type: "individual"
+          commands:
+            - "bun update"
+
+
+        all-project-deploy:
+          type: "collection"
+          commands:
+            - typescript-project-deploy    
+
+        typescript-project-deploy:
+          enter-full-path: "{{ root-current-full-path }}/selection/typescript"
+          type: "individual"
+          commands:
+            - "bun run deploy"
+
     clean:
       exclude:
         targets:
@@ -33,12 +156,14 @@ data:
           typescript-temporary:
             - "{{ root-current-full-path }}/selection/typescript/output"
 
+
     macros:  
       value-cache:
         - root-current-full-path
         
       file:
         public-value: "{{ root-current-full-path }}/{{ private-value }}"
+
 
     full-path:
       root: "{{ root-current-full-path }}"
@@ -51,66 +176,3 @@ data:
 
 metadata:
 
-
-
-# debug-value-cache:
-  #   description: "Displays all cache values"
-  #   epilog: "..."
-
-  # clean-temporary:
-  #   description: "Cleaning 'temporary' folders"
-  #   epilog: "..."
-
-  #   inputs:
-  #     workspace-target:
-  #       help: "The selected workspace folder"
-  #       input-type: "option"
-  #       output-type: "execution"
-  #       default: "all"
-
-
-  # verify-toolset:
-  #   description: "Verifying project toolset via version display confirmations"
-  #   epilog: "..."
-
-  #   inputs:
-  #     workspace-target:
-  #       help: "The selected workspace folder"
-  #       input-type: "option"
-  #       output-type: "execution"
-  #       default: "all"        
-
-  #   outputs:
-  #     workspace-target:
-  #       all:
-  #         - name: "docker"
-  #           command: "docker --version"
-
-  #         - name: "git"
-  #           command: "git --version"
-
-  #         - name: "github-cli"
-  #           command: "gh --version"
-
-  #       typescript:
-  #         - name: "node"
-  #           command: "node --version"
-
-  #         - name: "fnm"
-  #           command: "fnm --version"
-
-  #         - name: "npm"
-  #           command: "npm --version"
-
-  #         - name: "bun"
-  #           command: "bun --version"
-
-  #         - name: "corepack"
-  #           command: "bunx corepack --version"
-
-  #         - name: "pnpm"
-  #           command: "bunx pnpm --version"
-
-  #         - name: "yarn"
-  #           command: "bunx yarn --version"
-  
