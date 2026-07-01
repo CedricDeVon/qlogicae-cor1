@@ -1,14 +1,13 @@
 import argparse
-import subprocess
 
 from library.target_cache_value import TargetCacheValue
 from library.execute_command_return import ExecuteCommandReturn
-from library import log_manager, system_manager, handler_manager, value_cache_manager, macros_manager, filesystem_manager
+from library import log_manager, system_manager, handler_manager, value_cache_manager, macros_manager
 
 
 def handle_manager_callback():
     cli_parser = argparse.ArgumentParser(
-        description="'run.project.build' command",
+        description="'project.build' command",
         epilog="...",
     )
     cli_parser.add_argument(
@@ -21,13 +20,52 @@ def handle_manager_callback():
             target_cache_value=TargetCacheValue.DEFINED,
         ),
         choices=(value_cache_manager.singleton.get_one_value(
-            ["all-workspace-project-targets"],
+            ["all-workspace-targets"],
             target_cache_value=TargetCacheValue.DEFINED,
         ) or {})
     )
     cli_arguments = cli_parser.parse_args()      
 
 
+    if cli_arguments.target == "all":
+        handle_target_root()
+        handle_target_project()
+
+    elif cli_arguments.target == "root":
+        handle_target_root()
+
+    elif cli_arguments.target == "project":
+        handle_target_project()
+
+    elif cli_arguments.target in value_cache_manager.singleton.get_one_value(
+        ["all-workspace-project-targets"],
+        target_cache_value=TargetCacheValue.DEFINED,
+    ):
+        handle_target_project_selection(
+            cli_arguments.target
+        )
+
+    else:
+        handler_manager.singleton.handle_cli_argument_set_invalid(
+            cli_arguments
+        )
+
+
+def handle_target_root():
+    pass
+
+
+def handle_target_project():
+    for project_name in value_cache_manager.singleton.get_one_value(
+        ["all-workspace-project-targets"],
+        target_cache_value=TargetCacheValue.DEFINED,
+    ):
+        handle_target_project_selection(
+            project_name
+        )
+
+
+def handle_target_project_selection(project_name):
     system_manager.singleton.change_cli_filesystem_path(
         macros_manager.singleton.parse_one(
             value_cache_manager.singleton.get_one_value(
@@ -36,7 +74,7 @@ def handle_manager_callback():
                     "data",
                     "all",
                     "full-path",
-                    cli_arguments.target
+                    project_name
                 ],                
                 target_cache_value=TargetCacheValue.DEFINED,
             ),
@@ -47,20 +85,14 @@ def handle_manager_callback():
         )
     )
 
-
-    if cli_arguments.target == "typescript":        
-        log_manager.singleton.log_info(
-            system_manager.singleton.execute_command(
-                "bun run build",
-                ExecuteCommandReturn.FULL_RETURN
-            )                 
-        )   
-
-    else:
-        log_manager.singleton.log_info(
-            f"'{cli_arguments}' is not an existing cli option set"
-        )
-
+    match project_name:
+        case "typescript":
+            log_manager.singleton.log_info(
+                system_manager.singleton.execute_command(
+                    "bun run build",
+                    ExecuteCommandReturn.MINIMAL_RETURN
+                )                 
+            )
 
     system_manager.singleton.change_cli_filesystem_path(
         f"{value_cache_manager.singleton.get_one_value(

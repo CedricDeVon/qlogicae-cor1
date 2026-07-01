@@ -14,7 +14,7 @@ from library.execute_command_return import ExecuteCommandReturn
 
 def handler_manager_callback():
     cli_parser = argparse.ArgumentParser(
-        description="'run.filesystem.clean' command",
+        description="'filesystem.clean' command",
         epilog="...",
     )
     cli_parser.add_argument(

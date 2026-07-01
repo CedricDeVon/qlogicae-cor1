@@ -302,6 +302,11 @@ class HandlerManager:
     def handle_shutdown(self):
         log_manager.singleton.shutdown()
 
+    def handle_cli_argument_set_invalid(self, cli_arguments):
+        log_manager.singleton.log_info(
+            f"'{cli_arguments}' is not an existing cli option set"
+        )
+
     def handle(self, callback):
         self.handle_setup()
 

@@ -6,7 +6,9 @@ data:
 
       default:
         targets:
+          - all
           - root
+          - project
 
       project:
         targets:
