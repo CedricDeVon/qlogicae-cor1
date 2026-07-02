@@ -22,6 +22,16 @@ data:
         - collection
 
       targets:
+        all-value-cache-debug:
+          enter-full-path: "{{ root-current-full-path }}/workspace/public/tooling"
+          type: "individual"
+          commands:
+            - "python3 -c \"
+              from library import handler_manager, value_cache_storage_manager;
+              handler_manager.singleton.handle_setup();
+              value_cache_storage_manager.singleton.display_all_items();
+              handler_manager.singleton.handle_shutdown();\""
+
         all-toolset-verify:
           type: "collection"
           commands:
@@ -162,12 +172,18 @@ data:
         - root-current-full-path
         
       file:
-        public-value: "{{ root-current-full-path }}/{{ private-value }}"
+        root-project-name: "QLogicae Cor1"
+        current-year: "2026"
+        company-name: "QLogicae"
+        author-name: "Vaughn Cedric L. Araneta"
+        author-email: "vaughncedriclipardoaraneta@gmail.com"
 
 
     full-path:
       root: "{{ root-current-full-path }}"
+
       typescript: "{{ root-current-full-path }}/selection/typescript"
+      
       python: "{{ root-current-full-path }}/selection/python"
 
   root:

@@ -1,4 +1,8 @@
-from library import filesystem_manager, value_cache_storage_manager
+from library import (
+    filesystem_manager,
+    value_cache_storage_manager,
+    macros_manager,
+)
 from library.target_cache_value import TargetCacheValue
 
 

@@ -168,11 +168,11 @@ class ValueCacheStorageManager:
 
         return True
 
-    def display_all_items(self):    
+    def display_all_items(self):
         for item in self.collection.items():
             self.display_one_item(item[0])
 
         return True
-        
+
 
 singleton = ValueCacheStorageManager()

@@ -20,7 +20,7 @@ class HandlerManager:
             ["root-current-full-path"],
             filesystem_manager.singleton.get_root_workspace_folder(),
             target_cache_value=TargetCacheValue.FOLDER_PATH,
-        )    
+        )
         value_cache_manager.singleton.set_one_value(
             ["root-original-console-full-path"],
             Path.cwd(),
@@ -47,8 +47,8 @@ class HandlerManager:
                 ["root-current-full-path"],
                 target_cache_value=TargetCacheValue.FOLDER_PATH,
             )
-        )            
-        
+        )
+
         for scope_name in ["private", "public"]:
             for configuration_file in Path(
                 f"{
@@ -97,7 +97,6 @@ class HandlerManager:
                         configuration_file.resolve(),
                         target_cache_value=TargetCacheValue.FILE_PATH,
                     )
-                
 
         value_cache_manager.singleton.set_one_value(
             ["all-workspace-default-targets"],
@@ -139,22 +138,19 @@ class HandlerManager:
             ["all-workspace-targets"],
             set(
                 value_cache_manager.singleton.get_one_value(
-                    [
-                        "all-workspace-default-targets"
-                    ],
-                    target_cache_value=TargetCacheValue.ANY,
-                )
-                or []
-            ) | set(
-                value_cache_manager.singleton.get_one_value(
-                    [
-                        "all-workspace-project-targets"
-                    ],
+                    ["all-workspace-default-targets"],
                     target_cache_value=TargetCacheValue.ANY,
                 )
                 or []
             )
-        )        
+            | set(
+                value_cache_manager.singleton.get_one_value(
+                    ["all-workspace-project-targets"],
+                    target_cache_value=TargetCacheValue.ANY,
+                )
+                or []
+            ),
+        )
 
         value_cache_manager.singleton.set_one_value(
             ["all-workspace-target"],
@@ -167,7 +163,7 @@ class HandlerManager:
                     "target",
                 ],
                 target_cache_value=TargetCacheValue.ANY,
-            )
+            ),
         )
 
         value_cache_manager.singleton.set_one_value(
@@ -230,71 +226,83 @@ class HandlerManager:
                             "file",
                         ],
                         target_cache_value=TargetCacheValue.ANY,
-                    ) or {}
+                    )
+                    or {}
                 )
-            ) or {},
+            )
+            or {},
             target_cache_value=TargetCacheValue.ANY,
-        )        
+        )
 
         value_cache_manager.singleton.set_one_value(
             ["all-clean-exclude-targets"],
             {
                 macros_manager.singleton.parse_one(
                     value,
-                    (value_cache_manager.singleton.get_one_value(
+                    (
+                        value_cache_manager.singleton.get_one_value(
+                            [
+                                f"all-macros",
+                            ],
+                            target_cache_value=TargetCacheValue.ANY,
+                        )
+                        or {}
+                    ),
+                )
+                for value in (
+                    value_cache_manager.singleton.get_one_value(
                         [
-                            f"all-macros",
+                            f"root-workspace/public/configuration/workspace.yaml-raw",
+                            "data",
+                            "all",
+                            "clean",
+                            "exclude",
+                            "targets",
                         ],
                         target_cache_value=TargetCacheValue.ANY,
-                    ) or {})
-                ) for value in
-                (value_cache_manager.singleton.get_one_value(
-                    [
-                        f"root-workspace/public/configuration/workspace.yaml-raw",
-                        "data",
-                        "all",
-                        "clean",
-                        "exclude",
-                        "targets",
-                    ],
-                    target_cache_value=TargetCacheValue.ANY,
-                ) or [])
+                    )
+                    or []
+                )
             },
         )
 
         value_cache_manager.singleton.set_one_value(
             ["all-clean-include-targets"],
             {
-                value for value in
-                (value_cache_manager.singleton.get_one_value(
-                    [
-                        f"root-workspace/public/configuration/workspace.yaml-raw",
-                        "data",
-                        "all",
-                        "clean",
-                        "include",
-                        "targets",
-                    ],
-                    target_cache_value=TargetCacheValue.ANY,
-                ) or {})
+                value
+                for value in (
+                    value_cache_manager.singleton.get_one_value(
+                        [
+                            f"root-workspace/public/configuration/workspace.yaml-raw",
+                            "data",
+                            "all",
+                            "clean",
+                            "include",
+                            "targets",
+                        ],
+                        target_cache_value=TargetCacheValue.ANY,
+                    )
+                    or {}
+                )
             },
         )
 
         value_cache_manager.singleton.set_one_value(
             ["all-script-targets"],
             {
-                key for key, value in
-                (
-                    (value_cache_manager.singleton.get_one_value(
-                    [
-                        f"root-workspace/public/configuration/workspace.yaml-raw",
-                        "data",
-                        "all",
-                        "script",
-                        "targets",
-                    ],
-                    target_cache_value=TargetCacheValue.ANY,
-                    ) or {})
+                key
+                for key, value in (
+                    value_cache_manager.singleton.get_one_value(
+                        [
+                            f"root-workspace/public/configuration/workspace.yaml-raw",
+                            "data",
+                            "all",
+                            "script",
+                            "targets",
+                        ],
+                        target_cache_value=TargetCacheValue.ANY,
+                    )
+                    or {}
                 ).items()
             },
         )
@@ -302,18 +310,19 @@ class HandlerManager:
         value_cache_manager.singleton.set_one_value(
             ["all-script-types"],
             {
-                key for key in
-                (
-                    (value_cache_manager.singleton.get_one_value(
-                    [
-                        f"root-workspace/public/configuration/workspace.yaml-raw",
-                        "data",
-                        "all",
-                        "script",
-                        "types",
-                    ],
-                    target_cache_value=TargetCacheValue.ANY,
-                    ) or {})
+                key
+                for key in (
+                    value_cache_manager.singleton.get_one_value(
+                        [
+                            f"root-workspace/public/configuration/workspace.yaml-raw",
+                            "data",
+                            "all",
+                            "script",
+                            "types",
+                        ],
+                        target_cache_value=TargetCacheValue.ANY,
+                    )
+                    or {}
                 )
             },
         )
@@ -322,11 +331,11 @@ class HandlerManager:
             ["root-workspace/private/temporary/log/all.log-full-path"],
             f"{
                 value_cache_manager.singleton.get_one_value(
-                    ["root-current-full-path"],
+                    ['root-current-full-path'],
                     target_cache_value=TargetCacheValue.DEFINED,
                 )
             }/workspace/private/temporary/log/all.log",
-            target_cache_value=TargetCacheValue.DEFINED
+            target_cache_value=TargetCacheValue.DEFINED,
         )
 
         file_log_manager.singleton.add_file_output(
@@ -335,7 +344,6 @@ class HandlerManager:
                 target_cache_value=TargetCacheValue.DEFINED,
             )
         )
-
 
     def handle_shutdown(self):
         log_manager.singleton.shutdown()
