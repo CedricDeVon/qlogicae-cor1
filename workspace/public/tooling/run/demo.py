@@ -13,7 +13,7 @@ from library import (
 
 
 def handle_manager_callback():
-    pass
+    value_cache_manager.singleton.display_all_items()
 
 
 handler_manager.singleton.handle(handle_manager_callback)

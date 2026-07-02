@@ -1,7 +1,7 @@
-import logging
 import queue
-from logging.handlers import QueueHandler, QueueListener
+import logging
 from pathlib import Path
+from logging.handlers import QueueHandler, QueueListener
 
 from library.log_format import LogFormat
 from library.log_options import LogOptions
@@ -29,7 +29,7 @@ class FileLogManager:
 
         self.listener.start()
 
-    def log(self, message, options=LogOptions()):
+    def log(self, message: str, options: LogOptions = LogOptions()) -> str:
         if not options.is_enabled:
             return message
 
@@ -39,26 +39,42 @@ class FileLogManager:
 
         return message
 
-    def log_debug(self, message, options=LogOptions(log_level=logging.DEBUG)):
+    def log_debug(
+        self,
+        message: str,
+        options: LogOptions = LogOptions(log_level=logging.DEBUG),
+    ) -> str:
         return self.log(message, options)
 
-    def log_info(self, message, options=LogOptions(log_level=logging.INFO)):
+    def log_info(
+        self,
+        message: str,
+        options: LogOptions = LogOptions(log_level=logging.INFO),
+    ) -> str:
         return self.log(message, options)
 
     def log_warning(
-        self, message, options=LogOptions(log_level=logging.WARNING)
-    ):
+        self,
+        message: str,
+        options: LogOptions = LogOptions(log_level=logging.WARNING),
+    ) -> str:
         return self.log(message, options)
 
-    def log_error(self, message, options=LogOptions(log_level=logging.ERROR)):
+    def log_error(
+        self,
+        message: str,
+        options: LogOptions = LogOptions(log_level=logging.ERROR),
+    ) -> str:
         return self.log(message, options)
 
     def log_critical(
-        self, message, options=LogOptions(log_level=logging.CRITICAL)
-    ):
+        self,
+        message: str,
+        options: LogOptions = LogOptions(log_level=logging.CRITICAL),
+    ) -> str:
         return self.log(message, options)
 
-    def rebuild_listener(self):
+    def rebuild_listener(self) -> bool:
         self.listener.stop()
 
         self.listener = QueueListener(
@@ -69,7 +85,7 @@ class FileLogManager:
 
         return True
 
-    def add_file_output(self, file_path):
+    def add_file_output(self, file_path: str) -> bool:
         path = Path(file_path).resolve()
 
         if path in self.file_handlers:
@@ -87,7 +103,7 @@ class FileLogManager:
 
         return True
 
-    def remove_file_output(self, file_path):
+    def remove_file_output(self, file_path: str) -> bool:
         path = Path(file_path).resolve()
 
         handler = self.file_handlers.get(path)
@@ -103,7 +119,7 @@ class FileLogManager:
 
         return True
 
-    def clear_file_outputs(self):
+    def clear_file_outputs(self) -> bool:
         for handler in self.file_handlers.values():
             handler.close()
 
@@ -113,7 +129,7 @@ class FileLogManager:
 
         return True
 
-    def shutdown(self):
+    def shutdown(self) -> bool:
         self.listener.stop()
 
         for handler in self.file_handlers.values():

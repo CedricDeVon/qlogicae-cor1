@@ -1,5 +1,6 @@
 import json
 from pathlib import Path
+from collections.abc import Callable
 
 import yaml
 
@@ -15,7 +16,10 @@ from library.target_cache_value import TargetCacheValue
 
 
 class HandlerManager:
-    def handle_setup(self):
+    def handle_(self) -> bool:
+        pass
+
+    def handle_setup(self) -> bool:
         value_cache_manager.singleton.set_one_value(
             ["root-current-full-path"],
             filesystem_manager.singleton.get_root_workspace_folder(),
@@ -23,7 +27,7 @@ class HandlerManager:
         )
         value_cache_manager.singleton.set_one_value(
             ["root-original-console-full-path"],
-            Path.cwd(),
+            filesystem_manager.singleton.get_cli_folder(),
             target_cache_value=TargetCacheValue.FOLDER_PATH,
         )
         value_cache_manager.singleton.set_one_value(
@@ -66,6 +70,43 @@ class HandlerManager:
                 with open(
                     configuration_file.resolve(),
                     # "r",
+                    encoding="utf-8",
+                ) as current_file:
+                    if any(
+                        suffix in {".yaml", ".yml"}
+                        for suffix in configuration_file.suffixes
+                    ):
+                        raw = yaml.safe_load(current_file) or {}
+
+                    elif any(
+                        suffix in {".json"}
+                        for suffix in configuration_file.suffixes
+                    ):
+                        raw = json.load(current_file) or {}
+
+                    else:
+                        raw = current_file.read() or {}
+
+                    value_cache_manager.singleton.set_one_value(
+                        [
+                            f"root-workspace/{scope_name}/configuration/{configuration_file.name}-raw"
+                        ],
+                        ({} if raw is None else raw) or {},
+                        target_cache_value=TargetCacheValue.DEFINED,
+                    )
+                    value_cache_manager.singleton.set_one_value(
+                        [
+                            f"root-workspace/{scope_name}/configuration/{configuration_file.name}-full-path"
+                        ],
+                        configuration_file.resolve(),
+                        target_cache_value=TargetCacheValue.FILE_PATH,
+                    )
+                    continue
+
+                raw = {}
+
+                with open(
+                    configuration_file.resolve(),
                     encoding="utf-8",
                 ) as current_file:
                     if any(
@@ -237,18 +278,7 @@ class HandlerManager:
         value_cache_manager.singleton.set_one_value(
             ["all-clean-exclude-targets"],
             {
-                macros_manager.singleton.parse_one(
-                    value,
-                    (
-                        value_cache_manager.singleton.get_one_value(
-                            [
-                                f"all-macros",
-                            ],
-                            target_cache_value=TargetCacheValue.ANY,
-                        )
-                        or {}
-                    ),
-                )
+                self.handle_one_macros_string_parsing(value)
                 for value in (
                     value_cache_manager.singleton.get_one_value(
                         [
@@ -345,20 +375,42 @@ class HandlerManager:
             )
         )
 
-    def handle_shutdown(self):
+        return True
+
+    def handle_one_macros_string_parsing(self, value: Any) -> Any:
+        return macros_manager.singleton.parse_one(
+            value,
+            (
+                value_cache_manager.singleton.get_one_value(
+                    [
+                        f"all-macros",
+                    ],
+                    target_cache_value=TargetCacheValue.ANY,
+                )
+                or {}
+            ),
+        )
+
+    def handle_shutdown(self) -> bool:
         log_manager.singleton.shutdown()
 
-    def handle_cli_argument_set_invalid(self, cli_arguments):
+        return True
+
+    def handle_cli_argument_set_invalid(self, cli_arguments: Any) -> bool:
         log_manager.singleton.log_info(
             f"'{cli_arguments}' is not an existing cli option set"
         )
 
-    def handle(self, callback):
+        return True
+
+    def handle(self, callback: Callable[[void], void]) -> bool:
         self.handle_setup()
 
         callback()
 
         self.handle_shutdown()
+
+        return True
 
 
 singleton = HandlerManager()

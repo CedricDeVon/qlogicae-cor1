@@ -1,16 +1,16 @@
 import logging
 
-from library import console_log_manager, file_log_manager
 from library.log_options import LogOptions
+from library import console_log_manager, file_log_manager
 
 
 class LogManager:
     def log(
         self,
-        message,
-        console_options=LogOptions(is_verbose=False),
-        file_options=LogOptions(),
-    ):
+        message: str,
+        console_options: LogOptions = LogOptions(is_verbose=False),
+        file_options: LogOptions = LogOptions(),
+    ) -> str:
         console_log_manager.singleton.log(
             message,
             LogOptions(
@@ -35,44 +35,52 @@ class LogManager:
 
     def log_debug(
         self,
-        message,
-        console_options=LogOptions(log_level=logging.DEBUG, is_verbose=False),
-        file_options=LogOptions(log_level=logging.DEBUG),
-    ):
+        message: str,
+        console_options: LogOptions = LogOptions(
+            log_level=logging.DEBUG, is_verbose=False
+        ),
+        file_options: LogOptions = LogOptions(log_level=logging.DEBUG),
+    ) -> str:
         return self.log(message, console_options, file_options)
 
     def log_info(
         self,
-        message,
-        console_options=LogOptions(log_level=logging.INFO, is_verbose=False),
-        file_options=LogOptions(log_level=logging.INFO),
-    ):
+        message: str,
+        console_options: LogOptions = LogOptions(
+            log_level=logging.INFO, is_verbose=False
+        ),
+        file_options: LogOptions = LogOptions(log_level=logging.INFO),
+    ) -> str:
         return self.log(message, console_options, file_options)
 
     def log_warning(
         self,
-        message,
-        console_options=LogOptions(log_level=logging.WARNING, is_verbose=False),
-        file_options=LogOptions(log_level=logging.WARNING),
-    ):
+        message: str,
+        console_options: LogOptions = LogOptions(
+            log_level=logging.WARNING, is_verbose=False
+        ),
+        file_options: LogOptions = LogOptions(log_level=logging.WARNING),
+    ) -> str:
         return self.log(message, console_options, file_options)
 
     def log_error(
         self,
-        message,
-        console_options=LogOptions(log_level=logging.ERROR, is_verbose=False),
-        file_options=LogOptions(log_level=logging.ERROR),
-    ):
+        message: str,
+        console_options: LogOptions = LogOptions(
+            log_level=logging.ERROR, is_verbose=False
+        ),
+        file_options: LogOptions = LogOptions(log_level=logging.ERROR),
+    ) -> str:
         return self.log(message, console_options, file_options)
 
     def log_critical(
         self,
-        message,
-        console_options=LogOptions(
+        message: str,
+        console_options: LogOptions = LogOptions(
             log_level=logging.CRITICAL, is_verbose=False
         ),
-        file_options=LogOptions(log_level=logging.CRITICAL),
-    ):
+        file_options: LogOptions = LogOptions(log_level=logging.CRITICAL),
+    ) -> str:
         return self.log(message, console_options, file_options)
 
     def shutdown(self):

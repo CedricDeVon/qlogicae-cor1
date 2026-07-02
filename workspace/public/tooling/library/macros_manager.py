@@ -1,18 +1,20 @@
 import re
+from typing import Any
+from collections.abc import Mapping
 
 
 class MacrosManager:
     def __init__(self):
         self.pattern = re.compile(r"\{\{\s*([A-Za-z0-9._-]+)\s*\}\}")
 
-    def resolve_many(self, values):
+    def resolve_many(self, values: Any) -> Mapping[str, Any]:
         cache = {}
 
         return {
             key: self.resolve_one(key, values, cache, set()) for key in values
         }
 
-    def resolve_one(self, key, values, cache, stack):
+    def resolve_one(self, key: Any, values: Any, cache: Any, stack: Any) -> str:
         if key in cache:
             return cache[key]
 
@@ -44,10 +46,10 @@ class MacrosManager:
 
         return resolved
 
-    def parse_many(self, values, resolved):
+    def parse_many(self, values: Any, resolved: Any) -> str:
         return self.parse_one(values, resolved)
 
-    def parse_one(self, value, resolved):
+    def parse_one(self, value: str, resolved: Any) -> str:
         if isinstance(value, str):
             return self.pattern.sub(
                 lambda match: resolved.get(match.group(1), match.group(0)),

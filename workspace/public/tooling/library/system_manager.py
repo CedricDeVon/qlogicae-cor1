@@ -2,7 +2,6 @@ import os
 import shlex
 import subprocess
 from pathlib import Path
-from collections.abc import Sequence
 
 from library.execute_command_return import ExecuteCommandReturn
 
@@ -10,8 +9,8 @@ from library.execute_command_return import ExecuteCommandReturn
 class SystemManager:
     def change_cli_filesystem_path(
         self,
-        value,
-    ):
+        value: str,
+    ) -> bool:
         path = Path(value).expanduser().resolve()
 
         if not path.exists():
@@ -26,9 +25,13 @@ class SystemManager:
 
         os.chdir(path)
 
+        return True
+
     def execute_command(
-        self, command, return_type=ExecuteCommandReturn.MINIMAL_RETURN
-    ):
+        self,
+        command: str,
+        return_type: ExecuteCommandReturn = ExecuteCommandReturn.MINIMAL_RETURN,
+    ) -> bool:
         if not command:
             raise ValueError("command cannot be empty")
 
@@ -53,6 +56,8 @@ class SystemManager:
                     text=True,
                     encoding="utf-8",
                 ).strip()
+
+        return True
 
 
 singleton = SystemManager()

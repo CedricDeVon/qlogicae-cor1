@@ -3,7 +3,7 @@ from datetime import UTC, datetime
 
 
 class TimestampManager:
-    def generate_standard_timestamp(self):
+    def generate_standard_timestamp(self) -> str:
         timestamp_nanoseconds = time.time_ns()
 
         return f"{

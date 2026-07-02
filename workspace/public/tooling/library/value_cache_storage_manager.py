@@ -1,10 +1,14 @@
+from typing import Any
+from collections.abc import Mapping
+
+
 class ValueCacheStorageManager:
-    collection = {}
+    collection: Mapping[str, Any] = {}
 
     def __init__(self):
         self.collection = {}
 
-    def is_key_found(self, keys):
+    def is_key_found(self, keys: list[str]) -> bool:
         if not keys:
             return False
 
@@ -29,7 +33,7 @@ class ValueCacheStorageManager:
 
         return True
 
-    def get_one_value(self, keys):
+    def get_one_value(self, keys: list[str]) -> Any:
         if not keys:
             return None
 
@@ -56,10 +60,10 @@ class ValueCacheStorageManager:
 
     def set_one_value(
         self,
-        keys,
-        value,
-        create_missing=True,
-    ):
+        keys: list[str],
+        value: Any,
+        create_missing: bool = True,
+    ) -> bool:
         if not keys:
             raise ValueError("'keys' cannot be empty")
 
@@ -111,7 +115,7 @@ class ValueCacheStorageManager:
         else:
             raise TypeError("Destination is neither a dictionary nor a list")
 
-    def remove_one_value(self, keys):
+    def remove_one_value(self, keys: list[str]) -> bool:
         if not keys:
             raise ValueError("keys cannot be empty")
 
@@ -158,17 +162,17 @@ class ValueCacheStorageManager:
         else:
             raise TypeError("destination is neither a dictionary nor a list")
 
-    def clear_all_values(self):
+    def clear_all_values(self) -> bool:
         self.collection.clear()
 
         return True
 
-    def display_one_item(self, key):
+    def display_one_item(self, key: str) -> bool:
         print(f"- {key}: {self.collection[key]}")
 
         return True
 
-    def display_all_items(self):
+    def display_all_items(self) -> bool:
         for item in self.collection.items():
             self.display_one_item(item[0])
 

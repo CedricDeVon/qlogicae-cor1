@@ -86,7 +86,7 @@ def handle_target_root():
                 ['root-current-full-path'],
                 target_cache_value=TargetCacheValue.FOLDER_PATH,
             )
-        }/workspace/private/temporary/intermediate/filesystem/root" 
+        }/workspace/private/temporary/intermediate/filesystem/root"
     )
     filesystem_manager.singleton.copy_filesystem_path(
         f"{
@@ -122,7 +122,7 @@ def handle_target_root():
                 ['root-current-full-path'],
                 target_cache_value=TargetCacheValue.FOLDER_PATH,
             )
-        }/workspace/private/temporary/intermediate/filesystem/root"   
+        }/workspace/private/temporary/intermediate/filesystem/root"
     )
     filesystem_manager.singleton.copy_filesystem_path(
         f"{
@@ -131,7 +131,7 @@ def handle_target_root():
                 target_cache_value=TargetCacheValue.FOLDER_PATH,
             )
         }/workspace/private/temporary/intermediate/filesystem/root",
-        parsed_filesystem_path
+        parsed_filesystem_path,
     )
 
 
@@ -163,11 +163,9 @@ def handle_filesystem_parsing(
             except UnicodeDecodeError:
                 continue
 
-            parsed_file_data = (
-                macros_manager.singleton.parse_one(
-                    file_data,
-                    macros,
-                )
+            parsed_file_data = macros_manager.singleton.parse_one(
+                file_data,
+                macros,
             )
 
             current_path.write_text(
@@ -175,11 +173,9 @@ def handle_filesystem_parsing(
                 encoding="utf-8",
             )
 
-            parsed_name = (
-                macros_manager.singleton.parse_one(
-                    current_path.name,
-                    macros,
-                )
+            parsed_name = macros_manager.singleton.parse_one(
+                current_path.name,
+                macros,
             )
 
             if parsed_name != current_path.name:
@@ -192,11 +188,9 @@ def handle_filesystem_parsing(
         for directory_name in directories:
             current_path = current_root / directory_name
 
-            parsed_name = (
-                macros_manager.singleton.parse_one(
-                    current_path.name,
-                    macros,
-                )
+            parsed_name = macros_manager.singleton.parse_one(
+                current_path.name,
+                macros,
             )
 
             if parsed_name != current_path.name:
@@ -256,7 +250,7 @@ def handle_target_project_selection(project_name):
                 ['root-current-full-path'],
                 target_cache_value=TargetCacheValue.FOLDER_PATH,
             )
-        }/workspace/private/temporary/intermediate/filesystem/{project_name}"   
+        }/workspace/private/temporary/intermediate/filesystem/{project_name}",
     )
     filesystem_manager.singleton.copy_filesystem_path(
         f"{
@@ -270,7 +264,7 @@ def handle_target_project_selection(project_name):
                 ['root-current-full-path'],
                 target_cache_value=TargetCacheValue.FOLDER_PATH,
             )
-        }/workspace/private/temporary/intermediate/filesystem/{project_name}"   
+        }/workspace/private/temporary/intermediate/filesystem/{project_name}",
     )
     filesystem_manager.singleton.copy_filesystem_path(
         f"{
@@ -284,7 +278,7 @@ def handle_target_project_selection(project_name):
                 ['root-current-full-path'],
                 target_cache_value=TargetCacheValue.FOLDER_PATH,
             )
-        }/workspace/private/temporary/intermediate/filesystem/{project_name}"   
+        }/workspace/private/temporary/intermediate/filesystem/{project_name}",
     )
     handle_filesystem_parsing(
         f"{
@@ -292,8 +286,8 @@ def handle_target_project_selection(project_name):
                 ['root-current-full-path'],
                 target_cache_value=TargetCacheValue.FOLDER_PATH,
             )
-        }/workspace/private/temporary/intermediate/filesystem/{project_name}"   
-    )    
+        }/workspace/private/temporary/intermediate/filesystem/{project_name}"
+    )
     filesystem_manager.singleton.copy_filesystem_path(
         f"{
             value_cache_manager.singleton.get_one_value(
@@ -301,7 +295,7 @@ def handle_target_project_selection(project_name):
                 target_cache_value=TargetCacheValue.FOLDER_PATH,
             )
         }/workspace/private/temporary/intermediate/filesystem/{project_name}",
-        parsed_filesystem_path
+        parsed_filesystem_path,
     )
 
 

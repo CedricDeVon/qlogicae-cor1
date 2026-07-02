@@ -20,7 +20,7 @@ class ConsoleLogManager:
 
         self.logger.addHandler(handler)
 
-    def log(self, message, options=LogOptions()):
+    def log(self, message: str, options: LogOptions = LogOptions()) -> str:
         if not options.is_enabled:
             return
 
@@ -35,23 +35,39 @@ class ConsoleLogManager:
 
         return message
 
-    def log_debug(self, message, options=LogOptions(log_level=logging.DEBUG)):
-        self.log(message, options)
+    def log_debug(
+        self,
+        message: str,
+        options: LogOptions = LogOptions(log_level=logging.DEBUG),
+    ) -> str:
+        return self.log(message, options)
 
-    def log_info(self, message, options=LogOptions(log_level=logging.INFO)):
+    def log_info(
+        self,
+        message: str,
+        options: LogOptions = LogOptions(log_level=logging.INFO),
+    ) -> str:
         return self.log(message, options)
 
     def log_warning(
-        self, message, options=LogOptions(log_level=logging.WARNING)
-    ):
+        self,
+        message: str,
+        options: LogOptions = LogOptions(log_level=logging.WARNING),
+    ) -> str:
         return self.log(message, options)
 
-    def log_error(self, message, options=LogOptions(log_level=logging.ERROR)):
+    def log_error(
+        self,
+        message: str,
+        options: LogOptions = LogOptions(log_level=logging.ERROR),
+    ) -> str:
         return self.log(message, options)
 
     def log_critical(
-        self, message, options=LogOptions(log_level=logging.CRITICAL)
-    ):
+        self,
+        message: str,
+        options: LogOptions = LogOptions(log_level=logging.CRITICAL),
+    ) -> str:
         return self.log(message, options)
 
 
